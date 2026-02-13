@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>changelog docs — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="glossary.html" class="nav-link">Glossary</a>
+        <a href="audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="changelog-docs.html" class="nav-link active">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Doc-only changes (new topics, restructures, wording fixes) that don’t necessarily match a product release. For product changes, see the main Birkly changelog or release notes.</p>
+<div class="doc-summary"><p>This changelog records <strong>documentation</strong> updates: new pages, reorganized sections, and wording or example improvements. It does not describe Birkly product features or code changes. Use it to see what changed in the docs and when.</p>
+<h2>Format</h2>
+<ul>
+<li><strong>YYYY-MM-DD</strong> — Short description. (Optional: file or section.)</li>
+</ul>
+<p>---</p>
+<h2>2025-02-05 (continued)</h2>
+<ul>
+<li><strong>New doc structure:</strong> Replaced Shortcut + Detailed with <strong>Summary</strong> (for all users) + <strong>Beginner</strong> (toggle, plain language for non-technical users) + <strong>Advanced Users</strong> (toggle, technical language). See <strong>DOCS_ARCHITECTURE.md</strong>.</li>
+<li>Updated <strong>build-static.js</strong> to render Summary always visible and Beginner / Advanced Users as <code>&lt;details&gt;</code> toggles.</li>
+<li>Added CSS for <code>.doc-summary</code>, <code>.doc-toggle</code>, <code>.doc-toggle-inner</code>, <code>.doc-related</code>.</li>
+<li>Converted to new structure: <strong>00-overview</strong> (what-is-birkly, what-is-a-cms, getting-started), <strong>01-admin</strong> (all), <strong>02-content</strong> (collections, entries, field-types, slugs-and-status), <strong>03-templating</strong> (all 6), <strong>04-integration</strong> (all 4), <strong>05-automation</strong> (all 4), <strong>06-extensibility</strong> (all 4), <strong>07-operations</strong> (all 4), <strong>meta</strong> (glossary, audience-matrix, changelog-docs).</li>
+<li>Extended all topic docs with detailed <strong>Beginner</strong> and <strong>Advanced Users</strong> content and <strong>examples</strong> throughout.</li>
+<li>Updated <strong>meta/audience-matrix.md</strong> for Summary / Beginner / Advanced Users.</li>
+<li>Expanded <strong>meta/glossary.md</strong> with more terms, examples, and cross-links.</li>
+</ul>
+<h2>2025-02-05</h2>
+<ul>
+<li>Initial creation of <strong>Birkly Docs</strong> as single source of truth.</li>
+<li>Added <strong>DOCS_ARCHITECTURE.md</strong>: folder structure, consumption (CMS, website, dev portal).</li>
+<li>Added <strong>README.md</strong> and <strong>CONTENTS_INDEX.md</strong>.</li>
+<li>Added topic folders and all topic files (initially with Shortcut + Detailed; later updated to Summary + Beginner + Advanced Users for key docs).</li>
+</ul></div>
+<div class="doc-related"><ul>
+<li><a href="../DOCS_ARCHITECTURE.html">DOCS_ARCHITECTURE</a></li>
+<li><a href="../CONTENTS_INDEX.html">CONTENTS_INDEX</a></li>
+<li><a href="audience-matrix.html">Audience matrix</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>media library — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="media-library.html" class="nav-link active">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><div class="doc-summary"><p>The Media Library is the central place in Birkly where you upload, store, and manage files (images, PDFs, documents, and sometimes video or audio) used in your content. You upload once; then when editing an entry you pick from the library for Media or Gallery fields. Use clear filenames and sensible image sizes so the library stays easy to use and your site stays fast.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>The <strong>Media Library</strong> is where all the files that appear in your content live: hero images, product photos, PDF downloads, logos, and so on. Instead of uploading a new file every time you need it, you upload once to the library and then <strong>choose</strong> that file when you’re editing an entry.</p>
+<p><strong>Why use the Media Library</strong></p>
+<ul>
+<li><strong>One place for everything</strong> — You can see all your images and files in one list (often with thumbnails and names). That makes it easier to reuse the same image (e.g. your logo) in many entries and to find files later.</li>
+<li><strong>No duplicate uploads</strong> — If you need the same “Team photo” in three different pages, you upload it once, then pick it three times from the library when editing those entries.</li>
+<li><strong>Consistent naming</strong> — You can name files clearly (e.g. <code>hero-homepage.jpg</code>, <code>product-widget-blue.png</code>) so you and your team know what each file is.</li>
+</ul>
+<p><strong>How to upload files</strong></p>
+<ol>
+<li>In the sidebar, click <strong>Media</strong> (or “Media Library”).</li>
+<li>Use <strong>Upload</strong> (or “Add file”) or <strong>drag and drop</strong> files into the upload area.</li>
+<li>Select one or more files from your computer. Wait for the upload to finish.</li>
+<li>The new files appear in the library. You can then use them when editing any entry that has a Media or Gallery field.</li>
+</ol>
+<p><strong>Example</strong></p>
+<p>You need a photo for a blog post. You go to <strong>Media</strong>, click <strong>Upload</strong>, and select <code>office-team-2025.jpg</code>. After the upload, the file appears in the list. You open your “Blog posts” collection, edit the post, and in the “Featured image” field you click “Choose from library.” You select <code>office-team-2025.jpg</code> and save. The post now shows that image. Next week you write another post and want the same photo—you choose it again from the library; no second upload.</p>
+<p><strong>What file types are supported</strong></p>
+<p>Typically: <strong>images</strong> (JPG, PNG, GIF, SVG, WebP), <strong>PDFs</strong>, and common <strong>documents</strong>. Some setups also allow video or audio. The exact list and maximum file size depend on your server configuration. If an upload fails, the file might be too large or in a type the server doesn’t allow.</p>
+<p><strong>Using media in entries</strong></p>
+<ul>
+<li>A <strong>Media</strong> field = one file (e.g. one featured image, one PDF).</li>
+<li>A <strong>Gallery</strong> field = multiple files (e.g. several product images in order). You pick several from the library and can usually reorder them.</li>
+<li>When you’re in the entry editor, clicking the Media or Gallery field opens a <strong>picker</strong> that shows the library. You select the file(s) and confirm; they’re linked to that entry. On the live site, your template will show the image or a link to the file.</li>
+</ul>
+<p><strong>Good habits</strong></p>
+<ul>
+<li><strong>Names</strong> — Use descriptive filenames (<code>summer-sale-banner.jpg</code> instead of <code>IMG_1234.jpg</code>) so you can search and recognize files later.</li>
+<li><strong>Size</strong> — Compress images before uploading when possible. Large images slow down your site. Use JPG for photos and PNG when you need transparency.</li>
+<li><strong>Cleanup</strong> — From time to time remove files you no longer use so the library doesn’t get cluttered.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Storage:</strong> Media files are stored in a dedicated directory (e.g. <code>media/</code> or under a content path). Entry JSON references them by filename or by an ID; the Public API and templating resolve these to URLs (e.g. <code>/media/filename.jpg</code> or via a media endpoint).</p>
+<p><strong>Upload flow:</strong> Admin upload goes through the upload API (multipart/form-data); file is validated (type, size), stored, and metadata (filename, size, maybe dimensions) is recorded. Optional: thumbnails, image variants (resize/crop) if the stack supports it.</p>
+<p><strong>Usage in entries:</strong> Media field stores a single reference; Gallery stores an ordered array. In templates, use the appropriate helper (e.g. <code>{ media field_name }</code> or loop over gallery) to output <code>&lt;img src=&quot;...&quot;&gt;</code> or <code>&lt;a href=&quot;...&quot;&gt;</code>. See <a href="../03-templating/media-in-templates.html">Media in templates</a>.</p>
+<p><strong>Public uploads:</strong> If the Public API or a form endpoint allows file uploads, submissions can add files to the same media store; config may restrict types/size and require auth or rate limiting. See <a href="../04-integration/public-api.html">Public API</a>, <a href="../04-integration/public-forms.html">Public forms</a>.</p>
+<p><strong>Best practices:</strong> Enforce allowed MIME types and max size server-side; use descriptive filenames; consider image optimization (client or server) before storage.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="../02-content/entries.html">Entries</a></li>
+<li><a href="../02-content/field-types.html">Field types</a></li>
+<li><a href="../03-templating/media-in-templates.html">Media in templates</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>backup and restore — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="deployment.html" class="nav-link">Deployment</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="backup-and-restore.html" class="nav-link active">Backup and restore</a>
+        <a href="troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Backing up Birkly means copying the content, media, settings, and (if used) the database so you can restore the CMS after a failure, mistake, or attack. Restore is the process of putting that copy back so the site works again.</p>
+<div class="doc-summary"><p><strong>Backup:</strong> Copy the <strong>entire Birkly folder</strong> (or at least <code>content/</code>, <code>media/</code>, <code>settings/</code>, and the database file or DB dump if you use a database) to a safe place (another server, cloud storage, local machine). Do this regularly (e.g. daily) and before <strong>any</strong> update or big change. <strong>Restore:</strong> Stop the app if needed, replace those folders/files with your backup copy, fix permissions so the web server can write where required, then test login and content. For file-based content, “backup” is literally copying the folders; for a DB, also export the database and restore it when recovering.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Backup</strong> = a copy of your content and settings so that if something goes wrong (server failure, accidental delete, bad update), you can put that copy back and keep working.</p>
+<p><strong>What to back up</strong></p>
+<ul>
+<li><strong>content/</strong> — All your collections and entries (the actual content). Essential.</li>
+<li><strong>media/</strong> — All uploaded images and files. Essential.</li>
+<li><strong>settings/</strong> — Project name, users, roles, plugin configuration. Essential.</li>
+<li><strong>database/</strong> — If Birkly uses a database (e.g. SQLite <code>birkly.db</code>), copy that file or export the database. Essential if you use it.</li>
+<li><strong>data/</strong> — If present (e.g. plugin data, logs). Good to include.</li>
+<li><strong>plugins/</strong> — Your custom or modified plugins, so you can restore the same setup.</li>
+</ul>
+<p>You can skip the core application code (api/, core/, etc.) if you can re-download the same Birkly version; backing it up too can help you match the exact version when restoring.</p>
+<p><strong>How to back up</strong></p>
+<ul>
+<li><strong>Manual:</strong> Use your host’s file manager, FTP, or SFTP to download the Birkly folder (or the important subfolders above) to your computer or to another server or cloud bucket.</li>
+<li><strong>Scheduled:</strong> Your host or developer can set up a <strong>cron job</strong> or backup tool that copies these folders (e.g. with rsync or a zip) to a backup location every day or every week.</li>
+<li><strong>Before updates:</strong> Always make a backup right before you run a Birkly or plugin update. If the update fails, you can restore and try again.</li>
+</ul>
+<p><strong>How often</strong></p>
+<ul>
+<li>At least before every update. For active sites, a daily or weekly backup is recommended. Keep several backup points (e.g. last 7 daily, last 4 weekly) so you can go back to a specific date if needed.</li>
+</ul>
+<p><strong>Restore (putting the copy back)</strong></p>
+<ol>
+<li><strong>Stop</strong> the site or put it in maintenance mode if possible.</li>
+<li><strong>Replace</strong> the live <code>content/</code>, <code>media/</code>, <code>settings/</code> (and database if you use one) with the versions from your backup. Don’t overwrite with an older backup by mistake—check the date of the backup.</li>
+<li><strong>Permissions</strong> — Ensure the web server can write to <code>content/</code>, <code>media/</code>, <code>settings/</code> (your host or developer can fix this with chown/chmod).</li>
+<li><strong>Clear caches</strong> if your setup uses file or opcode cache.</li>
+<li><strong>Test</strong> — Log in, open a few entries, load a public page.</li>
+<li><strong>Re-enable</strong> the site.</li>
+</ol>
+<p><strong>Example: restoring after a bad update</strong></p>
+<ol>
+<li>Restore <code>content/</code>, <code>media/</code>, <code>settings/</code>, and database from the backup you made before the update.</li>
+<li>If you replaced core code during the update, either restore the old core from backup or re-download the previous Birkly version and replace the core files again.</li>
+<li>Fix permissions and test. Then you can try the update again later or wait for a fix.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>What to back up</strong></p>
+<p>| Path | Priority | Notes | |------|----------|--------| | content/ | Essential | Collections and entries. | | media/ | Essential | Uploaded files. | | settings/ | Essential | Project, users, roles, plugin config. | | data/ | Recommended | Plugin data, logs. | | database/ | Essential if used | SQLite file or DB dump. | | plugins/ | Recommended | Custom/modified plugins. | | .env / config | Secure backup | Encrypted, restricted access. |</p>
+<p>Core code can be re-downloaded; backing it up helps with exact version match on restore.</p>
+<p><strong>How to back up</strong></p>
+<ul>
+<li><strong>Manual:</strong> FTP, SFTP, rsync, zip to another machine or cloud bucket.</li>
+<li><strong>Script:</strong> Cron with rsync or zip of key dirs; store with retention (e.g. 7 daily, 4 weekly).</li>
+<li><strong>Database:</strong> MySQL/PostgreSQL: <code>mysqldump</code> / <code>pg_dump</code>; SQLite: copy <code>.db</code> file (ensure no write in progress or use SQLite backup API).</li>
+</ul>
+<p><strong>Restore steps</strong></p>
+<ol>
+<li>Stop site or maintenance mode.</li>
+<li>Replace content/, media/, settings/, data/, plugins/ (as backed up).</li>
+<li>Restore database (import dump or replace DB file).</li>
+<li>Fix permissions (chown/chmod for web server user).</li>
+<li>Clear caches.</li>
+<li>Test login, entries, public page.</li>
+<li>Re-enable site.</li>
+</ol>
+<p><strong>Before updates</strong></p>
+<ul>
+<li>Always backup immediately before core or plugin update. Restore and retry or wait for fix if update fails.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="deployment.html">Deployment</a></li>
+<li><a href="security.html">Security</a></li>
+<li><a href="../06-extensibility/updates.html">Updates</a></li>
+<li><a href="troubleshooting.html">Troubleshooting</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

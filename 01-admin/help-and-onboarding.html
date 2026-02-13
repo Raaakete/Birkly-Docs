@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>help and onboarding — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="media-library.html" class="nav-link">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="help-and-onboarding.html" class="nav-link active">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><div class="doc-summary"><p><strong>Help</strong> is the in-admin documentation: a link or icon in the sidebar opens guides that explain collections, entries, field types, templating, and integration. This content can be sourced from Birkly Docs so it stays in sync with the product. <strong>Onboarding</strong> is the optional first-time setup flow (e.g. project name, first collection) shown when you or the first admin logs in; you can complete it in a few steps or skip it. If the instance was preconfigured, onboarding may not appear.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Help</strong></p>
+<p>The <strong>Help</strong> section (often a “?” icon or a “Help” link in the sidebar) opens documentation <strong>inside</strong> the admin. You don’t have to leave the panel or search the web—you can read how to create a collection, what field types mean, how to connect your website, and so on.</p>
+<ul>
+<li><strong>What’s in Help:</strong> Topics usually match the main areas of the CMS: What is Birkly, Getting started, Content (collections and entries), Field types, Media, Templating, Website integration, Automation, Settings. You can use it as a mini manual.</li>
+<li><strong>How it’s organized:</strong> You may see a short summary for each topic and a way to “Read more” or open a longer explanation. That way you can skim the basics or dive into detail when you need it.</li>
+<li><strong>Who updates it:</strong> If your installation is set up to use Birkly Docs (the central doc set), the Help content can be updated whenever the docs are updated, so the in-admin help stays accurate.</li>
+</ul>
+<p><strong>Example:</strong> You’re not sure how to add a “Featured image” to a blog post. You click <strong>Help</strong>, open the “Entries” or “Field types” topic, and follow the steps. You never leave the admin.</p>
+<p><strong>Onboarding</strong></p>
+<p><strong>Onboarding</strong> is a short setup flow that may appear <strong>the first time</strong> someone logs in (often the first administrator). It guides you through the very first steps so the CMS isn’t empty and confusing.</p>
+<ul>
+<li><strong>Typical steps:</strong> A welcome message, then: set the <strong>project name</strong> (what appears in the admin), optionally upload a <strong>logo</strong>, and sometimes create your <strong>first collection</strong> (e.g. “Blog posts”) or add your <strong>first entry</strong>. Each step usually has a short explanation and a “Next” or “Skip” button.</li>
+<li><strong>Skipping:</strong> If you already know what you’re doing, you can often click “Skip” or “Do this later” and go straight to the Dashboard. The CMS works fine without completing onboarding.</li>
+<li><strong>After you finish (or skip):</strong> The system remembers that onboarding was shown. The next time you (or anyone) log in, you go straight to the Dashboard and don’t see the wizard again.</li>
+<li><strong>Preconfigured installs:</strong> If someone set up the CMS for you and already chose a project name and created collections, you might never see onboarding—it may have been completed or disabled.</li>
+</ul>
+<p><strong>Example:</strong> You install Birkly for the first time and log in as admin. A wizard appears: “Welcome! Let’s set up your project.” You enter “Acme Blog” as the project name, click Next, optionally create a “Blog posts” collection, then click “Go to Dashboard.” From then on, logging in takes you directly to the Dashboard.</p>
+<p><strong>For administrators</strong></p>
+<p>If you maintain the CMS, you can point the Help content to the Birkly Docs folder (or a built version of it) so that when docs are updated, the Help panel reflects those updates. For any steps that are specific to your organization (e.g. “Always create the Blog collection first”), you can document them in your own internal wiki or in a custom Help page if the system allows it.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Help:</strong> Content can be static HTML/JS bundled in the admin, or loaded from a path (e.g. Birkly Docs). If from Markdown: build step or runtime conversion to HTML; navigation can mirror DOCS_ARCHITECTURE (Summary / Beginner / Advanced). Optional: search, deep links to sections.</p>
+<p><strong>Onboarding:</strong> State stored (e.g. <code>onboarding_completed</code> in settings or user). Steps can be linear (wizard) or checklist; completion can set flag and optionally create default collection/entry. Reset: admin action or script that clears the flag so onboarding shows again (useful for demos or new tenants). Skipping sets the same “completed” state so the wizard doesn’t reappear.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="../00-overview/getting-started.html">Getting started</a></li>
+<li><a href="../DOCS_ARCHITECTURE.html">DOCS_ARCHITECTURE.md</a> (for maintainers)</li>
+<li><a href="dashboard.html">Dashboard</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

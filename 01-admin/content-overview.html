@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>content overview — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="content-overview.html" class="nav-link active">Content overview</a>
+        <a href="media-library.html" class="nav-link">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><div class="doc-summary"><p>The Content area is where you manage your content types (collections) and the actual content (entries) in Birkly. You’ll see a list of all collections; clicking one opens its entries. From here you create new collections, define their fields, and create or edit entries. Media and Settings support content but live in their own sections; Content is the main workspace for structure and copy.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Content</strong> in the sidebar is your main workspace for everything that will appear on your site: blog posts, products, team members, services, and so on. It’s organized in two levels:</p>
+<ol>
+<li><strong>Collections</strong> — The “types” of content (e.g. “Blog posts,” “Products,” “Team”).</li>
+<li><strong>Entries</strong> — The individual items inside each type (one blog post, one product, one team member).</li>
+</ol>
+<p><strong>What you see when you open Content</strong></p>
+<ul>
+<li>A <strong>list of collections</strong>. Each row or card might show the collection name, maybe a short description, and sometimes how many entries it has.</li>
+<li>A button or link to <strong>Create collection</strong> (or “New collection”) so you can add a new content type.</li>
+<li>When you <strong>click a collection</strong>, the view changes to show the <strong>entries</strong> in that collection: a list of titles, dates, and status (Draft/Published), with options to add or edit.</li>
+</ul>
+<p><strong>Example workflow</strong></p>
+<ol>
+<li>You want to run a blog. You click <strong>Create collection</strong>, name it “Blog posts,” and add fields: Title, Content, Publication date, Featured image. You save. The new collection appears in the Content list.</li>
+<li>You click “Blog posts.” The list is empty. You click <strong>New entry</strong>, write your first post, set the slug and status to Published, and save. The entry appears in the list.</li>
+<li>Next time you open “Blog posts,” you see all posts. You click one to edit it or click <strong>New entry</strong> again to add another.</li>
+</ol>
+<p><strong>How Content fits with other areas</strong></p>
+<ul>
+<li><strong>Media</strong> — When you’re editing an entry and a field is “Media” or “Gallery,” you’ll pick (or upload) files from the Media Library. So you upload in <strong>Media</strong>, but you <em>attach</em> those files to entries in <strong>Content</strong>.</li>
+<li><strong>Templates / your website</strong> — The way your site displays content (e.g. which page shows one post vs a list) is defined in your site’s templates or routing. The actual text and images live in <strong>Content</strong> (and Media).</li>
+<li><strong>Forms on your site</strong> — If a collection is set to allow “Public API” submissions, your website can create new entries (e.g. contact form, newsletter signup) without anyone logging into the admin. Those entries still show up in the same collection in <strong>Content</strong> so you can review or edit them.</li>
+</ul>
+<p>For step-by-step instructions on creating a collection and its fields, see <a href="../02-content/collections.html">Collections</a>. For creating and editing individual items, see <a href="../02-content/entries.html">Entries</a>.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Content is the admin UI for the content model: <strong>collections</strong> (schema) and <strong>entries</strong> (records).</p>
+<ul>
+<li><strong>Collections:</strong> Stored as config (e.g. <code>collection.json</code> + <code>schema.json</code> per collection). List view reads the content directory or registry; “Create collection” adds a new schema (handle, fields, entry method). Editing a collection updates field definitions and settings; handle should stay stable for API and templates.</li>
+<li><strong>Entries:</strong> One file per entry (e.g. <code>content/collections/blog/entries/{slug-or-id}.json</code>) or DB rows. Entry list is derived from that store; “New entry” creates a new record; editor loads one entry by id/slug and saves back. Status (draft/published) and slug are system fields; rest are collection-defined.</li>
+<li><strong>Public API submissions:</strong> When entry method is “Public API,” entries can be created via <code>POST /api/public/collections/{handle}/entries</code> (or equivalent). Those entries appear in the same collection list; may be draft by default depending on config.</li>
+</ul>
+<p>Workflow: define collection once → add/edit entries. Media is referenced by field type Media/Gallery; templates and frontend consume via API or client script. See <a href="../02-content/collections.html">Collections</a>, <a href="../02-content/entries.html">Entries</a>, <a href="../04-integration/public-api.html">Public API</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="../02-content/collections.html">Collections</a></li>
+<li><a href="../02-content/entries.html">Entries</a></li>
+<li><a href="media-library.html">Media library</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

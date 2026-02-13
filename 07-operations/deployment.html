@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>deployment — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="deployment.html" class="nav-link active">Deployment</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Deployment is how you put Birkly on a server so it’s reachable on the internet (or on an internal network). You need a web server (e.g. Apache or Nginx), PHP, and optionally a database; then you upload or clone the Birkly files, point the server at the app, and configure environment and permissions.</p>
+<div class="doc-summary"><p><strong>Deploying Birkly</strong> means: (1) Have a server with <strong>PHP</strong> (version required by Birkly) and a <strong>web server</strong> (Apache or Nginx). (2) Upload or clone the Birkly files so the <strong>document root</strong> (or a subdirectory) points to the folder that contains <code>index.php</code>. (3) Ensure <strong>content</strong>, <strong>media</strong>, and <strong>settings</strong> (and any other writable dirs) are writable by the web server. (4) Open the site in the browser and complete setup (first user, project name). Use <strong>HTTPS</strong> in production and restrict admin access (e.g. firewall or IP) if possible. See <a href="security.html">Security</a> and <a href="backup-and-restore.html">Backup and restore</a>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Deployment</strong> means putting Birkly on a server so you and your team can open it in a browser and so your website can load content from it. You (or your host) set up the server once; after that, you use the admin and your site as usual.</p>
+<p><strong>What you need</strong></p>
+<ul>
+<li>A <strong>server</strong> that can run PHP and a web server (Apache or Nginx). Many shared hosts and cloud providers support this.</li>
+<li>The <strong>Birkly files</strong> — Either upload them (FTP/SFTP) or clone from Git. The server’s “document root” (the folder that serves the website) should point to the Birkly folder that contains <code>index.php</code> and the <code>admin/</code> folder.</li>
+<li><strong>Writable folders</strong> — The web server must be allowed to write to <code>content/</code>, <code>media/</code>, and <code>settings/</code> (and sometimes <code>data/</code>, <code>database/</code>). Your host or developer sets permissions so the server user can create and change files there.</li>
+</ul>
+<p><strong>Typical steps (overview)</strong></p>
+<ol>
+<li><strong>Server</strong> — PHP and web server installed; document root or virtual host pointing to the Birkly folder.</li>
+<li><strong>Upload/clone</strong> — Put Birkly files in place.</li>
+<li><strong>Permissions</strong> — Make <code>content/</code>, <code>media/</code>, <code>settings/</code> writable by the web server user.</li>
+<li><strong>Open in browser</strong> — Go to <code>https://your-domain.com</code> (or the path where Birkly is). Complete first-time setup: create the first admin user, set project name.</li>
+<li><strong>HTTPS</strong> — In production, use HTTPS (SSL certificate) so login and data are encrypted. Many hosts offer free Let’s Encrypt certificates.</li>
+</ol>
+<p><strong>Example: shared hosting</strong></p>
+<ul>
+<li>Upload the Birkly zip (or extract it) into a folder (e.g. <code>public_html/cms/</code>).</li>
+<li>In the host’s control panel, set the domain or subdomain to point to that folder.</li>
+<li>Set folder permissions for <code>content/</code>, <code>media/</code>, <code>settings/</code> to be writable (often 755 or 775; the host’s docs will say).</li>
+<li>Visit <code>https://your-domain.com/cms/</code> and follow the setup wizard.</li>
+</ul>
+<p><strong>After deployment</strong></p>
+<ul>
+<li>Create the first user, set project name and branding.</li>
+<li>Test: log in, create a collection, add an entry, and load a public page that uses the Birkly client.</li>
+<li>Set up <a href="backup-and-restore.html">Backup and restore</a> and review <a href="security.html">Security</a>.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Server requirements</strong></p>
+<ul>
+<li><strong>PHP</strong> — Version required by Birkly (e.g. PHP 7.4 or 8.x). Extensions: typically <code>json</code>, <code>mbstring</code>, <code>fileinfo</code>, <code>curl</code>; optionally PDO for database.</li>
+<li><strong>Web server</strong> — Apache (with <code>mod_rewrite</code>) or Nginx. Birkly uses a front controller (<code>index.php</code>); route all requests to it.</li>
+<li><strong>Optional:</strong> Database (SQLite or MySQL) for users/sessions or plugins.</li>
+<li><strong>Disk</strong> — Space for content, media, logs.</li>
+<li><strong>Memory</strong> — PHP <code>memory_limit</code> sufficient for uploads and plugins (e.g. 128M+).</li>
+</ul>
+<p><strong>Directory layout and permissions</strong></p>
+<ul>
+<li><strong>Writable by web server:</strong> <code>content/</code>, <code>media/</code>, <code>settings/</code>, <code>data/</code> (if present), sometimes <code>database/</code>, <code>plugins/</code>. On Linux: <code>chown</code> to web server user; <code>chmod</code> e.g. 755/775 for dirs, 644 for files. Do not expose <code>.env</code>, <code>content/</code>, or <code>settings/</code> as static URLs.</li>
+</ul>
+<p><strong>Web server config</strong></p>
+<ul>
+<li><strong>Apache:</strong> Enable <code>mod_rewrite</code>; use provided <code>.htaccess</code> or equivalent so requests go through <code>index.php</code>.</li>
+<li><strong>Nginx:</strong> <code>try_files</code> or <code>location /</code> forwarding to <code>index.php</code> with request URI. See <code>nginx.conf.example</code> in repo.</li>
+<li><strong>HTTPS</strong> — Redirect HTTP to HTTPS; use valid certificate (e.g. Let’s Encrypt) in production.</li>
+</ul>
+<p><strong>Environment and config</strong></p>
+<ul>
+<li><strong>Base URL</strong> — Set in settings or env so links and client script point to the correct domain.</li>
+<li><strong>Secrets</strong> — DB credentials, API keys from env or secure config, not from repo.</li>
+<li><strong>Debug</strong> — Disable in production; enable only for temporary troubleshooting.</li>
+</ul>
+<p><strong>Post-deploy</strong></p>
+<ul>
+<li>First admin user (script or onboarding). Set project name and branding. Test login, collection, entry, public page. Set up <a href="backup-and-restore.html">Backup and restore</a> and <a href="security.html">Security</a>.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="security.html">Security</a></li>
+<li><a href="backup-and-restore.html">Backup and restore</a></li>
+<li><a href="troubleshooting.html">Troubleshooting</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

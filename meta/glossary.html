@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>glossary — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="glossary.html" class="nav-link active">Glossary</a>
+        <a href="audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Short definitions of terms used in Birkly documentation. Use these consistently when writing or editing docs.</p>
+<div class="doc-summary"><p>This glossary defines key terms used across Birkly docs. Use it when you’re unsure what a word means (e.g. <strong>handle</strong>, <strong>slug</strong>, <strong>entry</strong>) or when you need a consistent definition for your own documentation.</p>
+<p>| Term | Definition | |------|------------| | <strong>Account</strong> | The logged-in user’s own profile in the admin: name, email, password, two-factor authentication (2FA). See <a href="../01-admin/account.html">Account</a>. | | <strong>Action</strong> | In automation, a step that runs when the workflow is triggered—e.g. “send Slack message”, “HTTP request to URL”. You add actions in the workflow editor. | | <strong>Admin</strong> | The Birkly back office: login, dashboard, content, media, settings. Accessed at <code>/admin</code> (or your configured path). | | <strong>Automation</strong> | Feature that runs workflows on a trigger (schedule or webhook), with optional conditions and actions. See <a href="../05-automation/automation-overview.html">Automation overview</a>. | | <strong>Client library</strong> | The JavaScript file (<code>birkly-client.js</code>) that loads on your website and fetches content from Birkly to render template placeholders. See <a href="../04-integration/client-library.html">Client library</a>. | | <strong>Collection</strong> | A content type in Birkly: a named schema of fields (e.g. “Blog posts”, “Products”). Each collection has a unique <strong>handle</strong> used in templates and the API. | | <strong>Condition</strong> | In automation, a rule that must be true for the workflow’s actions to run—e.g. “payload has email”, “entry is published”. | | <strong>Content</strong> | The area in the admin where you manage collections and entries (the “Content” section in the sidebar). | | <strong>CORS</strong> | Cross-Origin Resource Sharing. Browser security that blocks your website from calling the CMS API unless the server sends headers allowing your domain. Must be configured on the Birkly server for client-side integration. | | <strong>Entry</strong> | A single content item in a collection (e.g. one blog post, one product). Has values for each field and system fields like <strong>slug</strong> and <strong>status</strong>. | | <strong>Entry method</strong> | Setting on a collection: “Admin only” (only logged-in users can create/edit) or “Public API” (allow submissions via API/forms). Affects who can submit and how. | | <strong>Field</strong> | One piece of data in a collection (e.g. title, content, date). Each field has a <strong>field type</strong> (Text, Editor, Media, etc.) and optional required/validation rules. | | <strong>Field type</strong> | The kind of data a field holds: Text, Textarea, Editor, Media, Gallery, Number, Date, Select, Tags, etc. See <a href="../02-content/field-types.html">Field types</a>. | | <strong>Handle</strong> | Unique identifier for a collection (e.g. <code>blog</code>, <code>products</code>). Lowercase, no spaces. Used in templates (e.g. <code>{for each entry in 'blog'}</code>) and in the Public API URL. Choose it once and avoid changing it. | | <strong>Media library</strong> | Central storage in the admin for uploaded files (images, PDFs, etc.) that can be used in content via Media or File fields. See <a href="../01-admin/media-library.html">Media library</a>. | | <strong>Onboarding</strong> | First-time setup flow for new users: project name, first collection, optional tour. See <a href="../01-admin/help-and-onboarding.html">Help and onboarding</a>. | | <strong>Plugin</strong> | Extension that adds features to Birkly: admin pages, APIs, field types, automation actions. Installed from the <code>plugins/</code> folder and enabled in Settings. See <a href="../06-extensibility/plugins.html">Plugins</a>. | | <strong>Public API</strong> | HTTP API for reading (and sometimes submitting) content without admin login. Used by the client library and by your own apps. See <a href="../04-integration/public-api.html">Public API</a>. | | <strong>Role</strong> | A set of permissions (e.g. Viewer, Editor, Admin) assigned to a user. Controls what they can do in the admin. See <a href="../01-admin/roles-and-permissions.html">Roles and permissions</a>. | | <strong>Slug</strong> | URL-friendly unique identifier for an entry (e.g. <code>my-first-post</code>). Used in URLs and to load one entry by slug in templates and the API. | | <strong>Status</strong> | Entry state: <strong>Draft</strong> (not visible on the public site) or <strong>Published</strong> (visible). Only published entries are usually returned by the Public API. | | <strong>Template</strong> | HTML (or other) that contains placeholders and loops filled with Birkly content when rendered. See <a href="../03-templating/templating-overview.html">Templating overview</a>. | | <strong>Templating</strong> | The language and process of using variables (<code>{ title }</code>), loops (<code>{for each entry in 'blog'}</code>), and conditionals (<code>{if} … {endif}</code>) in templates to output content. | | <strong>Trigger</strong> | In automation, the event that starts a workflow—e.g. “every day at 9:00” (scheduled) or “when we receive a POST to this URL” (webhook). See <a href="../05-automation/triggers.html">Triggers</a>. | | <strong>Webhook</strong> | <strong>Incoming:</strong> A URL that other services call to trigger an automation workflow. <strong>Outgoing:</strong> Birkly calling your URL when an event happens (e.g. entry published). See <a href="../05-automation/webhooks.html">Webhooks</a>. | | <strong>Workflow</strong> | In automation, a configured trigger plus optional conditions and actions. Created and edited in the Automation section of the admin. |</p></div>
+<div class="doc-related"><ul>
+<li><a href="../CONTENTS_INDEX.html">CONTENTS_INDEX</a></li>
+<li><a href="audience-matrix.html">Audience matrix</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

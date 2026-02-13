@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>loops and lists — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="loops-and-lists.html" class="nav-link active">Loops and lists</a>
+        <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Loops in Birkly templates let you repeat a block of HTML for each entry in a collection or for each item in a list (e.g. tags, gallery images). You use them to build listing pages (all blog posts, all products) or to output multiple items (tags, gallery).</p>
+<div class="doc-summary"><p>To <strong>list all entries</strong> of a collection, use a loop. Typical syntax: <code>{for each entry in 'blog'}</code> … <code>{endfor}</code>. Between the tags you write the layout for one item using variables like <code>{ title }</code>, <code>{ slug }</code>, <code>{ date }</code>, <code>{ excerpt }</code>—they refer to the current entry. You can often add a <strong>limit</strong> (e.g. latest 5) and <strong>sort</strong> (e.g. by date descending). To loop over tags or a gallery, use the syntax for list/gallery fields (e.g. <code>{for each tag in tags}</code>). When there are no entries, the loop renders nothing unless you wrap it in a conditional and show an “empty” message.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>A <strong>loop</strong> means “do this once for every item.” For a blog index, you want “for every blog post, show a title, excerpt, and link.” That’s exactly what a loop does.</p>
+<p><strong>Listing all blog posts</strong></p>
+<p>Example:</p>
+<pre><code>&lt;h1&gt;Blog&lt;/h1&gt;
+
+{for each entry in 'blog'}
+  &lt;article&gt;
+    &lt;h2&gt;&lt;a href=&quot;/blog/{ slug }&quot;&gt;{ title }&lt;/a&gt;&lt;/h2&gt;
+    &lt;time&gt;{ date &quot;F j, Y&quot; }&lt;/time&gt;
+    {if entry has excerpt}&lt;p&gt;{ excerpt }&lt;/p&gt;{endif}
+    &lt;a href=&quot;/blog/{ slug }&quot;&gt;Read more&lt;/a&gt;
+  &lt;/article&gt;
+{endfor}</code></pre>
+<ul>
+<li><code>'blog'</code> is the collection <strong>handle</strong> (the same one you see in the admin). Use your own, e.g. <code>'products'</code>, <code>'team'</code>, <code>'pages'</code>.</li>
+<li>Everything between <code>{for each …}</code> and <code>{endfor}</code> is repeated <strong>once per entry</strong>.</li>
+<li>Inside the loop, <code>{ title }</code>, <code>{ slug }</code>, <code>{ date }</code>, <code>{ excerpt }</code> are the <strong>current</strong> entry’s values.</li>
+<li>The link <code>href=&quot;/blog/{ slug }&quot;</code> builds a URL like <code>/blog/my-post-slug</code> so each post links to its detail page.</li>
+</ul>
+<p><strong>Listing with a limit (e.g. “latest 5”)</strong></p>
+<p>Some setups let you limit how many entries and how they’re sorted. For example:</p>
+<pre><code>{from 'blog' get entries limit=5 sort=&quot;date:desc&quot;}
+{for each entry in entries}
+  &lt;article&gt;
+    &lt;h2&gt;&lt;a href=&quot;/blog/{ slug }&quot;&gt;{ title }&lt;/a&gt;&lt;/h2&gt;
+    &lt;time&gt;{ date &quot;F j, Y&quot; }&lt;/time&gt;
+  &lt;/article&gt;
+{endfor}</code></pre>
+<p>Or the loop might accept parameters directly, e.g. <code>{for each entry in 'blog' limit=5 sort=&quot;date:desc&quot;}</code>. Check your admin Help or templating docs for the exact syntax.</p>
+<p><strong>When there are no entries</strong></p>
+<p>If the collection is empty, the loop block usually doesn’t run, so you see nothing. To show a friendly message:</p>
+<pre><code>{if 'blog' has entries}
+  {for each entry in 'blog'}
+    …
+  {endfor}
+{else}
+  &lt;p&gt;No posts yet. Check back soon!&lt;/p&gt;
+{endif}</code></pre>
+<p>See <a href="conditionals.html">Conditionals</a> for more.</p>
+<p><strong>Looping over tags</strong></p>
+<p>If an entry has a Tags field and you want to show each tag:</p>
+<pre><code>{for each tag in tags}
+  &lt;span class=&quot;tag&quot;&gt;{ tag }&lt;/span&gt;
+{endfor}</code></pre>
+<p>Exact syntax may vary (e.g. <code>{for each tag}</code>). Use the same idea: loop over the list, output one element per item.</p>
+<p><strong>Looping over a gallery</strong></p>
+<p>For a field that holds multiple images (Gallery type):</p>
+<pre><code>{for each image in gallery_field}
+  &lt;img src=&quot;{ image }&quot; alt=&quot;&quot;&gt;
+{endfor}</code></pre>
+<p>Again, the exact variable names depend on your version; see <a href="media-in-templates.html">Media in templates</a>.</p>
+<p><strong>Important</strong></p>
+<p>Loops typically show only <strong>published</strong> entries. Drafts are usually hidden on the public site (and may appear only in preview mode if your setup supports it).</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Loop constructs</strong></p>
+<ul>
+<li><strong>Collection entries:</strong> <code>{for each entry in 'handle'}</code> … <code>{endfor}</code>. Iterator name (<code>entry</code>) and handle (<code>'blog'</code>) are engine-defined. Alternative: fetch first with <code>{from 'blog' get entries}</code> (optionally with <code>limit</code>, <code>sort</code>, <code>offset</code>) then <code>{for each entry in entries}</code>.</li>
+<li><strong>Sort:</strong> Common options: <code>sort=&quot;date:desc&quot;</code>, <code>sort=&quot;title:asc&quot;</code>. Keys usually match field keys or <code>created</code>, <code>updated</code>.</li>
+<li><strong>Limit / offset:</strong> <code>limit=5</code>, <code>offset=10</code> for pagination or “latest N”.</li>
+<li><strong>List fields (tags, multi-select):</strong> Loop over the field value, e.g. <code>{for each tag in tags}</code>; inside loop, <code>{ tag }</code> or equivalent.</li>
+<li><strong>Gallery / multi-item media:</strong> Loop over the field; each item may expose <code>url</code>, <code>alt</code>, or a single value; use in <code>&lt;img src=&quot;…&quot;&gt;</code>.</li>
+</ul>
+<p><strong>Single entry by slug</strong></p>
+<p>To render one entry (e.g. blog post detail):</p>
+<pre><code>{from 'blog' get entry 'my-post-slug'}
+&lt;h1&gt;{ title }&lt;/h1&gt;
+&lt;div&gt;{ content }&lt;/div&gt;</code></pre>
+<p>After <code>get entry 'slug'</code>, all variables in that scope refer to that entry. Slug can be literal or a variable (e.g. from the URL).</p>
+<p><strong>Pagination</strong></p>
+<p>If the API supports <code>page</code> and <code>per_page</code> (or <code>offset</code>/<code>limit</code>), you can request a page of entries and render them in a loop. “Next/Previous” links then point to the same template with different <code>page</code> (or slug range). Implementation is environment-specific (client vs server, URL scheme).</p>
+<p><strong>Empty state</strong></p>
+<p>Always consider wrapping list loops in a conditional so the UI can show “No items” instead of an empty block. Example: <code>{if 'blog' has entries} … loop … {else} … empty message … {endif}</code>.</p>
+<p><strong>Performance</strong></p>
+<ul>
+<li>Client-side: one API call per collection (or per page) when using “get entries”; limit and sort reduce payload.</li>
+<li>Server-side: same idea; cache responses where appropriate.</li>
+</ul>
+<p><strong>Technical note</strong></p>
+<p>Only <strong>published</strong> entries are included in loops by default. Draft/archived visibility depends on API params and environment (e.g. preview token).</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="variables-and-output.html">Variables and output</a></li>
+<li><a href="conditionals.html">Conditionals</a></li>
+<li><a href="media-in-templates.html">Media in templates</a></li>
+<li><a href="../02-content/entries.html">Entries</a></li>
+<li><a href="../02-content/collections.html">Collections</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

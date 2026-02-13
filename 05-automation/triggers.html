@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>triggers — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="triggers.html" class="nav-link active">Triggers</a>
+        <a href="conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Triggers define <strong>when</strong> an automation workflow runs. In Birkly, common trigger types are <strong>scheduled</strong> (time-based) and <strong>webhook</strong> (when an HTTP request is received).</p>
+<div class="doc-summary"><p>A <strong>trigger</strong> is the “when” of a workflow. <strong>Scheduled trigger:</strong> pick a schedule (e.g. daily at 9:00, every hour). The CMS runs the workflow at those times. <strong>Webhook trigger:</strong> Birkly gives you a URL; when something (another app, Zapier, your server) sends a POST to that URL, the workflow runs. Use scheduled for recurring tasks; use webhook for “when something happens elsewhere” (form submitted, payment received, etc.). Set the trigger when creating or editing a workflow under <strong>Automation</strong>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>The <strong>trigger</strong> is what starts a workflow. Two common options:</p>
+<p><strong>1. Scheduled trigger — “Run at a fixed time”</strong></p>
+<p>You choose when the workflow runs: e.g. “Every day at 9:00”, “Every hour”, “Every Monday at 8:00”. The Birkly server runs the workflow at those times. No one has to click anything.</p>
+<p><strong>Use cases</strong></p>
+<ul>
+<li>Send a daily or weekly digest.</li>
+<li>Every hour, call an external API to sync or check something.</li>
+<li>Run a cleanup or “publish scheduled posts” job at a set time.</li>
+</ul>
+<p><strong>How to set it</strong></p>
+<p>When creating or editing a workflow, select <strong>Scheduled</strong> as the trigger. Then set:</p>
+<ul>
+<li><strong>Schedule:</strong> Often presets like “Every hour”, “Daily”, “Weekly”, or a cron-style expression (e.g. “0 9 <em> </em> *” for 9:00 every day).</li>
+<li><strong>Timezone:</strong> So “9:00” is in the right time zone.</li>
+</ul>
+<p>Save the workflow. The server needs to have the scheduler enabled (cron or internal runner); on hosted Birkly this is usually already set up.</p>
+<p><strong>2. Webhook trigger — “Run when someone/something calls a URL”</strong></p>
+<p>Birkly gives the workflow a <strong>unique URL</strong>. When anything sends an HTTP request (usually POST) to that URL, the workflow runs. The “anything” can be: your form handler after a contact submission, Zapier, IFTTT, a payment provider, or your own backend.</p>
+<p><strong>Use cases</strong></p>
+<ul>
+<li>Contact form submitted → workflow runs → Slack notification or email.</li>
+<li>Payment completed → provider calls your webhook → workflow runs → update internal system or send receipt.</li>
+<li>CI/CD pipeline finishes → calls webhook → workflow runs → post to Slack or update a dashboard.</li>
+</ul>
+<p><strong>How to set it</strong></p>
+<ol>
+<li>Create or edit a workflow and choose <strong>Webhook</strong> as the trigger.</li>
+<li>The admin shows the <strong>webhook URL</strong> (e.g. <code>https://your-cms.com/api/automation_webhook.php?workflow=xyz</code>). Copy it.</li>
+<li>Optionally set a <strong>secret token</strong>. Then only requests that include this token (e.g. in a header) will run the workflow. That way random people can’t trigger it by guessing the URL.</li>
+<li>In your form handler, payment callback, or other app, send a POST request to this URL when the event happens. You can send JSON or form data in the body; that data is often available inside the workflow as “payload” for conditions and actions.</li>
+</ol>
+<p><strong>Example: trigger from a form</strong></p>
+<p>After the user submits your contact form, your server (or Birkly’s form endpoint) can do:</p>
+<pre><code>curl -X POST &quot;https://your-cms.com/api/automation_webhook.php?workflow=abc123&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{&quot;name&quot;:&quot;Jane&quot;,&quot;email&quot;:&quot;jane@example.com&quot;,&quot;message&quot;:&quot;Hello&quot;}'</code></pre>
+<p>The workflow runs and can use <code>payload.name</code>, <code>payload.email</code>, <code>payload.message</code> in conditions (e.g. “only if payload has email”) and in actions (e.g. “Slack message: New contact from {{ payload.name }}”).</p>
+<p><strong>Testing</strong></p>
+<ul>
+<li><strong>Scheduled:</strong> Temporarily set the schedule to “every minute” or use “Run now” if the admin offers it, to verify actions without waiting.</li>
+<li><strong>Webhook:</strong> Use curl or Postman to POST to the webhook URL and confirm the workflow runs and appears in the Automation logs.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Scheduled trigger</strong></p>
+<ul>
+<li><strong>Behavior:</strong> Workflow runs at fixed times (cron-like). Server must have a scheduler that invokes the Birkly automation runner (e.g. cron entry or internal loop).</li>
+<li><strong>Config:</strong> Schedule expression (e.g. <code>0 9 <em> </em> *</code> for 9:00 daily) and timezone. UI may offer presets (Every hour, Daily, Weekly) or raw cron.</li>
+<li><strong>Use cases:</strong> Digests, periodic sync, cleanup, scheduled publish.</li>
+</ul>
+<p><strong>Webhook trigger</strong></p>
+<ul>
+<li><strong>Behavior:</strong> Workflow runs when the server receives an HTTP request (usually POST) to the workflow’s URL. Request body (JSON or form) is typically exposed as <strong>payload</strong> for conditions and actions.</li>
+<li><strong>Config:</strong> Webhook URL (shown in admin), optional secret (header or query) for verification.</li>
+<li><strong>Use cases:</strong> Form handlers, Zapier/IFTTT, payment/CI callbacks, any HTTP-capable system.</li>
+<li><strong>Security:</strong> HTTPS; optional secret token or signature so only trusted callers can trigger. Don’t expose the URL in client-side code if the workflow performs sensitive actions.</li>
+</ul>
+<p><strong>Other triggers (if supported)</strong></p>
+<ul>
+<li><strong>Entry created / updated:</strong> Workflow runs when an entry is saved in a given collection. Useful for “on contact submit, notify team” without a separate webhook call from the form handler.</li>
+<li><strong>Manual:</strong> Run once from the admin (testing or one-off).</li>
+</ul>
+<p><strong>Payload</strong></p>
+<p>For webhook triggers, the incoming body is parsed (JSON or form) and available as <code>payload</code> in conditions (e.g. “payload.email exists”) and in action templates (e.g. <code>{{ payload.name }}</code>). Exact structure and variable syntax are version-dependent.</p>
+<p><strong>Testing</strong></p>
+<ul>
+<li>Scheduled: use “every minute” or “Run now” to confirm execution and logs.</li>
+<li>Webhook: <code>curl -X POST -d '{&quot;test&quot;:true}' 'https://your-cms.com/api/automation_webhook.php?workflow=...'</code> (adjust URL/body to your setup).</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="automation-overview.html">Automation overview</a></li>
+<li><a href="conditions-and-actions.html">Conditions and actions</a></li>
+<li><a href="webhooks.html">Webhooks</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

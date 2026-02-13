@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>public forms — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="website-integration.html" class="nav-link">Website integration</a>
+        <a href="client-library.html" class="nav-link">Client library</a>
+        <a href="public-api.html" class="nav-link">Public API</a>
+        <a href="public-forms.html" class="nav-link active">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Public forms let visitors submit data (e.g. contact form, newsletter, application) that is stored as entries in a Birkly collection. The collection must allow “Public API” (or “Public submit”), and you send the data to the Birkly API from your website, often with security measures like rate limiting or CAPTCHA.</p>
+<div class="doc-summary"><p>To <strong>accept form submissions</strong> from your website into Birkly: (1) Create a collection with the fields you need (name, email, message, etc.). (2) In the collection’s Settings, set <strong>Entry method</strong> to <strong>Public API</strong> (or “Public submit”) and configure security (rate limit, CAPTCHA if available). (3) On your site, use a form that POSTs to the Birkly submit endpoint (e.g. <code>/api/public/collections/contact/entries</code> or the documented form endpoint). Don’t expose admin credentials; use the public submit API and optional tokens/keys as described in your docs.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Public forms</strong> mean: a visitor fills out a form on your website (contact, newsletter, job application), and that data is saved as an <strong>entry</strong> in a Birkly collection. You can then see and manage it in the admin, and optionally trigger automations (e.g. email or Slack).</p>
+<p><strong>Step 1: Create a collection</strong></p>
+<p>Create a collection that matches what you want to collect. For a contact form, for example:</p>
+<p>| Field label | Type   | Required? | Key (example) | |-------------|--------|-----------|----------------| | Name        | Text   | Yes       | name          | | Email       | Email  | Yes       | email         | | Message     | Textarea | Yes     | message       |</p>
+<p>Give the collection a name (e.g. “Contact submissions”) and a <strong>handle</strong> (e.g. <code>contact</code>). The handle is used in the submit URL.</p>
+<p><strong>Step 2: Allow public submissions</strong></p>
+<p>In the collection’s <strong>Settings</strong> (or Edit collection):</p>
+<ul>
+<li>Find <strong>Entry method</strong> (or “Who can create entries”).</li>
+<li>Set it to <strong>Public API</strong> (or “Public submit” / “Allow public submissions”).</li>
+<li>Enable <strong>rate limiting</strong> if available (e.g. 5 submissions per IP per hour) to reduce spam.</li>
+<li>If your Birkly has <strong>CAPTCHA</strong> or <strong>honeypot</strong>, turn them on for extra protection.</li>
+<li>Choose whether new submissions are saved as <strong>Draft</strong> (you review and publish) or <strong>Published</strong>. For contact forms, Draft is usually better so you don’t list them publicly.</li>
+</ul>
+<p><strong>Step 3: Add a form on your website</strong></p>
+<p>Your form must send a POST request to Birkly’s submit endpoint. Exact URL and format depend on your version; typical pattern:</p>
+<ul>
+<li><strong>Endpoint:</strong> Something like <code>https://your-cms.com/api/public_submit.php?collection=contact</code> or <code>https://your-cms.com/api/public/collections/contact/entries</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong> Field names should match the collection’s field keys (<code>name</code>, <code>email</code>, <code>message</code>). Format may be form-encoded or JSON—check your API docs.</li>
+</ul>
+<p><strong>Example: simple HTML form</strong></p>
+<pre><code>&lt;form action=&quot;https://your-cms.com/api/public_submit.php?collection=contact&quot;
+      method=&quot;post&quot;&gt;
+  &lt;label&gt;Name &lt;input type=&quot;text&quot; name=&quot;name&quot; required&gt;&lt;/label&gt;
+  &lt;label&gt;Email &lt;input type=&quot;email&quot; name=&quot;email&quot; required&gt;&lt;/label&gt;
+  &lt;label&gt;Message &lt;textarea name=&quot;message&quot; required&gt;&lt;/textarea&gt;&lt;/label&gt;
+  &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<p>If your Birkly uses a different URL or requires a token/CSRF field, the admin or “Public forms” / “Secure integration” docs will say how to add it.</p>
+<p><strong>Example: submit with JavaScript (fetch)</strong></p>
+<pre><code>document.querySelector('form').addEventListener('submit', async (e) =&gt; {
+  e.preventDefault();
+  const form = e.target;
+  const data = {
+    name: form.name.value,
+    email: form.email.value,
+    message: form.message.value
+  };
+
+  const res = await fetch('https://your-cms.com/api/public/collections/contact/entries', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+  if (res.ok) {
+    alert('Thank you! We’ll get back to you.');
+    form.reset();
+  } else {
+    alert('Something went wrong. Please try again.');
+  }
+});</code></pre>
+<p>Replace the URL and field names with what your API expects. Some setups require an API key in a header or a one-time token from a “secure form” endpoint—see your docs.</p>
+<p><strong>After submission</strong></p>
+<ul>
+<li>New entries appear in the admin under that collection. You can reply, export, or delete them.</li>
+<li>You can add <strong>Automation</strong> (e.g. “When an entry is created in Contact, send a Slack message or email”) so your team is notified. See <a href="../05-automation/automation-overview.html">Automation overview</a> and <a href="../05-automation/webhooks.html">Webhooks</a>.</li>
+</ul>
+<p><strong>Security checklist</strong></p>
+<ul>
+<li><strong>Never</strong> put admin login or API keys that have admin rights in the browser.</li>
+<li>Use <strong>HTTPS</strong> for your site and the submit URL.</li>
+<li>Enable <strong>rate limiting</strong> and <strong>CAPTCHA</strong> (or honeypot) if available.</li>
+<li>Rely on <strong>server-side validation</strong> in Birkly for required fields and formats (e.g. email).</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>When to use public forms</strong></p>
+<p>Contact forms, newsletter signups, job applications, feedback, event registration—any flow where you want form data to become entries in a collection for viewing in the admin, export, or downstream automation.</p>
+<p><strong>Setup in the admin</strong></p>
+<ol>
+<li><strong>Collection:</strong> Create with fields matching the form (keys = name, email, message, etc.).</li>
+<li><strong>Entry method:</strong> Set to <strong>Public API</strong> / <strong>Public submit</strong>. Configure rate limit, CAPTCHA, honeypot.</li>
+<li><strong>Publish behavior:</strong> Draft (review first) or Published (immediately visible if you ever list them; often still draft for contact-type collections).</li>
+</ol>
+<p><strong>Submitting from the website</strong></p>
+<p>| Option | Description | |--------|-------------| | <strong>Form POST</strong> | <code>action</code> = submit URL, <code>method=&quot;POST&quot;</code>, <code>name</code> attributes = field keys. May require CSRF/token field; check docs. | | <strong>JavaScript fetch</strong> | POST JSON (or form-encoded) to the submit endpoint. Include required headers (e.g. API key, Content-Type). | | <strong>Secure form flow</strong> | Request a one-time token from a dedicated endpoint, then POST form + token. Reduces CSRF and abuse; see “secure integration” or “public forms” in your docs. |</p>
+<p><strong>Endpoint and body format</strong></p>
+<ul>
+<li>URL: Often <code>POST /api/public/collections/{handle}/entries</code> or <code>POST /api/public_submit.php?collection={handle}</code>. Confirm in API docs.</li>
+<li>Body: JSON <code>{ &quot;name&quot;: &quot;...&quot;, &quot;email&quot;: &quot;...&quot;, &quot;message&quot;: &quot;...&quot; }</code> or <code>application/x-www-form-urlencoded</code> with same keys. Field keys must match the collection schema.</li>
+</ul>
+<p><strong>Security</strong></p>
+<ul>
+<li>No admin credentials on the frontend. Use public submit endpoint only.</li>
+<li>Rate limiting (per IP or per key) on the server.</li>
+<li>CAPTCHA/honeypot where appropriate.</li>
+<li>Server-side validation (required, format, length). Optional: sanitize or strip HTML from text fields.</li>
+<li>HTTPS only.</li>
+</ul>
+<p><strong>After submission</strong></p>
+<ul>
+<li>Entries appear in the collection. Use <strong>Automation</strong> (trigger: entry created; actions: Slack, email, HTTP) to notify or sync. See <a href="../05-automation/triggers.html">Triggers</a>, <a href="../05-automation/conditions-and-actions.html">Conditions and actions</a>, <a href="../05-automation/webhooks.html">Webhooks</a>.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="../02-content/collections.html">Collections</a></li>
+<li><a href="public-api.html">Public API</a></li>
+<li><a href="../05-automation/automation-overview.html">Automation overview</a></li>
+<li><a href="../05-automation/webhooks.html">Webhooks</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

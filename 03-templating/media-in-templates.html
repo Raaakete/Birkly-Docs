@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>media in templates — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="media-in-templates.html" class="nav-link active">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>In Birkly templates you output images and other media by referencing a media file (by filename or by field name). You can get a plain URL or, in some setups, request a resized or cropped version.</p>
+<div class="doc-summary"><p>To <strong>show an image</strong> (or file link) from the CMS, use the media helper. Typical: <code>{ media 'filename.jpg' }</code> for a file from the Media Library, or <code>{ media featured_image }</code> when the current entry has a Media field named <code>featured_image</code>. Put the result in <code>&lt;img src=&quot;…&quot;&gt;</code> or <code>&lt;a href=&quot;…&quot;&gt;</code>. Some systems support extra options like <strong>width</strong>, <strong>height</strong>, <strong>crop</strong> for responsive or thumbnail images. For <strong>galleries</strong>, you often loop over the field and output one <code>&lt;img&gt;</code> per item. See below for syntax and examples.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Media in templates means <strong>getting the URL</strong> of an image or file so you can use it in <code>&lt;img src=&quot;…&quot;&gt;</code> or <code>&lt;a href=&quot;…&quot;&gt;Download&lt;/a&gt;</code>.</p>
+<p><strong>Single image from the Media Library (by name)</strong></p>
+<p>If you uploaded a file (e.g. <code>logo.svg</code>) to the Media Library and want to use it anywhere:</p>
+<pre><code>&lt;img src=&quot;{ media 'logo.svg' }&quot; alt=&quot;Company logo&quot;&gt;</code></pre>
+<p>Use the exact filename. The template outputs the full URL to that file.</p>
+<p><strong>Single image from the current entry (by field name)</strong></p>
+<p>If the entry has a Media field, e.g. “Featured image” with key <code>featured_image</code>:</p>
+<pre><code>&lt;img src=&quot;{ media featured_image }&quot; alt=&quot;{ title }&quot;&gt;</code></pre>
+<p>Inside a loop, this is the <strong>current</strong> entry’s featured image. On a single-entry page, it’s that entry’s image.</p>
+<p><strong>Always provide an alt text</strong></p>
+<p>Use <code>alt=&quot;{ title }&quot;</code> or a short description. If the image might be empty, use a conditional so you don’t output a broken image:</p>
+<pre><code>{if entry has featured_image}
+  &lt;img src=&quot;{ media featured_image }&quot; alt=&quot;{ title }&quot;&gt;
+{else}
+  &lt;img src=&quot;/images/placeholder.jpg&quot; alt=&quot;&quot;&gt;
+{endif}</code></pre>
+<p>See <a href="conditionals.html">Conditionals</a>.</p>
+<p><strong>Link to a file (e.g. PDF)</strong></p>
+<p>If the entry has a File or Media field pointing to a document:</p>
+<pre><code>&lt;a href=&quot;{ media document }&quot; download&gt;Download PDF&lt;/a&gt;</code></pre>
+<p>Or: <code>&lt;a href=&quot;{ document }&quot;&gt;</code> — exact syntax depends on the field type; see your templating docs.</p>
+<p><strong>Multiple images (gallery)</strong></p>
+<p>For a Gallery field with several images, you loop and output one <code>&lt;img&gt;</code> per item:</p>
+<pre><code>{for each image in gallery_field}
+  &lt;img src=&quot;{ image }&quot; alt=&quot;&quot;&gt;
+{endfor}</code></pre>
+<p>Variable names may vary (e.g. <code>image.url</code> or just the URL in <code>{ image }</code>). See <a href="loops-and-lists.html">Loops and lists</a> and your engine’s docs.</p>
+<p><strong>Thumbnails or resized images</strong></p>
+<p>Some setups let you ask for a resized version, e.g.:</p>
+<ul>
+<li><code>{ media featured_image width=400 height=300 }</code></li>
+<li>or <code>{ media 'hero.jpg' width=1200 crop=&quot;center&quot; }</code></li>
+</ul>
+<p>That would give you a URL to a version that fits those dimensions (or is cropped). If your Birkly version doesn’t support this, use the plain URL and size the image with CSS, or use a separate image service.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Reference types</strong></p>
+<p>| Use case | Typical syntax | Notes | |----------|----------------|--------| | Global media by filename | <code>{ media 'filename.jpg' }</code> | File from Media Library; name must match. | | Entry media field | <code>{ media field_key }</code> | URL of the selected media for current entry. | | In loop | <code>{ media featured_image }</code> | Current entry’s media field. |</p>
+<p><strong>Optional parameters (when supported)</strong></p>
+<ul>
+<li><strong>width / height:</strong> Request a version with max width/height (aspect ratio may be preserved).</li>
+<li><strong>crop:</strong> e.g. <code>crop=&quot;center&quot;</code>, <code>crop=&quot;top&quot;</code> — which part to keep when cropping.</li>
+<li><strong>fit:</strong> e.g. <code>fit=&quot;cover&quot;</code> or <code>fit=&quot;contain&quot;</code> — behaviour when aspect ratio differs.</li>
+</ul>
+<p>Exact parameter names and behaviour depend on the engine and any image pipeline (e.g. on-the-fly resizing vs pre-generated sizes). Check admin Help or API docs.</p>
+<p><strong>Gallery / multi-image fields</strong></p>
+<ul>
+<li>Loop over the field; each item may be a URL string or an object with <code>url</code>, <code>alt</code>, <code>width</code>, <code>height</code>.</li>
+<li>Example (conceptual): <code>{for each image in gallery}</code> then <code>src=&quot;{ image.url }&quot;</code> or <code>src=&quot;{ image }&quot;</code>, <code>alt=&quot;{ image.alt }&quot;</code> if available.</li>
+</ul>
+<p><strong>File fields (documents)</strong></p>
+<ul>
+<li>File field often outputs the URL directly: <code>{ document_field }</code> or <code>{ media document_field }</code>. Use in <code>&lt;a href=&quot;…&quot;&gt;</code> with optional <code>download</code> attribute.</li>
+</ul>
+<p><strong>Fallback and accessibility</strong></p>
+<ul>
+<li>Always guard empty media with a conditional so the DOM doesn’t get an empty <code>src</code>.</li>
+<li>Prefer meaningful <code>alt</code> (e.g. entry title or short description). Use <code>alt=&quot;&quot;</code> only for purely decorative images.</li>
+</ul>
+<p><strong>Performance</strong></p>
+<ul>
+<li>Resized/cropped URLs may point to a generated asset; cache headers and CDN depend on your deployment.</li>
+<li>For galleries, avoid loading many full-size images; use width/height params or thumbnails if the engine supports them.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="variables-and-output.html">Variables and output</a></li>
+<li><a href="conditionals.html">Conditionals</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+<li><a href="../02-content/field-types.html">Field types</a></li>
+<li><a href="../01-admin/media-library.html">Media library</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

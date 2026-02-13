@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>dashboard — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link active">Dashboard</a>
+        <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="media-library.html" class="nav-link">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><div class="doc-summary"><p>The Dashboard is the first screen you see after logging into the Birkly admin. It gives a quick overview of your content (e.g. how many collections and entries you have), recent activity, and quick links to Content, Media, and other areas. You don’t configure it—use it as your starting point to see what’s in the CMS and jump to the right section.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>The <strong>Dashboard</strong> is the admin “home page.” Right after you log in, you land here. It’s designed to answer: <em>What’s in my CMS right now?</em> and <em>Where do I go next?</em></p>
+<p><strong>What you’ll typically see</strong></p>
+<ul>
+<li><strong>Summary numbers</strong> — For example: how many collections exist, how many entries in total, or how many entries per collection (e.g. “Blog: 12 entries,” “Products: 8 entries”). That helps you see at a glance how much content you have.</li>
+<li><strong>Recent entries</strong> — A short list of the latest content that was created or updated (often with the entry title, collection name, and date). Clicking an item usually opens that entry so you can edit it.</li>
+<li><strong>Quick actions</strong> — Buttons or links such as “Create entry,” “Upload media,” or “Open Blog.” These shortcuts save you from opening the sidebar and drilling down every time.</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>After logging in you might see:</p>
+<ul>
+<li><strong>Collections:</strong> 3 (Blog, Products, Pages)</li>
+<li><strong>Total entries:</strong> 24</li>
+<li><strong>Recent:</strong> “Welcome post” (Blog, edited 2 hours ago), “Blue widget” (Products, created yesterday)</li>
+</ul>
+<p>You can click “Welcome post” to edit it, or click “Blog” to see all blog entries. Nothing on the Dashboard is “editable” itself—it’s a read-only overview. To change content, you go to <strong>Content</strong> and open a collection or an entry; to upload files, you go to <strong>Media</strong>; to change the project name or users, you go to <strong>Settings</strong>.</p>
+<p><strong>Where to go from here</strong></p>
+<ul>
+<li><strong>Content</strong> — Create or edit collections and entries (your main workspace).</li>
+<li><strong>Media</strong> — Upload and manage images and other files.</li>
+<li><strong>Settings</strong> — Change the project name, logo, users, roles, or plugins (usually only for administrators).</li>
+<li><strong>Automation</strong> — Set up workflows or webhooks (if your installation has this).</li>
+<li><strong>Help</strong> — Open the in-admin documentation.</li>
+</ul>
+<p>If you’re an administrator, the Dashboard also helps you spot recent changes so you can review or fix something quickly.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>The Dashboard is a read-only overview screen assembled from the current content and (optionally) activity data. Typical data sources:</p>
+<ul>
+<li><strong>Counts:</strong> Number of collections; number of entries per collection or total. Often derived from filesystem (content directory) or DB depending on storage.</li>
+<li><strong>Recent entries:</strong> Last N entries (by modified or created time), with link to entry editor (e.g. <code>/admin?page=entry-editor&amp;collection=blog&amp;id=...</code>).</li>
+<li><strong>Quick actions:</strong> Static or dynamic links (e.g. “New entry” for a default or first collection).</li>
+</ul>
+<p>No configuration; layout and widgets depend on the Birkly version and any plugin that injects dashboard blocks. For custom metrics or links, use plugin hooks (if available) or extend the dashboard template. Navigation from Dashboard is via the sidebar (Content, Media, Settings, Automation, Help).</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="content-overview.html">Content overview</a></li>
+<li><a href="../00-overview/getting-started.html">Getting started</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

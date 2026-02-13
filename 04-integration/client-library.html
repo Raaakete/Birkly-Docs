@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>client library — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="website-integration.html" class="nav-link">Website integration</a>
+        <a href="client-library.html" class="nav-link active">Client library</a>
+        <a href="public-api.html" class="nav-link">Public API</a>
+        <a href="public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>The Birkly client library is a JavaScript file (<code>birkly-client.js</code>) that you add to your website. It connects to your Birkly CMS, fetches content, and renders the templating syntax in your HTML so you don’t need to write API calls or rendering logic yourself.</p>
+<div class="doc-summary"><p><strong>Add one script tag</strong> to your page: <code>src</code> = your Birkly base URL + <code>/birkly-client.js</code>, and <code>data-cms-url</code> = the same base URL. The script then loads your content and replaces placeholders like <code>{ title }</code> and <code>{for each entry in 'blog'}</code> with real data. You can optionally set <code>data-collection</code> to a default collection. No build step is required—include the script and use the template language in your HTML.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>The <strong>client library</strong> is a small script that does the “fetch content and fill in the page” work for you. You don’t need to learn the API or write <code>fetch()</code> calls—just include the script and use the template tags.</p>
+<p><strong>Including the script</strong></p>
+<p>Put this before the closing <code>&lt;/body&gt;</code> tag. Use your real Birkly URL instead of <code>your-cms-domain.com</code>:</p>
+<p><strong>Production:</strong></p>
+<pre><code>&lt;script src=&quot;https://your-cms-domain.com/birkly-client.js&quot;
+        data-cms-url=&quot;https://your-cms-domain.com&quot;&gt;&lt;/script&gt;</code></pre>
+<p><strong>Local development:</strong></p>
+<pre><code>&lt;script src=&quot;http://localhost:8080/birkly-client.js&quot;
+        data-cms-url=&quot;http://localhost:8080&quot;&gt;&lt;/script&gt;</code></pre>
+<ul>
+<li><strong>src</strong> — Where the browser loads the script from. Usually the same as your CMS URL.</li>
+<li><strong>data-cms-url</strong> — The base URL the script uses for API requests (e.g. to fetch entries). It must point to your Birkly instance. Your site’s domain must be allowed by the CMS (CORS).</li>
+</ul>
+<p><strong>Optional: default collection</strong></p>
+<p>Some versions support <code>data-collection</code> so the page “belongs” to one collection (e.g. for single-entry pages where the slug comes from the URL):</p>
+<pre><code>&lt;script src=&quot;https://your-cms.com/birkly-client.js&quot;
+        data-cms-url=&quot;https://your-cms.com&quot;
+        data-collection=&quot;blog&quot;&gt;&lt;/script&gt;</code></pre>
+<p><strong>What happens when the page loads</strong></p>
+<ol>
+<li>The script runs after the page (DOM) is ready.</li>
+<li>It looks through the page for Birkly template syntax: <code>{ title }</code>, <code>{for each entry in 'blog'}</code>, <code>{if}</code>, etc.</li>
+<li>It figures out which collection(s) to request (from those tags, the URL, or <code>data-collection</code>).</li>
+<li>It calls the Birkly public API (e.g. “give me all blog entries” or “give me the entry with this slug”).</li>
+<li>It replaces the placeholders with the real content: titles, links, dates, images. Loops and conditionals are evaluated.</li>
+<li>The visitor sees the updated page. No extra click or reload is needed for content to appear.</li>
+</ol>
+<p><strong>Example: blog index</strong></p>
+<pre><code>&lt;main&gt;
+  &lt;h1&gt;Blog&lt;/h1&gt;
+  {for each entry in 'blog'}
+    &lt;article&gt;
+      &lt;h2&gt;&lt;a href=&quot;/blog/{ slug }&quot;&gt;{ title }&lt;/a&gt;&lt;/h2&gt;
+      &lt;time&gt;{ date &quot;F j, Y&quot; }&lt;/time&gt;
+      &lt;p&gt;{ excerpt }&lt;/p&gt;
+    &lt;/article&gt;
+  {endfor}
+&lt;/main&gt;
+&lt;script src=&quot;https://cms.example.com/birkly-client.js&quot;
+        data-cms-url=&quot;https://cms.example.com&quot;&gt;&lt;/script&gt;</code></pre>
+<p>The client sees <code>{for each entry in 'blog'}</code>, fetches blog entries from the API, then repeats the block for each entry and fills in <code>{ title }</code>, <code>{ slug }</code>, <code>{ date }</code>, <code>{ excerpt }</code>.</p>
+<p><strong>If something goes wrong</strong></p>
+<ul>
+<li>If the CMS is down or returns an error, placeholders might stay as-is or show nothing. Open the browser’s Developer Tools (Console and Network tabs) to see errors or failed requests.</li>
+<li>Make sure the Birkly <strong>public API</strong> is enabled and that <strong>CORS</strong> allows your website’s domain. Otherwise the browser will block the requests.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Script attributes</strong></p>
+<p>| Attribute | Purpose | |-----------|---------| | <code>src</code> | URL of <code>birkly-client.js</code> (same origin as CMS or CMS domain). | | <code>data-cms-url</code> | Base URL for API requests. Required. | | <code>data-collection</code> | Default collection for the page (when not inferred from template or URL). | | (others) | Version-dependent: e.g. language, preview mode, API key for protected content. |</p>
+<p><strong>Template syntax</strong></p>
+<p>The client uses the same syntax as the rest of the templating docs: <code>{ variable }</code>, <code>{for each entry in 'collection'} … {endfor}</code>, <code>{if} … {endif}</code>, <code>{ date &quot;format&quot; }</code>, <code>{ media … }</code>. See <a href="../03-templating/templating-overview.html">Templating overview</a> and related docs.</p>
+<p><strong>API calls</strong></p>
+<ul>
+<li>Typically: <code>GET {data-cms-url}/api/public/collections/{handle}/entries</code> for lists, and a single-entry endpoint for one item by slug.</li>
+<li>The client may batch or deduplicate requests when multiple collections appear on one page. Implementation is version-specific.</li>
+</ul>
+<p><strong>Errors and fallbacks</strong></p>
+<ul>
+<li>On network or API error, the script may leave placeholders unchanged, show a minimal fallback, or expose an error in the console. No admin credentials are sent; failures are “no data” rather than auth leaks.</li>
+<li>For debugging: check Console for script errors and Network for status codes and response bodies.</li>
+</ul>
+<p><strong>Programmatic use</strong></p>
+<p>Some builds expose a global or module API (e.g. <code>Birkly.getEntries('blog')</code>) so you can fetch content and render it yourself (e.g. in a SPA). This is optional and version-dependent; see the Birkly docs or client source for your release.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="website-integration.html">Website integration</a></li>
+<li><a href="public-api.html">Public API</a></li>
+<li><a href="../03-templating/templating-overview.html">Templating overview</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

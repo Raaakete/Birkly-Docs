@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>what is birkly — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="what-is-birkly.html" class="nav-link active">What is Birkly</a>
+        <a href="what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><div class="doc-summary"><p>Birkly is a content management system (CMS) that stores your content as files (JSON) instead of a database. You manage everything in a web admin panel at <code>/admin</code>, and your website or app displays content via a small client script or the Public API. It suits small teams, static or dynamic sites, and anyone who wants simple backups, no database setup for content, and the option to use version control (e.g. Git) for content files. Birkly supports collections (content types), entries (individual items), a media library, templating, automation, and optional plugins.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Birkly is software that lets you create and edit your website’s content (pages, blog posts, product listings, events, team members, and more) without writing code. You log in to a web page called the <strong>admin panel</strong>, fill in forms, upload images, and click Save. Your actual website then shows that content automatically.</p>
+<p><strong>How it’s different from editing a “normal” website</strong></p>
+<ul>
+<li><strong>Without a CMS:</strong> To change a headline or add a blog post, someone has to edit code or HTML files, then upload or deploy. That usually requires a developer.</li>
+<li><strong>With Birkly:</strong> You open the admin, click the content you want to change (or click “New entry” to add something), edit the text or image in the form, and save. The site shows the update as soon as visitors load the page (or when the client script fetches the latest content). No coding required.</li>
+</ul>
+<p><strong>Where is my content stored?</strong></p>
+<p>Birkly saves your content as simple files in a format called JSON (a standard, readable text format). These files sit in a <strong>content</strong> folder on the server. That means:</p>
+<ul>
+<li>You don’t need a separate database like MySQL or PostgreSQL for the content itself.</li>
+<li>Backing up can be as simple as copying the content and media folders.</li>
+<li>Teams often put these files in version control (e.g. Git) so they can see who changed what and when.</li>
+</ul>
+<p><strong>Example:</strong> A “Blog posts” collection might have a folder like <code>content/collections/blog/entries/</code>. Each post is one JSON file (e.g. <code>my-first-post.json</code>) containing the title, content, date, and other fields you defined.</p>
+<p><strong>How does my website show the content?</strong></p>
+<p>Two main options:</p>
+<ol>
+<li><strong>Client script (simplest):</strong> You add one script tag to your website’s HTML. That script talks to Birkly, fetches the content, and fills in placeholders you’ve written in the page (e.g. “show the title here,” “list all blog posts”). Your HTML stays static; the script replaces the placeholders when the page loads.</li>
+<li><strong>API:</strong> A developer can have your site or app call Birkly’s Public API to get content as data (e.g. JSON) and then display it in a custom layout (e.g. a React or Vue app).</li>
+</ol>
+<p>So: you <strong>edit</strong> in Birkly; visitors <strong>see</strong> the result on your site. The admin is never public—only people with an account can log in.</p>
+<p><strong>Who is it for?</strong></p>
+<ul>
+<li><strong>Content editors and marketers:</strong> Update text, images, and structure without touching code.</li>
+<li><strong>Small business owners and designers:</strong> One place to manage all site content and media.</li>
+<li><strong>Developers:</strong> Connect any frontend (static HTML, React, mobile app) via the client script or the Public API; optional automation (webhooks, scheduled tasks) and plugins for custom behaviour.</li>
+</ul>
+<p><strong>Real-world example</strong></p>
+<p>Imagine a small agency that runs several client websites. They install Birkly once per client (or use one Birkly with different projects). For each site they create collections such as “Services,” “Team,” “Blog,” and “Testimonials.” The client (or the agency) logs in, adds or edits entries, and publishes. The live site pulls the content from Birkly, so the client never has to wait for a developer to “put the new blog post online.”</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Birkly is a <strong>file-based CMS</strong>: content is stored as JSON in a content directory; an optional database (e.g. SQLite) can be used for users, sessions, and plugins. Admin UI at <code>/admin</code>; delivery via <strong>client library</strong> (<code>birkly-client.js</code>, templating in HTML) or <strong>Public API</strong> (REST, read and optionally submit).</p>
+<p><strong>Content model</strong></p>
+<ul>
+<li><strong>Collections</strong> — Schema for one content type: <code>handle</code> (e.g. <code>blog</code>, <code>products</code>), <code>fields</code> (name, type, required, options), <code>entry method</code> (admin-only vs public API). Stored as collection config (e.g. <code>collection.json</code> + <code>schema.json</code>).</li>
+<li><strong>Entries</strong> — One record per item: field values plus system fields (<code>slug</code>, <code>status</code>, optional <code>id</code>, timestamps). Stored as one JSON file per entry under <code>content/collections/{handle}/entries/</code>.</li>
+<li><strong>Media</strong> — Uploads in a media directory; referenced by filename or ID in entry JSON.</li>
+<li><strong>Templates</strong> — Simple language: <code>{ variable }</code>, <code>{for each entry in 'collection'}</code>, <code>{if}</code>, <code>{from 'blog' get entry 'slug'}</code>. Client fetches from API and renders; or server-side rendering if the stack supports it.</li>
+</ul>
+<p><strong>Example: collection handle and API</strong></p>
+<ul>
+<li>Collection handle: <code>blog</code>.</li>
+<li>List entries: <code>GET /api/public/collections/blog/entries?limit=10&amp;sort=date:desc</code>.</li>
+<li>Single entry: <code>GET /api/public/collections/blog/entries/my-post-slug</code>.</li>
+<li>Response: JSON array or object with field keys matching the collection schema.</li>
+</ul>
+<p><strong>File-based benefits</strong></p>
+<ul>
+<li>No MySQL/PostgreSQL for content; lower setup and backup complexity.</li>
+<li>Content is portable (copy folder), Git-friendly (diff, history), and cache-friendly (files can be served or cached by the frontend/reverse proxy).</li>
+<li>Optional DB used for auth, sessions, plugins, automation state—not for the core content store.</li>
+</ul>
+<p><strong>Integration options</strong></p>
+<ul>
+<li><strong>Client script:</strong> <code>&lt;script src=&quot;https://your-cms.example.com/birkly-client.js&quot; data-cms-url=&quot;https://your-cms.example.com&quot;&gt;&lt;/script&gt;</code>. Use templating in the same HTML.</li>
+<li><strong>Public API:</strong> Read (and, if configured, submit) via REST. No admin auth required for public read; use rate limiting and optional tokens for submit.</li>
+<li><strong>Webhooks / automation:</strong> Trigger workflows on schedule or via incoming webhooks; call external APIs, send Slack/email, etc.</li>
+</ul>
+<p>See <a href="../04-integration/website-integration.html">Website integration</a>, <a href="../04-integration/public-api.html">Public API</a>, <a href="../04-integration/client-library.html">Client library</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="what-is-a-cms.html">What is a CMS?</a></li>
+<li><a href="getting-started.html">Getting started</a></li>
+<li><a href="../02-content/collections.html">Collections</a></li>
+<li><a href="../04-integration/website-integration.html">Website integration</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

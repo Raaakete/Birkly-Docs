@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOCS_ARCHITECTURE — Birkly Docs</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="01-admin/account.html" class="nav-link">Account</a>
+        <a href="01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="02-content/collections.html" class="nav-link">Collections</a>
+        <a href="02-content/entries.html" class="nav-link">Entries</a>
+        <a href="02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="07-operations/security.html" class="nav-link">Security</a>
+        <a href="07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="DOCS_ARCHITECTURE.html" class="nav-link active">Docs architecture</a>
+        <a href="README.html" class="nav-link">README</a>
+        <a href="CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>This document defines how Birkly documentation is structured, written, and consumed. <strong>Birkly Docs</strong> is the single source of truth for all Birkly documentation, whether it appears in the CMS admin (Help), the marketing website, developer portals, or other channels.</p>
+<p>---</p>
+<h2>1. Purpose and principles</h2>
+<h3>1.1 Single source of truth</h3>
+<ul>
+<li><strong>All</strong> Birkly documentation lives in this folder (Birkly Docs).</li>
+<li>Any other place that shows docs (CMS Help, website, PDFs, etc.) should <strong>pull</strong> from here, not duplicate content.</li>
+<li>Edits happen once; consumers update by re-importing, rebuilding, or including the same source.</li>
+</ul>
+<h3>1.2 One summary, two deep-dives (toggles)</h3>
+<p>Every topic is written so that:</p>
+<p>| Part | Who it's for | How it's shown | |------|--------------|-----------------| | <strong>Summary</strong> | Everyone | Always visible. Short overview of the topic. | | <strong>Beginner</strong> | Non-technical users (business owners, designers, marketers, content editors) | Toggle: opens a detailed explanation in plain, easy-to-understand language. Step-by-step, no jargon (or jargon explained). | | <strong>Advanced Users</strong> | Technical users (developers, integrators, power users) | Toggle: opens a detailed explanation in efficient, technical language. Denser, assumes familiarity with concepts; often shorter than the Beginner version. |</p>
+<p>So: <strong>one summary for all</strong>, then <strong>two optional toggles</strong> — one for beginners, one for advanced users. Readers choose the depth and language that fits them.</p>
+<p>---</p>
+<h2>2. Content pattern (Summary + Beginner + Advanced Users)</h2>
+<h3>2.1 Summary</h3>
+<ul>
+<li><strong>Length:</strong> A short paragraph (or a few bullets) that summarizes the topic for <em>any</em> reader.</li>
+<li><strong>Tone:</strong> Neutral, clear. No need to avoid technical terms entirely, but don’t rely on them.</li>
+<li><strong>Content:</strong> What the feature or concept is, why it matters, and the main takeaway (e.g. “Collections let you define content types; you then add entries to them.”).</li>
+<li><strong>Visibility:</strong> Always shown. No toggle.</li>
+</ul>
+<p><strong>Example (Collections):</strong></p>
+<blockquote><p><strong>Summary:</strong> Collections are content types in Birkly (e.g. “Blog posts”, “Products”). You define a collection once with a set of fields (title, text, image, date, etc.), then add as many entries as you need. The collection’s handle (e.g. <code>blog</code>) is used in the admin, in templates, and in the API.</p></blockquote>
+<h3>2.2 Beginner (toggle)</h3>
+<ul>
+<li><strong>Length:</strong> As long as needed. Can be longer than the Advanced section.</li>
+<li><strong>Tone:</strong> Plain language, friendly. Explain terms when you first use them (e.g. “slug (the short URL-friendly part of the title)”).</li>
+<li><strong>Content:</strong></li>
+</ul>
+<p>  - What the feature is and why you’d use it   - Step-by-step instructions (e.g. “Go to Content → click the collection → click New entry”)   - Examples in everyday language   - No assumed technical background; avoid or explain acronyms and jargon</p>
+<ul>
+<li><strong>Audience:</strong> Business owners, designers, marketers, content editors — anyone who wants to get things done without learning technical details.</li>
+</ul>
+<p><strong>Example (Collections — Beginner):</strong></p>
+<blockquote><p><strong>Beginner:</strong>  </p><p>A collection is like a form template. Imagine you want to manage blog posts: you create a collection called “Blog posts” and add fields such as “Title”, “Content”, “Publication date”, and “Featured image”. From then on, every new post is just filling out that form in the admin. You don’t need to touch code.  </p><p>To create a collection: open <strong>Content</strong> in the sidebar, click <strong>Create collection</strong>, give it a name (e.g. “Blog posts”), then add fields one by one. Each field has a type (text, long text, date, image, etc.). When you’re done, save. You can then add as many entries (posts) as you want.  </p><p>…</p></blockquote>
+<h3>2.3 Advanced Users (toggle)</h3>
+<ul>
+<li><strong>Length:</strong> Detailed but efficient. Often shorter than the Beginner section because it uses technical terms and skips basic explanations.</li>
+<li><strong>Tone:</strong> Precise, technical. Assume familiarity with CMS concepts, APIs, or the admin.</li>
+<li><strong>Content:</strong></li>
+</ul>
+<p>  - Definition and how it fits in the system (collections, schema, handle, entry method)   - Configuration options, settings, and behaviour   - Code or config examples where useful   - Links to API, templating, or related docs</p>
+<ul>
+<li><strong>Audience:</strong> Developers, integrators, technical staff who need the “how it really works” and “how to configure/integrate” view.</li>
+</ul>
+<p><strong>Example (Collections — Advanced Users):</strong></p>
+<blockquote><p><strong>Advanced Users:</strong>  </p><p>A collection is the schema for one content type: it defines the <strong>fields</strong> (name, type, required, options) and <strong>entry method</strong> (admin-only vs public API). Each collection has a unique <strong>handle</strong> (e.g. <code>blog</code>, <code>products</code>) used in templates (<code>{from 'blog' get entries}</code>) and the Public API (<code>/api/public/collections/blog/entries</code>).  </p><p>Create and edit under <strong>Content</strong>. Settings tab: entry method (admin only / public API), and, for public API, rate limit, auto-publish, CAPTCHA. Field keys become entry JSON and template variables.  </p><p>See <a href="02-content/field-types.html">Field types</a>, <a href="04-integration/public-api.html">Public API</a>.  </p><p>…</p></blockquote>
+<h3>2.4 Related (optional)</h3>
+<ul>
+<li>A short list of links to other docs. Can appear after the toggles.</li>
+</ul>
+<p>---</p>
+<h2>3. Document and folder structure</h2>
+<h3>3.1 Folder layout</h3>
+<p>The folder layout is unchanged: numbered sections (<code>00-overview</code>, <code>01-admin</code>, …), one topic per file, cross-links between docs. See the full tree in the previous version of this file or in <strong>CONTENTS_INDEX.md</strong>.</p>
+<h3>3.2 Standard sections inside each topic file</h3>
+<p>Each topic file should follow this structure:</p>
+<pre><code># Topic title (e.g. Collections)</code></pre>
+<div class="doc-summary"><p>… Short overview for all users. Always visible. …</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>… Detailed explanation in plain language for non-technical users. Shown in a toggle. …</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>… Detailed explanation in technical language for developers and power users. Shown in a toggle. …</p></div></details>
+<div class="doc-related"><ul>
+<li>[Link to related doc]</li>
+</ul>
+<pre><code>
+- **Summary** is required and always shown.
+- **Beginner** and **Advanced Users** are required for feature/concept topics. They are rendered as toggles (e.g. `&lt;details&gt;` / `&lt;summary&gt;` in HTML) so the reader can open the one they need.
+- **Related** is optional but recommended.
+
+---
+
+## 4. Consuming Birkly Docs (how other places get their content)
+
+### 4.1 CMS admin (Help)
+
+- Show **Summary** by default.
+- Offer two toggles or links: **Beginner** and **Advanced Users**, each expanding or linking to the corresponding section.
+- Implementation: same as before (build from Markdown or include from this folder); only the section names and UI (toggles) change.
+
+### 4.2 Marketing / product website
+
+- Use **Summary** for teasers, cards, or “What is X?”.
+- Full doc page: Summary + two toggles (Beginner / Advanced Users) so visitors can pick their level.
+
+### 4.3 Developer portal
+
+- **Summary** at the top.
+- **Advanced Users** can be open by default or prominently linked; **Beginner** still available for non-technical stakeholders.
+
+### 4.4 Static HTML docs site
+
+- Each page: Summary (always visible), then two collapsible sections: “Beginner” and “Advanced Users”, implemented with `&lt;details&gt;` and `&lt;summary&gt;` (no JavaScript required).
+
+---
+
+## 5. Naming and linking conventions
+
+- **Internal links:** Use relative paths, e.g. `[Field types](02-content/field-types.md)`.
+- In **Beginner** sections, avoid jargon or explain it in one phrase. In **Advanced Users**, use standard terms (handle, slug, API, webhook, etc.) and link to the glossary or related docs where helpful.
+
+---
+
+## 6. Glossary and consistency
+
+- **meta/glossary.md** lists terms with one-line definitions. Use them consistently.
+- **Summary:** understandable by everyone. **Beginner:** no unexplained jargon. **Advanced Users:** technical language is fine.
+
+---
+
+## 7. Maintenance
+
+- When changing Birkly behaviour, update the corresponding doc and keep **Summary**, **Beginner**, and **Advanced Users** in sync.
+- Use **meta/changelog-docs.md** for doc-only changes.
+
+---
+
+## 8. Summary (architecture)
+
+| Item | Rule |
+|------|------|
+| **Source of truth** | Birkly Docs folder only |
+| **Structure** | Every topic: **Summary** (always visible) + **Beginner** (toggle) + **Advanced Users** (toggle) |
+| **Summary** | Short overview for all users |
+| **Beginner** | Detailed, plain language, for non-technical users |
+| **Advanced Users** | Detailed, technical language, for developers and power users |
+| **Format** | Markdown; standard sections: Summary, Beginner, Advanced Users, Related |
+| **Consumers** | CMS Help, website, developer portal, static HTML — all pull from here |
+
+This keeps documentation in one place and serves both non-technical and technical readers with one summary and two optional deep-dives.</code></pre></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>updates — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link active">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Keeping Birkly and its plugins up to date gives you bug fixes, security patches, and new features. The update process depends on how you installed Birkly (manual download, Git, package manager) and whether an in-admin updater is available.</p>
+<div class="doc-summary"><p><strong>Updates</strong> for Birkly core and plugins: Check <strong>Settings → Updates</strong> (or <strong>Updates</strong> in the sidebar) if your version has an in-admin updater. It may show available core and plugin updates and let you apply them with one click (after backup). If you installed via <strong>Git</strong>, pull the latest from the repo and run any migration or script the project documents. If you installed by <strong>downloading files</strong>, replace the core files with the new release (keep your <code>content/</code>, <code>media/</code>, <code>settings/</code> intact) and run any upgrade steps. Always <strong>back up</strong> content and database (if used) before updating. See <a href="../07-operations/backup-and-restore.html">Backup and restore</a>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Updating</strong> means installing a newer version of Birkly (or a plugin) so you get bug fixes, security fixes, and new features. You should do it regularly, but always <strong>back up first</strong> so you can restore if something goes wrong.</p>
+<p><strong>Before you update</strong></p>
+<ol>
+<li><strong>Back up</strong> — Copy your Birkly folder (or at least <code>content/</code>, <code>media/</code>, <code>settings/</code>, and the database if you use one) to a safe place. See <a href="../07-operations/backup-and-restore.html">Backup and restore</a>.</li>
+<li><strong>Read the release notes</strong> — The new version might have breaking changes, new required settings, or special upgrade steps. Check the project’s changelog or release notes.</li>
+<li><strong>Check compatibility</strong> — Make sure your PHP version and any plugins are compatible with the new Birkly version.</li>
+</ol>
+<p><strong>If your admin has an “Updates” page</strong></p>
+<ol>
+<li>Go to <strong>Settings → Updates</strong> (or <strong>Updates</strong> in the sidebar).</li>
+<li>The page may show your current Birkly version and whether a <strong>core update</strong> or <strong>plugin updates</strong> are available.</li>
+<li>Click <strong>Update</strong> for core or a plugin. The system may download and apply the update and run any migrations. Don’t close the browser or interrupt the process.</li>
+<li>If the update fails, restore from your backup and try again later or ask your host/developer for help.</li>
+</ol>
+<p><strong>If you don’t have an in-admin updater</strong></p>
+<ul>
+<li><strong>Installed by downloading files:</strong> Download the new release (zip) from the project. Replace the <strong>core</strong> files (e.g. <code>api/</code>, <code>core/</code>, <code>fieldtypes/</code>, <code>index.php</code>) with the new ones. <strong>Do not</strong> overwrite your <code>content/</code>, <code>media/</code>, or <code>settings/</code> folders with the zip’s empty or sample folders—keep your data. If the release notes mention an upgrade script (e.g. <code>php scripts/upgrade.php</code>), run it. Then clear any caches and test the site.</li>
+<li><strong>Installed via Git:</strong> Your developer or host may run <code>git pull</code> and then a migration or upgrade script. You might only need to refresh the admin and test.</li>
+</ul>
+<p><strong>Plugin updates</strong></p>
+<ul>
+<li>If the Updates page shows plugin updates, use the in-admin button for each plugin. Otherwise, the plugin author may tell you to replace the plugin folder with the new version (back up the old one first). Some plugins have their own migration or config changes—check the plugin’s readme.</li>
+</ul>
+<p><strong>After updating</strong></p>
+<ul>
+<li>Log in, open a few entries, and load a public page to make sure everything works. If something is broken, restore from backup and report the issue (include Birkly version, PHP version, and error messages) to the project or your host.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Before updating</strong></p>
+<ul>
+<li><strong>Backup</strong> — Full backup of <code>content/</code>, <code>media/</code>, <code>settings/</code>, <code>data/</code>, database (if used), and optionally <code>plugins/</code>. See <a href="../07-operations/backup-and-restore.html">Backup and restore</a>.</li>
+<li><strong>Changelog</strong> — Check for breaking changes, new config, migrations.</li>
+<li><strong>Compatibility</strong> — PHP version, extensions, plugin compatibility with new core.</li>
+</ul>
+<p><strong>In-admin updater</strong></p>
+<ul>
+<li><strong>Settings → Updates</strong> may show current version, available core update, plugin updates. Apply via UI; system may download, replace files, run migrations. Do not interrupt. On failure, restore from backup and update manually or investigate.</li>
+</ul>
+<p><strong>Manual update (core)</strong></p>
+<ol>
+<li><strong>Download</strong> new release (zip or <code>git pull</code>).</li>
+<li><strong>Replace</strong> core files (<code>api/</code>, <code>core/</code>, <code>fieldtypes/</code>, <code>index.php</code>, etc.). Do <strong>not</strong> overwrite <code>content/</code>, <code>media/</code>, <code>settings/</code> with defaults; preserve <code>plugins/</code> unless docs say otherwise.</li>
+<li><strong>Run</strong> upgrade script or migrations from release notes (e.g. <code>php scripts/upgrade.php</code>, DB migrations).</li>
+<li><strong>Clear</strong> caches (file cache, opcode, reverse proxy).</li>
+<li><strong>Test</strong> — Login, content, templates, public API.</li>
+</ol>
+<p><strong>Plugin updates</strong></p>
+<ul>
+<li>Use in-admin update if available. Otherwise replace plugin folder with new version (back up first); clear cache; check plugin readme for migrations or config changes.</li>
+</ul>
+<p><strong>After updating</strong></p>
+<ul>
+<li>Verify login, content list, entry edit, one public page. On failure, restore from backup and report with version info and error details.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="../07-operations/backup-and-restore.html">Backup and restore</a></li>
+<li><a href="../07-operations/deployment.html">Deployment</a></li>
+<li><a href="plugins.html">Plugins</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

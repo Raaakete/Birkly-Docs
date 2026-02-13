@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>templating overview — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="templating-overview.html" class="nav-link active">Templating overview</a>
+        <a href="variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Birkly uses a simple templating language in your HTML: placeholders like <code>{ title }</code> and blocks like <code>{for each entry in 'blog'}</code> are replaced with real content from the CMS when the page is rendered.</p>
+<div class="doc-summary"><p><strong>Templating</strong> is how your website displays Birkly content. In your HTML you write variables (e.g. <code>{ title }</code>), loops (e.g. <code>{for each entry in 'blog'} … {endfor}</code>), and conditionals (e.g. <code>{if} … {endif}</code>). The Birkly client script in the browser—or server-side rendering—fetches content and replaces those placeholders. You use single braces <code>{ }</code>, plain-English style tags, and safe output by default. No full programming language is required—just the syntax described in the templating docs.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Templating is the bridge between your <strong>content in Birkly</strong> and what <strong>visitors see</strong> on your site. You don’t paste content by hand into every page; instead you leave “slots” in your HTML and Birkly fills them with the right data.</p>
+<p><strong>What you actually do</strong></p>
+<ol>
+<li><strong>Write your page layout</strong> in HTML (headings, sections, columns, styles) as you normally would.</li>
+<li><strong>Insert template tags</strong> where content should come from the CMS:</li>
+</ol>
+<p>   - Show a title: <code>{ title }</code>    - Show a list of blog posts: <code>{for each entry in 'blog'} … {endfor}</code> with <code>{ title }</code>, <code>{ slug }</code>, etc. inside    - Show something only when it exists: <code>{if entry has excerpt} … {endif}</code></p>
+<ol>
+<li><strong>Publish or open the page.</strong> The Birkly client (or your server) loads content from Birkly and swaps the tags for real text, links, and images.</li>
+</ol>
+<p><strong>Example: a simple blog index page</strong></p>
+<p>Your HTML might look like this:</p>
+<pre><code>&lt;h1&gt;Our Blog&lt;/h1&gt;
+
+{for each entry in 'blog'}
+  &lt;article&gt;
+    &lt;h2&gt;&lt;a href=&quot;/blog/{ slug }&quot;&gt;{ title }&lt;/a&gt;&lt;/h2&gt;
+    &lt;time&gt;{ date &quot;F j, Y&quot; }&lt;/time&gt;
+    &lt;p&gt;{ excerpt }&lt;/p&gt;
+  &lt;/article&gt;
+{endfor}</code></pre>
+<p>When the page runs, the loop runs once per blog entry. Each article shows that entry’s title (linked), date, and excerpt. You don’t edit this HTML when you add a new post—Birkly does it automatically.</p>
+<p><strong>Where does the replacement happen?</strong></p>
+<ul>
+<li><strong>In the browser (client-side):</strong> A small script (<code>birkly-client.js</code>) runs on your page, asks Birkly for content (e.g. “give me all blog entries”), and then finds the template tags in the page and replaces them. This works well for static HTML sites without a server language.</li>
+<li><strong>On the server (server-side):</strong> Some setups use PHP or another language to load content and render the same template tags before sending HTML to the visitor. The idea is the same; only the place where it runs is different.</li>
+</ul>
+<p><strong>Is it safe?</strong></p>
+<p>Yes. Plain text (e.g. from a Text or Textarea field) is usually <strong>escaped</strong>: characters like <code>&lt;</code> and <code>&gt;</code> are turned into safe form so they can’t inject scripts. Rich editor content is often output as <strong>HTML</strong> on purpose so headings and links look correct—Birkly is designed so that content comes from your own CMS, not from random visitors.</p>
+<p><strong>What to read next</strong></p>
+<ul>
+<li><a href="variables-and-output.html">Variables and output</a> — How to display a single value: <code>{ title }</code>, <code>{ content }</code>, dates, media.</li>
+<li><a href="loops-and-lists.html">Loops and lists</a> — How to list all entries or items (blog index, tags, gallery).</li>
+<li><a href="conditionals.html">Conditionals</a> — How to show or hide blocks with <code>{if}</code>.</li>
+<li><a href="dates-and-formatting.html">Dates and formatting</a> — How to format dates (e.g. “January 5, 2025”).</li>
+<li><a href="media-in-templates.html">Media in templates</a> — How to show images and file links.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Architecture</strong></p>
+<ol>
+<li><strong>Template source:</strong> HTML (or a server-rendered view) contains the Birkly template syntax.</li>
+<li><strong>Content source:</strong> The Birkly client (browser) or a server-side renderer loads content via the Birkly API (or content files on disk).</li>
+<li><strong>Engine:</strong> Replaces variables <code>{ field }</code>, loops <code>{for each …}</code>, conditionals <code>{if} … {endif}</code>, and helpers (e.g. <code>{ media … }</code>, <code>{ date &quot;format&quot; }</code>) with actual data.</li>
+<li><strong>Output:</strong> Final HTML with content in place. Text/textarea typically escaped; editor (rich text) output as HTML.</li>
+</ol>
+<p><strong>Key syntax (concise)</strong></p>
+<p>| Concept | Typical syntax | Notes | |--------|-----------------|--------| | Variable | <code>{ variable_name }</code> | Single braces, spaces; name = field key. | | Loop (collection) | <code>{for each entry in 'collection'}</code> … <code>{endfor}</code> | Inside loop, variables refer to current entry. | | Single entry | <code>{from 'blog' get entry 'slug'}</code> | Load one entry by slug; following vars refer to it. | | Conditional | <code>{if condition}</code> … <code>{else}</code> … <code>{endif}</code> | e.g. <code>{if 'blog' has entries}</code>, <code>{if entry has excerpt}</code>. | | Date format | <code>{ date_field &quot;F j, Y&quot; }</code> | PHP-style format string. | | Media | <code>{ media 'file.jpg' }</code> or <code>{ media field_name }</code> | URL; some engines support width/height/crop. |</p>
+<p><strong>Environments</strong></p>
+<ul>
+<li><strong>Client-side:</strong> <code>birkly-client.js</code> fetches from the public API, walks the DOM (or a cloned fragment), replaces placeholders, and injects the result. No build step required; works with static HTML.</li>
+<li><strong>Server-side:</strong> PHP (or other) can load entries from API or from content files and run the same template rules before sending HTML. Same syntax; different execution and no CORS/API exposure to the client.</li>
+</ul>
+<p><strong>Safety</strong></p>
+<ul>
+<li>Escaping is applied to plain-text fields by default. Editor/HTML fields are intentionally rendered as HTML; only use them in trusted templates. The exact behaviour (which field types are escaped vs raw) is documented per field type in the admin Help or <a href="../02-content/field-types.html">Field types</a>.</li>
+</ul>
+<p><strong>Related</strong></p>
+<ul>
+<li><a href="variables-and-output.html">Variables and output</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+<li><a href="conditionals.html">Conditionals</a></li>
+<li><a href="dates-and-formatting.html">Dates and formatting</a></li>
+<li><a href="media-in-templates.html">Media in templates</a></li>
+<li><a href="../04-integration/website-integration.html">Website integration</a></li>
+<li><a href="../04-integration/client-library.html">Client library</a></li>
+</ul></div></details></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

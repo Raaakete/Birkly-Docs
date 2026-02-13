@@ -1,0 +1,40 @@
+{
+  "name": "@birkly/docs",
+  "version": "1.0.0",
+  "description": "Birkly CMS documentation - single source of truth",
+  "main": "index.html",
+  "scripts": {
+    "build": "node build-static.js",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Raaakete/Birkly-Docs.git"
+  },
+  "keywords": [
+    "birkly",
+    "cms",
+    "documentation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "files": [
+    "*.html",
+    "*.md",
+    "*.json",
+    "*.js",
+    "*.css",
+    "**/*.html",
+    "**/*.md",
+    "css/",
+    "00-overview/",
+    "01-admin/",
+    "02-content/",
+    "03-templating/",
+    "04-integration/",
+    "05-automation/",
+    "06-extensibility/",
+    "07-operations/",
+    "meta/"
+  ]
+}

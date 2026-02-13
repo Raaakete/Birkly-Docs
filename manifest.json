@@ -1,0 +1,107 @@
+{
+  "title": "Birkly Docs",
+  "sections": [
+    {
+      "id": "overview",
+      "label": "Overview",
+      "items": [
+        { "path": "00-overview/what-is-birkly.md", "label": "What is Birkly" },
+        { "path": "00-overview/what-is-a-cms.md", "label": "What is a CMS" },
+        { "path": "00-overview/getting-started.md", "label": "Getting started" }
+      ]
+    },
+    {
+      "id": "admin",
+      "label": "Admin",
+      "items": [
+        { "path": "01-admin/dashboard.md", "label": "Dashboard" },
+        { "path": "01-admin/content-overview.md", "label": "Content overview" },
+        { "path": "01-admin/media-library.md", "label": "Media library" },
+        { "path": "01-admin/settings.md", "label": "Settings" },
+        { "path": "01-admin/roles-and-permissions.md", "label": "Roles and permissions" },
+        { "path": "01-admin/account.md", "label": "Account" },
+        { "path": "01-admin/help-and-onboarding.md", "label": "Help and onboarding" }
+      ]
+    },
+    {
+      "id": "content",
+      "label": "Content",
+      "items": [
+        { "path": "02-content/collections.md", "label": "Collections" },
+        { "path": "02-content/entries.md", "label": "Entries" },
+        { "path": "02-content/field-types.md", "label": "Field types" },
+        { "path": "02-content/slugs-and-status.md", "label": "Slugs and status" }
+      ]
+    },
+    {
+      "id": "templating",
+      "label": "Templating",
+      "items": [
+        { "path": "03-templating/templating-overview.md", "label": "Templating overview" },
+        { "path": "03-templating/variables-and-output.md", "label": "Variables and output" },
+        { "path": "03-templating/loops-and-lists.md", "label": "Loops and lists" },
+        { "path": "03-templating/conditionals.md", "label": "Conditionals" },
+        { "path": "03-templating/dates-and-formatting.md", "label": "Dates and formatting" },
+        { "path": "03-templating/media-in-templates.md", "label": "Media in templates" }
+      ]
+    },
+    {
+      "id": "integration",
+      "label": "Integration",
+      "items": [
+        { "path": "04-integration/website-integration.md", "label": "Website integration" },
+        { "path": "04-integration/client-library.md", "label": "Client library" },
+        { "path": "04-integration/public-api.md", "label": "Public API" },
+        { "path": "04-integration/public-forms.md", "label": "Public forms" }
+      ]
+    },
+    {
+      "id": "automation",
+      "label": "Automation",
+      "items": [
+        { "path": "05-automation/automation-overview.md", "label": "Automation overview" },
+        { "path": "05-automation/triggers.md", "label": "Triggers" },
+        { "path": "05-automation/conditions-and-actions.md", "label": "Conditions and actions" },
+        { "path": "05-automation/webhooks.md", "label": "Webhooks" }
+      ]
+    },
+    {
+      "id": "extensibility",
+      "label": "Extensibility",
+      "items": [
+        { "path": "06-extensibility/plugins.md", "label": "Plugins" },
+        { "path": "06-extensibility/templates-pages.md", "label": "Templates (pages)" },
+        { "path": "06-extensibility/audit-log-and-activity.md", "label": "Audit log and activity" },
+        { "path": "06-extensibility/updates.md", "label": "Updates" }
+      ]
+    },
+    {
+      "id": "operations",
+      "label": "Operations",
+      "items": [
+        { "path": "07-operations/deployment.md", "label": "Deployment" },
+        { "path": "07-operations/security.md", "label": "Security" },
+        { "path": "07-operations/backup-and-restore.md", "label": "Backup and restore" },
+        { "path": "07-operations/troubleshooting.md", "label": "Troubleshooting" }
+      ]
+    },
+    {
+      "id": "meta",
+      "label": "Meta",
+      "items": [
+        { "path": "meta/glossary.md", "label": "Glossary" },
+        { "path": "meta/audience-matrix.md", "label": "Audience matrix" },
+        { "path": "meta/changelog-docs.md", "label": "Changelog (docs)" }
+      ]
+    },
+    {
+      "id": "source",
+      "label": "Source",
+      "items": [
+        { "path": "DOCS_ARCHITECTURE.md", "label": "Docs architecture" },
+        { "path": "README.md", "label": "README" },
+        { "path": "CONTENTS_INDEX.md", "label": "Contents index" }
+      ]
+    }
+  ]
+}

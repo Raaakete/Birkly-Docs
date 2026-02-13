@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>audience matrix — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="glossary.html" class="nav-link">Glossary</a>
+        <a href="audience-matrix.html" class="nav-link active">Audience matrix</a>
+        <a href="changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Which documentation topics are most relevant to which audience. Each topic has a <strong>Summary</strong> (for everyone), a <strong>Beginner</strong> toggle (plain language), and an <strong>Advanced Users</strong> toggle (technical). Use this when deciding what to emphasize in the CMS Help or on the website.</p>
+<div class="doc-summary"><p>The docs are structured so <strong>everyone</strong> sees a short <strong>Summary</strong> first. <strong>Non-technical</strong> readers (editors, site owners, marketers) can open the <strong>Beginner</strong> section for step-by-step, plain-language explanations and examples. <strong>Technical</strong> readers (developers, integrators) can open <strong>Advanced Users</strong> for implementation details, APIs, and conventions. Use this matrix to plan which topics to show in the CMS Help, on the marketing site, or in the developer portal.</p>
+<p>| Topic | Non-technical (editors, site owners, marketers) | Technical (developers, integrators) | |-------|-----------------------------------------------|-------------------------------------| | <strong>00 Overview</strong> | ✓ Summary + Beginner | ✓ Summary + Advanced Users | | What is a CMS | ✓ Primary | ✓ Optional | | What is Birkly | ✓ Primary | ✓ Primary | | Getting started | ✓ Primary | ✓ Primary | | <strong>01 Admin</strong> | ✓ Summary + Beginner | ✓ Summary + Advanced Users | | Dashboard, Content overview, Media, Settings, Roles, Account, Help | ✓ Primary | ✓ Reference | | <strong>02 Content</strong> | ✓ Summary + Beginner | ✓ Summary + Advanced Users | | Collections, Entries, Field types, Slugs and status | ✓ Primary | ✓ Primary | | <strong>03 Templating</strong> | ✓ Summary + Beginner (concepts) | ✓ Summary + Advanced Users (syntax, engine) | | <strong>04 Integration</strong> | ✓ Summary + Beginner (script tag, forms) | ✓ Summary + Advanced Users (API, CORS, SSR) | | <strong>05 Automation</strong> | ✓ Summary + Beginner | ✓ Summary + Advanced Users | | <strong>06 Extensibility</strong> | ✓ Summary + Beginner (enable/disable plugins) | ✓ Summary + Advanced Users (structure, hooks) | | <strong>07 Operations</strong> | ✓ Summary + Beginner (backup, common issues) | ✓ Summary + Advanced Users (deploy, security) |</p>
+<p><strong>Legend</strong></p>
+<ul>
+<li><strong>Summary</strong> = Shown to everyone.</li>
+<li><strong>Beginner</strong> = Toggle with detailed, plain-language explanation and examples.</li>
+<li><strong>Advanced Users</strong> = Toggle with detailed, technical explanation and examples.</li>
+<li><strong>Primary</strong> = Core for this audience. <strong>Reference</strong> = Look up when needed.</li>
+</ul>
+<p><strong>Usage</strong></p>
+<ul>
+<li><strong>CMS Help:</strong> Show Summary by default; offer “Beginner” and “Advanced Users” as toggles so each reader can open the level they need.</li>
+<li><strong>Marketing website:</strong> Use Summary for teasers; full page = Summary + both toggles.</li>
+<li><strong>Developer portal:</strong> Summary at top; “Advanced Users” can be open by default or linked prominently; “Beginner” still available for non-developers.</li>
+</ul>
+<p><strong>Example: “Collections” in the CMS</strong></p>
+<ul>
+<li><strong>Summary:</strong> “Collections are content types (e.g. Blog, Products). You define fields once, then add as many entries as you need. The handle is used in templates and the API.”</li>
+<li><strong>Beginner:</strong> Step-by-step “Create a collection”, table of example fields for Blog and Products, where to find Entry method and what Public API means.</li>
+<li><strong>Advanced Users:</strong> Schema concept, handle usage in templating and API, example config (JSON), best practices (stable handle, no key renames after entries exist).</li>
+</ul></div>
+<div class="doc-related"><ul>
+<li><a href="../CONTENTS_INDEX.html">CONTENTS_INDEX</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="changelog-docs.html">Changelog (docs)</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

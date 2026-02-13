@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Optional: if you want to ignore HTML and only build via CI
+# *.html
+# !index.html

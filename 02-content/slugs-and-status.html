@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>slugs and status — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="collections.html" class="nav-link">Collections</a>
+        <a href="entries.html" class="nav-link">Entries</a>
+        <a href="field-types.html" class="nav-link">Field types</a>
+        <a href="slugs-and-status.html" class="nav-link active">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><div class="doc-summary"><p>Every entry has a <strong>slug</strong> (a short, URL-friendly identifier, e.g. <code>my-first-post</code>) and a <strong>status</strong> (Draft or Published). The slug is used in URLs and when loading a single entry in templates or the API; it’s often auto-generated from the title and can be edited. Status controls visibility: only <strong>Published</strong> entries are normally shown on your site and in the Public API. Use <strong>Draft</strong> while working; switch to <strong>Published</strong> when the content is ready to go live. You can change an entry back to Draft to unpublish it without deleting.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Slug</strong></p>
+<p>The <strong>slug</strong> is the part of the entry that goes in the web address and in the system when “loading this one item.” It’s short, uses only letters, numbers, and hyphens (no spaces or special characters).</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Title: “Welcome to our blog” → slug: <code>welcome-to-our-blog</code>.</li>
+<li>Title: “How to use Birkly” → slug: <code>how-to-use-birkly</code>.</li>
+<li>You can also set it by hand: e.g. <code>about-us</code>, <code>summer-sale-2025</code>.</li>
+</ul>
+<p><strong>Where you see it:</strong></p>
+<ul>
+<li>In the <strong>entry editor</strong> there’s usually a “Slug” field. It’s often filled in automatically from the title when you save (e.g. “My first post” becomes <code>my-first-post</code>). You can change it before or after saving.</li>
+<li>On your <strong>website</strong>, the slug often appears in the URL. For example the address of a single blog post might be <code>/blog/welcome-to-our-blog</code> or <code>yoursite.com/post.html?slug=welcome-to-our-blog</code>. So the slug is what identifies “this post” in the URL.</li>
+<li><strong>Important:</strong> Two entries in the <strong>same</strong> collection can’t have the same slug. Each must be unique (e.g. you can’t have two blog posts with slug <code>hello</code>). If you change a slug after the page is live, old links that used the previous slug will stop working unless you set up redirects.</li>
+</ul>
+<p><strong>Status</strong></p>
+<p><strong>Status</strong> has two options: <strong>Draft</strong> or <strong>Published</strong>.</p>
+<ul>
+<li><strong>Draft</strong> — The entry is saved in the CMS but <strong>is not shown</strong> on your live site. Use it for posts or pages you’re still writing or reviewing. Only people with access to the admin can see drafts (and only in the admin, not on the public site).</li>
+<li><strong>Published</strong> — The entry <strong>is shown</strong> on your site. Use this when the content is ready for visitors. Your templates and the Public API will include it in lists and allow loading it by slug.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<p>You create a new post and set status to <strong>Draft</strong>. You save. The post exists in the admin, but if someone visits your blog list or the post URL, they won’t see it. When you’re ready, you open the entry, change status to <strong>Published</strong>, and save. From then on it appears in the blog list and at its URL. If you want to hide it again later (e.g. a seasonal page), you can set it back to <strong>Draft</strong> instead of deleting it.</p>
+<p><strong>Where to set it:</strong> In the entry editor, near the save button, you’ll see a <strong>Status</strong> dropdown or toggle. Choose Draft or Published. Buttons like <strong>Save &amp; Publish</strong> both save and set status to Published in one click.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Slug:</strong> Unique per collection; stored in entry JSON (e.g. <code>slug: &quot;welcome-to-our-blog&quot;</code>). Used in:</p>
+<ul>
+<li><strong>URLs:</strong> Frontend routing (e.g. <code>/blog/{slug}</code> or <code>?slug=...</code>).</li>
+<li><strong>Templates:</strong> Single-entry load, e.g. <code>{from 'blog' get entry 'welcome-to-our-blog'}</code>.</li>
+<li><strong>API:</strong> <code>GET /api/public/collections/blog/entries/welcome-to-our-blog</code>.</li>
+</ul>
+<p>Auto-generation: often <code>slugify(title)</code> (lowercase, spaces → hyphens, remove non-alphanumeric). Uniqueness enforced on save; conflict returns error. Changing slug invalidates existing links; implement redirects (e.g. in server or frontend router) if needed.</p>
+<p><strong>Status:</strong> Stored as <code>status: &quot;draft&quot;</code> or <code>status: &quot;published&quot;</code>. Filtering:</p>
+<ul>
+<li><strong>Public API:</strong> List/single endpoints return only published entries unless overridden (e.g. preview token).</li>
+<li><strong>Templates:</strong> Loops and “get entry” typically respect status (published only). Draft entries excluded from public output.</li>
+</ul>
+<p><strong>Example: API and template</strong></p>
+<ul>
+<li>List: <code>GET /api/public/collections/blog/entries</code> → returns only entries with <code>status: &quot;published&quot;</code>.</li>
+<li>Single: <code>GET /api/public/collections/blog/entries/welcome-to-our-blog</code> → returns that entry if published; 404 if draft or slug missing.</li>
+<li>Template: <code>{from 'blog' get entry 'welcome-to-our-blog'}</code> then <code>{ title }</code>; if entry is draft, behaviour is implementation-dependent (often empty or skip).</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="entries.html">Entries</a></li>
+<li><a href="collections.html">Collections</a></li>
+<li><a href="../03-templating/variables-and-output.html">Variables and output</a></li>
+<li><a href="../03-templating/loops-and-lists.html">Loops and lists</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

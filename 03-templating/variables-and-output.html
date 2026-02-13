@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>variables and output — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="variables-and-output.html" class="nav-link active">Variables and output</a>
+        <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>In Birkly templates, <strong>variables</strong> are placeholders that get replaced with real values from your content. You write <code>{ field_name }</code> and the engine outputs the value of that field for the current entry or context.</p>
+<div class="doc-summary"><p>Use <strong>single braces</strong> with the field name inside: <code>{ title }</code>, <code>{ content }</code>, <code>{ date }</code>. These print the value of that field. Text is usually shown safely (special characters escaped). Rich editor content is often output as HTML so formatting (bold, links, images) appears. For dates you can add a format, e.g. <code>{ date &quot;F j, Y&quot; }</code> for “January 5, 2025”. What you can use depends on the current context—e.g. inside a blog loop, <code>{ title }</code> is that blog entry’s title.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Variables are the main way to <strong>show one value</strong> from the CMS: a title, a paragraph, a date, or a link to an image or file.</p>
+<p><strong>Basic pattern</strong></p>
+<ul>
+<li>Write the field name between single braces, with spaces: <code>{ title }</code>, <code>{ content }</code>, <code>{ excerpt }</code>.</li>
+<li>The “current” entry depends on where the variable appears:</li>
+</ul>
+<p>  - <strong>Inside a loop</strong> (e.g. “for each blog entry”): <code>{ title }</code> is that entry’s title, <code>{ slug }</code> that entry’s slug.   - <strong>On a single-entry page</strong> (e.g. one blog post loaded by slug): <code>{ title }</code> is that post’s title.</p>
+<p><strong>Example: single blog post page</strong></p>
+<p>After loading one post (e.g. by slug), your template might look like:</p>
+<pre><code>&lt;article&gt;
+  &lt;h1&gt;{ title }&lt;/h1&gt;
+  &lt;time&gt;{ date &quot;F j, Y&quot; }&lt;/time&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    { content }
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
+<ul>
+<li><code>{ title }</code> → e.g. “Getting started with Birkly”</li>
+<li><code>{ date &quot;F j, Y&quot; }</code> → e.g. “January 5, 2025”</li>
+<li><code>{ content }</code> → the full post body (with HTML: paragraphs, headings, links, images)</li>
+</ul>
+<p><strong>Example: inside a loop</strong></p>
+<p>On a page that lists all blog posts:</p>
+<pre><code>{for each entry in 'blog'}
+  &lt;h2&gt;{ title }&lt;/h2&gt;
+  &lt;p&gt;{ excerpt }&lt;/p&gt;
+  &lt;a href=&quot;/blog/{ slug }&quot;&gt;Read more&lt;/a&gt;
+{endfor}</code></pre>
+<p>Here, each time through the loop, <code>{ title }</code>, <code>{ excerpt }</code>, and <code>{ slug }</code> refer to the <strong>current</strong> post.</p>
+<p><strong>Text vs HTML</strong></p>
+<ul>
+<li><strong>Text and Textarea fields:</strong> Shown as plain text. Characters like <code>&lt;</code> and <code>&quot;</code> are escaped so they don’t break the page or run scripts. Safe by default.</li>
+<li><strong>Editor (rich text) field:</strong> Output as <strong>HTML</strong> so headings, lists, bold, and links render correctly. Only use editor output in your own templates, not in unfiltered user input.</li>
+</ul>
+<p><strong>When a field is empty</strong></p>
+<p>If you output <code>{ excerpt }</code> and the entry has no excerpt, you might get nothing or a blank. To show a fallback, use a conditional: “if this entry has an excerpt, show it; else show something else.” See <a href="conditionals.html">Conditionals</a>.</p>
+<p><strong>Dates</strong></p>
+<p>Use a format string in quotes after the field name: <code>{ date &quot;F j, Y&quot; }</code> for “January 5, 2025”, or <code>{ date &quot;Y-m-d&quot; }</code> for “2025-01-05”. More options in <a href="dates-and-formatting.html">Dates and formatting</a>.</p>
+<p><strong>Images and files</strong></p>
+<ul>
+<li>One image from a Media field: <code>{ media featured_image }</code> gives you the image URL; put it in <code>&lt;img src=&quot;…&quot;&gt;</code>.</li>
+<li>A file (e.g. PDF): often <code>{ media document }</code> or the field name in an <code>&lt;a href=&quot;…&quot;&gt;</code>. See <a href="media-in-templates.html">Media in templates</a>.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Syntax and context</strong></p>
+<ul>
+<li><strong>Pattern:</strong> <code>{ variable_name }</code> — spaces inside braces; name = field key (or system key like <code>slug</code>, <code>id</code>, <code>status</code>).</li>
+<li><strong>Context resolution:</strong> Variables resolve against the current scope. In <code>{for each entry in 'blog'} … { title } … {endfor}</code>, <code>title</code> is resolved on the loop’s current entry. After <code>{from 'blog' get entry 'my-slug'}</code>, subsequent variables refer to that entry. Global or page-level variables (e.g. <code>site_title</code>) depend on the engine and bootstrap data.</li>
+</ul>
+<p><strong>Output behaviour by field type</strong></p>
+<p>| Field type | Typical output | Notes | |------------|----------------|--------| | Text, Textarea | Escaped text | HTML special chars encoded. | | Editor (rich text) | Raw HTML | Stored HTML inserted as-is. | | Number | String representation | Format may be configurable. | | Date / DateTime | Formatted string | Via <code>{ field &quot;format&quot; }</code>; see dates doc. | | Media / File | URL string | Use in <code>src</code> or <code>href</code>. | | Select, Radio | Selected option value (or label) | Engine-dependent. | | Tags | Often a list; may need loop | e.g. <code>{for each tag in tags}</code>. | | Relation | Entry ref(s); may need loop or single entry load | Depends on API shape. |</p>
+<p><strong>Defaults and “if empty”</strong></p>
+<p>Some engines support inline defaults, e.g. <code>{ title default=&quot;Untitled&quot; }</code> or <code>{ title or &quot;Untitled&quot; }</code>. If not, use conditionals: <code>{if entry has title}{ title }{else}Untitled{endif}</code>.</p>
+<p><strong>Nested / dotted access</strong></p>
+<p>If the API exposes nested objects (e.g. <code>author.name</code>), the engine may support <code>{ author.name }</code>. Check the templating reference for your version.</p>
+<p><strong>Technical note</strong></p>
+<p>Variable names align with <strong>field keys</strong> in the collection schema and any system fields the API exposes. The exact set is defined by the content source (API response or content files) and the template engine.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+<li><a href="conditionals.html">Conditionals</a></li>
+<li><a href="dates-and-formatting.html">Dates and formatting</a></li>
+<li><a href="media-in-templates.html">Media in templates</a></li>
+<li><a href="../02-content/field-types.html">Field types</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

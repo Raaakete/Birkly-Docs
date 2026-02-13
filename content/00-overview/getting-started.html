@@ -1,0 +1,101 @@
+<div class="doc-summary"><p>Get started with Birkly in five steps: (1) Log in to the admin. (2) Set a project name if the first-time wizard appears. (3) Create a collection (e.g. “Blog posts”) and add fields (title, content, date, image). (4) Add one or more entries and set status to Published. (5) Add the Birkly client script to your website so it can load and display the content. No coding is required for basic content creation; connecting the site is one script tag plus simple placeholders in your HTML.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Step 1 — Log in</strong></p>
+<p>Open your Birkly address in the browser. It usually looks like:</p>
+<ul>
+<li><code>https://your-domain.com/admin</code></li>
+</ul>
+<p>  or  </p>
+<ul>
+<li><code>http://localhost:8080/admin</code> (if you’re running Birkly locally).</li>
+</ul>
+<p>Enter your <strong>email</strong> and <strong>password</strong>. If you don’t have an account yet, an administrator must create one for you or send you an <strong>invite</strong> (you’ll receive a link to set your password).</p>
+<p><strong>Example:</strong> If your CMS is at <code>https://cms.mycompany.com</code>, you go to <code>https://cms.mycompany.com/admin</code> and sign in. After login you’ll see the <strong>Dashboard</strong> (overview) and the <strong>sidebar</strong> with Content, Media, Settings, etc.</p>
+<p>---</p>
+<p><strong>Step 2 — Set the project name (first time only)</strong></p>
+<p>The first time you (or anyone) use the installation, you may see a short <strong>onboarding</strong> wizard. It will ask for a <strong>Project name</strong>.</p>
+<ul>
+<li>This name is only for the <strong>admin panel</strong> (e.g. the label in the sidebar or the browser tab). It does <strong>not</strong> set your website’s title or URL.</li>
+<li><strong>Example:</strong> You might enter “Acme Blog” or “Company Website.” Visitors to your actual site never see this—only people who log in to the admin do.</li>
+</ul>
+<p>You can usually skip or complete the wizard in a few clicks. After that, the Dashboard and sidebar are your starting point.</p>
+<p>---</p>
+<p><strong>Step 3 — Create a collection</strong></p>
+<p>Collections are the <strong>types</strong> of content you manage (e.g. “Blog posts,” “Products,” “Team members”). You create each type once and then add as many entries as you need.</p>
+<ol>
+<li>In the sidebar, click <strong>Content</strong>.</li>
+<li>Click <strong>Create collection</strong> (or <strong>New collection</strong>).</li>
+<li>Give it a <strong>name</strong> that editors will see (e.g. “Blog posts,” “Services”).</li>
+<li>Add <strong>fields</strong>—the pieces of information each entry will have. For each field you choose a <strong>label</strong> (what appears in the form) and a <strong>type</strong> (what kind of data).</li>
+</ol>
+<p><strong>Example — A “Blog posts” collection:</strong></p>
+<p>| Field label    | Type    | Purpose                          | |----------------|---------|----------------------------------| | Title          | Text    | Post title                       | | Content        | Editor  | Main body (rich text)            | | Excerpt        | Textarea| Short summary                    | | Publication date | Date  | When the post was published      | | Featured image | Media   | One image for the post           | | Tags           | Tags    | Optional tags                    |</p>
+<ol>
+<li>In the collection’s <strong>Settings</strong> (or Configuration) tab, leave <strong>Entry method</strong> as “Admin only” unless you want to accept submissions from your website (e.g. a contact form).</li>
+<li><strong>Save</strong> the collection.</li>
+</ol>
+<p>After saving, you’ll see the new collection in the Content list. Click it to open it and add entries.</p>
+<p>---</p>
+<p><strong>Step 4 — Add entries</strong></p>
+<p>An <strong>entry</strong> is one item in a collection (one blog post, one product, one team member).</p>
+<ol>
+<li>Open the collection (e.g. “Blog posts”) from the Content area.</li>
+<li>Click <strong>New entry</strong> (or <strong>Add entry</strong>).</li>
+<li>Fill in each field:</li>
+</ol>
+<p>   - <strong>Title</strong> — Type the post title.    - <strong>Content</strong> — Use the editor to write the body (bold, lists, links, images as needed).    - <strong>Publication date</strong> — Pick the date (and time if the field allows).    - <strong>Featured image</strong> — Click to open the Media Library, pick or upload an image.    - Any other fields you added (e.g. Excerpt, Tags).</p>
+<ol>
+<li><strong>Slug</strong> — This becomes the URL-friendly part (e.g. <code>my-first-post</code>). It’s often filled in automatically from the title; you can change it if you want a different URL.</li>
+<li><strong>Status</strong> — Choose <strong>Draft</strong> (saved but not visible on the site) or <strong>Published</strong> (visible). Use <strong>Save</strong> or <strong>Save &amp; Publish</strong>.</li>
+<li>Click <strong>Save</strong>.</li>
+</ol>
+<p><strong>Example:</strong> You create an entry with title “Welcome to our blog,” content “This is our first post…,” date “2025-02-05,” and slug <code>welcome-to-our-blog</code>. You set status to <strong>Published</strong> and save. That entry is now stored and will appear when your website loads blog posts from Birkly (once the site is connected).</p>
+<p>Repeat for more entries. You can edit or delete entries anytime from the collection’s entry list.</p>
+<p>---</p>
+<p><strong>Step 5 — Connect your website</strong></p>
+<p>So far the content lives only in the admin. To show it on your actual website:</p>
+<ol>
+<li><strong>Add the Birkly client script</strong> to your HTML. One script tag is enough; it should point to your Birkly address.</li>
+<li>In your HTML, use <strong>placeholders</strong> where you want content (e.g. “show the title here,” “list all blog posts”). The client script loads the content from Birkly and fills those placeholders when someone visits the page.</li>
+</ol>
+<p><strong>Example (minimal):</strong></p>
+<p>In your page’s HTML you might have something like:</p>
+<ul>
+<li>A placeholder for a single post’s title and body (e.g. on a “post” page that shows one article).</li>
+<li>A placeholder that means “list the latest 5 blog posts” (e.g. on your homepage).</li>
+</ul>
+<p>Your developer or host can add the exact script tag and placeholder syntax (Birkly uses a simple templating language). Once that’s in place, when you publish or edit an entry in the admin, the live site will show the updated content (either immediately when the page loads or after a refresh, depending on how the site is built).</p>
+<p>From here you can add more collections (e.g. “Products,” “Team”), upload more media, invite other users, or explore <strong>Settings</strong> and <strong>Help</strong> in the admin.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>1. Auth and onboarding</strong></p>
+<ul>
+<li>Log in at <code>/admin</code>. First run may show onboarding (project name, optional first collection). Onboarding state is stored so it doesn’t show again.</li>
+<li>Users and roles are managed under Settings (or Users/Roles). Invites and password reset depend on configuration (email, etc.).</li>
+</ul>
+<p><strong>2. Content model</strong></p>
+<ul>
+<li><strong>Collection:</strong> name, handle (e.g. <code>blog</code>), fields (name/key, type, required, options). Handle is used in API and templates and should be stable.</li>
+<li><strong>Entry:</strong> one JSON file per entry (or DB row if using DB for entries); fields + <code>slug</code>, <code>status</code> (draft/published). Only published entries are returned by the public API by default.</li>
+<li><strong>Example API:</strong> <code>GET /api/public/collections/blog/entries</code> returns published entries; <code>GET /api/public/collections/blog/entries/welcome-to-our-blog</code> returns the entry with that slug.</li>
+</ul>
+<p><strong>3. Frontend integration</strong></p>
+<ul>
+<li><strong>Option A — Client script:</strong></li>
+</ul>
+<p>  <code>&lt;script src=&quot;https://your-cms.example.com/birkly-client.js&quot; data-cms-url=&quot;https://your-cms.example.com&quot;&gt;&lt;/script&gt;</code>     Use templating in the same HTML (e.g. <code>{ title }</code>, <code>{for each entry in 'blog'}</code>). Client fetches from Public API and renders.</p>
+<ul>
+<li><strong>Option B — Direct API:</strong></li>
+</ul>
+<p>  Fetch <code>GET /api/public/collections/{handle}/entries</code> (and single-entry by slug) from your app; render with your own stack (SSR, SPA, static build).</p>
+<p><strong>4. Optional next steps</strong></p>
+<ul>
+<li><strong>Entry method:</strong> In collection Settings, set to “Public API” if you need form submissions or external systems to create entries.</li>
+<li><strong>Media:</strong> Upload in Media; reference in entries via Media or Gallery fields.</li>
+<li><strong>Roles:</strong> Create roles and assign permissions (view, edit, manage settings, etc.).</li>
+<li><strong>Automation:</strong> Configure workflows (scheduled or webhook-triggered) for notifications or integrations.</li>
+</ul>
+<p>See <a href="../02-content/collections.html">Collections</a>, <a href="../02-content/entries.html">Entries</a>, <a href="../04-integration/website-integration.html">Website integration</a>, <a href="../04-integration/client-library.html">Client library</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="what-is-birkly.html">What is Birkly?</a></li>
+<li><a href="../02-content/collections.html">Collections</a></li>
+<li><a href="../02-content/entries.html">Entries</a></li>
+<li><a href="../04-integration/website-integration.html">Website integration</a></li>
+</ul></div>

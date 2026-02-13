@@ -1,0 +1,95 @@
+<p>The Public API is how external applications (your website, mobile app, or another server) read—and sometimes submit—content from Birkly over HTTP. It returns JSON and is intended for unauthenticated or limited-access use so that public sites can safely consume content.</p>
+<div class="doc-summary"><p>The <strong>Public API</strong> lets you <strong>read</strong> content from Birkly via HTTP. Typical usage: <code>GET</code> your CMS URL + something like <code>/api/public/collections/blog/entries</code> to get a list of blog entries as JSON, or <code>/api/public/collections/blog/entries/my-post-slug</code> to get one entry. No admin login is needed—it’s designed for public read access. You can use it from the Birkly client script, from your own frontend, or from a backend. To <strong>create</strong> entries (e.g. from a form), use the public submit endpoint and any security (tokens, rate limits) your setup provides; see <a href="public-forms.html">Public forms</a>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>The <strong>Public API</strong> is a way for your website or app to <strong>ask Birkly for content</strong> over the internet. You send an HTTP request (like opening a URL) and get back data (usually JSON) that you can display or process.</p>
+<p><strong>Why use it?</strong></p>
+<ul>
+<li>The <strong>Birkly client</strong> (script tag) uses this API automatically. If you use the client, you’re already using the Public API under the hood.</li>
+<li>If you <strong>don’t</strong> use the client—e.g. you have a React app, or a server that builds pages—you can call the same API yourself and render the data however you want.</li>
+</ul>
+<p><strong>Reading a list of entries</strong></p>
+<p>Example: get all published blog entries.</p>
+<ul>
+<li><strong>URL:</strong> <code>https://your-cms.com/api/public/collections/blog/entries</code></li>
+<li><strong>Method:</strong> GET</li>
+<li><strong>No login</strong> required.</li>
+</ul>
+<p>You’ll get back something like (exact shape depends on your version):</p>
+<pre><code>[
+  {
+    &quot;title&quot;: &quot;Getting started&quot;,
+    &quot;slug&quot;: &quot;getting-started&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;Hello world.&lt;/p&gt;&quot;,
+    &quot;date&quot;: &quot;2025-01-05&quot;,
+    &quot;excerpt&quot;: &quot;A short summary.&quot;,
+    &quot;status&quot;: &quot;published&quot;
+  },
+  ...
+]</code></pre>
+<p><strong>Reading one entry by slug</strong></p>
+<p>To get a single post (e.g. for a “post detail” page):</p>
+<ul>
+<li><strong>URL:</strong> <code>https://your-cms.com/api/public/collections/blog/entries/getting-started</code></li>
+<li><strong>Method:</strong> GET</li>
+</ul>
+<p>Replace <code>getting-started</code> with the entry’s slug. Response is usually one JSON object with that entry’s fields.</p>
+<p><strong>Using the data</strong></p>
+<ul>
+<li>In <strong>JavaScript (browser):</strong> Use <code>fetch()</code> or axios to call the URL, then render the JSON (e.g. with React components or by updating the DOM).</li>
+<li>On the <strong>server:</strong> Your backend (PHP, Node, etc.) can call the same URL, get JSON, and pass it to your template engine or send it to the frontend.</li>
+</ul>
+<p><strong>Example: fetch in the browser</strong></p>
+<pre><code>const base = 'https://your-cms.com';
+const slug = 'my-post-slug'; // e.g. from the URL
+
+fetch(`${base}/api/public/collections/blog/entries/${slug}`)
+  .then(res =&gt; res.json())
+  .then(entry =&gt; {
+    document.getElementById('title').textContent = entry.title;
+    document.getElementById('content').innerHTML = entry.content;
+  });</code></pre>
+<p><strong>Limits and sorting</strong></p>
+<p>Many APIs support query parameters, for example:</p>
+<ul>
+<li><code>?limit=10</code> — only 10 entries</li>
+<li><code>?sort=date:desc</code> — newest first</li>
+<li><code>?offset=20</code> or <code>?page=2</code> — for pagination</li>
+</ul>
+<p>Exact parameter names depend on your Birkly version; check the API docs or admin Help.</p>
+<p><strong>Submitting data (forms)</strong></p>
+<p>Creating or updating entries (e.g. contact form) is done through a <strong>submit</strong> or <strong>form</strong> endpoint, often with extra security (token, rate limit). See <a href="public-forms.html">Public forms</a>. Don’t use admin credentials from the frontend.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Purpose</strong></p>
+<ul>
+<li><strong>Read</strong> published content (collections, entries, media URLs) for display on websites or in apps.</li>
+<li><strong>Submit</strong> entries when the collection allows “Public API” and the submit endpoint is configured (see <a href="public-forms.html">Public forms</a>).</li>
+<li><strong>No admin auth</strong> for read—safe to call from the browser or any server without storing credentials.</li>
+</ul>
+<p><strong>Base URL and paths</strong></p>
+<ul>
+<li><strong>Base:</strong> Birkly instance base URL (e.g. <code>https://your-cms.com</code>).</li>
+<li><strong>Typical read paths</strong> (adjust to your version):</li>
+</ul>
+<p>  - List entries: <code>GET /api/public/collections/{collection_handle}/entries</code>   - Single entry: <code>GET /api/public/collections/{collection_handle}/entries/{slug}</code>   - Collections list: if supported, e.g. <code>GET /api/public/collections</code></p>
+<ul>
+<li><strong>Submit:</strong> Usually <code>POST /api/public/collections/{handle}/entries</code> or a dedicated submit/form endpoint. See <a href="public-forms.html">Public forms</a> and your API docs.</li>
+</ul>
+<p><strong>Response format</strong></p>
+<ul>
+<li><strong>JSON.</strong> List endpoints return an array of entry objects; single-entry returns one object. Field keys match the collection schema (title, content, slug, date, etc.). Meta (total count, pagination) may be present depending on version.</li>
+</ul>
+<p><strong>Query parameters (common)</strong></p>
+<p>| Parameter | Purpose | Example | |-----------|---------|---------| | limit | Max entries returned | <code>?limit=10</code> | | sort | Sort order | <code>?sort=date:desc</code> | | offset / page | Pagination | <code>?offset=20</code> or <code>?page=2</code> | | status | Filter by status; often only “published” by default | Version-dependent |</p>
+<p><strong>Authentication</strong></p>
+<ul>
+<li><strong>Read:</strong> Typically none. Public read is intended for unauthenticated callers. Restriction by domain is via CORS or server config, not HTTP auth.</li>
+<li><strong>Submit:</strong> May require API key, token, or CAPTCHA. See <a href="public-forms.html">Public forms</a> and collection/settings docs.</li>
+</ul>
+<p><strong>CORS</strong></p>
+<p>If you call the API from the browser, the Birkly server must send CORS headers allowing your origin. Configure allowed origins in Birkly or your reverse proxy.</p>
+<p><strong>Rate limiting</strong></p>
+<p>Public endpoints may be rate-limited (e.g. N requests per minute per IP). Check response headers (e.g. <code>X-RateLimit-*</code>) or docs for limits and back-off behavior.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="website-integration.html">Website integration</a></li>
+<li><a href="client-library.html">Client library</a></li>
+<li><a href="public-forms.html">Public forms</a></li>
+<li><a href="../02-content/collections.html">Collections</a></li>
+</ul></div>

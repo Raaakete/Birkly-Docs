@@ -1,0 +1,49 @@
+<div class="doc-summary"><p>Collections are content types in Birkly (e.g. “Blog posts”, “Products”, “Team members”). You define each collection once with a set of fields (title, text, image, date, dropdown, etc.) and optional settings (who can create entries: admin only or public API). You then add as many entries as you need. The collection’s <strong>handle</strong> (e.g. <code>blog</code>) is used in the admin, in templates, and in the API—so choose it carefully and avoid changing it after your site or integrations use it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>A <strong>collection</strong> is the “form template” for one kind of content. You create it once; after that, every new item of that kind is just filling out that same form (with a title, body, date, image, and whatever else you defined).</p>
+<p><strong>Example: “Blog posts”</strong></p>
+<p>You want a blog. You create a collection named <strong>Blog posts</strong> (handle: <code>blog</code>) with these fields:</p>
+<p>| Field label      | Type   | Required? | Why | |------------------|--------|-----------|-----| | Title            | Text   | Yes       | Every post needs a title. | | Content          | Editor | Yes       | The main body (paragraphs, headings, images). | | Excerpt          | Textarea | No     | Short summary for list pages. | | Publication date | Date   | Yes       | When the post was published. | | Featured image   | Media  | No        | One image for the post (e.g. card or header). | | Tags             | Tags   | No        | Free-form tags (e.g. “tutorial”, “news”). |</p>
+<p>You save the collection. From then on, “New entry” in Blog posts shows exactly these fields. You don’t have to decide the structure again for each post.</p>
+<p><strong>Example: “Products”</strong></p>
+<p>For a small shop you create a collection <strong>Products</strong> (handle: <code>products</code>):</p>
+<p>| Field label   | Type    | Required? | Why | |---------------|---------|-----------|-----| | Name          | Text    | Yes       | Product name. | | Description   | Editor  | No        | Full description with formatting. | | Price         | Number  | Yes       | e.g. 29.99. | | Category      | Select  | No        | e.g. “Electronics”, “Clothing”. | | Images        | Gallery | No        | Multiple product photos. | | In stock      | Checkbox| No        | Yes/no. |</p>
+<p>Again: you define this once; every new product uses the same fields.</p>
+<p><strong>How to create a collection</strong></p>
+<ol>
+<li>Sidebar → <strong>Content</strong> → <strong>Create collection</strong> (or <strong>New collection</strong>).</li>
+<li><strong>Name:</strong> e.g. “Blog posts”. <strong>Handle:</strong> e.g. <code>blog</code> (often auto-filled from the name; use lowercase, no spaces). The handle is what templates and the API use—don’t change it later if you can avoid it.</li>
+<li><strong>Add fields:</strong> For each field set a <strong>label</strong> (what editors see), a <strong>field type</strong> (Text, Editor, Date, Media, etc.), and whether it’s <strong>required</strong>. See <a href="field-types.html">Field types</a> for the full list and when to use each.</li>
+<li><strong>Settings</strong> tab: Choose <strong>Entry method</strong>.</li>
+</ol>
+<p>   - <strong>Admin only</strong> — Only logged-in users can create or edit entries. Default and safest for most content.    - <strong>Public API</strong> — Your website (or another app) can create entries too, e.g. a contact form or a signup form. If you enable this, you can usually set rate limits and security options.</p>
+<ol>
+<li><strong>Save.</strong> The collection appears in the Content list; click it to add entries.</li>
+</ol>
+<p><strong>Important:</strong> The handle (e.g. <code>blog</code>) will appear in your site’s templates and in API URLs. If you rename it later, you’ll have to update those references.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>A collection is the <strong>schema</strong> for one content type: <strong>name</strong> (admin label), <strong>handle</strong> (unique id), <strong>fields</strong> (key, type, required, options), <strong>entry method</strong> (admin-only vs public API). Stored as config (e.g. <code>collection.json</code> + <code>schema.json</code> or equivalent).</p>
+<p><strong>Create/edit:</strong> Content → Create collection. Add fields (see <a href="field-types.html">Field types</a>). In Settings set <strong>entry method</strong>: <strong>Admin only</strong> (default) or <strong>Public API</strong> (often with rate limit, auto-publish, CAPTCHA). Handle is used in:</p>
+<ul>
+<li><strong>Templating:</strong> <code>{from 'blog' get entries}</code>, <code>{for each entry in 'blog'}</code>.</li>
+<li><strong>Public API:</strong> <code>GET /api/public/collections/blog/entries</code>, <code>GET /api/public/collections/blog/entries/my-slug</code>.</li>
+<li><strong>Submit:</strong> <code>POST /api/public/collections/blog/entries</code> (or dedicated form endpoint) when entry method is Public API.</li>
+</ul>
+<p><strong>Example: minimal collection config (conceptual)</strong></p>
+<pre><code>{
+  &quot;name&quot;: &quot;Blog posts&quot;,
+  &quot;handle&quot;: &quot;blog&quot;,
+  &quot;fields&quot;: [
+    { &quot;key&quot;: &quot;title&quot;, &quot;label&quot;: &quot;Title&quot;, &quot;type&quot;: &quot;text&quot;, &quot;required&quot;: true },
+    { &quot;key&quot;: &quot;content&quot;, &quot;label&quot;: &quot;Content&quot;, &quot;type&quot;: &quot;editor&quot;, &quot;required&quot;: true },
+    { &quot;key&quot;: &quot;date&quot;, &quot;label&quot;: &quot;Publication date&quot;, &quot;type&quot;: &quot;date&quot;, &quot;required&quot;: true },
+    { &quot;key&quot;: &quot;featured_image&quot;, &quot;label&quot;: &quot;Featured image&quot;, &quot;type&quot;: &quot;media&quot; }
+  ],
+  &quot;entry_method&quot;: &quot;admin&quot;
+}</code></pre>
+<p><strong>Best practices:</strong> Keep handle stable. Avoid removing or renaming field keys after entries exist (orphaned data, broken templates). For public submit, use rate limiting and validation.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="entries.html">Entries</a></li>
+<li><a href="field-types.html">Field types</a></li>
+<li><a href="slugs-and-status.html">Slugs and status</a></li>
+<li><a href="../04-integration/public-api.html">Public API</a></li>
+<li><a href="../04-integration/public-forms.html">Public forms</a></li>
+</ul></div>

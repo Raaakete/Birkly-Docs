@@ -1,0 +1,67 @@
+<p>Backing up Birkly means copying the content, media, settings, and (if used) the database so you can restore the CMS after a failure, mistake, or attack. Restore is the process of putting that copy back so the site works again.</p>
+<div class="doc-summary"><p><strong>Backup:</strong> Copy the <strong>entire Birkly folder</strong> (or at least <code>content/</code>, <code>media/</code>, <code>settings/</code>, and the database file or DB dump if you use a database) to a safe place (another server, cloud storage, local machine). Do this regularly (e.g. daily) and before <strong>any</strong> update or big change. <strong>Restore:</strong> Stop the app if needed, replace those folders/files with your backup copy, fix permissions so the web server can write where required, then test login and content. For file-based content, “backup” is literally copying the folders; for a DB, also export the database and restore it when recovering.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Backup</strong> = a copy of your content and settings so that if something goes wrong (server failure, accidental delete, bad update), you can put that copy back and keep working.</p>
+<p><strong>What to back up</strong></p>
+<ul>
+<li><strong>content/</strong> — All your collections and entries (the actual content). Essential.</li>
+<li><strong>media/</strong> — All uploaded images and files. Essential.</li>
+<li><strong>settings/</strong> — Project name, users, roles, plugin configuration. Essential.</li>
+<li><strong>database/</strong> — If Birkly uses a database (e.g. SQLite <code>birkly.db</code>), copy that file or export the database. Essential if you use it.</li>
+<li><strong>data/</strong> — If present (e.g. plugin data, logs). Good to include.</li>
+<li><strong>plugins/</strong> — Your custom or modified plugins, so you can restore the same setup.</li>
+</ul>
+<p>You can skip the core application code (api/, core/, etc.) if you can re-download the same Birkly version; backing it up too can help you match the exact version when restoring.</p>
+<p><strong>How to back up</strong></p>
+<ul>
+<li><strong>Manual:</strong> Use your host’s file manager, FTP, or SFTP to download the Birkly folder (or the important subfolders above) to your computer or to another server or cloud bucket.</li>
+<li><strong>Scheduled:</strong> Your host or developer can set up a <strong>cron job</strong> or backup tool that copies these folders (e.g. with rsync or a zip) to a backup location every day or every week.</li>
+<li><strong>Before updates:</strong> Always make a backup right before you run a Birkly or plugin update. If the update fails, you can restore and try again.</li>
+</ul>
+<p><strong>How often</strong></p>
+<ul>
+<li>At least before every update. For active sites, a daily or weekly backup is recommended. Keep several backup points (e.g. last 7 daily, last 4 weekly) so you can go back to a specific date if needed.</li>
+</ul>
+<p><strong>Restore (putting the copy back)</strong></p>
+<ol>
+<li><strong>Stop</strong> the site or put it in maintenance mode if possible.</li>
+<li><strong>Replace</strong> the live <code>content/</code>, <code>media/</code>, <code>settings/</code> (and database if you use one) with the versions from your backup. Don’t overwrite with an older backup by mistake—check the date of the backup.</li>
+<li><strong>Permissions</strong> — Ensure the web server can write to <code>content/</code>, <code>media/</code>, <code>settings/</code> (your host or developer can fix this with chown/chmod).</li>
+<li><strong>Clear caches</strong> if your setup uses file or opcode cache.</li>
+<li><strong>Test</strong> — Log in, open a few entries, load a public page.</li>
+<li><strong>Re-enable</strong> the site.</li>
+</ol>
+<p><strong>Example: restoring after a bad update</strong></p>
+<ol>
+<li>Restore <code>content/</code>, <code>media/</code>, <code>settings/</code>, and database from the backup you made before the update.</li>
+<li>If you replaced core code during the update, either restore the old core from backup or re-download the previous Birkly version and replace the core files again.</li>
+<li>Fix permissions and test. Then you can try the update again later or wait for a fix.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>What to back up</strong></p>
+<p>| Path | Priority | Notes | |------|----------|--------| | content/ | Essential | Collections and entries. | | media/ | Essential | Uploaded files. | | settings/ | Essential | Project, users, roles, plugin config. | | data/ | Recommended | Plugin data, logs. | | database/ | Essential if used | SQLite file or DB dump. | | plugins/ | Recommended | Custom/modified plugins. | | .env / config | Secure backup | Encrypted, restricted access. |</p>
+<p>Core code can be re-downloaded; backing it up helps with exact version match on restore.</p>
+<p><strong>How to back up</strong></p>
+<ul>
+<li><strong>Manual:</strong> FTP, SFTP, rsync, zip to another machine or cloud bucket.</li>
+<li><strong>Script:</strong> Cron with rsync or zip of key dirs; store with retention (e.g. 7 daily, 4 weekly).</li>
+<li><strong>Database:</strong> MySQL/PostgreSQL: <code>mysqldump</code> / <code>pg_dump</code>; SQLite: copy <code>.db</code> file (ensure no write in progress or use SQLite backup API).</li>
+</ul>
+<p><strong>Restore steps</strong></p>
+<ol>
+<li>Stop site or maintenance mode.</li>
+<li>Replace content/, media/, settings/, data/, plugins/ (as backed up).</li>
+<li>Restore database (import dump or replace DB file).</li>
+<li>Fix permissions (chown/chmod for web server user).</li>
+<li>Clear caches.</li>
+<li>Test login, entries, public page.</li>
+<li>Re-enable site.</li>
+</ol>
+<p><strong>Before updates</strong></p>
+<ul>
+<li>Always backup immediately before core or plugin update. Restore and retry or wait for fix if update fails.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="deployment.html">Deployment</a></li>
+<li><a href="security.html">Security</a></li>
+<li><a href="../06-extensibility/updates.html">Updates</a></li>
+<li><a href="troubleshooting.html">Troubleshooting</a></li>
+</ul></div>

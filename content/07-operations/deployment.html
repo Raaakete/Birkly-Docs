@@ -1,0 +1,63 @@
+<p>Deployment is how you put Birkly on a server so it’s reachable on the internet (or on an internal network). You need a web server (e.g. Apache or Nginx), PHP, and optionally a database; then you upload or clone the Birkly files, point the server at the app, and configure environment and permissions.</p>
+<div class="doc-summary"><p><strong>Deploying Birkly</strong> means: (1) Have a server with <strong>PHP</strong> (version required by Birkly) and a <strong>web server</strong> (Apache or Nginx). (2) Upload or clone the Birkly files so the <strong>document root</strong> (or a subdirectory) points to the folder that contains <code>index.php</code>. (3) Ensure <strong>content</strong>, <strong>media</strong>, and <strong>settings</strong> (and any other writable dirs) are writable by the web server. (4) Open the site in the browser and complete setup (first user, project name). Use <strong>HTTPS</strong> in production and restrict admin access (e.g. firewall or IP) if possible. See <a href="security.html">Security</a> and <a href="backup-and-restore.html">Backup and restore</a>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Deployment</strong> means putting Birkly on a server so you and your team can open it in a browser and so your website can load content from it. You (or your host) set up the server once; after that, you use the admin and your site as usual.</p>
+<p><strong>What you need</strong></p>
+<ul>
+<li>A <strong>server</strong> that can run PHP and a web server (Apache or Nginx). Many shared hosts and cloud providers support this.</li>
+<li>The <strong>Birkly files</strong> — Either upload them (FTP/SFTP) or clone from Git. The server’s “document root” (the folder that serves the website) should point to the Birkly folder that contains <code>index.php</code> and the <code>admin/</code> folder.</li>
+<li><strong>Writable folders</strong> — The web server must be allowed to write to <code>content/</code>, <code>media/</code>, and <code>settings/</code> (and sometimes <code>data/</code>, <code>database/</code>). Your host or developer sets permissions so the server user can create and change files there.</li>
+</ul>
+<p><strong>Typical steps (overview)</strong></p>
+<ol>
+<li><strong>Server</strong> — PHP and web server installed; document root or virtual host pointing to the Birkly folder.</li>
+<li><strong>Upload/clone</strong> — Put Birkly files in place.</li>
+<li><strong>Permissions</strong> — Make <code>content/</code>, <code>media/</code>, <code>settings/</code> writable by the web server user.</li>
+<li><strong>Open in browser</strong> — Go to <code>https://your-domain.com</code> (or the path where Birkly is). Complete first-time setup: create the first admin user, set project name.</li>
+<li><strong>HTTPS</strong> — In production, use HTTPS (SSL certificate) so login and data are encrypted. Many hosts offer free Let’s Encrypt certificates.</li>
+</ol>
+<p><strong>Example: shared hosting</strong></p>
+<ul>
+<li>Upload the Birkly zip (or extract it) into a folder (e.g. <code>public_html/cms/</code>).</li>
+<li>In the host’s control panel, set the domain or subdomain to point to that folder.</li>
+<li>Set folder permissions for <code>content/</code>, <code>media/</code>, <code>settings/</code> to be writable (often 755 or 775; the host’s docs will say).</li>
+<li>Visit <code>https://your-domain.com/cms/</code> and follow the setup wizard.</li>
+</ul>
+<p><strong>After deployment</strong></p>
+<ul>
+<li>Create the first user, set project name and branding.</li>
+<li>Test: log in, create a collection, add an entry, and load a public page that uses the Birkly client.</li>
+<li>Set up <a href="backup-and-restore.html">Backup and restore</a> and review <a href="security.html">Security</a>.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Server requirements</strong></p>
+<ul>
+<li><strong>PHP</strong> — Version required by Birkly (e.g. PHP 7.4 or 8.x). Extensions: typically <code>json</code>, <code>mbstring</code>, <code>fileinfo</code>, <code>curl</code>; optionally PDO for database.</li>
+<li><strong>Web server</strong> — Apache (with <code>mod_rewrite</code>) or Nginx. Birkly uses a front controller (<code>index.php</code>); route all requests to it.</li>
+<li><strong>Optional:</strong> Database (SQLite or MySQL) for users/sessions or plugins.</li>
+<li><strong>Disk</strong> — Space for content, media, logs.</li>
+<li><strong>Memory</strong> — PHP <code>memory_limit</code> sufficient for uploads and plugins (e.g. 128M+).</li>
+</ul>
+<p><strong>Directory layout and permissions</strong></p>
+<ul>
+<li><strong>Writable by web server:</strong> <code>content/</code>, <code>media/</code>, <code>settings/</code>, <code>data/</code> (if present), sometimes <code>database/</code>, <code>plugins/</code>. On Linux: <code>chown</code> to web server user; <code>chmod</code> e.g. 755/775 for dirs, 644 for files. Do not expose <code>.env</code>, <code>content/</code>, or <code>settings/</code> as static URLs.</li>
+</ul>
+<p><strong>Web server config</strong></p>
+<ul>
+<li><strong>Apache:</strong> Enable <code>mod_rewrite</code>; use provided <code>.htaccess</code> or equivalent so requests go through <code>index.php</code>.</li>
+<li><strong>Nginx:</strong> <code>try_files</code> or <code>location /</code> forwarding to <code>index.php</code> with request URI. See <code>nginx.conf.example</code> in repo.</li>
+<li><strong>HTTPS</strong> — Redirect HTTP to HTTPS; use valid certificate (e.g. Let’s Encrypt) in production.</li>
+</ul>
+<p><strong>Environment and config</strong></p>
+<ul>
+<li><strong>Base URL</strong> — Set in settings or env so links and client script point to the correct domain.</li>
+<li><strong>Secrets</strong> — DB credentials, API keys from env or secure config, not from repo.</li>
+<li><strong>Debug</strong> — Disable in production; enable only for temporary troubleshooting.</li>
+</ul>
+<p><strong>Post-deploy</strong></p>
+<ul>
+<li>First admin user (script or onboarding). Set project name and branding. Test login, collection, entry, public page. Set up <a href="backup-and-restore.html">Backup and restore</a> and <a href="security.html">Security</a>.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="security.html">Security</a></li>
+<li><a href="backup-and-restore.html">Backup and restore</a></li>
+<li><a href="troubleshooting.html">Troubleshooting</a></li>
+</ul></div>

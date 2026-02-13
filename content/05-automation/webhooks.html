@@ -1,0 +1,45 @@
+<p>Webhooks in Birkly can mean two things: (1) <strong>Incoming</strong> — a URL that other services call to <strong>trigger</strong> an automation workflow when something happens elsewhere; (2) <strong>Outgoing</strong> — Birkly calling <strong>your</strong> URL when something happens in the CMS (e.g. entry created). Both let you connect Birkly to external tools without polling.</p>
+<div class="doc-summary"><p><strong>Incoming webhook:</strong> You get a URL from an automation workflow (trigger type = Webhook). When another app (form, Zapier, payment provider) sends a POST to that URL, the workflow runs. Use it to start workflows from outside Birkly. <strong>Outgoing webhook:</strong> You configure a URL in the admin (e.g. under Webhooks or Settings). When a chosen event happens (e.g. “entry published”), Birkly sends an HTTP request to your URL with details. Use it to notify your backend or a third-party service. In both cases, use HTTPS and optional secrets for security.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Incoming webhook = “Something else calls Birkly”</strong></p>
+<p>When you create an automation workflow and choose <strong>Webhook</strong> as the trigger, Birkly gives you a <strong>URL</strong>. When any other system (your form handler, Zapier, a payment provider) sends a POST request to that URL, the workflow runs. So “incoming” means: the request comes <strong>into</strong> Birkly from the outside.</p>
+<p><strong>Example:</strong> Your contact form is submitted. Your server (or Birkly’s form endpoint) then POSTs to the workflow’s webhook URL. Birkly runs the workflow and, for example, sends a Slack message. You don’t have to poll or wait—one HTTP call starts the workflow.</p>
+<p><strong>Outgoing webhook = “Birkly calls you”</strong></p>
+<p>You tell Birkly: “When this event happens (e.g. an entry is published), send an HTTP request to <strong>this</strong> URL.” When the event occurs, Birkly <strong>calls your</strong> server or a third-party URL with details (e.g. entry ID, collection, changed fields). That way your backend can update a cache, sync to another system, or trigger more logic.</p>
+<p><strong>Example:</strong> Every time a blog post is published, Birkly POSTs to <code>https://your-site.com/api/cms-event</code>. Your endpoint receives the payload and, for example, rebuilds a static site or updates a search index.</p>
+<p><strong>Difference in one sentence</strong></p>
+<ul>
+<li><strong>Incoming:</strong> Others call Birkly → a workflow runs.</li>
+<li><strong>Outgoing:</strong> Birkly calls you (or another URL) when something happens in the CMS.</li>
+</ul>
+<p><strong>Security</strong></p>
+<ul>
+<li>Use <strong>HTTPS</strong> for all webhook URLs.</li>
+<li>For <strong>incoming</strong> webhooks, if the workflow can do sensitive things, use a <strong>secret token</strong> so only trusted callers can trigger it (e.g. send the token in a header; Birkly checks it).</li>
+<li>For <strong>outgoing</strong> webhooks, <strong>validate</strong> the request on your side (e.g. shared secret in header or signature) so only Birkly can call your endpoint. That way random people can’t fake “entry published” events.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Incoming webhooks (automation trigger)</strong></p>
+<ul>
+<li><strong>Setup:</strong> Create a workflow; set trigger to “Webhook”. Admin shows the URL and optional secret.</li>
+<li><strong>Usage:</strong> Any HTTP client can POST to that URL. Body (JSON or form) is typically available as <strong>payload</strong> in conditions and actions.</li>
+<li><strong>Security:</strong> HTTPS; optional secret in header or query; don’t expose URL in client-side code if the workflow is sensitive.</li>
+<li><strong>Test:</strong> <code>curl -X POST -d '{&quot;test&quot;:true}' 'https://your-cms.com/api/automation_webhook.php?workflow=...'</code> (adjust to your URL and body format).</li>
+</ul>
+<p><strong>Outgoing webhooks (event notification)</strong></p>
+<ul>
+<li><strong>Setup:</strong> In admin (e.g. <strong>Settings → Webhooks</strong> or <strong>Webhooks</strong> in sidebar), add a webhook: URL, optional secret, and which events to send (e.g. Entry created, Entry published).</li>
+<li><strong>Behavior:</strong> On event, Birkly sends HTTP request (usually POST) to your URL with payload (e.g. entry id, collection, fields). Your endpoint can update cache, sync, or trigger further logic.</li>
+<li><strong>Security:</strong> HTTPS; validate request (shared secret or signature) so only Birkly can call. Handle duplicate deliveries (idempotency) if the CMS retries.</li>
+</ul>
+<p><strong>Incoming vs Automation “HTTP” action</strong></p>
+<ul>
+<li><strong>Incoming webhook</strong> = <strong>trigger</strong> for a workflow (something calls Birkly to start it).</li>
+<li><strong>HTTP action</strong> = <strong>step inside</strong> a workflow (“as part of this workflow, call this URL”). You choose when it runs (after which trigger and conditions).</li>
+<li><strong>Outgoing webhook</strong> = <strong>event-driven</strong>; Birkly calls your URL whenever the configured event happens. No workflow conditions or multi-step logic—just “notify this URL on event.”</li>
+</ul>
+<p>Use automation + HTTP action when the call is part of a multi-step workflow; use outgoing webhooks when you want simple “notify this URL on event” with no extra steps.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="automation-overview.html">Automation overview</a></li>
+<li><a href="triggers.html">Triggers</a></li>
+<li><a href="conditions-and-actions.html">Conditions and actions</a></li>
+<li><a href="../04-integration/public-forms.html">Public forms</a></li>
+</ul></div>

@@ -1,0 +1,36 @@
+<div class="doc-summary"><p>Roles in Birkly define what each user can do: for example <strong>Viewer</strong> (see content only), <strong>Editor</strong> (create and edit content and media), or <strong>Admin</strong> (full access including settings, users, and plugins). Permissions are the specific abilities (e.g. “edit entries,” “manage users”) attached to each role. When you invite or create a user, you assign one role; use the least powerful role that fits the person’s job. Only administrators should change roles or invite users.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Roles</strong> are like job types. Each user has exactly one role, and that role decides what they can see and do in the admin.</p>
+<p><strong>Typical roles</strong></p>
+<ul>
+<li><strong>Viewer</strong> — Can log in and <strong>see</strong> content and media (collections, entries, uploads). They <strong>cannot</strong> create, edit, or delete anything. Use this for stakeholders, clients, or reviewers who only need to look at what’s there.</li>
+</ul>
+<p>  <strong>Example:</strong> A client is a Viewer so they can check the latest blog posts and product text without being able to change anything.</p>
+<ul>
+<li><strong>Editor</strong> — Can <strong>create and edit</strong> entries and collections, and <strong>upload and manage</strong> media. They can change content, add new entries, and organize the Media Library. Usually they <strong>cannot</strong> change the project name, add or remove users, change roles, or enable/disable plugins. Use this for content managers and writers.</li>
+</ul>
+<p>  <strong>Example:</strong> Your colleague is an Editor so they can publish blog posts and update product descriptions, but they can’t invite new users or change settings.</p>
+<ul>
+<li><strong>Admin (Administrator)</strong> — Can do <strong>everything</strong>: all content and media, plus <strong>Settings</strong> (project name, branding, users, roles, plugins, webhooks, updates, audit log). Use this only for people who need to manage the CMS itself.</li>
+</ul>
+<p>  <strong>Example:</strong> You are the site owner, so you have the Admin role; your intern only needs to edit the blog, so they get Editor.</p>
+<p><strong>Permissions</strong> are the individual “rights” (e.g. “view entries,” “edit entries,” “delete entries,” “manage users”). Each role is a bundle of permissions. The admin may show a grid: one row per role, one column per permission, with a tick if that role has that permission. You normally don’t need to tick boxes one by one—you pick a role and the permissions come with it. Some setups let you create custom roles and choose exactly which permissions they have.</p>
+<p><strong>Assigning a role</strong></p>
+<ul>
+<li>When you <strong>invite</strong> a new user (e.g. from Settings → Users → Invite), you enter their email and choose a role (Viewer, Editor, or Admin). They receive an email to set their password and then can log in with that role.</li>
+<li>For <strong>existing users</strong>, an administrator can change their role in Settings → Users (or similar). The change usually applies the next time they use the CMS (or immediately, depending on how the system works).</li>
+</ul>
+<p><strong>Good practice</strong></p>
+<p>Give people the <strong>least powerful role</strong> they need. If someone only needs to review content, make them a Viewer. If they need to edit content but not touch settings or users, make them an Editor. Reserve Admin for a small number of trusted people.</p>
+<p><strong>Who can change roles</strong></p>
+<p>Only users who have permission to manage users (typically Administrators). Editors and Viewers cannot change roles or invite users.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Model:</strong> Users have one role; roles have a set of permissions. Stored in DB or config (e.g. <code>users</code> table + <code>roles</code> / <code>permissions</code> config). Auth middleware checks permission for each admin action (e.g. <code>edit_entries</code>, <code>manage_users</code>); Public API is usually unauthenticated read (and optionally submit with separate auth/rate limit).</p>
+<p><strong>Default roles (typical):</strong></p>
+<p>| Role    | Typical permissions | |---------|----------------------| | Viewer  | view_entries, view_collections, view_media | | Editor  | view + create/edit/delete entries, manage collections, manage media | | Admin   | all of the above + manage_users, manage_settings, manage_plugins, view_audit_log |</p>
+<p><strong>Custom roles:</strong> Some installs allow defining roles with a custom permission set (e.g. “Author” with edit_entries only for specific collections). Plugins can register extra permissions (e.g. <code>use_plugin_analytics</code>); these appear in the role matrix.</p>
+<p><strong>Enforcement:</strong> Admin UI hides or disables actions the user can’t do; API returns 403 if the user lacks the required permission. Role change applies on next request or after re-login depending on whether permissions are read from DB on each request or cached in session.</p>
+<p><strong>Example permission check (pseudocode):</strong> Before saving an entry, backend checks <code>user.has('edit_entries')</code> (and optionally collection-specific rules). Public <code>GET /api/public/collections/...</code> does not use admin roles; it’s read-only and often unauthenticated.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="settings.html">Settings</a></li>
+<li><a href="account.html">Account</a></li>
+<li><a href="../06-extensibility/audit-log-and-activity.html">Audit log and activity</a></li>
+</ul></div>

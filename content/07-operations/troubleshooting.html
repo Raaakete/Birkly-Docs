@@ -1,0 +1,82 @@
+<p>This page lists common issues when using or deploying Birkly and suggests steps to fix them. Use it after checking the relevant feature doc (e.g. <a href="../04-integration/website-integration.html">Website integration</a>, <a href="deployment.html">Deployment</a>) and your server/PHP error logs.</p>
+<div class="doc-summary"><p><strong>Can’t log in</strong> — Check email/password; reset password if your setup allows it; ensure the user exists and is not disabled. <strong>Content not showing on the site</strong> — Confirm the client script URL and <code>data-cms-url</code>; check that entries are <strong>Published</strong>; ensure CORS allows your site’s domain; look at the browser console and network tab for failed requests. <strong>Upload or save fails</strong> — Check folder permissions (content, media, settings writable by the web server); check PHP upload size and execution limits. <strong>500 or white screen</strong> — Enable temporary error display or check server/PHP error logs; often a permission issue, missing PHP extension, or broken plugin. <strong>Template placeholders not replaced</strong> — Ensure the client script loads and the template syntax matches the docs; confirm the collection handle and that the API returns data. See below for more.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>I can’t log in</strong></p>
+<ul>
+<li><strong>Wrong password</strong> — Use “Forgot password” if available; otherwise an admin must reset your password or re-invite you.</li>
+<li><strong>Account locked</strong> — After too many wrong attempts, the account may be temporarily locked. Wait a few minutes or ask an admin to clear the lock (if the feature exists).</li>
+<li><strong>2FA code not working</strong> — Check that your phone or app time is correct (TOTP codes depend on time). Use a backup code if you have one. If you lost access, an admin may need to reset 2FA for your account.</li>
+<li><strong>Session keeps expiring</strong> — Log in again. If it happens often, your host or developer may need to check session and cookie settings.</li>
+</ul>
+<p><strong>Content doesn’t show on my website</strong></p>
+<ul>
+<li><strong>Script not loading</strong> — In the browser, open Developer Tools (F12) → Network. Reload the page and check if <code>birkly-client.js</code> loads (no 404). Fix the script <code>src</code> and make sure <code>data-cms-url</code> points to your Birkly URL (no trailing slash unless your setup expects it).</li>
+<li><strong>Entries are draft</strong> — The public API usually only returns <strong>published</strong> entries. In the admin, open the entry and set Status to <strong>Published</strong>, then save.</li>
+<li><strong>Wrong collection name</strong> — In your template you must use the exact collection <strong>handle</strong> (e.g. <code>'blog'</code> not <code>'Blog'</code>). Find it in Content → click the collection → check the handle in settings.</li>
+<li><strong>CORS</strong> — If your website is on a different domain than the CMS, the browser may block the request. The Birkly server must allow your site’s domain (CORS). Your host or developer can configure this.</li>
+</ul>
+<p><strong>I can’t save an entry or upload a file</strong></p>
+<ul>
+<li><strong>Permissions</strong> — The server needs permission to write to <code>content/</code>, <code>media/</code>, and <code>settings/</code>. On Linux the web server user (e.g. <code>www-data</code>) must own those folders or have write access. Your host or developer can fix this (e.g. <code>chown</code>, <code>chmod</code>).</li>
+<li><strong>File too large</strong> — PHP has limits on upload size. Your host may need to increase <code>upload_max_filesize</code> and <code>post_max_size</code> in PHP settings.</li>
+<li><strong>Disk full</strong> — The server may have run out of space. Check with your host.</li>
+<li><strong>Validation</strong> — A required field might be empty, or a field format (e.g. email) might be wrong. Check the error message on the form.</li>
+</ul>
+<p><strong>500 error or blank white page</strong></p>
+<ul>
+<li><strong>Server error</strong> — Something crashed on the server. In production you usually don’t see the error on the page. Your host or developer should check the <strong>PHP error log</strong> or <strong>server error log</strong> to see the real message. Common causes: missing PHP extension, wrong file permissions, or a broken plugin.</li>
+<li><strong>Plugin</strong> — Try disabling plugins one by one (Settings → Plugins) and reload. If the site works after disabling one, that plugin may be incompatible or buggy; update it or contact the plugin author.</li>
+<li><strong>Memory</strong> — If the error says “memory limit”, the host may need to increase PHP’s <code>memory_limit</code>.</li>
+</ul>
+<p><strong>Template tags don’t turn into content</strong></p>
+<ul>
+<li><strong>Braces</strong> — Use single braces with spaces: <code>{ title }</code> not <code>{{ title }}</code>. Check the <a href="../03-templating/templating-overview.html">Templating</a> docs for the exact syntax.</li>
+<li><strong>Collection handle</strong> — Must match exactly (often lowercase, e.g. <code>'blog'</code>). Check in the admin.</li>
+<li><strong>Script and API</strong> — The client script must load and run. Open the browser console (F12 → Console) for JavaScript errors. In Network, check the request to the CMS API; if it returns an error, fix the URL or server (see error logs).</li>
+<li><strong>Cache</strong> — Try a hard refresh (Ctrl+F5 or Cmd+Shift+R) or clear any CDN/cache so you see the latest page and script.</li>
+</ul>
+<p><strong>Automation or webhook doesn’t run</strong></p>
+<ul>
+<li><strong>Scheduled</strong> — The server must have something that runs the scheduler (e.g. a cron job). Ask your host or developer if the cron is set up and running.</li>
+<li><strong>Webhook</strong> — Call the exact URL shown in the workflow; use POST and the body format your workflow expects. Check if a firewall or proxy is blocking the request. In the admin, check Automation or Activity logs for “run” or “error” messages.</li>
+<li><strong>Conditions</strong> — If the workflow has conditions (e.g. “payload must have email”), make sure the request you send satisfies them.</li>
+</ul>
+<p><strong>Getting more help</strong></p>
+<ul>
+<li>Note your <strong>Birkly version</strong>, <strong>PHP version</strong>, and <strong>web server</strong> (e.g. Apache/Nginx).</li>
+<li>Note <strong>what you did</strong>, <strong>what you expected</strong>, and <strong>what actually happened</strong>.</li>
+<li>If you have an error message or a log line, include it (remove passwords or secrets). Use this when asking in community forums or opening a support request.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Login and authentication</strong></p>
+<ul>
+<li>Wrong password → forgot password or admin reset. Account locked → wait or admin clear. 2FA not accepted → check device time, backup code, or admin reset 2FA. Session expired → re-login; check session config and cookie domain/path.</li>
+</ul>
+<p><strong>Content not showing (frontend)</strong></p>
+<ul>
+<li>Script 404 or wrong <code>data-cms-url</code> → fix src and attribute. CORS → allow origin on server/proxy. Entries draft → publish. Wrong handle → exact handle in template. API 4xx/5xx → check Network tab and server/error logs.</li>
+</ul>
+<p><strong>Save or upload failures</strong></p>
+<ul>
+<li>Permissions → content/, media/, settings/ writable by web server user; chown/chmod. Upload size → php.ini <code>upload_max_filesize</code>, <code>post_max_size</code>. Disk full. Plugin/validation → disable plugins or fix required/format.</li>
+</ul>
+<p><strong>500 or blank page</strong></p>
+<ul>
+<li>PHP errors → temporary <code>display_errors = On</code> in dev or use error_log in production; fix missing extension, syntax, file. Permissions → ownership and perms on PHP and writable dirs. Plugin → disable one by one. Memory → increase <code>memory_limit</code>.</li>
+</ul>
+<p><strong>Template syntax</strong></p>
+<ul>
+<li>Single braces, correct spacing; handle case-sensitive. Client must run after DOM ready; no prior JS errors. Clear cache/CDN.</li>
+</ul>
+<p><strong>Automation / webhooks</strong></p>
+<ul>
+<li>Scheduled → cron or runner configured and running. Webhook → exact URL, POST, body format; no firewall/proxy block. Conditions → payload meets conditions. Logs → automation/audit logs for run and error.</li>
+</ul>
+<p><strong>Getting help</strong></p>
+<ul>
+<li>Error logs (server, PHP, Birkly). Version info (Birkly, PHP, server). Reproduce steps. Use when reporting.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="deployment.html">Deployment</a></li>
+<li><a href="security.html">Security</a></li>
+<li><a href="../04-integration/website-integration.html">Website integration</a></li>
+<li><a href="../04-integration/client-library.html">Client library</a></li>
+</ul></div>

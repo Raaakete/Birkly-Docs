@@ -1,0 +1,62 @@
+<p>Security for Birkly means protecting the admin, content, and any public API from unauthorized access and common attacks. Use HTTPS, strong passwords, limited roles, and safe server configuration so the CMS stays safe in production.</p>
+<div class="doc-summary"><p><strong>Do this:</strong> (1) Use <strong>HTTPS</strong> everywhere so login and data aren’t sent in clear text. (2) Use <strong>strong passwords</strong> and <strong>2FA</strong> for admin accounts. (3) Give users the <strong>lowest role</strong> they need (viewer/editor instead of admin). (4) Keep Birkly and <strong>plugins updated</strong>. (5) Restrict <strong>write access</strong> to content/media/settings to the web server only; don’t expose them as direct URLs. (6) If you have a <strong>public API</strong>, use <strong>rate limiting</strong> and optional tokens for submit endpoints; don’t expose admin credentials. (7) <strong>Back up</strong> regularly. See <a href="deployment.html">Deployment</a> and <a href="backup-and-restore.html">Backup and restore</a>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Security</strong> here means: only the right people can log in and change content, and the server and data are protected from common risks.</p>
+<p><strong>Essential steps</strong></p>
+<ol>
+<li><strong>HTTPS</strong> — Always use HTTPS (the padlock in the browser) for your Birkly URL. That way passwords and session data are encrypted. Your host can usually set this up (e.g. free Let’s Encrypt certificate).</li>
+<li><strong>Strong passwords</strong> — Use long, unique passwords for admin accounts. If Birkly supports it, turn on <strong>two-factor authentication (2FA)</strong> so even if someone gets the password, they need a code from your phone or app.</li>
+<li><strong>Roles</strong> — Give each user only the access they need. If someone only edits content, make them an Editor, not an Admin. Admins can change settings, users, and plugins—keep that to a small number of people.</li>
+<li><strong>Updates</strong> — Install Birkly and plugin updates when they’re released; they often include security fixes. See <a href="../06-extensibility/updates.html">Updates</a>.</li>
+<li><strong>Backups</strong> — Back up content, media, and settings regularly so you can recover after a mistake or attack. See <a href="backup-and-restore.html">Backup and restore</a>.</li>
+</ol>
+<p><strong>Public forms (contact form, etc.)</strong></p>
+<ul>
+<li>Use the <strong>public submit</strong> API or secure form endpoint—never put admin login or admin API keys in your website’s code. Enable <strong>rate limiting</strong> and <strong>CAPTCHA</strong> (if available) to reduce spam and abuse. The server should validate and sanitize all form input.</li>
+</ul>
+<p><strong>Who has access</strong></p>
+<ul>
+<li>Only people who need to manage content or settings should have admin accounts. Don’t share one login; create separate accounts and use roles. If someone leaves the team, disable or remove their account.</li>
+</ul>
+<p><strong>If something goes wrong</strong></p>
+<ul>
+<li>If you suspect a compromised password, change it and enable 2FA. If you see unexpected changes in the audit log, review who has access and consider rotating passwords. Restore from a known-good backup if data was altered.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>HTTPS</strong></p>
+<ul>
+<li>Use HTTPS in production. Redirect HTTP to HTTPS; valid certificate (e.g. Let’s Encrypt). Protects login, session cookies, API traffic from eavesdropping and tampering.</li>
+</ul>
+<p><strong>Authentication and access control</strong></p>
+<ul>
+<li><strong>Passwords</strong> — Enforce strength (length, complexity) if supported. Encourage 2FA for all admins.</li>
+<li><strong>Roles</strong> — Least privilege: Editor or Viewer instead of Admin where possible. Only admins manage users, settings, plugins.</li>
+<li><strong>Sessions</strong> — Invalidate on logout; expire after inactivity; secure, HTTP-only cookies.</li>
+<li><strong>Admin URL</strong> — Optionally restrict <code>/admin</code> by IP or VPN (Nginx <code>allow</code>/<code>deny</code>, firewall). Optional: rename admin path if supported to reduce automated scanning.</li>
+</ul>
+<p><strong>File and directory security</strong></p>
+<ul>
+<li><strong>Writable dirs</strong> — Only web server user needs write to <code>content/</code>, <code>media/</code>, <code>settings/</code>. Restrict execute where not needed.</li>
+<li><strong>No direct access</strong> — Do not serve <code>content/</code>, <code>settings/</code>, <code>.env</code>, or DB files as static files; route through app or deny in server config.</li>
+<li><strong>Uploads</strong> — Validate file types and sizes; store outside doc root or serve with safe headers (no execution).</li>
+<li><strong>Plugins</strong> — Install only from trusted sources; they run with CMS privileges.</li>
+</ul>
+<p><strong>Public API and forms</strong></p>
+<ul>
+<li><strong>Read API</strong> — Generally safe to expose; use CORS for allowed origins; rate limit. <strong>Submit/forms</strong> — Rate limiting, CAPTCHA, or tokens; no admin credentials on frontend; validate and sanitize server-side.</li>
+</ul>
+<p><strong>Server and PHP</strong></p>
+<ul>
+<li><strong>PHP</strong> — Disable dangerous functions if possible; supported PHP version. <code>display_errors</code> off in production.</li>
+<li><strong>Updates</strong> — Apply security updates to OS, PHP, web server, Birkly, plugins.</li>
+<li><strong>Headers</strong> — Consider X-Frame-Options, Content-Security-Policy via server or app.</li>
+</ul>
+<p><strong>Backups</strong></p>
+<ul>
+<li>Back up content, media, settings, database regularly; store off-server; test restore. See <a href="backup-and-restore.html">Backup and restore</a>.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="deployment.html">Deployment</a></li>
+<li><a href="backup-and-restore.html">Backup and restore</a></li>
+<li><a href="../01-admin/roles-and-permissions.html">Roles and permissions</a></li>
+<li><a href="../01-admin/account.html">Account</a></li>
+<li><a href="../04-integration/public-forms.html">Public forms</a></li>
+</ul></div>

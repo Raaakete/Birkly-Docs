@@ -1,0 +1,50 @@
+<div class="doc-summary"><p>A Content Management System (CMS) is software that lets you create, edit, and organize content for a website or app through a user interface—without editing code or raw files. A CMS stores the content, provides an admin (or “back office”) for editors, and delivers that content to the front (your website or app). Birkly is one such CMS, with a focus on simplicity, file-based storage, and a clear split between “where you edit” (admin) and “what visitors see” (your site).</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>A <strong>content management system (CMS)</strong> is like a control panel for your website’s content. Instead of opening code or HTML files to change a headline or add a new page, you log in to the CMS, find the content you want (or create something new), edit it in forms and boxes—similar to editing a document—and save. The CMS stores everything; your website then shows that content to visitors.</p>
+<p><strong>Why use one?</strong></p>
+<p>Without a CMS, almost every change needs someone who can edit code or server files. With a CMS:</p>
+<ul>
+<li>You (or your team) can update text, images, and pages yourself.</li>
+<li>You don’t need to wait for a developer for routine updates.</li>
+<li>You can control who can edit what (e.g. some users only edit the blog, others can change settings).</li>
+</ul>
+<p>That’s useful for blogs, company sites, portfolios, online shops, event pages, or any site that changes regularly.</p>
+<p><strong>What can you do with a typical CMS?</strong></p>
+<ul>
+<li><strong>Create and edit pages and posts</strong> — Add titles, body text, images, and structure (headings, lists, links) through an editor.</li>
+<li><strong>Upload and reuse media</strong> — Store images and files in a central library and insert them into your content.</li>
+<li><strong>Organize content</strong> — Group content by type (e.g. “Blog”, “Products”, “Team”) and add metadata (dates, categories, tags).</li>
+<li><strong>Control who does what</strong> — Give some users permission only to edit content, others to manage settings or users.</li>
+<li><strong>Publish when ready</strong> — Save drafts and publish (or unpublish) when the content is ready for the public.</li>
+</ul>
+<p>Some CMSs also control the full design and layout of the site. Others (like Birkly) focus on <strong>content</strong> and let your own website or app handle design and layout—your site “pulls” content from the CMS via a script or an API.</p>
+<p><strong>Example: before and after using a CMS</strong></p>
+<ul>
+<li><strong>Before (no CMS):</strong> To add a new blog post, you (or a developer) create or edit an HTML file, add the title and body, upload an image to the server, and update any index or list page. Every change is a file edit.</li>
+<li><strong>After (with Birkly):</strong> You log in to the admin, open the “Blog posts” collection, click “New entry,” type the title and content, pick or upload an image, set the date, and click “Save &amp; Publish.” The live site automatically shows the new post where your template lists blog entries. No file editing.</li>
+</ul>
+<p><strong>Birkly in one sentence</strong></p>
+<p>Birkly is a CMS that stores your content as simple files (no database required for content), gives you an admin panel to create and edit it, and lets your website display that content via a small script or an API—so you get the benefits of a CMS without database setup or complex hosting.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>A CMS provides: (1) a <strong>data model</strong> and <strong>storage</strong> for content, (2) an <strong>admin UI</strong> for CRUD and configuration, (3) <strong>delivery</strong> (API and/or rendered output) to the frontend.</p>
+<p><strong>Architecture comparison</strong></p>
+<ul>
+<li><strong>Monolithic CMS (e.g. classic WordPress):</strong> Content, admin, and frontend rendering are in one system; theme and plugins generate HTML on the server.</li>
+<li><strong>Headless CMS:</strong> Content and admin only; frontend consumes content via API (REST, GraphQL) and renders elsewhere (static site, SPA, mobile app).</li>
+<li><strong>Birkly:</strong> Headless-style (decoupled): admin at <code>/admin</code>, content stored as files (and optionally DB for users/plugins). Delivery via <strong>client library</strong> (script in HTML, fetches API and runs templating in the browser) or <strong>Public API</strong> (REST). So: CMS = content backend; any frontend can consume via API or the provided client script.</li>
+</ul>
+<p><strong>Birkly specifics</strong></p>
+<ul>
+<li><strong>Storage:</strong> Content = JSON files under a content directory. Optional DB (e.g. SQLite) for users, sessions, automation, plugins.</li>
+<li><strong>Admin:</strong> <code>/admin</code>; collections, entries, media, settings, roles, plugins, automation.</li>
+<li><strong>Delivery:</strong> <code>birkly-client.js</code> (templating + fetch) or direct <code>GET /api/public/collections/{handle}/entries</code> (and optional submit endpoints). No server-side rendering required; can be added by the integrator.</li>
+</ul>
+<p><strong>When to choose a CMS like Birkly</strong></p>
+<ul>
+<li>You want a clear separation between content and frontend (e.g. multiple sites or apps using the same content, or a static site that pulls content at build or runtime).</li>
+<li>You prefer file-based content (backup, Git, portability) over a database for the content store.</li>
+<li>You need a simple admin for non-technical editors and optional public API/forms for integrations.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="what-is-birkly.html">What is Birkly?</a></li>
+<li><a href="getting-started.html">Getting started</a></li>
+<li><a href="../02-content/collections.html">Collections</a></li>
+</ul></div>

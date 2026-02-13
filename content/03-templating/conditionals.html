@@ -1,0 +1,75 @@
+<p>Conditionals in Birkly templates let you show or hide parts of the page based on conditions: “if this collection has entries”, “if this entry has a value in this field”, “if not …”. You use <code>{if}</code> … <code>{endif}</code> (and optionally <code>{else}</code>) to control what gets rendered.</p>
+<div class="doc-summary"><p>Use <strong>conditionals</strong> to show something only when a condition is true. Typical form: <code>{if condition}</code> … content … <code>{endif}</code>. Examples: <code>{if 'blog' has entries}</code> (show block only if there are blog posts), <code>{if entry has excerpt}</code> (only if the current entry has an excerpt), <code>{if not entry has image}</code> (only when there’s no image). This avoids empty or broken-looking sections (e.g. “Tags:” with no tags). Exact syntax may vary slightly; check the Help in your admin.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Conditionals answer “should this part of the page be shown?” You use them so you don’t show empty headings, broken images, or “Tags:” when there are no tags.</p>
+<p><strong>Basic shape</strong></p>
+<ul>
+<li><strong>If something is true:</strong> <code>{if condition}</code> … show this … <code>{endif}</code></li>
+<li><strong>If not, show something else:</strong> <code>{if condition}</code> … show this … <code>{else}</code> … show that … <code>{endif}</code></li>
+</ul>
+<p><strong>Example 1: Only show the list when there are posts</strong></p>
+<pre><code>{if 'blog' has entries}
+  &lt;h2&gt;Latest posts&lt;/h2&gt;
+  {for each entry in 'blog'}
+    &lt;article&gt;…&lt;/article&gt;
+  {endfor}
+{else}
+  &lt;p&gt;No posts yet.&lt;/p&gt;
+{endif}</code></pre>
+<p>So: if the blog has at least one (published) entry, show the heading and the loop; otherwise show “No posts yet.”</p>
+<p><strong>Example 2: Only show a section when the entry has a value</strong></p>
+<pre><code>{if entry has excerpt}
+  &lt;p class=&quot;excerpt&quot;&gt;{ excerpt }&lt;/p&gt;
+{endif}</code></pre>
+<p>If the current entry has no excerpt, the whole <code>&lt;p&gt;</code> block is not output. No empty “Excerpt:” line.</p>
+<p><strong>Example 3: Fallback when there’s no image</strong></p>
+<pre><code>{if entry has featured_image}
+  &lt;img src=&quot;{ media featured_image }&quot; alt=&quot;{ title }&quot;&gt;
+{else}
+  &lt;img src=&quot;/images/placeholder.jpg&quot; alt=&quot;&quot;&gt;
+{endif}</code></pre>
+<p>So: if the entry has a featured image, use it; otherwise use a placeholder so the layout doesn’t break.</p>
+<p><strong>Example 4: “If not” — show only when something is missing</strong></p>
+<pre><code>{if not entry has tags}
+  &lt;p&gt;No tags for this post.&lt;/p&gt;
+{endif}</code></pre>
+<p><strong>Example 5: Hide “Tags:” when there are no tags</strong></p>
+<pre><code>{if entry has tags}
+  &lt;p&gt;Tags: {for each tag in tags}&lt;span class=&quot;tag&quot;&gt;{ tag }&lt;/span&gt;{endfor}&lt;/p&gt;
+{endif}</code></pre>
+<p><strong>Combining with loops</strong></p>
+<p>You can use conditionals <strong>inside</strong> a loop (e.g. “if this entry has an excerpt, show it”) or <strong>around</strong> a loop (“if the collection has entries, show the loop; else show a message”). You can also nest conditionals (one <code>{if}</code> inside another) when you need more complex rules.</p>
+<p><strong>Why use them</strong></p>
+<ul>
+<li>Avoid empty or meaningless blocks (e.g. “Related:” with no related items).</li>
+<li>Avoid broken images when a Media field is empty.</li>
+<li>Show different content for “has value” vs “no value” (e.g. placeholder image).</li>
+<li>Show a friendly empty state for lists (“No posts yet”) instead of blank space.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Condition types (typical)</strong></p>
+<p>| Condition | Example | Meaning | |-----------|---------|--------| | Collection has entries | <code>{if 'blog' has entries}</code> | At least one published entry in that collection. | | Entry has field | <code>{if entry has excerpt}</code> | Current entry has a non-empty value for that field. | | Not | <code>{if not entry has image}</code> | Negation of the following condition. | | Equals / comparison | If supported: <code>{if status eq 'published'}</code> | Value comparison; syntax is engine-dependent. |</p>
+<p><strong>Scoping</strong></p>
+<ul>
+<li><strong>Inside a loop:</strong> “entry” is the current loop entry; “entry has excerpt” checks that entry’s excerpt.</li>
+<li><strong>After single-entry load:</strong> “entry” is the loaded entry.</li>
+<li><strong>Collection-level:</strong> “'blog' has entries” checks the collection as a whole (no current entry).</li>
+</ul>
+<p><strong>Nested conditionals</strong></p>
+<pre><code>{if 'blog' has entries}
+  {for each entry in 'blog'}
+    {if entry has excerpt}
+      &lt;p&gt;{ excerpt }&lt;/p&gt;
+    {else}
+      &lt;p&gt;{ title }&lt;/p&gt;
+    {endif}
+  {endfor}
+{endif}</code></pre>
+<p><strong>Performance</strong></p>
+<p>Conditions are evaluated at render time. “Collection has entries” may trigger a count or a fetch depending on the engine; prefer reusing the same data for the loop when possible (e.g. “get entries” once, then “if entries length &gt; 0” and “for each entry in entries” if the engine supports it).</p>
+<p><strong>Technical note</strong></p>
+<p>The exact set of conditions (has entries, has field, not, eq, gt, etc.) depends on the template engine. Check the admin Help or templating reference for your Birkly version.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="variables-and-output.html">Variables and output</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+<li><a href="media-in-templates.html">Media in templates</a></li>
+</ul></div>

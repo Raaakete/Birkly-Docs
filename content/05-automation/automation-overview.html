@@ -1,0 +1,68 @@
+<p>Automation in Birkly lets you run workflows when something happens (a trigger)—e.g. on a schedule or when the CMS receives a webhook. Each workflow can check conditions and then run actions (e.g. send a Slack message, call an external URL, or update content).</p>
+<div class="doc-summary"><p><strong>Automation</strong> = “When X happens, do Y.” You create <strong>workflows</strong> in the admin (e.g. under <strong>Automation</strong>). Each has a <strong>trigger</strong> (e.g. “Every day at 9:00” or “When we receive a webhook”), optional <strong>conditions</strong> (e.g. “only if the new entry has a certain field”), and <strong>actions</strong> (e.g. “POST to Slack”, “Send email”, “Call a URL”). Use it to notify your team, sync with other tools, or run recurring tasks without writing code. See <a href="triggers.html">Triggers</a>, <a href="conditions-and-actions.html">Conditions and actions</a>, and <a href="webhooks.html">Webhooks</a> for details.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Automation</strong> means “when something happens, Birkly does something for you automatically.” You set it up once in the admin; after that, it runs without you clicking anything.</p>
+<p><strong>What you can do with it</strong></p>
+<ul>
+<li><strong>Scheduled tasks:</strong> “Every Monday at 9:00, do X” or “Every hour, check something and call an API.”</li>
+<li><strong>Reactive workflows:</strong> “When someone submits the contact form, send a Slack message to the team” or “When a new entry is published, notify another system.”</li>
+<li><strong>Integrations:</strong> Connect Birkly to Slack, email, CRMs, or your own backend by having Birkly call a URL or send a message.</li>
+</ul>
+<p>You don’t need to set up cron jobs or write server code for basic flows—you configure them in the Birkly admin.</p>
+<p><strong>Main pieces</strong></p>
+<ol>
+<li><strong>Trigger</strong> — When the workflow runs.</li>
+</ol>
+<p>   - <strong>Scheduled:</strong> At a fixed time (e.g. daily at 9:00, every 5 minutes).    - <strong>Webhook:</strong> When another app or your server sends an HTTP request to a special Birkly URL (e.g. after a form is submitted or a payment is received).</p>
+<ol>
+<li><strong>Conditions</strong> (optional) — “Only run the rest if …” (e.g. only if the submission has an email, or only on weekdays).</li>
+<li><strong>Actions</strong> — What actually runs: e.g. “Post to Slack”, “Send an email”, “Call this URL with this data.”</li>
+</ol>
+<p><strong>Example: “Notify team when contact form is submitted”</strong></p>
+<ol>
+<li>In the admin, go to <strong>Automation</strong> and create a new workflow.</li>
+<li><strong>Trigger:</strong> Choose <strong>Webhook</strong>. Birkly shows you a URL (e.g. <code>https://your-cms.com/api/automation_webhook.php?workflow=abc123</code>). When your form handler or another service POSTs to this URL, the workflow starts.</li>
+<li><strong>Conditions:</strong> Optional. e.g. “Payload has field <code>email</code>” so you only notify when the submission looks valid.</li>
+<li><strong>Actions:</strong> Add “Slack” — enter your Slack webhook URL and a message like “New contact: {{ payload.name }} – {{ payload.message }}”.</li>
+<li>Save and enable the workflow.</li>
+<li>On your website, when the form is submitted, your backend (or a Birkly form endpoint) can POST to the workflow’s webhook URL. Birkly then runs the workflow and sends the Slack message.</li>
+</ol>
+<p><strong>Example: “Every day at 9:00, call an API”</strong></p>
+<ol>
+<li>Create a workflow with a <strong>Scheduled</strong> trigger.</li>
+<li>Set the schedule to “Daily at 9:00” (and your timezone).</li>
+<li>Add an <strong>HTTP</strong> action: e.g. GET or POST to your own API or a third-party service.</li>
+<li>Save and enable. The server will run this workflow every day at 9:00.</li>
+</ol>
+<p><strong>Where to configure</strong></p>
+<p>In the admin sidebar, open <strong>Automation</strong> (or <strong>Workflows</strong>). Create a new workflow, pick a trigger, add conditions if needed, then add one or more actions. For webhook triggers, the admin shows the URL to call; for scheduled triggers, set the time and timezone.</p>
+<p><strong>Good practices</strong></p>
+<ul>
+<li><strong>Secrets:</strong> Put API keys and webhook URLs in the workflow config or environment variables—not in screenshots or public docs.</li>
+<li><strong>Errors:</strong> If an action fails (e.g. Slack is down), check the Automation logs in the admin to see the error and whether you need to fix the URL or credentials.</li>
+<li><strong>Rate limits:</strong> If you run workflows very often, respect external APIs’ rate limits; the system may throttle or queue runs.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Building blocks</strong></p>
+<p>| Block | Role | |-------|------| | <strong>Trigger</strong> | When the workflow runs: Scheduled (cron-like), Webhook (HTTP request), or Entry created/updated (if supported). | | <strong>Conditions</strong> | Optional filters: payload field equals X, time in range, entry collection, etc. AND/OR logic depends on UI. | | <strong>Actions</strong> | Steps executed in order: Slack, HTTP request, Email, internal (e.g. update entry, log). | | <strong>Queue / rate limit</strong> | System may queue or throttle to avoid overloading external services. |</p>
+<p><strong>Where it runs</strong></p>
+<ul>
+<li>Triggers: scheduler (cron or internal) for time-based; webhook endpoint for HTTP-triggered.</li>
+<li>Conditions and actions run in order; conditions gate whether actions execute. Implementation details in core/automation or admin Help.</li>
+</ul>
+<p><strong>Idempotency</strong></p>
+<p>If a workflow can run twice for the same event (e.g. webhook retried), design actions to be idempotent where possible (e.g. “create entry” only if it doesn’t already exist, or use a unique key).</p>
+<p><strong>Secrets and errors</strong></p>
+<ul>
+<li>Store API keys and tokens in workflow config or env; never in templates or logs.</li>
+<li>On action failure, the engine may retry or log; check automation logs. Retry/backoff behavior is version-dependent.</li>
+</ul>
+<p><strong>Relation to webhooks</strong></p>
+<ul>
+<li><strong>Incoming webhook</strong> = trigger for a workflow (something calls Birkly).</li>
+<li><strong>Outgoing webhook</strong> = Birkly calls your URL when an event happens (e.g. entry published). See <a href="webhooks.html">Webhooks</a>.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="triggers.html">Triggers</a></li>
+<li><a href="conditions-and-actions.html">Conditions and actions</a></li>
+<li><a href="webhooks.html">Webhooks</a></li>
+<li><a href="../04-integration/public-forms.html">Public forms</a></li>
+</ul></div>

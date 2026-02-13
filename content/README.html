@@ -1,0 +1,65 @@
+<h1>Birkly Docs</h1>
+<p><strong>Birkly Docs</strong> is the <strong>single source of truth</strong> for all Birkly CMS documentation. Any documentation you see in the Birkly admin (Help), on the Birkly website, or in other channels should ultimately come from this repository.</p>
+<h2>📦 Repository-Based Distribution</h2>
+<p>This repository contains the documentation source files (Markdown) and built HTML files. The CMS and website consume docs by pulling from this repository using one of these methods:</p>
+<ul>
+<li><strong>Git submodule</strong> (recommended) — Versioned dependency, can pin to specific commits</li>
+<li><strong>Sync script</strong> — Clones repo and copies files to CMS/website</li>
+<li><strong>NPM package</strong> — Install as dependency (if published)</li>
+</ul>
+<p>See <strong>SYNC.md</strong> for detailed integration instructions.</p>
+<h2>What's in here</h2>
+<ul>
+<li><strong>DOCS_ARCHITECTURE.md</strong> — How docs are structured, the Summary + Beginner + Advanced Users pattern, and how other systems (CMS, website, etc.) consume this content. Read this first if you maintain or integrate the docs.</li>
+<li><strong>CONTENTS_INDEX.md</strong> — Index of every topic and file path for maintainers and tooling.</li>
+<li><strong>Numbered topic folders</strong> (<code>00-overview</code>, <code>01-admin</code>, <code>02-content</code>, …) — All actual documentation in Markdown, one topic per file.</li>
+<li><strong>Built HTML files</strong> — Generated from Markdown via <code>build-static.js</code>. These are what CMS and website consume.</li>
+</ul>
+<h2>📖 For readers</h2>
+<ul>
+<li>Start with <strong>00-overview/getting-started.md</strong> and <strong>00-overview/what-is-birkly.md</strong>.</li>
+<li>Each topic has a <strong>Summary</strong> (for everyone), <strong>Beginner</strong> (plain language), and <strong>Advanced Users</strong> (technical) section so you can read only what you need.</li>
+<li>You can also open <code>index.html</code> locally to view the full documentation site.</li>
+</ul>
+<h2>✏️ For maintainers</h2>
+<ul>
+<li>Edit only the Markdown files (<code>.md</code>) in this repository. Do not duplicate content elsewhere.</li>
+<li>Follow the structure in <strong>DOCS_ARCHITECTURE.md</strong>: every feature/concept has Summary + Beginner + Advanced Users.</li>
+<li>After changing or adding docs:</li>
+</ul>
+<p>  1. Run <code>npm run build</code> (or <code>node build-static.js</code>) to regenerate HTML   2. Update <strong>CONTENTS_INDEX.md</strong> if you added/renamed topics   3. Update <strong>meta/changelog-docs.md</strong> with your changes   4. Commit both <code>.md</code> and <code>.html</code> files   5. Push to repository</p>
+<h2>🔗 For integrators (CMS, website, dev portal)</h2>
+<h3>Option 1: Git submodule (recommended)</h3>
+<p>In your CMS or website repository:</p>
+<pre><code>git submodule add https://github.com/Raaakete/Birkly-Docs.git docs</code></pre>
+<p>Then:</p>
+<ul>
+<li><strong>CMS:</strong> Copy or symlink <code>docs/</code> to <code>admin/docs/</code> or serve via PHP</li>
+<li><strong>Website:</strong> Copy to <code>docs/</code> folder or build into site</li>
+<li><strong>Update:</strong> <code>git submodule update --remote docs</code> (or pin to specific commit)</li>
+</ul>
+<h3>Option 2: Sync script</h3>
+<p>Create a script in your CMS/website that clones this repo and copies files:</p>
+<pre><code>#!/bin/bash
+git clone --depth 1 https://github.com/Raaakete/Birkly-Docs.git temp-docs
+cd temp-docs &amp;&amp; npm run build
+cp -r *.html **/*.html css/ ../admin/docs/  # adjust path
+rm -rf temp-docs</code></pre>
+<p>See <strong>SYNC.md</strong> for complete examples.</p>
+<h3>Option 3: NPM package</h3>
+<pre><code>npm install github:Raaakete/Birkly-Docs</code></pre>
+<p>Then copy the built HTML files to your project.</p>
+<h2>🚀 Local development</h2>
+<ol>
+<li>Clone this repository</li>
+<li>Run <code>npm run build</code> to generate HTML files</li>
+<li>Open <code>index.html</code> in your browser</li>
+<li>Edit <code>.md</code> files and rebuild to see changes</li>
+</ol>
+<h2>📦 Publishing</h2>
+<ul>
+<li><strong>Repository:</strong> Push changes to <code>main</code> branch</li>
+<li><strong>CMS/Website:</strong> Update submodule or run sync script to pull latest</li>
+<li><strong>NPM:</strong> Run <code>npm publish</code> (requires npm account and package name setup)</li>
+</ul>
+<p>See <strong>DOCS_ARCHITECTURE.md</strong> for full consumption and linking rules.</p>

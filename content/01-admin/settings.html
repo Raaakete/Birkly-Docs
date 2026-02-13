@@ -1,0 +1,48 @@
+<div class="doc-summary"><p>Settings is where you configure the Birkly installation itself: project name, branding (logo, favicon), users and roles, plugins, and optionally webhooks, updates, or API options. Changes here apply to the whole CMS, not to a single collection or entry. Usually only administrators can access and change Settings.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Settings</strong> (often under a gear icon or in the sidebar) is the control panel for <em>how</em> the CMS works and looks—not for editing the content of your blog or products, but for things like the name of the project, who can log in, and what they’re allowed to do.</p>
+<p><strong>What you can change (typical sections)</strong></p>
+<ul>
+<li><strong>Project name</strong> — The name shown in the admin (e.g. in the sidebar or the browser tab). This is only for people who use the admin; it does not change your website’s title or address.</li>
+</ul>
+<p>  <strong>Example:</strong> You set the project name to “Acme Blog” so that when your team logs in they see “Acme Blog” at the top instead of a generic label.</p>
+<ul>
+<li><strong>Branding</strong> — Upload a <strong>logo</strong> and/or <strong>favicon</strong> so the admin panel shows your company or site branding. Some setups also let you add custom CSS to change colours or fonts in the admin.</li>
+</ul>
+<ul>
+<li><strong>Users and roles</strong> — See who has an account, invite new users (they get an email to set their password), and assign <strong>roles</strong> (e.g. Administrator, Editor, Viewer). Roles control what each person can do—for example, Editors can create and edit content but not change settings or add users.</li>
+</ul>
+<p>  <strong>Example:</strong> You invite a colleague with the “Editor” role so they can manage blog posts but not delete collections or change the project name.</p>
+<ul>
+<li><strong>Plugins</strong> — Enable or disable <strong>plugins</strong> (add-ons that add features). Some plugins have their own options (e.g. API keys) that you set in Settings or on a separate plugin page.</li>
+</ul>
+<ul>
+<li><strong>Webhooks</strong> (if available) — Configure URLs that Birkly will call when something happens (e.g. when a new entry is published). Used for integrations with other tools.</li>
+</ul>
+<ul>
+<li><strong>Updates</strong> (if available) — Check for new versions of Birkly or plugins and apply updates. Always back up before updating.</li>
+</ul>
+<ul>
+<li><strong>Audit log / Activity</strong> — A link or shortcut to view a log of who did what (e.g. who edited which entry). Useful for accountability and troubleshooting.</li>
+</ul>
+<p><strong>Who can use Settings</strong></p>
+<p>Usually only users with the <strong>Administrator</strong> role. Editors and viewers often don’t see Settings at all, or they see it but can’t change anything. That way only trusted people can change the project name, add users, or enable plugins.</p>
+<p><strong>After you change something</strong></p>
+<p>Click <strong>Save</strong> (or save per section). Some changes (e.g. project name, logo) apply immediately when you refresh the admin. Others (e.g. server or API options) might need a restart or a cache clear—the interface or your host’s docs will say if that’s the case.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Structure:</strong> Settings are typically stored in a config directory (e.g. <code>settings/</code>) as JSON files: <code>admin.json</code> (project name, maybe timezone), <code>branding.json</code> (logo path, favicon), <code>plugins.json</code> (enabled plugins + config), <code>users</code> or DB for auth. Webhooks, CORS, rate limits may be in their own files or in a single config.</p>
+<p><strong>Sections (implementation-dependent):</strong></p>
+<ul>
+<li><strong>General:</strong> Project name, timezone, language (admin UI).</li>
+<li><strong>Branding:</strong> Logo URL/path, favicon; optional custom CSS for admin.</li>
+<li><strong>Users/Roles:</strong> User list, invite flow, role assignment. Roles map to permissions (view/edit content, manage media, manage users, manage settings, manage plugins). Stored in DB or files; auth (session, 2FA) separate.</li>
+<li><strong>Plugins:</strong> Enable/disable by plugin id; per-plugin config (API keys, options) in plugin.json or plugin-specific storage.</li>
+<li><strong>Webhooks:</strong> Outgoing webhook URLs + event selection (e.g. entry.created, entry.published). Payload format and retry behaviour depend on implementation.</li>
+<li><strong>Updates:</strong> Version check (remote or local); apply core/plugin updates (replace files, run migrations). Require backup and possibly downtime.</li>
+<li><strong>API/Public:</strong> CORS allowed origins, rate limit rules, optional API keys for submit. See <a href="../04-integration/public-api.html">Public API</a>.</li>
+</ul>
+<p><strong>Access control:</strong> Settings UI and API are protected; only users with “manage settings” (or equivalent) permission can read/write. Changing roles or permissions takes effect on next request or login depending on session handling.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="roles-and-permissions.html">Roles and permissions</a></li>
+<li><a href="account.html">Account</a></li>
+<li><a href="../06-extensibility/plugins.html">Plugins</a></li>
+<li><a href="../06-extensibility/updates.html">Updates</a></li>
+</ul></div>

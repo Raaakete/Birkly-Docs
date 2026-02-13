@@ -1,0 +1,49 @@
+<p>Page templates in Birkly define which HTML template file and which content (collection or entry) are used to render a given URL. They connect URLs to your static or dynamic pages so the right layout and data are shown.</p>
+<div class="doc-summary"><p><strong>Page templates</strong> (or “templates” in the routing sense) map <strong>URLs</strong> to <strong>content and layout</strong>. For example: <code>/blog</code> uses the blog list template and the “blog” collection; <code>/blog/my-post</code> uses the single-post template and the entry with slug <code>my-post</code>. In file-based setups you might have <code>templates/home.html</code>, <code>templates/post.html</code>, etc., and a router or the client library decides which template to use based on the path. You edit the HTML/template files and the content in the CMS; the system ties them together. Exact behavior depends on your Birkly version (client-side vs server-side).</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Page templates</strong> answer: “For this URL, which HTML layout do we use and which content do we show?” So when a visitor goes to <code>/blog</code>, they see the “blog list” layout filled with blog entries; when they go to <code>/blog/my-first-post</code>, they see the “single post” layout filled with that one post.</p>
+<p><strong>The three pieces</strong></p>
+<ol>
+<li><strong>URL</strong> — What the visitor requested (e.g. <code>/blog</code>, <code>/blog/hello-world</code>).</li>
+<li><strong>Template file</strong> — An HTML file that contains your layout (header, footer, structure) and the Birkly template tags (<code>{ title }</code>, <code>{for each entry in 'blog'}</code>, etc.).</li>
+<li><strong>Content</strong> — The data from the CMS (one collection, one entry, or a list of entries). The system loads this and fills the template’s placeholders.</li>
+</ol>
+<p><strong>Example: simple setup</strong></p>
+<ul>
+<li><strong>URL:</strong> <code>/blog</code></li>
+</ul>
+<p>  <strong>Template:</strong> <code>templates/blog.html</code> (has <code>{for each entry in 'blog'} … {endfor}</code>).     <strong>Content:</strong> All published entries from the “blog” collection.</p>
+<ul>
+<li><strong>URL:</strong> <code>/blog/hello-world</code></li>
+</ul>
+<p>  <strong>Template:</strong> <code>templates/post.html</code> (has <code>{ title }</code>, <code>{ content }</code>, <code>{ date }</code>).     <strong>Content:</strong> The blog entry with slug <code>hello-world</code>.</p>
+<p>So the same template file can be used for “all posts” (with a loop) or “one post” (with one entry); the router or client decides which entry(s) to load based on the URL.</p>
+<p><strong>How it works in practice</strong></p>
+<ul>
+<li><strong>Static HTML + client:</strong> Your site might be a few static files: <code>index.html</code>, <code>blog.html</code>, <code>post.html</code>. The server just serves the file that matches the path (or a single <code>index.html</code> with client-side routing). The Birkly client script then runs, sees the template tags, and fetches the right collection/entry (e.g. from the URL or <code>data-collection</code>). So “routing” is: which file was requested, and what slug or collection the client infers from the URL.</li>
+<li><strong>Server-side (e.g. PHP):</strong> The server looks at the request path, picks a template file and which entry or collection to load, renders the template with that data, and returns HTML. One URL → one template + one data load.</li>
+</ul>
+<p><strong>Where template files live</strong></p>
+<p>Often a <code>templates/</code> folder at the project root: <code>home.html</code>, <code>page.html</code>, <code>post.html</code>. The exact names and how the server or client maps URLs to them depend on your deployment. See <a href="../04-integration/website-integration.html">Website integration</a> and your project’s docs.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Role of page templates</strong></p>
+<ul>
+<li><strong>URL</strong> → which <strong>template file</strong> (HTML with placeholders) and which <strong>collection/entry</strong> to load.</li>
+<li><strong>Template file</strong> — Birkly template syntax + layout (header, footer, CSS).</li>
+<li><strong>Content</strong> — From CMS (collection + entry or list); injected at render time.</li>
+</ul>
+<p>So: templates = structure and placeholders; CMS = data; routing = mapping URL → template + data.</p>
+<p><strong>Client-side vs server-side</strong></p>
+<p>| Mode | How routing works | Typical use | |------|-------------------|-------------| | <strong>Client (birkly-client.js)</strong> | Static HTML files (e.g. <code>blog.html</code>, <code>post.html</code>). Client infers collection/entry from URL or <code>data-collection</code>; fetches from API; fills placeholders. | Static hosting, no server language. | | <strong>Server (e.g. PHP)</strong> | Router (e.g. <code>render_page.php</code>) matches path to template + collection/entry; loads content (API or files); renders server-side; returns HTML. | SSR, SEO, single entry point. |</p>
+<p><strong>Defining routes</strong></p>
+<ul>
+<li>Some setups have a <strong>routes</strong> or <strong>pages</strong> config (file or admin) mapping path patterns to template + collection. Others use convention (e.g. <code>/blog</code> → <code>templates/blog.html</code> + collection <code>blog</code>).</li>
+<li><strong>Single entry by slug:</strong> URL often includes slug (e.g. <code>/blog/my-first-post</code>); system loads that entry from the collection and renders with the single-entry template.</li>
+</ul>
+<p><strong>Template file location</strong></p>
+<ul>
+<li>Commonly <code>templates/</code> at project root: <code>home.html</code>, <code>page.html</code>, <code>post.html</code>. Names and mapping are deployment-specific; see <a href="../04-integration/website-integration.html">Website integration</a> and your server/client setup.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="../04-integration/website-integration.html">Website integration</a></li>
+<li><a href="../03-templating/templating-overview.html">Templating overview</a></li>
+<li><a href="../04-integration/client-library.html">Client library</a></li>
+</ul></div>

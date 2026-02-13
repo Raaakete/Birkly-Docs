@@ -1,0 +1,68 @@
+<p>In automation workflows, <strong>conditions</strong> decide whether the rest of the workflow runs (e.g. “only if field X is set”), and <strong>actions</strong> are the steps that run (e.g. “send Slack message”, “POST to URL”). You can have multiple conditions and multiple actions in one workflow.</p>
+<div class="doc-summary"><p><strong>Conditions</strong> = “Only run the rest if …”. Examples: “payload has field <code>email</code>”, “entry status is published”, “hour is between 9 and 17.” <strong>Actions</strong> = “Do this.” Examples: <strong>Slack</strong> — post a message to a channel; <strong>HTTP</strong> — send a POST/GET to a URL (e.g. your backend, Zapier); <strong>Email</strong> — send an email (if configured). Add conditions in the workflow editor so the workflow doesn’t run when it’s not needed; add actions in the order you want them to run. See the Automation page in the admin for the exact options in your version.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Conditions</strong> are filters: “Only do the next steps if this is true.” <strong>Actions</strong> are the steps that actually do something: post to Slack, call a URL, send an email.</p>
+<p><strong>Conditions</strong></p>
+<p>They let you avoid running actions when it’s not relevant. Examples:</p>
+<ul>
+<li>“Only run if the webhook payload contains an <code>email</code> field” — so you don’t post to Slack when the request is invalid or a bot.</li>
+<li>“Only run if the new entry’s status is Published” — so you only notify when something goes live, not on every save.</li>
+<li>“Only run on weekdays” or “only between 9 and 17” — so you don’t send notifications at night.</li>
+</ul>
+<p>You add one or more conditions in the workflow editor. If any condition fails (depending on whether your UI uses AND or OR), the actions are skipped.</p>
+<p><strong>Example: “Notify only if contact form has email”</strong></p>
+<ol>
+<li>Trigger: Webhook (e.g. called when the form is submitted).</li>
+<li>Condition: “Payload has key <code>email</code>” (or “Payload field <code>email</code> is not empty”).</li>
+<li>Action: Slack — “New contact: {{ payload.name }}, {{ payload.email }}”.</li>
+</ol>
+<p>So if someone POSTs to the webhook without an email, the Slack message is not sent.</p>
+<p><strong>Actions</strong></p>
+<p>These are the “do this” steps. Common types:</p>
+<ul>
+<li><strong>Slack</strong> — Post a message to a Slack channel. You configure: Slack webhook URL (or app), channel, and message text. The message can include variables (e.g. <code>{{ payload.name }}</code> or <code>{{ entry.title }}</code>) so each run shows real data.</li>
+<li><strong>HTTP request</strong> — Call an external URL (GET, POST, PUT, etc.) with optional headers and body. Use this to notify your own API, Zapier, a CRM, or any service that accepts HTTP.</li>
+<li><strong>Email</strong> — Send an email (if the server or plugin is configured for mail). You set recipient(s), subject, and body; body can often use the same variables (e.g. “New submission from {{ payload.name }}”).</li>
+<li><strong>Internal</strong> — Some setups let you “update entry”, “create entry”, or “log” as actions. Check the Automation UI for the full list.</li>
+</ul>
+<p>Actions run <strong>in order</strong>. If the first action is “POST to Slack” and the second is “POST to my API”, Slack runs first, then your API. If one action fails (e.g. Slack returns an error), the rest may be skipped—see the admin and logs.</p>
+<p><strong>Example: two actions in one workflow</strong></p>
+<ol>
+<li>Trigger: Webhook (contact form).</li>
+<li>Condition: Payload has <code>email</code>.</li>
+<li>Action 1: Slack — “New contact: {{ payload.name }} ({{ payload.email }}). Message: {{ payload.message }}”.</li>
+<li>Action 2: HTTP POST to <code>https://my-crm.com/api/lead</code> with body <code>{&quot;name&quot;:&quot;{{ payload.name }}&quot;,&quot;email&quot;:&quot;{{ payload.email }}&quot;}</code>.</li>
+</ol>
+<p>So each valid submission both notifies the team and creates a lead in your CRM.</p>
+<p><strong>Variables in messages and URLs</strong></p>
+<p>Where your version supports it, you can use placeholders like:</p>
+<ul>
+<li><code>{{ payload.name }}</code> — from the webhook body.</li>
+<li><code>{{ entry.title }}</code> — from an entry (when the trigger is “entry created/updated”).</li>
+<li><code>{{ entry.slug }}</code>, <code>{{ entry.id }}</code>, etc.</li>
+</ul>
+<p>Exact syntax (double braces, naming) depends on your Birkly version. Test with a simple message first.</p>
+<p><strong>If something fails</strong></p>
+<p>If an action fails (e.g. Slack is down or the URL returns 500), the workflow may stop and log the error. Check <strong>Automation</strong> or <strong>Logs</strong> in the admin to see what happened. Fix the URL or credentials and run again if needed; some setups support retries.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Conditions</strong></p>
+<ul>
+<li><strong>Purpose:</strong> Skip actions when the condition is false; reduces unnecessary API calls and keeps behavior predictable.</li>
+<li><strong>Where:</strong> Workflow editor, “Conditions” section. Typical options: payload contains key X, payload field Y equals Z, time is weekday, time in range, entry collection, entry status.</li>
+<li><strong>Logic:</strong> Multiple conditions may be AND (all must be true) or OR (at least one); depends on UI.</li>
+<li><strong>Payload:</strong> For webhook triggers, “payload” is the parsed request body (JSON or form). Use for filtering (e.g. <code>payload.type == 'contact'</code>).</li>
+</ul>
+<p><strong>Actions</strong></p>
+<p>| Type | Config | Use | |------|--------|-----| | <strong>Slack</strong> | Webhook URL or app, channel, message text (with variables) | Notify a channel. | | <strong>HTTP</strong> | Method, URL, headers, body (with variables) | Call your API, Zapier, CRM. | | <strong>Email</strong> | Recipient(s), subject, body (with variables) | Send mail (if mail is configured). | | <strong>Internal</strong> | Entry update/create, log | Modify content or log for debugging. |</p>
+<p>Order of execution is sequential. Failure handling (stop vs continue, retries) is version-dependent.</p>
+<p><strong>Variables in actions</strong></p>
+<ul>
+<li>Message bodies and URLs may support placeholders: <code>{{ payload.name }}</code>, <code>{{ entry.id }}</code>, etc. Syntax and available keys depend on the engine. Escape or sanitize if payload can contain user-controlled content that might break the request (e.g. newlines in URLs).</li>
+</ul>
+<p><strong>Error handling</strong></p>
+<ul>
+<li>On action failure, workflow may stop and log. Check automation logs. Retry/fallback behavior is version-specific.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="automation-overview.html">Automation overview</a></li>
+<li><a href="triggers.html">Triggers</a></li>
+<li><a href="webhooks.html">Webhooks</a></li>
+</ul></div>

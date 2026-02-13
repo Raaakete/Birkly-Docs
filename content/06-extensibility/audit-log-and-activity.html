@@ -1,0 +1,58 @@
+<p>The audit log and activity features in Birkly record who did what and when in the admin—e.g. “User X edited entry Y at 14:30”, “User Z uploaded a file”. They help with accountability, debugging, and compliance.</p>
+<div class="doc-summary"><p><strong>Activity</strong> (or <strong>Audit log</strong>) shows a history of actions in the CMS: who logged in, who created or edited an entry, who changed settings, etc. Open it from <strong>Settings</strong> or the sidebar (e.g. <strong>Activity</strong> or <strong>Audit log</strong>). Use it to see recent changes, track who updated content, or investigate mistakes. Entries may show user, action type, date/time, and sometimes the affected resource (entry, collection, setting). How long logs are kept depends on your installation.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Activity</strong> and <strong>Audit log</strong> are your “who did what, when” history inside Birkly. They help you see recent changes, find who edited something, and fix mistakes or comply with policies.</p>
+<p><strong>What you’ll see</strong></p>
+<ul>
+<li><strong>Recent activity</strong> — Often a short list or timeline on the Dashboard or a dedicated Activity page: “John edited ‘About us’ 10 minutes ago”, “Jane uploaded hero.jpg”, “Admin changed Settings”. Good for a quick overview.</li>
+<li><strong>Audit log</strong> — A fuller, searchable or filterable list. You can filter by user, date range, or action type (e.g. “all logins”, “all entry changes”). Useful when you need to trace a specific change or prepare a report.</li>
+</ul>
+<p><strong>Typical actions that get logged</strong></p>
+<ul>
+<li><strong>Logins</strong> — Who logged in (and sometimes failed login attempts).</li>
+<li><strong>Content</strong> — Entry created, updated, or deleted; collection created or updated.</li>
+<li><strong>Media</strong> — File uploaded or deleted.</li>
+<li><strong>Settings</strong> — Changes to project name, branding, roles, plugins.</li>
+<li><strong>Users</strong> — User created, invited, or role changed.</li>
+</ul>
+<p>The exact list depends on your Birkly version. Some actions (e.g. just viewing a page) may not be logged.</p>
+<p><strong>Where to open it</strong></p>
+<ul>
+<li><strong>Activity:</strong> Often under the <strong>Dashboard</strong> or a sidebar item like <strong>Activity</strong> or <strong>Recent activity</strong>.</li>
+<li><strong>Audit log:</strong> Often under <strong>Settings → Audit log</strong> or <strong>Settings → Activity</strong>. Some installations restrict this to administrators; see <a href="../01-admin/roles-and-permissions.html">Roles and permissions</a>.</li>
+</ul>
+<p><strong>Example: finding who changed a post</strong></p>
+<ol>
+<li>Open <strong>Audit log</strong> (or <strong>Activity</strong>).</li>
+<li>Filter by “Entry updated” or search for the entry title or ID.</li>
+<li>Check the list for the time of the change and the user who made it.</li>
+</ol>
+<p><strong>Privacy</strong></p>
+<p>Logs can contain personal data (user emails, IP addresses). Your organization should treat them according to your privacy policy and retention rules. Limit who can see the audit log (e.g. admins only).</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>What gets logged</strong></p>
+<ul>
+<li><strong>User actions</strong> — Login, logout, failed login attempts.</li>
+<li><strong>Content</strong> — Entry created, updated, deleted; collection created/updated.</li>
+<li><strong>Media</strong> — File uploaded, deleted.</li>
+<li><strong>Settings</strong> — Project name, roles, plugins, etc.</li>
+<li><strong>Users</strong> — User created, invited, role changed.</li>
+</ul>
+<p>Instrumentation is version-dependent; some read-only operations may be excluded.</p>
+<p><strong>Where to view</strong></p>
+<ul>
+<li><strong>Activity</strong> — Timeline or list of “recent activity” (Dashboard or dedicated page). Quick overview.</li>
+<li><strong>Audit log</strong> — Full, filterable log (user, date, action type, resource). For review, export, or compliance.</li>
+</ul>
+<p>Access may be restricted by role (e.g. admin only); see <a href="../01-admin/roles-and-permissions.html">Roles and permissions</a>.</p>
+<p><strong>Retention and storage</strong></p>
+<ul>
+<li>Logs may be stored in files (JSON, log files) or in a database. Retention (e.g. 90 days) may be configurable or fixed. For large deployments, rotate or archive logs to limit disk usage.</li>
+</ul>
+<p><strong>Privacy and compliance</strong></p>
+<ul>
+<li>Logs can contain personal data (user emails, IPs). Handle per privacy policy and retention requirements. Restrict audit log access to trusted roles.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="../01-admin/roles-and-permissions.html">Roles and permissions</a></li>
+<li><a href="../01-admin/dashboard.html">Dashboard</a></li>
+<li><a href="../01-admin/settings.html">Settings</a></li>
+</ul></div>

@@ -200,6 +200,12 @@ allPaths.forEach((p) => {
 const homeBody = '<h1>Birkly Docs</h1><p>Use the sidebar to open a topic. Each doc has a <strong>Shortcut</strong> (quick, non-technical) and a <strong>Detailed</strong> section.</p><p>No server or build step—just open <code>index.html</code> in your browser.</p>';
 fs.writeFileSync(path.join(root, 'index.html'), template('Home', buildNav(manifest, 'index.html'), homeBody, 'index.html'), 'utf8');
 
+// Content-only output for website embedding
+const contentIndexPath = path.join(root, 'content', 'index.html');
+const contentIndexDir = path.dirname(contentIndexPath);
+if (!fs.existsSync(contentIndexDir)) fs.mkdirSync(contentIndexDir, { recursive: true });
+fs.writeFileSync(contentIndexPath, homeBody, 'utf8');
+
 allPaths.forEach((p) => {
   const full = path.join(root, p);
   if (!fs.existsSync(full)) return;
@@ -208,6 +214,12 @@ allPaths.forEach((p) => {
   const title = path.basename(p, '.md').replace(/-/g, ' ');
   const body = mdToHtmlWithToggles(md, htmlPath);
   fs.writeFileSync(path.join(root, htmlPath), template(title, buildNav(manifest, htmlPath), body, htmlPath), 'utf8');
+  
+  // Content-only output for website embedding
+  const contentPath = path.join(root, 'content', htmlPath);
+  const contentDir = path.dirname(contentPath);
+  if (!fs.existsSync(contentDir)) fs.mkdirSync(contentDir, { recursive: true });
+  fs.writeFileSync(contentPath, body, 'utf8');
 });
 
 console.log('Static HTML written. Open index.html in your browser.');

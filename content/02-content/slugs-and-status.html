@@ -1,0 +1,48 @@
+<div class="doc-summary"><p>Every entry has a <strong>slug</strong> (a short, URL-friendly identifier, e.g. <code>my-first-post</code>) and a <strong>status</strong> (Draft or Published). The slug is used in URLs and when loading a single entry in templates or the API; it’s often auto-generated from the title and can be edited. Status controls visibility: only <strong>Published</strong> entries are normally shown on your site and in the Public API. Use <strong>Draft</strong> while working; switch to <strong>Published</strong> when the content is ready to go live. You can change an entry back to Draft to unpublish it without deleting.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Slug</strong></p>
+<p>The <strong>slug</strong> is the part of the entry that goes in the web address and in the system when “loading this one item.” It’s short, uses only letters, numbers, and hyphens (no spaces or special characters).</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Title: “Welcome to our blog” → slug: <code>welcome-to-our-blog</code>.</li>
+<li>Title: “How to use Birkly” → slug: <code>how-to-use-birkly</code>.</li>
+<li>You can also set it by hand: e.g. <code>about-us</code>, <code>summer-sale-2025</code>.</li>
+</ul>
+<p><strong>Where you see it:</strong></p>
+<ul>
+<li>In the <strong>entry editor</strong> there’s usually a “Slug” field. It’s often filled in automatically from the title when you save (e.g. “My first post” becomes <code>my-first-post</code>). You can change it before or after saving.</li>
+<li>On your <strong>website</strong>, the slug often appears in the URL. For example the address of a single blog post might be <code>/blog/welcome-to-our-blog</code> or <code>yoursite.com/post.html?slug=welcome-to-our-blog</code>. So the slug is what identifies “this post” in the URL.</li>
+<li><strong>Important:</strong> Two entries in the <strong>same</strong> collection can’t have the same slug. Each must be unique (e.g. you can’t have two blog posts with slug <code>hello</code>). If you change a slug after the page is live, old links that used the previous slug will stop working unless you set up redirects.</li>
+</ul>
+<p><strong>Status</strong></p>
+<p><strong>Status</strong> has two options: <strong>Draft</strong> or <strong>Published</strong>.</p>
+<ul>
+<li><strong>Draft</strong> — The entry is saved in the CMS but <strong>is not shown</strong> on your live site. Use it for posts or pages you’re still writing or reviewing. Only people with access to the admin can see drafts (and only in the admin, not on the public site).</li>
+<li><strong>Published</strong> — The entry <strong>is shown</strong> on your site. Use this when the content is ready for visitors. Your templates and the Public API will include it in lists and allow loading it by slug.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<p>You create a new post and set status to <strong>Draft</strong>. You save. The post exists in the admin, but if someone visits your blog list or the post URL, they won’t see it. When you’re ready, you open the entry, change status to <strong>Published</strong>, and save. From then on it appears in the blog list and at its URL. If you want to hide it again later (e.g. a seasonal page), you can set it back to <strong>Draft</strong> instead of deleting it.</p>
+<p><strong>Where to set it:</strong> In the entry editor, near the save button, you’ll see a <strong>Status</strong> dropdown or toggle. Choose Draft or Published. Buttons like <strong>Save &amp; Publish</strong> both save and set status to Published in one click.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Slug:</strong> Unique per collection; stored in entry JSON (e.g. <code>slug: &quot;welcome-to-our-blog&quot;</code>). Used in:</p>
+<ul>
+<li><strong>URLs:</strong> Frontend routing (e.g. <code>/blog/{slug}</code> or <code>?slug=...</code>).</li>
+<li><strong>Templates:</strong> Single-entry load, e.g. <code>{from 'blog' get entry 'welcome-to-our-blog'}</code>.</li>
+<li><strong>API:</strong> <code>GET /api/public/collections/blog/entries/welcome-to-our-blog</code>.</li>
+</ul>
+<p>Auto-generation: often <code>slugify(title)</code> (lowercase, spaces → hyphens, remove non-alphanumeric). Uniqueness enforced on save; conflict returns error. Changing slug invalidates existing links; implement redirects (e.g. in server or frontend router) if needed.</p>
+<p><strong>Status:</strong> Stored as <code>status: &quot;draft&quot;</code> or <code>status: &quot;published&quot;</code>. Filtering:</p>
+<ul>
+<li><strong>Public API:</strong> List/single endpoints return only published entries unless overridden (e.g. preview token).</li>
+<li><strong>Templates:</strong> Loops and “get entry” typically respect status (published only). Draft entries excluded from public output.</li>
+</ul>
+<p><strong>Example: API and template</strong></p>
+<ul>
+<li>List: <code>GET /api/public/collections/blog/entries</code> → returns only entries with <code>status: &quot;published&quot;</code>.</li>
+<li>Single: <code>GET /api/public/collections/blog/entries/welcome-to-our-blog</code> → returns that entry if published; 404 if draft or slug missing.</li>
+<li>Template: <code>{from 'blog' get entry 'welcome-to-our-blog'}</code> then <code>{ title }</code>; if entry is draft, behaviour is implementation-dependent (often empty or skip).</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="entries.html">Entries</a></li>
+<li><a href="collections.html">Collections</a></li>
+<li><a href="../03-templating/variables-and-output.html">Variables and output</a></li>
+<li><a href="../03-templating/loops-and-lists.html">Loops and lists</a></li>
+</ul></div>

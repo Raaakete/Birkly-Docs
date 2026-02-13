@@ -1,0 +1,40 @@
+<div class="doc-summary"><p>Your <strong>account</strong> is your own user profile in the Birkly admin: display name, email, password, optional avatar, and (if the installation supports it) two-factor authentication (2FA). You change these in the Account (or Profile) section, not in Settings—Settings are for site-wide configuration and other users. Use a strong password and enable 2FA if available for extra security.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Account</strong> is where you manage <strong>your</strong> profile: the name and email you use to log in, your password, and optional profile picture. It’s separate from <strong>Settings</strong>, which is for things that affect the whole CMS (project name, other users, plugins). Only you (and in some cases an administrator) can change your account details.</p>
+<p><strong>What you can change</strong></p>
+<ul>
+<li><strong>Display name</strong> — The name shown in the admin (e.g. in the sidebar or next to “Last edited by”). This can be your full name or a nickname.</li>
+</ul>
+<p>  <strong>Example:</strong> You set your display name to “Jane” so that when you edit a post, others see “Last edited by Jane.”</p>
+<ul>
+<li><strong>Email</strong> — This is usually your <strong>login</strong> (you sign in with email + password). Some setups let you change it (you might get a confirmation email); others require an administrator to change it. Use an email you have access to so you can receive password resets and invites.</li>
+</ul>
+<ul>
+<li><strong>Password</strong> — You can set a new password. You’ll often be asked to enter your <strong>current</strong> password first. Choose a strong password (mix of letters, numbers, and symbols; avoid obvious words). Don’t reuse the same password you use elsewhere.</li>
+</ul>
+<ul>
+<li><strong>Avatar</strong> — An optional profile picture. You can upload an image or paste a URL. It may appear in the sidebar or next to your name so your team can recognize who’s logged in.</li>
+</ul>
+<ul>
+<li><strong>Language</strong> — If the admin supports multiple languages, you may be able to choose your preferred language here (e.g. English, German). The interface labels then appear in that language.</li>
+</ul>
+<p><strong>Two-factor authentication (2FA)</strong></p>
+<p>If your Birkly installation has 2FA, you can turn it on so that after entering your password you must also enter a <strong>one-time code</strong> from an app on your phone (e.g. Google Authenticator or Authy). That way, even if someone gets your password, they can’t log in without your phone.</p>
+<ul>
+<li><strong>Enable 2FA:</strong> In Account (or a “Security” tab), click “Enable two-factor authentication.” You’ll see a <strong>QR code</strong>. Open your authenticator app, scan the code, and add the account. The app will show a 6-digit code. Enter it in Birkly to confirm and turn on 2FA. <strong>Save the backup codes</strong> somewhere safe—if you lose your phone, you can use one of these codes to log in and then disable or reset 2FA.</li>
+<li><strong>Log in with 2FA:</strong> After entering email and password, the next screen asks for the 6-digit code. Open your app, get the current code, type it in, and submit.</li>
+<li><strong>Disable 2FA:</strong> In Account, choose “Disable two-factor authentication.” You may need your password and a current code (or a backup code) to turn it off.</li>
+<li><strong>Lost phone:</strong> Use a <strong>backup code</strong> to log in once, then disable 2FA and re-enable it with a new device. If you don’t have backup codes, contact an administrator—they may be able to reset 2FA for your account (if the system supports it).</li>
+</ul>
+<p><strong>Logout</strong></p>
+<p>Use <strong>Logout</strong> when you’re done, especially on a shared computer. That ends your session so the next person can’t use your account. Sessions may also expire after a period of inactivity (e.g. 30 minutes), depending on server configuration.</p>
+<p><strong>Who manages other users</strong></p>
+<p><strong>Inviting</strong> new users, <strong>changing</strong> someone’s role, or <strong>deleting</strong> users is done in <strong>Settings → Users</strong> (or similar) by an administrator. Your Account page is only for <strong>your</strong> profile. If you need another account (e.g. a new team member), ask an admin to send an invite.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Account data:</strong> Stored in users table or user config (email, password hash, name, avatar URL, 2FA secret if enabled). Password change: require current password, hash new password (e.g. bcrypt/argon2), update store. Email change may require verification (send token, confirm before update).</p>
+<p><strong>2FA:</strong> TOTP (e.g. RFC 6238); secret stored server-side, user scans QR (or enters key) into authenticator app. On login, after password check, require valid TOTP code (or backup code). Backup codes: one-time use, stored hashed; user shown once at 2FA enable. Reset 2FA: admin action or support flow that clears 2FA secret and optionally backup codes so user can log in with password only and re-enable.</p>
+<p><strong>Session:</strong> Session ID in cookie (httpOnly, secure in prod); server stores session data (user id, expiry). Logout invalidates session. Permissions may be cached in session or read from DB per request.</p>
+<p><strong>Avatar:</strong> Upload to media or user assets; store URL/path in user record. Or external URL if allowed.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="roles-and-permissions.html">Roles and permissions</a></li>
+<li><a href="settings.html">Settings</a></li>
+<li><a href="../07-operations/security.html">Security</a></li>
+</ul></div>

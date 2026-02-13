@@ -18,6 +18,7 @@ See **SYNC.md** for detailed integration instructions.
 - **CONTENTS_INDEX.md** — Index of every topic and file path for maintainers and tooling.
 - **Numbered topic folders** (`00-overview`, `01-admin`, `02-content`, …) — All actual documentation in Markdown, one topic per file.
 - **Built HTML files** — Generated from Markdown via `build-static.js`. These are what CMS and website consume.
+- **Content-only HTML** — In the `content/` folder, HTML fragments (no layout) for embedding in custom pages. See "Content-only output" below.
 
 ## 📖 For readers
 
@@ -30,10 +31,10 @@ See **SYNC.md** for detailed integration instructions.
 - Edit only the Markdown files (`.md`) in this repository. Do not duplicate content elsewhere.
 - Follow the structure in **DOCS_ARCHITECTURE.md**: every feature/concept has Summary + Beginner + Advanced Users.
 - After changing or adding docs:
-  1. Run `npm run build` (or `node build-static.js`) to regenerate HTML
+  1. Run `npm run build` (or `node build-static.js`) to regenerate HTML and content-only files
   2. Update **CONTENTS_INDEX.md** if you added/renamed topics
   3. Update **meta/changelog-docs.md** with your changes
-  4. Commit both `.md` and `.html` files
+  4. Commit both `.md`, `.html`, and `content/` files
   5. Push to repository
 
 ## 🔗 For integrators (CMS, website, dev portal)
@@ -63,7 +64,27 @@ rm -rf temp-docs
 
 See **SYNC.md** for complete examples.
 
-### Option 3: NPM package
+### Option 3: Content-only HTML (for website embedding)
+
+The build generates **content-only** HTML files in the `content/` folder. These contain just the doc body (no header, sidebar, or wrapper) and are designed to be embedded in your website's own layout.
+
+**Structure:**
+- `content/index.html` — Home page content
+- `content/00-overview/what-is-birkly.html` — Doc content (mirrors full HTML path structure)
+
+**Usage in website:**
+```javascript
+// Fetch and inject content
+fetch('docs/content/02-content/collections.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('doc-content').innerHTML = html;
+  });
+```
+
+The content files preserve the same CSS classes (`doc-summary`, `doc-toggle`, etc.) so you can reuse the docs CSS or style them yourself.
+
+### Option 4: NPM package
 
 ```bash
 npm install github:Raaakete/Birkly-Docs

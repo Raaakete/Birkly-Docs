@@ -1,0 +1,41 @@
+<div class="doc-summary"><p>Entries are the actual content items in a collection: one blog post, one product, one team member. You create and edit them in the admin by filling in the collection’s fields (title, content, date, image, etc.). Each entry has a <strong>slug</strong> (URL-friendly identifier) and a <strong>status</strong> (Draft or Published). Only published entries are normally shown on your website and in the Public API.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>An <strong>entry</strong> is one filled-in “form” for a collection. If the collection is “Blog posts,” each entry is one post; if it’s “Products,” each entry is one product.</p>
+<p><strong>Example: one blog entry</strong></p>
+<p>For a “Blog posts” collection with fields Title, Content, Excerpt, Publication date, Featured image, Tags, you might create an entry like this:</p>
+<p>| Field             | Value | |-------------------|--------| | Title             | Welcome to our blog | | Content           | (Rich text: “We’re excited to launch…”) | | Excerpt           | A short summary for the homepage. | | Publication date  | 2025-02-05 | | Featured image    | (Choose “hero-blog.jpg” from Media Library) | | Tags              | news, welcome | | <strong>Slug</strong>          | welcome-to-our-blog | | <strong>Status</strong>        | Published |</p>
+<p>After you save, this entry is stored. Your website can show it in a list of posts and on a single post page using the slug in the URL (e.g. <code>/blog/welcome-to-our-blog</code>).</p>
+<p><strong>How to create an entry</strong></p>
+<ol>
+<li><strong>Content</strong> → open the collection (e.g. “Blog posts”) → <strong>New entry</strong> (or <strong>Add entry</strong>).</li>
+<li>Fill every field:</li>
+</ol>
+<p>   - <strong>Text / Textarea</strong> — Type in the box.    - <strong>Editor</strong> — Use the toolbar for bold, lists, links, images.    - <strong>Media / Gallery</strong> — Click the field → choose from the Media Library (or upload). For Gallery you can pick several and reorder.    - <strong>Date / DateTime</strong> — Use the calendar (and time picker if the field has time).    - <strong>Select / Radio</strong> — Pick one option. <strong>MultiSelect / Checkbox</strong> — Pick multiple or yes/no as the field allows.    - <strong>Tags</strong> — Type a word and press Enter; repeat for more tags.</p>
+<ol>
+<li><strong>Slug</strong> — Often auto-filled from the title (e.g. “Welcome to our blog” → <code>welcome-to-our-blog</code>). You can edit it. This is what your site will use in the URL and when loading “this one post.”</li>
+<li><strong>Status</strong> — <strong>Draft</strong> = saved but not visible on the site. <strong>Published</strong> = visible. Choose <strong>Save</strong> or <strong>Save &amp; Publish</strong>.</li>
+<li>Click <strong>Save</strong>.</li>
+</ol>
+<p><strong>Editing:</strong> Open the collection, click the entry in the list (or the edit icon), change any fields, and save. <strong>Deleting:</strong> Use the delete option from the list or the entry screen—usually permanent, so be sure. <strong>Duplicate:</strong> If available, “Duplicate” creates a new entry with the same content (and a new slug) so you can tweak it for a similar post or product.</p>
+<p><strong>Important:</strong> Only <strong>Published</strong> entries are shown on the live site (and in the public API by default). Keep entries as <strong>Draft</strong> until they’re ready to go live; you can switch back to Draft to “unpublish” without deleting.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>An entry is one <strong>record</strong> in a collection: field values plus system fields (<strong>slug</strong>, <strong>status</strong>, optional <strong>id</strong>, <strong>created</strong>, <strong>updated</strong>). Stored as one JSON file per entry (e.g. <code>content/collections/blog/entries/welcome-to-our-blog.json</code>) or as a DB row depending on setup.</p>
+<p><strong>Create:</strong> Content → collection → New entry; fill fields; set slug (often derived from title) and status; save. <strong>Edit/delete:</strong> From list or editor; save updates the file/row. <strong>Duplicate:</strong> Clone record with new slug/id.</p>
+<p><strong>System fields:</strong> <code>slug</code> (unique per collection, used in URLs and single-entry fetch), <code>status</code> (&quot;draft&quot; | &quot;published&quot;). Draft entries excluded from public API and from template loops that filter by published. Publish/unpublish = set status and save.</p>
+<p><strong>Example: entry JSON (conceptual)</strong></p>
+<pre><code>{
+  &quot;slug&quot;: &quot;welcome-to-our-blog&quot;,
+  &quot;status&quot;: &quot;published&quot;,
+  &quot;title&quot;: &quot;Welcome to our blog&quot;,
+  &quot;content&quot;: &quot;&lt;p&gt;We're excited to launch…&lt;/p&gt;&quot;,
+  &quot;excerpt&quot;: &quot;A short summary.&quot;,
+  &quot;date&quot;: &quot;2025-02-05&quot;,
+  &quot;featured_image&quot;: &quot;hero-blog.jpg&quot;,
+  &quot;tags&quot;: [&quot;news&quot;, &quot;welcome&quot;]
+}</code></pre>
+<p><strong>API:</strong> <code>GET /api/public/collections/blog/entries</code> returns published entries; <code>GET /api/public/collections/blog/entries/welcome-to-our-blog</code> returns this entry by slug. Template: <code>{from 'blog' get entry 'welcome-to-our-blog'}</code> then <code>{ title }</code>, <code>{ content }</code>, etc.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="collections.html">Collections</a></li>
+<li><a href="field-types.html">Field types</a></li>
+<li><a href="slugs-and-status.html">Slugs and status</a></li>
+<li><a href="../03-templating/loops-and-lists.html">Loops and lists</a></li>
+<li><a href="../03-templating/variables-and-output.html">Variables and output</a></li>
+</ul></div>

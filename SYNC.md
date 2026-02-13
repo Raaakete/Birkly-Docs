@@ -43,14 +43,29 @@ Run: `bash scripts/sync-docs.sh`
 
 ### For Website
 
-**Option A: Link to GitHub Pages**
-Just link to: `https://yourusername.github.io/birkly-docs/`
+**Option A: Content-only HTML (recommended for custom layouts)**
+The docs build generates content-only HTML files in `content/` folder. These contain just the doc body (no header/sidebar) and can be embedded in your website's layout:
+
+```javascript
+// In your website's docs page
+fetch('docs/content/02-content/collections.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('doc-content').innerHTML = html;
+  });
+```
 
 **Option B: Git submodule**
-Same as CMS, but copy to `website/docs/` or build into your site.
+```bash
+git submodule add https://github.com/Raaakete/Birkly-Docs.git docs
+```
+
+Then use either:
+- Full HTML pages: `docs/index.html`, `docs/00-overview/what-is-birkly.html`, etc.
+- Content-only: `docs/content/index.html`, `docs/content/00-overview/what-is-birkly.html`, etc.
 
 **Option C: Include in build**
-If your website uses a build process, add docs as a dependency and copy HTML files.
+If your website uses a build process, add docs as a dependency and copy HTML files (full or content-only).
 
 ## Updating Docs
 

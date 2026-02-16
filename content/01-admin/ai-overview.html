@@ -1,0 +1,46 @@
+<p>Birkly includes a built-in AI assistant that can help you create and edit content, answer questions about your collections, and perform actions in the CMS—all from a chat interface in the admin panel. You connect one or more AI providers (e.g. OpenAI, Ollama, Anthropic), and optionally require human approval before the AI’s write actions are executed.</p>
+<div class="doc-summary"><p>The <strong>AI system</strong> lets you chat with an AI from any admin page via a floating button. The AI has access to your Birkly context (collections, schemas, docs) and can read data, create or edit entries, manage media, and more—depending on the <strong>role</strong> you give each connection. You set up <strong>AI connections</strong> in <strong>Settings → AI Connections</strong> (provider, API key, model, role, sharing). You can require <strong>approval</strong> for write actions so they appear in a queue for you to approve or reject. Supported providers include OpenAI, Anthropic, Google (Gemini), OpenRouter, Ollama (local), custom endpoints, and MCP (Model Context Protocol).</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What is the Birkly AI?</strong></p>
+<p>The AI is an assistant that lives inside your admin panel. You open it by clicking the <strong>floating AI button</strong> (usually in the bottom-right corner). You type questions or requests in natural language; the AI can look up your content, create or edit entries, and run other actions—all according to the permissions you gave it when you set up the connection.</p>
+<p><strong>Where do I see it?</strong></p>
+<ul>
+<li><strong>Floating button</strong> — On any admin page, a button (often yellow or with an AI icon) in the corner. Click it to open the chat window.</li>
+<li><strong>Settings → AI Connections</strong> — Where you add and manage connections (which service, which model, who can use it, whether actions need approval).</li>
+<li><strong>Approval queue</strong> — If you turned on “Require approval for AI actions,” pending actions show in a queue (in Settings → AI Connections or in the chat UI) so you can approve or reject them before they run.</li>
+</ul>
+<p><strong>What can the AI do?</strong></p>
+<ul>
+<li><strong>Read</strong> — List collections, list or read entries, read media, users, settings, pages, roles, plugins. The AI uses this to answer questions like “How many blog posts are there?” or “What fields does the Products collection have?”</li>
+<li><strong>Write</strong> (if the connection’s role allows) — Create or update entries, create or update collections, upload or manage media, update settings, create or update pages, manage users/roles/plugins. You can require that these write actions go to an <strong>approval queue</strong> first, so nothing changes until you approve.</li>
+</ul>
+<p><strong>Do I need to pay for an API?</strong></p>
+<p>It depends on the provider. <strong>Ollama</strong> runs on your own machine and is free. <strong>OpenAI, Anthropic, Google, OpenRouter</strong> use your API keys and their pricing. You only need one connection to start; many users begin with Ollama for local, free use.</p>
+<p><strong>Next steps</strong></p>
+<ul>
+<li><a href="ai-connections.html">AI connections</a> — How to add and configure a provider (e.g. Ollama or OpenAI).</li>
+<li><a href="ai-chat-and-actions.html">AI chat and actions</a> — How to use the chat and what actions the AI can run.</li>
+<li><a href="ai-approvals.html">AI approvals</a> — How the approval queue works and how to approve or reject actions.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Architecture</strong></p>
+<ul>
+<li><strong>Connections</strong> — Stored as special “AI” users in user storage. Each connection has: provider, API key (encrypted), model, role (maps to permissions), sharing (private / all / specific users), and optional “require approval” for write actions.</li>
+<li><strong>Chat</strong> — Admin sends messages to <code>api/ai_chat.php</code>. Backend builds a system prompt from <code>generateSystemContext()</code> (collections, schemas, docs) and <code>buildSystemPrompt()</code> (permissions, action list). Conversation history is stored under <code>data/ai_conversations/</code>. The backend calls the provider (OpenAI-compatible, Anthropic, Ollama, etc.), parses the response for JSON action blocks, and either executes (if no approval) or creates an approval request.</li>
+<li><strong>Approvals</strong> — Pending actions are stored in <code>data/ai_approvals/</code>. Admin UI calls <code>api/ai_approvals.php</code> to list, approve, or reject. On approve, <code>executeAiAction()</code> runs the action (create/update/delete entry, collection, media, settings, etc.) without switching the HTTP session to the AI user.</li>
+</ul>
+<p><strong>Providers</strong></p>
+<p>| Provider   | Type       | API key | Notes | |-----------|------------|--------|-------| | OpenAI    | openai     | Required | gpt-4, gpt-3.5-turbo, etc. | | Anthropic | anthropic  | Required | Claude models | | Google    | google     | Required | Gemini models | | OpenRouter| openrouter| Required | Multi-model, OpenAI-compatible endpoint | | Ollama    | ollama     | Not used | Local; default <code>http://localhost:11434/api/chat</code> | | Custom    | custom     | Optional | User-supplied URL; OpenAI-compatible format | | MCP       | mcp        | Not used | Model Context Protocol; no in-admin chat |</p>
+<p><strong>Permissions</strong></p>
+<ul>
+<li>Each connection has a <strong>role</strong> (e.g. viewer, author, editor, admin). Role is resolved via <code>getPermissionsForRole()</code> to a flat list (read, write, manage_content, manage_media, manage_settings, manage_users, manage_plugins, etc.). The system prompt tells the model which actions it may perform; the backend enforces the same before executing or creating an approval.</li>
+</ul>
+<p><strong>Security</strong></p>
+<ul>
+<li>API keys stored encrypted (AES-256-CBC) using a key in settings. MCP and Ollama do not store API keys. Access to a connection is restricted to owner, or all users, or a specific list of user IDs depending on <code>shared_type</code> and <code>allowed_users</code>.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="ai-connections.html">AI connections</a></li>
+<li><a href="ai-chat-and-actions.html">AI chat and actions</a></li>
+<li><a href="ai-approvals.html">AI approvals</a></li>
+<li><a href="settings.html">Settings</a></li>
+<li><a href="roles-and-permissions.html">Roles and permissions</a></li>
+</ul></div>

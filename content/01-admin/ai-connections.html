@@ -1,0 +1,77 @@
+<p>AI connections are the configured links between Birkly and an AI provider (OpenAI, Anthropic, Ollama, etc.). You add and manage them under <strong>Settings → AI Connections</strong>. Each connection has a provider, model, role, and optional approval requirement; you can share a connection with other users or keep it private.</p>
+<div class="doc-summary"><p>Go to <strong>Settings → AI Connections</strong> to add a connection. Choose a <strong>provider</strong> (OpenAI, Anthropic, Google, OpenRouter, Ollama, Custom, or MCP), enter the <strong>API key</strong> (not needed for Ollama or MCP), pick a <strong>model</strong>, set a <strong>role</strong> (what the AI is allowed to do), and choose who can use the connection and whether write actions <strong>require approval</strong>. API keys are stored encrypted. Ollama is the easiest way to start: install it locally, leave API key blank, and use the default URL.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Where to add a connection</strong></p>
+<ol>
+<li>In the admin sidebar, click <strong>Settings</strong>.</li>
+<li>At the top of the Settings page, open the <strong>AI Connections</strong> tab.</li>
+<li>Click <strong>Add Connection</strong> (or “+ Add Connection”).</li>
+<li>Fill in the form and save.</li>
+</ol>
+<p><strong>Form fields (typical)</strong></p>
+<ul>
+<li><strong>AI Provider</strong> — The service: OpenAI, Anthropic (Claude), Google (Gemini), OpenRouter, Ollama (Local), Custom, or MCP.</li>
+<li><strong>Connection name</strong> — A label for you (e.g. “My OpenAI” or “Local Ollama”).</li>
+<li><strong>API key</strong> — Your key from the provider. <strong>Leave empty for Ollama and MCP</strong>; they don’t use keys.</li>
+<li><strong>API URL</strong> — Usually only for <strong>Ollama</strong> or <strong>Custom</strong>. For Ollama the default is <code>http://localhost:11434/api/chat</code>. Change it only if Ollama runs on another machine or port.</li>
+<li><strong>Model</strong> — Which model to use (e.g. gpt-4, llama3, claude-3-sonnet). The list depends on the provider; some allow a custom model name.</li>
+<li><strong>Role</strong> — What the AI can do: Viewer (read only), Author, Editor, or Admin. This controls create/edit/delete for content, media, and optionally users/settings/plugins.</li>
+<li><strong>Who can use this connection</strong> — Only me (private), All users, or Specific users (then choose which users).</li>
+<li><strong>Require approval for AI actions</strong> — If checked, write actions (create entry, update entry, etc.) are not executed immediately; they go to an approval queue for you to approve or reject.</li>
+</ul>
+<p><strong>Example: Ollama (local, no API key)</strong></p>
+<ol>
+<li>Install Ollama on your computer (see <a href="https://ollama.ai">Ollama quick start</a>).</li>
+<li>In a terminal run: <code>ollama pull llama3</code> (or another model).</li>
+<li>In Birkly: Settings → AI Connections → Add Connection.</li>
+<li>Provider: <strong>Ollama (Local)</strong>. Name: e.g. “My Local LLM”. API key: <strong>leave empty</strong>. API URL: <code>http://localhost:11434/api/chat</code> (default). Model: e.g. <strong>llama3</strong>. Role: e.g. <strong>Editor</strong>. Set “Who can use” and “Require approval” as you like.</li>
+<li>Save. The connection appears in the list; you can use it from the AI chat button.</li>
+</ol>
+<p><strong>Example: OpenAI</strong></p>
+<ol>
+<li>Get an API key from <a href="https://platform.openai.com">platform.openai.com</a>.</li>
+<li>Add Connection → Provider: <strong>OpenAI</strong>. Enter the API key. Choose a model (e.g. gpt-4, gpt-3.5-turbo). Set role and approval as above.</li>
+<li>Save.</li>
+</ol>
+<p><strong>Editing and deleting</strong></p>
+<ul>
+<li>In the AI Connections list, use <strong>Edit</strong> to change name, model, role, sharing, or approval. You can update the API key by entering a new one and saving.</li>
+<li>Use <strong>Delete</strong> to remove a connection. This does not delete past conversations, but the connection will no longer be available for chat.</li>
+</ul>
+<p><strong>Sharing</strong></p>
+<ul>
+<li><strong>Only me</strong> — Only you see and can use this connection.</li>
+<li><strong>All users</strong> — Any logged-in user can select it in the chat.</li>
+<li><strong>Specific users</strong> — Only the users you select can use it. Useful when only some editors should have access to a paid API.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Storage and API</strong></p>
+<ul>
+<li>Connections are stored as JSON files in the users storage (e.g. <code>users/</code>), with <code>type: 'ai'</code>. Each has a unique id (e.g. <code>ai_xxxxxxxx</code>), provider, encrypted API key (except Ollama/MCP), api_url, model, role, shared_type, allowed_users, require_approval.</li>
+<li><strong>List:</strong> <code>GET api/ai_connections.php?action=list</code> — Returns connections the current user is allowed to see (owner, or shared_type all, or in allowed_users). API key is never returned.</li>
+<li><strong>Create:</strong> POST <code>api/ai_connections.php</code> with <code>action=create</code>, provider, api_key, name, model, role, api_url (if needed), shared_type, allowed_users, require_approval. CSRF required.</li>
+<li><strong>Update:</strong> POST with <code>action=update</code>, id, updates (name, role, model, status, shared_type, allowed_users, require_approval, api_key if changing).</li>
+<li><strong>Delete:</strong> POST with <code>action=delete</code>, id. <strong>Get:</strong> <code>GET api/ai_connections.php?action=get&amp;id=...</code>. <strong>Providers list:</strong> <code>GET api/ai_connections.php?action=providers</code>.</li>
+</ul>
+<p><strong>Supported providers (from ai_helpers.php)</strong></p>
+<ul>
+<li><strong>openai</strong> — <code>api.openai.com</code>, OpenAI models.</li>
+<li><strong>anthropic</strong> — Anthropic API, Claude models.</li>
+<li><strong>google</strong> — Gemini API.</li>
+<li><strong>openrouter</strong> — OpenRouter; OpenAI-compatible; custom_models true.</li>
+<li><strong>ollama</strong> — Local; default <code>http://localhost:11434/api/chat</code>; no API key; custom_models true.</li>
+<li><strong>custom</strong> — User-supplied URL; requires_url true; optional API key.</li>
+<li><strong>mcp</strong> — Model Context Protocol; no chat in admin; generates MCP API key and URL for external MCP clients.</li>
+</ul>
+<p><strong>Encryption</strong></p>
+<ul>
+<li>API keys are encrypted with AES-256-CBC using a key stored in settings (e.g. <code>settings/security.json</code>). Decryption happens only when making outbound requests to the provider.</li>
+</ul>
+<p><strong>Validation</strong></p>
+<ul>
+<li>One connection per provider per user (per created_by) except MCP, where multiple MCP connections are allowed. Custom provider requires api_url. Non-Ollama/MCP providers require a non-empty API key on create.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="ai-overview.html">AI overview</a></li>
+<li><a href="ai-chat-and-actions.html">AI chat and actions</a></li>
+<li><a href="ai-approvals.html">AI approvals</a></li>
+<li><a href="settings.html">Settings</a></li>
+</ul></div>

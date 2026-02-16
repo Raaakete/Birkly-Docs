@@ -1,0 +1,55 @@
+<p>The AI chat is the main way you interact with the Birkly AI: you open it with the floating button, choose a connection, and send messages. The AI can read your content and run actions (create entry, update entry, etc.) according to the connection’s role. If the connection has “require approval” enabled, write actions are queued for you to approve before they run.</p>
+<div class="doc-summary"><p>Open the <strong>AI chat</strong> via the <strong>floating button</strong> (bottom-right of the admin). Select an <strong>AI connection</strong>; then type your request. The AI receives context about your collections and permissions and can <strong>read</strong> (list entries, read entry, list collections, etc.) and <strong>write</strong> (create/update/delete entries, collections, media, settings, etc.) when the connection’s role allows it. Write actions either run immediately or go to the <strong>approval queue</strong> if “Require approval for AI actions” is on. Conversations are saved so you can continue later. Use clear, concrete requests (e.g. “Create a new blog entry in the blog collection with title Hello World and content …”) for best results.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Opening the chat</strong></p>
+<ul>
+<li>Click the <strong>floating AI button</strong> (often bottom-right on every admin page). A chat panel or window opens.</li>
+<li>If you have more than one connection, <strong>select which one to use</strong> (e.g. “My Local LLM” or “OpenAI”) before or at the start of the conversation.</li>
+</ul>
+<p><strong>What to type</strong></p>
+<ul>
+<li><strong>Questions</strong> — “How many entries are in the blog collection?” “What fields does the Products collection have?” The AI will use read actions to answer.</li>
+<li><strong>Requests</strong> — “Create a new blog post with title ‘Welcome’ and content ‘Hello world.’” “Add an entry to the Team collection with name Alice and role Developer.” The AI will try to run the right write action (create_entry, etc.) if the connection’s role allows it.</li>
+<li><strong>Follow-ups</strong> — “Create another one” or “Same collection, title Test” — the AI can use the last context (e.g. collection) to repeat or vary the action.</li>
+</ul>
+<p><strong>What happens after you send</strong></p>
+<ul>
+<li>The AI may <strong>reply with text only</strong> (e.g. answering a question).</li>
+<li>Or it may <strong>run one or more actions</strong>. If “Require approval” is <strong>off</strong>, those actions run right away and the AI confirms (e.g. “Created blog entry with slug welcome”). If “Require approval” is <strong>on</strong>, the AI says something like “I’ve queued this for your approval” and the action appears in the <strong>approval queue</strong> (Settings → AI Connections, or in the chat UI). You then approve or reject it; only after you approve does the action run.</li>
+</ul>
+<p><strong>Conversation history</strong></p>
+<ul>
+<li>Your conversation is saved. You can close the chat and open it again later; the same conversation can be continued (e.g. “New chat” starts a fresh one). History is used so the AI can understand “another one” or “same collection.”</li>
+</ul>
+<p><strong>Tips</strong></p>
+<ul>
+<li>Name the <strong>collection</strong> (by slug or name) when you ask to create or edit entries.</li>
+<li>For <strong>create entry</strong>, include the field values you care about (title, content, etc.); the AI maps them to your schema.</li>
+<li>If the AI says it doesn’t have permission, check the connection’s <strong>role</strong> in Settings → AI Connections (e.g. try Editor instead of Viewer).</li>
+<li>If nothing happens on a write request, check whether <strong>approval</strong> is required and look at the approval queue.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Chat API</strong></p>
+<ul>
+<li><strong>Send message:</strong> POST <code>api/ai_chat.php</code> with <code>action=chat</code>, <code>ai_connection_id</code>, <code>message</code>, optional <code>conversation_id</code>. CSRF required. Backend loads the AI user, checks access (owner or shared), builds system context and prompt, loads conversation history (optional), calls the provider, parses response for JSON action blocks.</li>
+<li><strong>Actions in response</strong> — The model can return a JSON block with an <code>actions</code> array. Each action has <code>type</code> (e.g. create_entry, update_entry, list_entries) and <code>data</code> (and optional <code>description</code>). Read actions are executed immediately (subject to permission checks). Write actions are either executed immediately or passed to the approval API to create a pending approval, depending on <code>require_approval</code> on the connection.</li>
+<li><strong>Conversation storage</strong> — Under <code>data/ai_conversations/</code>; one file per conversation (e.g. <code>conv_&lt;id&gt;.json</code>) with messages array. Last N messages (e.g. 10) are sent as context to the provider to limit token usage.</li>
+</ul>
+<p><strong>Action types (typical)</strong></p>
+<ul>
+<li><strong>Read (no approval):</strong> read_entry, list_entries, list_collections, read_collection, list_media, read_media, list_users, read_user, read_settings, list_pages, read_page, list_activity, list_roles, read_role, list_plugins.</li>
+<li><strong>Write (may require approval):</strong> create_collection, update_collection, delete_collection; create_entry, update_entry, delete_entry; upload_media, delete_media, update_media; create_media_folder, delete_media_folder, move_media; update_settings; create_page, update_page, delete_page; update_user, delete_user; create_role, update_role, delete_role; activate_plugin, deactivate_plugin. There is no create_user action; user creation is done in the admin.</li>
+</ul>
+<p><strong>Permissions</strong></p>
+<ul>
+<li>Resolved from the connection’s <strong>role</strong> via <code>getPermissionsForRole()</code>. The system prompt is built so the model only suggests actions the role allows. The backend also checks permissions before executing or creating an approval; if the AI suggests an action the role doesn’t allow, it is rejected.</li>
+</ul>
+<p><strong>Short follow-ups</strong></p>
+<ul>
+<li>Very short messages (e.g. “another one”, “more”) can be detected; the backend may reuse the last collection from conversation history and run the same action again without calling the provider, to save latency and tokens.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="ai-overview.html">AI overview</a></li>
+<li><a href="ai-connections.html">AI connections</a></li>
+<li><a href="ai-approvals.html">AI approvals</a></li>
+<li><a href="entries.html">Entries</a></li>
+<li><a href="../02-content/collections.html">Collections</a></li>
+</ul></div>

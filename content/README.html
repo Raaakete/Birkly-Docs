@@ -14,6 +14,7 @@
 <li><strong>CONTENTS_INDEX.md</strong> — Index of every topic and file path for maintainers and tooling.</li>
 <li><strong>Numbered topic folders</strong> (<code>00-overview</code>, <code>01-admin</code>, <code>02-content</code>, …) — All actual documentation in Markdown, one topic per file.</li>
 <li><strong>Built HTML files</strong> — Generated from Markdown via <code>build-static.js</code>. These are what CMS and website consume.</li>
+<li><strong>Content-only HTML</strong> — In the <code>content/</code> folder, HTML fragments (no layout) for embedding in custom pages. See &quot;Content-only output&quot; below.</li>
 </ul>
 <h2>📖 For readers</h2>
 <ul>
@@ -27,7 +28,7 @@
 <li>Follow the structure in <strong>DOCS_ARCHITECTURE.md</strong>: every feature/concept has Summary + Beginner + Advanced Users.</li>
 <li>After changing or adding docs:</li>
 </ul>
-<p>  1. Run <code>npm run build</code> (or <code>node build-static.js</code>) to regenerate HTML   2. Update <strong>CONTENTS_INDEX.md</strong> if you added/renamed topics   3. Update <strong>meta/changelog-docs.md</strong> with your changes   4. Commit both <code>.md</code> and <code>.html</code> files   5. Push to repository</p>
+<p>  1. Run <code>npm run build</code> (or <code>node build-static.js</code>) to regenerate HTML and content-only files   2. Update <strong>CONTENTS_INDEX.md</strong> if you added/renamed topics   3. Update <strong>meta/changelog-docs.md</strong> with your changes   4. Commit both <code>.md</code>, <code>.html</code>, and <code>content/</code> files   5. Push to repository</p>
 <h2>🔗 For integrators (CMS, website, dev portal)</h2>
 <h3>Option 1: Git submodule (recommended)</h3>
 <p>In your CMS or website repository:</p>
@@ -46,7 +47,22 @@ cd temp-docs &amp;&amp; npm run build
 cp -r *.html **/*.html css/ ../admin/docs/  # adjust path
 rm -rf temp-docs</code></pre>
 <p>See <strong>SYNC.md</strong> for complete examples.</p>
-<h3>Option 3: NPM package</h3>
+<h3>Option 3: Content-only HTML (for website embedding)</h3>
+<p>The build generates <strong>content-only</strong> HTML files in the <code>content/</code> folder. These contain just the doc body (no header, sidebar, or wrapper) and are designed to be embedded in your website's own layout.</p>
+<p><strong>Structure:</strong></p>
+<ul>
+<li><code>content/index.html</code> — Home page content</li>
+<li><code>content/00-overview/what-is-birkly.html</code> — Doc content (mirrors full HTML path structure)</li>
+</ul>
+<p><strong>Usage in website:</strong></p>
+<pre><code>// Fetch and inject content
+fetch('docs/content/02-content/collections.html')
+  .then(res =&gt; res.text())
+  .then(html =&gt; {
+    document.getElementById('doc-content').innerHTML = html;
+  });</code></pre>
+<p>The content files preserve the same CSS classes (<code>doc-summary</code>, <code>doc-toggle</code>, etc.) so you can reuse the docs CSS or style them yourself.</p>
+<h3>Option 4: NPM package</h3>
 <pre><code>npm install github:Raaakete/Birkly-Docs</code></pre>
 <p>Then copy the built HTML files to your project.</p>
 <h2>🚀 Local development</h2>

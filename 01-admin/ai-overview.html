@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ai overview — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="media-library.html" class="nav-link">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="ai-overview.html" class="nav-link active">AI overview</a>
+        <a href="ai-connections.html" class="nav-link">AI connections</a>
+        <a href="ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Birkly includes a built-in AI assistant that can help you create and edit content, answer questions about your collections, and perform actions in the CMS—all from a chat interface in the admin panel. You connect one or more AI providers (e.g. OpenAI, Ollama, Anthropic), and optionally require human approval before the AI’s write actions are executed.</p>
+<div class="doc-summary"><p>The <strong>AI system</strong> lets you chat with an AI from any admin page via a floating button. The AI has access to your Birkly context (collections, schemas, docs) and can read data, create or edit entries, manage media, and more—depending on the <strong>role</strong> you give each connection. You set up <strong>AI connections</strong> in <strong>Settings → AI Connections</strong> (provider, API key, model, role, sharing). You can require <strong>approval</strong> for write actions so they appear in a queue for you to approve or reject. Supported providers include OpenAI, Anthropic, Google (Gemini), OpenRouter, Ollama (local), custom endpoints, and MCP (Model Context Protocol).</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What is the Birkly AI?</strong></p>
+<p>The AI is an assistant that lives inside your admin panel. You open it by clicking the <strong>floating AI button</strong> (usually in the bottom-right corner). You type questions or requests in natural language; the AI can look up your content, create or edit entries, and run other actions—all according to the permissions you gave it when you set up the connection.</p>
+<p><strong>Where do I see it?</strong></p>
+<ul>
+<li><strong>Floating button</strong> — On any admin page, a button (often yellow or with an AI icon) in the corner. Click it to open the chat window.</li>
+<li><strong>Settings → AI Connections</strong> — Where you add and manage connections (which service, which model, who can use it, whether actions need approval).</li>
+<li><strong>Approval queue</strong> — If you turned on “Require approval for AI actions,” pending actions show in a queue (in Settings → AI Connections or in the chat UI) so you can approve or reject them before they run.</li>
+</ul>
+<p><strong>What can the AI do?</strong></p>
+<ul>
+<li><strong>Read</strong> — List collections, list or read entries, read media, users, settings, pages, roles, plugins. The AI uses this to answer questions like “How many blog posts are there?” or “What fields does the Products collection have?”</li>
+<li><strong>Write</strong> (if the connection’s role allows) — Create or update entries, create or update collections, upload or manage media, update settings, create or update pages, manage users/roles/plugins. You can require that these write actions go to an <strong>approval queue</strong> first, so nothing changes until you approve.</li>
+</ul>
+<p><strong>Do I need to pay for an API?</strong></p>
+<p>It depends on the provider. <strong>Ollama</strong> runs on your own machine and is free. <strong>OpenAI, Anthropic, Google, OpenRouter</strong> use your API keys and their pricing. You only need one connection to start; many users begin with Ollama for local, free use.</p>
+<p><strong>Next steps</strong></p>
+<ul>
+<li><a href="ai-connections.html">AI connections</a> — How to add and configure a provider (e.g. Ollama or OpenAI).</li>
+<li><a href="ai-chat-and-actions.html">AI chat and actions</a> — How to use the chat and what actions the AI can run.</li>
+<li><a href="ai-approvals.html">AI approvals</a> — How the approval queue works and how to approve or reject actions.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Architecture</strong></p>
+<ul>
+<li><strong>Connections</strong> — Stored as special “AI” users in user storage. Each connection has: provider, API key (encrypted), model, role (maps to permissions), sharing (private / all / specific users), and optional “require approval” for write actions.</li>
+<li><strong>Chat</strong> — Admin sends messages to <code>api/ai_chat.php</code>. Backend builds a system prompt from <code>generateSystemContext()</code> (collections, schemas, docs) and <code>buildSystemPrompt()</code> (permissions, action list). Conversation history is stored under <code>data/ai_conversations/</code>. The backend calls the provider (OpenAI-compatible, Anthropic, Ollama, etc.), parses the response for JSON action blocks, and either executes (if no approval) or creates an approval request.</li>
+<li><strong>Approvals</strong> — Pending actions are stored in <code>data/ai_approvals/</code>. Admin UI calls <code>api/ai_approvals.php</code> to list, approve, or reject. On approve, <code>executeAiAction()</code> runs the action (create/update/delete entry, collection, media, settings, etc.) without switching the HTTP session to the AI user.</li>
+</ul>
+<p><strong>Providers</strong></p>
+<p>| Provider   | Type       | API key | Notes | |-----------|------------|--------|-------| | OpenAI    | openai     | Required | gpt-4, gpt-3.5-turbo, etc. | | Anthropic | anthropic  | Required | Claude models | | Google    | google     | Required | Gemini models | | OpenRouter| openrouter| Required | Multi-model, OpenAI-compatible endpoint | | Ollama    | ollama     | Not used | Local; default <code>http://localhost:11434/api/chat</code> | | Custom    | custom     | Optional | User-supplied URL; OpenAI-compatible format | | MCP       | mcp        | Not used | Model Context Protocol; no in-admin chat |</p>
+<p><strong>Permissions</strong></p>
+<ul>
+<li>Each connection has a <strong>role</strong> (e.g. viewer, author, editor, admin). Role is resolved via <code>getPermissionsForRole()</code> to a flat list (read, write, manage_content, manage_media, manage_settings, manage_users, manage_plugins, etc.). The system prompt tells the model which actions it may perform; the backend enforces the same before executing or creating an approval.</li>
+</ul>
+<p><strong>Security</strong></p>
+<ul>
+<li>API keys stored encrypted (AES-256-CBC) using a key in settings. MCP and Ollama do not store API keys. Access to a connection is restricted to owner, or all users, or a specific list of user IDs depending on <code>shared_type</code> and <code>allowed_users</code>.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="ai-connections.html">AI connections</a></li>
+<li><a href="ai-chat-and-actions.html">AI chat and actions</a></li>
+<li><a href="ai-approvals.html">AI approvals</a></li>
+<li><a href="settings.html">Settings</a></li>
+<li><a href="roles-and-permissions.html">Roles and permissions</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

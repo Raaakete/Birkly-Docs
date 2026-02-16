@@ -14,6 +14,7 @@ The docs are structured so **everyone** sees a short **Summary** first. **Non-te
 | Getting started | ✓ Primary | ✓ Primary |
 | **01 Admin** | ✓ Summary + Beginner | ✓ Summary + Advanced Users |
 | Dashboard, Content overview, Media, Settings, Roles, Account, Help | ✓ Primary | ✓ Reference |
+| AI overview, AI connections, AI chat and actions, AI approvals | ✓ Primary | ✓ Reference |
 | **02 Content** | ✓ Summary + Beginner | ✓ Summary + Advanced Users |
 | Collections, Entries, Field types, Slugs and status | ✓ Primary | ✓ Primary |
 | **03 Templating** | ✓ Summary + Beginner (concepts) | ✓ Summary + Advanced Users (syntax, engine) |

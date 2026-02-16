@@ -20,7 +20,11 @@
         { "path": "01-admin/settings.md", "label": "Settings" },
         { "path": "01-admin/roles-and-permissions.md", "label": "Roles and permissions" },
         { "path": "01-admin/account.md", "label": "Account" },
-        { "path": "01-admin/help-and-onboarding.md", "label": "Help and onboarding" }
+        { "path": "01-admin/help-and-onboarding.md", "label": "Help and onboarding" },
+        { "path": "01-admin/ai-overview.md", "label": "AI overview" },
+        { "path": "01-admin/ai-connections.md", "label": "AI connections" },
+        { "path": "01-admin/ai-chat-and-actions.md", "label": "AI chat and actions" },
+        { "path": "01-admin/ai-approvals.md", "label": "AI approvals" }
       ]
     },
     {

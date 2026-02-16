@@ -9,6 +9,8 @@ This glossary defines key terms used across Birkly docs. Use it when you’re un
 | Term | Definition |
 |------|------------|
 | **Account** | The logged-in user’s own profile in the admin: name, email, password, two-factor authentication (2FA). See [Account](../01-admin/account.md). |
+| **AI connection** | A configured link to an AI provider (OpenAI, Ollama, etc.) in Birkly. Stored in Settings → AI Connections; each has provider, model, role, and optional approval requirement. See [AI connections](../01-admin/ai-connections.md). |
+| **AI approval** | A pending AI write action (e.g. create entry) waiting for a human to approve or reject. Shown in the approval queue when “Require approval for AI actions” is on. See [AI approvals](../01-admin/ai-approvals.md). |
 | **Action** | In automation, a step that runs when the workflow is triggered—e.g. “send Slack message”, “HTTP request to URL”. You add actions in the workflow editor. |
 | **Admin** | The Birkly back office: login, dashboard, content, media, settings. Accessed at `/admin` (or your configured path). |
 | **Automation** | Feature that runs workflows on a trigger (schedule or webhook), with optional conditions and actions. See [Automation overview](../05-automation/automation-overview.md). |

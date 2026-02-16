@@ -21,6 +21,10 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Roles and permissions | `01-admin/roles-and-permissions.md` | User roles and what they can do |
 | Account | `01-admin/account.md` | Profile, password, 2FA |
 | Help and onboarding | `01-admin/help-and-onboarding.md` | In-admin help and first-time setup |
+| AI overview | `01-admin/ai-overview.md` | What the AI system is and where to find it |
+| AI connections | `01-admin/ai-connections.md` | Setting up providers (OpenAI, Ollama, etc.) |
+| AI chat and actions | `01-admin/ai-chat-and-actions.md` | Using the chat and what the AI can do |
+| AI approvals | `01-admin/ai-approvals.md` | Approval queue for AI write actions |
 
 ## 02 — Content
 

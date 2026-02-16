@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ai approvals — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="media-library.html" class="nav-link">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="ai-overview.html" class="nav-link">AI overview</a>
+        <a href="ai-connections.html" class="nav-link">AI connections</a>
+        <a href="ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="ai-approvals.html" class="nav-link active">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>When an AI connection has <strong>“Require approval for AI actions”</strong> enabled, write actions (create entry, update entry, delete entry, etc.) are not executed immediately. Instead they are added to an <strong>approval queue</strong>. An admin (or any user with access to the queue) can <strong>approve</strong> or <strong>reject</strong> each request. Only approved actions are executed; rejected ones are discarded and optionally logged.</p>
+<div class="doc-summary"><p><strong>Approval queue</strong> — Pending AI write actions appear in a list (under Settings → AI Connections, or in the AI chat UI). Each item shows what action the AI requested (e.g. “Create entry in blog”) and the data (collection, title, content, etc.). You can <strong>Approve</strong> to run the action now, or <strong>Reject</strong> (optionally with a reason). Approved actions are executed by the backend (create/update/delete entry, collection, media, etc.); rejected ones are marked rejected and not run. This keeps the AI from changing content without human oversight when you want it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>When do I see the approval queue?</strong></p>
+<ul>
+<li>When you (or someone) enabled <strong>“Require approval for AI actions”</strong> for an AI connection, any write action from that connection goes to the queue instead of running straight away.</li>
+<li>You’ll see the queue in <strong>Settings → AI Connections</strong> (often as a section or tab like “Pending approvals” or “Approval queue”), or inside the AI chat UI if your version shows it there.</li>
+</ul>
+<p><strong>What appears in the queue</strong></p>
+<ul>
+<li>Each row is one <strong>pending action</strong>: e.g. “Create entry in blog”, “Update entry in products”, “Delete entry …”. You may see a short description and the main data (collection, entry slug or id, field values). Opening the item (or “Details”) shows the full payload the AI requested.</li>
+</ul>
+<p><strong>Approve</strong></p>
+<ul>
+<li>Click <strong>Approve</strong> (or “Run”) to execute the action now. The system will create the entry, update the entry, delete the entry, etc., as requested. After that, the item is removed from the pending list (or marked approved). If execution fails (e.g. collection not found), you’ll see an error; the action may stay in the queue or be marked failed depending on the UI.</li>
+</ul>
+<p><strong>Reject</strong></p>
+<ul>
+<li>Click <strong>Reject</strong> (or “Cancel”). You may be asked for a reason (for your own notes or audit). The action is <strong>not</strong> executed and is marked rejected. It disappears from the “pending” list.</li>
+</ul>
+<p><strong>Why use approvals?</strong></p>
+<ul>
+<li><strong>Safety</strong> — Avoid the AI creating or changing content by mistake (wrong collection, wrong text).</li>
+<li><strong>Control</strong> — Review what the AI wants to do before it affects live content.</li>
+<li><strong>Compliance</strong> — Some teams need a human in the loop for any content change.</li>
+</ul>
+<p>You can turn off “Require approval” for a connection if you want the AI’s write actions to run immediately (e.g. for a trusted local Ollama used only by you).</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>API</strong></p>
+<ul>
+<li><strong>List:</strong> <code>GET api/ai_approvals.php?action=list</code> — Optional <code>status</code> (e.g. pending, approved, rejected). Returns approvals, often sorted by created_at descending.</li>
+<li><strong>Get one:</strong> <code>GET api/ai_approvals.php?action=get&amp;id=&lt;approval_id&gt;</code>.</li>
+<li><strong>Create:</strong> Used internally by the AI chat flow when a write action is requested and the connection has require_approval. POST with action=create, ai_user_id, action_type, action_data, description.</li>
+<li><strong>Approve:</strong> POST with action=approve, id, _csrf. Backend loads the approval, calls <code>executeAiAction($approval)</code> (which dispatches to the right executor, e.g. executeCreateEntry, executeUpdateEntry), then updates the approval record to status approved and stores the result. CSRF required.</li>
+<li><strong>Reject:</strong> POST with action=reject, id, optional reason, _csrf. Approval record is updated to status rejected and optional rejection_reason. CSRF required.</li>
+</ul>
+<p><strong>Storage</strong></p>
+<ul>
+<li>Approval records are stored under <code>data/ai_approvals/</code> as JSON files (e.g. <code>approval_&lt;id&gt;.json</code>). Fields typically include: id, ai_user_id, action_type, action_data, description, status (pending | approved | rejected), created_at, reviewed_at, reviewed_by, optional result (on approve), optional rejection_reason (on reject).</li>
+</ul>
+<p><strong>Execution</strong></p>
+<ul>
+<li><code>executeAiAction()</code> in <code>api/ai_approvals.php</code> switches on action_type and calls the corresponding executor (e.g. executeCreateEntry, executeUpdateEntry, executeDeleteEntry, executeCreateCollection, …). Executors use the same logic as direct AI execution but are invoked in the approval flow with the stored action_data. The HTTP session user remains the human who approved; the AI user is passed for attribution (e.g. created_by on new entries).</li>
+</ul>
+<p><strong>Security and audit</strong></p>
+<ul>
+<li>Approve/reject require authentication. Optional: restrict to users with a specific permission. All approval create/approve/reject events can be logged (e.g. ai_approval_created, ai_approval_approved, ai_approval_rejected) for audit.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="ai-overview.html">AI overview</a></li>
+<li><a href="ai-connections.html">AI connections</a></li>
+<li><a href="ai-chat-and-actions.html">AI chat and actions</a></li>
+<li><a href="../06-extensibility/audit-log-and-activity.html">Audit log and activity</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

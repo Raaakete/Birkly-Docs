@@ -41,6 +41,7 @@
       "id": "templating",
       "label": "Templating",
       "items": [
+        { "path": "03-templating/canonical-syntax.md", "label": "Canonical syntax" },
         { "path": "03-templating/templating-overview.md", "label": "Templating overview" },
         { "path": "03-templating/variables-and-output.md", "label": "Variables and output" },
         { "path": "03-templating/loops-and-lists.md", "label": "Loops and lists" },

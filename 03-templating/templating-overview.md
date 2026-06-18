@@ -6,6 +6,8 @@ Birkly uses a simple templating language in your HTML: placeholders like `{ titl
 
 **Templating** is how your website displays Birkly content. In your HTML you write variables (e.g. `{ title }`), loops (e.g. `{for each entry in 'blog'} … {endfor}`), and conditionals (e.g. `{if} … {endif}`). The Birkly client script in the browser—or server-side rendering—fetches content and replaces those placeholders. You use single braces `{ }`, plain-English style tags, and safe output by default. No full programming language is required—just the syntax described in the templating docs.
 
+**Canonical reference:** [Canonical template syntax](canonical-syntax.md) — single source of truth for `{for each}` and engine boundaries.
+
 ## Beginner
 
 Templating is the bridge between your **content in Birkly** and what **visitors see** on your site. You don’t paste content by hand into every page; instead you leave “slots” in your HTML and Birkly fills them with the right data.

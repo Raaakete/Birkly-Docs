@@ -30,6 +30,19 @@ See **SYNC.md** for detailed integration instructions.
 
 - Edit only the Markdown files (`.md`) in this repository. Do not duplicate content elsewhere.
 - Follow the structure in **DOCS_ARCHITECTURE.md**: every feature/concept has Summary + Beginner + Advanced Users.
+
+### On-change update rule (M6)
+
+Update Birkly-Docs **when a CMS platform milestone ships** — not as a parallel project during stabilization.
+
+| Trigger | Action |
+|---------|--------|
+| CMS milestone merged to `main` (security, templating, API, client) | Add or revise topics affected by that milestone |
+| New public API or template syntax | Update `04-integration/` and `03-templating/`; add entry to `meta/changelog-docs.md` |
+| No CMS change | No docs PR required |
+
+**Workflow:** edit `.md` → `npm run build` → update `CONTENTS_INDEX.md` if paths changed → `meta/changelog-docs.md` → commit `.md` + built `.html` + `content/` → PR to `main`. Site repos (Birkly-Website `docs/`) sync separately via submodule or `sync-docs.sh`.
+
 - After changing or adding docs:
   1. Run `npm run build` (or `node build-static.js`) to regenerate HTML and content-only files
   2. Update **CONTENTS_INDEX.md** if you added/renamed topics

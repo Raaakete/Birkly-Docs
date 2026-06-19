@@ -43,6 +43,7 @@
         <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
         <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
@@ -100,29 +101,21 @@
 <p><strong>Reading a list of entries</strong></p>
 <p>Example: get all published blog entries.</p>
 <ul>
-<li><strong>URL:</strong> <code>https://your-cms.com/api/public/collections/blog/entries</code></li>
-<li><strong>Method:</strong> GET</li>
+<li><strong>URL:</strong> <code>https://your-cms.com/api/public.php?action=list_entries&amp;collection=blog</code></li>
+<li><strong>Method:</strong> GET (or POST with JSON body)</li>
 <li><strong>No login</strong> required.</li>
 </ul>
-<p>You’ll get back something like (exact shape depends on your version):</p>
-<pre><code>[
-  {
-    &quot;title&quot;: &quot;Getting started&quot;,
-    &quot;slug&quot;: &quot;getting-started&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;Hello world.&lt;/p&gt;&quot;,
-    &quot;date&quot;: &quot;2025-01-05&quot;,
-    &quot;excerpt&quot;: &quot;A short summary.&quot;,
-    &quot;status&quot;: &quot;published&quot;
-  },
-  ...
-]</code></pre>
+<p><strong>Listing collections</strong></p>
+<ul>
+<li><strong>URL:</strong> <code>https://your-cms.com/api/public.php?action=list_collections</code></li>
+<li><strong>Response shape:</strong> <code>{ &quot;status&quot;: &quot;ok&quot;, &quot;data&quot;: { &quot;collections&quot;: [ { &quot;id&quot;, &quot;title&quot;, &quot;slug&quot; }, ... ] } }</code></li>
+</ul>
 <p><strong>Reading one entry by slug</strong></p>
 <p>To get a single post (e.g. for a “post detail” page):</p>
 <ul>
-<li><strong>URL:</strong> <code>https://your-cms.com/api/public/collections/blog/entries/getting-started</code></li>
+<li><strong>URL:</strong> <code>https://your-cms.com/api/public.php?action=get_entry&amp;collection=blog&amp;slug=getting-started</code></li>
 <li><strong>Method:</strong> GET</li>
 </ul>
-<p>Replace <code>getting-started</code> with the entry’s slug. Response is usually one JSON object with that entry’s fields.</p>
 <p><strong>Using the data</strong></p>
 <ul>
 <li>In <strong>JavaScript (browser):</strong> Use <code>fetch()</code> or axios to call the URL, then render the JSON (e.g. with React components or by updating the DOM).</li>
@@ -132,7 +125,7 @@
 <pre><code>const base = 'https://your-cms.com';
 const slug = 'my-post-slug'; // e.g. from the URL
 
-fetch(`${base}/api/public/collections/blog/entries/${slug}`)
+fetch(`${base}/api/public.php?action=get_entry&amp;collection=blog&amp;slug=${slug}`)
   .then(res =&gt; res.json())
   .then(entry =&gt; {
     document.getElementById('title').textContent = entry.title;
@@ -157,11 +150,14 @@ fetch(`${base}/api/public/collections/blog/entries/${slug}`)
 <p><strong>Base URL and paths</strong></p>
 <ul>
 <li><strong>Base:</strong> Birkly instance base URL (e.g. <code>https://your-cms.com</code>).</li>
-<li><strong>Typical read paths</strong> (adjust to your version):</li>
+<li><strong>Endpoint:</strong> <code>GET</code> or <code>POST</code> <code>/api/public.php</code> with <code>action</code> parameter (and JSON body for POST actions).</li>
+<li><strong>Common actions:</strong></li>
 </ul>
-<p>  - List entries: <code>GET /api/public/collections/{collection_handle}/entries</code>   - Single entry: <code>GET /api/public/collections/{collection_handle}/entries/{slug}</code>   - Collections list: if supported, e.g. <code>GET /api/public/collections</code></p>
+<p>  - <code>list_collections</code> — returns <code>{ id, title, slug }</code> per collection (<code>title</code> falls back from <code>name</code> if needed)   - <code>list_entries</code> — <code>collection</code> (slug) required; returns published entries   - <code>get_entry</code> — <code>collection</code> + <code>slug</code> (or <code>entry_id</code>)   - <code>get_collection_info</code> — metadata for one collection</p>
 <ul>
-<li><strong>Submit:</strong> Usually <code>POST /api/public/collections/{handle}/entries</code> or a dedicated submit/form endpoint. See <a href="public-forms.html">Public forms</a> and your API docs.</li>
+<li><strong>Batch reads:</strong> <code>POST /api/page_bundle.php</code> with <code>{ language, requests: [...] }</code> — see <a href="client-library.html">Client library</a>.</li>
+<li><strong>Snapshots:</strong> <code>GET /api/page_snapshot.php?page=index</code> — cached bundle JSON when publish pipeline wrote snapshots.</li>
+<li><strong>Submit:</strong> Usually <code>POST</code> to public submit endpoints for form collections. See <a href="public-forms.html">Public forms</a>.</li>
 </ul>
 <p><strong>Response format</strong></p>
 <ul>

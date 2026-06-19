@@ -1,0 +1,51 @@
+<p>Birkly has <strong>one canonical templating language</strong> for site HTML and (with admin extensions) for the CMS admin panel. Use this document as the single source of truth — not legacy <code>{{ }}</code> examples or archived engines.</p>
+<div class="doc-summary"><p>Use <strong>single braces</strong> <code>{ }</code> and plain-English directives. The canonical loop form is <strong><code>{for each item in source}</code></strong> … <strong><code>{endfor}</code></strong>. Public sites render via <code>birkly-client.js</code> + <code>api/public.php</code>; the admin panel renders via <code>admin/template_parser.php</code> + <code>admin/templates/*.html</code>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Variables</h3>
+<pre><code>{ title }
+{collection.slug}
+{entry.author}</code></pre>
+<p>Inside a loop, names refer to the <strong>current</strong> item (e.g. <code>{ title }</code> inside <code>{for each entry in 'blog'}</code>).</p>
+<h3>Loops (canonical)</h3>
+<pre><code>{for each entry in 'blog'}
+  &lt;article&gt;
+    &lt;h2&gt;&lt;a href=&quot;/blog/{ slug }&quot;&gt;{ title }&lt;/a&gt;&lt;/h2&gt;
+  &lt;/article&gt;
+{endfor}</code></pre>
+<ul>
+<li><code>{for each … in …}</code> — preferred form (also accepted: <code>{for item in items}</code> without <code>each</code>)</li>
+<li>Collection handle is usually quoted: <code>'blog'</code>, <code>'pages'</code></li>
+<li>Close with <code>{endfor}</code></li>
+</ul>
+<h3>Conditionals</h3>
+<pre><code>{if 'blog' has entries}
+  … loop …
+{else}
+  &lt;p&gt;No posts yet.&lt;/p&gt;
+{endif}</code></pre>
+<pre><code>{if entry has excerpt}
+  &lt;p&gt;{ excerpt }&lt;/p&gt;
+{endif}</code></pre>
+<h3>Admin-only helpers</h3>
+<p>Used in <code>admin/templates/</code> only:</p>
+<p>| Syntax | Purpose | |--------|---------| | <code>{admin_url 'page'}</code> | Admin page URL | | <code>{admin_url 'entry-editor' collection='collection.slug'}</code> | URL with query params | | <code>{translate 'admin.key'}</code> | i18n string | | <code>{count entries}</code> | Array length | | <code>{json variable}</code> | JSON for <code>&lt;script&gt;</code> data | | <code>{include_script 'file.js'}</code> | Load <code>/admin/js/file.js</code> |</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Engines (do not mix)</h3>
+<p>| Context | Engine | Location | |---------|--------|----------| | <strong>Public site</strong> | Client renderer | <code>birkly-client.js</code> | | <strong>Admin UI</strong> | PHP template parser | <code>admin/template_parser.php</code> | | ~~Legacy~~ | ~~TemplateEngine~~ | <strong>Archived</strong> — <code>archive/legacy-templating/</code> |</p>
+<p>There is no third active engine. <code>render_page.php</code> and <code>templates/template_engine.php</code> are archived (M3).</p>
+<h3>Syntax rules</h3>
+<ol>
+<li><strong>Single braces</strong> <code>{directive}</code> — not <code>{{ }}</code> (deprecated in admin).</li>
+<li><strong>Loops:</strong> <code>{for each &lt;var&gt; in &lt;source&gt;}</code> … <code>{endfor}</code>.</li>
+<li><strong>Existence:</strong> <code>{if &lt;path&gt; exist}</code> or <code>{if 'collection' has entries}</code>.</li>
+<li><strong>Comparison:</strong> <code>{if entry.status == 'published'}</code>.</li>
+<li><strong>Published-only on public API:</strong> loops via <code>api/public.php</code> return published entries only.</li>
+</ol>
+<h3>UI decoupling (admin)</h3>
+<p>Admin templates contain <strong>markup only</strong>. API calls and DOM logic live in <code>admin/js/*.js</code>. Reference: <code>admin/templates/activity.html</code> + <code>admin/js/activity.js</code>. See Birkly repo <code>docs/admin-templating.md</code>.</p>
+<h3>eval() note</h3>
+<p>Admin parser currently compiles to PHP via <code>eval()</code> — a known security debt. Replacement plan: Birkly repo <code>docs/admin-template-eval-replacement-plan.md</code> (interpreter, no new dependencies).</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+<li><a href="conditionals.html">Conditionals</a></li>
+<li><a href="variables-and-output.html">Variables and output</a></li>
+</ul></div>

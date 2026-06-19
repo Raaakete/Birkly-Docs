@@ -43,6 +43,7 @@
         <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
         <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
@@ -143,9 +144,21 @@
 <p>The client uses the same syntax as the rest of the templating docs: <code>{ variable }</code>, <code>{for each entry in 'collection'} … {endfor}</code>, <code>{if} … {endif}</code>, <code>{ date &quot;format&quot; }</code>, <code>{ media … }</code>. See <a href="../03-templating/templating-overview.html">Templating overview</a> and related docs.</p>
 <p><strong>API calls</strong></p>
 <ul>
-<li>Typically: <code>GET {data-cms-url}/api/public/collections/{handle}/entries</code> for lists, and a single-entry endpoint for one item by slug.</li>
-<li>The client may batch or deduplicate requests when multiple collections appear on one page. Implementation is version-specific.</li>
+<li>Typically: <code>GET {data-cms-url}/api/public.php?action=list_entries&amp;collection=blog</code> for lists, and <code>action=get_entry</code> with <code>slug</code> for one item.</li>
+<li>The client may batch requests via <strong><code>page_bundle.php</code></strong> (POST JSON with a <code>requests</code> array) so one round-trip loads multiple collections for a page.</li>
+<li><strong><code>page_snapshot.php</code></strong> serves pre-built bundle JSON from <code>cache/page-snapshots/</code> when your publish pipeline generates snapshots (faster first paint).</li>
+<li><strong><code>birkly-hydrate.js</code></strong> + inline <code>BIRKLY_PAGE_SNAPSHOT</code> (or site-specific snapshot global) can hydrate the DOM from a snapshot before falling back to live API reads.</li>
 </ul>
+<p><strong>Page bundle example (advanced)</strong></p>
+<pre><code>// POST /api/page_bundle.php
+{
+  &quot;language&quot;: &quot;en&quot;,
+  &quot;requests&quot;: [
+    { &quot;type&quot;: &quot;list_entries&quot;, &quot;into&quot;: &quot;blog&quot;, &quot;collection&quot;: &quot;blog&quot; },
+    { &quot;type&quot;: &quot;get_entry&quot;, &quot;into&quot;: &quot;about&quot;, &quot;collection&quot;: &quot;about&quot;, &quot;slug&quot;: &quot;about&quot; }
+  ]
+}</code></pre>
+<p>Response: <code>{ &quot;status&quot;: &quot;ok&quot;, &quot;data&quot;: { &quot;blog&quot;: [...], &quot;about&quot;: {...} } }</code>.</p>
 <p><strong>Errors and fallbacks</strong></p>
 <ul>
 <li>On network or API error, the script may leave placeholders unchanged, show a minimal fallback, or expose an error in the console. No admin credentials are sent; failures are “no data” rather than auth leaks.</li>

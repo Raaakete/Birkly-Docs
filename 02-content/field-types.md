@@ -16,8 +16,7 @@ When you add a field to a collection, you choose a **field type**. That type dec
 - **Textarea** — Several lines of plain text (no bold or links). Use for: short descriptions, summaries, captions.  
   **Example:** Excerpt = “This post explains how to get started with Birkly in five steps.”
 
-- **Editor** (or “Content editor” / “Rich text”) — Formatted text: bold, italic, headings, bullet lists, links, images. Use for: blog body, product description, any long content that needs formatting.  
-  **Example:** Content = a full blog post with headings, paragraphs, and an image in the middle.
+- **Editor** (type `content-editor`; alias `editor`) — Rich content with **Visual** and **HTML** tabs. Stored value is pure HTML. Supports project CSS preview, slash commands, and bundled components (callout, quote, CTA button). See Advanced Users below.
 
 **Media**
 
@@ -102,6 +101,8 @@ When you add a field to a collection, you choose a **field type**. That type dec
 | Checkbox   | `true`/`false`       | Conditional in template |
 
 **Options (type-specific):** Select/MultiSelect: list of options (value + label). Number: min, max, step, decimals. Editor: allowed blocks/tools. Relation: target collection, single vs multiple. Add fields in collection editor; keys become entry JSON and template variables. See [Variables and output](../03-templating/variables-and-output.md), [Media in templates](../03-templating/media-in-templates.md).
+
+**ContentEditor (advanced):** Type `content-editor` stores pure HTML. Visual and HTML tabs stay in sync. Optional `css_url` on the field enables project CSS preview in the toolbar. Bundled components (callout, quote, CTA button) insert structured HTML blocks; custom components live under `fieldtypes/ContentEditor/components/`. Commands are modular (`inline-format`, `block-format`). Demo alias: schemas may use `editor` — normalized to `content-editor` at bootstrap.
 
 ## Related
 

@@ -35,7 +35,7 @@ If you maintain the CMS, you can point the Help content to the Birkly Docs folde
 
 **Help:** Content can be static HTML/JS bundled in the admin, or loaded from a path (e.g. Birkly Docs). If from Markdown: build step or runtime conversion to HTML; navigation can mirror DOCS_ARCHITECTURE (Summary / Beginner / Advanced). Optional: search, deep links to sections.
 
-**Onboarding:** State stored (e.g. `onboarding_completed` in settings or user). Steps can be linear (wizard) or checklist; completion can set flag and optionally create default collection/entry. Reset: admin action or script that clears the flag so onboarding shows again (useful for demos or new tenants). Skipping sets the same “completed” state so the wizard doesn’t reappear.
+**Onboarding:** State stored per user in `users/onboarding/{key}.json`. The wizard sets `setup_wizard_completed` when you finish or skip. **Skip** marks the wizard complete without installing demo content; **Complete** also sets `demo_content_installed`. Redirect to onboarding only happens when `setup_wizard_completed` is false — existing demo content on disk does not force the wizard. Dashboard checklist merges API state with session so completed steps are not overwritten.
 
 ## Related
 

@@ -43,6 +43,7 @@
         <a href="slugs-and-status.html" class="nav-link">Slugs and status</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
         <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
@@ -101,9 +102,8 @@
 </ul>
 <p>  <strong>Example:</strong> Excerpt = “This post explains how to get started with Birkly in five steps.”</p>
 <ul>
-<li><strong>Editor</strong> (or “Content editor” / “Rich text”) — Formatted text: bold, italic, headings, bullet lists, links, images. Use for: blog body, product description, any long content that needs formatting.</li>
+<li><strong>Editor</strong> (type <code>content-editor</code>; alias <code>editor</code>) — Rich content with <strong>Visual</strong> and <strong>HTML</strong> tabs. Stored value is pure HTML. Supports project CSS preview, slash commands, and bundled components (callout, quote, CTA button). See Advanced Users below.</li>
 </ul>
-<p>  <strong>Example:</strong> Content = a full blog post with headings, paragraphs, and an image in the middle.</p>
 <p><strong>Media</strong></p>
 <ul>
 <li><strong>Media</strong> — One file (image or document). Use for: featured image, logo, one PDF. The editor picks from the Media Library.</li>
@@ -167,7 +167,8 @@
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Storage and output:</strong> Each type maps to a JSON value type (string, number, boolean, array, object). Editor/rich text often stored as HTML string; Media/Gallery as filename or ID (or array of). Templates and API expose these; use the right helper (e.g. <code>{ media field }</code> for Media, format string for Date).</p>
 <p><strong>Reference table (key types):</strong></p>
 <p>| Type       | Storage example      | Template / API note | |------------|----------------------|----------------------| | Text       | <code>&quot;Hello&quot;</code>            | <code>{ field }</code> escaped | | Textarea   | <code>&quot;Plain\nlines&quot;</code>     | Same | | Editor     | <code>&quot;&lt;p&gt;Hi&lt;/p&gt;&quot;</code>        | Output as HTML | | Media      | <code>&quot;hero.jpg&quot;</code> or id   | <code>{ media field }</code> → URL | | Gallery    | <code>[&quot;a.jpg&quot;,&quot;b.jpg&quot;]</code>  | Loop for URLs | | Number     | <code>29.99</code>              | <code>{ field }</code> | | Date       | <code>&quot;2025-02-05&quot;</code>       | <code>{ field &quot;F j, Y&quot; }</code> | | Select     | <code>&quot;published&quot;</code>        | <code>{ field }</code> | | Tags       | <code>[&quot;a&quot;,&quot;b&quot;]</code>          | Loop or join | | Relation   | <code>&quot;entry-id&quot;</code> or []   | Resolve to entry object | | Checkbox   | <code>true</code>/<code>false</code>       | Conditional in template |</p>
-<p><strong>Options (type-specific):</strong> Select/MultiSelect: list of options (value + label). Number: min, max, step, decimals. Editor: allowed blocks/tools. Relation: target collection, single vs multiple. Add fields in collection editor; keys become entry JSON and template variables. See <a href="../03-templating/variables-and-output.html">Variables and output</a>, <a href="../03-templating/media-in-templates.html">Media in templates</a>.</p></div></details>
+<p><strong>Options (type-specific):</strong> Select/MultiSelect: list of options (value + label). Number: min, max, step, decimals. Editor: allowed blocks/tools. Relation: target collection, single vs multiple. Add fields in collection editor; keys become entry JSON and template variables. See <a href="../03-templating/variables-and-output.html">Variables and output</a>, <a href="../03-templating/media-in-templates.html">Media in templates</a>.</p>
+<p><strong>ContentEditor (advanced):</strong> Type <code>content-editor</code> stores pure HTML. Visual and HTML tabs stay in sync. Optional <code>css_url</code> on the field enables project CSS preview in the toolbar. Bundled components (callout, quote, CTA button) insert structured HTML blocks; custom components live under <code>fieldtypes/ContentEditor/components/</code>. Commands are modular (<code>inline-format</code>, <code>block-format</code>). Demo alias: schemas may use <code>editor</code> — normalized to <code>content-editor</code> at bootstrap.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="collections.html">Collections</a></li>
 <li><a href="entries.html">Entries</a></li>

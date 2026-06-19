@@ -43,6 +43,7 @@
         <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="templating-overview.html" class="nav-link active">Templating overview</a>
         <a href="variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
@@ -90,7 +91,8 @@
     <main class="main">
       <div class="content doc-body">
         <div class="doc-content"><p>Birkly uses a simple templating language in your HTML: placeholders like <code>{ title }</code> and blocks like <code>{for each entry in 'blog'}</code> are replaced with real content from the CMS when the page is rendered.</p>
-<div class="doc-summary"><p><strong>Templating</strong> is how your website displays Birkly content. In your HTML you write variables (e.g. <code>{ title }</code>), loops (e.g. <code>{for each entry in 'blog'} … {endfor}</code>), and conditionals (e.g. <code>{if} … {endif}</code>). The Birkly client script in the browser—or server-side rendering—fetches content and replaces those placeholders. You use single braces <code>{ }</code>, plain-English style tags, and safe output by default. No full programming language is required—just the syntax described in the templating docs.</p></div>
+<div class="doc-summary"><p><strong>Templating</strong> is how your website displays Birkly content. In your HTML you write variables (e.g. <code>{ title }</code>), loops (e.g. <code>{for each entry in 'blog'} … {endfor}</code>), and conditionals (e.g. <code>{if} … {endif}</code>). The Birkly client script in the browser—or server-side rendering—fetches content and replaces those placeholders. You use single braces <code>{ }</code>, plain-English style tags, and safe output by default. No full programming language is required—just the syntax described in the templating docs.</p>
+<p><strong>Canonical reference:</strong> <a href="canonical-syntax.html">Canonical template syntax</a> — single source of truth for <code>{for each}</code> and engine boundaries.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Templating is the bridge between your <strong>content in Birkly</strong> and what <strong>visitors see</strong> on your site. You don’t paste content by hand into every page; instead you leave “slots” in your HTML and Birkly fills them with the right data.</p>
 <p><strong>What you actually do</strong></p>
 <ol>

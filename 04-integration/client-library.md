@@ -91,8 +91,25 @@ The client uses the same syntax as the rest of the templating docs: `{ variable 
 
 **API calls**
 
-- Typically: `GET {data-cms-url}/api/public/collections/{handle}/entries` for lists, and a single-entry endpoint for one item by slug.
-- The client may batch or deduplicate requests when multiple collections appear on one page. Implementation is version-specific.
+- Typically: `GET {data-cms-url}/api/public.php?action=list_entries&collection=blog` for lists, and `action=get_entry` with `slug` for one item.
+- The client may batch requests via **`page_bundle.php`** (POST JSON with a `requests` array) so one round-trip loads multiple collections for a page.
+- **`page_snapshot.php`** serves pre-built bundle JSON from `cache/page-snapshots/` when your publish pipeline generates snapshots (faster first paint).
+- **`birkly-hydrate.js`** + inline `BIRKLY_PAGE_SNAPSHOT` (or site-specific snapshot global) can hydrate the DOM from a snapshot before falling back to live API reads.
+
+**Page bundle example (advanced)**
+
+```javascript
+// POST /api/page_bundle.php
+{
+  "language": "en",
+  "requests": [
+    { "type": "list_entries", "into": "blog", "collection": "blog" },
+    { "type": "get_entry", "into": "about", "collection": "about", "slug": "about" }
+  ]
+}
+```
+
+Response: `{ "status": "ok", "data": { "blog": [...], "about": {...} } }`.
 
 **Errors and fallbacks**
 

@@ -43,6 +43,7 @@
         <a href="02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="03-templating/templating-overview.html" class="nav-link">Templating overview</a>
         <a href="03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
@@ -117,6 +118,12 @@
 <ul>
 <li>Edit only the Markdown files (<code>.md</code>) in this repository. Do not duplicate content elsewhere.</li>
 <li>Follow the structure in <strong>DOCS_ARCHITECTURE.md</strong>: every feature/concept has Summary + Beginner + Advanced Users.</li>
+</ul>
+<h3>On-change update rule (M6)</h3>
+<p>Update Birkly-Docs <strong>when a CMS platform milestone ships</strong> — not as a parallel project during stabilization.</p>
+<p>| Trigger | Action | |---------|--------| | CMS milestone merged to <code>main</code> (security, templating, API, client) | Add or revise topics affected by that milestone | | New public API or template syntax | Update <code>04-integration/</code> and <code>03-templating/</code>; add entry to <code>meta/changelog-docs.md</code> | | No CMS change | No docs PR required |</p>
+<p><strong>Workflow:</strong> edit <code>.md</code> → <code>npm run build</code> → update <code>CONTENTS_INDEX.md</code> if paths changed → <code>meta/changelog-docs.md</code> → commit <code>.md</code> + built <code>.html</code> + <code>content/</code> → PR to <code>main</code>. Site repos (Birkly-Website <code>docs/</code>) sync separately via submodule or <code>sync-docs.sh</code>.</p>
+<ul>
 <li>After changing or adding docs:</li>
 </ul>
 <p>  1. Run <code>npm run build</code> (or <code>node build-static.js</code>) to regenerate HTML and content-only files   2. Update <strong>CONTENTS_INDEX.md</strong> if you added/renamed topics   3. Update <strong>meta/changelog-docs.md</strong> with your changes   4. Commit both <code>.md</code>, <code>.html</code>, and <code>content/</code> files   5. Push to repository</p>

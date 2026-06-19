@@ -19,34 +19,21 @@ The **Public API** is a way for your website or app to **ask Birkly for content*
 
 Example: get all published blog entries.
 
-- **URL:** `https://your-cms.com/api/public/collections/blog/entries`
-- **Method:** GET
+- **URL:** `https://your-cms.com/api/public.php?action=list_entries&collection=blog`
+- **Method:** GET (or POST with JSON body)
 - **No login** required.
 
-You’ll get back something like (exact shape depends on your version):
+**Listing collections**
 
-```json
-[
-  {
-    "title": "Getting started",
-    "slug": "getting-started",
-    "content": "<p>Hello world.</p>",
-    "date": "2025-01-05",
-    "excerpt": "A short summary.",
-    "status": "published"
-  },
-  ...
-]
-```
+- **URL:** `https://your-cms.com/api/public.php?action=list_collections`
+- **Response shape:** `{ "status": "ok", "data": { "collections": [ { "id", "title", "slug" }, ... ] } }`
 
 **Reading one entry by slug**
 
 To get a single post (e.g. for a “post detail” page):
 
-- **URL:** `https://your-cms.com/api/public/collections/blog/entries/getting-started`
+- **URL:** `https://your-cms.com/api/public.php?action=get_entry&collection=blog&slug=getting-started`
 - **Method:** GET
-
-Replace `getting-started` with the entry’s slug. Response is usually one JSON object with that entry’s fields.
 
 **Using the data**
 
@@ -59,7 +46,7 @@ Replace `getting-started` with the entry’s slug. Response is usually one JSON 
 const base = 'https://your-cms.com';
 const slug = 'my-post-slug'; // e.g. from the URL
 
-fetch(`${base}/api/public/collections/blog/entries/${slug}`)
+fetch(`${base}/api/public.php?action=get_entry&collection=blog&slug=${slug}`)
   .then(res => res.json())
   .then(entry => {
     document.getElementById('title').textContent = entry.title;
@@ -92,11 +79,15 @@ Creating or updating entries (e.g. contact form) is done through a **submit** or
 **Base URL and paths**
 
 - **Base:** Birkly instance base URL (e.g. `https://your-cms.com`).
-- **Typical read paths** (adjust to your version):
-  - List entries: `GET /api/public/collections/{collection_handle}/entries`
-  - Single entry: `GET /api/public/collections/{collection_handle}/entries/{slug}`
-  - Collections list: if supported, e.g. `GET /api/public/collections`
-- **Submit:** Usually `POST /api/public/collections/{handle}/entries` or a dedicated submit/form endpoint. See [Public forms](public-forms.md) and your API docs.
+- **Endpoint:** `GET` or `POST` `/api/public.php` with `action` parameter (and JSON body for POST actions).
+- **Common actions:**
+  - `list_collections` — returns `{ id, title, slug }` per collection (`title` falls back from `name` if needed)
+  - `list_entries` — `collection` (slug) required; returns published entries
+  - `get_entry` — `collection` + `slug` (or `entry_id`)
+  - `get_collection_info` — metadata for one collection
+- **Batch reads:** `POST /api/page_bundle.php` with `{ language, requests: [...] }` — see [Client library](client-library.md).
+- **Snapshots:** `GET /api/page_snapshot.php?page=index` — cached bundle JSON when publish pipeline wrote snapshots.
+- **Submit:** Usually `POST` to public submit endpoints for form collections. See [Public forms](public-forms.md).
 
 **Response format**
 

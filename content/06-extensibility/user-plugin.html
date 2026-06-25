@@ -1,0 +1,44 @@
+<p>The <strong>User Management</strong> plugin adds front-end accounts, registration, groups, tiers, and collection-level permissions. Enable it when your site needs logged-in visitors or members who create their own content.</p>
+<div class="doc-summary"><p>Install and enable the plugin under <strong>Settings → Plugins</strong>. Admin pages <strong>Users</strong>, <strong>Groups</strong>, and <strong>Tiers</strong> appear in the sidebar. Configure which collections new users may read or write, use the User fieldtype to reference accounts in entries, and expose <code>{user_logged_in}</code> / <code>{user_current}</code> in templates. Registration and password reset use the plugin APIs with CSRF and rate limiting.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Enable the plugin</strong></p>
+<ol>
+<li><strong>Settings → Plugins</strong> → find <strong>User Management</strong> → Enable.</li>
+<li>Open <strong>Users</strong> in the sidebar to see registered accounts.</li>
+<li>Under <strong>Groups</strong> and <strong>Tiers</strong>, organize members if you need shared permissions or limits.</li>
+</ol>
+<p><strong>Common tasks</strong></p>
+<p>| Task | Where | |------|-------| | See who registered | <strong>Users</strong> | | Block a user | <strong>Users</strong> → edit → suspend | | Let members post in a collection | Collection settings → permissions (plugin section) | | Show login state on website | Templates: <code>{if user_logged_in}…{endif}</code> | | Password reset | Public <code>reset-password</code> route (plugin) |</p>
+<p><strong>Registration flow</strong></p>
+<ol>
+<li>Visitor submits registration form (your template or plugin default).</li>
+<li>Plugin creates user record and sends verification email (if configured).</li>
+<li>User verifies email, logs in, and receives role/tier per your settings.</li>
+<li>Optional: automation <strong>user_registered</strong> trigger fires if Automation plugin is on.</li>
+</ol>
+<p><strong>Security defaults</strong></p>
+<ul>
+<li>Writes check permissions — users cannot edit collections they are not allowed to.</li>
+<li>Admin user management requires <code>manage_users</code>.</li>
+<li>Use HTTPS in production for session cookies.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Key paths</strong></p>
+<ul>
+<li>Plugin root: <code>plugins/user_management/</code></li>
+<li>APIs: <code>api/user_auth.php</code>, <code>api/user_registration.php</code>, <code>api/user_admin.php</code>, <code>api/collection_permissions.php</code></li>
+<li>Permissions: <code>includes/EntryPermissions.php</code>, <code>includes/UserPermissions.php</code></li>
+</ul>
+<p><strong>Template functions</strong></p>
+<p>| Function | Returns | |----------|---------| | <code>{user_logged_in}</code> | Boolean | | <code>{user_current}</code> | Current user object (id, name, email, …) | | <code>{user_list}</code> | Filtered user list (admin/config dependent) | | <code>{user_profile &quot;id&quot;}</code> | Public profile entry if collection enabled |</p>
+<p><strong>Automation hooks</strong></p>
+<ul>
+<li><code>user_registered</code> — after successful signup</li>
+<li><code>user_login</code> — after successful login</li>
+</ul>
+<p><strong>Ops guide (maintainers)</strong></p>
+<p>See platform repo <code>docs/user-plugin-ops.md</code> for checklist, backup scope, and troubleshooting.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins.html">Plugins</a></li>
+<li><a href="roles-and-permissions.html">Roles and permissions</a></li>
+<li><a href="../04-integration/public-forms.html">Public forms</a></li>
+<li><a href="../00-overview/closed-alpha-guide.html">Closed alpha guide</a></li>
+</ul></div>

@@ -9,6 +9,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | What is Birkly | `00-overview/what-is-birkly.md` | Product overview and key differentiators |
 | What is a CMS | `00-overview/what-is-a-cms.md` | CMS concept for non-technical readers |
 | Getting started | `00-overview/getting-started.md` | First steps: login, project name, first collection |
+| Closed alpha guide | `00-overview/closed-alpha-guide.md` | Invited tester guide: feedback, scope, doc links |
 
 ## 01 — Admin
 
@@ -25,6 +26,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | AI connections | `01-admin/ai-connections.md` | Setting up providers (OpenAI, Ollama, etc.) |
 | AI chat and actions | `01-admin/ai-chat-and-actions.md` | Using the chat and what the AI can do |
 | AI approvals | `01-admin/ai-approvals.md` | Approval queue for AI write actions |
+| MCP connections | `01-admin/mcp-connections.md` | MCP provider, per-connection keys, external clients |
 
 ## 02 — Content
 
@@ -34,6 +36,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Entries | `02-content/entries.md` | Creating and editing content items |
 | Field types | `02-content/field-types.md` | All field types (Text, Editor, Media, etc.) |
 | Slugs and status | `02-content/slugs-and-status.md` | URL slug, draft vs published |
+| ContentEditor | `02-content/content-editor.md` | Rich text fieldtype, blocks, HTML round-trip |
 
 ## 03 — Templating
 
@@ -69,6 +72,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Topic | File | Description |
 |-------|------|-------------|
 | Plugins | `06-extensibility/plugins.md` | Installing and managing plugins |
+| User plugin | `06-extensibility/user-plugin.md` | User Management plugin: registration, permissions |
 | Templates (pages) | `06-extensibility/templates-pages.md` | Page templates and routing |
 | Audit log and activity | `06-extensibility/audit-log-and-activity.md` | Who did what, when |
 | Updates | `06-extensibility/updates.md` | Updating Birkly and extensions |

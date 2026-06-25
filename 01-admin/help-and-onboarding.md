@@ -10,7 +10,7 @@
 
 The **Help** section (often a “?” icon or a “Help” link in the sidebar) opens documentation **inside** the admin. You don’t have to leave the panel or search the web—you can read how to create a collection, what field types mean, how to connect your website, and so on.
 
-- **What’s in Help:** Topics usually match the main areas of the CMS: What is Birkly, Getting started, Content (collections and entries), Field types, Media, Templating, Website integration, Automation, Settings. You can use it as a mini manual.
+- **What’s in Help:** Topics match Birkly-Docs: Getting started, Content, AI (connections, MCP, approvals), Automation, User plugin, ContentEditor blocks, Plugins, Media, Settings, and more. Each topic has a short in-admin snapshot and a **Read full doc** link to the built HTML guide.
 - **How it’s organized:** You may see a short summary for each topic and a way to “Read more” or open a longer explanation. That way you can skim the basics or dive into detail when you need it.
 - **Who updates it:** If your installation is set up to use Birkly Docs (the central doc set), the Help content can be updated whenever the docs are updated, so the in-admin help stays accurate.
 

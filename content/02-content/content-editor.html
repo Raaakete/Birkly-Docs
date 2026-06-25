@@ -1,0 +1,54 @@
+<p>ContentEditor is Birkly's rich text fieldtype. Stored values are <strong>pure HTML</strong> — no proprietary JSON. All editor code lives under <code>fieldtypes/ContentEditor/</code> in the platform.</p>
+<div class="doc-summary"><p>Use the <strong>ContentEditor</strong> field type (aliases: <code>editor</code>, <code>media</code>) for long formatted body content. Editors get a toolbar for bold, headings, lists, and links, plus <strong>block components</strong> (callout, quote, CTA button, table, image embed). Optional <strong>preview CSS</strong> shows your site styles in the admin without saving CSS into the entry HTML. Content round-trips: save → reload → same HTML in templates and Public API.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Adding ContentEditor to a collection</strong></p>
+<ol>
+<li>Edit your collection schema.</li>
+<li>Add a field with type <strong>ContentEditor</strong> (or <strong>Editor</strong>).</li>
+<li>Optional: set <strong>Preview CSS URL</strong> (<code>css_url</code>) to your site's stylesheet for WYSIWYG preview in admin only.</li>
+<li>Save. New and existing entries show the visual editor for that field.</li>
+</ol>
+<p><strong>Toolbar basics</strong></p>
+<ul>
+<li>Inline: bold, italic, underline, strikethrough</li>
+<li>Blocks: paragraph, heading levels, bullet and numbered lists</li>
+<li>Link: insert or edit hyperlinks</li>
+<li><strong>Components</strong>: open the components menu to insert reusable blocks</li>
+</ul>
+<p><strong>Blocks (components)</strong></p>
+<p>Blocks are HTML snippets with optional scoped CSS. Bundled blocks:</p>
+<p>| Block | Use for | |-------|---------| | <strong>Callout</strong> | Tips, warnings, highlights | | <strong>Quote</strong> | Pull quotes with attribution | | <strong>CTA button</strong> | Prominent link/button | | <strong>Table</strong> | Simple data tables | | <strong>Image embed</strong> | Figure with caption from media library |</p>
+<p>To insert: toolbar → <strong>Components</strong> → choose block → fill fields in the dialog → insert. Blocks appear as structured HTML in the field. You can edit text inside a block after insert.</p>
+<p><strong>Visual vs HTML tabs</strong></p>
+<ul>
+<li><strong>Visual</strong> — WYSIWYG editing with toolbar and blocks.</li>
+<li><strong>HTML</strong> — raw source for fine control. Switching tabs runs a round-trip sync so content is not lost.</li>
+</ul>
+<p><strong>Example: blog post body</strong></p>
+<p>| Field | Type | Notes | |-------|------|-------| | Title | Text | | | Slug | Text | | | Body | ContentEditor | <code>css_url</code>: <code>/css/site.css</code> for preview |</p>
+<p>In templates: <code>{ body }</code> outputs the saved HTML.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Architecture</strong></p>
+<pre><code>fieldtypes/ContentEditor/
+├── ContentEditor.php       # PHP field class, toolbar markup
+├── editor.js               # Lifecycle
+├── commands/               # Modular formatting commands
+├── components/bundled/     # Shipped blocks
+├── core/sync-manager.js    # Visual ↔ HTML round-trip
+└── tests/                  # html_roundtrip_test.php, etc.</code></pre>
+<p><strong>Schema options</strong></p>
+<p>| Key | Purpose | |-----|---------| | <code>css_url</code> | Project stylesheet for admin preview only | | <code>required</code> | Validation |</p>
+<p><strong>Component registry</strong></p>
+<ul>
+<li>Bundled: <code>fieldtypes/ContentEditor/components/bundled/</code></li>
+<li>Custom: <code>content/components/</code> via <code>/api/components.php</code></li>
+<li>JS client: <code>ContentEditorComponentRegistry</code></li>
+</ul>
+<p><strong>Stored format</strong></p>
+<p>Pure HTML string. Blocks render as semantic HTML (e.g. <code>&lt;aside class=&quot;birkly-callout&quot;&gt;</code>). No JSON blob in entry files — safe for <code>{ body }</code> in templates and API consumers.</p>
+<p><strong>Tests</strong></p>
+<pre><code>php fieldtypes/ContentEditor/tests/html_roundtrip_test.php
+php tests/run.php</code></pre></div></details>
+<div class="doc-related"><ul>
+<li><a href="field-types.html">Field types</a> — all field types including Editor alias</li>
+<li><a href="entries.html">Entries</a></li>
+<li>Platform: <code>fieldtypes/ContentEditor/README.md</code></li>
+</ul></div>

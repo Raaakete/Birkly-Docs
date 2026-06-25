@@ -1,0 +1,46 @@
+<p>MCP (Model Context Protocol) lets external AI clients — such as <strong>Claude Desktop</strong> — call Birkly tools with the same permission model as in-admin AI chat. Each MCP connection has its <strong>own API key</strong> scoped to that connection's role.</p>
+<div class="doc-summary"><p>Create an MCP connection under <strong>Settings → AI Connections</strong> (provider: <strong>MCP</strong>). Birkly shows a server URL and API key. Configure your MCP client to call that URL with the key. The client can list collections, read entries, and perform allowed write actions — subject to the connection's role and approval settings. For chat inside the admin panel, use OpenAI, Anthropic, Ollama, or another chat provider instead of MCP.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>When to use MCP</strong></p>
+<ul>
+<li>You want <strong>Claude Desktop</strong> (or another MCP-capable app) to work with your Birkly content.</li>
+<li>You need <strong>bidirectional</strong> access: the external assistant reads and optionally updates CMS data.</li>
+<li>You prefer the assistant to run <strong>outside</strong> the browser while still respecting Birkly roles.</li>
+</ul>
+<p><strong>When not to use MCP</strong></p>
+<ul>
+<li>You only want chat inside the Birkly admin → add an <strong>OpenAI</strong>, <strong>Anthropic</strong>, or <strong>Ollama</strong> connection instead.</li>
+<li>Your tool does not support MCP → use the Public API or automation webhooks.</li>
+</ul>
+<p><strong>Setup steps</strong></p>
+<ol>
+<li>In Birkly admin: <strong>Settings → AI Connections → Add Connection</strong>.</li>
+<li>Provider: <strong>MCP (Model Context Protocol)</strong>.</li>
+<li>Name the connection (e.g. &quot;Claude Desktop — Editor&quot;).</li>
+<li>Choose a <strong>role</strong> (Viewer, Author, Editor, Admin) — this limits what MCP can do.</li>
+<li>Set <strong>Require approval for AI actions</strong> if writes should go to the approval queue first (recommended).</li>
+<li>Save. Copy the <strong>MCP Server URL</strong> and <strong>API key</strong> shown once.</li>
+<li>In your MCP client, add Birkly as a server using that URL and key (see platform <code>mcp-bridge.js</code> for stdio clients).</li>
+</ol>
+<p><strong>Security tips</strong></p>
+<ul>
+<li>Treat the MCP API key like a password — one key per connection; revoke by deleting the connection.</li>
+<li>Use the <strong>lowest role</strong> that fits the task (e.g. Viewer for read-only research).</li>
+<li>Keep <strong>approval enabled</strong> for production instances until you trust automated writes.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>HTTP endpoint</strong></p>
+<ul>
+<li><code>POST /api/mcp_server.php</code> with header <code>X-MCP-API-Key: {key}</code> or query <code>api_key={key}</code>.</li>
+<li>JSON-RPC style body: <code>method</code>, <code>params</code>, <code>id</code>.</li>
+<li>Tools mirror admin AI actions allowed for the connection role (<code>core/ai_permissions.php</code>).</li>
+</ul>
+<p><strong>Per-connection keys (Phase 3)</strong></p>
+<p>Each MCP row in AI Connections stores a unique <code>mcp_api_key</code>. Keys are not shared across connections or with chat providers.</p>
+<p><strong>Bridge for Claude Desktop</strong></p>
+<p>The platform ships <code>mcp-bridge.js</code> at the CMS root for environments that expect stdio MCP. Point <code>HARUCMS_URL</code> and <code>HARUCMS_API_KEY</code> at your instance.</p>
+<p><strong>Approval flow</strong></p>
+<p>When <code>require_approval</code> is true, MCP write tools create rows in <code>data/ai_approvals/</code> instead of executing immediately — same queue as admin chat writes.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="ai-connections.html">AI connections</a></li>
+<li><a href="ai-approvals.html">AI approvals</a></li>
+<li><a href="ai-overview.html">AI overview</a></li>
+</ul></div>

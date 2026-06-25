@@ -12,7 +12,16 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
----
+## 2026-06-25 — Phase 3 docs pack (P3-M14)
+
+- **New:** `00-overview/closed-alpha-guide.md` — tester guide for closed alpha.
+- **New:** `01-admin/mcp-connections.md` — per-connection MCP keys, Claude Desktop setup.
+- **New:** `02-content/content-editor.md` — ContentEditor fieldtype and blocks (callout, quote, CTA, table, image).
+- **New:** `06-extensibility/user-plugin.md` — User Management plugin overview.
+- **Updated:** `01-admin/ai-connections.md` — BYOAI, default approval, MCP cross-link.
+- **Updated:** `05-automation/automation-overview.md` — automation as deactivatable plugin.
+- **Updated:** `01-admin/help-and-onboarding.md` — Help manifest topic list (AI, MCP, automation, user plugin, ContentEditor).
+- **Updated:** `manifest.json` and `CONTENTS_INDEX.md` for new topics.
 
 ## 2026-06-19 — Phase 2 product sync (P2-M3–M7)
 

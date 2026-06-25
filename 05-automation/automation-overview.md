@@ -4,7 +4,7 @@ Automation in Birkly lets you run workflows when something happens (a trigger)�
 
 ## Summary
 
-**Automation** = “When X happens, do Y.” You create **workflows** in the admin (e.g. under **Automation**). Each has a **trigger** (e.g. “Every day at 9:00” or “When we receive a webhook”), optional **conditions** (e.g. “only if the new entry has a certain field”), and **actions** (e.g. “POST to Slack”, “Send email”, “Call a URL”). Use it to notify your team, sync with other tools, or run recurring tasks without writing code. See [Triggers](triggers.md), [Conditions and actions](conditions-and-actions.md), and [Webhooks](webhooks.md) for details.
+**Automation** = “When X happens, do Y.” You create **workflows** in the admin under **Automation** (a **deactivatable plugin** — disable it under Settings → Plugins to remove hooks, API routes, and the sidebar entry). Each workflow has a **trigger** (e.g. “Every day at 9:00” or “When we receive a webhook”), optional **conditions** (e.g. “only if the new entry has a certain field”), and **actions** (e.g. “POST to Slack”, “Send email”, “Call a URL”). Use it to notify your team, sync with other tools, or run recurring tasks without writing code. See [Triggers](triggers.md), [Conditions and actions](conditions-and-actions.md), and [Webhooks](webhooks.md) for details.
 
 ## Beginner
 

@@ -12,6 +12,12 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-06-26 — Phase 4 inbound MCP split (P4-M9)
+
+- **Updated:** `01-admin/mcp-connections.md` — standalone MCP endpoints tab, `settings/mcp_endpoints.json`, migration script, client matrix.
+- **Updated:** `01-admin/ai-connections.md` — outbound BYOAI only; API key vs subscription; link to MCP connections.
+- **Updated:** `01-admin/ai-chat-and-actions.md` — connection picker in chat header; MCP not in picker.
+
 ## 2026-06-25 — Phase 3 docs pack (P3-M14)
 
 - **New:** `00-overview/closed-alpha-guide.md` — tester guide for closed alpha.

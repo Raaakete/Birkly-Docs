@@ -1,17 +1,21 @@
 # AI Approvals
 
-When an outbound AI connection or inbound MCP endpoint has **“Require approval”** enabled, write actions (create entry, update entry, delete entry, etc.) are not executed immediately. Instead they are added to a shared **approval queue** on the **AI & Integrations** tab. An admin (or any user with access to the queue) can **approve** or **reject** each request. Only approved actions are executed; rejected ones are discarded and optionally logged.
+When an **outbound** built-in assistant connection has **“Require approval”** enabled, write actions (create entry, update entry, delete entry, etc.) are not executed immediately. Instead they are added to the **Approvals** tab on the floating AI Assistant window. An admin (or any user with access) can **approve** or **reject** each request. Only approved actions are executed.
+
+**Inbound MCP** (Claude, ChatGPT, Cursor via connector URL) does **not** use this queue — those clients handle write confirmation in the client app.
 
 ## Summary
 
-**Approval queue** — Pending write actions from **outbound admin chat** and **inbound MCP tools** appear in one list at the top of **Settings → AI & Integrations**. Each item shows what action was requested (e.g. “Create entry in blog”) and the data (collection, title, content, etc.). You can **Approve** to run the action now, or **Reject** (optionally with a reason). Approved actions are executed by the backend; rejected ones are marked rejected and not run.
+**Approval queue** — Pending write actions from **outbound admin chat** (built-in assistant) appear in the floating AI Assistant **Approvals** tab. Each item shows what action was requested (e.g. “Create entry in blog”) and the data (collection, title, content, etc.). You can **Approve** to run the action now, or **Reject** (optionally with a reason). Approved actions are executed by the backend; rejected ones are marked rejected and not run.
+
+**MCP connectors** do not use this queue — approve or deny writes in Claude, ChatGPT, or Cursor when prompted.
 
 ## Beginner
 
 **When do I see the approval queue?**
 
-- When you enabled **“Require approval for AI actions”** on an outbound connection, or **“Require approval”** on an inbound MCP endpoint, any write action from that channel goes to the queue instead of running straight away.
-- You'll see the queue at the top of **Settings → AI & Integrations**, or inside the AI chat UI if your version shows it there.
+- When you enabled **“Require approval for AI actions”** on an **outbound** built-in assistant connection, write actions from that chat go to the Approvals tab instead of running straight away.
+- You'll see pending items in the floating **AI Assistant → Approvals** tab.
 
 **What appears in the queue**
 
@@ -39,7 +43,7 @@ You can turn off “Require approval” on a connection or endpoint if you want 
 
 - **List:** `GET api/ai_approvals.php?action=list` — Optional `status` (e.g. pending, approved, rejected). Returns approvals, often sorted by created_at descending.
 - **Get one:** `GET api/ai_approvals.php?action=get&id=<approval_id>`.
-- **Create:** Used internally by the AI chat flow and MCP tool execution when a write action is requested and the connection or endpoint has require_approval. POST with action=create, ai_user_id, action_type, action_data, description.
+- **Create:** Used internally by the **built-in** AI chat flow when a write action is requested and the connection has `require_approval`. MCP tool writes do not create approval rows.
 - **Approve:** POST with action=approve, id, _csrf. Backend loads the approval, calls `executeAiAction($approval)` (which dispatches to the right executor, e.g. executeCreateEntry, executeUpdateEntry), then updates the approval record to status approved and stores the result. CSRF required.
 - **Reject:** POST with action=reject, id, optional reason, _csrf. Approval record is updated to status rejected and optional rejection_reason. CSRF required.
 

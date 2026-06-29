@@ -34,9 +34,9 @@
         <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="ai-overview.html" class="nav-link">AI overview</a>
         <a href="ai-connections.html" class="nav-link">AI connections</a>
+        <a href="mcp-connections.html" class="nav-link active">MCP connections</a>
         <a href="ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
         <a href="ai-approvals.html" class="nav-link">AI approvals</a>
-        <a href="mcp-connections.html" class="nav-link active">MCP connections</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
         <a href="../02-content/collections.html" class="nav-link">Collections</a>
@@ -94,51 +94,104 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>MCP (Model Context Protocol) lets external AI clients — such as <strong>Claude Desktop</strong> — call Birkly tools with the same permission model as in-admin AI chat. Each MCP connection has its <strong>own API key</strong> scoped to that connection's role.</p>
-<div class="doc-summary"><p>Create an MCP connection under <strong>Settings → AI Connections</strong> (provider: <strong>MCP</strong>). Birkly shows a server URL and API key. Configure your MCP client to call that URL with the key. The client can list collections, read entries, and perform allowed write actions — subject to the connection's role and approval settings. For chat inside the admin panel, use OpenAI, Anthropic, Ollama, or another chat provider instead of MCP.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>When to use MCP</strong></p>
-<ul>
-<li>You want <strong>Claude Desktop</strong> (or another MCP-capable app) to work with your Birkly content.</li>
-<li>You need <strong>bidirectional</strong> access: the external assistant reads and optionally updates CMS data.</li>
-<li>You prefer the assistant to run <strong>outside</strong> the browser while still respecting Birkly roles.</li>
-</ul>
-<p><strong>When not to use MCP</strong></p>
-<ul>
-<li>You only want chat inside the Birkly admin → add an <strong>OpenAI</strong>, <strong>Anthropic</strong>, or <strong>Ollama</strong> connection instead.</li>
-<li>Your tool does not support MCP → use the Public API or automation webhooks.</li>
-</ul>
-<p><strong>Setup steps</strong></p>
+        <div class="doc-content"><p>Inbound MCP endpoints let <strong>external AI tools</strong> (Claude Desktop, Claude remote connector, Cursor, curl scripts) connect to your Birkly site via the Model Context Protocol. You create and manage them under <strong>Settings → AI &amp; Integrations → Inbound (MCP)</strong>. Each endpoint has its own API key (and optionally OAuth), role, and approval settings.</p>
+<p>Outbound admin chat with your provider API keys is separate — see <a href="ai-connections.html">AI connections</a>.</p>
+<div class="doc-summary"><p>Open <strong>Settings → AI &amp; Integrations → Inbound (MCP)</strong> to add an MCP endpoint. <strong>Recommended:</strong> use the <strong>stdio bridge</strong> (<code>mcp-bridge.js</code>) with Claude Desktop — create an endpoint, copy the API key and Claude Desktop config snippet, set <code>BIRKLY_URL</code> and <code>BIRKLY_MCP_API_KEY</code>. <strong>Advanced:</strong> for Claude's <strong>remote connector</strong> (claude.ai), set endpoint <strong>Auth mode</strong> to OAuth or Both, copy the <strong>MCP Server URL</strong>, and complete the OAuth flow when adding the connector. Pending write actions from inbound tools share the same approval queue as outbound chat.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Where to add an endpoint</strong></p>
 <ol>
-<li>In Birkly admin: <strong>Settings → AI Connections → Add Connection</strong>.</li>
-<li>Provider: <strong>MCP (Model Context Protocol)</strong>.</li>
-<li>Name the connection (e.g. &quot;Claude Desktop — Editor&quot;).</li>
-<li>Choose a <strong>role</strong> (Viewer, Author, Editor, Admin) — this limits what MCP can do.</li>
-<li>Set <strong>Require approval for AI actions</strong> if writes should go to the approval queue first (recommended).</li>
-<li>Save. Copy the <strong>MCP Server URL</strong> and <strong>API key</strong> shown once.</li>
-<li>In your MCP client, add Birkly as a server using that URL and key (see platform <code>mcp-bridge.js</code> for stdio clients).</li>
+<li>In the admin sidebar, click <strong>Settings</strong>.</li>
+<li>Open the <strong>AI &amp; Integrations</strong> tab (deep link: <code>#ai-integrations</code>).</li>
+<li>Scroll to the <strong>Inbound (MCP)</strong> section.</li>
+<li>Read the setup cards (stdio bridge vs remote connector).</li>
+<li>Click <strong>Add Endpoint</strong>, fill in the form, and save.</li>
+<li>Reveal and copy the <strong>MCP API key</strong> when shown (stdio bridge) or the <strong>MCP Server URL</strong> (remote connector).</li>
 </ol>
-<p><strong>Security tips</strong></p>
+<p><strong>Two connection paths (pick one per client)</strong></p>
+<p>| Path | Best for | Auth | Complexity | |------|----------|------|------------| | <strong>Stdio bridge</strong> (recommended) | Claude Desktop, local MCP clients | API key via <code>mcp-bridge.js</code> | Low — copy config from admin | | <strong>Remote connector</strong> | Claude.ai web/app remote MCP | OAuth 2.1 (PKCE + DCR) | Medium — enable OAuth on endpoint |</p>
+<p><strong>Stdio bridge (recommended)</strong></p>
+<p>Use this when Claude Desktop or another client runs a <strong>local MCP server process</strong> on your machine.</p>
+<ol>
+<li><strong>Add Endpoint</strong> in Inbound (MCP). Set <strong>Name</strong>, <strong>Role</strong> (Viewer for read-only; Editor/Author for writes), and <strong>Require approval</strong> (recommended for production).</li>
+<li>Leave <strong>Auth mode</strong> at <strong>API key</strong> (default).</li>
+<li>Save and <strong>copy the MCP API key</strong> when revealed.</li>
+<li>Copy the <strong>Claude Desktop config</strong> JSON block from the endpoint row.</li>
+<li>Edit your Claude Desktop config file:</li>
+</ol>
+<p>   - <strong>macOS:</strong> <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>    - <strong>Windows:</strong> <code>%APPDATA%\Claude\claude_desktop_config.json</code></p>
+<ol>
+<li>Set environment variables in the config:</li>
+</ol>
+<p>   - <code>BIRKLY_URL</code> — Your Birkly base URL (e.g. <code>https://yoursite.com</code> or <code>http://localhost:8080</code>)    - <code>BIRKLY_MCP_API_KEY</code> — The endpoint key from step 3</p>
+<ol>
+<li>Use the <strong>absolute path</strong> to <code>mcp-bridge.js</code> in your Birkly installation as the <code>args</code> entry.</li>
+<li>Restart Claude Desktop completely. Ask: “What Birkly tools do you have?” — expect tools such as <code>list_collections</code>, <code>list_entries</code>, <code>create_entry</code>.</li>
+</ol>
+<p>The bridge translates stdio JSON-RPC from the client into HTTP calls to <code>POST /api/mcp_server.php</code>. No OAuth is required for this path.</p>
+<p><strong>Remote connector (OAuth)</strong></p>
+<p>Use this when adding Birkly as a <strong>remote MCP server</strong> in Claude's connector settings (claude.ai), without running <code>mcp-bridge.js</code> locally.</p>
+<p><strong>Requirements:</strong></p>
 <ul>
-<li>Treat the MCP API key like a password — one key per connection; revoke by deleting the connection.</li>
-<li>Use the <strong>lowest role</strong> that fits the task (e.g. Viewer for read-only research).</li>
-<li>Keep <strong>approval enabled</strong> for production instances until you trust automated writes.</li>
-</ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>HTTP endpoint</strong></p>
-<ul>
-<li><code>POST /api/mcp_server.php</code> with header <code>X-MCP-API-Key: {key}</code> or query <code>api_key={key}</code>.</li>
-<li>JSON-RPC style body: <code>method</code>, <code>params</code>, <code>id</code>.</li>
-<li>Tools mirror admin AI actions allowed for the connection role (<code>core/ai_permissions.php</code>).</li>
+<li>Birkly must be reachable over <strong>HTTPS</strong> from the public internet (or Claude's broker).</li>
+<li>Endpoint <strong>Auth mode</strong> must be <strong>OAuth</strong> or <strong>Both</strong>.</li>
 </ul>
-<p><strong>Per-connection keys (Phase 3)</strong></p>
-<p>Each MCP row in AI Connections stores a unique <code>mcp_api_key</code>. Keys are not shared across connections or with chat providers.</p>
-<p><strong>Bridge for Claude Desktop</strong></p>
-<p>The platform ships <code>mcp-bridge.js</code> at the CMS root for environments that expect stdio MCP. Point <code>HARUCMS_URL</code> and <code>HARUCMS_API_KEY</code> at your instance.</p>
-<p><strong>Approval flow</strong></p>
-<p>When <code>require_approval</code> is true, MCP write tools create rows in <code>data/ai_approvals/</code> instead of executing immediately — same queue as admin chat writes.</p></div></details>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><strong>Settings → AI &amp; Integrations → Inbound (MCP)</strong> → <strong>Add Endpoint</strong>.</li>
+<li>Set <strong>Auth mode</strong> to <strong>OAuth</strong> (remote only) or <strong>Both</strong> (bridge + remote).</li>
+<li>Optionally set <strong>OAuth client ID</strong> if you pre-register a client; otherwise dynamic client registration (DCR) assigns one at connect time.</li>
+<li>Copy the <strong>MCP Server URL</strong> (ends with <code>/api/mcp_server.php</code>).</li>
+<li>In Claude (web or app), open <strong>Settings → Connectors</strong> (or Integrations).</li>
+<li>Add a custom MCP server and paste the <strong>MCP Server URL</strong>.</li>
+<li>Complete the OAuth flow when prompted. Tools should appear after connection.</li>
+</ol>
+<p>If OAuth fails immediately (e.g. <code>ofid_…</code> errors), confirm auth mode is OAuth or Both and that your install serves <code>/.well-known/oauth-protected-resource</code>.</p>
+<p><strong>Auth modes</strong></p>
+<p>| Mode | API key (bridge/curl) | OAuth bearer (remote) | |------|----------------------|------------------------| | API key (default) | Yes | No | | OAuth | No | Yes | | Both | Yes | Yes |</p>
+<p><strong>Approval queue</strong></p>
+<p>If <strong>Require approval</strong> is on for an endpoint, inbound write actions (e.g. <code>create_entry</code>) appear in the shared <strong>approval queue</strong> at the top of the AI &amp; Integrations tab — the same queue used by outbound admin chat.</p>
+<p><strong>Legacy deep links</strong></p>
+<p>Old bookmarks to <code>#mcp-connections</code> still open the <strong>AI &amp; Integrations</strong> tab and scroll to the Inbound section.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Architecture</strong></p>
+<ul>
+<li>Endpoints are stored under <code>settings/mcp_endpoints.json</code> (or equivalent). Each endpoint has: id, name, api_key (hashed at rest), role, require_approval, auth_mode (<code>api_key</code> | <code>oauth</code> | <code>both</code>), optional oauth_client_id.</li>
+<li>MCP requests hit <code>POST /api/mcp_server.php</code> with <code>X-MCP-API-Key</code> (API key path) or <code>Authorization: Bearer</code> (OAuth path).</li>
+<li>OAuth implements RFC 9728 protected-resource metadata, RFC 8414 authorization-server metadata, PKCE, and DCR. Well-known URLs and token endpoints are subdirectory-safe.</li>
+<li><code>mcp-bridge.js</code> (CMS repo root) proxies stdio MCP to HTTP; env vars <code>BIRKLY_URL</code> / <code>BIRKLY_MCP_API_KEY</code> preferred (<code>HARUCMS_*</code> legacy aliases still accepted).</li>
+</ul>
+<p><strong>API (typical)</strong></p>
+<ul>
+<li><strong>List:</strong> <code>GET api/mcp_connections.php?action=list</code></li>
+<li><strong>Create:</strong> POST with <code>action=create</code>, name, role, require_approval, auth_mode, optional oauth_client_id. CSRF required. Returns endpoint id and one-time API key.</li>
+<li><strong>Update / delete:</strong> POST with <code>action=update</code> or <code>action=delete</code>, id, and fields. CSRF required.</li>
+<li><strong>MCP protocol:</strong> <code>POST /api/mcp_server.php</code> — JSON-RPC 2.0 (<code>tools/list</code>, <code>tools/call</code>, etc.)</li>
+</ul>
+<p><strong>HTTP testing (API key path)</strong></p>
+<pre><code>export BIRKLY_URL=&quot;http://localhost:8080&quot;
+export BIRKLY_MCP_API_KEY=&quot;your_endpoint_key&quot;
+
+curl -sS -X POST &quot;${BIRKLY_URL}/api/mcp_server.php&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;X-MCP-API-Key: ${BIRKLY_MCP_API_KEY}&quot; \
+  -d '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;tools/list&quot;,&quot;params&quot;:{},&quot;id&quot;:1}'</code></pre>
+<p>Requires endpoint auth mode <strong>API key</strong> or <strong>Both</strong>.</p>
+<p><strong>Available MCP tools (typical)</strong></p>
+<ul>
+<li><strong>list_collections</strong>, <strong>get_collection</strong> — Collection metadata</li>
+<li><strong>list_entries</strong>, <strong>create_entry</strong>, <strong>update_entry</strong> — Content (writes may require approval)</li>
+<li><strong>get_system_context</strong> — Curated CMS context for the model</li>
+</ul>
+<p><strong>Legacy migration</strong></p>
+<p>If you used MCP keys under old <strong>AI Connections</strong> rows:</p>
+<pre><code>php scripts/migrate-mcp-endpoints.php --dry-run   # preview
+php scripts/migrate-mcp-endpoints.php             # migrate</code></pre>
+<p>Legacy keys dual-resolve for 90 days. New setups use <strong>Inbound (MCP)</strong> only.</p>
+<p><strong>Troubleshooting</strong></p>
+<p>| Issue | Check | |-------|-------| | MCP not connecting (bridge) | Key from <strong>Inbound (MCP)</strong>, not outbound AI connections | | Wrong URL | <code>BIRKLY_URL</code> = base URL only (no <code>/api/...</code> suffix) | | Remote OAuth fails | Auth mode OAuth/Both; HTTPS reachable; well-known metadata returns JSON | | No tools after connect | Endpoint <strong>role</strong>; restart client after config change | | Permission errors | Role too restrictive; approval queue for writes |</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="ai-connections.html">AI connections</a></li>
-<li><a href="ai-approvals.html">AI approvals</a></li>
 <li><a href="ai-overview.html">AI overview</a></li>
+<li><a href="ai-connections.html">AI connections</a> — Outbound BYOAI (admin chat)</li>
+<li><a href="ai-approvals.html">AI approvals</a></li>
+<li><a href="settings.html">Settings</a></li>
 </ul></div></div>
       </div>
     </main>

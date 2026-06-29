@@ -23,10 +23,10 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Account | `01-admin/account.md` | Profile, password, 2FA |
 | Help and onboarding | `01-admin/help-and-onboarding.md` | In-admin help and first-time setup |
 | AI overview | `01-admin/ai-overview.md` | What the AI system is and where to find it |
-| AI connections | `01-admin/ai-connections.md` | Setting up providers (OpenAI, Ollama, etc.) |
+| AI connections | `01-admin/ai-connections.md` | Outbound BYOAI providers (OpenAI, Ollama, etc.) |
+| MCP connections | `01-admin/mcp-connections.md` | Inbound MCP endpoints (stdio bridge, OAuth) |
 | AI chat and actions | `01-admin/ai-chat-and-actions.md` | Using the chat and what the AI can do |
 | AI approvals | `01-admin/ai-approvals.md` | Approval queue for AI write actions |
-| MCP connections | `01-admin/mcp-connections.md` | MCP provider, per-connection keys, external clients |
 
 ## 02 — Content
 

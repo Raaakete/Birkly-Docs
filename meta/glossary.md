@@ -9,7 +9,8 @@ This glossary defines key terms used across Birkly docs. Use it when you’re un
 | Term | Definition |
 |------|------------|
 | **Account** | The logged-in user’s own profile in the admin: name, email, password, two-factor authentication (2FA). See [Account](../01-admin/account.md). |
-| **AI connection** | A configured link to an AI provider (OpenAI, Ollama, etc.) in Birkly. Stored in Settings → AI Connections; each has provider, model, role, and optional approval requirement. See [AI connections](../01-admin/ai-connections.md). |
+| **AI connection** | A configured outbound link to an AI provider (OpenAI, Ollama, etc.) in Birkly. Stored in **Settings → AI & Integrations → Outbound**; each has provider, model, role, and optional approval requirement. See [AI connections](../01-admin/ai-connections.md). |
+| **MCP connection** | An inbound MCP endpoint that lets external AI tools connect to Birkly. Configured in **Settings → AI & Integrations → Inbound (MCP)** with API key and/or OAuth. See [MCP connections](../01-admin/mcp-connections.md). |
 | **AI approval** | A pending AI write action (e.g. create entry) waiting for a human to approve or reject. Shown in the approval queue when “Require approval for AI actions” is on. See [AI approvals](../01-admin/ai-approvals.md). |
 | **Action** | In automation, a step that runs when the workflow is triggered—e.g. “send Slack message”, “HTTP request to URL”. You add actions in the workflow editor. |
 | **Admin** | The Birkly back office: login, dashboard, content, media, settings. Accessed at `/admin` (or your configured path). |

@@ -20,7 +20,7 @@ Settings is where you configure the Birkly installation itself: project name, br
 
 - **Plugins** — Enable or disable **plugins** (add-ons that add features). Some plugins have their own options (e.g. API keys) that you set in Settings or on a separate plugin page.
 
-- **AI Connections** — Add and manage AI providers (OpenAI, Ollama, Anthropic, etc.) for the in-admin AI assistant. You set the API key, model, role, and whether write actions require approval. See [AI overview](ai-overview.md) and [AI connections](ai-connections.md).
+- **AI & Integrations** — One tab for outbound AI providers (in-admin chat) and inbound MCP endpoints (external tools). Includes a shared approval queue. Outbound: API keys from provider developer consoles. Inbound: MCP API keys and/or OAuth for Claude remote connector; stdio bridge recommended for Claude Desktop. See [AI overview](ai-overview.md), [AI connections](ai-connections.md), and [MCP connections](mcp-connections.md).
 
 - **Webhooks** (if available) — Configure URLs that Birkly will call when something happens (e.g. when a new entry is published). Used for integrations with other tools.
 
@@ -58,5 +58,6 @@ Click **Save** (or save per section). Some changes (e.g. project name, logo) app
 - [Account](account.md)
 - [AI overview](ai-overview.md)
 - [AI connections](ai-connections.md)
+- [MCP connections](mcp-connections.md)
 - [Plugins](../06-extensibility/plugins.md)
 - [Updates](../06-extensibility/updates.md)

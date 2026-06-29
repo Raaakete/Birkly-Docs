@@ -4,7 +4,7 @@ Birkly includes a built-in AI assistant that can help you create and edit conten
 
 ## Summary
 
-The **AI system** has two channels under **Settings → AI & Integrations**: **Outbound (BYOAI)** for in-admin chat with your provider API keys, and **Inbound (MCP)** for external clients (Claude Desktop, remote connector). Both share one **approval queue** and permission model. Open the floating AI button to chat; configure outbound connections in the Outbound section. For Claude Desktop, use the recommended **stdio bridge**; for Claude's remote connector, use **OAuth** on an MCP endpoint. Supported outbound providers include OpenAI, Anthropic, Google (Gemini), OpenRouter, Ollama (local), and custom endpoints.
+The **AI system** has two channels under **Settings → AI**: **Built-in assistant** (outbound API keys for in-admin chat) and **Connect your AI app** (inbound MCP for Claude, ChatGPT, Cursor). **Approvals** for writes apply to the built-in assistant when enabled; MCP clients approve writes in the client app. Open the floating AI button to chat; copy a connector URL for external tools. Supported outbound providers include OpenAI (default model `gpt-4o-mini`), Anthropic, Google (Gemini), OpenRouter, Ollama (local), and custom endpoints.
 
 ## Beginner
 
@@ -46,7 +46,7 @@ It depends on the provider. **Ollama** runs on your own machine and is free. **O
 - **Outbound connections** — Stored as special “AI” users in user storage. Each connection has: provider, API key (encrypted), model, role (maps to permissions), sharing (private / all / specific users), and optional “require approval” for write actions.
 - **Inbound MCP endpoints** — Stored in settings; each has api_key hash, role, require_approval, auth_mode (`api_key` | `oauth` | `both`). Protocol via `api/mcp_server.php`; OAuth via `core/mcp_oauth.php`.
 - **Chat** — Admin sends messages to `api/ai_chat.php`. Backend builds a system prompt from `generateSystemContext()` (collections, schemas, docs) and `buildSystemPrompt()` (permissions, action list). Conversation history is stored under `data/ai_conversations/`. The backend calls the provider (OpenAI-compatible, Anthropic, Ollama, etc.), parses the response for JSON action blocks, and either executes (if no approval) or creates an approval request.
-- **Approvals** — Pending actions from outbound chat and inbound MCP are stored in `data/ai_approvals/`. Admin UI calls `api/ai_approvals.php` to list, approve, or reject. On approve, `executeAiAction()` runs the action.
+- **Approvals** — Pending actions from **outbound built-in chat** are stored in `data/ai_approvals/`. Admin UI calls `api/ai_approvals.php` to list, approve, or reject. MCP tool writes are not queued here.
 
 **Outbound providers**
 

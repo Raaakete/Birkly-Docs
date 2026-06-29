@@ -22,13 +22,15 @@ Go to **Settings → AI → Built-in assistant** and click **Quick connect**. Ch
 - **Connection name** — A label you'll recognize.
 - **API key** — From your provider's developer console. Empty for Ollama.
 - **API URL** — For Ollama or Custom only.
-- **Model** — Optional; defaults to the provider's default.
+- **Model** — Optional; defaults to the provider default (**OpenAI: `gpt-4o-mini`**). Legacy `gpt-4` connections are remapped automatically.
 - **Role** — Viewer, Author, Editor, or Admin.
-- **Require approval** — Recommended. Pending actions appear in the chat **Approvals** tab.
+- **Require approval** — Recommended for the built-in assistant. Pending write actions appear in the chat **Approvals** tab.
 
 ## Approvals
 
-When the assistant (or a connected AI app) wants to change content, actions wait for your approval. Open the floating chat button → **Approvals** tab to review, approve, or reject.
+**Built-in assistant only.** When the floating chat assistant wants to change content and **Require approval** is on, actions wait in the **Approvals** tab of the AI Assistant window.
+
+**External AI apps (Claude, ChatGPT, Cursor)** connected via MCP handle write confirmation **inside the client app** — not in the Birkly Approvals tab. See [Connect your AI app](mcp-connections.md).
 
 ## Related
 

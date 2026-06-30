@@ -70,6 +70,10 @@ The plugin system may support capabilities, permissions, migrations, scheduled t
 
 - **Disable** in the admin to turn off without deleting files. **Uninstall** (if the plugin supports it) may run cleanup or remove its data. To fully remove: disable, then delete the plugin folder from `plugins/`. Check the plugin readme for uninstall hooks or data to clear.
 
+**Troubleshooting activation**
+
+- If **User Management** (or another bundled plugin) fails with a generic “dependencies not met” message on an up-to-date install, check the detailed `errors[]` in the plugin settings response. On older cores, a registry bug (`$haru_plugins` vs `$birkly_plugins`) blocked activation — update Birkly first. See [Troubleshooting](../07-operations/troubleshooting.md#user-management-plugin-wont-enable).
+
 ## Related
 
 - [Settings](../01-admin/settings.md)

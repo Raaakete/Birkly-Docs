@@ -8,18 +8,30 @@ Roles in Birkly define what each user can do: for example **Viewer** (see conten
 
 **Roles** are like job types. Each user has exactly one role, and that role decides what they can see and do in the admin.
 
-**Typical roles**
+**Default CMS roles**
 
-- **Viewer** — Can log in and **see** content and media (collections, entries, uploads). They **cannot** create, edit, or delete anything. Use this for stakeholders, clients, or reviewers who only need to look at what’s there.  
-  **Example:** A client is a Viewer so they can check the latest blog posts and product text without being able to change anything.
+Birkly seeds four roles the first time **Settings → Users & Roles** is used (stored in `settings/roles.json`):
 
-- **Editor** — Can **create and edit** entries and collections, and **upload and manage** media. They can change content, add new entries, and organize the Media Library. Usually they **cannot** change the project name, add or remove users, change roles, or enable/disable plugins. Use this for content managers and writers.  
-  **Example:** Your colleague is an Editor so they can publish blog posts and update product descriptions, but they can’t invite new users or change settings.
+| Role | Typical use |
+|------|-------------|
+| **Admin** | Full CMS access including settings, users, and plugins |
+| **Editor** | Manage collections, entries, media, and plugins |
+| **Author** | Create and edit content and media (no settings or user management) |
+| **Viewer** | Read-only access to collections |
 
-- **Admin (Administrator)** — Can do **everything**: all content and media, plus **Settings** (project name, branding, users, roles, plugins, webhooks, updates, audit log). Use this only for people who need to manage the CMS itself.  
-  **Example:** You are the site owner, so you have the Admin role; your intern only needs to edit the blog, so they get Editor.
+- **Viewer** — Can log in and **see** content and media. They **cannot** create, edit, or delete anything.  
+  **Example:** A client is a Viewer so they can check the latest blog posts without being able to change anything.
 
-**Permissions** are the individual “rights” (e.g. “view entries,” “edit entries,” “delete entries,” “manage users”). Each role is a bundle of permissions. The admin may show a grid: one row per role, one column per permission, with a tick if that role has that permission. You normally don’t need to tick boxes one by one—you pick a role and the permissions come with it. Some setups let you create custom roles and choose exactly which permissions they have.
+- **Author** — Can **create and edit** entries and upload media, but usually **cannot** manage collections, settings, users, or plugins.  
+  **Example:** A freelance writer is an Author so they can draft posts but not change collection schemas.
+
+- **Editor** — Can **create and edit** entries and collections, and **upload and manage** media. Usually they **cannot** change settings, add users, or change roles.  
+  **Example:** Your colleague is an Editor so they can publish blog posts, but they can’t invite new users.
+
+- **Admin (Administrator)** — Can do **everything**: all content and media, plus **Settings** (project name, branding, users, roles, plugins, webhooks, updates, audit log).  
+  **Example:** You are the site owner with Admin; your intern only needs to edit the blog, so they get Editor.
+
+**Permissions** are editable per role in **Settings → Users & Roles** — tick or clear resource actions (view, create, edit, delete) for each role. You can also add custom roles. **Role pickers** throughout the admin (user invite/edit, AI connections, MCP service agents) load the same role list from the roles API, so custom roles appear everywhere once saved.
 
 **Assigning a role**
 
@@ -38,15 +50,18 @@ Only users who have permission to manage users (typically Administrators). Edito
 
 **Model:** Users have one role; roles have a set of permissions. Stored in DB or config (e.g. `users` table + `roles` / `permissions` config). Auth middleware checks permission for each admin action (e.g. `edit_entries`, `manage_users`); Public API is usually unauthenticated read (and optionally submit with separate auth/rate limit).
 
-**Default roles (typical):**
+**Default roles (seeded):**
 
 | Role    | Typical permissions |
 |---------|----------------------|
-| Viewer  | view_entries, view_collections, view_media |
-| Editor  | view + create/edit/delete entries, manage collections, manage media |
-| Admin   | all of the above + manage_users, manage_settings, manage_plugins, view_audit_log |
+| Viewer  | `collections`: view |
+| Author  | `collections`, `media`: view, create, edit |
+| Editor  | `collections`, `media`, `plugins`: view, create, edit, delete |
+| Admin   | `*`: view, create, edit, delete |
 
-**Custom roles:** Some installs allow defining roles with a custom permission set (e.g. “Author” with edit_entries only for specific collections). Plugins can register extra permissions (e.g. `use_plugin_analytics`); these appear in the role matrix.
+Seeding runs via `birkly_ensure_default_roles()` when `settings/roles.json` is missing or empty. **API:** `GET /api/roles.php?action=list_roles` — used by settings, AI connections, and MCP agent modals for dynamic role pickers.
+
+**Custom roles:** Create in **Settings → Users & Roles**; permissions use resource/action pairs. Plugins can register extra permissions; these appear in the role matrix.
 
 **Enforcement:** Admin UI hides or disables actions the user can’t do; API returns 403 if the user lacks the required permission. Role change applies on next request or after re-login depending on whether permissions are read from DB on each request or cached in session.
 

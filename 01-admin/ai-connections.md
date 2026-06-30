@@ -26,6 +26,17 @@ Go to **Settings → AI → Built-in assistant** and click **Quick connect**. Ch
 - **Role** — Viewer, Author, Editor, or Admin.
 - **Require approval** — Recommended for the built-in assistant. Pending write actions appear in the chat **Approvals** tab.
 
+## Collection and entry slugs
+
+When the built-in assistant creates or updates collections and entries, slugs follow Birkly’s URL rules:
+
+- **Lowercase** letters and digits only
+- **Hyphens** as word separators (`blog-posts`, not `blog_posts`)
+- **Underscores are normalized** to hyphens at write time (e.g. `my_entry` → `my-entry`)
+- Invalid characters are stripped before save
+
+You do not need to fix slugs manually — the assistant and approval pipeline normalize them. If a create previously failed on underscores, update to a current Birkly build with slug normalization enabled.
+
 ## Approvals
 
 **Built-in assistant only.** When the floating chat assistant wants to change content and **Require approval** is on, actions wait in the **Approvals** tab of the AI Assistant window.

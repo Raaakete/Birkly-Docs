@@ -35,6 +35,12 @@ This page lists common issues when using or deploying Birkly and suggests steps 
 - **Plugin** — Try disabling plugins one by one (Settings → Plugins) and reload. If the site works after disabling one, that plugin may be incompatible or buggy; update it or contact the plugin author.
 - **Memory** — If the error says “memory limit”, the host may need to increase PHP’s `memory_limit`.
 
+### User Management plugin won't enable
+
+- **Symptom** — **Settings → Plugins** shows “Plugin dependencies not met” (or similar) when enabling **User Management**, even though no other plugins are required.
+- **Cause** — Older Birkly builds checked plugin dependencies against an empty `$haru_plugins` registry instead of `$birkly_plugins`, so valid plugins were reported as missing.
+- **Fix** — Update to a Birkly build with the P5.2 plugin-registry fix (`core/plugins/dependencies.php` uses `$birkly_plugins`). After updating, enable the plugin again; the settings UI should show specific `errors[]` messages if a real dependency is missing.
+
 **Template tags don’t turn into content**
 
 - **Braces** — Use single braces with spaces: `{ title }` not `{{ title }}`. Check the [Templating](../03-templating/templating-overview.md) docs for the exact syntax.
@@ -70,7 +76,7 @@ This page lists common issues when using or deploying Birkly and suggests steps 
 
 **500 or blank page**
 
-- PHP errors → temporary `display_errors = On` in dev or use error_log in production; fix missing extension, syntax, file. Permissions → ownership and perms on PHP and writable dirs. Plugin → disable one by one. Memory → increase `memory_limit`.
+- PHP errors → temporary `display_errors = On` in dev or use error_log in production; fix missing extension, syntax, file. Permissions → ownership and perms on PHP and writable dirs. Plugin → disable one by one. **User Management activation** → update core if generic “dependencies not met” (registry bug: `$haru_plugins` vs `$birkly_plugins` before P5.2). Memory → increase `memory_limit`.
 
 **Template syntax**
 

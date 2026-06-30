@@ -4,6 +4,15 @@ The AI chat is the main way you interact with **outbound** Birkly AI: open it wi
 
 For **external** assistants (Claude Desktop), use [MCP connections](mcp-connections.md) — not this chat UI.
 
+## Deep documentation (P5.4)
+
+The AI receives a **context pack** on every request. For deeper topics, it can use:
+
+- **In chat / MCP tool:** `read_birkly_docs` with topic `templating`, `admin`, `plugins`, `ai`, or `mcp`
+- **MCP resources:** `birkly://docs/templating`, `birkly://docs/admin`, `birkly://docs/plugins`, `birkly://docs/ai`
+
+See also the [templating overview](../03-templating/templating-overview.md) and [conditionals](../03-templating/conditionals.md) sections in this docs site.
+
 ## Summary
 
 Open the **AI chat** via the **floating button** (bottom-right of the admin). Use the **connection picker in the chat header** to select which outbound provider to use (e.g. "My Local LLM" or "OpenAI"); then type your request. The AI receives context about your collections and permissions and can **read** and **write** when the connection's role allows it. Write actions either run immediately or go to the **approval queue** if "Require approval for AI actions" is on. Conversations are saved so you can continue later.

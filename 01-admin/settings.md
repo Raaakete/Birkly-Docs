@@ -15,7 +15,7 @@ Settings is where you configure the Birkly installation itself: project name, br
 
 - **Branding** — Upload a **logo** and/or **favicon** so the admin panel shows your company or site branding. Some setups also let you add custom CSS to change colours or fonts in the admin.
 
-- **Users and roles** — See who has an account, invite new users (they get an email to set their password), and assign **roles** (e.g. Administrator, Editor, Viewer). Roles control what each person can do—for example, Editors can create and edit content but not change settings or add users.  
+- **Users and roles** — See who has an account, invite new users (they get an email to set their password), and assign **roles**. On first use, Birkly seeds four default CMS roles: **Admin**, **Editor**, **Author**, and **Viewer**. Open **Settings → Users & Roles** to edit each role’s permissions or add custom roles. Role lists in AI connections, MCP agents, and user modals load dynamically from the same source.  
   **Example:** You invite a colleague with the “Editor” role so they can manage blog posts but not delete collections or change the project name.
 
 - **Plugins** — Enable or disable **plugins** (add-ons that add features). Some plugins have their own options (e.g. API keys) that you set in Settings or on a separate plugin page.

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sub collections — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="collections.html" class="nav-link">Collections</a>
+        <a href="sub-collections.html" class="nav-link active">Sub-Collections</a>
+        <a href="entries.html" class="nav-link">Entries</a>
+        <a href="field-types.html" class="nav-link">Field types</a>
+        <a href="slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><div class="doc-summary"><p><strong>Sub-collections</strong> are secondary content types attached to a parent collection. Each entry in the parent can hold any number of child items (<strong>sub-entries</strong>) grouped by sub-collection — for example, &quot;Comments&quot; on a Blog post, or &quot;Reviews&quot; on a Product. Sub-collections are defined in the collection schema, managed from the entry editor in the admin, and optionally exposed for public submission via the API.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>A sub-collection is like a mini-collection that lives <em>inside</em> each entry. Instead of a separate top-level collection for comments, you attach a &quot;Comments&quot; sub-collection to your Blog posts collection. Every blog post then has its own list of comments, and the admin shows them under that post.</p>
+<p><strong>When would I use sub-collections?</strong></p>
+<ul>
+<li><strong>Blog posts → Comments:</strong> Each post can have readers' comments. Admins moderate from the post's entry page.</li>
+<li><strong>Products → Reviews:</strong> Every product gets its own list of reviews (with rating, author, text).</li>
+<li><strong>Events → Registrations:</strong> Each event collects attendee sign-ups as sub-entries.</li>
+<li><strong>Courses → Lessons:</strong> Hierarchical content where each top-level item has child items.</li>
+</ul>
+<p><strong>How to add a sub-collection to a collection</strong></p>
+<ol>
+<li>Sidebar → <strong>Content</strong> → click the collection you want to extend (e.g. &quot;Blog posts&quot;).</li>
+<li>Open the collection editor and go to the <strong>Sub-Collections</strong> tab.</li>
+<li>Click <strong>Add sub-collection</strong> and fill in:</li>
+</ol>
+<p>   - <strong>Name</strong> — what editors see, e.g. &quot;Comments&quot;.    - <strong>Handle</strong> — the identifier used in the API and templates, e.g. <code>comments</code>. Auto-filled from the name; keep it lowercase with hyphens. Don't change it after sub-entries exist.    - <strong>Fields</strong> — define the fields for each sub-entry (same field types as regular entries: Text, Textarea, Number, Select, Checkbox, etc.).    - <strong>Entry method</strong> — who can create sub-entries:      - <strong>Admin only</strong> — only logged-in editors can add or edit sub-entries. Best for internally curated child content.      - <strong>Public API</strong> — your website (or a form) can submit sub-entries without logging in. Use for comments, reviews, contact replies.    - <strong>Auto-publish</strong> — if enabled, new public sub-entries are published immediately. If disabled, they're held as draft for admin review.</p>
+<ol>
+<li><strong>Save</strong> the collection. The sub-collection is now part of the schema.</li>
+</ol>
+<p><strong>Viewing and managing sub-entries from the admin</strong></p>
+<ol>
+<li>Open any entry in that collection (e.g. open a blog post).</li>
+<li>In the entry editor, click the <strong>Sub-Entries</strong> tab (in the sidebar or below the entry fields).</li>
+<li>Choose the sub-collection (e.g. &quot;Comments&quot;) from the dropdown if there is more than one.</li>
+<li>You see the list of sub-entries for this entry. From here you can:</li>
+</ol>
+<p>   - <strong>Add</strong> a new sub-entry (fill in the fields you defined and save).    - <strong>Edit</strong> any existing sub-entry by clicking it.    - <strong>Delete</strong> a sub-entry — this is permanent.    - <strong>Change the status</strong> (Draft / Published) of individual sub-entries when they come in via public submission.</p>
+<p><strong>Example: approving a comment</strong></p>
+<p>Someone submits a comment on your blog post via the public form on your website. If auto-publish is off, it arrives with status <strong>Draft</strong>. In the admin:</p>
+<ol>
+<li>Open the blog post that received the comment.</li>
+<li>Sub-Entries tab → &quot;Comments&quot;.</li>
+<li>You see the pending comment with status &quot;Draft&quot;.</li>
+<li>Click <strong>Edit</strong>, review the content, and set the status to <strong>Published</strong> if it's appropriate.</li>
+<li>Save. The comment is now published and visible on your site.</li>
+</ol>
+<p><strong>Good practices</strong></p>
+<ul>
+<li>Keep <strong>auto-publish off</strong> for publicly submitted content (comments, reviews) unless you trust the source — it prevents spam from going live immediately.</li>
+<li>Give sub-entries <strong>descriptive field names</strong> so editors understand what to fill in.</li>
+<li>Use the <strong>Handle</strong> field consistently in your site's templates and API calls — renaming it later breaks things.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Sub-collections are defined in the parent collection's schema under a <code>sub_collections</code> array. Each sub-collection has its own field schema, entry method, and auto-publish flag.</p>
+<p><strong>Schema definition (collection.json)</strong></p>
+<pre><code>{
+  &quot;name&quot;: &quot;Blog Posts&quot;,
+  &quot;slug&quot;: &quot;blog_posts&quot;,
+  &quot;fields&quot;: [ ... ],
+  &quot;sub_collections&quot;: [
+    {
+      &quot;name&quot;: &quot;Comments&quot;,
+      &quot;slug&quot;: &quot;comments&quot;,
+      &quot;entry_method&quot;: &quot;public&quot;,
+      &quot;auto_publish&quot;: false,
+      &quot;schema&quot;: {
+        &quot;fields&quot;: [
+          { &quot;name&quot;: &quot;author&quot;, &quot;type&quot;: &quot;Text&quot;, &quot;required&quot;: true },
+          { &quot;name&quot;: &quot;content&quot;, &quot;type&quot;: &quot;Textarea&quot;, &quot;required&quot;: true },
+          { &quot;name&quot;: &quot;rating&quot;, &quot;type&quot;: &quot;Number&quot;, &quot;required&quot;: false }
+        ]
+      }
+    }
+  ]
+}</code></pre>
+<p><strong>Admin URL pattern for sub-entries</strong></p>
+<p>When navigating to sub-entries for a specific entry in the admin:</p>
+<pre><code>/admin?page=entries&amp;collection=blog_posts&amp;entry_id=&lt;id&gt;&amp;sub_collection=comments</code></pre>
+<p>The admin renders the Sub-Entries tab automatically when these params are present.</p>
+<p><strong>Authenticated API (admin)</strong></p>
+<p>| Action | Endpoint | |--------|----------| | List | <code>GET /api/sub_entries.php?action=list&amp;collection=blog_posts&amp;entry_id=&lt;id&gt;&amp;sub_collection=comments</code> | | Get | <code>GET /api/sub_entries.php?action=get&amp;collection=blog_posts&amp;entry_id=&lt;id&gt;&amp;sub_collection=comments&amp;sub_entry_id=&lt;sub_id&gt;</code> | | Create | <code>POST /api/sub_entries.php</code> with <code>action=create</code> in body | | Update | <code>POST /api/sub_entries.php</code> with <code>action=update</code> in body | | Delete | <code>POST /api/sub_entries.php</code> with <code>action=delete</code> in body | | Count | <code>GET /api/sub_entries.php?action=count&amp;collection=blog_posts&amp;entry_id=&lt;id&gt;&amp;sub_collection=comments</code> |</p>
+<p><strong>Public submission API</strong> (requires <code>entry_method: &quot;public&quot;</code>)</p>
+<pre><code>POST /api/public_sub_entry.php
+{
+  &quot;parent_collection&quot;: &quot;blog_posts&quot;,
+  &quot;parent_entry_id&quot;: &quot;123&quot;,
+  &quot;sub_collection&quot;: &quot;comments&quot;,
+  &quot;data&quot;: {
+    &quot;author&quot;: &quot;Jane&quot;,
+    &quot;content&quot;: &quot;Great post!&quot;
+  }
+}</code></pre>
+<p>Includes rate limiting, honeypot CSRF protection, and automatic status assignment based on <code>auto_publish</code>.</p>
+<p><strong>List filters and options</strong></p>
+<pre><code>{
+  &quot;collection&quot;: &quot;blog_posts&quot;,
+  &quot;entry_id&quot;: &quot;123&quot;,
+  &quot;sub_collection&quot;: &quot;comments&quot;,
+  &quot;filters&quot;: { &quot;status&quot;: &quot;published&quot; },
+  &quot;options&quot;: { &quot;sort&quot;: &quot;created_at&quot;, &quot;order&quot;: &quot;desc&quot;, &quot;limit&quot;: 10, &quot;offset&quot;: 0 }
+}</code></pre>
+<p>Filter operators: <code>=</code> (default), <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>contains</code>, <code>in</code>.</p>
+<p><strong>Aggregations</strong></p>
+<pre><code>{
+  &quot;action&quot;: &quot;aggregations&quot;,
+  &quot;collection&quot;: &quot;blog_posts&quot;,
+  &quot;entry_id&quot;: &quot;123&quot;,
+  &quot;sub_collection&quot;: &quot;comments&quot;,
+  &quot;aggregations&quot;: { &quot;count&quot;: true, &quot;avg&quot;: &quot;rating&quot; }
+}</code></pre>
+<p>Supported: <code>count</code>, <code>sum</code>, <code>avg</code>, <code>min</code>, <code>max</code>.</p>
+<p><strong>AI and MCP tools</strong></p>
+<p>The AI (via admin chat or MCP) can read sub-entries using the <code>list_sub_entries</code> and <code>read_sub_entry</code> tools. Write tools require approval (<code>require_approval: true</code> by default). The AI context pack includes sub-collection schema and admin URL patterns; the <code>read_birkly_docs</code> MCP tool exposes this guide at the <code>birkly://docs/sub-collections</code> topic.</p>
+<p><strong>Automation triggers</strong></p>
+<p>Sub-entry events fire standard automation triggers with extra context:</p>
+<p>| Key | Value | |-----|-------| | <code>is_sub_entry</code> | <code>true</code> | | <code>parent_collection</code> | handle of the parent collection | | <code>parent_entry_id</code> | ID of the parent entry | | <code>sub_collection</code> | handle of the sub-collection |</p>
+<p>Use the <strong>collection</strong> and <strong>sub-collection pickers</strong> in the automation builder to filter triggers to a specific sub-collection. See <a href="../05-automation/triggers.html">Triggers</a> for the entry trigger type and picker configuration.</p>
+<p><strong>Hooks</strong></p>
+<ul>
+<li><code>sub_entry_created</code></li>
+<li><code>sub_entry_updated</code></li>
+<li><code>sub_entry_deleted</code></li>
+</ul>
+<p><strong>Nested sub-entries</strong></p>
+<p>Sub-entries of sub-entries are supported via the <code>nested</code> action on the API. Ancestry is tracked automatically.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="collections.html">Collections</a></li>
+<li><a href="entries.html">Entries</a></li>
+<li><a href="../05-automation/triggers.html">Triggers</a></li>
+<li><a href="../04-integration/public-api.html">Public API</a></li>
+<li><a href="../04-integration/public-forms.html">Public forms</a></li>
+<li><a href="../01-admin/ai-chat-and-actions.html">AI chat and actions</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

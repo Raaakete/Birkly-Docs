@@ -40,6 +40,7 @@
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
         <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
         <a href="../02-content/entries.html" class="nav-link">Entries</a>
         <a href="../02-content/field-types.html" class="nav-link">Field types</a>
         <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
@@ -94,49 +95,65 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Triggers define <strong>when</strong> an automation workflow runs. In Birkly, common trigger types are <strong>scheduled</strong> (time-based) and <strong>webhook</strong> (when an HTTP request is received).</p>
-<div class="doc-summary"><p>A <strong>trigger</strong> is the “when” of a workflow. <strong>Scheduled trigger:</strong> pick a schedule (e.g. daily at 9:00, every hour). The CMS runs the workflow at those times. <strong>Webhook trigger:</strong> Birkly gives you a URL; when something (another app, Zapier, your server) sends a POST to that URL, the workflow runs. Use scheduled for recurring tasks; use webhook for “when something happens elsewhere” (form submitted, payment received, etc.). Set the trigger when creating or editing a workflow under <strong>Automation</strong>.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>The <strong>trigger</strong> is what starts a workflow. Two common options:</p>
-<p><strong>1. Scheduled trigger — “Run at a fixed time”</strong></p>
-<p>You choose when the workflow runs: e.g. “Every day at 9:00”, “Every hour”, “Every Monday at 8:00”. The Birkly server runs the workflow at those times. No one has to click anything.</p>
+        <div class="doc-content"><p>Triggers define <strong>when</strong> an automation workflow runs. Birkly supports <strong>scheduled</strong> (time-based), <strong>webhook</strong> (HTTP request), and <strong>entry</strong> (CMS event) trigger types.</p>
+<div class="doc-summary"><p>A <strong>trigger</strong> is the &quot;when&quot; of a workflow. <strong>Scheduled trigger:</strong> pick a schedule (e.g. daily at 9:00, every hour) — the CMS runs the workflow at those times. <strong>Webhook trigger:</strong> Birkly gives you a URL; when something (another app, Zapier, your server) sends a POST to that URL, the workflow runs. <strong>Entry trigger:</strong> the workflow runs when an entry or sub-entry is created, updated, or deleted in a chosen collection. Use scheduled for recurring tasks; webhook for &quot;something happened elsewhere&quot;; entry trigger for &quot;react to CMS content changes.&quot; Set the trigger when creating or editing a workflow under <strong>Automation</strong>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>The <strong>trigger</strong> is what starts a workflow. Three common options:</p>
+<p><strong>1. Scheduled trigger — &quot;Run at a fixed time&quot;</strong></p>
+<p>You choose when the workflow runs: e.g. &quot;Every day at 9:00&quot;, &quot;Every hour&quot;, &quot;Every Monday at 8:00&quot;. The Birkly server runs the workflow at those times. No one has to click anything.</p>
 <p><strong>Use cases</strong></p>
 <ul>
 <li>Send a daily or weekly digest.</li>
 <li>Every hour, call an external API to sync or check something.</li>
-<li>Run a cleanup or “publish scheduled posts” job at a set time.</li>
+<li>Run a cleanup or &quot;publish scheduled posts&quot; job at a set time.</li>
 </ul>
 <p><strong>How to set it</strong></p>
 <p>When creating or editing a workflow, select <strong>Scheduled</strong> as the trigger. Then set:</p>
 <ul>
-<li><strong>Schedule:</strong> Often presets like “Every hour”, “Daily”, “Weekly”, or a cron-style expression (e.g. “0 9 <em> </em> *” for 9:00 every day).</li>
-<li><strong>Timezone:</strong> So “9:00” is in the right time zone.</li>
+<li><strong>Schedule:</strong> Often presets like &quot;Every hour&quot;, &quot;Daily&quot;, &quot;Weekly&quot;, or a cron-style expression (e.g. &quot;0 9 <em> </em> *&quot; for 9:00 every day).</li>
+<li><strong>Timezone:</strong> So &quot;9:00&quot; is in the right time zone.</li>
 </ul>
 <p>Save the workflow. The server needs to have the scheduler enabled (cron or internal runner); on hosted Birkly this is usually already set up.</p>
-<p><strong>2. Webhook trigger — “Run when someone/something calls a URL”</strong></p>
-<p>Birkly gives the workflow a <strong>unique URL</strong>. When anything sends an HTTP request (usually POST) to that URL, the workflow runs. The “anything” can be: your form handler after a contact submission, Zapier, IFTTT, a payment provider, or your own backend.</p>
+<p><strong>2. Webhook trigger — &quot;Run when someone/something calls a URL&quot;</strong></p>
+<p>Birkly gives the workflow a <strong>unique URL</strong>. When anything sends an HTTP request (usually POST) to that URL, the workflow runs. The &quot;anything&quot; can be: your form handler after a contact submission, Zapier, IFTTT, a payment provider, or your own backend.</p>
 <p><strong>Use cases</strong></p>
 <ul>
-<li>Contact form submitted → workflow runs → Slack notification or email.</li>
-<li>Payment completed → provider calls your webhook → workflow runs → update internal system or send receipt.</li>
-<li>CI/CD pipeline finishes → calls webhook → workflow runs → post to Slack or update a dashboard.</li>
+<li>Contact form submitted -&gt; workflow runs -&gt; Slack notification or email.</li>
+<li>Payment completed -&gt; provider calls your webhook -&gt; workflow runs -&gt; update internal system or send receipt.</li>
+<li>CI/CD pipeline finishes -&gt; calls webhook -&gt; workflow runs -&gt; post to Slack or update a dashboard.</li>
 </ul>
 <p><strong>How to set it</strong></p>
 <ol>
 <li>Create or edit a workflow and choose <strong>Webhook</strong> as the trigger.</li>
 <li>The admin shows the <strong>webhook URL</strong> (e.g. <code>https://your-cms.com/api/automation_webhook.php?workflow=xyz</code>). Copy it.</li>
-<li>Optionally set a <strong>secret token</strong>. Then only requests that include this token (e.g. in a header) will run the workflow. That way random people can’t trigger it by guessing the URL.</li>
-<li>In your form handler, payment callback, or other app, send a POST request to this URL when the event happens. You can send JSON or form data in the body; that data is often available inside the workflow as “payload” for conditions and actions.</li>
+<li>Optionally set a <strong>secret token</strong>. Then only requests that include this token (e.g. in a header) will run the workflow. That way random people can't trigger it by guessing the URL.</li>
+<li>In your form handler, payment callback, or other app, send a POST request to this URL when the event happens. You can send JSON or form data in the body; that data is often available inside the workflow as &quot;payload&quot; for conditions and actions.</li>
 </ol>
 <p><strong>Example: trigger from a form</strong></p>
-<p>After the user submits your contact form, your server (or Birkly’s form endpoint) can do:</p>
+<p>After the user submits your contact form, your server (or Birkly's form endpoint) can do:</p>
 <pre><code>curl -X POST &quot;https://your-cms.com/api/automation_webhook.php?workflow=abc123&quot; \
   -H &quot;Content-Type: application/json&quot; \
   -d '{&quot;name&quot;:&quot;Jane&quot;,&quot;email&quot;:&quot;jane@example.com&quot;,&quot;message&quot;:&quot;Hello&quot;}'</code></pre>
-<p>The workflow runs and can use <code>payload.name</code>, <code>payload.email</code>, <code>payload.message</code> in conditions (e.g. “only if payload has email”) and in actions (e.g. “Slack message: New contact from {{ payload.name }}”).</p>
+<p>The workflow runs and can use <code>payload.name</code>, <code>payload.email</code>, <code>payload.message</code> in conditions (e.g. &quot;only if payload has email&quot;) and in actions (e.g. &quot;Slack message: New contact from {{ payload.name }}&quot;).</p>
+<p><strong>3. Entry trigger — &quot;Run when a CMS entry changes&quot;</strong></p>
+<p>Instead of calling a webhook from your code, you can have Birkly fire a workflow <strong>automatically</strong> when an entry is created, updated, or deleted inside the CMS. No external call needed.</p>
+<p><strong>Use cases</strong></p>
+<ul>
+<li>When a new blog post is published, post a summary to Slack.</li>
+<li>When a comment sub-entry is submitted on a post, send a moderation notification.</li>
+<li>When a product review is added, call a backend URL to update the average rating.</li>
+</ul>
+<p><strong>How to set it</strong></p>
+<ol>
+<li>Create or edit a workflow and choose <strong>Entry created</strong>, <strong>Entry updated</strong>, or <strong>Entry deleted</strong> as the trigger.</li>
+<li>Use the <strong>collection picker</strong> to choose which collection to watch (e.g. &quot;Blog posts&quot;). Leave it blank to trigger on any collection.</li>
+<li>If you want to react only to <strong>sub-entries</strong> (e.g. only to new comments, not to the blog post itself), enable the <strong>sub-collection filter</strong> and choose the sub-collection (e.g. &quot;Comments&quot;).</li>
+<li>Save and enable the workflow.</li>
+</ol>
 <p><strong>Testing</strong></p>
 <ul>
-<li><strong>Scheduled:</strong> Temporarily set the schedule to “every minute” or use “Run now” if the admin offers it, to verify actions without waiting.</li>
+<li><strong>Scheduled:</strong> Temporarily set the schedule to &quot;every minute&quot; or use &quot;Run now&quot; if the admin offers it, to verify actions without waiting.</li>
 <li><strong>Webhook:</strong> Use curl or Postman to POST to the webhook URL and confirm the workflow runs and appears in the Automation logs.</li>
+<li><strong>Entry trigger:</strong> Create or update an entry in the chosen collection and check the Automation logs to confirm the workflow ran.</li>
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Scheduled trigger</strong></p>
 <ul>
@@ -146,27 +163,38 @@
 </ul>
 <p><strong>Webhook trigger</strong></p>
 <ul>
-<li><strong>Behavior:</strong> Workflow runs when the server receives an HTTP request (usually POST) to the workflow’s URL. Request body (JSON or form) is typically exposed as <strong>payload</strong> for conditions and actions.</li>
+<li><strong>Behavior:</strong> Workflow runs when the server receives an HTTP request (usually POST) to the workflow's URL. Request body (JSON or form) is typically exposed as <strong>payload</strong> for conditions and actions.</li>
 <li><strong>Config:</strong> Webhook URL (shown in admin), optional secret (header or query) for verification.</li>
 <li><strong>Use cases:</strong> Form handlers, Zapier/IFTTT, payment/CI callbacks, any HTTP-capable system.</li>
-<li><strong>Security:</strong> HTTPS; optional secret token or signature so only trusted callers can trigger. Don’t expose the URL in client-side code if the workflow performs sensitive actions.</li>
+<li><strong>Security:</strong> HTTPS; optional secret token or signature so only trusted callers can trigger. Don't expose the URL in client-side code if the workflow performs sensitive actions.</li>
 </ul>
-<p><strong>Other triggers (if supported)</strong></p>
+<p><strong>Entry trigger</strong></p>
 <ul>
-<li><strong>Entry created / updated:</strong> Workflow runs when an entry is saved in a given collection. Useful for “on contact submit, notify team” without a separate webhook call from the form handler.</li>
-<li><strong>Manual:</strong> Run once from the admin (testing or one-off).</li>
+<li><strong>Behavior:</strong> Workflow runs when an entry (or sub-entry) is created, updated, or deleted in a specified collection. The CMS fires the trigger internally — no external webhook call required.</li>
+<li><strong>Config:</strong> Select trigger type <strong>Entry created</strong>, <strong>Entry updated</strong>, or <strong>Entry deleted</strong>. Use the <strong>collection picker</strong> to narrow to one collection. To match only sub-entries, enable the <strong>sub-collection filter</strong> and choose the sub-collection handle (e.g. <code>comments</code> on <code>blog_posts</code>).</li>
+<li><strong>Payload context for sub-entry triggers:</strong></li>
+</ul>
+<p>| Key | Value | |-----|-------| | <code>is_sub_entry</code> | <code>true</code> | | <code>parent_collection</code> | handle of the parent collection | | <code>parent_entry_id</code> | ID of the parent entry | | <code>sub_collection</code> | handle of the sub-collection |</p>
+<ul>
+<li><strong>Use cases:</strong> &quot;When a comment is submitted on any blog post, notify the moderation Slack channel.&quot; &quot;When a review is added to a product, call a backend URL to recalculate the average rating.&quot;</li>
+</ul>
+<p><strong>Manual trigger</strong></p>
+<ul>
+<li>Run once from the admin for testing or one-off jobs.</li>
 </ul>
 <p><strong>Payload</strong></p>
-<p>For webhook triggers, the incoming body is parsed (JSON or form) and available as <code>payload</code> in conditions (e.g. “payload.email exists”) and in action templates (e.g. <code>{{ payload.name }}</code>). Exact structure and variable syntax are version-dependent.</p>
+<p>For webhook triggers, the incoming body is parsed (JSON or form) and available as <code>payload</code> in conditions (e.g. &quot;payload.email exists&quot;) and in action templates (e.g. <code>{{ payload.name }}</code>). For entry triggers, the entry's fields and metadata are available as payload. Exact structure and variable syntax are version-dependent.</p>
 <p><strong>Testing</strong></p>
 <ul>
-<li>Scheduled: use “every minute” or “Run now” to confirm execution and logs.</li>
+<li>Scheduled: use &quot;every minute&quot; or &quot;Run now&quot; to confirm execution and logs.</li>
 <li>Webhook: <code>curl -X POST -d '{&quot;test&quot;:true}' 'https://your-cms.com/api/automation_webhook.php?workflow=...'</code> (adjust URL/body to your setup).</li>
+<li>Entry trigger: create/update an entry in the target collection; check Automation logs.</li>
 </ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="automation-overview.html">Automation overview</a></li>
 <li><a href="conditions-and-actions.html">Conditions and actions</a></li>
 <li><a href="webhooks.html">Webhooks</a></li>
+<li><a href="../02-content/sub-collections.html">Sub-collections</a></li>
 </ul></div></div>
       </div>
     </main>

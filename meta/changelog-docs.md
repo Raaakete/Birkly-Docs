@@ -12,6 +12,14 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-03 — Phase 5.6 admin polish, AI knowledge, onboarding & automation (P5.6-M4)
+
+- **New:** `02-content/sub-collections.md` — Admin guide: define sub-collections in schema, manage sub-entries from the entry editor, public submission API, AI/MCP tools, automation triggers.
+- **Updated:** `01-admin/help-and-onboarding.md` — Onboarding wizard redesign: progress bar, five steps (welcome, site info, demo content, optional Connect AI, complete), skippable AI step; dashboard checklist trimmed to four essential items (removed media upload and template items).
+- **Updated:** `05-automation/triggers.md` — Added Entry trigger type with collection picker and sub-collection filter; sub-entry trigger payload context; manual trigger note; testing guidance.
+- **Updated:** `05-automation/automation-overview.md` — Added entry/sub-entry trigger examples; dry-run / test-run semantics (log only, no side effects unless user confirms); sub-collection picker note.
+- **Updated:** `CONTENTS_INDEX.md` — Added sub-collections topic to 02-Content section.
+
 ## 2026-07-03 — ContentEditor layout studio (P5.5-M5)
 
 - **New:** `02-content/content-editor.md` — Editor field type, tables & grids, layout studio workflow.

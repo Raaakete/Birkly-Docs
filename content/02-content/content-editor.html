@@ -1,54 +1,58 @@
-<p>ContentEditor is Birkly's rich text fieldtype. Stored values are <strong>pure HTML</strong> — no proprietary JSON. All editor code lives under <code>fieldtypes/ContentEditor/</code> in the platform.</p>
-<div class="doc-summary"><p>Use the <strong>ContentEditor</strong> field type (aliases: <code>editor</code>, <code>media</code>) for long formatted body content. Editors get a toolbar for bold, headings, lists, and links, plus <strong>block components</strong> (callout, quote, CTA button, table, image embed). Optional <strong>preview CSS</strong> shows your site styles in the admin without saving CSS into the entry HTML. Content round-trips: save → reload → same HTML in templates and Public API.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Adding ContentEditor to a collection</strong></p>
+<div class="doc-summary"><p>The <strong>Editor</strong> field type (also called Content editor or Rich text) is Birkly’s built-in WYSIWYG editor for long-form content. Editors use a toolbar for headings, lists, links, images, and <strong>layout blocks</strong> — tables and CSS grids — with a visual layout studio for resizing, spacing, and cell styling. Saved content is portable HTML suitable for your website templates; editor-only metadata is removed when you save.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>When a collection field is type <strong>Editor</strong>, you see a rich text area with two tabs:</p>
+<ul>
+<li><strong>Visual</strong> — edit with the toolbar (like a word processor)</li>
+<li><strong>HTML</strong> — view or edit the raw HTML source</li>
+</ul>
+<p><strong>Basic formatting</strong></p>
+<p>Use the toolbar for bold, italic, headings, bullet lists, links, and colors. Place the cursor where you want a change, then click the toolbar button or pick from a dropdown (alignment, heading level, text/background color, insert media).</p>
+<p><strong>Inserting a table</strong></p>
 <ol>
-<li>Edit your collection schema.</li>
-<li>Add a field with type <strong>ContentEditor</strong> (or <strong>Editor</strong>).</li>
-<li>Optional: set <strong>Preview CSS URL</strong> (<code>css_url</code>) to your site's stylesheet for WYSIWYG preview in admin only.</li>
-<li>Save. New and existing entries show the visual editor for that field.</li>
+<li>Place the cursor where the table should go (even in the middle of a paragraph).</li>
+<li>Open the toolbar <strong>Table</strong> menu → choose row/column count (or use the insert dialog).</li>
+<li>Click inside the table to select it — a <strong>Layout panel</strong> appears beside the editor.</li>
+<li>Drag <strong>column handles</strong> on the table edge to change column widths.</li>
+<li>Click a cell to style it: background color, border, padding, corner radius, vertical alignment.</li>
+<li>Use table-level options for full width, striped rows, or a header row.</li>
+<li>Save the entry. The table appears on your site as normal HTML.</li>
 </ol>
-<p><strong>Toolbar basics</strong></p>
+<p><strong>Inserting a grid</strong></p>
+<ol>
+<li>Place the cursor where the grid should go.</li>
+<li>Open the toolbar <strong>Grid</strong> menu → pick a preset (e.g. 2 equal columns or responsive auto-fit).</li>
+<li>Click the grid block to open the Layout panel.</li>
+<li>Adjust <strong>gap</strong> (space between cells), <strong>column tracks</strong>, and <strong>auto flow</strong> (row, column, or dense packing).</li>
+<li>Click a grid cell to span it across multiple columns or rows, or to style padding and background.</li>
+<li>Save the entry.</li>
+</ol>
+<p><strong>Tips</strong></p>
 <ul>
-<li>Inline: bold, italic, underline, strikethrough</li>
-<li>Blocks: paragraph, heading levels, bullet and numbered lists</li>
-<li>Link: insert or edit hyperlinks</li>
-<li><strong>Components</strong>: open the components menu to insert reusable blocks</li>
-</ul>
-<p><strong>Blocks (components)</strong></p>
-<p>Blocks are HTML snippets with optional scoped CSS. Bundled blocks:</p>
-<p>| Block | Use for | |-------|---------| | <strong>Callout</strong> | Tips, warnings, highlights | | <strong>Quote</strong> | Pull quotes with attribution | | <strong>CTA button</strong> | Prominent link/button | | <strong>Table</strong> | Simple data tables | | <strong>Image embed</strong> | Figure with caption from media library |</p>
-<p>To insert: toolbar → <strong>Components</strong> → choose block → fill fields in the dialog → insert. Blocks appear as structured HTML in the field. You can edit text inside a block after insert.</p>
-<p><strong>Visual vs HTML tabs</strong></p>
-<ul>
-<li><strong>Visual</strong> — WYSIWYG editing with toolbar and blocks.</li>
-<li><strong>HTML</strong> — raw source for fine control. Switching tabs runs a round-trip sync so content is not lost.</li>
-</ul>
-<p><strong>Example: blog post body</strong></p>
-<p>| Field | Type | Notes | |-------|------|-------| | Title | Text | | | Slug | Text | | | Body | ContentEditor | <code>css_url</code>: <code>/css/site.css</code> for preview |</p>
-<p>In templates: <code>{ body }</code> outputs the saved HTML.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Architecture</strong></p>
-<pre><code>fieldtypes/ContentEditor/
-├── ContentEditor.php       # PHP field class, toolbar markup
-├── editor.js               # Lifecycle
-├── commands/               # Modular formatting commands
-├── components/bundled/     # Shipped blocks
-├── core/sync-manager.js    # Visual ↔ HTML round-trip
-└── tests/                  # html_roundtrip_test.php, etc.</code></pre>
-<p><strong>Schema options</strong></p>
-<p>| Key | Purpose | |-----|---------| | <code>css_url</code> | Project stylesheet for admin preview only | | <code>required</code> | Validation |</p>
-<p><strong>Component registry</strong></p>
-<ul>
-<li>Bundled: <code>fieldtypes/ContentEditor/components/bundled/</code></li>
-<li>Custom: <code>content/components/</code> via <code>/api/components.php</code></li>
-<li>JS client: <code>ContentEditorComponentRegistry</code></li>
-</ul>
-<p><strong>Stored format</strong></p>
-<p>Pure HTML string. Blocks render as semantic HTML (e.g. <code>&lt;aside class=&quot;birkly-callout&quot;&gt;</code>). No JSON blob in entry files — safe for <code>{ body }</code> in templates and API consumers.</p>
-<p><strong>Tests</strong></p>
-<pre><code>php fieldtypes/ContentEditor/tests/html_roundtrip_test.php
-php tests/run.php</code></pre></div></details>
+<li>Layout blocks insert at your cursor — you do not need to put them at the end of the document.</li>
+<li>Switch to <strong>HTML</strong> tab anytime to inspect the saved markup; switch back to <strong>Visual</strong> to keep editing.</li>
+<li>Responsive grids reflow on smaller screens using fluid column presets — no separate “mobile layout” step in the editor.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Storage:</strong> Editor fields store an HTML string in the entry JSON. No proprietary JSON layout blob. Inline <code>style</code> attributes are allowed for layout (tables, grids, cell styling). <code>&lt;script&gt;</code> tags are stripped on save.</p>
+<p><strong>HTML output contract</strong></p>
+<p>Tables use <code>table.content-editor-table</code> with optional <code>&lt;colgroup&gt;</code> / <code>&lt;col style=&quot;width:…&quot;&gt;</code> for column widths:</p>
+<pre><code>&lt;table class=&quot;content-editor-table&quot; style=&quot;width:100%;border-collapse:collapse&quot;&gt;
+  &lt;colgroup&gt;&lt;col style=&quot;width:33%&quot;&gt;&lt;col style=&quot;width:33%&quot;&gt;&lt;col style=&quot;width:34%&quot;&gt;&lt;/colgroup&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;background:#f3f4f6;border-radius:8px;padding:12px&quot;&gt;Cell content&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+<p>Grids use <code>div.content-editor-grid</code> with inline CSS Grid properties. Responsive layouts use fluid track presets (<code>auto-fit</code> / <code>minmax</code>) — <strong>no <code>@media</code> blocks</strong> inside entry HTML:</p>
+<pre><code>&lt;div class=&quot;content-editor-grid&quot; style=&quot;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));grid-auto-flow:row;gap:16px&quot;&gt;
+  &lt;div class=&quot;content-editor-grid-item&quot; style=&quot;grid-column:span 2;padding:12px&quot;&gt;Spanning cell&lt;/div&gt;
+  &lt;div class=&quot;content-editor-grid-item&quot;&gt;Normal cell&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p><strong>Stripped on save:</strong> Editor-only attributes and chrome (<code>data-ce-*</code>, resize handles, inspector wrappers) are removed by <code>ContentEditorSync</code> and PHP <code>processValue</code> before persistence.</p>
+<p><strong>Templates:</strong> Output editor HTML unescaped in templates, e.g. <code>{'content'}</code> or <code>{entry 'blog'.'slug'} … {'body'} {endentry}</code>. Ensure site CSS does not override layout inline styles unintentionally. Optional field option <code>css_url</code> loads project CSS in the admin preview only — it is not embedded in saved HTML.</p>
+<p><strong>Layout studio modules</strong> (platform): <code>fieldtypes/ContentEditor/layout/</code> — shared inspector, resize controller, table-layout, grid-layout. Tests: <code>layout_roundtrip_test.php</code>, <code>table_layout_test.php</code>, <code>grid_layout_test.php</code>, <code>caret_insert_test.php</code>.</p>
+<p><strong>Out of scope (Phase 5.5):</strong> nested tables/grids, spreadsheet formulas, cell merge/split (deferred to a future phase).</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="field-types.html">Field types</a> — all field types including Editor alias</li>
+<li><a href="field-types.html">Field types</a></li>
 <li><a href="entries.html">Entries</a></li>
-<li>Platform: <code>fieldtypes/ContentEditor/README.md</code></li>
+<li><a href="../03-templating/variables-and-output.html">Variables and output</a></li>
 </ul></div>

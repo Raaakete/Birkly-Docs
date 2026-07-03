@@ -35,6 +35,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Collections | `02-content/collections.md` | Content types, fields, entry method |
 | Entries | `02-content/entries.md` | Creating and editing content items |
 | Field types | `02-content/field-types.md` | All field types (Text, Editor, Media, etc.) |
+| Content editor | `02-content/content-editor.md` | Rich text editor, tables, CSS grids, layout studio |
 | Slugs and status | `02-content/slugs-and-status.md` | URL slug, draft vs published |
 | ContentEditor | `02-content/content-editor.md` | Rich text fieldtype, blocks, HTML round-trip |
 

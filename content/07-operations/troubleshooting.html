@@ -27,6 +27,12 @@
 <li><strong>Plugin</strong> — Try disabling plugins one by one (Settings → Plugins) and reload. If the site works after disabling one, that plugin may be incompatible or buggy; update it or contact the plugin author.</li>
 <li><strong>Memory</strong> — If the error says “memory limit”, the host may need to increase PHP’s <code>memory_limit</code>.</li>
 </ul>
+<h3>User Management plugin won't enable</h3>
+<ul>
+<li><strong>Symptom</strong> — <strong>Settings → Plugins</strong> shows “Plugin dependencies not met” (or similar) when enabling <strong>User Management</strong>, even though no other plugins are required.</li>
+<li><strong>Cause</strong> — Older Birkly builds checked plugin dependencies against an empty <code>$haru_plugins</code> registry instead of <code>$birkly_plugins</code>, so valid plugins were reported as missing.</li>
+<li><strong>Fix</strong> — Update to a Birkly build with the P5.2 plugin-registry fix (<code>core/plugins/dependencies.php</code> uses <code>$birkly_plugins</code>). After updating, enable the plugin again; the settings UI should show specific <code>errors[]</code> messages if a real dependency is missing.</li>
+</ul>
 <p><strong>Template tags don’t turn into content</strong></p>
 <ul>
 <li><strong>Braces</strong> — Use single braces with spaces: <code>{ title }</code> not <code>{{ title }}</code>. Check the <a href="../03-templating/templating-overview.html">Templating</a> docs for the exact syntax.</li>
@@ -60,7 +66,7 @@
 </ul>
 <p><strong>500 or blank page</strong></p>
 <ul>
-<li>PHP errors → temporary <code>display_errors = On</code> in dev or use error_log in production; fix missing extension, syntax, file. Permissions → ownership and perms on PHP and writable dirs. Plugin → disable one by one. Memory → increase <code>memory_limit</code>.</li>
+<li>PHP errors → temporary <code>display_errors = On</code> in dev or use error_log in production; fix missing extension, syntax, file. Permissions → ownership and perms on PHP and writable dirs. Plugin → disable one by one. <strong>User Management activation</strong> → update core if generic “dependencies not met” (registry bug: <code>$haru_plugins</code> vs <code>$birkly_plugins</code> before P5.2). Memory → increase <code>memory_limit</code>.</li>
 </ul>
 <p><strong>Template syntax</strong></p>
 <ul>

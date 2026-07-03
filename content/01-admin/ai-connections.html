@@ -1,84 +1,39 @@
-<p>Outbound AI connections are the configured links between Birkly and an AI provider (OpenAI, Anthropic, Ollama, etc.) for <strong>in-admin chat</strong>. You add and manage them under <strong>Settings → AI &amp; Integrations → Outbound (BYOAI)</strong>. Each connection has a provider, model, role, and optional approval requirement; you can share a connection with other users or keep it private.</p>
-<p>Inbound MCP (external tools such as Claude Desktop connecting <em>to</em> Birkly) is configured separately — see <a href="mcp-connections.html">MCP connections</a>.</p>
-<div class="doc-summary"><p>Go to <strong>Settings → AI &amp; Integrations → Outbound</strong> to add a connection. Choose a <strong>provider</strong> (OpenAI, Anthropic, Google, OpenRouter, Ollama, or Custom), enter the <strong>API key</strong> (not needed for Ollama), pick a <strong>model</strong>, set a <strong>role</strong> (what the AI is allowed to do), and choose who can use the connection and whether write actions <strong>require approval</strong>. API keys are stored encrypted. Consumer subscriptions (ChatGPT Plus, Claude Pro) do <strong>not</strong> replace provider API keys. Ollama is the easiest way to start: install it locally, leave API key blank, and use the default URL.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Where to add a connection</strong></p>
+<p>The built-in assistant lets you chat with AI <strong>inside</strong> the Birkly admin using the floating chat button (bottom-right). You connect once with a provider API key under <strong>Settings → AI → Built-in assistant</strong>.</p>
+<p>Connecting Claude, ChatGPT, or Cursor to your site content is separate — see <a href="mcp-connections.html">Connect your AI app</a>.</p>
+<div class="doc-summary"><p>Go to <strong>Settings → AI → Built-in assistant</strong> and click <strong>Quick connect</strong>. Choose a provider, enter your <strong>API key</strong>, test the connection, and save. Use the chat button in the admin to get help with content. Consumer subscriptions (ChatGPT Plus, Claude Pro) do <strong>not</strong> include API access — you need a developer API key.</p>
+<h2>Quick connect</h2>
 <ol>
-<li>In the admin sidebar, click <strong>Settings</strong>.</li>
-<li>Open the <strong>AI &amp; Integrations</strong> tab (deep link: <code>#ai-integrations</code>).</li>
-<li>Scroll to the <strong>Outbound (BYOAI)</strong> section.</li>
-<li>Click <strong>Add Connection</strong>.</li>
-<li>Fill in the form and save. Use <strong>Test connection</strong> before saving when available.</li>
+<li><strong>Settings → AI</strong> tab.</li>
+<li>Under <strong>Built-in assistant</strong>, click <strong>Quick connect</strong>.</li>
+<li>Select your <strong>provider</strong> (OpenAI, Anthropic, Google, OpenRouter, Ollama, or Custom).</li>
+<li>Enter your <strong>API key</strong> (skip for Ollama).</li>
+<li>Click <strong>Test connection</strong>, then <strong>Connect</strong>.</li>
 </ol>
-<p><strong>Outbound vs inbound (don't mix them up)</strong></p>
-<p>| Goal | Where in Settings | |------|-------------------| | Chat <strong>inside</strong> Birkly admin with your provider API keys | <strong>AI &amp; Integrations → Outbound</strong> (this page) | | <strong>Claude Desktop</strong>, Cursor, or scripts calling Birkly tools | <strong>AI &amp; Integrations → Inbound (MCP)</strong> — see <a href="mcp-connections.html">MCP connections</a> |</p>
-<p><strong>Form fields (typical)</strong></p>
+<h2>Form fields</h2>
 <ul>
-<li><strong>AI Provider</strong> — The service: OpenAI, Anthropic (Claude), Google (Gemini), OpenRouter, Ollama (Local), or Custom.</li>
-<li><strong>Connection name</strong> — A label for you (e.g. “My OpenAI” or “Local Ollama”).</li>
-<li><strong>API key</strong> — Your key from the provider's developer console. <strong>Leave empty for Ollama</strong>; it does not use keys.</li>
-<li><strong>API URL</strong> — Usually only for <strong>Ollama</strong> or <strong>Custom</strong>. For Ollama the default is <code>http://localhost:11434/api/chat</code>. Change it only if Ollama runs on another machine or port.</li>
-<li><strong>Model</strong> — Which model to use (e.g. gpt-4, llama3, claude-3-sonnet). The list depends on the provider; some allow a custom model name.</li>
-<li><strong>Role</strong> — What the AI can do: Viewer (read only), Author, Editor, or Admin. This controls create/edit/delete for content, media, and optionally users/settings/plugins.</li>
-<li><strong>Who can use this connection</strong> — Only me (private), All users, or Specific users (then choose which users).</li>
-<li><strong>Require approval for AI actions</strong> — If checked, write actions (create entry, update entry, etc.) are not executed immediately; they go to the shared <strong>approval queue</strong> at the top of the AI &amp; Integrations tab for you to approve or reject.</li>
+<li><strong>Provider</strong> — OpenAI, Anthropic, Google, OpenRouter, Ollama, or Custom.</li>
+<li><strong>Connection name</strong> — A label you'll recognize.</li>
+<li><strong>API key</strong> — From your provider's developer console. Empty for Ollama.</li>
+<li><strong>API URL</strong> — For Ollama or Custom only.</li>
+<li><strong>Model</strong> — Optional; defaults to the provider default (<strong>OpenAI: <code>gpt-4o-mini</code></strong>). Legacy <code>gpt-4</code> connections are remapped automatically.</li>
+<li><strong>Role</strong> — Viewer, Author, Editor, or Admin.</li>
+<li><strong>Require approval</strong> — Recommended for the built-in assistant. Pending write actions appear in the chat <strong>Approvals</strong> tab.</li>
 </ul>
-<p><strong>Example: Ollama (local, no API key)</strong></p>
-<ol>
-<li>Install Ollama on your computer (see <a href="https://ollama.ai">Ollama quick start</a>).</li>
-<li>In a terminal run: <code>ollama pull llama3</code> (or another model).</li>
-<li>In Birkly: <strong>Settings → AI &amp; Integrations → Outbound</strong> → Add Connection.</li>
-<li>Provider: <strong>Ollama (Local)</strong>. Name: e.g. “My Local LLM”. API key: <strong>leave empty</strong>. API URL: <code>http://localhost:11434/api/chat</code> (default). Model: e.g. <strong>llama3</strong>. Role: e.g. <strong>Editor</strong>. Set “Who can use” and “Require approval” as you like.</li>
-<li>Save. The connection appears in the list; you can use it from the AI chat button.</li>
-</ol>
-<p><strong>Example: OpenAI</strong></p>
-<ol>
-<li>Get an API key from <a href="https://platform.openai.com">platform.openai.com</a>.</li>
-<li>Add Connection → Provider: <strong>OpenAI</strong>. Enter the API key. Choose a model (e.g. gpt-4, gpt-3.5-turbo). Set role and approval as above.</li>
-<li>Save.</li>
-</ol>
-<p><strong>Editing and deleting</strong></p>
+<h2>Collection and entry slugs</h2>
+<p>When the built-in assistant creates or updates collections and entries, slugs follow Birkly’s URL rules:</p>
 <ul>
-<li>In the Outbound connections list, use <strong>Edit</strong> to change name, model, role, sharing, or approval. You can update the API key by entering a new one and saving.</li>
-<li>Use <strong>Delete</strong> to remove a connection. This does not delete past conversations, but the connection will no longer be available for chat.</li>
+<li><strong>Lowercase</strong> letters and digits only</li>
+<li><strong>Hyphens</strong> as word separators (<code>blog-posts</code>, not <code>blog_posts</code>)</li>
+<li><strong>Underscores are normalized</strong> to hyphens at write time (e.g. <code>my_entry</code> → <code>my-entry</code>)</li>
+<li>Invalid characters are stripped before save</li>
 </ul>
-<p><strong>Sharing</strong></p>
-<ul>
-<li><strong>Only me</strong> — Only you see and can use this connection.</li>
-<li><strong>All users</strong> — Any logged-in user can select it in the chat.</li>
-<li><strong>Specific users</strong> — Only the users you select can use it. Useful when only some editors should have access to a paid API.</li>
-</ul>
-<p><strong>Legacy deep links</strong></p>
-<p>Old bookmarks to <code>#ai-connections</code> still open the <strong>AI &amp; Integrations</strong> tab and scroll to the Outbound section.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Storage and API</strong></p>
-<ul>
-<li>Connections are stored as JSON files in the users storage (e.g. <code>users/</code>), with <code>type: 'ai'</code>. Each has a unique id (e.g. <code>ai_xxxxxxxx</code>), provider, encrypted API key (except Ollama), api_url, model, role, shared_type, allowed_users, require_approval.</li>
-<li><strong>List:</strong> <code>GET api/ai_connections.php?action=list</code> — Returns connections the current user is allowed to see (owner, or shared_type all, or in allowed_users). API key is never returned.</li>
-<li><strong>Create:</strong> POST <code>api/ai_connections.php</code> with <code>action=create</code>, provider, api_key, name, model, role, api_url (if needed), shared_type, allowed_users, require_approval. CSRF required.</li>
-<li><strong>Update:</strong> POST with <code>action=update</code>, id, updates (name, role, model, status, shared_type, allowed_users, require_approval, api_key if changing).</li>
-<li><strong>Delete:</strong> POST with <code>action=delete</code>, id. <strong>Get:</strong> <code>GET api/ai_connections.php?action=get&amp;id=...</code>. <strong>Providers list:</strong> <code>GET api/ai_connections.php?action=providers</code>.</li>
-</ul>
-<p><strong>Supported providers (outbound)</strong></p>
-<ul>
-<li><strong>openai</strong> — <code>api.openai.com</code>, OpenAI models.</li>
-<li><strong>anthropic</strong> — Anthropic API, Claude models.</li>
-<li><strong>google</strong> — Gemini API.</li>
-<li><strong>openrouter</strong> — OpenRouter; OpenAI-compatible; custom_models true.</li>
-<li><strong>ollama</strong> — Local; default <code>http://localhost:11434/api/chat</code>; no API key; custom_models true.</li>
-<li><strong>custom</strong> — User-supplied URL; requires_url true; optional API key.</li>
-</ul>
-<p>MCP inbound endpoints are <strong>not</strong> outbound connections; they use <code>api/mcp_connections.php</code> and the Inbound section UI. See <a href="mcp-connections.html">MCP connections</a>.</p>
-<p><strong>Encryption</strong></p>
-<ul>
-<li>API keys are encrypted with AES-256-CBC using a key stored in settings (e.g. <code>settings/security.json</code>). Decryption happens only when making outbound requests to the provider.</li>
-</ul>
-<p><strong>Validation</strong></p>
-<ul>
-<li>One connection per provider per user (per created_by). Custom provider requires api_url. Non-Ollama providers require a non-empty API key on create.</li>
-</ul></div></details>
+<p>You do not need to fix slugs manually — the assistant and approval pipeline normalize them. If a create previously failed on underscores, update to a current Birkly build with slug normalization enabled.</p>
+<h2>Approvals</h2>
+<p><strong>Built-in assistant only.</strong> When the floating chat assistant wants to change content and <strong>Require approval</strong> is on, actions wait in the <strong>Approvals</strong> tab of the AI Assistant window.</p>
+<p><strong>External AI apps (Claude, ChatGPT, Cursor)</strong> connected via MCP handle write confirmation <strong>inside the client app</strong> — not in the Birkly Approvals tab. See <a href="mcp-connections.html">Connect your AI app</a>.</p></div>
 <div class="doc-related"><ul>
 <li><a href="ai-overview.html">AI overview</a></li>
-<li><a href="mcp-connections.html">MCP connections</a> — Inbound MCP (external clients)</li>
-<li><a href="ai-chat-and-actions.html">AI chat and actions</a></li>
+<li><a href="mcp-connections.html">Connect your AI app</a></li>
 <li><a href="ai-approvals.html">AI approvals</a></li>
 <li><a href="settings.html">Settings</a></li>
 </ul></div>

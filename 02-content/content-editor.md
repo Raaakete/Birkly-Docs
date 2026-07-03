@@ -1,96 +1,83 @@
-# ContentEditor
-
-ContentEditor is Birkly's rich text fieldtype. Stored values are **pure HTML** — no proprietary JSON. All editor code lives under `fieldtypes/ContentEditor/` in the platform.
+# Content Editor
 
 ## Summary
 
-Use the **ContentEditor** field type (aliases: `editor`, `media`) for long formatted body content. Editors get a toolbar for bold, headings, lists, and links, plus **block components** (callout, quote, CTA button, table, image embed). Optional **preview CSS** shows your site styles in the admin without saving CSS into the entry HTML. Content round-trips: save → reload → same HTML in templates and Public API.
+The **Editor** field type (also called Content editor or Rich text) is Birkly’s built-in WYSIWYG editor for long-form content. Editors use a toolbar for headings, lists, links, images, and **layout blocks** — tables and CSS grids — with a visual layout studio for resizing, spacing, and cell styling. Saved content is portable HTML suitable for your website templates; editor-only metadata is removed when you save.
 
 ## Beginner
 
-**Adding ContentEditor to a collection**
+When a collection field is type **Editor**, you see a rich text area with two tabs:
 
-1. Edit your collection schema.
-2. Add a field with type **ContentEditor** (or **Editor**).
-3. Optional: set **Preview CSS URL** (`css_url`) to your site's stylesheet for WYSIWYG preview in admin only.
-4. Save. New and existing entries show the visual editor for that field.
+- **Visual** — edit with the toolbar (like a word processor)
+- **HTML** — view or edit the raw HTML source
 
-**Toolbar basics**
+**Basic formatting**
 
-- Inline: bold, italic, underline, strikethrough
-- Blocks: paragraph, heading levels, bullet and numbered lists
-- Link: insert or edit hyperlinks
-- **Components**: open the components menu to insert reusable blocks
+Use the toolbar for bold, italic, headings, bullet lists, links, and colors. Place the cursor where you want a change, then click the toolbar button or pick from a dropdown (alignment, heading level, text/background color, insert media).
 
-**Blocks (components)**
+**Inserting a table**
 
-Blocks are HTML snippets with optional scoped CSS. Bundled blocks:
+1. Place the cursor where the table should go (even in the middle of a paragraph).
+2. Open the toolbar **Table** menu → choose row/column count (or use the insert dialog).
+3. Click inside the table to select it — a **Layout panel** appears beside the editor.
+4. Drag **column handles** on the table edge to change column widths.
+5. Click a cell to style it: background color, border, padding, corner radius, vertical alignment.
+6. Use table-level options for full width, striped rows, or a header row.
+7. Save the entry. The table appears on your site as normal HTML.
 
-| Block | Use for |
-|-------|---------|
-| **Callout** | Tips, warnings, highlights |
-| **Quote** | Pull quotes with attribution |
-| **CTA button** | Prominent link/button |
-| **Table** | Simple data tables |
-| **Image embed** | Figure with caption from media library |
+**Inserting a grid**
 
-To insert: toolbar → **Components** → choose block → fill fields in the dialog → insert. Blocks appear as structured HTML in the field. You can edit text inside a block after insert.
+1. Place the cursor where the grid should go.
+2. Open the toolbar **Grid** menu → pick a preset (e.g. 2 equal columns or responsive auto-fit).
+3. Click the grid block to open the Layout panel.
+4. Adjust **gap** (space between cells), **column tracks**, and **auto flow** (row, column, or dense packing).
+5. Click a grid cell to span it across multiple columns or rows, or to style padding and background.
+6. Save the entry.
 
-**Visual vs HTML tabs**
+**Tips**
 
-- **Visual** — WYSIWYG editing with toolbar and blocks.
-- **HTML** — raw source for fine control. Switching tabs runs a round-trip sync so content is not lost.
-
-**Example: blog post body**
-
-| Field | Type | Notes |
-|-------|------|-------|
-| Title | Text | |
-| Slug | Text | |
-| Body | ContentEditor | `css_url`: `/css/site.css` for preview |
-
-In templates: `{ body }` outputs the saved HTML.
+- Layout blocks insert at your cursor — you do not need to put them at the end of the document.
+- Switch to **HTML** tab anytime to inspect the saved markup; switch back to **Visual** to keep editing.
+- Responsive grids reflow on smaller screens using fluid column presets — no separate “mobile layout” step in the editor.
 
 ## Advanced Users
 
-**Architecture**
+**Storage:** Editor fields store an HTML string in the entry JSON. No proprietary JSON layout blob. Inline `style` attributes are allowed for layout (tables, grids, cell styling). `<script>` tags are stripped on save.
 
+**HTML output contract**
+
+Tables use `table.content-editor-table` with optional `<colgroup>` / `<col style="width:…">` for column widths:
+
+```html
+<table class="content-editor-table" style="width:100%;border-collapse:collapse">
+  <colgroup><col style="width:33%"><col style="width:33%"><col style="width:34%"></colgroup>
+  <tbody>
+    <tr>
+      <td style="background:#f3f4f6;border-radius:8px;padding:12px">Cell content</td>
+    </tr>
+  </tbody>
+</table>
 ```
-fieldtypes/ContentEditor/
-├── ContentEditor.php       # PHP field class, toolbar markup
-├── editor.js               # Lifecycle
-├── commands/               # Modular formatting commands
-├── components/bundled/     # Shipped blocks
-├── core/sync-manager.js    # Visual ↔ HTML round-trip
-└── tests/                  # html_roundtrip_test.php, etc.
+
+Grids use `div.content-editor-grid` with inline CSS Grid properties. Responsive layouts use fluid track presets (`auto-fit` / `minmax`) — **no `@media` blocks** inside entry HTML:
+
+```html
+<div class="content-editor-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));grid-auto-flow:row;gap:16px">
+  <div class="content-editor-grid-item" style="grid-column:span 2;padding:12px">Spanning cell</div>
+  <div class="content-editor-grid-item">Normal cell</div>
+</div>
 ```
 
-**Schema options**
+**Stripped on save:** Editor-only attributes and chrome (`data-ce-*`, resize handles, inspector wrappers) are removed by `ContentEditorSync` and PHP `processValue` before persistence.
 
-| Key | Purpose |
-|-----|---------|
-| `css_url` | Project stylesheet for admin preview only |
-| `required` | Validation |
+**Templates:** Output editor HTML unescaped in templates, e.g. `{'content'}` or `{entry 'blog'.'slug'} … {'body'} {endentry}`. Ensure site CSS does not override layout inline styles unintentionally. Optional field option `css_url` loads project CSS in the admin preview only — it is not embedded in saved HTML.
 
-**Component registry**
+**Layout studio modules** (platform): `fieldtypes/ContentEditor/layout/` — shared inspector, resize controller, table-layout, grid-layout. Tests: `layout_roundtrip_test.php`, `table_layout_test.php`, `grid_layout_test.php`, `caret_insert_test.php`.
 
-- Bundled: `fieldtypes/ContentEditor/components/bundled/`
-- Custom: `content/components/` via `/api/components.php`
-- JS client: `ContentEditorComponentRegistry`
-
-**Stored format**
-
-Pure HTML string. Blocks render as semantic HTML (e.g. `<aside class="birkly-callout">`). No JSON blob in entry files — safe for `{ body }` in templates and API consumers.
-
-**Tests**
-
-```bash
-php fieldtypes/ContentEditor/tests/html_roundtrip_test.php
-php tests/run.php
-```
+**Out of scope (Phase 5.5):** nested tables/grids, spreadsheet formulas, cell merge/split (deferred to a future phase).
 
 ## Related
 
-- [Field types](field-types.md) — all field types including Editor alias
+- [Field types](field-types.md)
 - [Entries](entries.md)
-- Platform: `fieldtypes/ContentEditor/README.md`
+- [Variables and output](../03-templating/variables-and-output.md)

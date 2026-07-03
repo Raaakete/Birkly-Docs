@@ -12,6 +12,11 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-03 — ContentEditor layout studio (P5.5-M5)
+
+- **New:** `02-content/content-editor.md` — Editor field type, tables & grids, layout studio workflow.
+- Updated **CONTENTS_INDEX.md** and **field-types.md** related links.
+
 ## 2026-06-29 — Phase 4.1 unified AI & Integrations (P4.1-M2-T6 / M6)
 
 - **Updated:** `01-admin/ai-connections.md` — Outbound BYOAI under **Settings → AI & Integrations**; removed MCP provider type; legacy `#ai-connections` deep link.

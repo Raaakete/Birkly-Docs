@@ -108,5 +108,6 @@ When you add a field to a collection, you choose a **field type**. That type dec
 
 - [Collections](collections.md)
 - [Entries](entries.md)
+- [Content editor](content-editor.md) — tables, grids, layout studio
 - [Variables and output](../03-templating/variables-and-output.md)
 - [Media in templates](../03-templating/media-in-templates.md)

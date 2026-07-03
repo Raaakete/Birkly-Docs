@@ -1,5 +1,12 @@
 <p>The AI chat is the main way you interact with <strong>outbound</strong> Birkly AI: open it with the floating button, <strong>pick a connection in the chat header</strong>, and send messages. The AI can read your content and run actions (create entry, update entry, etc.) according to the connection's role. If the connection has &quot;require approval&quot; enabled, write actions are queued for you to approve before they run.</p>
 <p>For <strong>external</strong> assistants (Claude Desktop), use <a href="mcp-connections.html">MCP connections</a> — not this chat UI.</p>
+<h2>Deep documentation (P5.4)</h2>
+<p>The AI receives a <strong>context pack</strong> on every request. For deeper topics, it can use:</p>
+<ul>
+<li><strong>In chat / MCP tool:</strong> <code>read_birkly_docs</code> with topic <code>templating</code>, <code>admin</code>, <code>plugins</code>, <code>ai</code>, or <code>mcp</code></li>
+<li><strong>MCP resources:</strong> <code>birkly://docs/templating</code>, <code>birkly://docs/admin</code>, <code>birkly://docs/plugins</code>, <code>birkly://docs/ai</code></li>
+</ul>
+<p>See also the <a href="../03-templating/templating-overview.html">templating overview</a> and <a href="../03-templating/conditionals.html">conditionals</a> sections in this docs site.</p>
 <div class="doc-summary"><p>Open the <strong>AI chat</strong> via the <strong>floating button</strong> (bottom-right of the admin). Use the <strong>connection picker in the chat header</strong> to select which outbound provider to use (e.g. &quot;My Local LLM&quot; or &quot;OpenAI&quot;); then type your request. The AI receives context about your collections and permissions and can <strong>read</strong> and <strong>write</strong> when the connection's role allows it. Write actions either run immediately or go to the <strong>approval queue</strong> if &quot;Require approval for AI actions&quot; is on. Conversations are saved so you can continue later.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Opening the chat</strong></p>
 <ul>

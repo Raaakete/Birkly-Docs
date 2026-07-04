@@ -75,6 +75,8 @@ This index lists every documentation topic and its file path. Use it for navigat
 |-------|------|-------------|
 | Plugins | `06-extensibility/plugins.md` | Installing and managing plugins |
 | User plugin | `06-extensibility/user-plugin.md` | User Management plugin: registration, permissions |
+| Payments plugin | `06-extensibility/payments-plugin.md` | Connection hub: 8 providers, webhooks, activity log |
+| Payment shelf API | `06-extensibility/payment-shelf-api.md` | Developer guide: `payment_shelf` for consumer plugins |
 | Templates (pages) | `06-extensibility/templates-pages.md` | Page templates and routing |
 | Audit log and activity | `06-extensibility/audit-log-and-activity.md` | Who did what, when |
 | Updates | `06-extensibility/updates.md` | Updating Birkly and extensions |

@@ -12,6 +12,10 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-04 — Phase 5.7 settings UX, security enforcement & storage (P5.7-M5)
+
+- **Updated:** `01-admin/settings.md` — Global Save UX (single save bar, toast feedback); security settings table (session timeout, lockout, password rules, CSRF enforcement); storage backends (flat-file default, MySQL/PostgreSQL setup, test connection, migrate workflow); tab summaries and deep links.
+
 ## 2026-07-03 — Phase 5.6 admin polish, AI knowledge, onboarding & automation (P5.6-M4)
 
 - **New:** `02-content/sub-collections.md` — Admin guide: define sub-collections in schema, manage sub-entries from the entry editor, public submission API, AI/MCP tools, automation triggers.

@@ -1,48 +1,95 @@
-<div class="doc-summary"><p>Settings is where you configure the Birkly installation itself: project name, branding (logo, favicon), users and roles, plugins, and optionally webhooks, updates, or API options. Changes here apply to the whole CMS, not to a single collection or entry. Usually only administrators can access and change Settings.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Settings</strong> (often under a gear icon or in the sidebar) is the control panel for <em>how</em> the CMS works and looks—not for editing the content of your blog or products, but for things like the name of the project, who can log in, and what they’re allowed to do.</p>
-<p><strong>What you can change (typical sections)</strong></p>
+<div class="doc-summary"><p>Settings is where you configure the Birkly installation itself: project name, branding (logo, favicon), users and roles, plugins, security, storage, and optionally webhooks, updates, or API options. Changes here apply to the whole CMS, not to a single collection or entry. Usually only administrators can access and change Settings.</p>
+<p><strong>Phase 5.7:</strong> Settings uses a <strong>single global Save</strong> bar at the top of the page. Edits on any tab are persisted together in one request when you click <strong>Save settings</strong>. Feedback appears as an inline toast (<code>#settings-message</code>), not browser alerts.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Settings</strong> (gear icon or sidebar link) is the control panel for <em>how</em> the CMS works and looks—not for editing blog posts or products, but for things like the project name, who can log in, and what they’re allowed to do.</p>
+<h3>Global Save</h3>
+<ol>
+<li>Open <strong>Settings</strong> and switch between tabs (General, Security, Storage, and so on).</li>
+<li>Change fields on one or more tabs.</li>
+<li>Click <strong>Save settings</strong> once at the top of the page.</li>
+<li>A success or error message appears in the bar above the button. You do <strong>not</strong> need to save each tab separately.</li>
+</ol>
+<p>If something fails (for example invalid CSRF or missing permission), the message explains the problem. Fix the issue and click <strong>Save settings</strong> again.</p>
+<h3>What you can change (typical sections)</h3>
 <ul>
-<li><strong>Project name</strong> — The name shown in the admin (e.g. in the sidebar or the browser tab). This is only for people who use the admin; it does not change your website’s title or address.</li>
-</ul>
-<p>  <strong>Example:</strong> You set the project name to “Acme Blog” so that when your team logs in they see “Acme Blog” at the top instead of a generic label.</p>
-<ul>
-<li><strong>Branding</strong> — Upload a <strong>logo</strong> and/or <strong>favicon</strong> so the admin panel shows your company or site branding. Some setups also let you add custom CSS to change colours or fonts in the admin.</li>
-</ul>
-<ul>
-<li><strong>Users and roles</strong> — See who has an account, invite new users (they get an email to set their password), and assign <strong>roles</strong>. On first use, Birkly seeds four default CMS roles: <strong>Admin</strong>, <strong>Editor</strong>, <strong>Author</strong>, and <strong>Viewer</strong>. Open <strong>Settings → Users &amp; Roles</strong> to edit each role’s permissions or add custom roles. Role lists in AI connections, MCP agents, and user modals load dynamically from the same source.</li>
-</ul>
-<p>  <strong>Example:</strong> You invite a colleague with the “Editor” role so they can manage blog posts but not delete collections or change the project name.</p>
-<ul>
-<li><strong>Plugins</strong> — Enable or disable <strong>plugins</strong> (add-ons that add features). Some plugins have their own options (e.g. API keys) that you set in Settings or on a separate plugin page.</li>
+<li><strong>General</strong> — Project name, site URL, timezone, language, and media defaults (max upload size, image quality, thumbnail size, create thumbnails).</li>
 </ul>
 <ul>
-<li><strong>AI &amp; Integrations</strong> — One tab for outbound AI providers (in-admin chat) and inbound MCP endpoints (external tools). Includes a shared approval queue. Outbound: API keys from provider developer consoles. Inbound: MCP API keys and/or OAuth for Claude remote connector; stdio bridge recommended for Claude Desktop. See <a href="ai-overview.html">AI overview</a>, <a href="ai-connections.html">AI connections</a>, and <a href="mcp-connections.html">MCP connections</a>.</li>
+<li><strong>Branding</strong> — Upload a <strong>logo</strong> and/or <strong>favicon</strong> so the admin panel shows your company or site branding.</li>
 </ul>
 <ul>
-<li><strong>Webhooks</strong> (if available) — Configure URLs that Birkly will call when something happens (e.g. when a new entry is published). Used for integrations with other tools.</li>
+<li><strong>Users and roles</strong> — See who has an account, invite new users, and assign <strong>roles</strong>. Birkly seeds four default CMS roles: <strong>Admin</strong>, <strong>Editor</strong>, <strong>Author</strong>, and <strong>Viewer</strong>. The Settings tab shows a summary; use <strong>Manage all users</strong> for the full account page. Role lists in AI connections and user modals load from the same source.</li>
 </ul>
 <ul>
-<li><strong>Updates</strong> (if available) — Check for new versions of Birkly or plugins and apply updates. Always back up before updating.</li>
+<li><strong>Plugins</strong> — Summary of installed and active plugins. Use <strong>Manage all plugins</strong> to open the full plugins page for activate/deactivate and per-plugin options.</li>
 </ul>
 <ul>
-<li><strong>Audit log / Activity</strong> — A link or shortcut to view a log of who did what (e.g. who edited which entry). Useful for accountability and troubleshooting.</li>
+<li><strong>Security</strong> — Session timeout, login lockout, password rules, and CSRF protection. See <a href="#security-settings-enforcement">Security settings</a> below for what each control does.</li>
+</ul>
+<ul>
+<li><strong>Storage</strong> — Choose where Birkly stores configuration and content metadata. <strong>Flat file</strong> is the default (JSON under <code>settings/</code> and content on disk). <strong>MySQL/MariaDB</strong> and <strong>PostgreSQL</strong> are available for database-backed storage with test connection and migration tools. See <a href="#storage-backends">Storage backends</a>.</li>
+</ul>
+<ul>
+<li><strong>API &amp; Domains</strong> — Honest readout of public API behaviour; domain registration and rate limits where configured.</li>
+</ul>
+<ul>
+<li><strong>Activity &amp; audit log</strong> — Summary with a link to the full activity page.</li>
+</ul>
+<ul>
+<li><strong>AI &amp; Integrations</strong> — Outbound AI providers (in-admin chat) and inbound MCP endpoints. See <a href="ai-overview.html">AI overview</a>, <a href="ai-connections.html">AI connections</a>, and <a href="mcp-connections.html">MCP connections</a>.</li>
+</ul>
+<ul>
+<li><strong>Webhooks</strong> — Link to the dedicated webhooks page (<code>?page=webhooks</code>) for outgoing webhook URLs and events.</li>
+</ul>
+<ul>
+<li><strong>Updates</strong> (if available) — Check for new versions. Always back up before updating.</li>
 </ul>
 <p><strong>Who can use Settings</strong></p>
-<p>Usually only users with the <strong>Administrator</strong> role. Editors and viewers often don’t see Settings at all, or they see it but can’t change anything. That way only trusted people can change the project name, add users, or enable plugins.</p>
-<p><strong>After you change something</strong></p>
-<p>Click <strong>Save</strong> (or save per section). Some changes (e.g. project name, logo) apply immediately when you refresh the admin. Others (e.g. server or API options) might need a restart or a cache clear—the interface or your host’s docs will say if that’s the case.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Structure:</strong> Settings are typically stored in a config directory (e.g. <code>settings/</code>) as JSON files: <code>admin.json</code> (project name, maybe timezone), <code>branding.json</code> (logo path, favicon), <code>plugins.json</code> (enabled plugins + config), <code>users</code> or DB for auth. Webhooks, CORS, rate limits may be in their own files or in a single config.</p>
-<p><strong>Sections (implementation-dependent):</strong></p>
+<p>Usually only users with the <strong>Administrator</strong> role or <strong>manage settings</strong> permission. Editors and viewers often don’t see Settings, or see it read-only.</p>
+<h2>Security settings (enforcement)</h2>
+<p>Security values are stored in <code>settings/security.json</code> and <strong>enforced at runtime</strong> when you save via global Save—not display-only toggles.</p>
+<p>| Setting | What it does | |---------|----------------| | <strong>Session timeout (minutes)</strong> | Maximum idle time before the admin session expires. Checked on each authenticated request (<code>api/auth.php</code>). | | <strong>Max login attempts</strong> | Failed logins allowed before lockout for that account/IP (<code>api/users.php</code>). Default range in UI: 3–20. | | <strong>Lockout time (minutes)</strong> | How long login stays blocked after max attempts is exceeded. Stored in seconds internally. | | <strong>Password min length</strong> | Minimum characters required when creating or resetting passwords (<code>api/validate.php</code>). | | <strong>Require strong password</strong> | When enabled, passwords must meet complexity rules (upper, lower, number, symbol). When disabled, only min length applies. | | <strong>Enable CSRF protection</strong> | When enabled, mutating API requests must include a valid CSRF token. When disabled, token checks are skipped (use only in controlled environments). |</p>
+<p><strong>Plugin security denylist</strong> — Paths or resources blocked from all plugins regardless of granted capabilities. Managed in the Security tab; changes apply immediately after save.</p>
+<p><strong>Two-factor authentication</strong> — Per-user feature under <strong>Account</strong>, not global Settings.</p>
+<h2>Storage backends</h2>
+<p>Birkly supports three storage modes in Settings → <strong>Storage</strong>:</p>
+<h3>Flat file (default)</h3>
 <ul>
-<li><strong>General:</strong> Project name, timezone, language (admin UI).</li>
-<li><strong>Branding:</strong> Logo URL/path, favicon; optional custom CSS for admin.</li>
-<li><strong>Users/Roles:</strong> User list, invite flow, role assignment. Roles map to permissions (view/edit content, manage media, manage users, manage settings, manage plugins). Stored in DB or files; auth (session, 2FA) separate.</li>
-<li><strong>Plugins:</strong> Enable/disable by plugin id; per-plugin config (API keys, options) in plugin.json or plugin-specific storage.</li>
-<li><strong>Webhooks:</strong> Outgoing webhook URLs + event selection (e.g. entry.created, entry.published). Payload format and retry behaviour depend on implementation.</li>
-<li><strong>Updates:</strong> Version check (remote or local); apply core/plugin updates (replace files, run migrations). Require backup and possibly downtime.</li>
-<li><strong>API/Public:</strong> CORS allowed origins, rate limit rules, optional API keys for submit. See <a href="../04-integration/public-api.html">Public API</a>.</li>
+<li><strong>Driver:</strong> <code>flatfile</code></li>
+<li><strong>Config file:</strong> <code>settings/storage.json</code> (key <code>driver</code>: <code>flatfile</code>)</li>
+<li>Content and settings remain JSON/files on disk under the project root. No database required. Best for small sites, local development, and alpha installs.</li>
 </ul>
-<p><strong>Access control:</strong> Settings UI and API are protected; only users with “manage settings” (or equivalent) permission can read/write. Changing roles or permissions takes effect on next request or login depending on session handling.</p></div></details>
+<h3>MySQL / MariaDB</h3>
+<ol>
+<li>Create an empty database and a user with CREATE/INSERT/UPDATE/DELETE on that database.</li>
+<li>In <strong>Settings → Storage</strong>, select <strong>MySQL/MariaDB</strong>.</li>
+<li>Enter host, port (default 3306), database name, user, password, and optional table prefix (default <code>birkly_</code>).</li>
+<li>Click <strong>Test connection</strong> — verifies credentials before migration.</li>
+<li>Click <strong>Save settings</strong> (global Save) to persist credentials.</li>
+<li>Use <strong>Migrate data</strong> to copy existing flat-file data into the database. Review the result message; verify collections and entries in admin after migration.</li>
+</ol>
+<h3>PostgreSQL</h3>
+<p>Same workflow as MySQL with port default <strong>5432</strong>. The UI and API accept <code>postgresql</code> as the driver name (<code>postgres</code> is normalized automatically).</p>
+<h3>SQLite</h3>
+<p>Shown in the UI as <strong>coming soon</strong> and is not selectable. Use flat file or MySQL/PostgreSQL for production.</p>
+<h3>Test connection and migrate (API)</h3>
+<ul>
+<li><strong>Test connection:</strong> <code>POST /api/settings.php?action=test_database</code> with CSRF token and database fields. Available for MySQL and PostgreSQL only.</li>
+<li><strong>Migrate:</strong> <code>POST /api/settings.php?action=migrate_storage</code> after a successful connection test. Migrates from the current flat-file layout to the configured database driver.</li>
+<li><strong>Save:</strong> Storage fields are included in the global <code>save_all</code> action together with General and Security settings.</li>
+</ul>
+<p><strong>Warning:</strong> Changing the active backend affects where Birkly reads and writes data. Back up <code>settings/</code> and <code>content/</code> before migrating. Do not switch drivers without running migration or restoring from backup.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Structure:</strong> Settings are stored under <code>settings/</code> as JSON: <code>admin.json</code>, <code>site.json</code>, <code>media.json</code>, <code>security.json</code>, <code>branding.json</code>, <code>storage.json</code>, <code>plugins.json</code>, plus roles/users as applicable. Webhooks, domains, and API options may use additional files.</p>
+<p><strong>Global Save implementation:</strong></p>
+<ul>
+<li>UI: <code>admin/templates/settings.html</code> — sticky <code>#global-save-settings-btn</code> and <code>#settings-message</code>.</li>
+<li>Client: <code>admin/js/settings-page.js</code> — collects all tab form fields, POSTs to <code>Birkly.url('/api/settings.php?action=save_all')</code> with CSRF.</li>
+<li>Server: <code>api/settings.php</code> — maps camelCase form keys to snake_case JSON, writes each category, persists storage via <code>StorageFactory::saveStorageConfig()</code>.</li>
+</ul>
+<p><strong>Security:</strong> Values in <code>security.json</code> are read by <code>api/auth.php</code> (session timeout), <code>api/users.php</code> (lockout), <code>api/validate.php</code> (password rules), and <code>core/csrf.php</code> (<code>enable_csrf</code> flag).</p>
+<p><strong>Storage factory:</strong> <code>core/storage/StorageFactory.php</code> — unified config path <code>settings/storage.json</code>, drivers <code>flatfile</code>, <code>mysql</code>, <code>postgresql</code>. <code>MySqlStorage</code> and <code>PostgresStorage</code> implement <code>StorageInterface</code>; flat file uses <code>FlatFileStorage</code>.</p>
+<p><strong>Tab hash routing:</strong> Deep links such as <code>#security</code>, <code>#storage</code>, <code>#ai-integrations</code>, and alias <code>#mcp-connections</code> activate the correct tab on load.</p>
+<p><strong>Standalone pages (D7):</strong> Full management for plugins, activity, webhooks, and users remains on dedicated admin pages; Settings tabs show summaries and deep links.</p>
+<p><strong>Access control:</strong> Settings UI and API require <strong>manage settings</strong> permission. CSRF applies to mutating actions when enabled.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="roles-and-permissions.html">Roles and permissions</a></li>
 <li><a href="account.html">Account</a></li>
@@ -51,4 +98,6 @@
 <li><a href="mcp-connections.html">MCP connections</a></li>
 <li><a href="../06-extensibility/plugins.html">Plugins</a></li>
 <li><a href="../06-extensibility/updates.html">Updates</a></li>
+<li><a href="../07-operations/security.html">Security</a></li>
+<li><a href="../07-operations/backup-and-restore.html">Backup and restore</a></li>
 </ul></div>

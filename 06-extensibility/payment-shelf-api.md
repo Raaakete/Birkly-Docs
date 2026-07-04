@@ -259,9 +259,10 @@ function my_plugin_charge(int $amountCents, string $currency, string $orderRef):
 
 ## Related
 
-- [Payments plugin (admin guide)](payments-plugin.md)
-- [Shopping Cart plugin](shopping-cart-plugin.md) — reference consumer (orders + checkout)
-- [Events plugin](events-plugin.md) — reference consumer (RSVP + paid tickets)
+- [Commerce plugin](commerce-plugin.md) — primary commerce platform (P6.4+)
+- [Payments plugin (admin guide)](payments-plugin.md) — legacy; superseded by Commerce
+- [Shopping Cart plugin](shopping-cart-plugin.md) — reference consumer (legacy)
+- [Events plugin](events-plugin.md) — reference consumer (legacy)
 - [Plugins](plugins.md)
 - [Automation overview](../05-automation/automation-overview.md)
 - [Automation triggers](../05-automation/triggers.md)

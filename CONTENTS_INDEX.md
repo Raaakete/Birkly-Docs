@@ -50,6 +50,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Conditionals | `03-templating/conditionals.md` | `{if}`, `{endif}`, “has” checks |
 | Dates and formatting | `03-templating/dates-and-formatting.md` | Date formats in templates |
 | Media in templates | `03-templating/media-in-templates.md` | `{ media }` and image options |
+| Commerce functions | `03-templating/commerce-functions.md` | Commerce plugin template functions (cart, buy URL) |
 
 ## 04 — Integration
 
@@ -74,6 +75,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Topic | File | Description |
 |-------|------|-------------|
 | Plugins | `06-extensibility/plugins.md` | Installing and managing plugins |
+| Commerce plugin | `06-extensibility/plugins/commerce.md` | Commerce v2: fulfillment, purchase_options, variants, PostPurchaseRouter |
 | User plugin | `06-extensibility/user-plugin.md` | User Management plugin: registration, permissions |
 | Payments plugin | `06-extensibility/payments-plugin.md` | Connection hub: 8 providers, webhooks, activity log |
 | Payment shelf API | `06-extensibility/payment-shelf-api.md` | Developer guide: `payment_shelf` for consumer plugins |

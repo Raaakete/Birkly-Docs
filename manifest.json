@@ -51,7 +51,8 @@
         { "path": "03-templating/loops-and-lists.md", "label": "Loops and lists" },
         { "path": "03-templating/conditionals.md", "label": "Conditionals" },
         { "path": "03-templating/dates-and-formatting.md", "label": "Dates and formatting" },
-        { "path": "03-templating/media-in-templates.md", "label": "Media in templates" }
+        { "path": "03-templating/media-in-templates.md", "label": "Media in templates" },
+        { "path": "03-templating/commerce-functions.md", "label": "Commerce functions" }
       ]
     },
     {
@@ -79,6 +80,7 @@
       "label": "Extensibility",
       "items": [
         { "path": "06-extensibility/plugins.md", "label": "Plugins" },
+        { "path": "06-extensibility/plugins/commerce.md", "label": "Commerce plugin" },
         { "path": "06-extensibility/user-plugin.md", "label": "User plugin" },
         { "path": "06-extensibility/templates-pages.md", "label": "Templates (pages)" },
         { "path": "06-extensibility/audit-log-and-activity.md", "label": "Audit log and activity" },

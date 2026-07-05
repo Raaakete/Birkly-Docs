@@ -36,6 +36,14 @@ Plugins extend Birkly with extra features: new admin pages, custom APIs, additio
 
 Plugins run with the same access as the CMS. They can read and change content and settings. Only install plugins from sources you trust, and keep them updated. If you no longer need one, disable it.
 
+**Bundled plugins (examples)**
+
+| Plugin | Docs |
+|--------|------|
+| **Commerce** | [Commerce plugin](plugins/commerce.md) — sell products, downloads, classes, memberships |
+| **User Management** | [User plugin](user-plugin.md) — registration, tiers, permissions |
+| **Automation** | [Automation overview](../05-automation/automation-overview.md) — workflows and triggers |
+
 ## Advanced Users
 
 **Capabilities**
@@ -77,5 +85,6 @@ The plugin system may support capabilities, permissions, migrations, scheduled t
 ## Related
 
 - [Settings](../01-admin/settings.md)
+- [Commerce plugin](plugins/commerce.md)
 - [Updates](updates.md)
 - [Automation overview](../05-automation/automation-overview.md)

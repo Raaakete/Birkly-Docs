@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>commerce — Birkly Docs</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../plugins.html" class="nav-link">Plugins</a>
+        <a href="commerce.html" class="nav-link active">Commerce plugin</a>
+        <a href="../user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../../README.html" class="nav-link">README</a>
+        <a href="../../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>The <strong>Commerce</strong> plugin (<code>plugins/commerce/</code>) is Birkly’s content-first commerce platform for P6.5 v2: payment providers, the <strong>Commerce fieldtype</strong>, catalog index, cart, checkout, orders, and <strong>PostPurchaseRouter</strong> fulfillment.</p>
+<div class="doc-summary"><p>Activate <strong>Commerce</strong> under Settings → Plugins, configure a payment provider, add the Commerce fieldtype to collections, and model products with <strong>fulfillment</strong> (ship, deliver, register, none) plus one or more <strong>purchase_options</strong> (one-time and/or recurring on the same entry). Use variant <strong>sub-entries</strong> for SKUs. Template functions expose cart count and buy URLs on client sites. Plugin docs register via <code>register_plugin_docs()</code> and appear under Help → Plugin extensions when active.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What Commerce does</strong></p>
+<p>Commerce turns Birkly entries into things you can sell: physical products, digital downloads, class tickets, and memberships — without a separate e-commerce database.</p>
+<p><strong>Two settings on each sellable item</strong></p>
+<p>| Setting | Plain language | |---------|----------------| | <strong>Fulfillment</strong> | What happens after someone pays (ship a box, send a download, register for a class, or grant access) | | <strong>Purchase options</strong> | How they pay — e.g. €25 once <strong>or</strong> €19/month on the <strong>same</strong> product |</p>
+<p><strong>Quick setup</strong></p>
+<ol>
+<li><strong>Settings → Plugins</strong> → enable <strong>Commerce</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar → <strong>Connections</strong> → add Stripe, Mollie, or another provider.</li>
+<li>Edit a collection schema → add field type <strong>Commerce</strong>.</li>
+<li>Create an entry with price, fulfillment, and purchase options.</li>
+<li>On your website, add a buy button using <code>{commerce_buy_url entry_id collection}</code>.</li>
+</ol>
+<p><strong>Variants (sizes, options)</strong></p>
+<p>For products with multiple SKUs (size, grind, color):</p>
+<ol>
+<li>Create a <strong>parent</strong> product entry with photos and description.</li>
+<li>Add a <strong>variants</strong> sub-collection.</li>
+<li>Each <strong>variant sub-entry</strong> gets its own Commerce field (price, SKU, stock).</li>
+</ol>
+<p><strong>After payment</strong></p>
+<p>Commerce routes each order line by fulfillment:</p>
+<ul>
+<li><strong>Ship</strong> — order exported for packing/shipping</li>
+<li><strong>Deliver</strong> — secure download link emailed</li>
+<li><strong>Register</strong> — attendee recorded, capacity reduced</li>
+<li><strong>None</strong> — tier grant or automation (memberships)</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Content model (v2)</strong></p>
+<pre><code>{
+  &quot;fulfillment&quot;: &quot;ship&quot;,
+  &quot;purchase_options&quot;: [
+    { &quot;id&quot;: &quot;once&quot;, &quot;label&quot;: &quot;Buy once&quot;, &quot;billing&quot;: &quot;one_time&quot;, &quot;price_cents&quot;: 1499, &quot;currency&quot;: &quot;eur&quot; },
+    { &quot;id&quot;: &quot;sub&quot;, &quot;label&quot;: &quot;Subscribe&quot;, &quot;billing&quot;: &quot;recurring&quot;, &quot;interval&quot;: &quot;month&quot;, &quot;price_cents&quot;: 1299, &quot;currency&quot;: &quot;eur&quot; }
+  ],
+  &quot;quantity_available&quot;: null,
+  &quot;sku&quot;: &quot;SKU-250G&quot;
+}</code></pre>
+<p><strong>PostPurchaseRouter</strong> — idempotent handler keyed on <code>order_id</code> + line; fires typed automation triggers: <code>commerce_physical_fulfilled</code>, <code>commerce_digital_delivered</code>, <code>commerce_event_registered</code>, <code>commerce_membership_started</code>.</p>
+<p><strong>Admin tabs:</strong> Connections, Catalog, Orders, Discounts, Import, Mappings, Fulfillment, Activity, Settings (shipping zones v1).</p>
+<p><strong>Shelf services:</strong> <code>commerce_shelf</code> (primary), <code>payment_shelf</code> (legacy alias).</p>
+<p><strong>Plugin docs shelf:</strong> <code>register_plugin_docs('commerce', …)</code> ships <code>plugins/commerce/docs/</code> for AI, Admin Help, and MCP (<code>birkly://docs/plugin/commerce</code>).</p>
+<p><strong>Public API:</strong> <code>/api/index.php?route=commerce</code> — cart get/add/update/remove/checkout; checkout selects <code>purchase_option_id</code> and collects shipping/attendee per fulfillment.</p>
+<p><strong>Legacy:</strong> P6.4 flat schema (<code>price_cents</code> + <code>billing</code>) migrates to single purchase_option + inferred fulfillment.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="../commerce-fieldtype.html">Commerce fieldtype</a></li>
+<li><a href="../../03-templating/commerce-functions.html">Commerce template functions</a></li>
+<li><a href="../commerce-import.html">Commerce import</a></li>
+<li><a href="../commerce-coexistence.html">Coexistence with Shop &amp;amp; Events</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

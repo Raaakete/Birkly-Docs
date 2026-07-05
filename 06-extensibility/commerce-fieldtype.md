@@ -1,45 +1,59 @@
 # Commerce fieldtype
 
-The **Commerce** fieldtype is registered by the Commerce plugin on the fieldtype shelf. It marks how an **entry** is sold — products, event tickets, and memberships all use the same schema.
+The **Commerce** fieldtype is registered by the Commerce plugin on the fieldtype shelf. It marks how an **entry** (or variant sub-entry) is sold.
 
-## Schema fields (stored on entry)
+## Summary
 
-| Field | Type | Required | Notes |
-|-------|------|----------|-------|
-| `price_cents` | int | Yes | Minor units; `0` = free (RSVP, free download) |
-| `currency` | string | Yes | ISO 4217 lowercase, e.g. `eur` |
-| `billing` | enum | Yes | `one_time` or `recurring` only |
-| `interval` | string | If recurring | `month` or `year` |
-| `quantity_available` | int \| null | No | `null` = unlimited (replaces separate stock/capacity) |
-| `sku` | string \| null | No | Import/fulfillment; falls back to entry slug |
+Commerce v2 stores **fulfillment** (ship, deliver, register, none) and one or more **purchase_options** (one-time and/or recurring prices) on each sellable entry. Optional `quantity_available` and `sku` support capacity and fulfillment. Variants use a `variants` sub-collection with a Commerce field on each sub-entry.
+
+## Schema (v2 stored value)
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `fulfillment` | enum | `ship`, `deliver`, `register`, `none` |
+| `purchase_options[]` | array | `id`, `label`, `billing`, `price_cents`, `currency`, `interval?` |
+| `quantity_available` | int \| null | Capacity for `register`; null = unlimited |
+| `sku` | string \| null | Fulfillment/import; defaults to entry slug |
+
+Example:
+
+```json
+{
+  "fulfillment": "register",
+  "purchase_options": [
+    { "id": "ticket", "label": "Workshop ticket", "billing": "one_time", "price_cents": 2500, "currency": "eur" }
+  ],
+  "quantity_available": 20
+}
+```
+
+## Fulfillment panels
+
+| Value | Editor extras | Checkout |
+|-------|---------------|----------|
+| `ship` | Optional weight | Shipping address |
+| `deliver` | Asset URL/file | Download token after pay |
+| `register` | Uses quantity | Attendee name |
+| `none` | — | Purchase mappings / membership |
+
+Collection schema may include `commerce_settings` to preset enabled fulfillments and billing intervals.
 
 ## What is NOT on the fieldtype
 
-- Discount amounts — use Commerce **Discount rules**
-- Affiliate codes — use `?ref=` + rule engine
-- Tier / membership ID — use **Purchase mappings** in Commerce admin
-
-## Billing modes
-
-| Use case | `billing` | `interval` |
-|----------|-----------|------------|
-| Product, event ticket | `one_time` | — |
-| Membership subscription | `recurring` | `month` or `year` |
+- Discount amounts — Commerce **Discount rules**
+- Affiliate codes — `?ref=` + rule engine
+- Tier grants — **Purchase mappings**
 
 ## Catalog index
 
-When an entry with a Commerce field is saved, Commerce updates `catalog_index.json`:
+One indexed row per **sellable unit** (variant sub-entry if variants exist, else parent). Cart/checkout read from `catalog_index.json`.
 
-- Entry appears in admin **Catalog**
-- Cart/checkout reads from the index (not raw collection files)
+## Legacy migration
 
-## Collection setup
-
-1. Edit collection schema → add field `type: commerce`
-2. Create entries with price, billing, quantity
-3. Verify entry appears in Commerce → Catalog
+P6.4 values (`price_cents` + `billing` only) migrate to a single `purchase_option` with inferred fulfillment (default `ship`).
 
 ## Related
 
-- [Commerce plugin](commerce-plugin.md)
+- [Commerce plugin](plugins/commerce.md)
+- [Commerce template functions](../../03-templating/commerce-functions.md)
 - [Import guide](commerce-import.md)

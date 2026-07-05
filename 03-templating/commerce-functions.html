@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>commerce functions — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="commerce-functions.html" class="nav-link active">Commerce functions</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Template functions registered by the <strong>Commerce</strong> plugin when active. Use them in client-site HTML (kekaba, Birkly-Website, etc.) to show cart state and build checkout links.</p>
+<div class="doc-summary"><p>Commerce exposes <code>{commerce_cart_count}</code>, <code>{commerce_cart_url}</code>, <code>{commerce_buy_url}</code>, <code>{commerce_add_to_cart}</code>, and <code>{commerce_price_from}</code> for cart badges, buy buttons, and “from €X” pricing. Pass <strong>variant sub-entry</strong> ids for multi-SKU products. Functions register via <code>register_template_function()</code> in <code>plugins/commerce/plugin.php</code>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Cart badge in header</strong></p>
+<pre><code>&lt;a href=&quot;/cart&quot;&gt;Cart ({commerce_cart_count})&lt;/a&gt;</code></pre>
+<p><strong>Buy button on a product page</strong></p>
+<pre><code>&lt;a href=&quot;{commerce_buy_url slug my_products 1}&quot;&gt;Buy now&lt;/a&gt;</code></pre>
+<ul>
+<li>First argument: entry <strong>id or slug</strong> (use variant sub-entry for options)</li>
+<li>Second argument: <strong>collection slug</strong></li>
+<li>Third argument: quantity (optional, default 1)</li>
+</ul>
+<p><strong>Show lowest price on a parent product</strong></p>
+<p>When variants have different prices:</p>
+<pre><code>&lt;p&gt;From {commerce_price_from slug my_products}&lt;/p&gt;</code></pre>
+<p><strong>Add to cart vs buy</strong></p>
+<p><code>{commerce_add_to_cart …}</code> builds the same URL as <code>{commerce_buy_url …}</code> — use whichever label fits your UX.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>| Function | Signature | Returns | |----------|-----------|---------| | <code>commerce_cart_count</code> | none | Item count in session cart (string) | | <code>commerce_cart_url</code> | none | Cart API URL | | <code>commerce_buy_url</code> | <code>entry_id</code>, <code>collection_slug?</code>, <code>qty?</code> | Checkout/add URL for sellable unit | | <code>commerce_add_to_cart</code> | same as buy_url | Alias | | <code>commerce_price_from</code> | <code>entry_id</code>, <code>collection_slug?</code> | Lowest <code>purchase_option</code> price for display |</p>
+<p><strong>Variants:</strong> Catalog indexes one row per sellable unit. Templates must target the <strong>variant sub-entry</strong> id/slug, not the parent marketing entry.</p>
+<p><strong>Example — variant loop</strong></p>
+<pre><code>{for each variant in sub_entries variants}
+  &lt;div&gt;
+    &lt;h3&gt;{variant.title}&lt;/h3&gt;
+    &lt;a href=&quot;{commerce_buy_url variant.id products 1}&quot;&gt;Buy&lt;/a&gt;
+  &lt;/div&gt;
+{endfor}</code></pre>
+<p><strong>Affiliate:</strong> Append <code>?ref=partner_id</code> on site URLs; Commerce stores ref in session for discount rules at checkout.</p>
+<p><strong>API equivalent:</strong> <code>/api/index.php?route=commerce&amp;action=checkout&amp;entry_id=…&amp;collection=…&amp;purchase_option_id=…</code></p>
+<p><strong>Registration:</strong> Functions are omitted when Commerce is inactive (<code>commerce_plugin_active()</code> gate in <code>plugin.php</code>).</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="../06-extensibility/plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="../06-extensibility/commerce-fieldtype.html">Commerce fieldtype</a></li>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

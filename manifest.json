@@ -52,7 +52,9 @@
         { "path": "03-templating/conditionals.md", "label": "Conditionals" },
         { "path": "03-templating/dates-and-formatting.md", "label": "Dates and formatting" },
         { "path": "03-templating/media-in-templates.md", "label": "Media in templates" },
-        { "path": "03-templating/commerce-functions.md", "label": "Commerce functions" }
+        { "path": "03-templating/commerce-functions.md", "label": "Commerce functions" },
+        { "path": "03-templating/events-functions.md", "label": "Events functions" },
+        { "path": "03-templating/storefront-patterns.md", "label": "Storefront and events patterns" }
       ]
     },
     {

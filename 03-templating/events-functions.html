@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>events functions — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="events-functions.html" class="nav-link active">Events functions</a>
+        <a href="storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Template functions registered by the <strong>Events</strong> plugin when active. Use them in client-site HTML (kekaba, Birkly-Website, etc.) to list events, build registration links, and expose calendar files.</p>
+<div class="doc-summary"><p>Events exposes <code>{upcoming_events}</code>, <code>{event_ics_url}</code>, <code>{events_calendar_feed_url}</code>, <code>{event_register_url}</code>, and <code>{event_ticket_checkout_url}</code> for calendar/list views, per-event <code>.ics</code> downloads, an iCal subscribe feed, and RSVP / paid-ticket links. Recurring entries expand into occurrences via the indexer, so pass an <strong>occurrence index</strong> when linking a single date. Functions register via <code>register_template_function()</code> in <code>plugins/events/plugin.php</code> and are omitted when Events is inactive.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>List upcoming events</strong></p>
+<pre><code>{for each event in upcoming_events 10}
+  &lt;a href=&quot;event.html?slug={event.slug}&quot;&gt;
+    &lt;h3&gt;{event.title}&lt;/h3&gt;
+    &lt;p&gt;{event.start} · {event.venue}&lt;/p&gt;
+  &lt;/a&gt;
+{endfor}</code></pre>
+<p><strong>Add a single date to a calendar (.ics)</strong></p>
+<pre><code>&lt;a href=&quot;{event_ics_url kekaba_events entry_id 0}&quot;&gt;Add to calendar&lt;/a&gt;</code></pre>
+<ul>
+<li>First argument: <strong>collection slug</strong></li>
+<li>Second argument: entry <strong>id</strong></li>
+<li>Third argument: <strong>occurrence index</strong> (0 for single events, 0..N for a recurring series)</li>
+</ul>
+<p><strong>Subscribe to all events (iCal / webcal)</strong></p>
+<pre><code>&lt;a href=&quot;{events_calendar_feed_url}&quot;&gt;Subscribe (iCal)&lt;/a&gt;</code></pre>
+<p>Swap the scheme to <code>webcal://</code> so Apple/Google Calendar subscribe instead of downloading.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>| Function | Signature | Returns | |----------|-----------|---------| | <code>upcoming_events</code> | <code>limit?</code> | List of upcoming occurrences (id, collection, title, slug, start, end, venue, virtual_url, ics_url) | | <code>event_ics_url</code> | <code>collection</code>, <code>entry_id</code>, <code>occurrence_index?</code> | Per-event/occurrence <code>.ics</code> download URL | | <code>events_calendar_feed_url</code> | none | Whole-calendar iCal feed URL (works with <code>webcal://</code>) | | <code>event_register_url</code> | <code>event_id</code> | Free RSVP endpoint URL | | <code>event_ticket_checkout_url</code> | <code>event_id</code>, <code>ticket_type</code> | Paid-ticket checkout URL (routes through Commerce) |</p>
+<p><strong>Recurring series:</strong> One entry with a <code>recurrence</code> block (frequency, interval, <code>until</code> <strong>or</strong> <code>count</code>, optional <code>skip_dates</code>) expands into occurrences in <code>events_index.json</code>. Link each occurrence with its <code>series_index</code>; use <code>events_calendar_feed_url</code> for the whole series.</p>
+<p><strong>Capacity &amp; tickets:</strong> Free RSVP uses <code>quantity_available</code>; paid tickets use a Commerce field with <code>fulfillment: register</code>. See the <a href="../06-extensibility/commerce-fieldtype.html">Commerce fieldtype</a>.</p>
+<p><strong>API equivalents:</strong></p>
+<ul>
+<li>Per-event ICS — <code>/api/index.php?route=events&amp;action=ics&amp;collection=…&amp;entry_id=…&amp;occurrence=…</code></li>
+<li>Subscribe feed — <code>/api/index.php?route=events&amp;action=webcal</code></li>
+<li>RSVP — <code>/api/index.php?route=events&amp;action=rsvp</code></li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="commerce-functions.html">Commerce functions</a></li>
+<li><a href="storefront-patterns.html">Storefront and events patterns</a></li>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

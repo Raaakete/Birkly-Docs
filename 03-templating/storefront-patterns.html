@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>storefront patterns — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="events-functions.html" class="nav-link">Events functions</a>
+        <a href="storefront-patterns.html" class="nav-link active">Storefront and events patterns</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Copy-paste page patterns that combine the <a href="commerce-functions.html">Commerce</a> and <a href="events-functions.html">Events</a> template functions into full client-site pages. These mirror the reference implementation on the kekaba demo site (<code>shop.html</code>, <code>product.html</code>, <code>cart.html</code>, <code>events.html</code>, <code>event.html</code>).</p>
+<div class="doc-summary"><p>A storefront is three pages: a <strong>listing</strong> that loops the catalog, a <strong>product detail</strong> that renders a variant / purchase-option picker and a buy button, and a <strong>cart</strong> that reads cart state and links to checkout. Events add a <strong>calendar/list</strong> page and a <strong>single-event</strong> page with <code>.ics</code> download and an iCal subscribe link. All pages use standard loops plus the plugin template functions — no custom endpoints required.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Shop listing</strong></p>
+<pre><code>{for each product in 'kekaba_products'}
+  &lt;a class=&quot;box hover&quot; href=&quot;product.html?slug={product.slug}&quot;&gt;
+    &lt;img src=&quot;{product.image}&quot; alt=&quot;{product.title}&quot;&gt;
+    &lt;h2&gt;{product.title}&lt;/h2&gt;
+    &lt;p&gt;From {commerce_price_from product.pricing}&lt;/p&gt;
+  &lt;/a&gt;
+{endfor}</code></pre>
+<p><strong>Product detail with a variant picker</strong></p>
+<pre><code>&lt;h1&gt;{title}&lt;/h1&gt;
+{content}
+
+{for each variant in sub_entries variants}
+  &lt;label class=&quot;variant&quot;&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;variant&quot; value=&quot;{variant.id}&quot;&gt;
+    {variant.title} — {commerce_price_from variant.pricing}
+  &lt;/label&gt;
+{endfor}
+
+&lt;a class=&quot;button&quot; href=&quot;{commerce_buy_url variant.id kekaba_products 1}&quot;&gt;Add to cart&lt;/a&gt;</code></pre>
+<p>Simple products (no variants) put the Commerce field on the parent and link <code>{commerce_buy_url slug kekaba_products 1}</code> directly.</p>
+<p><strong>Cart badge in the header</strong></p>
+<pre><code>&lt;a href=&quot;cart.html&quot;&gt;Cart ({commerce_cart_count})&lt;/a&gt;</code></pre>
+<p><strong>Events calendar / list</strong></p>
+<pre><code>{for each event in upcoming_events 20}
+  &lt;a class=&quot;events-card&quot; href=&quot;event.html?slug={event.slug}&quot;&gt;
+    &lt;span class=&quot;date&quot;&gt;{event.start}&lt;/span&gt;
+    &lt;h3&gt;{event.title}&lt;/h3&gt;
+  &lt;/a&gt;
+{endfor}
+
+&lt;a class=&quot;button&quot; href=&quot;{events_calendar_feed_url}&quot;&gt;Subscribe (iCal)&lt;/a&gt;</code></pre>
+<p><strong>Single event with calendar export</strong></p>
+<pre><code>&lt;h1&gt;{title}&lt;/h1&gt;
+&lt;p&gt;{schedule.starts_at} – {schedule.ends_at} · {schedule.venue}&lt;/p&gt;
+{content}
+
+&lt;a href=&quot;{event_ics_url kekaba_events id 0}&quot;&gt;Add this date (.ics)&lt;/a&gt;</code></pre></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Fulfillment types on one catalog.</strong> A single products collection can mix <code>ship</code> (physical), <code>deliver</code> (digital download), <code>register</code> (workshop seat), and <code>none</code> (subscription / access grant). The CTA and post-purchase flow follow the entry's <code>fulfillment</code>; the template only needs the buy URL. See the <a href="../06-extensibility/commerce-fieldtype.html">Commerce fieldtype</a>.</p>
+<p><strong>Multiple purchase options.</strong> Subscriptions expose several <code>purchase_options</code> (e.g. monthly + annual). Render one control per option and pass its id as the fourth <code>commerce_buy_url</code> argument:</p>
+<pre><code>{for each option in pricing.purchase_options}
+  &lt;a href=&quot;{commerce_buy_url id kekaba_products 1 option.id}&quot;&gt;
+    {option.label} — {option.price_cents}
+  &lt;/a&gt;
+{endfor}</code></pre>
+<p><strong>Recurring events.</strong> A <code>recurrence</code> block expands one entry into occurrences in <code>events_index.json</code>. List each date with its <code>series_index</code> and offer a per-occurrence <code>.ics</code> plus a whole-series subscribe:</p>
+<pre><code>{for each occ in occurrences}
+  &lt;li&gt;
+    {occ.starts_at}
+    &lt;a href=&quot;{event_ics_url kekaba_events id occ.series_index}&quot;&gt;Add to calendar&lt;/a&gt;
+  &lt;/li&gt;
+{endfor}</code></pre>
+<p><strong>Hydrate vs bake.</strong> Client sites can render these patterns server-side (baked HTML) or hydrate them in the browser with <code>birkly-client.js</code>. The kekaba demo bakes the page shell and hydrates catalog/event data from JSON, then links buy/cart/checkout and <code>.ics</code>/webcal URLs to the live plugin endpoints — so the same markup works offline as a static demo and online against a running CMS.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="commerce-functions.html">Commerce functions</a></li>
+<li><a href="events-functions.html">Events functions</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+<li><a href="conditionals.html">Conditionals</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

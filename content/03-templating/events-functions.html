@@ -1,0 +1,34 @@
+<p>Template functions registered by the <strong>Events</strong> plugin when active. Use them in client-site HTML (kekaba, Birkly-Website, etc.) to list events, build registration links, and expose calendar files.</p>
+<div class="doc-summary"><p>Events exposes <code>{upcoming_events}</code>, <code>{event_ics_url}</code>, <code>{events_calendar_feed_url}</code>, <code>{event_register_url}</code>, and <code>{event_ticket_checkout_url}</code> for calendar/list views, per-event <code>.ics</code> downloads, an iCal subscribe feed, and RSVP / paid-ticket links. Recurring entries expand into occurrences via the indexer, so pass an <strong>occurrence index</strong> when linking a single date. Functions register via <code>register_template_function()</code> in <code>plugins/events/plugin.php</code> and are omitted when Events is inactive.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>List upcoming events</strong></p>
+<pre><code>{for each event in upcoming_events 10}
+  &lt;a href=&quot;event.html?slug={event.slug}&quot;&gt;
+    &lt;h3&gt;{event.title}&lt;/h3&gt;
+    &lt;p&gt;{event.start} · {event.venue}&lt;/p&gt;
+  &lt;/a&gt;
+{endfor}</code></pre>
+<p><strong>Add a single date to a calendar (.ics)</strong></p>
+<pre><code>&lt;a href=&quot;{event_ics_url kekaba_events entry_id 0}&quot;&gt;Add to calendar&lt;/a&gt;</code></pre>
+<ul>
+<li>First argument: <strong>collection slug</strong></li>
+<li>Second argument: entry <strong>id</strong></li>
+<li>Third argument: <strong>occurrence index</strong> (0 for single events, 0..N for a recurring series)</li>
+</ul>
+<p><strong>Subscribe to all events (iCal / webcal)</strong></p>
+<pre><code>&lt;a href=&quot;{events_calendar_feed_url}&quot;&gt;Subscribe (iCal)&lt;/a&gt;</code></pre>
+<p>Swap the scheme to <code>webcal://</code> so Apple/Google Calendar subscribe instead of downloading.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>| Function | Signature | Returns | |----------|-----------|---------| | <code>upcoming_events</code> | <code>limit?</code> | List of upcoming occurrences (id, collection, title, slug, start, end, venue, virtual_url, ics_url) | | <code>event_ics_url</code> | <code>collection</code>, <code>entry_id</code>, <code>occurrence_index?</code> | Per-event/occurrence <code>.ics</code> download URL | | <code>events_calendar_feed_url</code> | none | Whole-calendar iCal feed URL (works with <code>webcal://</code>) | | <code>event_register_url</code> | <code>event_id</code> | Free RSVP endpoint URL | | <code>event_ticket_checkout_url</code> | <code>event_id</code>, <code>ticket_type</code> | Paid-ticket checkout URL (routes through Commerce) |</p>
+<p><strong>Recurring series:</strong> One entry with a <code>recurrence</code> block (frequency, interval, <code>until</code> <strong>or</strong> <code>count</code>, optional <code>skip_dates</code>) expands into occurrences in <code>events_index.json</code>. Link each occurrence with its <code>series_index</code>; use <code>events_calendar_feed_url</code> for the whole series.</p>
+<p><strong>Capacity &amp; tickets:</strong> Free RSVP uses <code>quantity_available</code>; paid tickets use a Commerce field with <code>fulfillment: register</code>. See the <a href="../06-extensibility/commerce-fieldtype.html">Commerce fieldtype</a>.</p>
+<p><strong>API equivalents:</strong></p>
+<ul>
+<li>Per-event ICS — <code>/api/index.php?route=events&amp;action=ics&amp;collection=…&amp;entry_id=…&amp;occurrence=…</code></li>
+<li>Subscribe feed — <code>/api/index.php?route=events&amp;action=webcal</code></li>
+<li>RSVP — <code>/api/index.php?route=events&amp;action=rsvp</code></li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="commerce-functions.html">Commerce functions</a></li>
+<li><a href="storefront-patterns.html">Storefront and events patterns</a></li>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+</ul></div>

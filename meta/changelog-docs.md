@@ -12,6 +12,13 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-06 — Phase 8 reference site & commerce templating (P8-M2 / M6)
+
+- **New:** `03-templating/storefront-patterns.md` — Demo shop/cart/checkout patterns for Commerce fieldtype sites (kekaba reference).
+- **New:** `03-templating/events-functions.md` — Events plugin template functions (calendar, list, single event, iCal).
+- **Updated:** `06-extensibility/plugins/commerce.md` — Tax, refunds, subscriptions, order automation triggers.
+- **Updated:** `CONTENTS_INDEX.md` — storefront + events templating topics.
+
 ## 2026-07-04 — Phase 5.7 settings UX, security enforcement & storage (P5.7-M5)
 
 - **Updated:** `01-admin/settings.md` — Global Save UX (single save bar, toast feedback); security settings table (session timeout, lockout, password rules, CSRF enforcement); storage backends (flat-file default, MySQL/PostgreSQL setup, test connection, migrate workflow); tab summaries and deep links.

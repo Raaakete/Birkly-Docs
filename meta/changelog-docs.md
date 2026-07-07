@@ -16,6 +16,11 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-07 — Phase 16–19 platform sync (P16-M8 / P17-M6 / P18-M8 / P19-M7)
+
+- **Updated:** `01-admin/help-and-onboarding.md` — START_HERE first-run; wizard v2 (install path, use case, marketplace hint, optional BYOAI mini-wizard with skip always visible); dashboard checklist v2 (essential only; Connect AI only when wizard AI step skipped) (P19).
+- **Updated:** `00-overview/getting-started.md` — Step 0: extract zip, open START_HERE.html before admin login; wizard v2 and checklist v2 cross-ref (P19-M7).
+
 ## 2026-07-07 — Phase 13–15 platform sync (P13-M7 / P14-M6 / P15-M7)
 
 - **New:** `00-overview/alpha-legal.md` — closed-alpha terms, privacy, feedback (P15-M4).

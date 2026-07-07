@@ -2,9 +2,23 @@
 
 ## Summary
 
-Get started with Birkly in five steps: (1) Log in to the admin. (2) Set a project name if the first-time wizard appears. (3) Create a collection (e.g. “Blog posts”) and add fields (title, content, date, image). (4) Add one or more entries and set status to Published. (5) Add the Birkly client script to your website so it can load and display the content. No coding is required for basic content creation; connecting the site is one script tag plus simple placeholders in your HTML.
+Get started with Birkly in six steps: (0) Extract the release zip and open **START_HERE.html** before admin login. (1) Log in to the admin. (2) Complete the first-time wizard (project name, use case, optional AI). (3) Create a collection (e.g. “Blog posts”) and add fields (title, content, date, image). (4) Add one or more entries and set status to Published. (5) Add the Birkly client script to your website so it can load and display the content. No coding is required for basic content creation; connecting the site is one script tag plus simple placeholders in your HTML.
 
 ## Beginner
+
+**Step 0 — Extract and open START_HERE.html**
+
+If you downloaded Birkly as a zip file, do this **before** logging in to the admin:
+
+1. **Extract the zip** to a folder (e.g. `Documents/Birkly` on your computer, or upload the contents to your web host).
+2. Confirm you see **START_HERE.html** in the **same folder** as `admin/`, `api/`, and `core/` — not still inside the zip, and not one folder too deep (e.g. `Birkly/Birkly/`).
+3. **Open START_HERE.html** in your browser (double-click the file locally, or visit `https://your-domain.com/START_HERE.html` after upload).
+4. Wait for the **folder check** to confirm you're in the right place.
+5. Choose **On your computer** (local test with PHP) or **On a web server** (FTP/cloud), follow the short steps for your path, then click **Start setup** to open the admin onboarding wizard.
+
+**Example:** You extract `Birkly-1.0.zip` to `~/Birkly`, open `START_HERE.html`, pick **On your computer**, run `./start-server.sh` in that folder, then click **Start setup** — the browser opens the admin wizard at `http://localhost:8080/admin/` with local install hints.
+
+---
 
 **Step 1 — Log in**
 
@@ -14,20 +28,24 @@ Open your Birkly address in the browser. It usually looks like:
   or  
 - `http://localhost:8080/admin` (if you’re running Birkly locally).
 
-Enter your **email** and **password**. If you don’t have an account yet, an administrator must create one for you or send you an **invite** (you’ll receive a link to set your password).
+Enter your **email** and **password**. If no admin account exists yet, the onboarding wizard asks you to create one first. Otherwise, an administrator must create one for you or send you an **invite** (you’ll receive a link to set your password).
 
 **Example:** If your CMS is at `https://cms.mycompany.com`, you go to `https://cms.mycompany.com/admin` and sign in. After login you’ll see the **Dashboard** (overview) and the **sidebar** with Content, Media, Settings, etc.
 
 ---
 
-**Step 2 — Set the project name (first time only)**
+**Step 2 — Complete the setup wizard (first time only)**
 
-The first time you (or anyone) use the installation, you may see a short **onboarding** wizard. It will ask for a **Project name**.
+The first time you (or anyone) use the installation, you may see the **onboarding wizard** (especially if you arrived via START_HERE). It will ask for:
 
-- This name is only for the **admin panel** (e.g. the label in the sidebar or the browser tab). It does **not** set your website’s title or URL.
-- **Example:** You might enter “Acme Blog” or “Company Website.” Visitors to your actual site never see this—only people who log in to the admin do.
+- **Project name** — For the admin panel only (sidebar label, browser tab). It does **not** set your website’s public title or URL.
+- **Use case** *(optional)* — Blog, business site, shop, docs, or developer project; may include demo content you can keep or remove.
+- **Marketplace** *(optional)* — A pointer to install official plugins (Commerce, Events, etc.) from **Plugins → Marketplace**.
+- **Connect AI** *(optional)* — A short BYOAI flow; you can always skip and return later under Settings.
 
-You can usually skip or complete the wizard in a few clicks. After that, the Dashboard and sidebar are your starting point.
+You can skip any step. After that, the Dashboard and sidebar are your starting point. A short **setup checklist** on the Dashboard shows essential next steps (collection, entry, marketplace plugin; Connect AI only if you skipped it in the wizard).
+
+**Example:** You might enter “Acme Blog” as the project name, pick the blog use case, skip AI for now, and land on the Dashboard with a checklist prompting you to create your first collection.
 
 ---
 
@@ -100,9 +118,14 @@ From here you can add more collections (e.g. “Products,” “Team”), upload
 
 ## Advanced Users
 
+**0. First-run and release layout**
+
+- Release zip includes `START_HERE.html` and `START_HERE.txt` at the root. Extract before use; probe via `GET /api/setup_probe.php`.
+- START_HERE **Start setup** links to `/admin/?page=onboarding&install=local|cloud`; `install_path` persists in `settings/onboarding.json`.
+
 **1. Auth and onboarding**
 
-- Log in at `/admin`. First run may show onboarding (project name, optional first collection). Onboarding state is stored so it doesn’t show again.
+- Log in at `/admin`. First run may show onboarding v2 (install context, site info, use case, marketplace hint, optional BYOAI mini-wizard). Onboarding state is stored so it doesn’t show again; partial progress resumes via `last_step`.
 - Users and roles are managed under Settings (or Users/Roles). Invites and password reset depend on configuration (email, etc.).
 
 **2. Content model**
@@ -131,6 +154,7 @@ See [Collections](../02-content/collections.md), [Entries](../02-content/entries
 ## Related
 
 - [What is Birkly?](what-is-birkly.md)
+- [Help and onboarding](../01-admin/help-and-onboarding.md)
 - [Collections](../02-content/collections.md)
 - [Entries](../02-content/entries.md)
 - [Website integration](../04-integration/website-integration.md)

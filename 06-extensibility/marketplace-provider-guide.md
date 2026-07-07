@@ -1,6 +1,6 @@
 # Marketplace — provider publishing guide
 
-Publish plugins, themes, and template packs on the [Birkly Marketplace](https://marketplace.birkly.com). This guide is for **providers** (developers and agencies who sell or distribute extensions). Buyers installing plugins in the CMS should see [Marketplace — buyer license and install](marketplace-buyer-guide.md).
+Publish plugins, themes, and template packs on the [Birkly Marketplace](https://marketplace.birkly.com). This guide is for **providers** (developers and agencies who sell or distribute extensions). Buyers installing plugins in the CMS should see [Marketplace — buyer license and install](marketplace-buyer-guide.md) or [Marketplace go-live — installing plugins](marketplace-go-live.md).
 
 ## Summary
 

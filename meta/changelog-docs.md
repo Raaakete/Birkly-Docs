@@ -14,6 +14,13 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-07 — Phase 10 marketplace go-live (P10-M5)
+
+- **New:** `06-extensibility/marketplace-go-live.md` — fresh install without bundled plugins, official plugins table, grandfathered upgrades.
+- **Updated:** `06-extensibility/marketplace-buyer-guide.md` — free official one-click install (no license key), paid checkout flow, refund policy summary.
+- **Updated:** `06-extensibility/plugins.md` — official plugins marketplace table; removed bundled-plugins messaging.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json` — marketplace go-live topic.
+
 ## 2026-07-07 — Phase 9 Birkly Marketplace (P9-M7)
 
 - **New:** `06-extensibility/marketplace-provider-guide.md` — provider signup, Stripe Connect, offer publishing, QC.

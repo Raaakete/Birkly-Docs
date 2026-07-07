@@ -36,13 +36,18 @@ Plugins extend Birkly with extra features: new admin pages, custom APIs, additio
 
 Plugins run with the same access as the CMS. They can read and change content and settings. Only install plugins from sources you trust, and keep them updated. If you no longer need one, disable it.
 
-**Bundled plugins (examples)**
+**Official plugins (marketplace)**
 
-| Plugin | Docs |
-|--------|------|
-| **Commerce** | [Commerce plugin](plugins/commerce.md) — sell products, downloads, classes, memberships |
-| **User Management** | [User plugin](user-plugin.md) — registration, tiers, permissions |
-| **Automation** | [Automation overview](../05-automation/automation-overview.md) — workflows and triggers |
+CMS downloads do **not** include plugins. Install official Birkly extensions from **Plugins → Marketplace** (free, one-click) or [marketplace.birkly.com](https://marketplace.birkly.com).
+
+| Plugin | Marketplace | Docs |
+|--------|-------------|------|
+| **Commerce** | [birkly-commerce](https://marketplace.birkly.com/offers/birkly-commerce) | [Commerce plugin](plugins/commerce.md) |
+| **Events** | [birkly-events](https://marketplace.birkly.com/offers/birkly-events) | [Events functions](../03-templating/events-functions.md) |
+| **Automation** | [birkly-automation](https://marketplace.birkly.com/offers/birkly-automation) | [Automation overview](../05-automation/automation-overview.md) |
+| **User Management** | [birkly-user-management](https://marketplace.birkly.com/offers/birkly-user-management) | [User plugin](user-plugin.md) |
+
+See [Marketplace go-live — installing plugins](marketplace-go-live.md) for fresh-install workflow and grandfathered upgrades.
 
 **Birkly Marketplace**
 
@@ -52,6 +57,7 @@ Browse official and community extensions at [marketplace.birkly.com](https://mar
 |------|-------|
 | **Buyer** (install in CMS) | [Marketplace — buyer license and install](marketplace-buyer-guide.md) |
 | **Provider** (publish offers) | [Marketplace — provider publishing guide](marketplace-provider-guide.md) |
+| **Go-live / unbundling** | [Marketplace go-live — installing plugins](marketplace-go-live.md) |
 
 ## Advanced Users
 
@@ -89,10 +95,11 @@ The plugin system may support capabilities, permissions, migrations, scheduled t
 
 **Troubleshooting activation**
 
-- If **User Management** (or another bundled plugin) fails with a generic “dependencies not met” message on an up-to-date install, check the detailed `errors[]` in the plugin settings response. On older cores, a registry bug (`$haru_plugins` vs `$birkly_plugins`) blocked activation — update Birkly first. See [Troubleshooting](../07-operations/troubleshooting.md#user-management-plugin-wont-enable).
+- If **User Management** (or another marketplace-installed plugin) fails with a generic “dependencies not met” message on an up-to-date install, check the detailed `errors[]` in the plugin settings response. On older cores, a registry bug (`$haru_plugins` vs `$birkly_plugins`) blocked activation — update Birkly first. See [Troubleshooting](../07-operations/troubleshooting.md#user-management-plugin-wont-enable).
 
 ## Related
 
+- [Marketplace go-live — installing plugins](marketplace-go-live.md)
 - [Marketplace — buyer license and install](marketplace-buyer-guide.md)
 - [Marketplace — provider publishing guide](marketplace-provider-guide.md)
 - [Settings](../01-admin/settings.md)

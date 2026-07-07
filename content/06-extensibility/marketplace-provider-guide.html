@@ -15,7 +15,7 @@
 <li>Complete <strong>Stripe Connect</strong> onboarding (charges and payouts must be enabled).</li>
 <li>Click <strong>New offer</strong> and fill in:</li>
 </ol>
-<p>   - <strong>Slug</strong> — stable URL id (lowercase, hyphens, e.g. <code>my-seo-plugin</code>)    - <strong>Title</strong> and <strong>summary</strong> — shown in the public catalog    - <strong>Offer type</strong> — plugin, theme, or template pack    - <strong>Category</strong> and <strong>tags</strong> — help buyers find your offer    - <strong>Pricing</strong> — free, one-time, or subscription (with currency and amount)    - <strong>License seats</strong> — single site, multi-site tiers, or unlimited    - <strong>Compatibility</strong> — <code>requires_birkly</code> and <code>requires_php</code> semver ranges; optional capability declarations</p>
+<p>   - <strong>Slug</strong> — stable URL id (lowercase, hyphens, e.g. <code>my-seo-plugin</code>)    - <strong>Title</strong> and <strong>summary</strong> — shown in the public catalog    - <strong>Offer type</strong> — plugin, theme, or template pack    - <strong>Category</strong> and <strong>tags</strong> — help buyers find your offer    - <strong>Pricing</strong> — free, one-time, or <strong>subscription</strong> (with currency, amount, and interval <code>month</code> / <code>year</code>)    - <strong>License seats</strong> — single site, multi-site tiers, or unlimited    - <strong>Compatibility</strong> — <code>requires_birkly</code> and <code>requires_php</code> semver ranges; optional capability declarations</p>
 <ol>
 <li><strong>Upload a release</strong> — zip artifact for a semver version (e.g. <code>1.0.0</code>) plus changelog text.</li>
 <li><strong>Publish</strong> — preflight and QC run automatically; verified-tier offers enter a manual review queue first.</li>
@@ -30,6 +30,16 @@
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Manifest schema</strong></p>
 <p>Offers validate against <code>offer-manifest.schema.json</code> in the marketplace repo. Required fields include <code>slug</code>, <code>title</code>, <code>summary</code>, <code>offer_type</code>, <code>category</code>, <code>pricing</code>, <code>license</code>, <code>compatibility</code>, <code>trust_level</code>, and at least one <code>releases[]</code> entry with artifact URL, SHA-256 checksum, and size.</p>
+<p><strong>Pricing models</strong></p>
+<p>| <code>pricing.model</code> | Fields | Buyer experience | |-----------------|--------|------------------| | <code>free</code> | <code>amount_cents: 0</code> | Checkout may capture email; CMS one-click or license | | <code>one_time</code> | <code>amount_cents</code> &gt; 0, <code>currency</code> | Single Stripe payment; perpetual license per seat tier | | <code>subscription</code> | <code>amount_cents</code> &gt; 0, <code>currency</code>, <code>subscription_interval</code> (<code>month</code> / <code>year</code>) | Stripe Billing; license <code>active</code> while subscription active; revoked on <code>customer.subscription.deleted</code> |</p>
+<p>Example subscription block in offer manifest:</p>
+<pre><code>&quot;pricing&quot;: {
+  &quot;model&quot;: &quot;subscription&quot;,
+  &quot;amount_cents&quot;: 999,
+  &quot;currency&quot;: &quot;USD&quot;,
+  &quot;subscription_interval&quot;: &quot;month&quot;
+}</code></pre>
+<p>Stripe webhooks (<code>customer.subscription.updated</code>, <code>customer.subscription.deleted</code>) update license status. CMS update checks call <code>GET /api/v1/licenses/status</code> and block updates when subscription lapses.</p>
 <p><strong>Plugin package (<code>plugin.json</code>)</strong></p>
 <p>Artifacts are validated against <code>plugin-package.schema.json</code>. Required: <code>name</code>, <code>version</code>, <code>description</code>. Recommended: <code>requires_birkly</code>, <code>requires_php</code>, declared <code>capabilities</code> (least privilege).</p>
 <p><strong>Registry API</strong></p>

@@ -22,8 +22,8 @@ Use this checklist when promoting **staging → production** for the Birkly plat
 1. Pull latest `main` on the server (or run `./scripts/deploy-pull.sh`).
 2. Ensure writable dirs: `content/`, `media/`, `settings/`, `data/`, `cache/`, `logs/`.
 3. Run smoke script: `./scripts/production-smoke.sh` (or manual checks below).
-4. Log in to admin; verify **Commerce**, **Plugins → Marketplace**, and **Settings → Security** load.
-5. Hit `GET /api/health.php` — extended checks: disk writable, plugin state, marketplace reachability.
+4. Log in to admin; verify **Commerce**, **Plugins → Marketplace**, **Settings → Security**, and **Settings → Monitoring** load.
+5. Hit `GET /api/health.php` — extended checks: disk writable, plugin state, marketplace reachability. Configure alert email in Monitoring before go-live (see [Monitoring and health alerts](monitoring-alerts.md)).
 
 ### Marketplace deploy
 

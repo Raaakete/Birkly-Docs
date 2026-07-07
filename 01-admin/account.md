@@ -2,7 +2,7 @@
 
 ## Summary
 
-Your **account** is your own user profile in the Birkly admin: display name, email, password, optional avatar, and (if the installation supports it) two-factor authentication (2FA). You change these in the Account (or Profile) section, not in Settings—Settings are for site-wide configuration and other users. Use a strong password and enable 2FA if available for extra security.
+Your **account** is your own user profile in the Birkly admin: display name, email, password, optional avatar, optional **Birkly cloud account link**, and (if the installation supports it) two-factor authentication (2FA). You change these in the Account (or Profile) section, not in Settings—Settings are for site-wide configuration and other users. Local email + password login always works; cloud link is optional. Use a strong password and enable 2FA if available for extra security.
 
 ## Beginner
 
@@ -34,6 +34,15 @@ If your Birkly installation has 2FA, you can turn it on so that after entering y
 
 Use **Logout** when you’re done, especially on a shared computer. That ends your session so the next person can’t use your account. Sessions may also expire after a period of inactivity (e.g. 30 minutes), depending on server configuration.
 
+**Link Birkly cloud account (optional)**
+
+Some installations let you connect a **Birkly cloud account** alongside your local CMS login. This does **not** replace your admin password — you still sign in with email and password on your server.
+
+- **Link:** On the Account page, click **Link Birkly cloud account**. You are redirected to `cloud.birkly.io` (or your operator's OAuth URL), approve access, and return to the CMS. A **Linked** badge shows your cloud email.
+- **Why link:** Marketplace install may sync `installation_owner_email` for support; future cloud services may use the link.
+- **Unlink:** Click **Unlink** on Account. Local login is unchanged; only the cloud association is removed.
+- **No link required:** Skip linking if you self-host only with local accounts.
+
 **Who manages other users**
 
 **Inviting** new users, **changing** someone’s role, or **deleting** users is done in **Settings → Users** (or similar) by an administrator. Your Account page is only for **your** profile. If you need another account (e.g. a new team member), ask an admin to send an invite.
@@ -47,6 +56,8 @@ Use **Logout** when you’re done, especially on a shared computer. That ends yo
 **Session:** Session ID in cookie (httpOnly, secure in prod); server stores session data (user id, expiry). Logout invalidates session. Permissions may be cached in session or read from DB per request.
 
 **Avatar:** Upload to media or user assets; store URL/path in user record. Or external URL if allowed.
+
+**Cloud account link (P13):** State in `settings/cloud_account.json` (tokens stored server-side, chmod 0600). API: `api/cloud_account.php` — `start_link`, OAuth callback, `status`, `unlink`. `core/cloud_account.php` handles token refresh; status API omits secrets. Mock mode: `BIRKLY_CLOUD_ACCOUNT_MOCK=1` for CI. Marketplace tab reads `cloud_account_linked` from `api/marketplace.php`. Local `api/auth.php` login is unchanged when cloud is linked or unlinked.
 
 ## Related
 

@@ -1,0 +1,31 @@
+<p>Terms, privacy, and in-admin feedback for closed-alpha testers (Phase 15).</p>
+<div class="doc-summary"><p>Closed-alpha Birkly installs link to <strong>alpha terms</strong> and <strong>privacy</strong> pages from the admin footer and marketplace site. The <strong>Feedback</strong> widget collects bugs and ideas with category, optional screenshot note, and rate limiting. Use Feedback for product issues; legal pages describe data use during the alpha period.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Footer links</strong></p>
+<p>In the admin, scroll to the page footer. You should see links such as:</p>
+<ul>
+<li><strong>Terms of service</strong> (alpha) — acceptable use, no production SLA, software as-is during alpha</li>
+<li><strong>Privacy policy</strong> — what Birkly collects (account email, feedback content, optional analytics) and retention</li>
+</ul>
+<p>The <a href="https://birkly.com">Birkly website</a> and <a href="https://marketplace.birkly.io">marketplace</a> host matching legal pages for buyers and providers.</p>
+<p><strong>Submitting feedback</strong></p>
+<ol>
+<li>Click <strong>Feedback</strong> in the admin sidebar (or the floating widget).</li>
+<li>Choose a <strong>category</strong>: Bug, Idea, or Other.</li>
+<li>Describe what happened or what you want. For bugs, include steps to reproduce.</li>
+<li>Optionally note that you can attach a screenshot (paste path or describe what you saw).</li>
+<li>Submit — admins see submissions under <strong>Feedback</strong> in the admin.</li>
+</ol>
+<p>Feedback may include page URL, CMS version, and browser user-agent to help reproduce issues. Do not paste passwords or API keys into feedback text.</p>
+<p><strong>Marketplace legal</strong></p>
+<p>Buying or selling on the marketplace is governed by marketplace <strong>Terms</strong>, <strong>Refund policy</strong>, and <strong>Provider Agreement</strong> (for sellers). CMS alpha terms do not replace marketplace checkout terms.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>CMS templates:</strong> Alpha legal copy ships as PHP/HTML partials linked from <code>admin/partials/layout_footer.php</code>. Update paths in Settings or deploy new CMS build to change URLs.</p>
+<p><strong>Feedback API:</strong> <code>POST /api/feedback.php</code> — rate limited per session/IP; stores JSON under <code>data/feedback/</code> (not committed). Admin list: Feedback admin page.</p>
+<p><strong>Widget:</strong> <code>admin/partials/feedback-widget.php</code> — category select, message body, optional screenshot note field (P15-M4 polish).</p>
+<p><strong>Cross-repo sync:</strong> Birkly-Website legal pages should match CMS footer URLs. Marketplace <code>views/legal/</code> pages cover buyer/provider obligations.</p>
+<p><strong>Human review:</strong> Alpha terms are not a substitute for counsel before public launch. See <code>docs/reviews/P13-P15-phase-closure-checklist.md</code> legal review item.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="closed-alpha-guide.html">Closed alpha guide</a></li>
+<li><a href="../01-admin/help-and-onboarding.html">Help and onboarding</a></li>
+<li><a href="../01-admin/account.html">Account</a></li>
+<li><a href="../06-extensibility/marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
+</ul></div>

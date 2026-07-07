@@ -26,7 +26,7 @@ Publish plugins, themes, and template packs on the [Birkly Marketplace](https://
    - **Title** and **summary** — shown in the public catalog
    - **Offer type** — plugin, theme, or template pack
    - **Category** and **tags** — help buyers find your offer
-   - **Pricing** — free, one-time, or subscription (with currency and amount)
+   - **Pricing** — free, one-time, or **subscription** (with currency, amount, and interval `month` / `year`)
    - **License seats** — single site, multi-site tiers, or unlimited
    - **Compatibility** — `requires_birkly` and `requires_php` semver ranges; optional capability declarations
 6. **Upload a release** — zip artifact for a semver version (e.g. `1.0.0`) plus changelog text.
@@ -45,6 +45,27 @@ Publish plugins, themes, and template packs on the [Birkly Marketplace](https://
 **Manifest schema**
 
 Offers validate against `offer-manifest.schema.json` in the marketplace repo. Required fields include `slug`, `title`, `summary`, `offer_type`, `category`, `pricing`, `license`, `compatibility`, `trust_level`, and at least one `releases[]` entry with artifact URL, SHA-256 checksum, and size.
+
+**Pricing models**
+
+| `pricing.model` | Fields | Buyer experience |
+|-----------------|--------|------------------|
+| `free` | `amount_cents: 0` | Checkout may capture email; CMS one-click or license |
+| `one_time` | `amount_cents` > 0, `currency` | Single Stripe payment; perpetual license per seat tier |
+| `subscription` | `amount_cents` > 0, `currency`, `subscription_interval` (`month` / `year`) | Stripe Billing; license `active` while subscription active; revoked on `customer.subscription.deleted` |
+
+Example subscription block in offer manifest:
+
+```json
+"pricing": {
+  "model": "subscription",
+  "amount_cents": 999,
+  "currency": "USD",
+  "subscription_interval": "month"
+}
+```
+
+Stripe webhooks (`customer.subscription.updated`, `customer.subscription.deleted`) update license status. CMS update checks call `GET /api/v1/licenses/status` and block updates when subscription lapses.
 
 **Plugin package (`plugin.json`)**
 

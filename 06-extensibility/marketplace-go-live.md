@@ -1,10 +1,10 @@
 # Marketplace go-live — installing plugins
 
-Birkly CMS downloads ship **without bundled plugins**. After a fresh install, the `plugins/` folder is empty and you add extensions from the [Birkly Marketplace](https://marketplace.birkly.io). Official Birkly plugins (commerce, events, automation, user management) are **free** and install in one click from the CMS admin — no checkout or license key required.
+Birkly CMS downloads ship **without bundled plugins**. After a fresh install, the `plugins/` folder is empty and you add extensions from the [Birkly Marketplace](https://marketplace.birkly.io). Official Birkly plugins (commerce, events, automation, user management) are **free** and install in one click from the CMS admin. **Paid official** plugins require marketplace checkout and a license key. **Subscription** official plugins bill monthly/yearly until canceled. **Paid third-party** offers use the same checkout flow.
 
 ## Summary
 
-**Fresh installs** contain core CMS only: no commerce, events, automation, or user-management code in the download. Open **Plugins → Marketplace** in the admin to browse the catalog and install extensions. **Official plugins** are published by Birkly on the marketplace at no cost; click **Install** in the CMS — the marketplace issues a license automatically in the background. **Paid third-party** offers require checkout on marketplace.birkly.io and a license key (or **My purchases** login) before install. **Existing installs** that already have plugin folders keep working; future updates for those plugins come from the marketplace.
+**Fresh installs** contain core CMS only: no commerce, events, automation, or user-management code in the download. Open **Plugins → Marketplace** in the admin to browse the catalog and install extensions. **Free official** plugins install in one click. **Paid official** plugins show a price badge and **Purchase** CTA — complete checkout, then activate the license in CMS. **Existing installs** that already have plugin folders keep working; future updates for those plugins come from the marketplace.
 
 ## Beginner
 
@@ -40,6 +40,8 @@ These four plugins are maintained by Birkly and listed on the marketplace as **f
 | `events` | [birkly-events](https://marketplace.birkly.io/offers/birkly-events) | Events, RSVP, paid tickets (uses Commerce) | [Events functions](../03-templating/events-functions.md) |
 | `automation` | [birkly-automation](https://marketplace.birkly.io/offers/birkly-automation) | Workflows, triggers, conditions, actions | [Automation overview](../05-automation/automation-overview.md) |
 | `user_management` | [birkly-user-management](https://marketplace.birkly.io/offers/birkly-user-management) | Registration, auth, tiers, permissions | [User plugin](user-plugin.md) |
+
+**Paid and subscription official offers** (for example SEO Basics, Analytics Pro) also appear in the catalog with `pricing.model` `one_time` or `subscription`. They require marketplace checkout — see [Marketplace — buyer license and install](marketplace-buyer-guide.md).
 
 Community plugins, themes, and template packs from other providers may be free or paid — see [Marketplace — buyer license and install](marketplace-buyer-guide.md).
 

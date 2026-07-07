@@ -7,8 +7,8 @@
 <li>Pull latest <code>main</code> on the server (or run <code>./scripts/deploy-pull.sh</code>).</li>
 <li>Ensure writable dirs: <code>content/</code>, <code>media/</code>, <code>settings/</code>, <code>data/</code>, <code>cache/</code>, <code>logs/</code>.</li>
 <li>Run smoke script: <code>./scripts/production-smoke.sh</code> (or manual checks below).</li>
-<li>Log in to admin; verify <strong>Commerce</strong>, <strong>Plugins → Marketplace</strong>, and <strong>Settings → Security</strong> load.</li>
-<li>Hit <code>GET /api/health.php</code> — extended checks: disk writable, plugin state, marketplace reachability.</li>
+<li>Log in to admin; verify <strong>Commerce</strong>, <strong>Plugins → Marketplace</strong>, <strong>Settings → Security</strong>, and <strong>Settings → Monitoring</strong> load.</li>
+<li>Hit <code>GET /api/health.php</code> — extended checks: disk writable, plugin state, marketplace reachability. Configure alert email in Monitoring before go-live (see <a href="monitoring-alerts.html">Monitoring and health alerts</a>).</li>
 </ol>
 <h3>Marketplace deploy</h3>
 <ol>

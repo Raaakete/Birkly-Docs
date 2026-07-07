@@ -1,39 +1,44 @@
 <p>Guide for <strong>invited closed-alpha testers</strong> of Birkly. If you do not have an invite, request access at the <a href="https://birkly.com">Birkly website</a> waitlist.</p>
-<div class="doc-summary"><p>Closed alpha means Birkly is feature-complete enough for real self-hosted trials but <strong>not</strong> a public beta. Expect rough edges. Your job: use the CMS on your own server, report bugs and ideas via in-admin <strong>Feedback</strong>, and read <strong>Help</strong> for docs. We ship fixes from your reports before open beta.</p>
+<div class="doc-summary"><p>Closed alpha means Birkly is feature-complete enough for real self-hosted trials but <strong>not</strong> a public beta. Expect rough edges. Your job: use the CMS on your own server, report bugs and ideas via in-admin <strong>Feedback</strong>, and read <strong>Help</strong> for live Birkly-Docs. We ship fixes from your reports before open beta.</p>
 <h2>What is in this alpha</h2>
-<p>| Area | What to test | |------|----------------| | <strong>BYOAI</strong> | Connect your provider (OpenAI, Claude, Ollama, …), assign a role, try chat read/write and approval queue | | <strong>MCP</strong> | Optional: connect Claude Desktop with a per-connection MCP key | | <strong>Automation</strong> | Enable the automation plugin; create a webhook or scheduled workflow | | <strong>User plugin</strong> | Registration, login, collection permissions | | <strong>ContentEditor</strong> | Block components (callout, quote, CTA, table, image) — save and reload entries | | <strong>Feedback</strong> | Submit bug/idea from the admin Feedback widget; confirm it appears in Feedback admin |</p>
+<p>| Area | What to test | |------|----------------| | <strong>BYOAI</strong> | Connect your provider (OpenAI, Claude, Ollama, …), assign a role, try chat read/write and approval queue | | <strong>MCP</strong> | Optional: connect Claude Desktop with a per-connection MCP key | | <strong>Automation</strong> | Enable the automation plugin; create a webhook or scheduled workflow | | <strong>User plugin</strong> | Registration, login, collection permissions | | <strong>ContentEditor</strong> | Block components (callout, quote, CTA, table, image) — save and reload entries | | <strong>Marketplace</strong> | Install free official plugins; paid/subscription checkout on marketplace.birkly.io | | <strong>Commerce</strong> | Multi-currency products, live import, warehouse stock, inventory webhooks | | <strong>Cloud account</strong> | Optional link on Account page (local login still primary) | | <strong>Admin UX</strong> | Light/dark/system theme toggle; mobile-friendly dashboard and Commerce | | <strong>Help</strong> | Live docs from Birkly-Docs with offline snapshot fallback | | <strong>Feedback</strong> | Submit bug/idea from the admin Feedback widget; confirm it appears in Feedback admin |</p>
 <h2>Getting started</h2>
 <ol>
 <li><strong>Install</strong> Birkly on a server or local PHP (see <a href="getting-started.html">Getting started</a>).</li>
 <li>Complete <strong>onboarding</strong> (project name, first admin user).</li>
-<li>Open <strong>Help</strong> (sidebar) for contextual docs — links open full Birkly-Docs topics.</li>
-<li>Enable plugins you need under <strong>Settings → Plugins</strong> (Automation, User Management).</li>
-<li>Connect <strong>AI</strong> under <strong>Settings → AI Connections</strong> — start with Ollama locally if you have no API key.</li>
+<li>Open <strong>Help</strong> (sidebar) for contextual docs — <strong>Read full doc</strong> opens Birkly-Docs topics.</li>
+<li>Install plugins from <strong>Plugins → Marketplace</strong> (Commerce, Events, Automation, User Management).</li>
+<li>Connect <strong>AI</strong> under <strong>Settings → AI &amp; Integrations</strong> — start with Ollama locally if you have no API key.</li>
+<li>Optionally <strong>link cloud account</strong> under Account (does not replace local password).</li>
 </ol>
 <h2>Reporting issues</h2>
 <p>Use <strong>Feedback</strong> in the admin (not only email) so we capture:</p>
 <ul>
 <li>Your message and category (bug / idea / other)</li>
-<li>Optional screenshot</li>
+<li>Optional screenshot note</li>
 <li>Page URL, CMS version, and browser info</li>
 </ul>
-<p>We use this data only to improve the alpha (see website Privacy Policy for retention). Include steps to reproduce for bugs.</p>
+<p>We use this data only to improve the alpha (see <a href="alpha-legal.html">Alpha legal</a> and website Privacy Policy). Include steps to reproduce for bugs.</p>
 <h2>What not to expect yet</h2>
 <ul>
 <li>Production SLA or 24/7 support</li>
-<li>Polished dark mode / full responsive admin rework</li>
-<li>Plugin marketplace</li>
 <li>Managed hosting from us — you self-host</li>
+<li>Full public marketplace without QC review for verified tier</li>
+<li>FX conversion between currencies (set each price explicitly)</li>
 </ul>
 <h2>Useful doc links</h2>
 <ul>
-<li><a href="ai-connections.html">AI connections</a> · <a href="mcp-connections.html">MCP connections</a></li>
+<li><a href="alpha-legal.html">Alpha legal</a> · <a href="../01-admin/account.html">Account</a> · <a href="../01-admin/admin-appearance.html">Admin appearance</a></li>
+<li><a href="../01-admin/ai-connections.html">AI connections</a> · <a href="../01-admin/mcp-connections.html">MCP connections</a></li>
+<li><a href="../06-extensibility/marketplace-go-live.html">Marketplace go-live</a></li>
+<li><a href="../06-extensibility/commerce-multi-currency.html">Commerce multi-currency</a></li>
 <li><a href="../05-automation/automation-overview.html">Automation overview</a></li>
 <li><a href="../06-extensibility/user-plugin.html">User plugin</a></li>
 <li><a href="../02-content/content-editor.html">ContentEditor blocks</a></li>
+<li><a href="../06-extensibility/scaffold-plugin-cli.html">Plugin scaffolding CLI</a></li>
 </ul></div>
 <div class="doc-related"><ul>
-<li><a href="../00-overview/getting-started.html">Getting started</a></li>
-<li><a href="help-and-onboarding.html">Help and onboarding</a></li>
+<li><a href="getting-started.html">Getting started</a></li>
+<li><a href="../01-admin/help-and-onboarding.html">Help and onboarding</a></li>
 <li><a href="../07-operations/troubleshooting.html">Troubleshooting</a></li>
 </ul></div>

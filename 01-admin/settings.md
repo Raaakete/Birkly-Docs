@@ -39,6 +39,8 @@ If something fails (for example invalid CSRF or missing permission), the message
 
 - **AI & Integrations** — Outbound AI providers (in-admin chat) and inbound MCP endpoints. See [AI overview](ai-overview.md), [AI connections](ai-connections.md), and [MCP connections](mcp-connections.md).
 
+- **Monitoring** — Health alert email and webhook URL when `/api/health.php` reports degraded or error. See [Monitoring and health alerts](../07-operations/monitoring-alerts.md).
+
 - **Webhooks** — Link to the dedicated webhooks page (`?page=webhooks`) for outgoing webhook URLs and events.
 
 - **Updates** (if available) — Check for new versions. Always back up before updating.
@@ -60,7 +62,7 @@ Security values are stored in `settings/security.json` and **enforced at runtime
 | **Require strong password** | When enabled, passwords must meet complexity rules (upper, lower, number, symbol). When disabled, only min length applies. |
 | **Enable CSRF protection** | When enabled, mutating API requests must include a valid CSRF token. When disabled, token checks are skipped (use only in controlled environments). |
 
-**Plugin security denylist** — Paths or resources blocked from all plugins regardless of granted capabilities. Managed in the Security tab; changes apply immediately. Supports collection slugs, entry ids, and wildcard patterns (for example `payroll/*`). See [Plugin security denylist](../06-extensibility/plugin-security-denylist.md).
+**Plugin security denylist** — Paths, collections, or **admin spaces** blocked from all plugins regardless of granted capabilities. Managed in the Security tab; changes apply immediately. Supports collection slugs, entry ids, wildcard patterns (for example `payroll/*`), and space ids (for example `commerce`). See [Plugin security denylist](../06-extensibility/plugin-security-denylist.md).
 
 **Two-factor authentication** — Per-user feature under **Account**, not global Settings.
 

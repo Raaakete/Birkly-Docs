@@ -1,0 +1,66 @@
+<p>Single-warehouse SKU inventory with decrement on paid orders and restore on full refunds (Phase 14).</p>
+<div class="doc-summary"><p><strong>Warehouse stock v1</strong> tracks <code>quantity_on_hand</code> per SKU in one logical warehouse. Paid orders decrement stock; full refunds restore it. Checkout blocks or warns when stock is insufficient. Live import and inventory webhooks can sync the same SKU rows.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Warehouse vs catalog quantity</strong></p>
+<ul>
+<li><strong>Catalog</strong> <code>quantity_available</code> on a Commerce entry is what customers see on the product.</li>
+<li><strong>Warehouse</strong> stock is SKU-level inventory used for fulfillment accuracy and checkout guards.</li>
+<li>When both exist for a SKU, webhooks and import update both; checkout uses warehouse counts when a warehouse row is present.</li>
+</ul>
+<p><strong>View and edit stock</strong></p>
+<ol>
+<li>Open <strong>Commerce</strong> in the admin.</li>
+<li>Go to <strong>Catalog</strong> and open a product (or the <strong>Stock</strong> tab when shown).</li>
+<li>Enter <strong>SKU</strong>, <strong>Quantity on hand</strong>, and optional <strong>Low stock threshold</strong>.</li>
+<li>Save.</li>
+</ol>
+<p><strong>Bulk import (optional)</strong></p>
+<ul>
+<li>Export a CSV with columns <code>sku</code>, <code>quantity_on_hand</code>, <code>low_stock_threshold</code>.</li>
+<li>Use <strong>Commerce → Stock → Import CSV</strong> when available on your build.</li>
+</ul>
+<p><strong>Checkout behaviour</strong></p>
+<ul>
+<li>Adding to cart checks warehouse availability when a SKU row exists.</li>
+<li>Checkout fails or shows a warning if <code>quantity_on_hand</code> is less than cart quantity.</li>
+<li>When payment completes (<code>order.paid</code>), stock decrements automatically.</li>
+<li><strong>Full refund</strong> restores the decremented quantity.</li>
+</ul>
+<p><strong>Low stock</strong></p>
+<ul>
+<li>Set a threshold per SKU; admin lists or badges can highlight SKUs at or below threshold (exact UI varies by Commerce version).</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Store:</strong> <code>data/plugins/commerce/warehouse_stock.json</code></p>
+<pre><code>{
+  &quot;skus&quot;: {
+    &quot;SKU-250G&quot;: {
+      &quot;sku&quot;: &quot;SKU-250G&quot;,
+      &quot;quantity_on_hand&quot;: 42,
+      &quot;low_stock_threshold&quot;: 5,
+      &quot;updated_at&quot;: &quot;2026-07-07T12:00:00+00:00&quot;
+    }
+  }
+}</code></pre>
+<p><strong>Class:</strong> <code>WarehouseStockStore</code></p>
+<ul>
+<li><code>set($sku, $quantityOnHand, $lowStockThreshold?)</code></li>
+<li><code>decrement($sku, $qty)</code> — called from <code>CommerceCheckoutService</code> on paid order</li>
+<li><code>restore($sku, $qty)</code> — on full refund</li>
+<li><code>hasSufficient($sku, $qty)</code> — checkout guard</li>
+</ul>
+<p><strong>Integration:</strong></p>
+<ul>
+<li><code>CommerceInventoryWebhookService::applyStockUpdate</code> updates warehouse when SKU matches</li>
+<li>Live import maps external SKU to catalog; warehouse rows are manual or CSV unless synced by webhook</li>
+</ul>
+<p><strong>Limitations (v1):</strong></p>
+<ul>
+<li>Single warehouse only — no multi-location routing</li>
+<li>No reserved stock / allocation queues</li>
+<li>Partial refunds may not restore warehouse quantity (full refund restores)</li>
+</ul>
+<p><strong>Tests:</strong> <code>commerce_warehouse_stock_test.php</code></p></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="commerce-inventory-webhooks.html">Commerce inventory webhooks</a></li>
+<li><a href="commerce-live-import.html">Commerce live import</a></li>
+</ul></div>

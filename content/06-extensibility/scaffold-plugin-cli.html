@@ -1,0 +1,41 @@
+<p>Generate a minimal activatable plugin tree from the command line (Phase 15).</p>
+<div class="doc-summary"><p>Run <code>php scripts/scaffold-plugin.php</code> in the Birkly repo to create a new plugin folder under <code>plugins/</code> with <code>plugin.php</code>, <code>plugin.json</code>, and starter hooks. Use <code>--privileged</code> to print a capability and denylist checklist for extensions that need elevated permissions.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>When to use the scaffold</strong></p>
+<p>You want a custom Birkly plugin without copying an existing plugin by hand. The CLI writes the files Birkly expects so <strong>Settings → Plugins</strong> can discover and activate your extension.</p>
+<p><strong>Create a basic plugin</strong></p>
+<p>From the Birkly project root:</p>
+<pre><code>php scripts/scaffold-plugin.php --id=my-plugin --title=&quot;My Plugin&quot;</code></pre>
+<p>This creates:</p>
+<pre><code>plugins/my-plugin/
+  plugin.php      # bootstrap, hooks
+  plugin.json     # name, version, description
+  README.md       # short maintainer notes</code></pre>
+<p><strong>Next steps</strong></p>
+<ol>
+<li>Open <code>plugins/my-plugin/plugin.php</code> and add your admin menu or API routes.</li>
+<li>Declare <strong>capabilities</strong> in <code>plugin.json</code> (least privilege).</li>
+<li>In admin, open <strong>Settings → Plugins</strong> and <strong>Activate</strong> My Plugin.</li>
+<li>Run <code>php tests/run.php</code> if you add tests alongside the scaffold.</li>
+</ol>
+<p><strong>Privileged plugins</strong></p>
+<p>If your plugin reads entries, calls outbound HTTP, or injects admin UI:</p>
+<pre><code>php scripts/scaffold-plugin.php --id=my-integration --title=&quot;My Integration&quot; --privileged</code></pre>
+<p>The <code>--privileged</code> flag prints a checklist:</p>
+<ul>
+<li>Required capabilities to declare</li>
+<li>Denylist and <code>deny_spaces</code> considerations</li>
+<li>Link to plugin security docs</li>
+</ul>
+<p>Review <a href="plugins.html">Plugins</a> and <a href="plugin-security-denylist.html">Plugin security denylist</a> before requesting broad permissions.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Script:</strong> <code>scripts/scaffold-plugin.php</code></p>
+<p>| Flag | Purpose | |------|---------| | <code>--id=</code> | Plugin folder id (lowercase, hyphens) — required | | <code>--title=</code> | Human title for <code>plugin.json</code> — required | | <code>--privileged</code> | Echo capability/denylist checklist to stdout | | <code>--force</code> | Overwrite existing folder (use with care) |</p>
+<p><strong>Output conforms to</strong> <code>docs/plugin-system-architecture-plan.md</code> scaffold section and <code>plugin-package.schema.json</code> (marketplace publishing).</p>
+<p><strong>Discovery:</strong> Bootstrap scans <code>plugins/{id}/plugin.php</code>; <code>register_plugin()</code> or equivalent init must run on activate.</p>
+<p><strong>Tests:</strong> <code>scaffold_plugin_test.php</code> — verifies generated tree activates without fatal errors.</p>
+<p><strong>Not included:</strong> Marketplace manifest, zip build, or Composer dependencies — add those separately for distribution.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins.html">Plugins</a></li>
+<li><a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a></li>
+<li><a href="plugin-security-denylist.html">Plugin security denylist</a></li>
+<li><a href="user-plugin.html">User plugin</a> — reference implementation</li>
+</ul></div>

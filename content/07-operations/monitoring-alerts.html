@@ -1,0 +1,50 @@
+<p>Configure email or webhook notifications when the CMS health endpoint reports <strong>degraded</strong> or <strong>error</strong> status (Phase 13 production ops).</p>
+<div class="doc-summary"><p><strong>Settings → Monitoring</strong> lets administrators register an <strong>alert email</strong> and/or <strong>webhook URL</strong>. When <code>GET /api/health.php</code> returns <code>degraded</code> or <code>error</code> (for example writable directories missing, plugin state failure, or marketplace unreachable), Birkly dispatches a plain-text alert. Use this with <code>./scripts/production-smoke.sh</code> and external uptime checks for staging and production.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Why monitoring matters</strong></p>
+<p>Self-hosted Birkly depends on disk permissions, PHP extensions, and network reachability. A silent failure (unwritable <code>content/</code>, expired TLS, marketplace down) can break checkout or admin saves. Health alerts give you an early warning without logging into the server daily.</p>
+<p><strong>Set up alerts</strong></p>
+<ol>
+<li>Open <strong>Settings</strong> in the admin sidebar.</li>
+<li>Click the <strong>Monitoring</strong> tab.</li>
+<li>Enter an <strong>Alert email</strong> — a valid address that receives plain-text messages when health is not OK.</li>
+<li>Optionally enter an <strong>Alert webhook URL</strong> — POST JSON payload to Slack, PagerDuty, or your own endpoint.</li>
+<li>Click <strong>Save settings</strong> (global Save bar at the top).</li>
+</ol>
+<p><strong>What triggers an alert</strong></p>
+<p>| Health status | Typical cause | |---------------|---------------| | <code>degraded</code> | Non-critical check failed (for example marketplace slow or optional plugin warning) | | <code>error</code> | Critical check failed (for example <code>content/</code> not writable, database connection failed) |</p>
+<p>Alerts fire when the health endpoint is evaluated and status is <code>degraded</code> or <code>error</code>. OK status does not send mail.</p>
+<p><strong>Verify it works</strong></p>
+<ol>
+<li>Visit <code>/api/health.php</code> in a browser or with <code>curl</code> — note the JSON <code>status</code> and <code>checks</code> array.</li>
+<li>Run <code>./scripts/production-smoke.sh</code> on the server — the script validates required health keys.</li>
+<li>For staging, the agent digest (<code>scripts/send-agent-digest.php</code>) can include an ops section when smoke fails.</li>
+</ol>
+<p><strong>Marketplace parity</strong></p>
+<p>The Birkly Marketplace has its own <code>/health</code> endpoint and smoke script. Configure alerts on both CMS and marketplace hosts in production.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Storage:</strong> <code>settings/monitoring.json</code></p>
+<pre><code>{
+  &quot;alert_email&quot;: &quot;ops@example.com&quot;,
+  &quot;alert_webhook_url&quot;: &quot;https://hooks.example.com/birkly-health&quot;
+}</code></pre>
+<p><strong>Health report shape</strong> (<code>api/health.php</code>):</p>
+<ul>
+<li><code>status</code> — <code>ok</code>, <code>degraded</code>, or <code>error</code></li>
+<li><code>service</code> — <code>birkly-cms</code></li>
+<li><code>version</code> — CMS semver</li>
+<li><code>checks[]</code> — <code>{ id, status, message }</code> catalog (disk writable, settings readable, plugins, marketplace reachability, etc.)</li>
+</ul>
+<p><strong>Alert dispatch</strong> (<code>core/health_alerts.php</code>):</p>
+<ul>
+<li><code>birkly_health_dispatch_alerts($report)</code> — called after health evaluation when status warrants alert</li>
+<li>Email via PHP <code>mail()</code> when <code>alert_email</code> validates</li>
+<li>Webhook POST with JSON body when <code>alert_webhook_url</code> is set</li>
+<li>Mock hook: <code>$GLOBALS['birkly_health_alert_mock']</code> for tests (<code>health_alert_test.php</code>)</li>
+</ul>
+<p><strong>Settings API:</strong> Monitoring fields are part of global <code>save_all</code> (<code>monitoringAlertEmail</code>, <code>monitoringAlertWebhookUrl</code>). Category read: <code>GET /api/settings.php?category=monitoring</code>.</p>
+<p><strong>Ops digest:</strong> <code>scripts/send-agent-digest.php</code> includes smoke failure summary when staging cron runs the production smoke script.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="../01-admin/settings.html">Settings</a></li>
+<li><a href="production-deploy-checklist.html">Production deploy checklist</a></li>
+<li><a href="troubleshooting.html">Troubleshooting</a></li>
+<li><a href="security.html">Security</a></li>
+</ul></div>

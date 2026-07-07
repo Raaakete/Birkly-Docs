@@ -2,7 +2,7 @@
 
 ## Summary
 
-**Help** is the in-admin documentation: a link or icon in the sidebar opens guides that explain collections, entries, field types, templating, and integration. This content can be sourced from Birkly Docs so it stays in sync with the product. **Onboarding** is the first-time setup wizard shown when the first admin logs in. It has a visual step-by-step flow with a progress bar — complete it in a few minutes or skip any step. The Dashboard **setup checklist** shows four essential items after onboarding so you always know what remains. If the instance was preconfigured, onboarding may not appear.
+**Help** is the in-admin documentation: a link or icon in the sidebar opens guides that explain collections, entries, field types, templating, and integration. The CMS fetches a **live manifest** from Birkly-Docs when online, with **offline fallback** to bundled snapshots. **Onboarding** is the first-time setup wizard shown when the first admin logs in. It has a visual step-by-step flow with a progress bar — complete it in a few minutes or skip any step. The Dashboard **setup checklist** shows four essential items after onboarding so you always know what remains. If the instance was preconfigured, onboarding may not appear.
 
 ## Beginner
 
@@ -10,9 +10,9 @@
 
 The **Help** section (often a "?" icon or a "Help" link in the sidebar) opens documentation **inside** the admin. You don't have to leave the panel or search the web—you can read how to create a collection, what field types mean, how to connect your website, and so on.
 
-- **What's in Help:** Topics match Birkly-Docs: Getting started, Content, AI (connections, MCP, approvals), Automation, User plugin, ContentEditor blocks, Plugins, Media, Settings, and more. Each topic has a short in-admin snapshot and a **Read full doc** link to the built HTML guide.
-- **How it's organized:** You may see a short summary for each topic and a way to "Read more" or open a longer explanation. That way you can skim the basics or dive into detail when you need it.
-- **Who updates it:** If your installation is set up to use Birkly Docs (the central doc set), the Help content can be updated whenever the docs are updated, so the in-admin help stays accurate.
+- **What's in Help:** Topics match Birkly-Docs: Getting started, Content, AI (connections, MCP, approvals), Automation, Commerce, Marketplace, User plugin, ContentEditor blocks, Plugins, Media, Settings, and more. Each topic has a short in-admin snapshot and a **Read full doc** link to the published HTML guide on [docs.birkly.com](https://docs.birkly.com).
+- **Live docs:** When your server can reach Birkly-Docs, Help loads the latest topic list from the public manifest. **Read full doc** opens the matching page in a new tab.
+- **Offline:** If the manifest cannot be fetched, Help falls back to **bundled snapshots** under `admin/docs/snapshots/` so basic guidance still works air-gapped.
 
 **Example:** You're not sure how to add a "Featured image" to a blog post. You click **Help**, open the "Entries" or "Field types" topic, and follow the steps. You never leave the admin.
 
@@ -53,7 +53,7 @@ You can point the Help content to Birkly Docs (or a built copy) so the in-admin 
 
 ## Advanced Users
 
-**Help:** Content can be static HTML/JS bundled in the admin, or loaded from a path (e.g. Birkly Docs). If from Markdown: build step or runtime conversion to HTML; navigation can mirror DOCS_ARCHITECTURE (Summary / Beginner / Advanced). Optional: search, deep links to sections.
+**Help:** Runtime manifest from `GET /api/help_manifest.php` (merges `docs/help-manifest.json` + active plugin topics). **Live Birkly-Docs:** `settings/help_manifest.json` may set `docs_base_url` and `remote_manifest_url` (default public: `https://docs.birkly.com/help-manifest.json`). `admin/js/help.js` fetches remote manifest when configured; on failure uses bundled core manifest. Topic `docs_path` resolves to `{docs_base_url}/{docs_path}` for **Read full doc** links. Snapshots: `/admin/docs/snapshots/*.md` or `api/plugin_doc.php` for plugins. Plugin topics appear under **Plugin extensions** nav (`section: plugins`, `source: plugin`). No npm build in CMS.
 
 **Onboarding:** State stored per user in `users/onboarding/{key}.json`. The wizard sets `setup_wizard_completed` when you finish or skip. **Skip** marks the wizard complete without installing demo content; **Complete** also sets `demo_content_installed`. Redirect to onboarding only happens when `setup_wizard_completed` is false — existing demo content on disk does not force the wizard. Dashboard checklist merges API state with session so completed steps are not overwritten.
 

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>commerce multi currency — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="commerce-multi-currency.html" class="nav-link active">Commerce multi-currency</a>
+        <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        <a href="../help-manifest.json" class="nav-link">CMS Help manifest</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Sell in more than one currency with a site default and per–purchase-option overrides (Phase 14). No automatic FX conversion — each order stores the currency charged.</p>
+<div class="doc-summary"><p>Commerce <strong>multi-currency v1</strong> sets a site-wide default (<code>commerce_default_currency</code>) and optional <strong>currency per purchase option</strong> on each product. Checkout passes the selected currency to payment providers; orders, analytics CSV, gift cards, and quotes respect the order currency without cross-currency math.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>How currencies work</strong></p>
+<ul>
+<li>One Birkly site can sell a product in <strong>EUR</strong> and another product in <strong>USD</strong> on the same catalog.</li>
+<li>Each <strong>purchase option</strong> (one-time or subscription) has its own <code>currency</code> code (ISO 4217 lowercase, e.g. <code>eur</code>, <code>usd</code>).</li>
+<li>The <strong>site default</strong> applies when a purchase option does not specify currency.</li>
+<li>Birkly does <strong>not</strong> convert prices between currencies — you set each price explicitly.</li>
+</ul>
+<p><strong>Set the site default</strong></p>
+<ol>
+<li>Open <strong>Commerce → Settings</strong>.</li>
+<li>Find <strong>Default currency</strong> (for example <code>eur</code>).</li>
+<li>Save.</li>
+</ol>
+<p><strong>Set currency on a product</strong></p>
+<ol>
+<li>Edit a Commerce entry (or variant).</li>
+<li>Open each <strong>purchase option</strong> row.</li>
+<li>Choose <strong>Currency</strong> from the selector (EUR, USD, GBP, etc.).</li>
+<li>Enter <strong>price</strong> in that currency's smallest unit (cents).</li>
+<li>Save the entry.</li>
+</ol>
+<p><strong>Checkout behaviour</strong></p>
+<ul>
+<li>Cart lines group by currency; mixed-currency carts checkout one currency at a time (or block mixed checkout per site policy).</li>
+<li>Payment providers receive the correct currency code.</li>
+<li>Order receipts and <strong>Commerce → Analytics</strong> CSV show the charged currency column.</li>
+</ul>
+<p><strong>Gift cards and quotes</strong></p>
+<ul>
+<li>Gift cards are issued in a single currency.</li>
+<li>B2B quotes store currency on the quote total — do not mix currencies on one quote.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Settings key:</strong> <code>commerce_default_currency</code> in Commerce plugin settings (default <code>eur</code>).</p>
+<p><strong>Purchase option schema:</strong></p>
+<pre><code>{
+  &quot;id&quot;: &quot;usd-once&quot;,
+  &quot;billing&quot;: &quot;one_time&quot;,
+  &quot;price_cents&quot;: 2499,
+  &quot;currency&quot;: &quot;usd&quot;
+}</code></pre>
+<p><strong>Checkout shelf:</strong> <code>CommerceCheckoutService</code> passes <code>currency</code> to all payment shelf providers. Order records persist <code>currency</code> at line and order level.</p>
+<p><strong>Analytics:</strong> <code>CommerceAnalyticsService</code> exports per-order currency; revenue summaries do not sum across currencies without explicit filtering.</p>
+<p><strong>Limitations (v1):</strong></p>
+<ul>
+<li>No FX engine or display-currency ≠ charge-currency</li>
+<li>No automatic geo-IP currency selection</li>
+<li>Refunds use the original order currency</li>
+</ul>
+<p><strong>Tests:</strong> <code>commerce_multi_currency_test.php</code></p></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="commerce-analytics.html">Commerce analytics</a></li>
+<li><a href="commerce-gift-cards-quotes.html">Commerce gift cards and quotes</a></li>
+<li><a href="../../03-templating/commerce-functions.html">Commerce functions</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
-<p>Block plugins from accessing specific collections, entries, or path patterns regardless of granted capabilities.</p>
-<div class="doc-summary"><p>The <strong>plugin security denylist</strong> is a global hard deny list in <strong>Settings → Security</strong>. Resources on the denylist cannot be read or modified by any plugin hook, UI injection, or service call — even if the plugin declared and was granted the relevant capability. Storage: <code>settings/plugin_denylist.json</code>.</p></div>
+<p>Block plugins from accessing specific collections, entries, admin <strong>spaces</strong>, or path patterns regardless of granted capabilities.</p>
+<div class="doc-summary"><p>The <strong>plugin security denylist</strong> is a global hard deny list in <strong>Settings → Security</strong>. Resources on the denylist cannot be read or modified by any plugin hook, UI injection, or service call — even if the plugin declared and was granted the relevant capability. <strong>Deny spaces</strong> block plugin UI and hooks in specific admin spaces (for example <code>commerce</code>, <code>automation</code>). Storage: <code>settings/plugin_denylist.json</code>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Why use a denylist</strong></p>
 <p>Some collections hold sensitive data (HR, payroll, legal). You may grant a plugin broad <code>read_entries</code> access for most content but want specific collections permanently off-limits. The denylist enforces that boundary.</p>
 <p><strong>Add a protected resource</strong></p>
@@ -15,28 +15,38 @@
 </ol>
 <p><strong>Remove a resource</strong></p>
 <p>Click <strong>Remove</strong> next to the entry. Plugins regain access subject to their normal capability grants.</p>
+<p><strong>Deny admin spaces (P14)</strong></p>
+<p>Some plugins inject sidebar panels or hooks tied to an admin <strong>space</strong> id (for example the Commerce admin area). To block a plugin from a space without denying entire collections:</p>
+<ol>
+<li>In <strong>Settings → Security → Plugin denylist</strong>, open <strong>Denied spaces</strong>.</li>
+<li>Add a space id (for example <code>commerce</code>, <code>content</code>, <code>settings</code>).</li>
+<li>Save — plugin sidebar injections and space-scoped hooks for that space are skipped for denylisted plugins.</li>
+</ol>
+<p>Use spaces when a plugin should run elsewhere but must not appear in one admin section.</p>
 <p><strong>What gets blocked</strong></p>
-<p>When a collection slug or entry id matches the denylist:</p>
+<p>When a collection slug, entry id, or <strong>space</strong> matches the denylist:</p>
 <ul>
 <li>Plugin hooks that read or write entries are denied.</li>
 <li>Capability checks return false before permission lookup.</li>
-<li>UI injections targeting denied scopes are skipped.</li>
+<li>UI injections targeting denied scopes or spaces are skipped.</li>
 </ul>
 <p>This does not affect <strong>admin users</strong> or <strong>core CMS</strong> — only plugin code paths that use the capability system.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Storage format</strong></p>
 <p><code>settings/plugin_denylist.json</code>:</p>
 <pre><code>{
   &quot;resources&quot;: [&quot;payroll&quot;, &quot;legal/*&quot;, &quot;entry:settings:secrets&quot;],
+  &quot;deny_collections&quot;: [&quot;payroll&quot;],
+  &quot;deny_spaces&quot;: [&quot;commerce&quot;],
   &quot;updated_at&quot;: &quot;2026-07-07T12:00:00+00:00&quot;
 }</code></pre>
 <p><strong>Enforcement</strong></p>
-<p><code>has_plugin_capability($plugin_id, $capability, $scope)</code> calls <code>is_resource_protected($scope)</code> first (denylist-first model). Wildcard patterns use <code>*</code> glob semantics converted to regex.</p>
+<p><code>has_plugin_capability($plugin_id, $capability, $scope)</code> calls <code>is_resource_protected($scope)</code> first (denylist-first model). <code>is_space_denied($space_id)</code> checks <code>deny_spaces</code> before space-scoped plugin hooks and admin injections. Wildcard patterns use <code>*</code> glob semantics converted to regex.</p>
 <p><strong>API</strong> (<code>/api/plugins_permissions.php</code>, requires <code>manage_plugins</code>):</p>
-<p>| Action | Body | |--------|------| | <code>get_denylist</code> | — | | <code>add_to_denylist</code> | <code>{ resource }</code> | | <code>remove_from_denylist</code> | <code>{ resource }</code> | | <code>set_denylist</code> | <code>{ resources: [] }</code> |</p>
+<p>| Action | Body | |--------|------| | <code>get_denylist</code> | — | | <code>add_to_denylist</code> | <code>{ resource }</code> or <code>{ resource, as_space: true }</code> | | <code>remove_from_denylist</code> | <code>{ resource }</code> | | <code>set_denylist</code> | <code>{ resources: [], deny_spaces: [] }</code> |</p>
 <p><strong>Resource identifier conventions</strong></p>
-<p>| Pattern | Matches | |---------|---------| | <code>blog</code> | Collection slug <code>blog</code> | | <code>payroll/*</code> | Any resource starting with <code>payroll/</code> | | <code>entry:products:sku-123</code> | Specific entry scope |</p>
+<p>| Pattern | Matches | |---------|---------| | <code>blog</code> | Collection slug <code>blog</code> | | <code>payroll/*</code> | Any resource starting with <code>payroll/</code> | | <code>entry:products:sku-123</code> | Specific entry scope | | <code>commerce</code> (in <code>deny_spaces</code>) | Commerce admin space hooks and panels |</p>
 <p><strong>Audit</strong></p>
-<p>Permission changes log to the plugin permissions audit trail. Test denylist behavior with <code>plugin_denylist_test.php</code> in the Birkly test suite.</p></div></details>
+<p>Permission changes log to the plugin permissions audit trail. Test denylist behavior with <code>plugin_denylist_test.php</code> and <code>plugin_denylist_spaces_test.php</code> in the Birkly test suite.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="../01-admin/settings.html">Settings</a></li>
 <li><a href="plugins.html">Plugins</a></li>

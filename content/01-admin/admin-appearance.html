@@ -1,0 +1,40 @@
+<p>Light, dark, and system theme for the Birkly admin, plus responsive layout on key flows (Phase 15).</p>
+<div class="doc-summary"><p>The admin header includes a <strong>theme switcher</strong>: <strong>Light</strong>, <strong>Dark</strong>, or <strong>System</strong> (follow OS preference). Choice persists in browser <code>localStorage</code>. Phase 15 audits CSS variables for Commerce, Settings, Marketplace, and ContentEditor panels, and improves mobile layout for dashboard, entry lists, commerce admin, and settings near the <strong>768px</strong> breakpoint.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Change your theme</strong></p>
+<ol>
+<li>Look at the <strong>top bar</strong> of the admin (next to your account menu).</li>
+<li>Click the <strong>sun</strong> (light), <strong>moon</strong> (dark), or <strong>monitor</strong> (system) icon.</li>
+<li>The admin recolors immediately; your choice is remembered on this browser.</li>
+</ol>
+<p><strong>System theme</strong></p>
+<ul>
+<li><strong>System</strong> uses your computer's light/dark preference.</li>
+<li>If you change OS appearance, the admin updates automatically while System is selected.</li>
+</ul>
+<p><strong>Mobile and tablet</strong></p>
+<ul>
+<li>On narrow screens, the sidebar collapses behind a <strong>menu</strong> button.</li>
+<li>Dashboard cards, entry tables, and Commerce tabs scroll horizontally or stack vertically so primary actions stay reachable.</li>
+<li>If text is hard to read in dark mode on a specific screen, report via <strong>Feedback</strong> with a screenshot.</li>
+</ul>
+<p><strong>What theme does not change</strong></p>
+<ul>
+<li>Your public website appearance — only the CMS admin panel.</li>
+<li>Content entry HTML or storefront templates.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Client:</strong> <code>admin/js/theme.js</code> — <code>Birkly.Theme</code></p>
+<ul>
+<li><code>THEMES: ['light', 'dark', 'system']</code></li>
+<li><code>STORAGE_KEY: 'birkly_theme'</code></li>
+<li>Sets <code>data-theme</code> on <code>document.documentElement</code> and <code>body</code></li>
+<li><code>getResolvedTheme()</code> resolves <code>system</code> via <code>prefers-color-scheme</code></li>
+<li>Switcher markup: <code>admin/partials/theme-switcher.php</code></li>
+</ul>
+<p><strong>CSS:</strong> Design tokens under <code>[data-theme=&quot;dark&quot;]</code> and shared variables in admin stylesheets. Audited surfaces (P15-M1): Commerce admin tabs, Settings global save bar, Marketplace install panel, ContentEditor side panels, dashboard widgets.</p>
+<p><strong>Responsive:</strong> Breakpoint ~768px — sidebar toggle (<code>initMobileSidebar</code>), table overflow, stacked form rows.</p>
+<p><strong>No server setting:</strong> Theme is per-browser client preference; not stored in <code>settings/</code>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="dashboard.html">Dashboard</a></li>
+<li><a href="settings.html">Settings</a></li>
+<li><a href="help-and-onboarding.html">Help and onboarding</a></li>
+</ul></div>

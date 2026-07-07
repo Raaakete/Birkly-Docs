@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>commerce warehouse stock — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="commerce-warehouse-stock.html" class="nav-link active">Commerce warehouse stock</a>
+        <a href="commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        <a href="../help-manifest.json" class="nav-link">CMS Help manifest</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Single-warehouse SKU inventory with decrement on paid orders and restore on full refunds (Phase 14).</p>
+<div class="doc-summary"><p><strong>Warehouse stock v1</strong> tracks <code>quantity_on_hand</code> per SKU in one logical warehouse. Paid orders decrement stock; full refunds restore it. Checkout blocks or warns when stock is insufficient. Live import and inventory webhooks can sync the same SKU rows.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Warehouse vs catalog quantity</strong></p>
+<ul>
+<li><strong>Catalog</strong> <code>quantity_available</code> on a Commerce entry is what customers see on the product.</li>
+<li><strong>Warehouse</strong> stock is SKU-level inventory used for fulfillment accuracy and checkout guards.</li>
+<li>When both exist for a SKU, webhooks and import update both; checkout uses warehouse counts when a warehouse row is present.</li>
+</ul>
+<p><strong>View and edit stock</strong></p>
+<ol>
+<li>Open <strong>Commerce</strong> in the admin.</li>
+<li>Go to <strong>Catalog</strong> and open a product (or the <strong>Stock</strong> tab when shown).</li>
+<li>Enter <strong>SKU</strong>, <strong>Quantity on hand</strong>, and optional <strong>Low stock threshold</strong>.</li>
+<li>Save.</li>
+</ol>
+<p><strong>Bulk import (optional)</strong></p>
+<ul>
+<li>Export a CSV with columns <code>sku</code>, <code>quantity_on_hand</code>, <code>low_stock_threshold</code>.</li>
+<li>Use <strong>Commerce → Stock → Import CSV</strong> when available on your build.</li>
+</ul>
+<p><strong>Checkout behaviour</strong></p>
+<ul>
+<li>Adding to cart checks warehouse availability when a SKU row exists.</li>
+<li>Checkout fails or shows a warning if <code>quantity_on_hand</code> is less than cart quantity.</li>
+<li>When payment completes (<code>order.paid</code>), stock decrements automatically.</li>
+<li><strong>Full refund</strong> restores the decremented quantity.</li>
+</ul>
+<p><strong>Low stock</strong></p>
+<ul>
+<li>Set a threshold per SKU; admin lists or badges can highlight SKUs at or below threshold (exact UI varies by Commerce version).</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Store:</strong> <code>data/plugins/commerce/warehouse_stock.json</code></p>
+<pre><code>{
+  &quot;skus&quot;: {
+    &quot;SKU-250G&quot;: {
+      &quot;sku&quot;: &quot;SKU-250G&quot;,
+      &quot;quantity_on_hand&quot;: 42,
+      &quot;low_stock_threshold&quot;: 5,
+      &quot;updated_at&quot;: &quot;2026-07-07T12:00:00+00:00&quot;
+    }
+  }
+}</code></pre>
+<p><strong>Class:</strong> <code>WarehouseStockStore</code></p>
+<ul>
+<li><code>set($sku, $quantityOnHand, $lowStockThreshold?)</code></li>
+<li><code>decrement($sku, $qty)</code> — called from <code>CommerceCheckoutService</code> on paid order</li>
+<li><code>restore($sku, $qty)</code> — on full refund</li>
+<li><code>hasSufficient($sku, $qty)</code> — checkout guard</li>
+</ul>
+<p><strong>Integration:</strong></p>
+<ul>
+<li><code>CommerceInventoryWebhookService::applyStockUpdate</code> updates warehouse when SKU matches</li>
+<li>Live import maps external SKU to catalog; warehouse rows are manual or CSV unless synced by webhook</li>
+</ul>
+<p><strong>Limitations (v1):</strong></p>
+<ul>
+<li>Single warehouse only — no multi-location routing</li>
+<li>No reserved stock / allocation queues</li>
+<li>Partial refunds may not restore warehouse quantity (full refund restores)</li>
+</ul>
+<p><strong>Tests:</strong> <code>commerce_warehouse_stock_test.php</code></p></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="commerce-inventory-webhooks.html">Commerce inventory webhooks</a></li>
+<li><a href="commerce-live-import.html">Commerce live import</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

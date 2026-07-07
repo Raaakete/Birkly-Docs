@@ -1,10 +1,10 @@
-# Commerce live import — Shopify and WooCommerce
+# Commerce live import — Shopify, WooCommerce, Etsy, and Square
 
-Connect a live Shopify or WooCommerce store and sync products into Commerce catalog entries (Phase 12). CSV export import remains available for all platforms.
+Connect a live store and sync products into Commerce catalog entries (Phase 12–14). CSV export import remains available for all platforms. Shopify and WooCommerce also support **inventory webhooks** for real-time stock.
 
 ## Summary
 
-**Live import** uses REST APIs to fetch products from **Shopify** (custom app access token) or **WooCommerce** (REST API keys). Credentials are stored encrypted in Commerce admin. The sync wizard supports **preview → import → schedule** (cron token). Products map to Commerce fieldtype values (title, SKU, price, stock, optional image URL ingest).
+**Live import** uses REST APIs to fetch products from **Shopify** (custom app access token), **WooCommerce** (REST API keys), **Etsy** (Open API v3 — shop ID, API key, OAuth access token), or **Square** (Catalog API access token). Credentials are stored encrypted in Commerce admin. The sync wizard supports **preview → import → schedule** (cron token). Products map to Commerce fieldtype values (title, SKU, price, stock, optional image URL ingest).
 
 ## Beginner
 
@@ -13,7 +13,8 @@ Connect a live Shopify or WooCommerce store and sync products into Commerce cata
 | Mode | When to use |
 |------|-------------|
 | **CSV upload** | One-time export from any platform (see [Commerce import](commerce-import.md)) |
-| **Live API** | Ongoing sync from Shopify or WooCommerce |
+| **Live API** | Ongoing sync from Shopify, WooCommerce, Etsy, or Square |
+| **Inventory webhooks** | Real-time stock for Shopify/Woo only (see [Commerce inventory webhooks](commerce-inventory-webhooks.md)) |
 
 **Shopify setup**
 
@@ -30,6 +31,20 @@ Connect a live Shopify or WooCommerce store and sync products into Commerce cata
 2. Copy **Consumer key** and **Consumer secret** and site URL.
 3. In Birkly import wizard, select **WooCommerce (live API)**.
 4. Enter credentials, preview, and import.
+
+**Etsy setup (live API)**
+
+1. Create an Etsy app and obtain **API key** plus **OAuth access token** with `listings_r` scope.
+2. Note your **Shop ID** from Etsy Seller account.
+3. In Birkly: **Commerce → Import** → **Etsy (live API)**.
+4. Enter shop ID, API key, and access token; **Test connection**.
+5. Preview and import listings (paginated, max 100 pages in v1).
+
+**Square setup (live API)**
+
+1. In Square Developer Dashboard, create an application and **access token** with Catalog read scope.
+2. In Birkly import wizard, select **Square (live API)**.
+3. Paste access token; test, preview, and import catalog items (paginated).
 
 **Scheduled sync**
 
@@ -49,6 +64,10 @@ After a successful live import, copy the **cron URL** from import settings. Call
 |-------|------------------|
 | `ShopifyImportAdapter` | `GET /admin/api/.../products.json` (paginated) |
 | `WooImportAdapter` | `GET /wp-json/wc/v3/products` (paginated) |
+| `EtsyImportAdapter` | `GET /v3/application/shops/{id}/listings` (paginated) |
+| `SquareImportAdapter` | `GET /v2/catalog/list?types=ITEM` (cursor paginated) |
+
+All adapters run through `CommerceLiveImportService` with shared credential encryption and cron scheduling from P12.
 
 **Field mapping**
 
@@ -74,16 +93,18 @@ Encrypted in `data/plugins/commerce/` via `PaymentsCredentialStore` (separate co
 
 **Threat model**
 
-See Birkly `docs/reviews/P12-import-threat-model.md`: SSRF protection on store URLs, rate limits, no arbitrary URL fetch from user input.
+See Birkly `docs/reviews/P12-import-threat-model.md` and `P14-webhook-threat-model.md`: SSRF protection on store URLs, rate limits, HMAC on inventory webhooks, no arbitrary URL fetch from user input.
 
 **Out of scope (v1)**
 
-- Webhook-driven real-time sync (deferred)
+- Webhook-driven sync for Etsy/Square (Shopify/Woo inventory webhooks only)
 - Order or customer import
 - Automatic collection schema creation without Commerce fieldtype
 
 ## Related
 
 - [Commerce CSV import](commerce-import.md)
+- [Commerce inventory webhooks](commerce-inventory-webhooks.md)
+- [Commerce warehouse stock](commerce-warehouse-stock.md)
 - [Commerce plugin](plugins/commerce.md)
 - [Commerce migration wizard](commerce-migration-wizard.md)

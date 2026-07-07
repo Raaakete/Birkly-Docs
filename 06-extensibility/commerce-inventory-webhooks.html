@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>commerce inventory webhooks — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="commerce-inventory-webhooks.html" class="nav-link active">Commerce inventory webhooks</a>
+        <a href="commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        <a href="../help-manifest.json" class="nav-link">CMS Help manifest</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Real-time stock sync from Shopify and WooCommerce on top of scheduled live import (Phase 14). Webhook payloads update catalog <code>quantity_available</code> and warehouse rows when SKUs match.</p>
+<div class="doc-summary"><p><strong>Inventory webhooks</strong> receive <code>inventory_levels/update</code> (Shopify) and <code>product.updated</code> (WooCommerce) events at <code>api/commerce_webhooks.php</code>. HMAC/signature verification is required. Matching SKUs update Commerce catalog stock and optional warehouse <code>quantity_on_hand</code> without a full scheduled sync.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Why webhooks</strong></p>
+<p>Scheduled cron import (see <a href="commerce-live-import.html">Commerce live import</a>) can lag minutes or hours. Inventory webhooks push stock changes within seconds when someone buys on Shopify/Woo or staff adjusts quantity in the external admin.</p>
+<p><strong>Shopify setup</strong></p>
+<ol>
+<li>In <strong>Commerce → Import</strong>, save a Shopify live connection (store URL + access token).</li>
+<li>Open <strong>Inventory webhooks</strong> (or Import → Webhooks).</li>
+<li>Copy the <strong>webhook URL</strong> and <strong>signing secret</strong> shown for Shopify.</li>
+<li>In Shopify Admin → Settings → Notifications → Webhooks, create:</li>
+</ol>
+<p>   - Topic: <strong>Inventory levels update</strong>    - URL: paste Birkly webhook URL    - Format: JSON</p>
+<ol>
+<li>Paste Shopify's shared secret into Birkly and click <strong>Save</strong>.</li>
+<li>Use <strong>Rotate secret</strong> if you regenerate the Shopify secret.</li>
+</ol>
+<p><strong>WooCommerce setup</strong></p>
+<ol>
+<li>Save a WooCommerce REST connection in Commerce import settings.</li>
+<li>Copy the Woo webhook URL and secret from Birkly.</li>
+<li>In WordPress → WooCommerce → Settings → Advanced → Webhooks:</li>
+</ol>
+<p>   - Topic: <strong>Product updated</strong>    - Delivery URL: Birkly webhook URL    - Secret: match Birkly stored secret</p>
+<ol>
+<li>Save on both sides.</li>
+</ol>
+<p><strong>What gets updated</strong></p>
+<ul>
+<li>Commerce catalog index entries whose <strong>SKU</strong> matches the payload</li>
+<li>Warehouse stock row for the same SKU (if configured — see <a href="commerce-warehouse-stock.html">Commerce warehouse stock</a>)</li>
+<li>Entries without a matching SKU are skipped (no error to the platform)</li>
+</ul>
+<p><strong>Security</strong></p>
+<ul>
+<li>Unsigned or invalid HMAC requests are rejected with HTTP 401.</li>
+<li>Rotate secrets from Commerce admin when staff leave or after a leak.</li>
+<li>Webhooks are inbound-only — Birkly never writes stock back to Shopify/Woo in v1.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Endpoint:</strong> <code>POST /api/commerce_webhooks.php?platform=shopify|woocommerce</code></p>
+<p><strong>Verification:</strong></p>
+<p>| Platform | Header | Algorithm | |----------|--------|-----------| | Shopify | <code>X-Shopify-Hmac-Sha256</code> | HMAC-SHA256 of raw body, base64 | | WooCommerce | <code>X-WC-Webhook-Signature</code> | HMAC-SHA256 of raw body, base64 |</p>
+<p><strong>Service:</strong> <code>CommerceInventoryWebhookService</code></p>
+<ul>
+<li><code>handleShopifyInventoryUpdate($payload)</code> — reads <code>sku</code>, <code>available</code> / <code>quantity</code></li>
+<li><code>handleWooProductUpdated($payload)</code> — reads <code>sku</code>, <code>stock_quantity</code> when <code>manage_stock</code> is true</li>
+<li><code>applyStockUpdate($sku, $quantity, $source)</code> — updates catalog index + <code>WarehouseStockStore</code></li>
+</ul>
+<p><strong>Admin actions</strong> (<code>api/commerce.php</code>):</p>
+<ul>
+<li><code>rotate_inventory_webhook_secret</code> — new secret for platform</li>
+<li>Webhook registration helper displays callback URL per connection</li>
+</ul>
+<p><strong>Threat model:</strong> Extends Birkly <code>docs/reviews/P12-import-threat-model.md</code> and <code>P14-webhook-threat-model.md</code> — HMAC required, no arbitrary URL fetch from webhook handler, replay limited by platform delivery semantics.</p>
+<p><strong>Scheduled import:</strong> Webhooks complement <code>CommerceLiveImportService</code> cron; they do not replace initial product import.</p>
+<p><strong>Tests:</strong> <code>commerce_inventory_webhook_test.php</code></p></div></details>
+<div class="doc-related"><ul>
+<li><a href="commerce-live-import.html">Commerce live import</a></li>
+<li><a href="commerce-warehouse-stock.html">Commerce warehouse stock</a></li>
+<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="../05-automation/webhooks.html">Webhooks</a> — outgoing automation webhooks (different feature)</li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

@@ -16,6 +16,29 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-07 — Phase 13–15 platform sync (P13-M7 / P14-M6 / P15-M7)
+
+- **New:** `00-overview/alpha-legal.md` — closed-alpha terms, privacy, feedback (P15-M4).
+- **New:** `01-admin/admin-appearance.md` — light/dark/system theme, responsive admin (P15-M1).
+- **New:** `07-operations/monitoring-alerts.md` — Settings → Monitoring, health alert email/webhook (P13-M4).
+- **New:** `06-extensibility/commerce-multi-currency.md` — site default + per–purchase-option currency (P14-M1).
+- **New:** `06-extensibility/commerce-inventory-webhooks.md` — Shopify/Woo HMAC webhooks (P14-M2).
+- **New:** `06-extensibility/commerce-warehouse-stock.md` — SKU warehouse, pay/refund stock (P14-M3).
+- **New:** `06-extensibility/scaffold-plugin-cli.md` — `scripts/scaffold-plugin.php` (P15-M5).
+- **New:** `help-manifest.json` — public CMS Help manifest for live Birkly-Docs fetch (P15-M3).
+- **Updated:** `01-admin/account.md` — optional Birkly cloud account link (P13-M1).
+- **Updated:** `01-admin/help-and-onboarding.md` — live manifest + offline snapshot fallback (P15-M3).
+- **Updated:** `01-admin/settings.md` — Monitoring tab, denylist spaces cross-link.
+- **Updated:** `00-overview/closed-alpha-guide.md` — P13–P15 alpha scope, marketplace, commerce, theme.
+- **Updated:** `06-extensibility/marketplace-buyer-guide.md` — paid official, subscription licenses (P13-M2/M3).
+- **Updated:** `06-extensibility/marketplace-go-live.md` — paid official plugins table.
+- **Updated:** `06-extensibility/marketplace-provider-guide.md` — subscription pricing in manifest.
+- **Updated:** `06-extensibility/commerce-live-import.md` — Etsy/Square adapters, webhook cross-ref.
+- **Updated:** `06-extensibility/plugin-security-denylist.md` — `deny_spaces` enforcement (P14-M5).
+- **Updated:** `06-extensibility/plugins/commerce.md` — P14 admin tabs and guide links.
+- **Updated:** `07-operations/production-deploy-checklist.md` — monitoring alerts step.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`.
+
 ## 2026-07-07 — Phase 11–12 commerce and ecosystem docs (P11-M7 / P12-M7)
 
 - **New:** `06-extensibility/commerce-subscriptions.md` — plan upgrades, dunning, automation triggers, retry.

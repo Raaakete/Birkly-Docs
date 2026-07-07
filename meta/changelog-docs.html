@@ -23,6 +23,7 @@
         <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
         <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
         <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
@@ -31,6 +32,7 @@
         <a href="../01-admin/settings.html" class="nav-link">Settings</a>
         <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
         <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -81,8 +83,12 @@
         <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
         <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
         <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
         <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
         <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
         <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
         <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
         <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
@@ -92,6 +98,7 @@
         <div class="nav-section"><div class="nav-section-title">Operations</div>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
         <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
         <a href="../07-operations/security.html" class="nav-link">Security</a>
         <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
         <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
@@ -105,6 +112,7 @@
         <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
         <a href="../README.html" class="nav-link">README</a>
         <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        <a href="../help-manifest.json" class="nav-link">CMS Help manifest</a>
         </div>
       </nav>
     </aside>
@@ -120,6 +128,29 @@
 <p>---</p>
 <p>---</p>
 <p>---</p>
+<h2>2026-07-07 — Phase 13–15 platform sync (P13-M7 / P14-M6 / P15-M7)</h2>
+<ul>
+<li><strong>New:</strong> <code>00-overview/alpha-legal.md</code> — closed-alpha terms, privacy, feedback (P15-M4).</li>
+<li><strong>New:</strong> <code>01-admin/admin-appearance.md</code> — light/dark/system theme, responsive admin (P15-M1).</li>
+<li><strong>New:</strong> <code>07-operations/monitoring-alerts.md</code> — Settings → Monitoring, health alert email/webhook (P13-M4).</li>
+<li><strong>New:</strong> <code>06-extensibility/commerce-multi-currency.md</code> — site default + per–purchase-option currency (P14-M1).</li>
+<li><strong>New:</strong> <code>06-extensibility/commerce-inventory-webhooks.md</code> — Shopify/Woo HMAC webhooks (P14-M2).</li>
+<li><strong>New:</strong> <code>06-extensibility/commerce-warehouse-stock.md</code> — SKU warehouse, pay/refund stock (P14-M3).</li>
+<li><strong>New:</strong> <code>06-extensibility/scaffold-plugin-cli.md</code> — <code>scripts/scaffold-plugin.php</code> (P15-M5).</li>
+<li><strong>New:</strong> <code>help-manifest.json</code> — public CMS Help manifest for live Birkly-Docs fetch (P15-M3).</li>
+<li><strong>Updated:</strong> <code>01-admin/account.md</code> — optional Birkly cloud account link (P13-M1).</li>
+<li><strong>Updated:</strong> <code>01-admin/help-and-onboarding.md</code> — live manifest + offline snapshot fallback (P15-M3).</li>
+<li><strong>Updated:</strong> <code>01-admin/settings.md</code> — Monitoring tab, denylist spaces cross-link.</li>
+<li><strong>Updated:</strong> <code>00-overview/closed-alpha-guide.md</code> — P13–P15 alpha scope, marketplace, commerce, theme.</li>
+<li><strong>Updated:</strong> <code>06-extensibility/marketplace-buyer-guide.md</code> — paid official, subscription licenses (P13-M2/M3).</li>
+<li><strong>Updated:</strong> <code>06-extensibility/marketplace-go-live.md</code> — paid official plugins table.</li>
+<li><strong>Updated:</strong> <code>06-extensibility/marketplace-provider-guide.md</code> — subscription pricing in manifest.</li>
+<li><strong>Updated:</strong> <code>06-extensibility/commerce-live-import.md</code> — Etsy/Square adapters, webhook cross-ref.</li>
+<li><strong>Updated:</strong> <code>06-extensibility/plugin-security-denylist.md</code> — <code>deny_spaces</code> enforcement (P14-M5).</li>
+<li><strong>Updated:</strong> <code>06-extensibility/plugins/commerce.md</code> — P14 admin tabs and guide links.</li>
+<li><strong>Updated:</strong> <code>07-operations/production-deploy-checklist.md</code> — monitoring alerts step.</li>
+<li><strong>Updated:</strong> <code>CONTENTS_INDEX.md</code>, <code>manifest.json</code>, <code>help-manifest.json</code>.</li>
+</ul>
 <h2>2026-07-07 — Phase 11–12 commerce and ecosystem docs (P11-M7 / P12-M7)</h2>
 <ul>
 <li><strong>New:</strong> <code>06-extensibility/commerce-subscriptions.md</code> — plan upgrades, dunning, automation triggers, retry.</li>

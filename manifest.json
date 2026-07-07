@@ -8,7 +8,8 @@
         { "path": "00-overview/what-is-birkly.md", "label": "What is Birkly" },
         { "path": "00-overview/what-is-a-cms.md", "label": "What is a CMS" },
         { "path": "00-overview/getting-started.md", "label": "Getting started" },
-        { "path": "00-overview/closed-alpha-guide.md", "label": "Closed alpha guide" }
+        { "path": "00-overview/closed-alpha-guide.md", "label": "Closed alpha guide" },
+        { "path": "00-overview/alpha-legal.md", "label": "Alpha legal and feedback" }
       ]
     },
     {
@@ -21,6 +22,7 @@
         { "path": "01-admin/settings.md", "label": "Settings" },
         { "path": "01-admin/roles-and-permissions.md", "label": "Roles and permissions" },
         { "path": "01-admin/account.md", "label": "Account" },
+        { "path": "01-admin/admin-appearance.md", "label": "Admin appearance" },
         { "path": "01-admin/help-and-onboarding.md", "label": "Help and onboarding" },
         { "path": "01-admin/ai-overview.md", "label": "AI overview" },
         { "path": "01-admin/ai-connections.md", "label": "AI connections" },
@@ -91,8 +93,12 @@
         { "path": "06-extensibility/commerce-analytics.md", "label": "Commerce analytics" },
         { "path": "06-extensibility/commerce-migration-wizard.md", "label": "Commerce migration wizard" },
         { "path": "06-extensibility/commerce-live-import.md", "label": "Commerce live import" },
+        { "path": "06-extensibility/commerce-multi-currency.md", "label": "Commerce multi-currency" },
+        { "path": "06-extensibility/commerce-inventory-webhooks.md", "label": "Commerce inventory webhooks" },
+        { "path": "06-extensibility/commerce-warehouse-stock.md", "label": "Commerce warehouse stock" },
         { "path": "06-extensibility/commerce-membership.md", "label": "Commerce membership wiring" },
         { "path": "06-extensibility/plugin-security-denylist.md", "label": "Plugin security denylist" },
+        { "path": "06-extensibility/scaffold-plugin-cli.md", "label": "Plugin scaffolding CLI" },
         { "path": "06-extensibility/commerce-import.md", "label": "Commerce CSV import" },
         { "path": "06-extensibility/user-plugin.md", "label": "User plugin" },
         { "path": "06-extensibility/templates-pages.md", "label": "Templates (pages)" },
@@ -106,6 +112,7 @@
       "items": [
         { "path": "07-operations/deployment.md", "label": "Deployment" },
         { "path": "07-operations/production-deploy-checklist.md", "label": "Production deploy checklist" },
+        { "path": "07-operations/monitoring-alerts.md", "label": "Monitoring and health alerts" },
         { "path": "07-operations/security.md", "label": "Security" },
         { "path": "07-operations/backup-and-restore.md", "label": "Backup and restore" },
         { "path": "07-operations/troubleshooting.md", "label": "Troubleshooting" }
@@ -126,7 +133,8 @@
       "items": [
         { "path": "DOCS_ARCHITECTURE.md", "label": "Docs architecture" },
         { "path": "README.md", "label": "README" },
-        { "path": "CONTENTS_INDEX.md", "label": "Contents index" }
+        { "path": "CONTENTS_INDEX.md", "label": "Contents index" },
+        { "path": "help-manifest.json", "label": "CMS Help manifest" }
       ]
     }
   ]

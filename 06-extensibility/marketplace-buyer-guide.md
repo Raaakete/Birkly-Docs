@@ -4,7 +4,7 @@ Purchase plugins, themes, and template packs from the [Birkly Marketplace](https
 
 ## Summary
 
-**Buyers** browse the marketplace catalog and install extensions in the CMS admin under **Plugins → Marketplace**. **Official Birkly plugins** (commerce, events, automation, user management) are **free**: click **Install** in the CMS — no checkout, email, or manual license key. **Paid offers** require checkout on the marketplace (Stripe), then a **license key** (emailed or visible under **My purchases**) to activate on your site. Licenses bind to an **installation** (`installation_id`); seat tiers limit how many CMS installs may use one key. Marketplace accounts are separate from CMS admin accounts.
+**Buyers** browse the marketplace catalog and install extensions in the CMS admin under **Plugins → Marketplace**. **Official Birkly plugins** (commerce, events, automation, user management) are **free**: click **Install** in the CMS — no checkout, email, or manual license key. **Paid official** and **third-party** offers require marketplace checkout (Stripe); **subscription** offers renew monthly/yearly until canceled. A **license key** (emailed or **My purchases** / **My subscriptions**) activates on your site. Licenses bind to an **installation** (`installation_id`); seat tiers limit how many CMS installs may use one key. Marketplace accounts are separate from CMS admin accounts.
 
 ## Beginner
 
@@ -22,9 +22,28 @@ See [Marketplace go-live — installing plugins](marketplace-go-live.md) for the
 
 1. Visit [marketplace.birkly.io/catalog](https://marketplace.birkly.io/catalog).
 2. Open an offer and click **Buy** (or **Get** for free community offers that still use checkout).
-3. Enter your **email** at checkout. You may optionally create a marketplace login later to see **My purchases**.
+3. Enter your **email** at checkout. You may optionally create a marketplace login later to see **My purchases** or **My subscriptions**.
 4. Complete payment (Stripe) for paid offers, or confirm for free checkout offers.
 5. Check your email for the **license key** and receipt.
+
+**Paid official plugins**
+
+Some official Birkly extensions (for example SEO Basics) are **paid one-time** offers on the marketplace. They show a **price badge** and **Purchase** CTA in **Plugins → Marketplace**.
+
+1. Click **Purchase** — opens marketplace checkout for that offer.
+2. Complete Stripe payment with your email.
+3. Return to CMS → **Plugins → Marketplace** → **Activate license** (or install with emailed key).
+4. Paid official plugins **cannot** install without a valid license — free official plugins still use one-click **Install**.
+
+**Subscription licenses**
+
+Offers with **subscription** pricing (for example Analytics Pro) bill through Stripe Billing on a monthly or yearly interval.
+
+1. Buy from the marketplace checkout (subscription mode).
+2. Install in CMS with the issued license key.
+3. While the subscription is **active**, updates install normally.
+4. If the subscription is **canceled** or lapses, the CMS **blocks plugin updates** and shows an admin warning until you renew.
+5. View status at marketplace **My subscriptions** (email magic link or marketplace login).
 
 **Installing in Birkly CMS (paid / license key)**
 
@@ -41,8 +60,10 @@ See [Marketplace go-live — installing plugins](marketplace-go-live.md) for the
 | Offer type | Checkout on marketplace | License key in CMS |
 |------------|-------------------------|------------------|
 | Official Birkly plugins (commerce, events, automation, user management) | No | No — one-click **Install** |
+| Paid official (one-time) | Yes (Stripe) | Yes — required before install |
+| Subscription official / third-party | Yes (Stripe Billing) | Yes — active subscription required for updates |
 | Free community offers | Often yes (email capture) | Yes — emailed or **My purchases** |
-| Paid offers | Yes (Stripe) | Yes — required before install |
+| Paid one-time third-party | Yes (Stripe) | Yes — required before install |
 
 **Seat limits**
 
@@ -75,7 +96,7 @@ Default marketplace URL: `https://marketplace.birkly.io`. Override via environme
 
 **Updates**
 
-Installed marketplace plugins store `marketplace_slug` and version metadata. The Marketplace tab checks the registry API for newer semver releases. When an update is available, use **Update** to download, verify checksum, and replace files (backup first — see [Updates](updates.md)).
+Installed marketplace plugins store `marketplace_slug` and version metadata. The Marketplace tab checks the registry API for newer semver releases. When an update is available, use **Update** to download, verify checksum, and replace files (backup first — see [Updates](updates.md)). **Subscription** licenses: update is blocked when marketplace reports `license_inactive` or lapsed subscription — renew at **My subscriptions** first.
 
 **Offline / air-gapped installs**
 

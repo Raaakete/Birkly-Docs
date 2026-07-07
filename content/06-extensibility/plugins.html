@@ -25,11 +25,13 @@
 </ol>
 <p><strong>Safety</strong></p>
 <p>Plugins run with the same access as the CMS. They can read and change content and settings. Only install plugins from sources you trust, and keep them updated. If you no longer need one, disable it.</p>
-<p><strong>Bundled plugins (examples)</strong></p>
-<p>| Plugin | Docs | |--------|------| | <strong>Commerce</strong> | <a href="plugins/commerce.html">Commerce plugin</a> — sell products, downloads, classes, memberships | | <strong>User Management</strong> | <a href="user-plugin.html">User plugin</a> — registration, tiers, permissions | | <strong>Automation</strong> | <a href="../05-automation/automation-overview.html">Automation overview</a> — workflows and triggers |</p>
+<p><strong>Official plugins (marketplace)</strong></p>
+<p>CMS downloads do <strong>not</strong> include plugins. Install official Birkly extensions from <strong>Plugins → Marketplace</strong> (free, one-click) or <a href="https://marketplace.birkly.com">marketplace.birkly.com</a>.</p>
+<p>| Plugin | Marketplace | Docs | |--------|-------------|------| | <strong>Commerce</strong> | <a href="https://marketplace.birkly.com/offers/birkly-commerce">birkly-commerce</a> | <a href="plugins/commerce.html">Commerce plugin</a> | | <strong>Events</strong> | <a href="https://marketplace.birkly.com/offers/birkly-events">birkly-events</a> | <a href="../03-templating/events-functions.html">Events functions</a> | | <strong>Automation</strong> | <a href="https://marketplace.birkly.com/offers/birkly-automation">birkly-automation</a> | <a href="../05-automation/automation-overview.html">Automation overview</a> | | <strong>User Management</strong> | <a href="https://marketplace.birkly.com/offers/birkly-user-management">birkly-user-management</a> | <a href="user-plugin.html">User plugin</a> |</p>
+<p>See <a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a> for fresh-install workflow and grandfathered upgrades.</p>
 <p><strong>Birkly Marketplace</strong></p>
 <p>Browse official and community extensions at <a href="https://marketplace.birkly.com">marketplace.birkly.com</a>.</p>
-<p>| Role | Guide | |------|-------| | <strong>Buyer</strong> (install in CMS) | <a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a> | | <strong>Provider</strong> (publish offers) | <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a> |</p></div></details>
+<p>| Role | Guide | |------|-------| | <strong>Buyer</strong> (install in CMS) | <a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a> | | <strong>Provider</strong> (publish offers) | <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a> | | <strong>Go-live / unbundling</strong> | <a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a> |</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Capabilities</strong></p>
 <ul>
 <li><strong>Admin UI</strong> — New pages, sidebar items, panels. Registered via plugin.json (navigation) and plugin.php (routes).</li>
@@ -56,9 +58,10 @@
 </ul>
 <p><strong>Troubleshooting activation</strong></p>
 <ul>
-<li>If <strong>User Management</strong> (or another bundled plugin) fails with a generic “dependencies not met” message on an up-to-date install, check the detailed <code>errors[]</code> in the plugin settings response. On older cores, a registry bug (<code>$haru_plugins</code> vs <code>$birkly_plugins</code>) blocked activation — update Birkly first. See <a href="../07-operations/troubleshooting.html#user-management-plugin-wont-enable">Troubleshooting</a>.</li>
+<li>If <strong>User Management</strong> (or another marketplace-installed plugin) fails with a generic “dependencies not met” message on an up-to-date install, check the detailed <code>errors[]</code> in the plugin settings response. On older cores, a registry bug (<code>$haru_plugins</code> vs <code>$birkly_plugins</code>) blocked activation — update Birkly first. See <a href="../07-operations/troubleshooting.html#user-management-plugin-wont-enable">Troubleshooting</a>.</li>
 </ul></div></details>
 <div class="doc-related"><ul>
+<li><a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a></li>
 <li><a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
 <li><a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a></li>
 <li><a href="../01-admin/settings.html">Settings</a></li>

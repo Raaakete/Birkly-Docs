@@ -4,19 +4,29 @@ Purchase plugins, themes, and template packs from the [Birkly Marketplace](https
 
 ## Summary
 
-**Buyers** browse the marketplace catalog, checkout with email (guest or optional marketplace login), and receive a **license key** by email. In the CMS admin, open **Plugins → Marketplace**, enter the license key, and install or update the extension. Licenses activate per **installation** (your CMS generates a stable `installation_id`); seat tiers limit how many installations may use one key. Marketplace accounts are separate from CMS admin accounts.
+**Buyers** browse the marketplace catalog and install extensions in the CMS admin under **Plugins → Marketplace**. **Official Birkly plugins** (commerce, events, automation, user management) are **free**: click **Install** in the CMS — no checkout, email, or manual license key. **Paid offers** require checkout on the marketplace (Stripe), then a **license key** (emailed or visible under **My purchases**) to activate on your site. Licenses bind to an **installation** (`installation_id`); seat tiers limit how many CMS installs may use one key. Marketplace accounts are separate from CMS admin accounts.
 
 ## Beginner
 
-**Buying an extension**
+**Official free plugins (recommended first)**
+
+1. Log in to your Birkly **admin** (`/admin`).
+2. Go to **Plugins → Marketplace**.
+3. Find an official Birkly offer (Commerce, Events, Automation, User Management) or open [marketplace.birkly.com/catalog](https://marketplace.birkly.com/catalog).
+4. Click **Install** in the CMS. The marketplace auto-issues a free license — you do **not** need to copy a license key.
+5. **Enable** the plugin from the Plugins list if needed.
+
+See [Marketplace go-live — installing plugins](marketplace-go-live.md) for the full official-plugins table and fresh-install notes.
+
+**Buying a paid or third-party extension**
 
 1. Visit [marketplace.birkly.com/catalog](https://marketplace.birkly.com/catalog).
-2. Open an offer and click **Buy** (or **Get** for free offers).
+2. Open an offer and click **Buy** (or **Get** for free community offers that still use checkout).
 3. Enter your **email** at checkout. You may optionally create a marketplace login later to see **My purchases**.
-4. Complete payment (Stripe) for paid offers, or confirm for free offers.
+4. Complete payment (Stripe) for paid offers, or confirm for free checkout offers.
 5. Check your email for the **license key** and receipt.
 
-**Installing in Birkly CMS**
+**Installing in Birkly CMS (paid / license key)**
 
 1. Log in to your Birkly **admin** (`/admin`).
 2. Go to **Plugins** (or **Settings → Plugins**).
@@ -28,8 +38,11 @@ Purchase plugins, themes, and template packs from the [Birkly Marketplace](https
 
 **Free vs paid**
 
-- **Free offers** still issue a license key for seat tracking and updates.
-- **Paid offers** require a successful checkout before the license activates.
+| Offer type | Checkout on marketplace | License key in CMS |
+|------------|-------------------------|------------------|
+| Official Birkly plugins (commerce, events, automation, user management) | No | No — one-click **Install** |
+| Free community offers | Often yes (email capture) | Yes — emailed or **My purchases** |
+| Paid offers | Yes (Stripe) | Yes — required before install |
 
 **Seat limits**
 
@@ -41,11 +54,20 @@ Purchase plugins, themes, and template packs from the [Birkly Marketplace](https
 
 If activation fails with a seat error, deactivate the license on an old installation or purchase a higher tier.
 
+**Refunds**
+
+- Request a refund from your **My purchases** page within the policy window (default **14 days** from purchase).
+- **Third-party providers** approve or deny refund requests; Birkly may auto-approve for official free offers.
+- On **full refund approval**, payment is reversed via Stripe and the license is **revoked** — the plugin may stop receiving updates and paid features may be disabled.
+- For disputes, contact the provider’s support email on the offer page; platform admin can escalate.
+
+Marketplace refund and buyer terms: [marketplace.birkly.com/legal/refund](https://marketplace.birkly.com/legal/refund) · [Terms of service](https://marketplace.birkly.com/legal/terms).
+
 ## Advanced Users
 
 **Installation identity**
 
-Each CMS install stores a local `installation_id`. License activation sends `license_key + installation_id` to the marketplace API. The same key on a second install counts toward your seat limit.
+Each CMS install stores a local `installation_id`. License activation sends `license_key + installation_id` to the marketplace API. The same key on a second install counts toward your seat limit. Official free installs use the same activation API internally; the CMS handles it when you click **Install**.
 
 **Settings**
 
@@ -71,6 +93,7 @@ If you cannot use the Marketplace tab, download the release zip from your purcha
 
 ## Related
 
+- [Marketplace go-live — installing plugins](marketplace-go-live.md)
 - [Marketplace — provider publishing guide](marketplace-provider-guide.md)
 - [Plugins](plugins.md)
 - [Updates](updates.md)

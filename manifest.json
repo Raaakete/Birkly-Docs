@@ -82,6 +82,7 @@
       "label": "Extensibility",
       "items": [
         { "path": "06-extensibility/plugins.md", "label": "Plugins" },
+        { "path": "06-extensibility/marketplace-go-live.md", "label": "Marketplace go-live" },
         { "path": "06-extensibility/marketplace-provider-guide.md", "label": "Marketplace — provider guide" },
         { "path": "06-extensibility/marketplace-buyer-guide.md", "label": "Marketplace — buyer guide" },
         { "path": "06-extensibility/plugins/commerce.md", "label": "Commerce plugin" },

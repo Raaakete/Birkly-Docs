@@ -75,8 +75,9 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Topic | File | Description |
 |-------|------|-------------|
 | Plugins | `06-extensibility/plugins.md` | Installing and managing plugins |
+| Marketplace go-live | `06-extensibility/marketplace-go-live.md` | Fresh install, no bundled plugins, official marketplace install |
 | Marketplace — provider guide | `06-extensibility/marketplace-provider-guide.md` | Publishing offers on Birkly Marketplace |
-| Marketplace — buyer guide | `06-extensibility/marketplace-buyer-guide.md` | License keys, install, and updates from marketplace |
+| Marketplace — buyer guide | `06-extensibility/marketplace-buyer-guide.md` | Free official plugins, license keys, refunds, CMS install |
 | Commerce plugin | `06-extensibility/plugins/commerce.md` | Commerce v2: fulfillment, purchase_options, variants, PostPurchaseRouter |
 | User plugin | `06-extensibility/user-plugin.md` | User Management plugin: registration, permissions |
 | Payments plugin | `06-extensibility/payments-plugin.md` | Connection hub: 8 providers, webhooks, activity log |

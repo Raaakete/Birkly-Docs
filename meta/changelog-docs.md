@@ -12,6 +12,15 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+---
+
+## 2026-07-07 — Phase 9 Birkly Marketplace (P9-M7)
+
+- **New:** `06-extensibility/marketplace-provider-guide.md` — provider signup, Stripe Connect, offer publishing, QC.
+- **New:** `06-extensibility/marketplace-buyer-guide.md` — checkout, license keys, CMS Marketplace tab install/update.
+- **Updated:** `06-extensibility/plugins.md` — marketplace links and guide cross-references.
+- **Updated:** `CONTENTS_INDEX.md` — marketplace provider and buyer topics.
+
 ## 2026-07-06 — Phase 8 reference site & commerce templating (P8-M2 / M6)
 
 - **New:** `03-templating/storefront-patterns.md` — Demo shop/cart/checkout patterns for Commerce fieldtype sites (kekaba reference).

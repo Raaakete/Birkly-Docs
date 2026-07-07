@@ -1,0 +1,51 @@
+<p>Purchase plugins, themes, and template packs from the <a href="https://marketplace.birkly.com">Birkly Marketplace</a> and install them in your self-hosted Birkly CMS. This guide is for <strong>buyers</strong> (site owners and admins). Developers publishing offers should see <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a>.</p>
+<div class="doc-summary"><p><strong>Buyers</strong> browse the marketplace catalog, checkout with email (guest or optional marketplace login), and receive a <strong>license key</strong> by email. In the CMS admin, open <strong>Plugins → Marketplace</strong>, enter the license key, and install or update the extension. Licenses activate per <strong>installation</strong> (your CMS generates a stable <code>installation_id</code>); seat tiers limit how many installations may use one key. Marketplace accounts are separate from CMS admin accounts.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Buying an extension</strong></p>
+<ol>
+<li>Visit <a href="https://marketplace.birkly.com/catalog">marketplace.birkly.com/catalog</a>.</li>
+<li>Open an offer and click <strong>Buy</strong> (or <strong>Get</strong> for free offers).</li>
+<li>Enter your <strong>email</strong> at checkout. You may optionally create a marketplace login later to see <strong>My purchases</strong>.</li>
+<li>Complete payment (Stripe) for paid offers, or confirm for free offers.</li>
+<li>Check your email for the <strong>license key</strong> and receipt.</li>
+</ol>
+<p><strong>Installing in Birkly CMS</strong></p>
+<ol>
+<li>Log in to your Birkly <strong>admin</strong> (<code>/admin</code>).</li>
+<li>Go to <strong>Plugins</strong> (or <strong>Settings → Plugins</strong>).</li>
+<li>Open the <strong>Marketplace</strong> tab.</li>
+<li>Browse or search the catalog (read-only view of marketplace listings).</li>
+<li>Click <strong>Install</strong> on an offer you own, or use <strong>Activate license</strong> and paste your license key.</li>
+<li>The CMS downloads the artifact, verifies the SHA-256 checksum, runs preflight checks, and extracts the plugin to <code>plugins/</code>.</li>
+<li><strong>Enable</strong> the plugin from the Plugins list if it is not enabled automatically.</li>
+</ol>
+<p><strong>Free vs paid</strong></p>
+<ul>
+<li><strong>Free offers</strong> still issue a license key for seat tracking and updates.</li>
+<li><strong>Paid offers</strong> require a successful checkout before the license activates.</li>
+</ul>
+<p><strong>Seat limits</strong></p>
+<p>| Tier | Typical use | |------|-------------| | Single site | One Birkly installation | | Multi-site (3 / 10) | Agency or staging + production | | Unlimited | Enterprise tier (as listed on the offer) |</p>
+<p>If activation fails with a seat error, deactivate the license on an old installation or purchase a higher tier.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Installation identity</strong></p>
+<p>Each CMS install stores a local <code>installation_id</code>. License activation sends <code>license_key + installation_id</code> to the marketplace API. The same key on a second install counts toward your seat limit.</p>
+<p><strong>Settings</strong></p>
+<p>Default marketplace URL: <code>https://marketplace.birkly.com</code>. Override via environment variable <code>BIRKLY_MARKETPLACE_URL</code> or <code>settings/marketplace.json</code> (<code>marketplace_url</code>) for staging or self-hosted marketplace instances.</p>
+<p><strong>Updates</strong></p>
+<p>Installed marketplace plugins store <code>marketplace_slug</code> and version metadata. The Marketplace tab checks the registry API for newer semver releases. When an update is available, use <strong>Update</strong> to download, verify checksum, and replace files (backup first — see <a href="updates.html">Updates</a>).</p>
+<p><strong>Offline / air-gapped installs</strong></p>
+<p>Browse and install require network access to the marketplace registry. Already-installed plugins continue to work offline; update checks fail gracefully until connectivity returns.</p>
+<p><strong>Manual install (fallback)</strong></p>
+<p>If you cannot use the Marketplace tab, download the release zip from your purchase email or <strong>My purchases</strong>, verify the published SHA-256 from the offer page, and extract manually into <code>plugins/</code>. You still need a valid license for paid offers if the plugin enforces marketplace licensing.</p>
+<p><strong>Security</strong></p>
+<ul>
+<li>Install only from the official marketplace or sources you trust.</li>
+<li>Review declared capabilities before enabling a plugin.</li>
+<li>Keep Birkly core and marketplace plugins updated.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a></li>
+<li><a href="plugins.html">Plugins</a></li>
+<li><a href="updates.html">Updates</a></li>
+<li><a href="../07-operations/troubleshooting.html">Troubleshooting</a></li>
+<li><a href="https://marketplace.birkly.com">Birkly Marketplace</a></li>
+</ul></div>

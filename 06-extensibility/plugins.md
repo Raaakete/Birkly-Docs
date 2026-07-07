@@ -44,6 +44,15 @@ Plugins run with the same access as the CMS. They can read and change content an
 | **User Management** | [User plugin](user-plugin.md) — registration, tiers, permissions |
 | **Automation** | [Automation overview](../05-automation/automation-overview.md) — workflows and triggers |
 
+**Birkly Marketplace**
+
+Browse official and community extensions at [marketplace.birkly.com](https://marketplace.birkly.com).
+
+| Role | Guide |
+|------|-------|
+| **Buyer** (install in CMS) | [Marketplace — buyer license and install](marketplace-buyer-guide.md) |
+| **Provider** (publish offers) | [Marketplace — provider publishing guide](marketplace-provider-guide.md) |
+
 ## Advanced Users
 
 **Capabilities**
@@ -84,6 +93,8 @@ The plugin system may support capabilities, permissions, migrations, scheduled t
 
 ## Related
 
+- [Marketplace — buyer license and install](marketplace-buyer-guide.md)
+- [Marketplace — provider publishing guide](marketplace-provider-guide.md)
 - [Settings](../01-admin/settings.md)
 - [Commerce plugin](plugins/commerce.md)
 - [Updates](updates.md)

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>marketplace provider guide — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="marketplace-provider-guide.html" class="nav-link active">Marketplace — provider guide</a>
+        <a href="marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Publish plugins, themes, and template packs on the <a href="https://marketplace.birkly.com">Birkly Marketplace</a>. This guide is for <strong>providers</strong> (developers and agencies who sell or distribute extensions). Buyers installing plugins in the CMS should see <a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a>.</p>
+<div class="doc-summary"><p><strong>Providers</strong> create a marketplace account, accept the Provider Agreement, complete Stripe Connect onboarding, then publish offers with versioned zip artifacts. Each offer has a manifest (title, pricing, license seats, compatibility) and one or more releases. Automated preflight checks validate <code>plugin.json</code>, zip structure, and security patterns; verified-tier offers also go through manual review. Payouts flow through Stripe Connect after buyer checkout.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What you need before publishing</strong></p>
+<ol>
+<li>A <strong>provider account</strong> on <a href="https://marketplace.birkly.com">marketplace.birkly.com</a> (email + password — separate from your CMS admin login).</li>
+<li>Acceptance of the <strong>Provider Agreement</strong> (seller liability, content warranty).</li>
+<li><strong>Stripe Connect</strong> onboarding (identity and payout details).</li>
+<li>A valid <strong>plugin package</strong> — a <code>.zip</code> containing at minimum <code>plugin.json</code> and <code>plugin.php</code> (or <code>index.php</code>).</li>
+</ol>
+<p><strong>Publishing steps</strong></p>
+<ol>
+<li>Sign up at <strong>Provider → Sign up</strong> on the marketplace site.</li>
+<li>Log in and open <strong>Provider dashboard</strong>.</li>
+<li>Accept the <strong>Provider Agreement</strong> when prompted.</li>
+<li>Complete <strong>Stripe Connect</strong> onboarding (charges and payouts must be enabled).</li>
+<li>Click <strong>New offer</strong> and fill in:</li>
+</ol>
+<p>   - <strong>Slug</strong> — stable URL id (lowercase, hyphens, e.g. <code>my-seo-plugin</code>)    - <strong>Title</strong> and <strong>summary</strong> — shown in the public catalog    - <strong>Offer type</strong> — plugin, theme, or template pack    - <strong>Category</strong> and <strong>tags</strong> — help buyers find your offer    - <strong>Pricing</strong> — free, one-time, or subscription (with currency and amount)    - <strong>License seats</strong> — single site, multi-site tiers, or unlimited    - <strong>Compatibility</strong> — <code>requires_birkly</code> and <code>requires_php</code> semver ranges; optional capability declarations</p>
+<ol>
+<li><strong>Upload a release</strong> — zip artifact for a semver version (e.g. <code>1.0.0</code>) plus changelog text.</li>
+<li><strong>Publish</strong> — preflight and QC run automatically; verified-tier offers enter a manual review queue first.</li>
+<li>After publish, your offer appears in the <a href="https://marketplace.birkly.com/catalog">public catalog</a> and the registry API for CMS installs.</li>
+</ol>
+<p><strong>After publish</strong></p>
+<ul>
+<li>Upload new versions from the offer editor; each version re-runs preflight (and manual review when required for verified tier).</li>
+<li>View sales and payouts in the provider dashboard (Stripe Connect).</li>
+<li>Reply once to verified-purchase reviews on your listing.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Manifest schema</strong></p>
+<p>Offers validate against <code>offer-manifest.schema.json</code> in the marketplace repo. Required fields include <code>slug</code>, <code>title</code>, <code>summary</code>, <code>offer_type</code>, <code>category</code>, <code>pricing</code>, <code>license</code>, <code>compatibility</code>, <code>trust_level</code>, and at least one <code>releases[]</code> entry with artifact URL, SHA-256 checksum, and size.</p>
+<p><strong>Plugin package (<code>plugin.json</code>)</strong></p>
+<p>Artifacts are validated against <code>plugin-package.schema.json</code>. Required: <code>name</code>, <code>version</code>, <code>description</code>. Recommended: <code>requires_birkly</code>, <code>requires_php</code>, declared <code>capabilities</code> (least privilege).</p>
+<p><strong>Registry API</strong></p>
+<p>Published offers are exposed at:</p>
+<ul>
+<li><code>GET /api/v1/registry</code> — catalog index</li>
+<li><code>GET /api/v1/offer?slug={slug}</code> — offer detail + releases</li>
+<li><code>GET /api/v1/release?slug={slug}&amp;version={version}</code> — release metadata + download URL</li>
+</ul>
+<p>The Birkly CMS marketplace client consumes these endpoints; do not break slug or checksum contracts without a major version bump.</p>
+<p><strong>Trust levels</strong></p>
+<p>| Level | Meaning | |-------|---------| | <code>untrusted</code> | Community listing; automated preflight only | | <code>trusted</code> | Passed automated checks; Birkly team may spot-check | | <code>verified</code> | Manual technical review for first release and major updates |</p>
+<p><strong>QC and security</strong></p>
+<ul>
+<li>Zip must not contain path traversal (<code>..</code>).</li>
+<li>PHP files are scanned for dangerous patterns (<code>eval</code>, <code>shell_exec</code>, etc.).</li>
+<li>Declared capabilities should match what the plugin requests at install time.</li>
+</ul>
+<p><strong>Revenue</strong></p>
+<p>Stripe Connect splits: buyer pays gross price → Stripe fee → Birkly application fee → remainder to your Connect account. Refunds are primarily the provider's responsibility; see the Provider Agreement.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
+<li><a href="plugins.html">Plugins</a> — managing plugins in the CMS admin</li>
+<li><a href="updates.html">Updates</a> — updating marketplace-sourced plugins</li>
+<li><a href="https://marketplace.birkly.com">Birkly Marketplace</a> — public catalog and provider signup</li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

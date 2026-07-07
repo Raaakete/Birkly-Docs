@@ -26,7 +26,10 @@
 <p><strong>Safety</strong></p>
 <p>Plugins run with the same access as the CMS. They can read and change content and settings. Only install plugins from sources you trust, and keep them updated. If you no longer need one, disable it.</p>
 <p><strong>Bundled plugins (examples)</strong></p>
-<p>| Plugin | Docs | |--------|------| | <strong>Commerce</strong> | <a href="plugins/commerce.html">Commerce plugin</a> — sell products, downloads, classes, memberships | | <strong>User Management</strong> | <a href="user-plugin.html">User plugin</a> — registration, tiers, permissions | | <strong>Automation</strong> | <a href="../05-automation/automation-overview.html">Automation overview</a> — workflows and triggers |</p></div></details>
+<p>| Plugin | Docs | |--------|------| | <strong>Commerce</strong> | <a href="plugins/commerce.html">Commerce plugin</a> — sell products, downloads, classes, memberships | | <strong>User Management</strong> | <a href="user-plugin.html">User plugin</a> — registration, tiers, permissions | | <strong>Automation</strong> | <a href="../05-automation/automation-overview.html">Automation overview</a> — workflows and triggers |</p>
+<p><strong>Birkly Marketplace</strong></p>
+<p>Browse official and community extensions at <a href="https://marketplace.birkly.com">marketplace.birkly.com</a>.</p>
+<p>| Role | Guide | |------|-------| | <strong>Buyer</strong> (install in CMS) | <a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a> | | <strong>Provider</strong> (publish offers) | <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a> |</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Capabilities</strong></p>
 <ul>
 <li><strong>Admin UI</strong> — New pages, sidebar items, panels. Registered via plugin.json (navigation) and plugin.php (routes).</li>
@@ -56,6 +59,8 @@
 <li>If <strong>User Management</strong> (or another bundled plugin) fails with a generic “dependencies not met” message on an up-to-date install, check the detailed <code>errors[]</code> in the plugin settings response. On older cores, a registry bug (<code>$haru_plugins</code> vs <code>$birkly_plugins</code>) blocked activation — update Birkly first. See <a href="../07-operations/troubleshooting.html#user-management-plugin-wont-enable">Troubleshooting</a>.</li>
 </ul></div></details>
 <div class="doc-related"><ul>
+<li><a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
+<li><a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a></li>
 <li><a href="../01-admin/settings.html">Settings</a></li>
 <li><a href="plugins/commerce.html">Commerce plugin</a></li>
 <li><a href="updates.html">Updates</a></li>

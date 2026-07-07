@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>marketplace buyer guide — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="marketplace-buyer-guide.html" class="nav-link active">Marketplace — buyer guide</a>
+        <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Purchase plugins, themes, and template packs from the <a href="https://marketplace.birkly.com">Birkly Marketplace</a> and install them in your self-hosted Birkly CMS. This guide is for <strong>buyers</strong> (site owners and admins). Developers publishing offers should see <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a>.</p>
+<div class="doc-summary"><p><strong>Buyers</strong> browse the marketplace catalog, checkout with email (guest or optional marketplace login), and receive a <strong>license key</strong> by email. In the CMS admin, open <strong>Plugins → Marketplace</strong>, enter the license key, and install or update the extension. Licenses activate per <strong>installation</strong> (your CMS generates a stable <code>installation_id</code>); seat tiers limit how many installations may use one key. Marketplace accounts are separate from CMS admin accounts.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Buying an extension</strong></p>
+<ol>
+<li>Visit <a href="https://marketplace.birkly.com/catalog">marketplace.birkly.com/catalog</a>.</li>
+<li>Open an offer and click <strong>Buy</strong> (or <strong>Get</strong> for free offers).</li>
+<li>Enter your <strong>email</strong> at checkout. You may optionally create a marketplace login later to see <strong>My purchases</strong>.</li>
+<li>Complete payment (Stripe) for paid offers, or confirm for free offers.</li>
+<li>Check your email for the <strong>license key</strong> and receipt.</li>
+</ol>
+<p><strong>Installing in Birkly CMS</strong></p>
+<ol>
+<li>Log in to your Birkly <strong>admin</strong> (<code>/admin</code>).</li>
+<li>Go to <strong>Plugins</strong> (or <strong>Settings → Plugins</strong>).</li>
+<li>Open the <strong>Marketplace</strong> tab.</li>
+<li>Browse or search the catalog (read-only view of marketplace listings).</li>
+<li>Click <strong>Install</strong> on an offer you own, or use <strong>Activate license</strong> and paste your license key.</li>
+<li>The CMS downloads the artifact, verifies the SHA-256 checksum, runs preflight checks, and extracts the plugin to <code>plugins/</code>.</li>
+<li><strong>Enable</strong> the plugin from the Plugins list if it is not enabled automatically.</li>
+</ol>
+<p><strong>Free vs paid</strong></p>
+<ul>
+<li><strong>Free offers</strong> still issue a license key for seat tracking and updates.</li>
+<li><strong>Paid offers</strong> require a successful checkout before the license activates.</li>
+</ul>
+<p><strong>Seat limits</strong></p>
+<p>| Tier | Typical use | |------|-------------| | Single site | One Birkly installation | | Multi-site (3 / 10) | Agency or staging + production | | Unlimited | Enterprise tier (as listed on the offer) |</p>
+<p>If activation fails with a seat error, deactivate the license on an old installation or purchase a higher tier.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Installation identity</strong></p>
+<p>Each CMS install stores a local <code>installation_id</code>. License activation sends <code>license_key + installation_id</code> to the marketplace API. The same key on a second install counts toward your seat limit.</p>
+<p><strong>Settings</strong></p>
+<p>Default marketplace URL: <code>https://marketplace.birkly.com</code>. Override via environment variable <code>BIRKLY_MARKETPLACE_URL</code> or <code>settings/marketplace.json</code> (<code>marketplace_url</code>) for staging or self-hosted marketplace instances.</p>
+<p><strong>Updates</strong></p>
+<p>Installed marketplace plugins store <code>marketplace_slug</code> and version metadata. The Marketplace tab checks the registry API for newer semver releases. When an update is available, use <strong>Update</strong> to download, verify checksum, and replace files (backup first — see <a href="updates.html">Updates</a>).</p>
+<p><strong>Offline / air-gapped installs</strong></p>
+<p>Browse and install require network access to the marketplace registry. Already-installed plugins continue to work offline; update checks fail gracefully until connectivity returns.</p>
+<p><strong>Manual install (fallback)</strong></p>
+<p>If you cannot use the Marketplace tab, download the release zip from your purchase email or <strong>My purchases</strong>, verify the published SHA-256 from the offer page, and extract manually into <code>plugins/</code>. You still need a valid license for paid offers if the plugin enforces marketplace licensing.</p>
+<p><strong>Security</strong></p>
+<ul>
+<li>Install only from the official marketplace or sources you trust.</li>
+<li>Review declared capabilities before enabling a plugin.</li>
+<li>Keep Birkly core and marketplace plugins updated.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a></li>
+<li><a href="plugins.html">Plugins</a></li>
+<li><a href="updates.html">Updates</a></li>
+<li><a href="../07-operations/troubleshooting.html">Troubleshooting</a></li>
+<li><a href="https://marketplace.birkly.com">Birkly Marketplace</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

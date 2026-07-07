@@ -102,20 +102,20 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Purchase plugins, themes, and template packs from the <a href="https://marketplace.birkly.com">Birkly Marketplace</a> and install them in your self-hosted Birkly CMS. This guide is for <strong>buyers</strong> (site owners and admins). Developers publishing offers should see <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a>.</p>
+        <div class="doc-content"><p>Purchase plugins, themes, and template packs from the <a href="https://marketplace.birkly.io">Birkly Marketplace</a> and install them in your self-hosted Birkly CMS. This guide is for <strong>buyers</strong> (site owners and admins). Developers publishing offers should see <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a>.</p>
 <div class="doc-summary"><p><strong>Buyers</strong> browse the marketplace catalog and install extensions in the CMS admin under <strong>Plugins → Marketplace</strong>. <strong>Official Birkly plugins</strong> (commerce, events, automation, user management) are <strong>free</strong>: click <strong>Install</strong> in the CMS — no checkout, email, or manual license key. <strong>Paid offers</strong> require checkout on the marketplace (Stripe), then a <strong>license key</strong> (emailed or visible under <strong>My purchases</strong>) to activate on your site. Licenses bind to an <strong>installation</strong> (<code>installation_id</code>); seat tiers limit how many CMS installs may use one key. Marketplace accounts are separate from CMS admin accounts.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Official free plugins (recommended first)</strong></p>
 <ol>
 <li>Log in to your Birkly <strong>admin</strong> (<code>/admin</code>).</li>
 <li>Go to <strong>Plugins → Marketplace</strong>.</li>
-<li>Find an official Birkly offer (Commerce, Events, Automation, User Management) or open <a href="https://marketplace.birkly.com/catalog">marketplace.birkly.com/catalog</a>.</li>
+<li>Find an official Birkly offer (Commerce, Events, Automation, User Management) or open <a href="https://marketplace.birkly.io/catalog">marketplace.birkly.io/catalog</a>.</li>
 <li>Click <strong>Install</strong> in the CMS. The marketplace auto-issues a free license — you do <strong>not</strong> need to copy a license key.</li>
 <li><strong>Enable</strong> the plugin from the Plugins list if needed.</li>
 </ol>
 <p>See <a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a> for the full official-plugins table and fresh-install notes.</p>
 <p><strong>Buying a paid or third-party extension</strong></p>
 <ol>
-<li>Visit <a href="https://marketplace.birkly.com/catalog">marketplace.birkly.com/catalog</a>.</li>
+<li>Visit <a href="https://marketplace.birkly.io/catalog">marketplace.birkly.io/catalog</a>.</li>
 <li>Open an offer and click <strong>Buy</strong> (or <strong>Get</strong> for free community offers that still use checkout).</li>
 <li>Enter your <strong>email</strong> at checkout. You may optionally create a marketplace login later to see <strong>My purchases</strong>.</li>
 <li>Complete payment (Stripe) for paid offers, or confirm for free checkout offers.</li>
@@ -143,11 +143,11 @@
 <li>On <strong>full refund approval</strong>, payment is reversed via Stripe and the license is <strong>revoked</strong> — the plugin may stop receiving updates and paid features may be disabled.</li>
 <li>For disputes, contact the provider’s support email on the offer page; platform admin can escalate.</li>
 </ul>
-<p>Marketplace refund and buyer terms: <a href="https://marketplace.birkly.com/legal/refund">marketplace.birkly.com/legal/refund</a> · <a href="https://marketplace.birkly.com/legal/terms">Terms of service</a>.</p></div></details>
+<p>Marketplace refund and buyer terms: <a href="https://marketplace.birkly.io/legal/refund">marketplace.birkly.io/legal/refund</a> · <a href="https://marketplace.birkly.io/legal/terms">Terms of service</a>.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Installation identity</strong></p>
 <p>Each CMS install stores a local <code>installation_id</code>. License activation sends <code>license_key + installation_id</code> to the marketplace API. The same key on a second install counts toward your seat limit. Official free installs use the same activation API internally; the CMS handles it when you click <strong>Install</strong>.</p>
 <p><strong>Settings</strong></p>
-<p>Default marketplace URL: <code>https://marketplace.birkly.com</code>. Override via environment variable <code>BIRKLY_MARKETPLACE_URL</code> or <code>settings/marketplace.json</code> (<code>marketplace_url</code>) for staging or self-hosted marketplace instances.</p>
+<p>Default marketplace URL: <code>https://marketplace.birkly.io</code>. Override via environment variable <code>BIRKLY_MARKETPLACE_URL</code> or <code>settings/marketplace.json</code> (<code>marketplace_url</code>) for staging or self-hosted marketplace instances.</p>
 <p><strong>Updates</strong></p>
 <p>Installed marketplace plugins store <code>marketplace_slug</code> and version metadata. The Marketplace tab checks the registry API for newer semver releases. When an update is available, use <strong>Update</strong> to download, verify checksum, and replace files (backup first — see <a href="updates.html">Updates</a>).</p>
 <p><strong>Offline / air-gapped installs</strong></p>
@@ -166,7 +166,7 @@
 <li><a href="plugins.html">Plugins</a></li>
 <li><a href="updates.html">Updates</a></li>
 <li><a href="../07-operations/troubleshooting.html">Troubleshooting</a></li>
-<li><a href="https://marketplace.birkly.com">Birkly Marketplace</a></li>
+<li><a href="https://marketplace.birkly.io">Birkly Marketplace</a></li>
 </ul></div></div>
       </div>
     </main>

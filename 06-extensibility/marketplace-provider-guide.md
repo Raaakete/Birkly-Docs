@@ -1,6 +1,6 @@
 # Marketplace — provider publishing guide
 
-Publish plugins, themes, and template packs on the [Birkly Marketplace](https://marketplace.birkly.com). This guide is for **providers** (developers and agencies who sell or distribute extensions). Buyers installing plugins in the CMS should see [Marketplace — buyer license and install](marketplace-buyer-guide.md) or [Marketplace go-live — installing plugins](marketplace-go-live.md).
+Publish plugins, themes, and template packs on the [Birkly Marketplace](https://marketplace.birkly.io). This guide is for **providers** (developers and agencies who sell or distribute extensions). Buyers installing plugins in the CMS should see [Marketplace — buyer license and install](marketplace-buyer-guide.md) or [Marketplace go-live — installing plugins](marketplace-go-live.md).
 
 ## Summary
 
@@ -10,7 +10,7 @@ Publish plugins, themes, and template packs on the [Birkly Marketplace](https://
 
 **What you need before publishing**
 
-1. A **provider account** on [marketplace.birkly.com](https://marketplace.birkly.com) (email + password — separate from your CMS admin login).
+1. A **provider account** on [marketplace.birkly.io](https://marketplace.birkly.io) (email + password — separate from your CMS admin login).
 2. Acceptance of the **Provider Agreement** (seller liability, content warranty).
 3. **Stripe Connect** onboarding (identity and payout details).
 4. A valid **plugin package** — a `.zip` containing at minimum `plugin.json` and `plugin.php` (or `index.php`).
@@ -31,7 +31,7 @@ Publish plugins, themes, and template packs on the [Birkly Marketplace](https://
    - **Compatibility** — `requires_birkly` and `requires_php` semver ranges; optional capability declarations
 6. **Upload a release** — zip artifact for a semver version (e.g. `1.0.0`) plus changelog text.
 7. **Publish** — preflight and QC run automatically; verified-tier offers enter a manual review queue first.
-8. After publish, your offer appears in the [public catalog](https://marketplace.birkly.com/catalog) and the registry API for CMS installs.
+8. After publish, your offer appears in the [public catalog](https://marketplace.birkly.io/catalog) and the registry API for CMS installs.
 
 **After publish**
 
@@ -82,4 +82,4 @@ Stripe Connect splits: buyer pays gross price → Stripe fee → Birkly applicat
 - [Marketplace — buyer license and install](marketplace-buyer-guide.md)
 - [Plugins](plugins.md) — managing plugins in the CMS admin
 - [Updates](updates.md) — updating marketplace-sourced plugins
-- [Birkly Marketplace](https://marketplace.birkly.com) — public catalog and provider signup
+- [Birkly Marketplace](https://marketplace.birkly.io) — public catalog and provider signup

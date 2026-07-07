@@ -1,10 +1,10 @@
 # Marketplace go-live — installing plugins
 
-Birkly CMS downloads ship **without bundled plugins**. After a fresh install, the `plugins/` folder is empty and you add extensions from the [Birkly Marketplace](https://marketplace.birkly.com). Official Birkly plugins (commerce, events, automation, user management) are **free** and install in one click from the CMS admin — no checkout or license key required.
+Birkly CMS downloads ship **without bundled plugins**. After a fresh install, the `plugins/` folder is empty and you add extensions from the [Birkly Marketplace](https://marketplace.birkly.io). Official Birkly plugins (commerce, events, automation, user management) are **free** and install in one click from the CMS admin — no checkout or license key required.
 
 ## Summary
 
-**Fresh installs** contain core CMS only: no commerce, events, automation, or user-management code in the download. Open **Plugins → Marketplace** in the admin to browse the catalog and install extensions. **Official plugins** are published by Birkly on the marketplace at no cost; click **Install** in the CMS — the marketplace issues a license automatically in the background. **Paid third-party** offers require checkout on marketplace.birkly.com and a license key (or **My purchases** login) before install. **Existing installs** that already have plugin folders keep working; future updates for those plugins come from the marketplace.
+**Fresh installs** contain core CMS only: no commerce, events, automation, or user-management code in the download. Open **Plugins → Marketplace** in the admin to browse the catalog and install extensions. **Official plugins** are published by Birkly on the marketplace at no cost; click **Install** in the CMS — the marketplace issues a license automatically in the background. **Paid third-party** offers require checkout on marketplace.birkly.io and a license key (or **My purchases** login) before install. **Existing installs** that already have plugin folders keep working; future updates for those plugins come from the marketplace.
 
 ## Beginner
 
@@ -36,10 +36,10 @@ These four plugins are maintained by Birkly and listed on the marketplace as **f
 
 | Plugin folder | Marketplace slug | What it does | Docs |
 |---------------|------------------|--------------|------|
-| `commerce` | [birkly-commerce](https://marketplace.birkly.com/offers/birkly-commerce) | Payments, catalog, cart, checkout, orders | [Commerce plugin](plugins/commerce.md) |
-| `events` | [birkly-events](https://marketplace.birkly.com/offers/birkly-events) | Events, RSVP, paid tickets (uses Commerce) | [Events functions](../03-templating/events-functions.md) |
-| `automation` | [birkly-automation](https://marketplace.birkly.com/offers/birkly-automation) | Workflows, triggers, conditions, actions | [Automation overview](../05-automation/automation-overview.md) |
-| `user_management` | [birkly-user-management](https://marketplace.birkly.com/offers/birkly-user-management) | Registration, auth, tiers, permissions | [User plugin](user-plugin.md) |
+| `commerce` | [birkly-commerce](https://marketplace.birkly.io/offers/birkly-commerce) | Payments, catalog, cart, checkout, orders | [Commerce plugin](plugins/commerce.md) |
+| `events` | [birkly-events](https://marketplace.birkly.io/offers/birkly-events) | Events, RSVP, paid tickets (uses Commerce) | [Events functions](../03-templating/events-functions.md) |
+| `automation` | [birkly-automation](https://marketplace.birkly.io/offers/birkly-automation) | Workflows, triggers, conditions, actions | [Automation overview](../05-automation/automation-overview.md) |
+| `user_management` | [birkly-user-management](https://marketplace.birkly.io/offers/birkly-user-management) | Registration, auth, tiers, permissions | [User plugin](user-plugin.md) |
 
 Community plugins, themes, and template packs from other providers may be free or paid — see [Marketplace — buyer license and install](marketplace-buyer-guide.md).
 
@@ -67,4 +67,4 @@ Core routes that depend on a plugin (e.g. automation webhooks, commerce APIs) re
 - [Marketplace — provider publishing guide](marketplace-provider-guide.md)
 - [Plugins](plugins.md)
 - [Updates](updates.md)
-- [Birkly Marketplace](https://marketplace.birkly.com)
+- [Birkly Marketplace](https://marketplace.birkly.io)

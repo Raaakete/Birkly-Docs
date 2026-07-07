@@ -26,6 +26,7 @@
 <li>Upload new versions from the offer editor; each version re-runs preflight (and manual review when required for verified tier).</li>
 <li>View sales and payouts in the provider dashboard (Stripe Connect).</li>
 <li>Reply once to verified-purchase reviews on your listing.</li>
+<li><strong>Connect GitHub</strong> (optional) — automate release builds when you push tags (see below).</li>
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Manifest schema</strong></p>
 <p>Offers validate against <code>offer-manifest.schema.json</code> in the marketplace repo. Required fields include <code>slug</code>, <code>title</code>, <code>summary</code>, <code>offer_type</code>, <code>category</code>, <code>pricing</code>, <code>license</code>, <code>compatibility</code>, <code>trust_level</code>, and at least one <code>releases[]</code> entry with artifact URL, SHA-256 checksum, and size.</p>
@@ -48,7 +49,27 @@
 <li>Declared capabilities should match what the plugin requests at install time.</li>
 </ul>
 <p><strong>Revenue</strong></p>
-<p>Stripe Connect splits: buyer pays gross price → Stripe fee → Birkly application fee → remainder to your Connect account. Refunds are primarily the provider's responsibility; see the Provider Agreement.</p></div></details>
+<p>Stripe Connect splits: buyer pays gross price → Stripe fee → Birkly application fee → remainder to your Connect account. Refunds are primarily the provider's responsibility; see the Provider Agreement.</p>
+<p><strong>GitHub App — automated releases (Phase 12)</strong></p>
+<p>Third-party providers can connect a repository so new tags trigger build → preflight → QC enqueue (offers are <strong>not</strong> auto-published).</p>
+<ol>
+<li>Install the <strong>Birkly Marketplace GitHub App</strong> on your repository (organization or user).</li>
+<li>In <strong>Provider dashboard → Connect GitHub repository</strong>, enter:</li>
+</ol>
+<p>   - <strong>Installation ID</strong> (from GitHub App settings)    - <strong>Owner</strong> and <strong>repository</strong> name    - <strong>Offer slug</strong> to map releases to    - <strong>Tag pattern</strong> (default <code>v*</code> — matches <code>v1.0.0</code>, <code>v2.1.3</code>, etc.)</p>
+<ol>
+<li>Publish a GitHub <strong>Release</strong> or tag matching the pattern.</li>
+<li>Marketplace webhook <code>POST /webhooks/github</code> verifies the signature, downloads the release asset (or builds from tag archive), runs preflight, and enqueues <strong>QC review</strong>.</li>
+<li>After admin approval (verified tier) or automatic pass (trusted/untrusted per policy), the catalog release updates.</li>
+</ol>
+<p><strong>Official plugins (Birkly repo)</strong></p>
+<p>Raaakete official plugins use CI on tag <code>plugin/{name}/v*</code> → <code>build-all-official-plugin-zips.sh</code> → registry API upload. See Birkly <code>plugins/README.md</code> and <a href="../07-operations/production-deploy-checklist.html">Production deploy checklist</a>.</p>
+<p><strong>Provider webhooks (optional, Phase 12)</strong></p>
+<p>Configure a webhook URL in the provider dashboard to receive JSON events:</p>
+<p>| Event | When | |-------|------| | <code>sale</code> | Buyer completes checkout for your offer | | <code>refund</code> | Refund processed | | <code>qc_result</code> | Preflight/QC completes | | <code>payout</code> | Stripe Connect payout recorded |</p>
+<p>Verify webhook signatures using the secret shown in the dashboard. Use for internal ERP, Slack, or license fulfillment systems.</p>
+<p><strong>Stripe webhooks (platform)</strong></p>
+<p>Marketplace operators configure Stripe → <code>POST /webhooks/stripe</code> for <code>account.updated</code>, <code>payment_intent.succeeded</code>, <code>charge.refunded</code>. Provider dashboard payout charts read from Connect APIs.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
 <li><a href="plugins.html">Plugins</a> — managing plugins in the CMS admin</li>

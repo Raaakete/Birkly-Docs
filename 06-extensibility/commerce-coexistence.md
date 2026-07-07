@@ -15,8 +15,8 @@ All three can coexist because Commerce registers **`payment_shelf`** as an alias
 ## Migration path (recommended)
 
 1. Activate **Commerce**; configure providers (migrates from Payments settings).
-2. Add Commerce fieldtype to your product/event collections.
-3. Re-create or import entries with Commerce field values.
+2. Run the **[Commerce migration wizard](commerce-migration-wizard.md)** to copy legacy Shop/Events entries into Commerce fieldtype values (idempotent).
+3. Or add Commerce fieldtype manually and re-create/import entries.
 4. Use Commerce cart/checkout template functions for new storefront pages.
 5. Deactivate **Shopping Cart** / **Events** when no longer needed (optional — not required in P6.4).
 
@@ -28,5 +28,6 @@ All three can coexist because Commerce registers **`payment_shelf`** as an alias
 ## Related
 
 - [Commerce plugin](commerce-plugin.md)
+- [Commerce migration wizard](commerce-migration-wizard.md)
 - [Shopping Cart plugin](shopping-cart-plugin.md)
 - [Events plugin](events-plugin.md)

@@ -1,0 +1,64 @@
+<p>Recurring <strong>purchase options</strong> create subscriptions when checkout completes. Phase 11 adds <strong>plan upgrades</strong> on the same product and <strong>dunning</strong> when provider payments fail.</p>
+<div class="doc-summary"><p>Open <strong>Commerce → Subscriptions</strong> to view active, past-due, and canceled subscriptions. Merchants can <strong>upgrade or downgrade</strong> between recurring purchase options on the same catalog entry (for example monthly → annual). When a payment fails, the subscription moves to <strong>past_due</strong>, stores dunning metadata, fires automation triggers, and optionally sends a built-in email. Admins can <strong>retry payment</strong> from the subscription detail panel.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What is a subscription?</strong></p>
+<p>A subscription is an ongoing payment for a recurring purchase option — for example €19/month for a yoga membership. It is created automatically when a customer checks out with a <strong>Subscribe</strong> option.</p>
+<p><strong>Viewing subscriptions</strong></p>
+<ol>
+<li>Open <strong>Commerce</strong> in the admin sidebar.</li>
+<li>Click the <strong>Subscriptions</strong> tab.</li>
+<li>The list shows customer email, plan, status, and next billing date.</li>
+<li>Click a row to open the detail panel.</li>
+</ol>
+<p><strong>Changing a customer's plan (upgrade / downgrade)</strong></p>
+<p>Upgrades apply to the <strong>same product</strong> with a different recurring purchase option — for example switching from monthly to annual on the same membership entry.</p>
+<ol>
+<li>Open the subscription detail.</li>
+<li>Under <strong>Change plan</strong>, pick a new option from the dropdown.</li>
+<li>Click <strong>Upgrade</strong>.</li>
+<li>The provider updates the subscription; status and next billing date refresh after the provider confirms.</li>
+</ol>
+<p>You cannot move a subscription to a different product in one step — cancel and create a new subscription instead.</p>
+<p><strong>When payments fail (dunning)</strong></p>
+<p>If the payment provider reports a failed renewal:</p>
+<ul>
+<li>Status becomes <strong>past due</strong> with a dunning badge showing attempt count.</li>
+<li>Automation can react (see below).</li>
+<li>Optional <strong>dunning emails</strong> can notify the customer (Commerce → Settings).</li>
+</ul>
+<p><strong>Recovering a subscription</strong></p>
+<p>When payment succeeds again, status returns to <strong>active</strong> and dunning metadata is cleared. You can also click <strong>Retry payment</strong> on a past-due subscription to request a manual retry through the provider.</p>
+<p><strong>Optional dunning emails</strong></p>
+<p>Under <strong>Commerce → Settings → Dunning emails</strong>:</p>
+<ol>
+<li>Enable <strong>Send dunning email on payment failure</strong>.</li>
+<li>Customize subject and body.</li>
+<li>Use placeholders: <code>{subscription_id}</code>, <code>{customer_email}</code>, <code>{amount}</code>, <code>{interval}</code>, <code>{attempt_count}</code>.</li>
+</ol>
+<p>Automation triggers remain the recommended path for branded emails and multi-step recovery flows.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Subscription record</strong></p>
+<p>Stored under <code>data/plugins/commerce/subscriptions/</code> as JSON. Key fields:</p>
+<p>| Field | Notes | |-------|-------| | <code>status</code> | <code>active</code>, <code>past_due</code>, <code>canceled</code> | | <code>purchase_option_id</code> | Recurring option on the catalog line | | <code>provider_subscription_id</code> | Stripe/Mollie subscription id | | <code>dunning</code> | <code>{ attempt_count, last_failed_at, last_invoice_id }</code> when past due | | <code>upgraded_at</code> | Set after successful plan change |</p>
+<p><strong>Upgrade service</strong></p>
+<p><code>SubscriptionUpgradeService</code> lists recurring <code>purchase_options</code> on the same catalog entry (excluding the current option) and calls the payment shelf to update the provider subscription. Same-plan requests are rejected; canceled subscriptions cannot upgrade.</p>
+<p><strong>API actions</strong> (<code>route=commerce</code>, admin session):</p>
+<p>| Action | Purpose | |--------|---------| | <code>list_subscriptions</code> | All subscriptions | | <code>get_subscription</code> | Single record by id | | <code>list_subscription_upgrade_options</code> | Eligible purchase options | | <code>upgrade_subscription</code> | <code>{ id, purchase_option_id }</code> | | <code>cancel_subscription</code> | Cancel + provider sync when available | | <code>retry_subscription_payment</code> | Manual retry on <code>past_due</code> |</p>
+<p><strong>Dunning webhooks</strong></p>
+<p>Provider webhooks (<code>invoice.payment_failed</code>, recovery events) update subscription status via <code>CommerceSubscriptionService</code>. On failure:</p>
+<ul>
+<li>Fires <code>commerce_subscription_payment_failed</code> automation trigger.</li>
+<li>Optionally sends email via <code>CommerceDunningNotifier</code> when <code>dunning_email_enabled</code> is true.</li>
+</ul>
+<p>On recovery:</p>
+<ul>
+<li>Clears <code>dunning</code> metadata.</li>
+<li>Fires <code>commerce_subscription_recovered</code>.</li>
+</ul>
+<p><strong>Automation triggers</strong></p>
+<p>| Trigger | When | |---------|------| | <code>commerce_subscription_payment_failed</code> | Invoice/payment failed; subscription <code>past_due</code> | | <code>commerce_subscription_recovered</code> | Payment succeeds after failure |</p>
+<p>Configure workflows under <strong>Automation</strong> using these trigger types for Slack, email, or internal tasks.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="commerce-fieldtype.html">Commerce fieldtype</a> — recurring purchase options</li>
+<li><a href="../05-automation/triggers.html">Automation triggers</a></li>
+<li><a href="commerce-membership.html">Commerce membership wiring</a></li>
+</ul></div>

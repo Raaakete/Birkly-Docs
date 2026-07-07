@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>commerce migration wizard — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="commerce-migration-wizard.html" class="nav-link active">Commerce migration wizard</a>
+        <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Move legacy <strong>Shopping Cart</strong> and <strong>Events</strong> plugin data into Commerce fieldtype entries without deleting the old plugins.</p>
+<div class="doc-summary"><p>The <strong>Migration wizard</strong> in Commerce admin detects legacy Shop (<code>shopping_cart</code>) and Events plugin data, previews how entries will map to Commerce (<code>ship</code>, <code>register</code>, purchase options), and imports idempotently. Existing slugs are skipped on re-run. Legacy plugins remain installed — the wizard copies data only.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>When to use this</strong></p>
+<ul>
+<li>You started with the demo <strong>Shopping Cart</strong> or <strong>Events</strong> plugin and want a unified Commerce catalog.</li>
+<li>You need Commerce cart, subscriptions, or gift cards on products that still live in legacy collections.</li>
+</ul>
+<p><strong>Before you start</strong></p>
+<ol>
+<li><strong>Back up</strong> <code>content/</code> and <code>data/</code>.</li>
+<li>Activate <strong>Commerce</strong> and configure at least one payment provider.</li>
+<li>Leave legacy plugins active until you verify the import.</li>
+</ol>
+<p><strong>Run the wizard</strong></p>
+<ol>
+<li>Open <strong>Commerce</strong> in the admin sidebar.</li>
+<li>Open the <strong>Migration</strong> tab (or <strong>Import → Migrate legacy plugins</strong> when shown).</li>
+<li>The wizard detects:</li>
+</ol>
+<p>   - <strong>Shopping Cart</strong> — <code>shop_products</code> (or configured shop collection) → Commerce entries with <code>fulfillment: ship</code> and one-time purchase options.    - <strong>Events</strong> — legacy event entries → Commerce entries with <code>fulfillment: register</code> and capacity from RSVP settings.</p>
+<ol>
+<li>Click <strong>Preview</strong> to see how many entries will be created or updated.</li>
+<li>Choose a <strong>target collection</strong> (existing Commerce-enabled collection or create new).</li>
+<li>Click <strong>Import</strong>.</li>
+<li>Review the result summary and open <strong>Catalog</strong> to confirm entries.</li>
+</ol>
+<p><strong>After migration</strong></p>
+<ol>
+<li>Update storefront templates to use Commerce buy URLs (<code>{commerce_buy_url}</code>).</li>
+<li>Test checkout on a migrated product and event.</li>
+<li>When satisfied, you may deactivate Shopping Cart / Events (optional).</li>
+</ol>
+<p>The wizard does <strong>not</strong> remove legacy plugins or delete source entries.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Detection</strong></p>
+<ul>
+<li>Shopping Cart: reads plugin config and <code>shop_products</code> (or equivalent) collection entries.</li>
+<li>Events: reads <code>events</code> collection entries and maps RSVP capacity to <code>quantity_available</code>.</li>
+</ul>
+<p><strong>Idempotency</strong></p>
+<p>Each run stores an import run id in Commerce import history. Re-import skips entries whose source slug already exists in the target collection (matched by slug or external source key).</p>
+<p><strong>Mapped Commerce value (examples)</strong></p>
+<p>Shop product:</p>
+<pre><code>{
+  &quot;fulfillment&quot;: &quot;ship&quot;,
+  &quot;purchase_options&quot;: [
+    { &quot;id&quot;: &quot;once&quot;, &quot;label&quot;: &quot;Buy&quot;, &quot;billing&quot;: &quot;one_time&quot;, &quot;price_cents&quot;: 1999, &quot;currency&quot;: &quot;eur&quot; }
+  ],
+  &quot;sku&quot;: &quot;LEGACY-SKU-001&quot;
+}</code></pre>
+<p>Event:</p>
+<pre><code>{
+  &quot;fulfillment&quot;: &quot;register&quot;,
+  &quot;purchase_options&quot;: [
+    { &quot;id&quot;: &quot;ticket&quot;, &quot;label&quot;: &quot;Ticket&quot;, &quot;billing&quot;: &quot;one_time&quot;, &quot;price_cents&quot;: 2500, &quot;currency&quot;: &quot;eur&quot; }
+  ],
+  &quot;quantity_available&quot;: 20
+}</code></pre>
+<p><strong>Rollback</strong></p>
+<p>Use <strong>Import history</strong> to view the migration run. When the run created a new collection, <strong>rollback</strong> can remove imported entries and optionally delete the collection (same as CSV import rollback).</p>
+<p><strong>API</strong> (admin)</p>
+<p>| Action | Purpose | |--------|---------| | <code>migration_detect</code> | List detectable legacy sources | | <code>migration_preview</code> | Row counts and sample mapping | | <code>migration_run</code> | Execute import |</p>
+<p><strong>Out of scope</strong></p>
+<ul>
+<li>Automatic template rewrites on client sites</li>
+<li>Uninstalling legacy plugins</li>
+<li>Migrating order history from pre-Commerce carts</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="commerce-coexistence.html">Coexistence with Shop and Events</a></li>
+<li><a href="commerce-import.html">Commerce import</a></li>
+<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

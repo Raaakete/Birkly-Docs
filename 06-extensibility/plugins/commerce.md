@@ -62,7 +62,11 @@ Commerce routes each order line by fulfillment:
 
 **PostPurchaseRouter** — idempotent handler keyed on `order_id` + line; fires typed automation triggers: `commerce_physical_fulfilled`, `commerce_digital_delivered`, `commerce_event_registered`, `commerce_membership_started`.
 
-**Admin tabs:** Connections, Catalog, Orders, Discounts, Import, Mappings, Fulfillment, Activity, Settings (shipping zones v1).
+**Admin tabs:** Connections, Catalog, Orders, **Subscriptions**, Discounts, **Gift Cards**, **Quotes**, **Analytics**, Import, Mappings, Fulfillment, Tax, Fieldtypes, Activity, Settings (dunning emails, dashboard widget, shipping zones v1).
+
+**Phase 11 (P11):** Subscription upgrades and dunning, gift cards, B2B quotes, analytics dashboard, Shop/Events migration wizard.
+
+**Phase 12 (P12):** Live Shopify/Woo API import, membership tier wiring, plugin denylist (Settings → Security).
 
 **Shelf services:** `commerce_shelf` (primary), `payment_shelf` (legacy alias).
 
@@ -76,5 +80,12 @@ Commerce routes each order line by fulfillment:
 
 - [Commerce fieldtype](../commerce-fieldtype.md)
 - [Commerce template functions](../../03-templating/commerce-functions.md)
-- [Commerce import](../commerce-import.md)
+- [Commerce subscriptions](../commerce-subscriptions.md) — upgrades and dunning
+- [Commerce gift cards and quotes](../commerce-gift-cards-quotes.md)
+- [Commerce analytics](../commerce-analytics.md)
+- [Commerce migration wizard](../commerce-migration-wizard.md) — Shop/Events import
+- [Commerce live import](../commerce-live-import.md) — Shopify/Woo API
+- [Commerce membership wiring](../commerce-membership.md)
+- [Commerce CSV import](../commerce-import.md)
+- [Plugin security denylist](../plugin-security-denylist.md)
 - [Coexistence with Shop & Events](../commerce-coexistence.md)

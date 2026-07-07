@@ -125,6 +125,21 @@ For webhook triggers, the incoming body is parsed (JSON or form) and available a
 - Webhook: `curl -X POST -d '{"test":true}' 'https://your-cms.com/api/automation_webhook.php?workflow=...'` (adjust URL/body to your setup).
 - Entry trigger: create/update an entry in the target collection; check Automation logs.
 
+**Commerce plugin triggers (when Commerce is active)**
+
+| Trigger | When |
+|---------|------|
+| `commerce_order_receipt` | Order paid — customer receipt |
+| `commerce_order_admin_notify` | Order paid — staff notification |
+| `commerce_subscription_payment_failed` | Subscription renewal failed (`past_due`) |
+| `commerce_subscription_recovered` | Subscription payment recovered after failure |
+| `commerce_membership_started` | Recurring membership (`fulfillment: none`) paid |
+| `commerce_physical_fulfilled` | Physical line fulfilled |
+| `commerce_digital_delivered` | Digital download delivered |
+| `commerce_event_registered` | Event/workshop registration completed |
+
+See [Commerce subscriptions](../06-extensibility/commerce-subscriptions.md) for dunning configuration.
+
 ## Related
 
 - [Automation overview](automation-overview.md)

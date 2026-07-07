@@ -79,6 +79,14 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Marketplace — provider guide | `06-extensibility/marketplace-provider-guide.md` | Publishing offers on Birkly Marketplace |
 | Marketplace — buyer guide | `06-extensibility/marketplace-buyer-guide.md` | Free official plugins, license keys, refunds, CMS install |
 | Commerce plugin | `06-extensibility/plugins/commerce.md` | Commerce v2: fulfillment, purchase_options, variants, PostPurchaseRouter |
+| Commerce subscriptions | `06-extensibility/commerce-subscriptions.md` | Upgrades, dunning, retry |
+| Commerce gift cards and quotes | `06-extensibility/commerce-gift-cards-quotes.md` | Store credit, B2B quote workflow |
+| Commerce analytics | `06-extensibility/commerce-analytics.md` | Revenue widget, CSV export |
+| Commerce migration wizard | `06-extensibility/commerce-migration-wizard.md` | Shop/Events → Commerce import |
+| Commerce live import | `06-extensibility/commerce-live-import.md` | Shopify/Woo REST API sync |
+| Commerce membership wiring | `06-extensibility/commerce-membership.md` | Purchase → user tier mapping |
+| Plugin security denylist | `06-extensibility/plugin-security-denylist.md` | Global plugin resource denylist |
+| Commerce CSV import | `06-extensibility/commerce-import.md` | CSV import wizard and history |
 | User plugin | `06-extensibility/user-plugin.md` | User Management plugin: registration, permissions |
 | Payments plugin | `06-extensibility/payments-plugin.md` | Connection hub: 8 providers, webhooks, activity log |
 | Payment shelf API | `06-extensibility/payment-shelf-api.md` | Developer guide: `payment_shelf` for consumer plugins |
@@ -91,6 +99,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Topic | File | Description |
 |-------|------|-------------|
 | Deployment | `07-operations/deployment.md` | Hosting, server, env |
+| Production deploy checklist | `07-operations/production-deploy-checklist.md` | CMS, marketplace, client site smoke |
 | Security | `07-operations/security.md` | Hardening, HTTPS, auth |
 | Backup and restore | `07-operations/backup-and-restore.md` | Content and media backup |
 | Troubleshooting | `07-operations/troubleshooting.md` | Common issues and fixes |

@@ -1,0 +1,54 @@
+<p>Connect a live Shopify or WooCommerce store and sync products into Commerce catalog entries (Phase 12). CSV export import remains available for all platforms.</p>
+<div class="doc-summary"><p><strong>Live import</strong> uses REST APIs to fetch products from <strong>Shopify</strong> (custom app access token) or <strong>WooCommerce</strong> (REST API keys). Credentials are stored encrypted in Commerce admin. The sync wizard supports <strong>preview → import → schedule</strong> (cron token). Products map to Commerce fieldtype values (title, SKU, price, stock, optional image URL ingest).</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Choose import mode</strong></p>
+<p>| Mode | When to use | |------|-------------| | <strong>CSV upload</strong> | One-time export from any platform (see <a href="commerce-import.html">Commerce import</a>) | | <strong>Live API</strong> | Ongoing sync from Shopify or WooCommerce |</p>
+<p><strong>Shopify setup</strong></p>
+<ol>
+<li>In Shopify Admin, create a <strong>custom app</strong> with <code>read_products</code> scope.</li>
+<li>Copy the <strong>Admin API access token</strong> and store domain (<code>your-store.myshopify.com</code>).</li>
+<li>In Birkly: <strong>Commerce → Import → Import products</strong>.</li>
+<li>Select <strong>Shopify (live API)</strong>.</li>
+<li>Enter store URL and access token; click <strong>Test connection</strong>.</li>
+<li>Choose target collection and click <strong>Preview</strong> then <strong>Import</strong>.</li>
+</ol>
+<p><strong>WooCommerce setup</strong></p>
+<ol>
+<li>In WordPress: <strong>WooCommerce → Settings → Advanced → REST API</strong> → Add key with <strong>Read</strong> permission.</li>
+<li>Copy <strong>Consumer key</strong> and <strong>Consumer secret</strong> and site URL.</li>
+<li>In Birkly import wizard, select <strong>WooCommerce (live API)</strong>.</li>
+<li>Enter credentials, preview, and import.</li>
+</ol>
+<p><strong>Scheduled sync</strong></p>
+<p>After a successful live import, copy the <strong>cron URL</strong> from import settings. Call it from your server cron (for example daily) to re-sync changed products. Idempotency matches by SKU or external product id.</p>
+<p><strong>Security notes</strong></p>
+<ul>
+<li>Use read-only API credentials where possible.</li>
+<li>Live import fetches product metadata only — it does not write back to Shopify/Woo.</li>
+<li>Credentials are encrypted at rest; never commit them to git.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Adapters</strong></p>
+<p>| Class | Endpoint pattern | |-------|------------------| | <code>ShopifyImportAdapter</code> | <code>GET /admin/api/.../products.json</code> (paginated) | | <code>WooImportAdapter</code> | <code>GET /wp-json/wc/v3/products</code> (paginated) |</p>
+<p><strong>Field mapping</strong></p>
+<p>| External | Commerce entry | |----------|----------------| | Title / name | Entry title | | Description | Body field (when mapped) | | SKU / variant SKU | <code>commerce.sku</code> | | Price | <code>purchase_options[].price_cents</code> | | Inventory | <code>quantity_available</code> | | Handle / slug | Entry slug | | Image URL | Optional media ingest |</p>
+<p><strong>Credential store</strong></p>
+<p>Encrypted in <code>data/plugins/commerce/</code> via <code>PaymentsCredentialStore</code> (separate connection type from payment providers). Admin actions:</p>
+<ul>
+<li><code>save_import_connection</code> — platform, credentials, label</li>
+<li><code>test_import_connection</code> — validates API reachability</li>
+<li><code>import_live_preview</code> — paginated sample without write</li>
+<li><code>import_live_run</code> — full sync</li>
+<li><code>import_schedule_token</code> — signed cron token</li>
+</ul>
+<p><strong>Threat model</strong></p>
+<p>See Birkly <code>docs/reviews/P12-import-threat-model.md</code>: SSRF protection on store URLs, rate limits, no arbitrary URL fetch from user input.</p>
+<p><strong>Out of scope (v1)</strong></p>
+<ul>
+<li>Webhook-driven real-time sync (deferred)</li>
+<li>Order or customer import</li>
+<li>Automatic collection schema creation without Commerce fieldtype</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="commerce-import.html">Commerce CSV import</a></li>
+<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="commerce-migration-wizard.html">Commerce migration wizard</a></li>
+</ul></div>

@@ -1,0 +1,67 @@
+<p>Link sellable <strong>membership products</strong> to <strong>User Management</strong> tiers so a paid purchase automatically grants site access.</p>
+<div class="doc-summary"><p>Membership products use Commerce <strong>fulfillment: none</strong> with a <strong>recurring</strong> purchase option. After payment, <strong>PostPurchaseRouter</strong> fires <code>commerce_membership_started</code> and <strong>Purchase mappings</strong> grant the configured user tier. Use the <strong>Mappings</strong> tab (or membership wizard) to connect a product slug to a tier id. Requires the <strong>User Management</strong> plugin.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Set up a membership product</strong></p>
+<ol>
+<li>Activate <strong>Commerce</strong> and <strong>User Management</strong>.</li>
+<li>In <strong>Commerce → Fieldtypes</strong>, use the <strong>Membership</strong> preset (fulfillment <code>none</code>, recurring intervals enabled).</li>
+<li>Add the fieldtype to a collection (for example <code>memberships</code>).</li>
+<li>Create an entry with a recurring purchase option (for example €9/month).</li>
+</ol>
+<p><strong>Wire tier on purchase</strong></p>
+<ol>
+<li>Open <strong>Commerce → Mappings</strong>.</li>
+<li>Enter a mapping key:</li>
+</ol>
+<p>   - <strong>Per product:</strong> <code>entry:memberships:premium</code> (collection slug + entry slug)    - <strong>Whole collection:</strong> <code>collection:memberships</code></p>
+<ol>
+<li>Enter the <strong>Grant tier ID</strong> from User Management (for example <code>premium</code>).</li>
+<li>Click <strong>Save Mapping</strong>.</li>
+</ol>
+<p><strong>What happens at checkout</strong></p>
+<ol>
+<li>Customer buys the membership (logged in or registers during checkout).</li>
+<li>Order is paid.</li>
+<li>PostPurchaseRouter processes <code>fulfillment: none</code>.</li>
+<li>Purchase mapping assigns the user tier.</li>
+<li>Automation trigger <code>commerce_membership_started</code> fires (welcome email, etc.).</li>
+</ol>
+<p><strong>Membership fieldtype preset</strong></p>
+<p>Commerce → Fieldtypes → <strong>Membership</strong> quick start sets:</p>
+<ul>
+<li>Default fulfillment: <code>none</code></li>
+<li>Billing intervals: month, year</li>
+<li>Purchase options editor enabled</li>
+</ul>
+<p><strong>User must exist</strong></p>
+<p>Tier grant resolves <code>customer_user_id</code> on the order, or looks up by <code>customer_email</code>. For <code>register</code> fulfillment on workshops, attendee name is collected at checkout; for memberships, ensure the buyer has or creates an account.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>PurchaseMappingService</strong></p>
+<p>Mappings file: <code>data/plugins/commerce/purchase_mappings.json</code></p>
+<pre><code>{
+  &quot;mappings&quot;: {
+    &quot;entry:memberships:community&quot;: { &quot;grant_tier&quot;: &quot;community&quot; },
+    &quot;collection:memberships&quot;: { &quot;grant_tier&quot;: &quot;member&quot; }
+  }
+}</code></pre>
+<p>Entry-specific keys take precedence over collection-wide keys.</p>
+<p><strong>PostPurchaseRouter (<code>none</code>)</strong></p>
+<pre><code>// After paid order line with fulfillment none + recurring
+commerce_membership_started → automation
+PurchaseMappingService::applyPurchaseMappings($order)</code></pre>
+<p><strong>API</strong></p>
+<ul>
+<li><code>save_mapping</code> — <code>{ key, grant_tier }</code></li>
+<li><code>delete_mapping</code> — <code>{ key }</code></li>
+</ul>
+<p><strong>Automation</strong></p>
+<p>| Trigger | When | |---------|------| | <code>commerce_membership_started</code> | Recurring line with <code>fulfillment: none</code> paid |</p>
+<p>Pair with User Management tier permissions to gate collections and features.</p>
+<p><strong>Template pattern</strong></p>
+<pre><code>{for each entry in 'memberships'}
+  &lt;a href=&quot;{commerce_buy_url entry.id 'memberships'}&quot;&gt;Join {entry.title}&lt;/a&gt;
+{/for}</code></pre></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="user-plugin.html">User plugin</a></li>
+<li><a href="commerce-subscriptions.html">Commerce subscriptions</a></li>
+<li><a href="../03-templating/storefront-patterns.html">Storefront patterns</a></li>
+</ul></div>

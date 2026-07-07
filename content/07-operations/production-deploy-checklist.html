@@ -1,0 +1,69 @@
+<p>Pre-flight and post-deploy verification for Birkly CMS, Marketplace, and client sites (Phase 12 closure).</p>
+<div class="doc-summary"><p>Use this checklist when promoting <strong>staging → production</strong> for the Birkly platform, marketplace, and reference client sites (for example kekaba). Automated smoke scripts cover health endpoints and admin login; human steps cover DNS, Stripe live mode, and legal copy.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Before deploy</h3>
+<p>| Step | Owner | Action | |------|-------|--------| | 1 | Agent/CI | <code>php tests/run.php</code> green on Birkly <code>main</code> | | 2 | Agent/CI | Marketplace test suite green | | 3 | Human | Back up production <code>content/</code>, <code>settings/</code>, <code>media/</code>, marketplace <code>data/</code> | | 4 | Human | Note current git commit SHA for rollback |</p>
+<h3>Birkly CMS deploy</h3>
+<ol>
+<li>Pull latest <code>main</code> on the server (or run <code>./scripts/deploy-pull.sh</code>).</li>
+<li>Ensure writable dirs: <code>content/</code>, <code>media/</code>, <code>settings/</code>, <code>data/</code>, <code>cache/</code>, <code>logs/</code>.</li>
+<li>Run smoke script: <code>./scripts/production-smoke.sh</code> (or manual checks below).</li>
+<li>Log in to admin; verify <strong>Commerce</strong>, <strong>Plugins → Marketplace</strong>, and <strong>Settings → Security</strong> load.</li>
+<li>Hit <code>GET /api/health.php</code> — extended checks: disk writable, plugin state, marketplace reachability.</li>
+</ol>
+<h3>Marketplace deploy</h3>
+<ol>
+<li>Pull <code>Birkly-Marketplace</code> <code>main</code>.</li>
+<li>Set production env: Stripe <strong>live</strong> keys, <code>GITHUB_APP_*</code>, webhook secrets.</li>
+<li>Register webhooks:</li>
+</ol>
+<p>   - GitHub App → <code>POST /webhooks/github</code>    - Stripe → <code>POST /webhooks/stripe</code></p>
+<ol>
+<li>Run marketplace smoke (registry <code>GET /api/v1/registry</code>, provider login, catalog page).</li>
+<li>See <a href="https://github.com/Raaakete/Birkly-Marketplace/blob/main/docs/PRODUCTION-RUNBOOK.html">Marketplace production runbook</a>.</li>
+</ol>
+<h3>Client site (kekaba example)</h3>
+<ol>
+<li>From Birkly repo: <code>./scripts/sync-client-embed.sh /path/to/kekaba</code></li>
+<li>In kekaba repo: <code>git pull origin main</code></li>
+<li>Verify static pages load; Commerce buy buttons resolve.</li>
+<li>Do <strong>not</strong> commit runtime <code>content/</code>, <code>users/</code>, <code>settings/</code> from server.</li>
+</ol>
+<h3>Human-only (cannot be automated)</h3>
+<ul>
+<li>[ ] DNS / TLS certificates valid</li>
+<li>[ ] Stripe <strong>live</strong> mode enabled for Commerce and Marketplace Connect</li>
+<li>[ ] Legal pages updated (privacy, terms, marketplace provider agreement links)</li>
+<li>[ ] Email deliverability (SPF/DKIM) for dunning and order receipts</li>
+<li>[ ] Monitoring alerts configured</li>
+</ul>
+<h3>Post-deploy smoke (manual)</h3>
+<p>| Check | Expected | |-------|----------| | Admin login | <code>/admin</code> loads | | Commerce catalog | Products indexed | | Marketplace tab | Official plugins install | | Health endpoint | HTTP 200, checks pass | | Checkout (test) | Test mode order or small live transaction | | Subscriptions | List loads; upgrade UI on detail | | Plugin denylist | Add/remove test entry in Settings → Security |</p>
+<h3>Rollback</h3>
+<ol>
+<li>Revert server git to previous SHA.</li>
+<li>Restore <code>settings/</code> and <code>content/</code> from backup if schema changed.</li>
+<li>Re-run smoke script.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Smoke script locations</strong></p>
+<p>| Repo | Script | |------|--------| | Birkly | <code>scripts/production-smoke.sh</code> | | kekaba | <code>scripts/check-production.sh</code> (when present) |</p>
+<p><strong>Health extensions (P12-M5)</strong></p>
+<p><code>/api/health.php</code> may include:</p>
+<ul>
+<li>Writable directories probe</li>
+<li>Active plugin manifest hash</li>
+<li>Marketplace registry HTTP probe (timeout 5s)</li>
+<li>PHP version and memory limit</li>
+</ul>
+<p><strong>CI publish (official plugins)</strong></p>
+<p>Tag <code>plugin/commerce/v*</code> on Birkly repo triggers GitHub Actions → build zip → marketplace registry API. Third-party providers use GitHub App connect (see <a href="marketplace-provider-guide.html">Marketplace provider guide</a>).</p>
+<p><strong>Embed sync</strong></p>
+<pre><code>./scripts/sync-client-embed.sh ../kekaba</code></pre>
+<p>Copies <code>Birkly-0.1/</code> embed without runtime data. Client sites serve static HTML; CMS runs on subdomain or path per hosting layout.</p>
+<p><strong>Secrets</strong></p>
+<p>Never commit: <code>.env</code>, <code>config.php</code>, <code>settings/</code>, Stripe keys, GitHub App PEM, import API tokens.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="deployment.html">Deployment</a></li>
+<li><a href="security.html">Security</a></li>
+<li><a href="backup-and-restore.html">Backup and restore</a></li>
+<li><a href="marketplace-go-live.html">Marketplace go-live</a></li>
+</ul></div>

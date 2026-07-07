@@ -60,7 +60,7 @@ Security values are stored in `settings/security.json` and **enforced at runtime
 | **Require strong password** | When enabled, passwords must meet complexity rules (upper, lower, number, symbol). When disabled, only min length applies. |
 | **Enable CSRF protection** | When enabled, mutating API requests must include a valid CSRF token. When disabled, token checks are skipped (use only in controlled environments). |
 
-**Plugin security denylist** — Paths or resources blocked from all plugins regardless of granted capabilities. Managed in the Security tab; changes apply immediately after save.
+**Plugin security denylist** — Paths or resources blocked from all plugins regardless of granted capabilities. Managed in the Security tab; changes apply immediately. Supports collection slugs, entry ids, and wildcard patterns (for example `payroll/*`). See [Plugin security denylist](../06-extensibility/plugin-security-denylist.md).
 
 **Two-factor authentication** — Per-user feature under **Account**, not global Settings.
 

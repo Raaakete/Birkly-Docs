@@ -1,0 +1,71 @@
+<p>Phase 11 adds <strong>gift cards</strong> (store credit at checkout) and <strong>B2B quotes</strong> (negotiated prices with a customer accept link).</p>
+<div class="doc-summary"><p><strong>Gift cards</strong> are codes with a balance in cents. Issue them in <strong>Commerce → Gift Cards</strong>; customers apply a code at checkout. Balances support <strong>partial redemption</strong> — unused balance remains on the card. <strong>B2B quotes</strong> snapshot cart lines at custom prices; the admin sends an accept URL; the customer accepts and pays through normal checkout.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Gift cards</h3>
+<p><strong>Issue a gift card</strong></p>
+<ol>
+<li>Open <strong>Commerce → Gift Cards</strong>.</li>
+<li>Click <strong>Issue Gift Card</strong>.</li>
+<li>Enter balance (for example <code>50</code> for €50.00) and optionally a custom code (leave blank to auto-generate).</li>
+<li>The card appears in the list with status <strong>active</strong>.</li>
+</ol>
+<p><strong>Customer checkout</strong></p>
+<p>Customers enter a gift card code during checkout (or your template calls the cart API with <code>set_gift_card</code>). The discount applies after coupons. If the order total is less than the card balance, the remainder stays on the card for a future purchase.</p>
+<p><strong>Void a card</strong></p>
+<p>Click <strong>Void</strong> on an active card to disable it. Voided and expired cards are rejected at checkout.</p>
+<p><strong>Rules (v1)</strong></p>
+<ul>
+<li>One gift card per checkout.</li>
+<li>Currency must match the order.</li>
+<li>Expired cards (when <code>expires_at</code> is set) cannot be redeemed.</li>
+</ul>
+<h3>B2B quotes</h3>
+<p><strong>Create a quote</strong></p>
+<ol>
+<li>Build a cart in the storefront (or admin test cart) with the intended lines.</li>
+<li>Open <strong>Commerce → Quotes</strong>.</li>
+<li>Click <strong>Create Quote from Cart</strong>.</li>
+<li>Enter the customer email when prompted.</li>
+<li>Copy the <strong>accept URL</strong> from the quotes list and send it to the customer.</li>
+</ol>
+<p><strong>Customer flow</strong></p>
+<ol>
+<li>Customer opens the accept URL (tokenized link).</li>
+<li>Reviews line items and total.</li>
+<li>Accepts the quote → status moves to <strong>pending payment</strong>.</li>
+<li>Completes checkout via the normal Commerce payment flow.</li>
+</ol>
+<p><strong>Cancel a quote</strong></p>
+<p>Click <strong>Cancel</strong> on an open quote to invalidate the token.</p>
+<p><strong>Quote states</strong></p>
+<p>| Status | Meaning | |--------|---------| | <code>quote</code> | Created, awaiting customer accept | | <code>pending_payment</code> | Accepted, checkout in progress | | <code>paid</code> | Order completed | | <code>expired</code> / <code>canceled</code> | No longer valid |</p>
+<p>Default expiry is 30 days from creation.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Gift card storage</strong></p>
+<p><code>GiftCardStore</code> — flat files under <code>data/plugins/commerce/gift_cards/</code>. Fields: <code>code</code>, <code>balance_cents</code>, <code>initial_balance_cents</code>, <code>currency</code>, <code>status</code>, <code>expires_at</code>, <code>redemptions[]</code>.</p>
+<p><strong>Checkout integration</strong></p>
+<p><code>DiscountEngine::applyGiftCardTender()</code> validates and applies balance. Cart API:</p>
+<ul>
+<li><code>set_gift_card</code> — <code>{ code }</code> stores code in session.</li>
+<li>Checkout deducts <code>applied_cents</code> from total; persists redemption on the order.</li>
+</ul>
+<p>Admin API:</p>
+<ul>
+<li><code>issue_gift_card</code> — <code>{ balance_cents, code?, currency?, expires_at? }</code></li>
+<li><code>void_gift_card</code> — <code>{ code }</code></li>
+<li><code>list_gift_cards</code></li>
+</ul>
+<p><strong>Quote storage</strong></p>
+<p><code>CommerceQuoteStore</code> — <code>data/plugins/commerce/quotes/</code>. Tokenized accept URLs:</p>
+<pre><code>/api/index.php?route=commerce&amp;action=get_quote&amp;token={token}</code></pre>
+<p>Public/customer actions:</p>
+<p>| Action | Purpose | |--------|---------| | <code>get_quote</code> | Read quote by token | | <code>accept_quote</code> | Accept → <code>pending_payment</code> | | <code>quote_checkout</code> | Start payment for accepted quote |</p>
+<p>Admin:</p>
+<ul>
+<li><code>create_quote</code> — from current built cart + <code>customer_email</code></li>
+<li><code>list_quotes</code>, <code>cancel_quote</code></li>
+</ul>
+<p>Quotes snapshot line prices at creation. Custom per-line overrides are supported in the store API for future admin UI extensions.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="commerce-subscriptions.html">Commerce subscriptions</a></li>
+<li><a href="commerce-analytics.html">Commerce analytics</a></li>
+</ul></div>

@@ -76,6 +76,14 @@
         <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
         <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
         <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
         <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
         <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
         <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
@@ -83,6 +91,7 @@
         </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
         <a href="../07-operations/security.html" class="nav-link">Security</a>
         <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
         <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
@@ -152,7 +161,7 @@
 <h2>Security settings (enforcement)</h2>
 <p>Security values are stored in <code>settings/security.json</code> and <strong>enforced at runtime</strong> when you save via global Save—not display-only toggles.</p>
 <p>| Setting | What it does | |---------|----------------| | <strong>Session timeout (minutes)</strong> | Maximum idle time before the admin session expires. Checked on each authenticated request (<code>api/auth.php</code>). | | <strong>Max login attempts</strong> | Failed logins allowed before lockout for that account/IP (<code>api/users.php</code>). Default range in UI: 3–20. | | <strong>Lockout time (minutes)</strong> | How long login stays blocked after max attempts is exceeded. Stored in seconds internally. | | <strong>Password min length</strong> | Minimum characters required when creating or resetting passwords (<code>api/validate.php</code>). | | <strong>Require strong password</strong> | When enabled, passwords must meet complexity rules (upper, lower, number, symbol). When disabled, only min length applies. | | <strong>Enable CSRF protection</strong> | When enabled, mutating API requests must include a valid CSRF token. When disabled, token checks are skipped (use only in controlled environments). |</p>
-<p><strong>Plugin security denylist</strong> — Paths or resources blocked from all plugins regardless of granted capabilities. Managed in the Security tab; changes apply immediately after save.</p>
+<p><strong>Plugin security denylist</strong> — Paths or resources blocked from all plugins regardless of granted capabilities. Managed in the Security tab; changes apply immediately. Supports collection slugs, entry ids, and wildcard patterns (for example <code>payroll/*</code>). See <a href="../06-extensibility/plugin-security-denylist.html">Plugin security denylist</a>.</p>
 <p><strong>Two-factor authentication</strong> — Per-user feature under <strong>Account</strong>, not global Settings.</p>
 <h2>Storage backends</h2>
 <p>Birkly supports three storage modes in Settings → <strong>Storage</strong>:</p>

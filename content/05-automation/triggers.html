@@ -92,7 +92,10 @@
 <li>Scheduled: use &quot;every minute&quot; or &quot;Run now&quot; to confirm execution and logs.</li>
 <li>Webhook: <code>curl -X POST -d '{&quot;test&quot;:true}' 'https://your-cms.com/api/automation_webhook.php?workflow=...'</code> (adjust URL/body to your setup).</li>
 <li>Entry trigger: create/update an entry in the target collection; check Automation logs.</li>
-</ul></div></details>
+</ul>
+<p><strong>Commerce plugin triggers (when Commerce is active)</strong></p>
+<p>| Trigger | When | |---------|------| | <code>commerce_order_receipt</code> | Order paid — customer receipt | | <code>commerce_order_admin_notify</code> | Order paid — staff notification | | <code>commerce_subscription_payment_failed</code> | Subscription renewal failed (<code>past_due</code>) | | <code>commerce_subscription_recovered</code> | Subscription payment recovered after failure | | <code>commerce_membership_started</code> | Recurring membership (<code>fulfillment: none</code>) paid | | <code>commerce_physical_fulfilled</code> | Physical line fulfilled | | <code>commerce_digital_delivered</code> | Digital download delivered | | <code>commerce_event_registered</code> | Event/workshop registration completed |</p>
+<p>See <a href="../06-extensibility/commerce-subscriptions.html">Commerce subscriptions</a> for dunning configuration.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="automation-overview.html">Automation overview</a></li>
 <li><a href="conditions-and-actions.html">Conditions and actions</a></li>

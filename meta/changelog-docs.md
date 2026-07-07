@@ -14,6 +14,25 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+---
+
+## 2026-07-07 — Phase 11–12 commerce and ecosystem docs (P11-M7 / P12-M7)
+
+- **New:** `06-extensibility/commerce-subscriptions.md` — plan upgrades, dunning, automation triggers, retry.
+- **New:** `06-extensibility/commerce-gift-cards-quotes.md` — issue/redeem gift cards, B2B quote accept flow.
+- **New:** `06-extensibility/commerce-analytics.md` — revenue summary, top products, CSV export, dashboard widget.
+- **New:** `06-extensibility/commerce-migration-wizard.md` — Shop/Events → Commerce fieldtype import.
+- **New:** `06-extensibility/commerce-live-import.md` — Shopify/WooCommerce REST API sync (P12).
+- **New:** `06-extensibility/commerce-membership.md` — purchase mappings, tier grant, PostPurchaseRouter.
+- **New:** `06-extensibility/plugin-security-denylist.md` — Settings → Security denylist enforcement.
+- **New:** `07-operations/production-deploy-checklist.md` — CMS, marketplace, kekaba smoke and human steps.
+- **Updated:** `06-extensibility/plugins/commerce.md` — P11/P12 admin tabs and guide links.
+- **Updated:** `06-extensibility/commerce-import.md` — import wizard steps, live import cross-link.
+- **Updated:** `06-extensibility/commerce-coexistence.md` — migration wizard path.
+- **Updated:** `06-extensibility/marketplace-provider-guide.md` — GitHub App connect, provider webhooks, official CI publish.
+- **Updated:** `01-admin/settings.md` — denylist detail and link.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`.
+
 ## 2026-07-07 — Phase 10 marketplace go-live (P10-M5)
 
 - **New:** `06-extensibility/marketplace-go-live.md` — fresh install without bundled plugins, official plugins table, grandfathered upgrades.

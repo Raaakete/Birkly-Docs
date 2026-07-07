@@ -38,6 +38,7 @@ Publish plugins, themes, and template packs on the [Birkly Marketplace](https://
 - Upload new versions from the offer editor; each version re-runs preflight (and manual review when required for verified tier).
 - View sales and payouts in the provider dashboard (Stripe Connect).
 - Reply once to verified-purchase reviews on your listing.
+- **Connect GitHub** (optional) — automate release builds when you push tags (see below).
 
 ## Advanced Users
 
@@ -76,6 +77,41 @@ The Birkly CMS marketplace client consumes these endpoints; do not break slug or
 **Revenue**
 
 Stripe Connect splits: buyer pays gross price → Stripe fee → Birkly application fee → remainder to your Connect account. Refunds are primarily the provider's responsibility; see the Provider Agreement.
+
+**GitHub App — automated releases (Phase 12)**
+
+Third-party providers can connect a repository so new tags trigger build → preflight → QC enqueue (offers are **not** auto-published).
+
+1. Install the **Birkly Marketplace GitHub App** on your repository (organization or user).
+2. In **Provider dashboard → Connect GitHub repository**, enter:
+   - **Installation ID** (from GitHub App settings)
+   - **Owner** and **repository** name
+   - **Offer slug** to map releases to
+   - **Tag pattern** (default `v*` — matches `v1.0.0`, `v2.1.3`, etc.)
+3. Publish a GitHub **Release** or tag matching the pattern.
+4. Marketplace webhook `POST /webhooks/github` verifies the signature, downloads the release asset (or builds from tag archive), runs preflight, and enqueues **QC review**.
+5. After admin approval (verified tier) or automatic pass (trusted/untrusted per policy), the catalog release updates.
+
+**Official plugins (Birkly repo)**
+
+Raaakete official plugins use CI on tag `plugin/{name}/v*` → `build-all-official-plugin-zips.sh` → registry API upload. See Birkly `plugins/README.md` and [Production deploy checklist](../07-operations/production-deploy-checklist.md).
+
+**Provider webhooks (optional, Phase 12)**
+
+Configure a webhook URL in the provider dashboard to receive JSON events:
+
+| Event | When |
+|-------|------|
+| `sale` | Buyer completes checkout for your offer |
+| `refund` | Refund processed |
+| `qc_result` | Preflight/QC completes |
+| `payout` | Stripe Connect payout recorded |
+
+Verify webhook signatures using the secret shown in the dashboard. Use for internal ERP, Slack, or license fulfillment systems.
+
+**Stripe webhooks (platform)**
+
+Marketplace operators configure Stripe → `POST /webhooks/stripe` for `account.updated`, `payment_intent.succeeded`, `charge.refunded`. Provider dashboard payout charts read from Connect APIs.
 
 ## Related
 

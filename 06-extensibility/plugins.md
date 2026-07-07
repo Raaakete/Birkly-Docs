@@ -38,20 +38,20 @@ Plugins run with the same access as the CMS. They can read and change content an
 
 **Official plugins (marketplace)**
 
-CMS downloads do **not** include plugins. Install official Birkly extensions from **Plugins → Marketplace** (free, one-click) or [marketplace.birkly.com](https://marketplace.birkly.com).
+CMS downloads do **not** include plugins. Install official Birkly extensions from **Plugins → Marketplace** (free, one-click) or [marketplace.birkly.io](https://marketplace.birkly.io).
 
 | Plugin | Marketplace | Docs |
 |--------|-------------|------|
-| **Commerce** | [birkly-commerce](https://marketplace.birkly.com/offers/birkly-commerce) | [Commerce plugin](plugins/commerce.md) |
-| **Events** | [birkly-events](https://marketplace.birkly.com/offers/birkly-events) | [Events functions](../03-templating/events-functions.md) |
-| **Automation** | [birkly-automation](https://marketplace.birkly.com/offers/birkly-automation) | [Automation overview](../05-automation/automation-overview.md) |
-| **User Management** | [birkly-user-management](https://marketplace.birkly.com/offers/birkly-user-management) | [User plugin](user-plugin.md) |
+| **Commerce** | [birkly-commerce](https://marketplace.birkly.io/offers/birkly-commerce) | [Commerce plugin](plugins/commerce.md) |
+| **Events** | [birkly-events](https://marketplace.birkly.io/offers/birkly-events) | [Events functions](../03-templating/events-functions.md) |
+| **Automation** | [birkly-automation](https://marketplace.birkly.io/offers/birkly-automation) | [Automation overview](../05-automation/automation-overview.md) |
+| **User Management** | [birkly-user-management](https://marketplace.birkly.io/offers/birkly-user-management) | [User plugin](user-plugin.md) |
 
 See [Marketplace go-live — installing plugins](marketplace-go-live.md) for fresh-install workflow and grandfathered upgrades.
 
 **Birkly Marketplace**
 
-Browse official and community extensions at [marketplace.birkly.com](https://marketplace.birkly.com).
+Browse official and community extensions at [marketplace.birkly.io](https://marketplace.birkly.io).
 
 | Role | Guide |
 |------|-------|

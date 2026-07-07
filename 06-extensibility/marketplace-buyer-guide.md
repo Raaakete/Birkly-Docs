@@ -1,6 +1,6 @@
 # Marketplace — buyer license and install
 
-Purchase plugins, themes, and template packs from the [Birkly Marketplace](https://marketplace.birkly.com) and install them in your self-hosted Birkly CMS. This guide is for **buyers** (site owners and admins). Developers publishing offers should see [Marketplace — provider publishing guide](marketplace-provider-guide.md).
+Purchase plugins, themes, and template packs from the [Birkly Marketplace](https://marketplace.birkly.io) and install them in your self-hosted Birkly CMS. This guide is for **buyers** (site owners and admins). Developers publishing offers should see [Marketplace — provider publishing guide](marketplace-provider-guide.md).
 
 ## Summary
 
@@ -12,7 +12,7 @@ Purchase plugins, themes, and template packs from the [Birkly Marketplace](https
 
 1. Log in to your Birkly **admin** (`/admin`).
 2. Go to **Plugins → Marketplace**.
-3. Find an official Birkly offer (Commerce, Events, Automation, User Management) or open [marketplace.birkly.com/catalog](https://marketplace.birkly.com/catalog).
+3. Find an official Birkly offer (Commerce, Events, Automation, User Management) or open [marketplace.birkly.io/catalog](https://marketplace.birkly.io/catalog).
 4. Click **Install** in the CMS. The marketplace auto-issues a free license — you do **not** need to copy a license key.
 5. **Enable** the plugin from the Plugins list if needed.
 
@@ -20,7 +20,7 @@ See [Marketplace go-live — installing plugins](marketplace-go-live.md) for the
 
 **Buying a paid or third-party extension**
 
-1. Visit [marketplace.birkly.com/catalog](https://marketplace.birkly.com/catalog).
+1. Visit [marketplace.birkly.io/catalog](https://marketplace.birkly.io/catalog).
 2. Open an offer and click **Buy** (or **Get** for free community offers that still use checkout).
 3. Enter your **email** at checkout. You may optionally create a marketplace login later to see **My purchases**.
 4. Complete payment (Stripe) for paid offers, or confirm for free checkout offers.
@@ -61,7 +61,7 @@ If activation fails with a seat error, deactivate the license on an old installa
 - On **full refund approval**, payment is reversed via Stripe and the license is **revoked** — the plugin may stop receiving updates and paid features may be disabled.
 - For disputes, contact the provider’s support email on the offer page; platform admin can escalate.
 
-Marketplace refund and buyer terms: [marketplace.birkly.com/legal/refund](https://marketplace.birkly.com/legal/refund) · [Terms of service](https://marketplace.birkly.com/legal/terms).
+Marketplace refund and buyer terms: [marketplace.birkly.io/legal/refund](https://marketplace.birkly.io/legal/refund) · [Terms of service](https://marketplace.birkly.io/legal/terms).
 
 ## Advanced Users
 
@@ -71,7 +71,7 @@ Each CMS install stores a local `installation_id`. License activation sends `lic
 
 **Settings**
 
-Default marketplace URL: `https://marketplace.birkly.com`. Override via environment variable `BIRKLY_MARKETPLACE_URL` or `settings/marketplace.json` (`marketplace_url`) for staging or self-hosted marketplace instances.
+Default marketplace URL: `https://marketplace.birkly.io`. Override via environment variable `BIRKLY_MARKETPLACE_URL` or `settings/marketplace.json` (`marketplace_url`) for staging or self-hosted marketplace instances.
 
 **Updates**
 
@@ -98,4 +98,4 @@ If you cannot use the Marketplace tab, download the release zip from your purcha
 - [Plugins](plugins.md)
 - [Updates](updates.md)
 - [Troubleshooting](../07-operations/troubleshooting.md)
-- [Birkly Marketplace](https://marketplace.birkly.com)
+- [Birkly Marketplace](https://marketplace.birkly.io)

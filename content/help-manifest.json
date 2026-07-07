@@ -1,1 +1,176 @@
-<p>{   &quot;version&quot;: 3,   &quot;docs_base_url&quot;: &quot;https://docs.birkly.com&quot;,   &quot;manifest_version&quot;: &quot;2026-07-07-p13-p15&quot;,   &quot;description&quot;: &quot;Public help manifest for Birkly CMS live fetch (P15-M3). CMS merges with bundled snapshots offline.&quot;,   &quot;topics&quot;: [     {       &quot;id&quot;: &quot;getting-started&quot;,       &quot;title&quot;: &quot;Getting started&quot;,       &quot;keywords&quot;: [&quot;start&quot;, &quot;setup&quot;, &quot;onboarding&quot;, &quot;first steps&quot;, &quot;welcome&quot;],       &quot;docs_path&quot;: &quot;00-overview/getting-started.html&quot;     },     {       &quot;id&quot;: &quot;closed-alpha&quot;,       &quot;title&quot;: &quot;Closed alpha guide&quot;,       &quot;keywords&quot;: [&quot;alpha&quot;, &quot;beta&quot;, &quot;tester&quot;, &quot;feedback&quot;, &quot;invite&quot;, &quot;waitlist&quot;],       &quot;docs_path&quot;: &quot;00-overview/closed-alpha-guide.html&quot;     },     {       &quot;id&quot;: &quot;alpha-legal&quot;,       &quot;title&quot;: &quot;Closed alpha — legal and feedback&quot;,       &quot;keywords&quot;: [&quot;legal&quot;, &quot;terms&quot;, &quot;privacy&quot;, &quot;feedback&quot;, &quot;alpha&quot;],       &quot;docs_path&quot;: &quot;00-overview/alpha-legal.html&quot;     },     {       &quot;id&quot;: &quot;dashboard&quot;,       &quot;title&quot;: &quot;Dashboard&quot;,       &quot;keywords&quot;: [&quot;dashboard&quot;, &quot;overview&quot;, &quot;home&quot;, &quot;stats&quot;, &quot;activity&quot;],       &quot;docs_path&quot;: &quot;01-admin/dashboard.html&quot;     },     {       &quot;id&quot;: &quot;account&quot;,       &quot;title&quot;: &quot;Account&quot;,       &quot;keywords&quot;: [&quot;account&quot;, &quot;profile&quot;, &quot;password&quot;, &quot;2fa&quot;, &quot;cloud account&quot;, &quot;sso&quot;, &quot;link&quot;],       &quot;docs_path&quot;: &quot;01-admin/account.html&quot;     },     {       &quot;id&quot;: &quot;admin-appearance&quot;,       &quot;title&quot;: &quot;Admin appearance — theme&quot;,       &quot;keywords&quot;: [&quot;dark mode&quot;, &quot;theme&quot;, &quot;light&quot;, &quot;responsive&quot;, &quot;mobile&quot;],       &quot;docs_path&quot;: &quot;01-admin/admin-appearance.html&quot;     },     {       &quot;id&quot;: &quot;entries&quot;,       &quot;title&quot;: &quot;Entries &amp; collections&quot;,       &quot;keywords&quot;: [&quot;entries&quot;, &quot;collections&quot;, &quot;content&quot;, &quot;create&quot;, &quot;edit&quot;, &quot;slug&quot;],       &quot;docs_path&quot;: &quot;02-content/entries.html&quot;     },     {       &quot;id&quot;: &quot;entry-editor&quot;,       &quot;title&quot;: &quot;Entry editor&quot;,       &quot;keywords&quot;: [&quot;entry editor&quot;, &quot;write&quot;, &quot;publish&quot;, &quot;draft&quot;, &quot;fields&quot;, &quot;save&quot;],       &quot;docs_path&quot;: &quot;02-content/entries.html&quot;     },     {       &quot;id&quot;: &quot;settings&quot;,       &quot;title&quot;: &quot;Settings&quot;,       &quot;keywords&quot;: [&quot;settings&quot;, &quot;general&quot;, &quot;branding&quot;, &quot;security&quot;, &quot;monitoring&quot;, &quot;api&quot;, &quot;domains&quot;],       &quot;docs_path&quot;: &quot;01-admin/settings.html&quot;     },     {       &quot;id&quot;: &quot;monitoring-alerts&quot;,       &quot;title&quot;: &quot;Monitoring and health alerts&quot;,       &quot;keywords&quot;: [&quot;monitoring&quot;, &quot;health&quot;, &quot;alert&quot;, &quot;webhook&quot;, &quot;email&quot;, &quot;ops&quot;],       &quot;docs_path&quot;: &quot;07-operations/monitoring-alerts.html&quot;     },     {       &quot;id&quot;: &quot;ai&quot;,       &quot;title&quot;: &quot;AI assistant&quot;,       &quot;keywords&quot;: [&quot;ai&quot;, &quot;chat&quot;, &quot;assistant&quot;, &quot;openai&quot;, &quot;ollama&quot;, &quot;anthropic&quot;, &quot;byoai&quot;, &quot;approval&quot;],       &quot;docs_path&quot;: &quot;01-admin/ai-overview.html&quot;     },     {       &quot;id&quot;: &quot;ai-connections&quot;,       &quot;title&quot;: &quot;AI connections (outbound)&quot;,       &quot;keywords&quot;: [&quot;ai connections&quot;, &quot;provider&quot;, &quot;api key&quot;, &quot;model&quot;, &quot;role&quot;, &quot;byoai&quot;],       &quot;docs_path&quot;: &quot;01-admin/ai-connections.html&quot;     },     {       &quot;id&quot;: &quot;mcp-connections&quot;,       &quot;title&quot;: &quot;MCP connections (inbound)&quot;,       &quot;keywords&quot;: [&quot;mcp&quot;, &quot;claude desktop&quot;, &quot;model context protocol&quot;, &quot;inbound&quot;, &quot;endpoint&quot;],       &quot;docs_path&quot;: &quot;01-admin/mcp-connections.html&quot;     },     {       &quot;id&quot;: &quot;automation&quot;,       &quot;title&quot;: &quot;Automation&quot;,       &quot;keywords&quot;: [&quot;automation&quot;, &quot;workflow&quot;, &quot;trigger&quot;, &quot;webhook&quot;, &quot;schedule&quot;],       &quot;docs_path&quot;: &quot;05-automation/automation-overview.html&quot;     },     {       &quot;id&quot;: &quot;user-plugin&quot;,       &quot;title&quot;: &quot;User management plugin&quot;,       &quot;keywords&quot;: [&quot;user plugin&quot;, &quot;registration&quot;, &quot;login&quot;, &quot;members&quot;, &quot;permissions&quot;],       &quot;docs_path&quot;: &quot;06-extensibility/user-plugin.html&quot;     },     {       &quot;id&quot;: &quot;content-editor&quot;,       &quot;title&quot;: &quot;ContentEditor field&quot;,       &quot;keywords&quot;: [&quot;content editor&quot;, &quot;rich text&quot;, &quot;blocks&quot;, &quot;html&quot;, &quot;fieldtype&quot;],       &quot;docs_path&quot;: &quot;02-content/content-editor.html&quot;     },     {       &quot;id&quot;: &quot;plugins&quot;,       &quot;title&quot;: &quot;Plugins&quot;,       &quot;keywords&quot;: [&quot;plugins&quot;, &quot;extensions&quot;, &quot;install&quot;, &quot;enable&quot;],       &quot;docs_path&quot;: &quot;06-extensibility/plugins.html&quot;     },     {       &quot;id&quot;: &quot;marketplace&quot;,       &quot;title&quot;: &quot;Marketplace go-live&quot;,       &quot;keywords&quot;: [&quot;marketplace&quot;, &quot;install&quot;, &quot;official&quot;, &quot;paid&quot;, &quot;license&quot;],       &quot;docs_path&quot;: &quot;06-extensibility/marketplace-go-live.html&quot;     },     {       &quot;id&quot;: &quot;marketplace-buyer&quot;,       &quot;title&quot;: &quot;Marketplace — buyer guide&quot;,       &quot;keywords&quot;: [&quot;marketplace&quot;, &quot;buyer&quot;, &quot;license&quot;, &quot;subscription&quot;, &quot;checkout&quot;, &quot;stripe&quot;],       &quot;docs_path&quot;: &quot;06-extensibility/marketplace-buyer-guide.html&quot;     },     {       &quot;id&quot;: &quot;commerce&quot;,       &quot;title&quot;: &quot;Commerce plugin&quot;,       &quot;keywords&quot;: [&quot;commerce&quot;, &quot;cart&quot;, &quot;checkout&quot;, &quot;orders&quot;, &quot;payments&quot;],       &quot;docs_path&quot;: &quot;06-extensibility/plugins/commerce.html&quot;     },     {       &quot;id&quot;: &quot;commerce-multi-currency&quot;,       &quot;title&quot;: &quot;Commerce multi-currency&quot;,       &quot;keywords&quot;: [&quot;commerce&quot;, &quot;currency&quot;, &quot;eur&quot;, &quot;usd&quot;, &quot;checkout&quot;],       &quot;docs_path&quot;: &quot;06-extensibility/commerce-multi-currency.html&quot;     },     {       &quot;id&quot;: &quot;commerce-live-import&quot;,       &quot;title&quot;: &quot;Commerce live import&quot;,       &quot;keywords&quot;: [&quot;import&quot;, &quot;shopify&quot;, &quot;woocommerce&quot;, &quot;etsy&quot;, &quot;square&quot;, &quot;sync&quot;],       &quot;docs_path&quot;: &quot;06-extensibility/commerce-live-import.html&quot;     },     {       &quot;id&quot;: &quot;commerce-inventory-webhooks&quot;,       &quot;title&quot;: &quot;Commerce inventory webhooks&quot;,       &quot;keywords&quot;: [&quot;webhook&quot;, &quot;inventory&quot;, &quot;stock&quot;, &quot;shopify&quot;, &quot;woocommerce&quot;, &quot;hmac&quot;],       &quot;docs_path&quot;: &quot;06-extensibility/commerce-inventory-webhooks.html&quot;     },     {       &quot;id&quot;: &quot;commerce-warehouse-stock&quot;,       &quot;title&quot;: &quot;Commerce warehouse stock&quot;,       &quot;keywords&quot;: [&quot;warehouse&quot;, &quot;stock&quot;, &quot;sku&quot;, &quot;quantity&quot;, &quot;inventory&quot;],       &quot;docs_path&quot;: &quot;06-extensibility/commerce-warehouse-stock.html&quot;     },     {       &quot;id&quot;: &quot;plugin-denylist&quot;,       &quot;title&quot;: &quot;Plugin security denylist&quot;,       &quot;keywords&quot;: [&quot;denylist&quot;, &quot;security&quot;, &quot;capabilities&quot;, &quot;spaces&quot;, &quot;collections&quot;],       &quot;docs_path&quot;: &quot;06-extensibility/plugin-security-denylist.html&quot;     },     {       &quot;id&quot;: &quot;scaffold-plugin&quot;,       &quot;title&quot;: &quot;Plugin scaffolding CLI&quot;,       &quot;keywords&quot;: [&quot;scaffold&quot;, &quot;plugin&quot;, &quot;cli&quot;, &quot;developer&quot;, &quot;create&quot;],       &quot;docs_path&quot;: &quot;06-extensibility/scaffold-plugin-cli.html&quot;     },     {       &quot;id&quot;: &quot;media&quot;,       &quot;title&quot;: &quot;Media library&quot;,       &quot;keywords&quot;: [&quot;media&quot;, &quot;images&quot;, &quot;upload&quot;, &quot;files&quot;, &quot;library&quot;],       &quot;docs_path&quot;: &quot;01-admin/media-library.html&quot;     },     {       &quot;id&quot;: &quot;help&quot;,       &quot;title&quot;: &quot;Help &amp; documentation&quot;,       &quot;keywords&quot;: [&quot;help&quot;, &quot;docs&quot;, &quot;documentation&quot;, &quot;search&quot;, &quot;birkly-docs&quot;],       &quot;docs_path&quot;: &quot;01-admin/help-and-onboarding.html&quot;     }   ] }</p>
+{
+  "version": 3,
+  "docs_base_url": "https://docs.birkly.com",
+  "manifest_version": "2026-07-07-p13-p15",
+  "description": "Public help manifest for Birkly CMS live fetch (P15-M3). CMS merges with bundled snapshots offline.",
+  "topics": [
+    {
+      "id": "getting-started",
+      "title": "Getting started",
+      "keywords": ["start", "setup", "onboarding", "first steps", "welcome"],
+      "docs_path": "00-overview/getting-started.html"
+    },
+    {
+      "id": "closed-alpha",
+      "title": "Closed alpha guide",
+      "keywords": ["alpha", "beta", "tester", "feedback", "invite", "waitlist"],
+      "docs_path": "00-overview/closed-alpha-guide.html"
+    },
+    {
+      "id": "alpha-legal",
+      "title": "Closed alpha — legal and feedback",
+      "keywords": ["legal", "terms", "privacy", "feedback", "alpha"],
+      "docs_path": "00-overview/alpha-legal.html"
+    },
+    {
+      "id": "dashboard",
+      "title": "Dashboard",
+      "keywords": ["dashboard", "overview", "home", "stats", "activity"],
+      "docs_path": "01-admin/dashboard.html"
+    },
+    {
+      "id": "account",
+      "title": "Account",
+      "keywords": ["account", "profile", "password", "2fa", "cloud account", "sso", "link"],
+      "docs_path": "01-admin/account.html"
+    },
+    {
+      "id": "admin-appearance",
+      "title": "Admin appearance — theme",
+      "keywords": ["dark mode", "theme", "light", "responsive", "mobile"],
+      "docs_path": "01-admin/admin-appearance.html"
+    },
+    {
+      "id": "entries",
+      "title": "Entries & collections",
+      "keywords": ["entries", "collections", "content", "create", "edit", "slug"],
+      "docs_path": "02-content/entries.html"
+    },
+    {
+      "id": "entry-editor",
+      "title": "Entry editor",
+      "keywords": ["entry editor", "write", "publish", "draft", "fields", "save"],
+      "docs_path": "02-content/entries.html"
+    },
+    {
+      "id": "settings",
+      "title": "Settings",
+      "keywords": ["settings", "general", "branding", "security", "monitoring", "api", "domains"],
+      "docs_path": "01-admin/settings.html"
+    },
+    {
+      "id": "monitoring-alerts",
+      "title": "Monitoring and health alerts",
+      "keywords": ["monitoring", "health", "alert", "webhook", "email", "ops"],
+      "docs_path": "07-operations/monitoring-alerts.html"
+    },
+    {
+      "id": "ai",
+      "title": "AI assistant",
+      "keywords": ["ai", "chat", "assistant", "openai", "ollama", "anthropic", "byoai", "approval"],
+      "docs_path": "01-admin/ai-overview.html"
+    },
+    {
+      "id": "ai-connections",
+      "title": "AI connections (outbound)",
+      "keywords": ["ai connections", "provider", "api key", "model", "role", "byoai"],
+      "docs_path": "01-admin/ai-connections.html"
+    },
+    {
+      "id": "mcp-connections",
+      "title": "MCP connections (inbound)",
+      "keywords": ["mcp", "claude desktop", "model context protocol", "inbound", "endpoint"],
+      "docs_path": "01-admin/mcp-connections.html"
+    },
+    {
+      "id": "automation",
+      "title": "Automation",
+      "keywords": ["automation", "workflow", "trigger", "webhook", "schedule"],
+      "docs_path": "05-automation/automation-overview.html"
+    },
+    {
+      "id": "user-plugin",
+      "title": "User management plugin",
+      "keywords": ["user plugin", "registration", "login", "members", "permissions"],
+      "docs_path": "06-extensibility/user-plugin.html"
+    },
+    {
+      "id": "content-editor",
+      "title": "ContentEditor field",
+      "keywords": ["content editor", "rich text", "blocks", "html", "fieldtype"],
+      "docs_path": "02-content/content-editor.html"
+    },
+    {
+      "id": "plugins",
+      "title": "Plugins",
+      "keywords": ["plugins", "extensions", "install", "enable"],
+      "docs_path": "06-extensibility/plugins.html"
+    },
+    {
+      "id": "marketplace",
+      "title": "Marketplace go-live",
+      "keywords": ["marketplace", "install", "official", "paid", "license"],
+      "docs_path": "06-extensibility/marketplace-go-live.html"
+    },
+    {
+      "id": "marketplace-buyer",
+      "title": "Marketplace — buyer guide",
+      "keywords": ["marketplace", "buyer", "license", "subscription", "checkout", "stripe"],
+      "docs_path": "06-extensibility/marketplace-buyer-guide.html"
+    },
+    {
+      "id": "commerce",
+      "title": "Commerce plugin",
+      "keywords": ["commerce", "cart", "checkout", "orders", "payments"],
+      "docs_path": "06-extensibility/plugins/commerce.html"
+    },
+    {
+      "id": "commerce-multi-currency",
+      "title": "Commerce multi-currency",
+      "keywords": ["commerce", "currency", "eur", "usd", "checkout"],
+      "docs_path": "06-extensibility/commerce-multi-currency.html"
+    },
+    {
+      "id": "commerce-live-import",
+      "title": "Commerce live import",
+      "keywords": ["import", "shopify", "woocommerce", "etsy", "square", "sync"],
+      "docs_path": "06-extensibility/commerce-live-import.html"
+    },
+    {
+      "id": "commerce-inventory-webhooks",
+      "title": "Commerce inventory webhooks",
+      "keywords": ["webhook", "inventory", "stock", "shopify", "woocommerce", "hmac"],
+      "docs_path": "06-extensibility/commerce-inventory-webhooks.html"
+    },
+    {
+      "id": "commerce-warehouse-stock",
+      "title": "Commerce warehouse stock",
+      "keywords": ["warehouse", "stock", "sku", "quantity", "inventory"],
+      "docs_path": "06-extensibility/commerce-warehouse-stock.html"
+    },
+    {
+      "id": "plugin-denylist",
+      "title": "Plugin security denylist",
+      "keywords": ["denylist", "security", "capabilities", "spaces", "collections"],
+      "docs_path": "06-extensibility/plugin-security-denylist.html"
+    },
+    {
+      "id": "scaffold-plugin",
+      "title": "Plugin scaffolding CLI",
+      "keywords": ["scaffold", "plugin", "cli", "developer", "create"],
+      "docs_path": "06-extensibility/scaffold-plugin-cli.html"
+    },
+    {
+      "id": "media",
+      "title": "Media library",
+      "keywords": ["media", "images", "upload", "files", "library"],
+      "docs_path": "01-admin/media-library.html"
+    },
+    {
+      "id": "help",
+      "title": "Help & documentation",
+      "keywords": ["help", "docs", "documentation", "search", "birkly-docs"],
+      "docs_path": "01-admin/help-and-onboarding.html"
+    }
+  ]
+}

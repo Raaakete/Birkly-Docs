@@ -207,6 +207,7 @@ if (!fs.existsSync(contentIndexDir)) fs.mkdirSync(contentIndexDir, { recursive: 
 fs.writeFileSync(contentIndexPath, homeBody, 'utf8');
 
 allPaths.forEach((p) => {
+  if (!p.endsWith('.md')) return;
   const full = path.join(root, p);
   if (!fs.existsSync(full)) return;
   const md = fs.readFileSync(full, 'utf8');

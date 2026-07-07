@@ -133,8 +133,7 @@
       "items": [
         { "path": "DOCS_ARCHITECTURE.md", "label": "Docs architecture" },
         { "path": "README.md", "label": "README" },
-        { "path": "CONTENTS_INDEX.md", "label": "Contents index" },
-        { "path": "help-manifest.json", "label": "CMS Help manifest" }
+        { "path": "CONTENTS_INDEX.md", "label": "Contents index" }
       ]
     }
   ]

@@ -56,6 +56,12 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Reference projects | `03-templating/reference-projects.md` | Six starter sites; live client only; install script |
 | Production optimization | `03-templating/production-optimization.md` | Optional hydrate/snapshot/bake (advanced) |
 
+## 04 — Studio
+
+| Topic | File | Description |
+|-------|------|-------------|
+| Studio visual builder | `04-studio/getting-started.md` | Visual site builder, SSR publish, export ZIP |
+
 ## 04 — Integration
 
 | Topic | File | Description |

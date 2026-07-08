@@ -53,6 +53,8 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Dates and formatting | `03-templating/dates-and-formatting.md` | Date formats in templates |
 | Media in templates | `03-templating/media-in-templates.md` | `{ media }` and image options |
 | Commerce functions | `03-templating/commerce-functions.md` | Commerce plugin template functions (cart, buy URL) |
+| Reference projects | `03-templating/reference-projects.md` | Six starter sites; live client only; install script |
+| Production optimization | `03-templating/production-optimization.md` | Optional hydrate/snapshot/bake (advanced) |
 
 ## 04 — Integration
 

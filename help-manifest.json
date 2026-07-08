@@ -171,6 +171,18 @@
       "title": "Help & documentation",
       "keywords": ["help", "docs", "documentation", "search", "birkly-docs"],
       "docs_path": "01-admin/help-and-onboarding.html"
+    },
+    {
+      "id": "reference-projects",
+      "title": "Reference projects",
+      "keywords": ["reference", "starter", "blog", "portfolio", "demo", "template", "install"],
+      "docs_path": "03-templating/reference-projects.html"
+    },
+    {
+      "id": "production-optimization",
+      "title": "Production optimization",
+      "keywords": ["hydrate", "snapshot", "bake", "performance", "seo", "birkly-client"],
+      "docs_path": "03-templating/production-optimization.html"
     }
   ]
 }

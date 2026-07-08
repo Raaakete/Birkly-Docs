@@ -16,6 +16,13 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-08 — Phase 20 reference projects & production path (P20-M11)
+
+- **New:** `03-templating/reference-projects.md` — six starter sites (blog, portfolio, yoga, coffee, social, influencer); live `birkly-client.js` only; `scripts/install-reference-project.sh`.
+- **New:** `03-templating/production-optimization.md` — hydrate/snapshot/bake as optional advanced path; default live client (mirrored from Birkly `docs/advanced/production-optimization.md`).
+- **Updated:** `03-templating/templating-overview.md` — Related links to reference projects and production optimization.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json` — new templating entries.
+
 ## 2026-07-07 — Phase 16–19 platform sync (P16-M8 / P17-M6 / P18-M8 / P19-M7)
 
 - **Updated:** `01-admin/help-and-onboarding.md` — START_HERE first-run; wizard v2 (install path, use case, marketplace hint, optional BYOAI mini-wizard with skip always visible); dashboard checklist v2 (essential only; Connect AI only when wizard AI step skipped) (P19).

@@ -92,5 +92,7 @@ Yes. Plain text (e.g. from a Text or Textarea field) is usually **escaped**: cha
 - [Conditionals](conditionals.md)
 - [Dates and formatting](dates-and-formatting.md)
 - [Media in templates](media-in-templates.md)
+- [Reference projects](reference-projects.md) — six starter sites (live client only)
+- [Production optimization](production-optimization.md) — optional hydrate/snapshot/bake
 - [Website integration](../04-integration/website-integration.md)
 - [Client library](../04-integration/client-library.md)

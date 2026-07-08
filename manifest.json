@@ -56,7 +56,9 @@
         { "path": "03-templating/media-in-templates.md", "label": "Media in templates" },
         { "path": "03-templating/commerce-functions.md", "label": "Commerce functions" },
         { "path": "03-templating/events-functions.md", "label": "Events functions" },
-        { "path": "03-templating/storefront-patterns.md", "label": "Storefront and events patterns" }
+        { "path": "03-templating/storefront-patterns.md", "label": "Storefront and events patterns" },
+        { "path": "03-templating/reference-projects.md", "label": "Reference projects" },
+        { "path": "03-templating/production-optimization.md", "label": "Production optimization" }
       ]
     },
     {

@@ -61,6 +61,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Topic | File | Description |
 |-------|------|-------------|
 | Studio visual builder | `04-studio/getting-started.md` | Visual site builder, SSR publish, export ZIP |
+| Studio production builder | `04-studio/production-builder.md` | Design canvas, live preview, engine v2, CSS panel, presets (P25) |
 
 ## 04 — Integration
 

@@ -35,9 +35,8 @@ After you save, this entry is stored. Your website can show it in a list of post
    - **Date / DateTime** — Use the calendar (and time picker if the field has time).
    - **Select / Radio** — Pick one option. **MultiSelect / Checkbox** — Pick multiple or yes/no as the field allows.
    - **Tags** — Type a word and press Enter; repeat for more tags.
-3. **Slug** — Often auto-filled from the title (e.g. “Welcome to our blog” → `welcome-to-our-blog`). You can edit it. This is what your site will use in the URL and when loading “this one post.”
-4. **Status** — **Draft** = saved but not visible on the site. **Published** = visible. Choose **Save** or **Save & Publish**.
-5. Click **Save**.
+3. **Sidebar → General** — Set **Slug** (auto-generates from title by default; see [Entry editor](../01-admin/entry-editor.md)) and **Status** (**Draft** = not on site; **Published** = visible).
+4. Click **Save** or **Save & Publish**.
 
 **Editing:** Open the collection, click the entry in the list (or the edit icon), change any fields, and save. **Deleting:** Use the delete option from the list or the entry screen—usually permanent, so be sure. **Duplicate:** If available, “Duplicate” creates a new entry with the same content (and a new slug) so you can tweak it for a similar post or product.
 
@@ -70,6 +69,7 @@ An entry is one **record** in a collection: field values plus system fields (**s
 
 ## Related
 
+- [Entry editor](../01-admin/entry-editor.md)
 - [Collections](collections.md)
 - [Field types](field-types.md)
 - [Slugs and status](slugs-and-status.md)

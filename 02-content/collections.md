@@ -43,7 +43,7 @@ Again: you define this once; every new product uses the same fields.
 1. Sidebar → **Content** → **Create collection** (or **New collection**).
 2. **Name:** e.g. “Blog posts”. **Handle:** e.g. `blog` (often auto-filled from the name; use lowercase, no spaces). The handle is what templates and the API use—don’t change it later if you can avoid it.
 3. **Add fields:** For each field set a **label** (what editors see), a **field type** (Text, Editor, Date, Media, etc.), and whether it’s **required**. See [Field types](field-types.md) for the full list and when to use each.
-4. **Settings** tab: Choose **Entry method**.
+4. **Settings** tab (sidebar): Set slug (auto-generate from name by default), description, sort order, and **Entry method**.
    - **Admin only** — Only logged-in users can create or edit entries. Default and safest for most content.
    - **Public API** — Your website (or another app) can create entries too, e.g. a contact form or a signup form. If you enable this, you can usually set rate limits and security options.
 5. **Save.** The collection appears in the Content list; click it to add entries.
@@ -80,6 +80,7 @@ A collection is the **schema** for one content type: **name** (admin label), **h
 
 ## Related
 
+- [Collection editor](../01-admin/collection-editor.md)
 - [Entries](entries.md)
 - [Field types](field-types.md)
 - [Slugs and status](slugs-and-status.md)

@@ -17,6 +17,8 @@ This index lists every documentation topic and its file path. Use it for navigat
 |-------|------|-------------|
 | Dashboard | `01-admin/dashboard.md` | Admin home, widgets, at-a-glance info |
 | Content overview | `01-admin/content-overview.md` | Content area: collections and entries |
+| Entry editor | `01-admin/entry-editor.md` | Sidebar tabs, slug auto-generate, reserved fields |
+| Collection editor | `01-admin/collection-editor.md` | Field schema, Settings tab slug parity |
 | Media library | `01-admin/media-library.md` | Upload, organize, use media in content |
 | Settings | `01-admin/settings.md` | General and branding settings |
 | Roles and permissions | `01-admin/roles-and-permissions.md` | User roles and what they can do |

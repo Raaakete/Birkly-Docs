@@ -14,6 +14,13 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-20 — P29 Collections & entries excellence (P29-M13)
+
+- **New:** `01-admin/entry-editor.md` — sidebar tabs (General, Meta Data, Templating), slug in sidebar only, auto-generate checkbox.
+- **New:** `01-admin/collection-editor.md` — Settings tab slug parity with entry editor.
+- **Updated:** `02-content/slugs-and-status.md`, `entries.md`, `collections.md` — sidebar slug UX, ID fallback, cross-links.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json` — entry/collection editor topics.
+
 ## 2026-07-07 — Phase 10 marketplace go-live (P10-M5)
 
 - **New:** `06-extensibility/marketplace-go-live.md` — fresh install without bundled plugins, official plugins table, grandfathered upgrades.

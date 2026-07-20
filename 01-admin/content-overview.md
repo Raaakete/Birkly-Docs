@@ -29,7 +29,7 @@ The Content area is where you manage your content types (collections) and the ac
 - **Templates / your website** — The way your site displays content (e.g. which page shows one post vs a list) is defined in your site’s templates or routing. The actual text and images live in **Content** (and Media).
 - **Forms on your site** — If a collection is set to allow “Public API” submissions, your website can create new entries (e.g. contact form, newsletter signup) without anyone logging into the admin. Those entries still show up in the same collection in **Content** so you can review or edit them.
 
-For step-by-step instructions on creating a collection and its fields, see [Collections](../02-content/collections.md). For creating and editing individual items, see [Entries](../02-content/entries.md).
+For step-by-step instructions on creating a collection and its fields, see [Collections](../02-content/collections.md) and [Collection editor](collection-editor.md). For creating and editing individual items, see [Entries](../02-content/entries.md) and [Entry editor](entry-editor.md).
 
 ## Advanced Users
 
@@ -43,6 +43,8 @@ Workflow: define collection once → add/edit entries. Media is referenced by fi
 
 ## Related
 
+- [Entry editor](entry-editor.md)
+- [Collection editor](collection-editor.md)
 - [Collections](../02-content/collections.md)
 - [Entries](../02-content/entries.md)
 - [Media library](media-library.md)

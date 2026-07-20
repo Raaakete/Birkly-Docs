@@ -17,6 +17,8 @@
       "items": [
         { "path": "01-admin/dashboard.md", "label": "Dashboard" },
         { "path": "01-admin/content-overview.md", "label": "Content overview" },
+        { "path": "01-admin/entry-editor.md", "label": "Entry editor" },
+        { "path": "01-admin/collection-editor.md", "label": "Collection editor" },
         { "path": "01-admin/media-library.md", "label": "Media library" },
         { "path": "01-admin/settings.md", "label": "Settings" },
         { "path": "01-admin/roles-and-permissions.md", "label": "Roles and permissions" },

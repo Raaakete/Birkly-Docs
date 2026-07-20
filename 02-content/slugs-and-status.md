@@ -18,7 +18,7 @@ The **slug** is the part of the entry that goes in the web address and in the sy
 
 **Where you see it:**
 
-- In the **entry editor** there’s usually a “Slug” field. It’s often filled in automatically from the title when you save (e.g. “My first post” becomes `my-first-post`). You can change it before or after saving.
+- In the **entry editor**, open the right sidebar → **General** tab. The **Slug** field is there only (not in the main content fields). **Auto-generate slug from title** is checked by default: the slug updates as you type the title. Uncheck it to set a manual slug; re-check to regenerate. If there is no title on save, Birkly uses the entry ID for both title and slug.
 - On your **website**, the slug often appears in the URL. For example the address of a single blog post might be `/blog/welcome-to-our-blog` or `yoursite.com/post.html?slug=welcome-to-our-blog`. So the slug is what identifies “this post” in the URL.
 - **Important:** Two entries in the **same** collection can’t have the same slug. Each must be unique (e.g. you can’t have two blog posts with slug `hello`). If you change a slug after the page is live, old links that used the previous slug will stop working unless you set up redirects.
 
@@ -33,7 +33,7 @@ The **slug** is the part of the entry that goes in the web address and in the sy
 
 You create a new post and set status to **Draft**. You save. The post exists in the admin, but if someone visits your blog list or the post URL, they won’t see it. When you’re ready, you open the entry, change status to **Published**, and save. From then on it appears in the blog list and at its URL. If you want to hide it again later (e.g. a seasonal page), you can set it back to **Draft** instead of deleting it.
 
-**Where to set it:** In the entry editor, near the save button, you’ll see a **Status** dropdown or toggle. Choose Draft or Published. Buttons like **Save & Publish** both save and set status to Published in one click.
+**Where to set it:** In the entry editor sidebar → **General** tab, use the **Status** dropdown. Choose Draft or Published. Buttons like **Save & Publish** both save and set status to Published in one click.
 
 ## Advanced Users
 
@@ -42,7 +42,7 @@ You create a new post and set status to **Draft**. You save. The post exists in 
 - **Templates:** Single-entry load, e.g. `{from 'blog' get entry 'welcome-to-our-blog'}`.
 - **API:** `GET /api/public/collections/blog/entries/welcome-to-our-blog`.
 
-Auto-generation: often `slugify(title)` (lowercase, spaces → hyphens, remove non-alphanumeric). Uniqueness enforced on save; conflict returns error. Changing slug invalidates existing links; implement redirects (e.g. in server or frontend router) if needed.
+Auto-generation: `slugify(title)` when **Auto-generate slug from title** is on (sidebar General tab). Empty title → entry/collection ID fallback (normalized). Checkbox off → POST `slug` preserved on title-only save (P2-R11). Uniqueness enforced per collection on save. Changing slug invalidates existing links; implement redirects if needed.
 
 **Status:** Stored as `status: "draft"` or `status: "published"`. Filtering:
 - **Public API:** List/single endpoints return only published entries unless overridden (e.g. preview token).
@@ -56,6 +56,7 @@ Auto-generation: often `slugify(title)` (lowercase, spaces → hyphens, remove n
 
 ## Related
 
+- [Entry editor](../01-admin/entry-editor.md)
 - [Entries](entries.md)
 - [Collections](collections.md)
 - [Variables and output](../03-templating/variables-and-output.md)

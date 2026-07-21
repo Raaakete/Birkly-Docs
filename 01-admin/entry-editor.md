@@ -10,7 +10,8 @@ Open a collection from **Content**, then click **New entry** or open an existing
 
 **Layout**
 
-- **Main area (left)** — Collection fields only: title, editor, media, dates, and any custom fields you defined.
+- **Main area (left)** — Collection fields only: title, editor, media, dates, and any custom fields you defined. Labels sit **above** each control (full-width fieldtypes).
+- **Topbar breadcrumb** — Long trails collapse from the left; the collection and entry names stay visible (`… / Collection / Entry`). See [Forms and navigation](admin-forms-navigation.md).
 - **Sidebar (right)** — Three tabs:
   - **General** — Slug, status, publish/expire dates, reviewer, and entry metadata (ID, created/updated times).
   - **Meta Data** — SEO and social sharing: meta title, meta description, keywords, Open Graph fields.

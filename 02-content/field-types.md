@@ -61,6 +61,17 @@ When you add a field to a collection, you choose a **field type**. That type dec
 - **Email** — An email address. Use for: contact email, author email.  
   **Example:** Contact = “hello@example.com”.
 
+- **Phone** — A phone number with basic format validation. Use for: contact phone, support line.  
+  **Example:** Phone = “+1 555 0100”.
+
+- **Toggle** — A yes/no switch (same idea as Checkbox, different UI). Use for: feature flags, enable/disable options.
+
+- **Markdown** — Long-form text with a Write/Preview tab. Stored as markdown; rendered to HTML on output. Use for: docs-style body content when you want plain-text source.
+
+- **oEmbed** — A video or embed URL (YouTube, Vimeo). Stores the URL and renders an embed preview in the editor.
+
+- **Code** — Monospace text for snippets or JSON. Optional JSON mode validates syntax on save.
+
 **Less common but useful**
 
 - **Relation** — Link to other entries (e.g. “Author” from a “Team” collection, or “Category” from a “Categories” collection). The editor picks one or more entries from another collection.

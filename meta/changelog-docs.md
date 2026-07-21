@@ -14,6 +14,11 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-21 — P31 responsive dashboard documentation prepared (P31-M17)
+
+- **New:** `01-admin/admin-responsive-dashboard.md` — responsive widget grid, core and plugin widgets, Widget API v2, and dashboard behavior.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, and `help-manifest.json` — dashboard guide navigation and Help search entry.
+
 <<<<<<< HEAD
 ---
 

@@ -29,6 +29,12 @@
       "docs_path": "01-admin/dashboard.html"
     },
     {
+      "id": "responsive-dashboard",
+      "title": "Responsive dashboard and widgets",
+      "keywords": ["dashboard", "widget", "quick actions", "responsive", "commerce", "analytics"],
+      "docs_path": "01-admin/admin-responsive-dashboard.html"
+    },
+    {
       "id": "account",
       "title": "Account",
       "keywords": ["account", "profile", "password", "2fa", "cloud account", "sso", "link"],

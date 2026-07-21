@@ -17,6 +17,7 @@
       "label": "Admin",
       "items": [
         { "path": "01-admin/dashboard.md", "label": "Dashboard" },
+        { "path": "01-admin/admin-responsive-dashboard.md", "label": "Responsive dashboard" },
         { "path": "01-admin/content-overview.md", "label": "Content overview" },
         { "path": "01-admin/entry-editor.md", "label": "Entry editor" },
         { "path": "01-admin/admin-forms-navigation.md", "label": "Forms and navigation" },

@@ -17,6 +17,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Topic | File | Description |
 |-------|------|-------------|
 | Dashboard | `01-admin/dashboard.md` | Admin home, widgets, at-a-glance info |
+| Responsive dashboard | `01-admin/admin-responsive-dashboard.md` | P31 widget grid, plugin widgets, responsive behavior, and Widget API v2 |
 | Content overview | `01-admin/content-overview.md` | Content area: collections and entries |
 | Entry editor | `01-admin/entry-editor.md` | Sidebar tabs, slug auto-generate, reserved fields |
 | Collection editor | `01-admin/collection-editor.md` | Field schema, Settings tab slug parity |

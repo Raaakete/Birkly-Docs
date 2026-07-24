@@ -31,6 +31,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | AI overview | `01-admin/ai-overview.md` | What the AI system is and where to find it |
 | AI connections | `01-admin/ai-connections.md` | Outbound BYOAI providers (OpenAI, Ollama, etc.) |
 | MCP connections | `01-admin/mcp-connections.md` | Inbound MCP endpoints (stdio bridge, OAuth) |
+| AI site builder | `01-admin/ai-site-builder.md` | MCP tools for project/ HTML, CSS, JS (P38) |
 | AI chat and actions | `01-admin/ai-chat-and-actions.md` | Using the chat and what the AI can do |
 | AI approvals | `01-admin/ai-approvals.md` | Approval queue for AI write actions |
 

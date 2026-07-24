@@ -34,6 +34,16 @@ The **Marsk** pack (`marsk`) is the recommended onboarding demo:
 curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.starters[] | select(.id=="marsk")'
 ```
 
+**Choosing a starter**
+
+1. Complete CMS deploy and open the admin.
+2. Follow the **onboarding wizard** (or revisit from Help).
+3. Pick **Marsk** or choose **Start blank**.
+4. Wait for download and extraction to finish.
+5. Explore collections in **Content** and preview the public site.
+
+Availability depends on Ops catalog settings — some starters may show as "coming soon" until the platform publishes a release.
+
 **Marketplace template packs**
 
 Providers can publish **template pack** offers on the marketplace. These are products you buy or get for free through checkout, then install via **Plugins → Marketplace** like any other offer.

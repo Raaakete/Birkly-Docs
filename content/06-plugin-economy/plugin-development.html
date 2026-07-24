@@ -1,0 +1,75 @@
+<p>Build Birkly plugins as self-contained packages with <code>plugin.json</code> metadata, a PHP entry point, and declared permissions. The marketplace and CMS use these declarations for preflight checks and install consent.</p>
+<div class="doc-summary"><p>A Birkly <strong>plugin</strong> lives in <code>plugins/{folder}/</code> with at minimum <code>plugin.json</code> and <code>plugin.php</code>. Declare <strong>permissions</strong>, <strong>hooks</strong>, and <strong>data_access</strong> in <code>plugin.json</code> so site owners see an accurate consent screen at install. Register admin pages, API routes, field types, and automation actions from <code>plugin.php</code>. Package as a zip for marketplace upload or manual install.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Minimum package</strong></p>
+<pre><code>my-plugin/
+  plugin.json    ← name, version, description, permissions
+  plugin.php     ← registers hooks, routes, services
+  admin/         ← optional admin UI pages
+  api/           ← optional API endpoints</code></pre>
+<p><strong>plugin.json essentials</strong></p>
+<p>| Field | Purpose | |-------|---------| | <code>name</code> | Display name in admin | | <code>version</code> | Semver (for example <code>1.0.0</code>) | | <code>description</code> | Short summary | | <code>requires_birkly</code> | Minimum CMS version | | <code>requires_php</code> | Minimum PHP version | | <code>permissions</code> | Admin capabilities the plugin needs | | <code>hooks</code> | Event names the plugin listens to | | <code>data_access</code> | Read/write scope for entries, media, users, settings |</p>
+<p><strong>Permissions and data access</strong></p>
+<p>Site owners see your declarations before install. Request only what you need:</p>
+<ul>
+<li><strong>permissions</strong> — strings like <code>read_entries</code>, <code>manage_plugins</code>, <code>manage_settings</code>.</li>
+<li><strong>hooks</strong> — event names like <code>entry.saved</code>, <code>user.login</code>.</li>
+<li><strong>data_access</strong> — per domain (<code>entries</code>, <code>media</code>, <code>users</code>, <code>settings</code>), set level to <code>none</code>, <code>read</code>, or <code>read_write</code>.</li>
+</ul>
+<p>Example:</p>
+<pre><code>{
+  &quot;name&quot;: &quot;My Integration&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;Syncs entries to an external CRM&quot;,
+  &quot;requires_birkly&quot;: &quot;&gt;=0.1.0&quot;,
+  &quot;requires_php&quot;: &quot;&gt;=8.1&quot;,
+  &quot;permissions&quot;: [&quot;read_entries&quot;, &quot;manage_settings&quot;],
+  &quot;hooks&quot;: [&quot;entry.saved&quot;],
+  &quot;data_access&quot;: {
+    &quot;entries&quot;: &quot;read&quot;,
+    &quot;media&quot;: &quot;none&quot;,
+    &quot;users&quot;: &quot;none&quot;,
+    &quot;settings&quot;: &quot;read&quot;
+  }
+}</code></pre>
+<p><strong>What plugins can add</strong></p>
+<ul>
+<li>New <strong>admin pages</strong> and sidebar items</li>
+<li><strong>API endpoints</strong> under <code>/api/{plugin_handle}/...</code></li>
+<li><strong>Field types</strong> in the collection editor</li>
+<li><strong>Automation</strong> triggers and actions</li>
+<li><strong>Template functions</strong> for the storefront</li>
+</ul>
+<p><strong>Local development</strong></p>
+<p>Place your folder in <code>plugins/</code> and enable it in <strong>Settings → Plugins</strong>. Use <code>scaffold-plugin.php</code> to generate a starter package — see <a href="../06-extensibility/scaffold-plugin-cli.html">Plugin scaffolding CLI</a>.</p>
+<p><strong>Publishing</strong></p>
+<p>Zip the plugin folder (no path traversal, no parent <code>..</code> segments) and upload as a marketplace release. Preflight validates <code>plugin.json</code> against the package schema.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Entry point (<code>plugin.php</code>)</strong></p>
+<p>Register services on load. Typical patterns:</p>
+<ul>
+<li>Navigation via <code>plugin.json</code> <code>navigation</code> block or programmatic sidebar registration.</li>
+<li>Routes under <code>api/</code> mapped to <code>/api/{handle}/...</code>.</li>
+<li>Hook callbacks registered against names declared in <code>plugin.json</code>.</li>
+</ul>
+<p><strong>Capability enforcement</strong></p>
+<p>Runtime checks use <code>has_plugin_capability($plugin_id, $capability, $scope)</code>. The <strong>plugin security denylist</strong> in Settings → Security can hard-block collections or admin spaces regardless of granted capabilities — see <a href="../06-extensibility/plugin-security-denylist.html">Plugin security denylist</a>.</p>
+<p><strong>Permissions manifest at install</strong></p>
+<p>The CMS resolves <code>permissions_manifest</code> from the marketplace release metadata or by previewing the zip's <code>plugin.json</code>. Consent is stored in <code>settings/marketplace_consent.json</code> keyed by <code>{slug}/{version}</code>. New versions with changed declarations require re-consent.</p>
+<p><strong>Dependencies</strong></p>
+<p>Declare soft or hard dependencies in <code>plugin.json</code> (<code>requires_plugins</code>). The CMS blocks activation when dependencies are missing — for example Events soft-depends on Commerce for paid tickets.</p>
+<p><strong>Package validation</strong></p>
+<p>Marketplace preflight checks:</p>
+<ul>
+<li>Valid semver and required fields</li>
+<li>Zip structure (single root folder or flat layout per schema)</li>
+<li>No dangerous PHP patterns (<code>eval</code>, <code>shell_exec</code>, etc.)</li>
+<li>Capability declarations present for plugins that access data</li>
+</ul>
+<p><strong>Developer tooling</strong></p>
+<p>| Tool | Purpose | |------|---------| | <code>scaffold-plugin.php</code> | Generate plugin skeleton | | <code>plugin-package.schema.json</code> | Validate local <code>plugin.json</code> | | Birkly test suite | Denylist and capability tests |</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="for-providers.html">For providers</a></li>
+<li><a href="security-and-review.html">Security and review</a></li>
+<li><a href="official-plugins.html">Official plugins</a></li>
+<li><a href="../06-extensibility/plugins.html">Plugins</a></li>
+<li><a href="../06-extensibility/scaffold-plugin-cli.html">Plugin scaffolding CLI</a></li>
+</ul></div>

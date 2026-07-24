@@ -1,0 +1,60 @@
+<p>Six copy-paste starter sites ship with the Birkly CMS. Each demonstrates real templating patterns with <strong>live <code>birkly-client.js</code> only</strong> — no hydrate, snapshots, or custom <code>fetch()</code> in site JavaScript.</p>
+<div class="doc-summary"><p><strong>Reference projects</strong> are ready-made HTML sites (blog, portfolio, yoga studio, coffee shop, social network, influencer hub) bundled in the Birkly repo under <code>reference-projects/</code>. Run <code>scripts/install-reference-project.sh &lt;name&gt;</code> from the Birkly root to copy collections into your CMS, then open the site at <code>/reference-projects/&lt;name&gt;/website/</code>. Every project uses the default live client script; they are the recommended starting point before you build your own templates.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What are they?</strong></p>
+<p>Think of reference projects as <strong>starter kits</strong>: each one is a small website with sample content and HTML templates already wired to Birkly. You can browse them to see how loops, conditionals, commerce forms, and login pages work — then copy ideas into your own site.</p>
+<p><strong>The six projects</strong></p>
+<p>| Project | Good for | Needs plugins? | |---------|----------|----------------| | <strong>blog</strong> | Homepage, post list, article pages | No | | <strong>portfolio</strong> | Project gallery and case-study detail | No | | <strong>yoga</strong> | Class schedule and event registration | Events | | <strong>coffee</strong> | Product grid, variants, add to cart | Commerce | | <strong>social</strong> | Login, feed, profile, comments, merch | User Management + Commerce | | <strong>influencer</strong> | Blog + events + shop + social on one site | Events + Commerce + User Management |</p>
+<p><strong>How to try one</strong></p>
+<ol>
+<li>Start the Birkly dev server from the Birkly folder (see <a href="../00-overview/getting-started.html">Getting started</a>).</li>
+<li>Install a project (replace <code>blog</code> with any name from the table):</li>
+</ol>
+<pre><code>chmod +x ./scripts/install-reference-project.sh
+./scripts/install-reference-project.sh blog</code></pre>
+<ol>
+<li>Open the site in your browser, for example:</li>
+</ol>
+<pre><code>http://localhost:8080/reference-projects/blog/website/index.html</code></pre>
+<p>Swap <code>blog</code> for <code>portfolio</code>, <code>yoga</code>, <code>coffee</code>, <code>social</code>, or <code>influencer</code> in both the install command and the URL.</p>
+<ol>
+<li>For <strong>yoga</strong>, <strong>coffee</strong>, <strong>social</strong>, or <strong>influencer</strong>, install and activate the listed plugins first (<strong>Admin → Plugins</strong>), then run the install script.</li>
+</ol>
+<p><strong>What you will not see</strong></p>
+<p>Reference projects intentionally <strong>do not</strong> use advanced production tricks (pre-baked HTML, hydrate scripts, or snapshot files). That keeps them easy to learn and copy. If you need those techniques later, see <a href="production-optimization.html">Production optimization</a>.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Source layout (Birkly repo)</strong></p>
+<pre><code>reference-projects/
+├── blog/
+│   ├── manifest.json       # optional plugins list
+│   ├── collections/        # copied → content/collections/ on install
+│   └── website/            # static HTML served from CMS root
+├── portfolio/
+├── yoga/
+├── coffee/
+├── social/
+└── influencer/</code></pre>
+<p><strong>Install script</strong></p>
+<p><code>scripts/install-reference-project.sh &lt;project-name&gt;</code>:</p>
+<ul>
+<li>Copies <code>reference-projects/&lt;name&gt;/collections/*</code> → <code>content/collections/</code></li>
+<li>Prints required plugins from <code>manifest.json</code> when present</li>
+<li>Website files stay in place under <code>reference-projects/&lt;name&gt;/website/</code></li>
+</ul>
+<p><strong>Canonical URLs (local dev)</strong></p>
+<p>| Project | Index URL | |---------|-----------| | blog | <code>/reference-projects/blog/website/index.html</code> | | portfolio | <code>/reference-projects/portfolio/website/index.html</code> | | yoga | <code>/reference-projects/yoga/website/index.html</code> | | coffee | <code>/reference-projects/coffee/website/index.html</code> | | social | <code>/reference-projects/social/website/index.html</code> | | influencer | <code>/reference-projects/influencer/website/index.html</code> |</p>
+<p><strong>Client contract (all projects)</strong></p>
+<pre><code>&lt;script src=&quot;/birkly-client.js&quot; data-cms-url=&quot;http://localhost:8080&quot;&gt;&lt;/script&gt;</code></pre>
+<ul>
+<li>Templating + <code>data-birkly-*</code> attributes for forms, auth, commerce</li>
+<li>Slug pages: <code>meta[name=birkly-page]</code>, <code>meta[name=birkly-collection]</code>, optional <code>meta[name=birkly-slug]</code></li>
+<li><strong>No</strong> <code>birkly-hydrate.js</code>, <strong>no</strong> <code>&lt;meta name=&quot;birkly-baked&quot;&gt;</code>, <strong>no</strong> snapshot globals, <strong>no</strong> custom <code>fetch()</code> in site JS</li>
+</ul>
+<p><strong>Combining projects</strong></p>
+<p>Install merges collections by slug into <code>content/collections/</code>. Re-installing overwrites same-slug collections (<code>blog</code>, <code>events</code>, etc.). Use separate CMS instances or rename slugs when combining manually.</p>
+<p><strong>Upstream catalog</strong></p>
+<p>User-story IDs (V-TPL-01 … V-TPL-06) and per-page acceptance criteria live in the Birkly repo: <code>docs/reference-projects/user-stories.md</code> and each project's <code>VIDEO.md</code>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="../04-integration/client-library.html">Client library</a></li>
+<li><a href="storefront-patterns.html">Storefront and events patterns</a></li>
+<li><a href="production-optimization.html">Production optimization</a> — optional hydrate/snapshot/bake (not used in reference projects)</li>
+</ul></div>

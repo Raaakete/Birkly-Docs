@@ -27,7 +27,11 @@
         </div>
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
         <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
         <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
         <a href="../01-admin/settings.html" class="nav-link">Settings</a>
         <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
@@ -59,6 +63,8 @@
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Integration</div>
         <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
@@ -95,6 +101,16 @@
         <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
         <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
         </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
         <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
@@ -126,7 +142,39 @@
 </ul>
 <p>---</p>
 <p>---</p>
+<h2>2026-07-24 — P36 plugin economy curriculum (P36-M16)</h2>
+<ul>
+<li><strong>New:</strong> <code>06-plugin-economy/</code> — eight-page curriculum: overview, site owners, providers, plugin development, themes and template packs, security and review, official plugins, API reference.</li>
+<li><strong>Updated:</strong> <code>manifest.json</code>, <code>CONTENTS_INDEX.md</code>, <code>help-manifest.json</code> — Plugin economy navigation and Help search entries.</li>
+<li><strong>Updated:</strong> <code>06-extensibility/plugins.md</code> — cross-links to plugin economy section.</li>
+</ul>
 <p>---</p>
+<h2>2026-07-21 — P31 responsive dashboard documentation prepared (P31-M17)</h2>
+<ul>
+<li><strong>New:</strong> <code>01-admin/admin-responsive-dashboard.md</code> — responsive widget grid, core and plugin widgets, Widget API v2, and dashboard behavior.</li>
+<li><strong>Updated:</strong> <code>CONTENTS_INDEX.md</code>, <code>manifest.json</code>, and <code>help-manifest.json</code> — dashboard guide navigation and Help search entry.</li>
+</ul>
+<p>---</p>
+<h2>2026-07-20 — P29 Collections &amp; entries excellence (P29-M13)</h2>
+<ul>
+<li><strong>New:</strong> <code>01-admin/entry-editor.md</code> — sidebar tabs (General, Meta Data, Templating), slug in sidebar only, auto-generate checkbox.</li>
+<li><strong>New:</strong> <code>01-admin/collection-editor.md</code> — Settings tab slug parity with entry editor.</li>
+<li><strong>Updated:</strong> <code>02-content/slugs-and-status.md</code>, <code>entries.md</code>, <code>collections.md</code> — sidebar slug UX, ID fallback, cross-links.</li>
+<li><strong>Updated:</strong> <code>CONTENTS_INDEX.md</code>, <code>manifest.json</code> — entry/collection editor topics.</li>
+</ul>
+<p>---</p>
+<h2>2026-07-08 — Phase 20 reference projects &amp; production path (P20-M11)</h2>
+<ul>
+<li><strong>New:</strong> <code>03-templating/reference-projects.md</code> — six starter sites (blog, portfolio, yoga, coffee, social, influencer); live <code>birkly-client.js</code> only; <code>scripts/install-reference-project.sh</code>.</li>
+<li><strong>New:</strong> <code>03-templating/production-optimization.md</code> — hydrate/snapshot/bake as optional advanced path; default live client (mirrored from Birkly <code>docs/advanced/production-optimization.md</code>).</li>
+<li><strong>Updated:</strong> <code>03-templating/templating-overview.md</code> — Related links to reference projects and production optimization.</li>
+<li><strong>Updated:</strong> <code>CONTENTS_INDEX.md</code>, <code>manifest.json</code> — new templating entries.</li>
+</ul>
+<h2>2026-07-07 — Phase 16–19 platform sync (P16-M8 / P17-M6 / P18-M8 / P19-M7)</h2>
+<ul>
+<li><strong>Updated:</strong> <code>01-admin/help-and-onboarding.md</code> — START_HERE first-run; wizard v2 (install path, use case, marketplace hint, optional BYOAI mini-wizard with skip always visible); dashboard checklist v2 (essential only; Connect AI only when wizard AI step skipped) (P19).</li>
+<li><strong>Updated:</strong> <code>00-overview/getting-started.md</code> — Step 0: extract zip, open START_HERE.html before admin login; wizard v2 and checklist v2 cross-ref (P19-M7).</li>
+</ul>
 <h2>2026-07-07 — Phase 13–15 platform sync (P13-M7 / P14-M6 / P15-M7)</h2>
 <ul>
 <li><strong>New:</strong> <code>00-overview/alpha-legal.md</code> — closed-alpha terms, privacy, feedback (P15-M4).</li>
@@ -167,6 +215,7 @@
 <li><strong>Updated:</strong> <code>01-admin/settings.md</code> — denylist detail and link.</li>
 <li><strong>Updated:</strong> <code>CONTENTS_INDEX.md</code>, <code>manifest.json</code>.</li>
 </ul>
+<p>---</p>
 <h2>2026-07-07 — Phase 10 marketplace go-live (P10-M5)</h2>
 <ul>
 <li><strong>New:</strong> <code>06-extensibility/marketplace-go-live.md</code> — fresh install without bundled plugins, official plugins table, grandfathered upgrades.</li>

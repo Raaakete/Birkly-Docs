@@ -1,0 +1,84 @@
+<p>Integrators and developers consume Birkly marketplace and Ops APIs to browse offers, install artifacts, and fetch starter packs. The CMS marketplace client wraps these endpoints; custom tooling can call them directly.</p>
+<div class="doc-summary"><p>The <strong>marketplace registry API</strong> exposes catalog, offer detail, release downloads, and license status at <code>marketplace.birkly.cloud/api/v1/</code>. The <strong>Ops starter API</strong> lists and downloads onboarding template packs at <code>ops.birkly.cloud/api/ops/v1/starters</code>. CMS installs use <code>installation_id</code> for license activation. Override base URLs via environment variables or settings files for staging.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Who needs these APIs</strong></p>
+<p>| Audience | Typical use | |----------|-------------| | <strong>CMS admin</strong> | Built-in Marketplace tab — no direct API calls | | <strong>Site owner</strong> | Use the admin UI; APIs run in the background | | <strong>Integrator / DevOps</strong> | Custom install scripts, air-gapped workflows | | <strong>Provider</strong> | Publish via Provider Studio; registry exposes your offers |</p>
+<p><strong>Marketplace base URL</strong></p>
+<p>Production: <code>https://marketplace.birkly.cloud</code></p>
+<p>Override in CMS:</p>
+<ul>
+<li>Environment: <code>BIRKLY_MARKETPLACE_URL</code></li>
+<li>Settings file: <code>settings/marketplace.json</code> → <code>marketplace_url</code></li>
+</ul>
+<p><strong>Common marketplace endpoints</strong></p>
+<p>| Method | Path | Purpose | |--------|------|---------| | GET | <code>/api/v1/registry</code> | Catalog index (slugs, titles, latest versions) | | GET | <code>/api/v1/offer?slug={slug}</code> | Offer detail, releases, permissions manifest | | GET | <code>/api/v1/release?slug={slug}&amp;version={version}</code> | Release metadata and download URL | | POST | <code>/api/v1/licenses/activate</code> | Bind license key to <code>installation_id</code> | | GET | <code>/api/v1/licenses/status</code> | Check license or subscription state |</p>
+<p>Buyer checkout and provider publishing use the marketplace web UI at <a href="https://marketplace.birkly.cloud">marketplace.birkly.cloud</a> and <a href="https://providers.birkly.cloud">providers.birkly.cloud</a> — not raw API forms.</p>
+<p><strong>Ops starter API</strong></p>
+<p>Production: <code>https://ops.birkly.cloud/api/ops/v1/starters</code></p>
+<p>| Method | Path | Purpose | |--------|------|---------| | GET | <code>/api/ops/v1/starters?channel={channel}</code> | List starters with versions and onboarding flags | | GET | <code>/api/ops/v1/starters/{id}/download</code> | Download starter pack zip |</p>
+<p>CMS override: <code>BIRKLY_OPS_STARTERS_URL</code> or <code>starters_catalog_url</code> in platform config.</p>
+<p><strong>Embed and catalog links</strong></p>
+<p>Link to public offer pages:</p>
+<ul>
+<li>Catalog: <code>https://marketplace.birkly.cloud/catalog</code></li>
+<li>Offer: <code>https://marketplace.birkly.cloud/offers/{slug}</code></li>
+</ul>
+<p>The CMS Marketplace tab embeds a read-only catalog view backed by the registry API.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Registry — catalog index</strong></p>
+<pre><code>GET /api/v1/registry
+Accept: application/json</code></pre>
+<p>Returns offer summaries: <code>slug</code>, <code>title</code>, <code>offer_type</code>, <code>pricing</code>, latest <code>version</code>, trust level. CMS caches responses briefly; bust cache on manual refresh in Marketplace tab.</p>
+<p><strong>Registry — offer detail</strong></p>
+<pre><code>GET /api/v1/offer?slug=birkly-commerce</code></pre>
+<p>Response includes <code>releases[]</code> with <code>version</code>, <code>changelog</code>, <code>checksum_sha256</code>, <code>download_url</code>, <code>permissions_manifest</code>, and optional embedded <code>plugin_json</code>.</p>
+<p><strong>Registry — release download</strong></p>
+<pre><code>GET /api/v1/release?slug={slug}&amp;version={version}</code></pre>
+<p>Returns signed or direct artifact URL. CMS downloads, verifies SHA-256, runs zip preflight, extracts to <code>plugins/</code>.</p>
+<p><strong>License activation</strong></p>
+<pre><code>POST /api/v1/licenses/activate
+Content-Type: application/json
+
+{
+  &quot;license_key&quot;: &quot;...&quot;,
+  &quot;installation_id&quot;: &quot;...&quot;
+}</code></pre>
+<p><code>installation_id</code> is the CMS-local UUID stored in settings. Seat tiers count distinct installation IDs per key.</p>
+<p><strong>License status (updates)</strong></p>
+<pre><code>GET /api/v1/licenses/status?license_key=...&amp;installation_id=...</code></pre>
+<p>Subscription offers return <code>active</code> or inactive state. CMS blocks plugin updates when marketplace reports lapsed subscription.</p>
+<p><strong>Install permissions (CMS internal)</strong></p>
+<p>The CMS resolves install consent via marketplace offer detail or zip preview:</p>
+<ul>
+<li>Input: <code>slug</code>, optional <code>version</code></li>
+<li>Output: <code>permissions_manifest</code>, <code>consent_required</code>, existing <code>consent_record</code></li>
+</ul>
+<p>Consent POST is handled by CMS admin API, not the public marketplace registry.</p>
+<p><strong>Ops starters — catalog</strong></p>
+<pre><code>GET /api/ops/v1/starters?channel=stable
+Accept: application/json</code></pre>
+<p>Response shape:</p>
+<pre><code>{
+  &quot;ok&quot;: true,
+  &quot;starters&quot;: [
+    {
+      &quot;id&quot;: &quot;blog&quot;,
+      &quot;label&quot;: &quot;Blog starter&quot;,
+      &quot;onboarding_enabled&quot;: true,
+      &quot;latest_version&quot;: &quot;1.0.0&quot;
+    }
+  ]
+}</code></pre>
+<p><strong>Ops starters — download</strong></p>
+<pre><code>GET /api/ops/v1/starters/blog/download</code></pre>
+<p>Returns zip with collections and <code>project/</code> site files. CMS extracts via <code>birkly_ops_extract_starter_zip()</code>.</p>
+<p><strong>Error handling</strong></p>
+<p>| HTTP code | Meaning | |-----------|---------| | 404 | Unknown slug or starter id | | 403 | License seat exhausted or revoked | | 409 | Consent required (<code>consent_required</code>) | | 503 | Registry unreachable — CMS shows retry; installed plugins keep working |</p>
+<p><strong>Staging</strong></p>
+<p>Point CMS at staging marketplace or Ops by setting override URLs. Do not mix production licenses with staging registry unless test keys are issued.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="overview.html">Plugin economy overview</a></li>
+<li><a href="for-site-owners.html">For site owners</a></li>
+<li><a href="theme-and-template-packs.html">Themes and template packs</a></li>
+<li><a href="security-and-review.html">Security and review</a></li>
+<li><a href="../06-extensibility/marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
+<li><a href="../06-extensibility/marketplace-provider-guide.html">Marketplace — provider publishing guide</a></li>
+</ul></div>

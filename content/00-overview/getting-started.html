@@ -1,5 +1,16 @@
-<div class="doc-summary"><p>Get started with Birkly in five steps: (1) Log in to the admin. (2) Set a project name if the first-time wizard appears. (3) Create a collection (e.g. “Blog posts”) and add fields (title, content, date, image). (4) Add one or more entries and set status to Published. (5) Add the Birkly client script to your website so it can load and display the content. No coding is required for basic content creation; connecting the site is one script tag plus simple placeholders in your HTML.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Step 1 — Log in</strong></p>
+<div class="doc-summary"><p>Get started with Birkly in six steps: (0) Extract the release zip and open <strong>START_HERE.html</strong> before admin login. (1) Log in to the admin. (2) Complete the first-time wizard (project name, use case, optional AI). (3) Create a collection (e.g. “Blog posts”) and add fields (title, content, date, image). (4) Add one or more entries and set status to Published. (5) Add the Birkly client script to your website so it can load and display the content. No coding is required for basic content creation; connecting the site is one script tag plus simple placeholders in your HTML.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Step 0 — Extract and open START_HERE.html</strong></p>
+<p>If you downloaded Birkly as a zip file, do this <strong>before</strong> logging in to the admin:</p>
+<ol>
+<li><strong>Extract the zip</strong> to a folder (e.g. <code>Documents/Birkly</code> on your computer, or upload the contents to your web host).</li>
+<li>Confirm you see <strong>START_HERE.html</strong> in the <strong>same folder</strong> as <code>admin/</code>, <code>api/</code>, and <code>core/</code> — not still inside the zip, and not one folder too deep (e.g. <code>Birkly/Birkly/</code>).</li>
+<li><strong>Open START_HERE.html</strong> in your browser (double-click the file locally, or visit <code>https://your-domain.com/START_HERE.html</code> after upload).</li>
+<li>Wait for the <strong>folder check</strong> to confirm you're in the right place.</li>
+<li>Choose <strong>On your computer</strong> (local test with PHP) or <strong>On a web server</strong> (FTP/cloud), follow the short steps for your path, then click <strong>Start setup</strong> to open the admin onboarding wizard.</li>
+</ol>
+<p><strong>Example:</strong> You extract <code>Birkly-1.0.zip</code> to <code>~/Birkly</code>, open <code>START_HERE.html</code>, pick <strong>On your computer</strong>, run <code>./start-server.sh</code> in that folder, then click <strong>Start setup</strong> — the browser opens the admin wizard at <code>http://localhost:8080/admin/</code> with local install hints.</p>
+<p>---</p>
+<p><strong>Step 1 — Log in</strong></p>
 <p>Open your Birkly address in the browser. It usually looks like:</p>
 <ul>
 <li><code>https://your-domain.com/admin</code></li>
@@ -8,16 +19,19 @@
 <ul>
 <li><code>http://localhost:8080/admin</code> (if you’re running Birkly locally).</li>
 </ul>
-<p>Enter your <strong>email</strong> and <strong>password</strong>. If you don’t have an account yet, an administrator must create one for you or send you an <strong>invite</strong> (you’ll receive a link to set your password).</p>
+<p>Enter your <strong>email</strong> and <strong>password</strong>. If no admin account exists yet, the onboarding wizard asks you to create one first. Otherwise, an administrator must create one for you or send you an <strong>invite</strong> (you’ll receive a link to set your password).</p>
 <p><strong>Example:</strong> If your CMS is at <code>https://cms.mycompany.com</code>, you go to <code>https://cms.mycompany.com/admin</code> and sign in. After login you’ll see the <strong>Dashboard</strong> (overview) and the <strong>sidebar</strong> with Content, Media, Settings, etc.</p>
 <p>---</p>
-<p><strong>Step 2 — Set the project name (first time only)</strong></p>
-<p>The first time you (or anyone) use the installation, you may see a short <strong>onboarding</strong> wizard. It will ask for a <strong>Project name</strong>.</p>
+<p><strong>Step 2 — Complete the setup wizard (first time only)</strong></p>
+<p>The first time you (or anyone) use the installation, you may see the <strong>onboarding wizard</strong> (especially if you arrived via START_HERE). It will ask for:</p>
 <ul>
-<li>This name is only for the <strong>admin panel</strong> (e.g. the label in the sidebar or the browser tab). It does <strong>not</strong> set your website’s title or URL.</li>
-<li><strong>Example:</strong> You might enter “Acme Blog” or “Company Website.” Visitors to your actual site never see this—only people who log in to the admin do.</li>
+<li><strong>Project name</strong> — For the admin panel only (sidebar label, browser tab). It does <strong>not</strong> set your website’s public title or URL.</li>
+<li><strong>Use case</strong> <em>(optional)</em> — Blog, business site, shop, docs, or developer project; may include demo content you can keep or remove.</li>
+<li><strong>Marketplace</strong> <em>(optional)</em> — A pointer to install official plugins (Commerce, Events, etc.) from <strong>Plugins → Marketplace</strong>.</li>
+<li><strong>Connect AI</strong> <em>(optional)</em> — A short BYOAI flow; you can always skip and return later under Settings.</li>
 </ul>
-<p>You can usually skip or complete the wizard in a few clicks. After that, the Dashboard and sidebar are your starting point.</p>
+<p>You can skip any step. After that, the Dashboard and sidebar are your starting point. A short <strong>setup checklist</strong> on the Dashboard shows essential next steps (collection, entry, marketplace plugin; Connect AI only if you skipped it in the wizard).</p>
+<p><strong>Example:</strong> You might enter “Acme Blog” as the project name, pick the blog use case, skip AI for now, and land on the Dashboard with a checklist prompting you to create your first collection.</p>
 <p>---</p>
 <p><strong>Step 3 — Create a collection</strong></p>
 <p>Collections are the <strong>types</strong> of content you manage (e.g. “Blog posts,” “Products,” “Team members”). You create each type once and then add as many entries as you need.</p>
@@ -65,9 +79,14 @@
 </ul>
 <p>Your developer or host can add the exact script tag and placeholder syntax (Birkly uses a simple templating language). Once that’s in place, when you publish or edit an entry in the admin, the live site will show the updated content (either immediately when the page loads or after a refresh, depending on how the site is built).</p>
 <p>From here you can add more collections (e.g. “Products,” “Team”), upload more media, invite other users, or explore <strong>Settings</strong> and <strong>Help</strong> in the admin.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>1. Auth and onboarding</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>0. First-run and release layout</strong></p>
 <ul>
-<li>Log in at <code>/admin</code>. First run may show onboarding (project name, optional first collection). Onboarding state is stored so it doesn’t show again.</li>
+<li>Release zip includes <code>START_HERE.html</code> and <code>START_HERE.txt</code> at the root. Extract before use; probe via <code>GET /api/setup_probe.php</code>.</li>
+<li>START_HERE <strong>Start setup</strong> links to <code>/admin/?page=onboarding&amp;install=local|cloud</code>; <code>install_path</code> persists in <code>settings/onboarding.json</code>.</li>
+</ul>
+<p><strong>1. Auth and onboarding</strong></p>
+<ul>
+<li>Log in at <code>/admin</code>. First run may show onboarding v2 (install context, site info, use case, marketplace hint, optional BYOAI mini-wizard). Onboarding state is stored so it doesn’t show again; partial progress resumes via <code>last_step</code>.</li>
 <li>Users and roles are managed under Settings (or Users/Roles). Invites and password reset depend on configuration (email, etc.).</li>
 </ul>
 <p><strong>2. Content model</strong></p>
@@ -95,6 +114,7 @@
 <p>See <a href="../02-content/collections.html">Collections</a>, <a href="../02-content/entries.html">Entries</a>, <a href="../04-integration/website-integration.html">Website integration</a>, <a href="../04-integration/client-library.html">Client library</a>.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="what-is-birkly.html">What is Birkly?</a></li>
+<li><a href="../01-admin/help-and-onboarding.html">Help and onboarding</a></li>
 <li><a href="../02-content/collections.html">Collections</a></li>
 <li><a href="../02-content/entries.html">Entries</a></li>
 <li><a href="../04-integration/website-integration.html">Website integration</a></li>

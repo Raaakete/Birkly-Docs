@@ -14,12 +14,28 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-24 — P36 plugin economy curriculum (P36-M16)
+
+- **New:** `06-plugin-economy/` — eight-page curriculum: overview, site owners, providers, plugin development, themes and template packs, security and review, official plugins, API reference.
+- **Updated:** `manifest.json`, `CONTENTS_INDEX.md`, `help-manifest.json` — Plugin economy navigation and Help search entries.
+- **Updated:** `06-extensibility/plugins.md` — cross-links to plugin economy section.
+
+---
+
 ## 2026-07-21 — P31 responsive dashboard documentation prepared (P31-M17)
 
 - **New:** `01-admin/admin-responsive-dashboard.md` — responsive widget grid, core and plugin widgets, Widget API v2, and dashboard behavior.
 - **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, and `help-manifest.json` — dashboard guide navigation and Help search entry.
 
-<<<<<<< HEAD
+---
+
+## 2026-07-20 — P29 Collections & entries excellence (P29-M13)
+
+- **New:** `01-admin/entry-editor.md` — sidebar tabs (General, Meta Data, Templating), slug in sidebar only, auto-generate checkbox.
+- **New:** `01-admin/collection-editor.md` — Settings tab slug parity with entry editor.
+- **Updated:** `02-content/slugs-and-status.md`, `entries.md`, `collections.md` — sidebar slug UX, ID fallback, cross-links.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json` — entry/collection editor topics.
+
 ---
 
 ## 2026-07-08 — Phase 20 reference projects & production path (P20-M11)
@@ -73,14 +89,8 @@ This changelog records **documentation** updates: new pages, reorganized section
 - **Updated:** `06-extensibility/marketplace-provider-guide.md` — GitHub App connect, provider webhooks, official CI publish.
 - **Updated:** `01-admin/settings.md` — denylist detail and link.
 - **Updated:** `CONTENTS_INDEX.md`, `manifest.json`.
-=======
-## 2026-07-20 — P29 Collections & entries excellence (P29-M13)
 
-- **New:** `01-admin/entry-editor.md` — sidebar tabs (General, Meta Data, Templating), slug in sidebar only, auto-generate checkbox.
-- **New:** `01-admin/collection-editor.md` — Settings tab slug parity with entry editor.
-- **Updated:** `02-content/slugs-and-status.md`, `entries.md`, `collections.md` — sidebar slug UX, ID fallback, cross-links.
-- **Updated:** `CONTENTS_INDEX.md`, `manifest.json` — entry/collection editor topics.
->>>>>>> 233a1ee (docs(P29): entry/collection editor sidebar and slug guides)
+---
 
 ## 2026-07-07 — Phase 10 marketplace go-live (P10-M5)
 

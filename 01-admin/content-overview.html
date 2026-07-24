@@ -27,7 +27,11 @@
         </div>
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
         <a href="content-overview.html" class="nav-link active">Content overview</a>
+        <a href="entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="collection-editor.html" class="nav-link">Collection editor</a>
         <a href="media-library.html" class="nav-link">Media library</a>
         <a href="settings.html" class="nav-link">Settings</a>
         <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
@@ -59,6 +63,8 @@
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Integration</div>
         <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
@@ -94,6 +100,16 @@
         <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
         <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
         <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
@@ -142,7 +158,7 @@
 <li><strong>Templates / your website</strong> — The way your site displays content (e.g. which page shows one post vs a list) is defined in your site’s templates or routing. The actual text and images live in <strong>Content</strong> (and Media).</li>
 <li><strong>Forms on your site</strong> — If a collection is set to allow “Public API” submissions, your website can create new entries (e.g. contact form, newsletter signup) without anyone logging into the admin. Those entries still show up in the same collection in <strong>Content</strong> so you can review or edit them.</li>
 </ul>
-<p>For step-by-step instructions on creating a collection and its fields, see <a href="../02-content/collections.html">Collections</a>. For creating and editing individual items, see <a href="../02-content/entries.html">Entries</a>.</p></div></details>
+<p>For step-by-step instructions on creating a collection and its fields, see <a href="../02-content/collections.html">Collections</a> and <a href="collection-editor.html">Collection editor</a>. For creating and editing individual items, see <a href="../02-content/entries.html">Entries</a> and <a href="entry-editor.html">Entry editor</a>.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Content is the admin UI for the content model: <strong>collections</strong> (schema) and <strong>entries</strong> (records).</p>
 <ul>
 <li><strong>Collections:</strong> Stored as config (e.g. <code>collection.json</code> + <code>schema.json</code> per collection). List view reads the content directory or registry; “Create collection” adds a new schema (handle, fields, entry method). Editing a collection updates field definitions and settings; handle should stay stable for API and templates.</li>
@@ -151,6 +167,8 @@
 </ul>
 <p>Workflow: define collection once → add/edit entries. Media is referenced by field type Media/Gallery; templates and frontend consume via API or client script. See <a href="../02-content/collections.html">Collections</a>, <a href="../02-content/entries.html">Entries</a>, <a href="../04-integration/public-api.html">Public API</a>.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="entry-editor.html">Entry editor</a></li>
+<li><a href="collection-editor.html">Collection editor</a></li>
 <li><a href="../02-content/collections.html">Collections</a></li>
 <li><a href="../02-content/entries.html">Entries</a></li>
 <li><a href="media-library.html">Media library</a></li>

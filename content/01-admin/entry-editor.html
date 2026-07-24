@@ -1,0 +1,32 @@
+<div class="doc-summary"><p>The <strong>entry editor</strong> is where you create and edit individual items in a collection. The main area shows your collection fields (title, content, images, and so on). The <strong>right sidebar</strong> holds system settings in three tabs — <strong>General</strong>, <strong>Meta Data</strong>, and <strong>Templating</strong>. Slug, status, scheduling, and SEO fields live in the sidebar only; they never appear in the main field list.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Open a collection from <strong>Content</strong>, then click <strong>New entry</strong> or open an existing entry to edit.</p>
+<p><strong>Layout</strong></p>
+<ul>
+<li><strong>Main area (left)</strong> — Collection fields only: title, editor, media, dates, and any custom fields you defined. Labels sit <strong>above</strong> each control (full-width fieldtypes).</li>
+<li><strong>Topbar breadcrumb</strong> — Long trails collapse from the left; the collection and entry names stay visible (<code>… / Collection / Entry</code>). See <a href="admin-forms-navigation.html">Forms and navigation</a>.</li>
+<li><strong>Sidebar (right)</strong> — Three tabs:</li>
+</ul>
+<p>  - <strong>General</strong> — Slug, status, publish/expire dates, reviewer, and entry metadata (ID, created/updated times).   - <strong>Meta Data</strong> — SEO and social sharing: meta title, meta description, keywords, Open Graph fields.   - <strong>Templating</strong> — Field slug reference for templates and links to templating docs.</p>
+<p><strong>Slug (General tab)</strong></p>
+<p>The slug is the URL-friendly identifier for this entry (e.g. <code>welcome-to-our-blog</code>). It appears <strong>only</strong> in the sidebar General tab — not among your content fields.</p>
+<ul>
+<li><strong>Auto-generate slug from title</strong> — Checkbox below the slug field; <strong>on by default</strong>. When checked, the slug updates as you type the title (lowercase, spaces become hyphens).</li>
+<li><strong>No title</strong> — If you save without a title, Birkly assigns the entry <strong>ID</strong> as the title and uses the normalized ID as the slug.</li>
+<li><strong>Manual slug</strong> — Uncheck <strong>Auto-generate slug from title</strong> to type your own slug. While unchecked, changing the title does not change the slug. Check the box again to regenerate from the current title (or ID if the title is empty).</li>
+<li>You can edit the slug field directly at any time.</li>
+</ul>
+<p><strong>Status (General tab)</strong></p>
+<p>Choose <strong>Unpublished</strong>, <strong>Published</strong>, <strong>Scheduled</strong>, or <strong>Pending for Review</strong>. Additional fields appear when relevant (e.g. <strong>Publish At</strong> for scheduled, <strong>Unpublish At</strong> for published, <strong>Notify Reviewer</strong> for pending review).</p>
+<p><strong>Saving</strong></p>
+<p>Use <strong>Save</strong> or <strong>Save &amp; Publish</strong> at the top. Slug and status are read from the sidebar when you save.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Reserved fields (sidebar only):</strong> <code>slug</code>, <code>status</code>, <code>published_at</code>, <code>expires_at</code>, <code>reviewer</code>, <code>meta_title</code>, <code>meta_description</code> (plus related OG fields in Meta Data). These are filtered out of the main <code>$fields</code> render loop in <code>admin/templates/entry-editor.html</code>.</p>
+<p><strong>Slug resolution:</strong> Client-side auto-generation in <code>admin/js/entry-editor.js</code>; server-side <code>birkly_resolve_entry_slug()</code> in <code>core/entry_slug.php</code> on create/update via <code>api/admin_entries.php</code>.</p>
+<p>| Mode | Behavior | |------|----------| | Auto checkbox <strong>on</strong> (default) | Slug follows title on input; empty title → entry ID fallback on save | | Auto checkbox <strong>off</strong> | Slug preserved on title-only save (P2-R11); POST <code>slug</code> wins | | Re-check auto | Slug regenerates immediately from current title or ID |</p>
+<p><strong>Sidebar tabs:</strong> Scoped under <code>.sidebar-tabs</code> so tab panes are not hidden by global <code>tabs.css</code>. Tab JS is scoped to <code>.sidebar-tabs</code> only.</p>
+<p><strong>Sub-entries:</strong> Sub-entry editors use the same sidebar layout and slug rules.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="../02-content/entries.html">Entries</a></li>
+<li><a href="../02-content/slugs-and-status.html">Slugs and status</a></li>
+<li><a href="collection-editor.html">Collection editor</a></li>
+<li><a href="content-overview.html">Content overview</a></li>
+</ul></div>

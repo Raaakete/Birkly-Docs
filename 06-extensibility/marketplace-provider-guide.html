@@ -27,7 +27,11 @@
         </div>
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
         <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
         <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
         <a href="../01-admin/settings.html" class="nav-link">Settings</a>
         <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
@@ -59,6 +63,8 @@
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Integration</div>
         <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
@@ -95,6 +101,16 @@
         <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
         <a href="updates.html" class="nav-link">Updates</a>
         </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
         <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
@@ -125,7 +141,7 @@
 <li>A <strong>provider account</strong> on <a href="https://marketplace.birkly.io">marketplace.birkly.io</a> (email + password — separate from your CMS admin login).</li>
 <li>Acceptance of the <strong>Provider Agreement</strong> (seller liability, content warranty).</li>
 <li><strong>Stripe Connect</strong> onboarding (identity and payout details).</li>
-<li>A valid <strong>plugin package</strong> — a <code>.zip</code> containing at minimum <code>plugin.json</code> and <code>plugin.php</code> (or <code>index.php</code>). Build with <code>Birkly/scripts/build-plugin-zip.sh &lt;plugin_id&gt;</code> so <code>plugin.json</code> is at the archive root (see <strong>Packaging</strong> below).</li>
+<li>A valid <strong>plugin package</strong> — a <code>.zip</code> containing at minimum <code>plugin.json</code> and <code>plugin.php</code> (or <code>index.php</code>).</li>
 </ol>
 <p><strong>Publishing steps</strong></p>
 <ol>
@@ -137,7 +153,7 @@
 </ol>
 <p>   - <strong>Slug</strong> — stable URL id (lowercase, hyphens, e.g. <code>my-seo-plugin</code>)    - <strong>Title</strong> and <strong>summary</strong> — shown in the public catalog    - <strong>Offer type</strong> — plugin, theme, or template pack    - <strong>Category</strong> and <strong>tags</strong> — help buyers find your offer    - <strong>Pricing</strong> — free, one-time, or <strong>subscription</strong> (with currency, amount, and interval <code>month</code> / <code>year</code>)    - <strong>License seats</strong> — single site, multi-site tiers, or unlimited    - <strong>Compatibility</strong> — <code>requires_birkly</code> and <code>requires_php</code> semver ranges; optional capability declarations</p>
 <ol>
-<li><strong>Upload a release</strong> — zip artifact for a semver version (e.g. <code>1.0.0</code>) plus changelog text. Provider Studio runs <strong>preflight</strong> immediately; errors (zip structure, security scan, permission manifest) appear inline before the artifact is stored.</li>
+<li><strong>Upload a release</strong> — zip artifact for a semver version (e.g. <code>1.0.0</code>) plus changelog text.</li>
 <li><strong>Publish</strong> — preflight and QC run automatically; verified-tier offers enter a manual review queue first.</li>
 <li>After publish, your offer appears in the <a href="https://marketplace.birkly.io/catalog">public catalog</a> and the registry API for CMS installs.</li>
 </ol>
@@ -162,25 +178,6 @@
 <p>Stripe webhooks (<code>customer.subscription.updated</code>, <code>customer.subscription.deleted</code>) update license status. CMS update checks call <code>GET /api/v1/licenses/status</code> and block updates when subscription lapses.</p>
 <p><strong>Plugin package (<code>plugin.json</code>)</strong></p>
 <p>Artifacts are validated against <code>plugin-package.schema.json</code>. Required: <code>name</code>, <code>version</code>, <code>description</code>. Recommended: <code>requires_birkly</code>, <code>requires_php</code>, declared <code>capabilities</code> (least privilege).</p>
-<p><strong>Packaging with <code>build-plugin-zip.sh</strong></p>
-<p>From the Birkly CMS repository root:</p>
-<pre><code>./scripts/build-plugin-zip.sh commerce
-# Output: dist/plugins/birkly-commerce-&lt;version&gt;.zip</code></pre>
-<p>The script resolves the marketplace slug from <code>scripts/cms-release-manifest.json</code>, zips <code>plugins/&lt;plugin_id&gt;/</code> with <code>plugin.json</code> at the archive root, and prints SHA-256 for your release manifest. Upload that zip in Provider Studio. Manual zips are allowed if they meet the same root layout.</p>
-<p><strong>Permission manifest v2</strong></p>
-<pre><code>{
-  &quot;permissions&quot;: [&quot;manage_commerce&quot;, &quot;view_commerce_orders&quot;],
-  &quot;data_access&quot;: {
-    &quot;entries&quot;: &quot;read_write&quot;,
-    &quot;media&quot;: &quot;read&quot;,
-    &quot;users&quot;: &quot;none&quot;,
-    &quot;settings&quot;: &quot;read&quot;
-  },
-  &quot;hooks&quot;: [&quot;after_entry_save&quot;, &quot;plugin_activated&quot;]
-}</code></pre>
-<p>QC compares declared fields to static analysis heuristics. CMS buyers see this summary and must accept permissions before install.</p>
-<p><strong>Provider Studio preflight</strong></p>
-<p>On upload, preflight checks zip structure, security patterns, and permission manifest alignment. Failures are shown on the offer editor; fix and re-upload before publish. Warnings may still enqueue QC for manual review.</p>
 <p><strong>Registry API</strong></p>
 <p>Published offers are exposed at:</p>
 <ul>

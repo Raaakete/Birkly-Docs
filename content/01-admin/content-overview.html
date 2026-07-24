@@ -22,7 +22,7 @@
 <li><strong>Templates / your website</strong> — The way your site displays content (e.g. which page shows one post vs a list) is defined in your site’s templates or routing. The actual text and images live in <strong>Content</strong> (and Media).</li>
 <li><strong>Forms on your site</strong> — If a collection is set to allow “Public API” submissions, your website can create new entries (e.g. contact form, newsletter signup) without anyone logging into the admin. Those entries still show up in the same collection in <strong>Content</strong> so you can review or edit them.</li>
 </ul>
-<p>For step-by-step instructions on creating a collection and its fields, see <a href="../02-content/collections.html">Collections</a>. For creating and editing individual items, see <a href="../02-content/entries.html">Entries</a>.</p></div></details>
+<p>For step-by-step instructions on creating a collection and its fields, see <a href="../02-content/collections.html">Collections</a> and <a href="collection-editor.html">Collection editor</a>. For creating and editing individual items, see <a href="../02-content/entries.html">Entries</a> and <a href="entry-editor.html">Entry editor</a>.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Content is the admin UI for the content model: <strong>collections</strong> (schema) and <strong>entries</strong> (records).</p>
 <ul>
 <li><strong>Collections:</strong> Stored as config (e.g. <code>collection.json</code> + <code>schema.json</code> per collection). List view reads the content directory or registry; “Create collection” adds a new schema (handle, fields, entry method). Editing a collection updates field definitions and settings; handle should stay stable for API and templates.</li>
@@ -31,6 +31,8 @@
 </ul>
 <p>Workflow: define collection once → add/edit entries. Media is referenced by field type Media/Gallery; templates and frontend consume via API or client script. See <a href="../02-content/collections.html">Collections</a>, <a href="../02-content/entries.html">Entries</a>, <a href="../04-integration/public-api.html">Public API</a>.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="entry-editor.html">Entry editor</a></li>
+<li><a href="collection-editor.html">Collection editor</a></li>
 <li><a href="../02-content/collections.html">Collections</a></li>
 <li><a href="../02-content/entries.html">Entries</a></li>
 <li><a href="media-library.html">Media library</a></li>

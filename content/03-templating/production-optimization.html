@@ -1,0 +1,70 @@
+<p>Optional advanced delivery modes for high-traffic or SEO-critical sites. <strong>The default — and what all reference projects use — is live <code>birkly-client.js</code>.</strong> Add hydrate, snapshots, or bake only when measurement shows the live path cannot meet your targets.</p>
+<div class="doc-summary"><p>Most Birkly sites ship with one script tag: <code>birkly-client.js</code> fetches content at runtime and renders your HTML templates. That path needs no build step and is the <strong>recommended default</strong>. <strong>Hydrate</strong> (<code>birkly-hydrate.js</code>), <strong>snapshots</strong> (pre-generated static HTML), and <strong>bake</strong> (<code>meta name=&quot;birkly-baked&quot;</code>) are optional optimizations for stricter performance or SEO — they are <strong>not</strong> used in the six <a href="reference-projects.html">reference projects</a>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Start with the live client</strong></p>
+<pre><code>&lt;script src=&quot;https://cms.example.com/birkly-client.js&quot;
+        data-cms-url=&quot;https://cms.example.com&quot;&gt;&lt;/script&gt;</code></pre>
+<p>When someone opens your page, the script asks Birkly for content and fills in placeholders like <code>{ title }</code> and <code>{for each entry in 'blog'}</code>. Your HTML files are the source of truth; you do not need a separate build or deploy bake step.</p>
+<p><strong>When is that enough?</strong></p>
+<p>For blogs, portfolios, small shops, and community sites, the live client is usually sufficient — especially if you follow the <a href="reference-projects.html">reference projects</a> patterns. Birkly targets a small number of API round-trips per page (often bundled into one request).</p>
+<p><strong>When might you need more?</strong></p>
+<p>Consider advanced options only if you have measured a real problem:</p>
+<ul>
+<li><strong>Slow first paint</strong> on marketing landing pages with strict performance budgets</li>
+<li><strong>Search engines</strong> that need fully static HTML files at predictable URLs</li>
+<li><strong>CDN-only static hosting</strong> with the CMS on a subdomain and no runtime reads on every page view</li>
+</ul>
+<p>Even then, try improving templates and the live client first. Reference projects exist to prove that path works without extra tooling.</p>
+<p><strong>What the advanced options do (plain terms)</strong></p>
+<p>| Technique | What it does | Build step? | |-----------|--------------|-------------| | <strong>Live client</strong> (default) | Browser fetches content and renders templates | No | | <strong>Hydrate</strong> | Page loads with content already in HTML; a lighter script adds forms, cart, auth | Yes — pre-render in deploy | | <strong>Snapshots</strong> | Copies of each page saved as static <code>.html</code> files for crawlers or CDN | Yes — regenerate on publish | | <strong>Bake</strong> | Marks HTML that was fully rendered at build time | Yes — used with hydrate/export |</p>
+<p>Interactive features (login, cart, forms) still need <code>birkly-client.js</code> or hydrate — even on snapshot sites.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Default path (recommended)</strong></p>
+<pre><code>&lt;script src=&quot;/birkly-client.js&quot; data-cms-url=&quot;https://cms.example.com&quot;&gt;&lt;/script&gt;</code></pre>
+<ul>
+<li>Content via <code>page_bundle</code> and templating; target ≤5 API round-trips per page</li>
+<li>No build step; HTML templates are source of truth</li>
+<li><strong>All P20 reference projects use this path</strong></li>
+</ul>
+<p>If a user story requires hydrate or snapshots on a reference project, treat it as a templating or client bug — fix the engine first.</p>
+<p>---</p>
+<h3>Optional: Hydrate (<code>birkly-hydrate.js</code>)</h3>
+<p>Secondary delivery for faster first paint while keeping editable templates.</p>
+<p>| Aspect | Live client | Hydrate | |--------|-------------|---------| | First paint | Waits for API + render | Static HTML shell, then enhancement | | Build step | None | Pre-render or bake in deploy pipeline | | Script | <code>birkly-client.js</code> | <code>birkly-hydrate.js</code> (+ optional baked meta) | | Reference projects | <strong>Yes</strong> | <strong>No</strong> |</p>
+<p>Typical flow:</p>
+<ol>
+<li>Deploy pipeline renders templates server-side (PHP <code>public.php</code> or CI bake script)</li>
+<li>Published HTML includes content placeholders or <code>meta[name=birkly-baked]</code></li>
+<li><code>birkly-hydrate.js</code> attaches interactivity (forms, cart, auth) without re-fetching all content</li>
+</ol>
+<p><strong>Consider when:</strong> Marketing pages with strict LCP budgets, CDN-only static hosting with CMS on a subdomain.</p>
+<p><strong>Avoid when:</strong> Admin previews, rapid iteration, or before exhausting live-client optimizations.</p>
+<p>---</p>
+<h3>Optional: Snapshots</h3>
+<p>Pre-generated static HTML copies of slug pages (e.g. <code>/publish/post/my-slug.html</code>).</p>
+<p>| Use case | Benefit | |----------|---------| | SEO crawlability | Fully static files for search bots | | Edge CDN | No runtime CMS dependency for reads | | Archive / export | Point-in-time content freeze |</p>
+<p>Trade-offs: regenerate on publish (webhook, cron, or manual bake); slug URL mapping must stay in sync with live routes; interactive features still need <code>birkly-client.js</code> or hydrate.</p>
+<p>Client sites such as kekaba may use snapshots for selected sections — that is an <strong>advanced</strong> pattern, not the Birkly default.</p>
+<p>---</p>
+<h3>Optional: Bake (<code>birkly-baked</code> meta)</h3>
+<p>Embeds resolved template output into HTML at build time:</p>
+<pre><code>&lt;meta name=&quot;birkly-baked&quot; content=&quot;true&quot;&gt;</code></pre>
+<p>Used with hydrate or static export tooling. <strong>Not</strong> used in reference projects.</p>
+<p>---</p>
+<h3>Decision guide</h3>
+<pre><code>Need SEO + max performance?
+  ├─ Live client meets ≤5 RTTs? → Stay on live client (default)
+  ├─ Need faster LCP only? → Consider hydrate + server render
+  └─ Need fully static URLs for crawlers? → Snapshots + live client for interactive pages
+
+Need user auth / cart / forms?
+  └─ Always ship birkly-client.js (live or hydrate mode)</code></pre>
+<p>---</p>
+<h3>Summary table</h3>
+<p>| Technique | Reference projects | Production option | |-----------|-------------------|-------------------| | Live <code>birkly-client.js</code> | <strong>Default</strong> | Always supported | | <code>birkly-hydrate.js</code> | No | Optional advanced | | <code>birkly-baked</code> meta | No | Optional advanced | | Snapshot static HTML | No | Optional advanced | | Custom <code>fetch()</code> in site JS | No | Discouraged — use <code>data-birkly-*</code> |</p>
+<p>Start with the <a href="reference-projects.html">reference project</a> that matches your use case, install collections, and ship live client. Add hydrate or snapshots only when measurement shows it is necessary.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="reference-projects.html">Reference projects</a></li>
+<li><a href="../04-integration/client-library.html">Client library</a></li>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="../04-integration/website-integration.html">Website integration</a></li>
+<li><a href="../07-operations/production-deploy-checklist.html">Production deploy checklist</a></li>
+</ul></div>

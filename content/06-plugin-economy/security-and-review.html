@@ -1,0 +1,69 @@
+<p>Marketplace installs require explicit <strong>permission consent</strong>. Automated scans and manual review protect the catalog. Site owners can further restrict plugins with the security denylist.</p>
+<div class="doc-summary"><p>Before a plugin installs, the CMS shows a <strong>consent screen</strong> listing declared permissions, hooks, and data access from <code>plugin.json</code>. Consent is recorded per offer version. The marketplace runs <strong>automated preflight</strong> (zip structure, dangerous code patterns, capability checks) and <strong>manual review</strong> for verified-tier offers. Site admins can add collections and admin spaces to the <strong>plugin security denylist</strong> to hard-block access.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Permission consent at install</strong></p>
+<p>When you click <strong>Install</strong> on a marketplace offer, the CMS reads the plugin's declared access:</p>
+<p>| Declaration | What it means | |-------------|---------------| | <strong>Permissions</strong> | Admin actions the plugin can perform | | <strong>Hooks</strong> | CMS events the plugin listens to | | <strong>Data access</strong> | Whether the plugin can read or write entries, media, users, or settings |</p>
+<p>You must <strong>Accept</strong> before the download starts. The consent is saved with your admin email and timestamp. If you install a <strong>new version</strong> that changes declarations, you see the consent screen again.</p>
+<p><strong>Review before you accept</strong></p>
+<ul>
+<li>Compare declared access to what the plugin claims to do on its marketplace listing.</li>
+<li>Prefer <strong>verified</strong> or <strong>official</strong> offers for sensitive sites.</li>
+<li>Decline install if the permissions seem excessive — contact the provider or choose an alternative.</li>
+</ul>
+<p><strong>After install — limiting access</strong></p>
+<p>Even after consent, you can tighten boundaries:</p>
+<ol>
+<li>Open <strong>Settings → Security → Plugin security denylist</strong>.</li>
+<li>Add <strong>protected collections</strong> (for example <code>payroll</code>, <code>legal/*</code>).</li>
+<li>Add <strong>denied admin spaces</strong> (for example block a plugin from the Commerce admin area).</li>
+<li>Save — denylist rules override granted capabilities.</li>
+</ol>
+<p>See <a href="../06-extensibility/plugin-security-denylist.html">Plugin security denylist</a> for step-by-step instructions.</p>
+<p><strong>Marketplace quality checks</strong></p>
+<p>Before an offer reaches the catalog:</p>
+<p>| Check | What it catches | |-------|-----------------| | Zip structure | Missing files, path traversal (<code>..</code>) | | PHP scan | Dangerous functions (<code>eval</code>, <code>shell_exec</code>, etc.) | | Manifest validation | Invalid semver, missing required fields | | Capability match | Declarations vs actual plugin behavior (verified tier) |</p>
+<p><strong>Trust levels</strong></p>
+<p>| Level | Review depth | |-------|--------------| | Community | Automated preflight only | | Trusted | Automated plus possible spot-check | | Verified | Manual technical review for first release and major updates |</p>
+<p><strong>Supply chain hygiene</strong></p>
+<ul>
+<li>Install only from <a href="https://marketplace.birkly.cloud">marketplace.birkly.cloud</a> or sources you trust.</li>
+<li>Verify SHA-256 checksums match the offer page (the CMS does this automatically).</li>
+<li>Keep Birkly core and plugins updated — see <a href="../06-extensibility/updates.html">Updates</a>.</li>
+<li>Revoke or uninstall plugins you no longer use.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Consent storage</strong></p>
+<p><code>settings/marketplace_consent.json</code>:</p>
+<pre><code>{
+  &quot;my-plugin-slug&quot;: {
+    &quot;1.2.0&quot;: {
+      &quot;accepted_at&quot;: &quot;2026-07-24T10:00:00+00:00&quot;,
+      &quot;accepted_by&quot;: &quot;admin@example.com&quot;,
+      &quot;permissions_manifest&quot;: {
+        &quot;permissions&quot;: [&quot;read_entries&quot;],
+        &quot;hooks&quot;: [&quot;entry.saved&quot;],
+        &quot;data_access&quot;: {
+          &quot;entries&quot;: &quot;read&quot;,
+          &quot;media&quot;: &quot;none&quot;,
+          &quot;users&quot;: &quot;none&quot;,
+          &quot;settings&quot;: &quot;none&quot;
+        }
+      }
+    }
+  }
+}</code></pre>
+<p>Install API returns <code>consent_required: true</code> when no record exists for <code>{slug, version}</code>. Error code <code>consent_required</code> blocks install until the client sends <code>consent_accepted: true</code>.</p>
+<p><strong>Denylist-first enforcement</strong></p>
+<p><code>has_plugin_capability()</code> calls <code>is_resource_protected($scope)</code> before permission lookup. <code>is_space_denied($space_id)</code> blocks space-scoped hooks and admin injections. Denylist does not affect core CMS or human admin users — only plugin code paths.</p>
+<p><strong>QC pipeline (providers)</strong></p>
+<p>Preflight runs on every release upload. Verified-tier offers enqueue manual review before catalog visibility. Providers can connect GitHub for tag-triggered builds that enter the same QC queue — offers are not auto-published without passing checks.</p>
+<p><strong>Security scan tiers</strong></p>
+<p>| Tier | Scope | |------|-------| | Structural | Zip layout, <code>plugin.json</code> schema | | Pattern | PHP dangerous-function regex scan | | Manual | Code review for verified first releases | | Runtime | Capability and denylist enforcement in CMS |</p>
+<p><strong>Incident response</strong></p>
+<p>Report suspicious offers via marketplace support. Platform operators can delist offers, revoke licenses, and add slug patterns to blocklists. Site owners should disable affected plugins immediately and review audit logs — see <a href="../06-extensibility/audit-log-and-activity.html">Audit log and activity</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="for-site-owners.html">For site owners</a></li>
+<li><a href="plugin-development.html">Plugin development</a></li>
+<li><a href="for-providers.html">For providers</a></li>
+<li><a href="../06-extensibility/plugin-security-denylist.html">Plugin security denylist</a></li>
+<li><a href="../07-operations/security.html">Security</a></li>
+</ul></div>

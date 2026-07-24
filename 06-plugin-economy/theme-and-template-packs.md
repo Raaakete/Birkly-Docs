@@ -14,23 +14,25 @@ When you first set up Birkly, the onboarding wizard offers starter templates:
 
 | Starter | What you get |
 |---------|--------------|
-| **Blog** | Blog posts, pages, sample front-end site |
-| **Shop** | Product catalog and storefront demo |
-| **Business** | Services, team, company site demo |
-| **Documentation** | Help articles and docs-style site |
+| **Marsk** | Flagship slow-living journal — blog, gallery, about pages, and editorial demo site |
 | **Start blank** | Empty content and project folder |
 
-Starters download from Ops (`ops.birkly.cloud`) — not from the marketplace checkout flow. They install demo **collections** under `content/` and a sample public site under **`project/`** (the canonical public site folder).
+Legacy starters (blog, shop, business, docs) remain available via Ops for staff but are not shown in the default onboarding picker.
 
-**Choosing a starter**
+**Marsk example**
 
-1. Complete CMS deploy and open the admin.
-2. Follow the **onboarding wizard** (or revisit from Help).
-3. Pick a starter that matches your use case, or choose **Start blank**.
-4. Wait for download and extraction to finish.
-5. Explore collections in **Content** and preview the public site.
+The **Marsk** pack (`marsk`) is the recommended onboarding demo:
 
-Availability depends on Ops catalog settings — some starters may show as "coming soon" until the platform publishes a release.
+1. Complete CMS deploy and open the admin onboarding wizard.
+2. Choose **Marsk** — the wizard downloads the pack from Ops (`GET /api/ops/v1/starters/marsk/download`).
+3. Collections installed: `blog`, `about`, `gallery`, `site_elements`.
+4. Public site files extract to `project/` — `index.html`, `blog.html`, `post.html`, `about.html`, `gallery.html`, plus `css/marsk.css` and `js/marsk.js`.
+5. Browse `/project/index.html` to preview; edit posts in **Content → Blog**.
+
+```bash
+# Verify Marsk is published on Ops (stable channel)
+curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.starters[] | select(.id=="marsk")'
+```
 
 **Marketplace template packs**
 

@@ -31,6 +31,7 @@
         { "path": "01-admin/ai-overview.md", "label": "AI overview" },
         { "path": "01-admin/ai-connections.md", "label": "AI connections" },
         { "path": "01-admin/mcp-connections.md", "label": "MCP connections" },
+        { "path": "01-admin/ai-site-builder.md", "label": "AI site builder" },
         { "path": "01-admin/ai-chat-and-actions.md", "label": "AI chat and actions" },
         { "path": "01-admin/ai-approvals.md", "label": "AI approvals" }
       ]

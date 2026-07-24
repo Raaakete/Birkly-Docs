@@ -44,11 +44,17 @@ Some versions support `data-collection` so the page “belongs” to one collect
 **What happens when the page loads**
 
 1. The script runs after the page (DOM) is ready.
-2. It looks through the page for Birkly template syntax: `{ title }`, `{for each entry in 'blog'}`, `{if}`, etc.
+2. It finds the **outermost** elements in `<body>` that contain Birkly template syntax (`{ title }`, `{for each entry in 'blog'}`, `{if}`, etc.).
 3. It figures out which collection(s) to request (from those tags, the URL, or `data-collection`).
-4. It calls the Birkly public API (e.g. “give me all blog entries” or “give me the entry with this slug”).
+4. It calls the Birkly public API (e.g. “give me all blog entries” or “give me the entry with this slug”). **Only published entries** are returned for public pages.
 5. It replaces the placeholders with the real content: titles, links, dates, images. Loops and conditionals are evaluated.
 6. The visitor sees the updated page. No extra click or reload is needed for content to appear.
+
+**Template regions**
+
+You can put template tags in any HTML element — not only `<main>`. The client renders each **outermost** element that contains template syntax. Example: Marsk’s fullscreen menu is a `<div class="overlay-menu">` with a `<nav>` loop inside; the parent div is rendered as one region.
+
+If a loop renders nothing, check that entries are **published** in the CMS (draft entries are invisible on the public site).
 
 **Example: blog index**
 

@@ -27,7 +27,11 @@
         </div>
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
         <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
         <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
         <a href="../01-admin/settings.html" class="nav-link">Settings</a>
         <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
@@ -59,6 +63,8 @@
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Integration</div>
         <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
@@ -94,6 +100,16 @@
         <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
         <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
         <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
@@ -150,8 +166,8 @@
 <p>| Plugin | Marketplace | Docs | |--------|-------------|------| | <strong>Commerce</strong> | <a href="https://marketplace.birkly.io/offers/birkly-commerce">birkly-commerce</a> | <a href="plugins/commerce.html">Commerce plugin</a> | | <strong>Events</strong> | <a href="https://marketplace.birkly.io/offers/birkly-events">birkly-events</a> | <a href="../03-templating/events-functions.html">Events functions</a> | | <strong>Automation</strong> | <a href="https://marketplace.birkly.io/offers/birkly-automation">birkly-automation</a> | <a href="../05-automation/automation-overview.html">Automation overview</a> | | <strong>User Management</strong> | <a href="https://marketplace.birkly.io/offers/birkly-user-management">birkly-user-management</a> | <a href="user-plugin.html">User plugin</a> |</p>
 <p>See <a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a> for fresh-install workflow and grandfathered upgrades.</p>
 <p><strong>Birkly Marketplace</strong></p>
-<p>Browse official and community extensions at <a href="https://marketplace.birkly.io">marketplace.birkly.io</a>.</p>
-<p>| Role | Guide | |------|-------| | <strong>Buyer</strong> (install in CMS) | <a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a> | | <strong>Provider</strong> (publish offers) | <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a> | | <strong>Go-live / unbundling</strong> | <a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a> |</p></div></details>
+<p>Browse official and community extensions at <a href="https://marketplace.birkly.cloud">marketplace.birkly.cloud</a>.</p>
+<p>| Role | Guide | |------|-------| | <strong>Plugin economy curriculum</strong> | <a href="../06-plugin-economy/overview.html">Overview</a> — full multi-page guide | | <strong>Buyer</strong> (install in CMS) | <a href="../06-plugin-economy/for-site-owners.html">For site owners</a> · <a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a> | | <strong>Provider</strong> (publish offers) | <a href="../06-plugin-economy/for-providers.html">For providers</a> · <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a> | | <strong>Go-live / unbundling</strong> | <a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a> |</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Capabilities</strong></p>
 <ul>
 <li><strong>Admin UI</strong> — New pages, sidebar items, panels. Registered via plugin.json (navigation) and plugin.php (routes).</li>
@@ -181,6 +197,9 @@
 <li>If <strong>User Management</strong> (or another marketplace-installed plugin) fails with a generic “dependencies not met” message on an up-to-date install, check the detailed <code>errors[]</code> in the plugin settings response. On older cores, a registry bug (<code>$haru_plugins</code> vs <code>$birkly_plugins</code>) blocked activation — update Birkly first. See <a href="../07-operations/troubleshooting.html#user-management-plugin-wont-enable">Troubleshooting</a>.</li>
 </ul></div></details>
 <div class="doc-related"><ul>
+<li><a href="../06-plugin-economy/overview.html">Plugin economy overview</a></li>
+<li><a href="../06-plugin-economy/official-plugins.html">Official plugins</a></li>
+<li><a href="../06-plugin-economy/security-and-review.html">Security and review</a></li>
 <li><a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a></li>
 <li><a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
 <li><a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a></li>

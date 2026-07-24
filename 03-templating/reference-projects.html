@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>reference projects — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="events-functions.html" class="nav-link">Events functions</a>
+        <a href="storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="reference-projects.html" class="nav-link active">Reference projects</a>
+        <a href="production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Six copy-paste starter sites ship with the Birkly CMS. Each demonstrates real templating patterns with <strong>live <code>birkly-client.js</code> only</strong> — no hydrate, snapshots, or custom <code>fetch()</code> in site JavaScript.</p>
+<div class="doc-summary"><p><strong>Reference projects</strong> are ready-made HTML sites (blog, portfolio, yoga studio, coffee shop, social network, influencer hub) bundled in the Birkly repo under <code>reference-projects/</code>. Run <code>scripts/install-reference-project.sh &lt;name&gt;</code> from the Birkly root to copy collections into your CMS, then open the site at <code>/reference-projects/&lt;name&gt;/website/</code>. Every project uses the default live client script; they are the recommended starting point before you build your own templates.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What are they?</strong></p>
+<p>Think of reference projects as <strong>starter kits</strong>: each one is a small website with sample content and HTML templates already wired to Birkly. You can browse them to see how loops, conditionals, commerce forms, and login pages work — then copy ideas into your own site.</p>
+<p><strong>The six projects</strong></p>
+<p>| Project | Good for | Needs plugins? | |---------|----------|----------------| | <strong>blog</strong> | Homepage, post list, article pages | No | | <strong>portfolio</strong> | Project gallery and case-study detail | No | | <strong>yoga</strong> | Class schedule and event registration | Events | | <strong>coffee</strong> | Product grid, variants, add to cart | Commerce | | <strong>social</strong> | Login, feed, profile, comments, merch | User Management + Commerce | | <strong>influencer</strong> | Blog + events + shop + social on one site | Events + Commerce + User Management |</p>
+<p><strong>How to try one</strong></p>
+<ol>
+<li>Start the Birkly dev server from the Birkly folder (see <a href="../00-overview/getting-started.html">Getting started</a>).</li>
+<li>Install a project (replace <code>blog</code> with any name from the table):</li>
+</ol>
+<pre><code>chmod +x ./scripts/install-reference-project.sh
+./scripts/install-reference-project.sh blog</code></pre>
+<ol>
+<li>Open the site in your browser, for example:</li>
+</ol>
+<pre><code>http://localhost:8080/reference-projects/blog/website/index.html</code></pre>
+<p>Swap <code>blog</code> for <code>portfolio</code>, <code>yoga</code>, <code>coffee</code>, <code>social</code>, or <code>influencer</code> in both the install command and the URL.</p>
+<ol>
+<li>For <strong>yoga</strong>, <strong>coffee</strong>, <strong>social</strong>, or <strong>influencer</strong>, install and activate the listed plugins first (<strong>Admin → Plugins</strong>), then run the install script.</li>
+</ol>
+<p><strong>What you will not see</strong></p>
+<p>Reference projects intentionally <strong>do not</strong> use advanced production tricks (pre-baked HTML, hydrate scripts, or snapshot files). That keeps them easy to learn and copy. If you need those techniques later, see <a href="production-optimization.html">Production optimization</a>.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Source layout (Birkly repo)</strong></p>
+<pre><code>reference-projects/
+├── blog/
+│   ├── manifest.json       # optional plugins list
+│   ├── collections/        # copied → content/collections/ on install
+│   └── website/            # static HTML served from CMS root
+├── portfolio/
+├── yoga/
+├── coffee/
+├── social/
+└── influencer/</code></pre>
+<p><strong>Install script</strong></p>
+<p><code>scripts/install-reference-project.sh &lt;project-name&gt;</code>:</p>
+<ul>
+<li>Copies <code>reference-projects/&lt;name&gt;/collections/*</code> → <code>content/collections/</code></li>
+<li>Prints required plugins from <code>manifest.json</code> when present</li>
+<li>Website files stay in place under <code>reference-projects/&lt;name&gt;/website/</code></li>
+</ul>
+<p><strong>Canonical URLs (local dev)</strong></p>
+<p>| Project | Index URL | |---------|-----------| | blog | <code>/reference-projects/blog/website/index.html</code> | | portfolio | <code>/reference-projects/portfolio/website/index.html</code> | | yoga | <code>/reference-projects/yoga/website/index.html</code> | | coffee | <code>/reference-projects/coffee/website/index.html</code> | | social | <code>/reference-projects/social/website/index.html</code> | | influencer | <code>/reference-projects/influencer/website/index.html</code> |</p>
+<p><strong>Client contract (all projects)</strong></p>
+<pre><code>&lt;script src=&quot;/birkly-client.js&quot; data-cms-url=&quot;http://localhost:8080&quot;&gt;&lt;/script&gt;</code></pre>
+<ul>
+<li>Templating + <code>data-birkly-*</code> attributes for forms, auth, commerce</li>
+<li>Slug pages: <code>meta[name=birkly-page]</code>, <code>meta[name=birkly-collection]</code>, optional <code>meta[name=birkly-slug]</code></li>
+<li><strong>No</strong> <code>birkly-hydrate.js</code>, <strong>no</strong> <code>&lt;meta name=&quot;birkly-baked&quot;&gt;</code>, <strong>no</strong> snapshot globals, <strong>no</strong> custom <code>fetch()</code> in site JS</li>
+</ul>
+<p><strong>Combining projects</strong></p>
+<p>Install merges collections by slug into <code>content/collections/</code>. Re-installing overwrites same-slug collections (<code>blog</code>, <code>events</code>, etc.). Use separate CMS instances or rename slugs when combining manually.</p>
+<p><strong>Upstream catalog</strong></p>
+<p>User-story IDs (V-TPL-01 … V-TPL-06) and per-page acceptance criteria live in the Birkly repo: <code>docs/reference-projects/user-stories.md</code> and each project's <code>VIDEO.md</code>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="../04-integration/client-library.html">Client library</a></li>
+<li><a href="storefront-patterns.html">Storefront and events patterns</a></li>
+<li><a href="production-optimization.html">Production optimization</a> — optional hydrate/snapshot/bake (not used in reference projects)</li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

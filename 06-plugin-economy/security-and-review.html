@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>security and review — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="overview.html" class="nav-link">Overview</a>
+        <a href="for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="for-providers.html" class="nav-link">For providers</a>
+        <a href="plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="security-and-review.html" class="nav-link active">Security and review</a>
+        <a href="official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Marketplace installs require explicit <strong>permission consent</strong>. Automated scans and manual review protect the catalog. Site owners can further restrict plugins with the security denylist.</p>
+<div class="doc-summary"><p>Before a plugin installs, the CMS shows a <strong>consent screen</strong> listing declared permissions, hooks, and data access from <code>plugin.json</code>. Consent is recorded per offer version. The marketplace runs <strong>automated preflight</strong> (zip structure, dangerous code patterns, capability checks) and <strong>manual review</strong> for verified-tier offers. Site admins can add collections and admin spaces to the <strong>plugin security denylist</strong> to hard-block access.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Permission consent at install</strong></p>
+<p>When you click <strong>Install</strong> on a marketplace offer, the CMS reads the plugin's declared access:</p>
+<p>| Declaration | What it means | |-------------|---------------| | <strong>Permissions</strong> | Admin actions the plugin can perform | | <strong>Hooks</strong> | CMS events the plugin listens to | | <strong>Data access</strong> | Whether the plugin can read or write entries, media, users, or settings |</p>
+<p>You must <strong>Accept</strong> before the download starts. The consent is saved with your admin email and timestamp. If you install a <strong>new version</strong> that changes declarations, you see the consent screen again.</p>
+<p><strong>Review before you accept</strong></p>
+<ul>
+<li>Compare declared access to what the plugin claims to do on its marketplace listing.</li>
+<li>Prefer <strong>verified</strong> or <strong>official</strong> offers for sensitive sites.</li>
+<li>Decline install if the permissions seem excessive — contact the provider or choose an alternative.</li>
+</ul>
+<p><strong>After install — limiting access</strong></p>
+<p>Even after consent, you can tighten boundaries:</p>
+<ol>
+<li>Open <strong>Settings → Security → Plugin security denylist</strong>.</li>
+<li>Add <strong>protected collections</strong> (for example <code>payroll</code>, <code>legal/*</code>).</li>
+<li>Add <strong>denied admin spaces</strong> (for example block a plugin from the Commerce admin area).</li>
+<li>Save — denylist rules override granted capabilities.</li>
+</ol>
+<p>See <a href="../06-extensibility/plugin-security-denylist.html">Plugin security denylist</a> for step-by-step instructions.</p>
+<p><strong>Marketplace quality checks</strong></p>
+<p>Before an offer reaches the catalog:</p>
+<p>| Check | What it catches | |-------|-----------------| | Zip structure | Missing files, path traversal (<code>..</code>) | | PHP scan | Dangerous functions (<code>eval</code>, <code>shell_exec</code>, etc.) | | Manifest validation | Invalid semver, missing required fields | | Capability match | Declarations vs actual plugin behavior (verified tier) |</p>
+<p><strong>Trust levels</strong></p>
+<p>| Level | Review depth | |-------|--------------| | Community | Automated preflight only | | Trusted | Automated plus possible spot-check | | Verified | Manual technical review for first release and major updates |</p>
+<p><strong>Supply chain hygiene</strong></p>
+<ul>
+<li>Install only from <a href="https://marketplace.birkly.cloud">marketplace.birkly.cloud</a> or sources you trust.</li>
+<li>Verify SHA-256 checksums match the offer page (the CMS does this automatically).</li>
+<li>Keep Birkly core and plugins updated — see <a href="../06-extensibility/updates.html">Updates</a>.</li>
+<li>Revoke or uninstall plugins you no longer use.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Consent storage</strong></p>
+<p><code>settings/marketplace_consent.json</code>:</p>
+<pre><code>{
+  &quot;my-plugin-slug&quot;: {
+    &quot;1.2.0&quot;: {
+      &quot;accepted_at&quot;: &quot;2026-07-24T10:00:00+00:00&quot;,
+      &quot;accepted_by&quot;: &quot;admin@example.com&quot;,
+      &quot;permissions_manifest&quot;: {
+        &quot;permissions&quot;: [&quot;read_entries&quot;],
+        &quot;hooks&quot;: [&quot;entry.saved&quot;],
+        &quot;data_access&quot;: {
+          &quot;entries&quot;: &quot;read&quot;,
+          &quot;media&quot;: &quot;none&quot;,
+          &quot;users&quot;: &quot;none&quot;,
+          &quot;settings&quot;: &quot;none&quot;
+        }
+      }
+    }
+  }
+}</code></pre>
+<p>Install API returns <code>consent_required: true</code> when no record exists for <code>{slug, version}</code>. Error code <code>consent_required</code> blocks install until the client sends <code>consent_accepted: true</code>.</p>
+<p><strong>Denylist-first enforcement</strong></p>
+<p><code>has_plugin_capability()</code> calls <code>is_resource_protected($scope)</code> before permission lookup. <code>is_space_denied($space_id)</code> blocks space-scoped hooks and admin injections. Denylist does not affect core CMS or human admin users — only plugin code paths.</p>
+<p><strong>QC pipeline (providers)</strong></p>
+<p>Preflight runs on every release upload. Verified-tier offers enqueue manual review before catalog visibility. Providers can connect GitHub for tag-triggered builds that enter the same QC queue — offers are not auto-published without passing checks.</p>
+<p><strong>Security scan tiers</strong></p>
+<p>| Tier | Scope | |------|-------| | Structural | Zip layout, <code>plugin.json</code> schema | | Pattern | PHP dangerous-function regex scan | | Manual | Code review for verified first releases | | Runtime | Capability and denylist enforcement in CMS |</p>
+<p><strong>Incident response</strong></p>
+<p>Report suspicious offers via marketplace support. Platform operators can delist offers, revoke licenses, and add slug patterns to blocklists. Site owners should disable affected plugins immediately and review audit logs — see <a href="../06-extensibility/audit-log-and-activity.html">Audit log and activity</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="for-site-owners.html">For site owners</a></li>
+<li><a href="plugin-development.html">Plugin development</a></li>
+<li><a href="for-providers.html">For providers</a></li>
+<li><a href="../06-extensibility/plugin-security-denylist.html">Plugin security denylist</a></li>
+<li><a href="../07-operations/security.html">Security</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

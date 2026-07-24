@@ -27,7 +27,11 @@
         </div>
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
         <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="collection-editor.html" class="nav-link">Collection editor</a>
         <a href="media-library.html" class="nav-link">Media library</a>
         <a href="settings.html" class="nav-link">Settings</a>
         <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
@@ -59,6 +63,8 @@
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Integration</div>
         <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
@@ -95,6 +101,16 @@
         <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
         <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
         </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
         <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
@@ -118,7 +134,7 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><div class="doc-summary"><p><strong>Help</strong> is the in-admin documentation: a link or icon in the sidebar opens guides that explain collections, entries, field types, templating, and integration. The CMS fetches a <strong>live manifest</strong> from Birkly-Docs when online, with <strong>offline fallback</strong> to bundled snapshots. <strong>Onboarding</strong> is the first-time setup wizard shown when the first admin logs in. It has a visual step-by-step flow with a progress bar — complete it in a few minutes or skip any step. The Dashboard <strong>setup checklist</strong> shows four essential items after onboarding so you always know what remains. If the instance was preconfigured, onboarding may not appear.</p></div>
+        <div class="doc-content"><div class="doc-summary"><p><strong>Help</strong> is the in-admin documentation: a link or icon in the sidebar opens guides that explain collections, entries, field types, templating, and integration. The CMS fetches a <strong>live manifest</strong> from Birkly-Docs when online, with <strong>offline fallback</strong> to bundled snapshots. <strong>First-run</strong> starts with <strong>START_HERE.html</strong> in the release zip (extract, open in a browser, pick local or cloud install path) before you log in to the admin. <strong>Onboarding</strong> is the setup wizard shown when the first admin logs in — wizard v2 includes install context, use case, a marketplace hint, and an optional BYOAI mini-wizard. The Dashboard <strong>setup checklist v2</strong> shows essential items only; an AI reminder appears <strong>only</strong> if you skipped the wizard AI step. If the instance was preconfigured, onboarding may not appear.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Help</strong></p>
 <p>The <strong>Help</strong> section (often a &quot;?&quot; icon or a &quot;Help&quot; link in the sidebar) opens documentation <strong>inside</strong> the admin. You don't have to leave the panel or search the web—you can read how to create a collection, what field types mean, how to connect your website, and so on.</p>
 <ul>
@@ -127,32 +143,45 @@
 <li><strong>Offline:</strong> If the manifest cannot be fetched, Help falls back to <strong>bundled snapshots</strong> under <code>admin/docs/snapshots/</code> so basic guidance still works air-gapped.</li>
 </ul>
 <p><strong>Example:</strong> You're not sure how to add a &quot;Featured image&quot; to a blog post. You click <strong>Help</strong>, open the &quot;Entries&quot; or &quot;Field types&quot; topic, and follow the steps. You never leave the admin.</p>
-<p><strong>Onboarding</strong></p>
-<p><strong>Onboarding</strong> is a short setup wizard that appears the <strong>first time</strong> an administrator logs in. A progress bar at the top shows which step you're on.</p>
+<p><strong>First-run (START_HERE.html)</strong></p>
+<p>Before your first admin login, open <strong>START_HERE.html</strong> from the extracted release zip (it sits next to <code>admin/</code>, <code>api/</code>, and <code>core/</code> — not inside the zip file).</p>
+<ol>
+<li><strong>Extract the zip</strong> to a folder on your computer or upload it to your web host.</li>
+<li><strong>Open START_HERE.html</strong> in a browser. A folder check confirms you're in the right place (if you see a nested-folder warning, move up one level and try again).</li>
+<li><strong>Choose your install path:</strong> <strong>On your computer</strong> (local PHP server) or <strong>On a web server</strong> (FTP/cloud upload). Follow the steps shown for your path.</li>
+<li>Click <strong>Start setup</strong> — this opens the admin onboarding wizard with your install path remembered (<code>local</code> or <code>cloud</code>).</li>
+</ol>
+<p><strong>Example:</strong> You download Birkly, extract to <code>Documents/Birkly</code>, double-click <code>START_HERE.html</code>, pick <strong>On your computer</strong>, run <code>./start-server.sh</code>, then click <strong>Start setup</strong>. The wizard opens with local-specific hints.</p>
+<p><strong>Onboarding (wizard v2)</strong></p>
+<p><strong>Onboarding</strong> is a setup wizard that appears when you reach the admin for the first time (or when no admin account exists yet). A progress bar at the top shows which step you're on. If you started from START_HERE, your <strong>install path</strong> (local or cloud) is already set and the wizard tailors copy accordingly.</p>
 <p><strong>Wizard steps</strong></p>
 <ol>
-<li><strong>Welcome</strong> — A brief intro and what to expect.</li>
-<li><strong>Site info</strong> — Set your <strong>project name</strong> (appears in the admin and page titles) and optionally upload a <strong>logo</strong>.</li>
-<li><strong>Demo content</strong> — Optionally create a starter collection and entry so the admin isn't empty when you first explore.</li>
-<li><strong>Connect AI</strong> <em>(optional, skippable)</em> — Opens <strong>Settings → AI &amp; Integrations</strong> so you can connect a provider (OpenAI, Claude, Ollama, etc.). If you skip this now, you can return to it any time from Settings. This step is never required and is not on the Dashboard checklist.</li>
-<li><strong>Complete</strong> — Summary and a &quot;Go to Dashboard&quot; button.</li>
+<li><strong>Create admin account</strong> <em>(first user only)</em> — Set email and password when no users exist yet.</li>
+<li><strong>Welcome</strong> — Brief intro; you can skip the entire wizard from here.</li>
+<li><strong>Install context</strong> — Confirms how you're running Birkly (local vs cloud) based on START_HERE or the <code>?install=local|cloud</code> link.</li>
+<li><strong>Site info</strong> — Set your <strong>project name</strong> (appears in the admin and page titles) and optionally a short description or logo.</li>
+<li><strong>Use case + demo content</strong> — Pick what you're building (blog, business site, shop, docs, developer project). Optionally keep or remove starter demo content. Skippable.</li>
+<li><strong>Marketplace</strong> — A hint that official plugins install from <strong>Plugins → Marketplace</strong> (Commerce, Events, Automation, and more). Skippable.</li>
+<li><strong>Connect AI</strong> <em>(optional)</em> — A <strong>BYOAI mini-wizard</strong>: pick provider → enter API key → test → set role and approval defaults. <strong>Skip for now</strong> and <strong>Set up later</strong> are always visible; AI is never required. Skippable.</li>
+<li><strong>Complete</strong> — Summary and <strong>Go to Dashboard</strong>.</li>
 </ol>
 <ul>
-<li><strong>Skipping any step:</strong> Each step has a &quot;Skip&quot; or &quot;Skip for now&quot; button. Clicking it moves you straight to the next step without making changes.</li>
+<li><strong>Skipping any step:</strong> Each step has <strong>Skip</strong> or <strong>Skip for now</strong>. Skipping moves you to the next step without making changes.</li>
+<li><strong>Resume:</strong> If you leave partway through, the wizard resumes at your last step on the next visit (until you finish or skip all remaining steps).</li>
 <li><strong>After you finish (or skip all steps):</strong> The wizard is marked complete. Future logins go directly to the Dashboard — the wizard never reappears.</li>
 <li><strong>Preconfigured installs:</strong> If someone completed onboarding before you logged in, you'll see the Dashboard from the start.</li>
 </ul>
-<p><strong>Dashboard setup checklist</strong></p>
-<p>After onboarding, the Dashboard shows a collapsible <strong>setup checklist</strong> with four essential items:</p>
-<p>| Item | Done when… | |------|------------| | Complete site setup | Project name and basic settings are saved. | | Create your first collection | At least one collection exists. | | Add your first entry | At least one entry exists in a collection. | | Configure site settings | Site settings (URL, timezone, etc.) are configured. |</p>
-<p>The checklist does <strong>not</strong> include &quot;Upload media files&quot; or &quot;Set up a template&quot; — those are optional extras, not setup blockers. Once all four items are checked, the checklist collapses.</p>
-<p><strong>Example:</strong> You install Birkly and log in for the first time. The wizard appears. You enter &quot;Acme Blog&quot; as the project name, click Next, skip demo content, skip Connect AI (&quot;I'll set it up later&quot;), and click &quot;Go to Dashboard.&quot; The Dashboard shows the four-item checklist with two items already checked. You create a &quot;Blog posts&quot; collection, add a first entry — the checklist completes and collapses.</p>
+<p><strong>Dashboard setup checklist v2</strong></p>
+<p>After onboarding, the Dashboard shows a collapsible <strong>setup checklist</strong> with <strong>essential items only</strong>:</p>
+<p>| Item | Shown when… | Done when… | |------|-------------|------------| | Create your first collection | Always (until done) | At least one collection exists. | | Add your first entry | Always (until done) | At least one entry exists in a collection. | | Install a marketplace plugin | No marketplace plugin installed yet | At least one plugin installed from Marketplace. | | Connect AI | You <strong>skipped</strong> the wizard AI step and have no AI connection yet | An AI provider is connected under Settings → AI &amp; Integrations. |</p>
+<p>The checklist does <strong>not</strong> include site settings, media upload, or template setup — those are optional extras. If you completed the AI step in the wizard, <strong>Connect AI</strong> never appears on the checklist. You can dismiss individual items (×) or hide the whole checklist.</p>
+<p><strong>Example:</strong> You install Birkly via START_HERE (local path), complete the wizard with project name &quot;Acme Blog&quot;, pick the blog use case, skip Marketplace and Connect AI. The Dashboard checklist shows collection, entry, marketplace plugin, and <strong>Connect AI</strong> (because you skipped that wizard step). After you create a collection and entry and install Commerce from Marketplace, only <strong>Connect AI</strong> remains — or you can dismiss it and set up AI later from Settings.</p>
 <p><strong>For administrators</strong></p>
 <p>You can point the Help content to Birkly Docs (or a built copy) so the in-admin Help stays current. For organization-specific instructions (&quot;always set up the Newsletter collection first&quot;), add them to your internal wiki or a custom admin Help page.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Help:</strong> Runtime manifest from <code>GET /api/help_manifest.php</code> (merges <code>docs/help-manifest.json</code> + active plugin topics). <strong>Live Birkly-Docs:</strong> <code>settings/help_manifest.json</code> may set <code>docs_base_url</code> and <code>remote_manifest_url</code> (default public: <code>https://docs.birkly.com/help-manifest.json</code>). <code>admin/js/help.js</code> fetches remote manifest when configured; on failure uses bundled core manifest. Topic <code>docs_path</code> resolves to <code>{docs_base_url}/{docs_path}</code> for <strong>Read full doc</strong> links. Snapshots: <code>/admin/docs/snapshots/*.md</code> or <code>api/plugin_doc.php</code> for plugins. Plugin topics appear under <strong>Plugin extensions</strong> nav (<code>section: plugins</code>, <code>source: plugin</code>). No npm build in CMS.</p>
-<p><strong>Onboarding:</strong> State stored per user in <code>users/onboarding/{key}.json</code>. The wizard sets <code>setup_wizard_completed</code> when you finish or skip. <strong>Skip</strong> marks the wizard complete without installing demo content; <strong>Complete</strong> also sets <code>demo_content_installed</code>. Redirect to onboarding only happens when <code>setup_wizard_completed</code> is false — existing demo content on disk does not force the wizard. Dashboard checklist merges API state with session so completed steps are not overwritten.</p>
-<p>The optional <strong>Connect AI</strong> wizard step is the <em>only</em> place in the onboarding flow that references AI. The Dashboard checklist never includes an AI item (by design — AI setup is optional and handled separately in Settings → AI &amp; Integrations). All API calls from the wizard use <code>Birkly.url()</code> for subdirectory-safe URL resolution.</p>
-<p><strong>Dashboard checklist data:</strong> <code>api/admin_templates.php</code> → <code>getDashboardData()</code>. Checklist items: <code>site_setup_done</code>, <code>first_collection</code>, <code>first_entry</code>, <code>configure_settings</code>. Items <code>upload_media</code> and <code>create_template</code> have been removed from the checklist as non-essential.</p></div></details>
+<p><strong>First-run:</strong> <code>START_HERE.html</code> + <code>START_HERE.txt</code> ship in the release zip root (<code>build-cms-release.sh</code>). Folder detection via <code>api/setup_probe.php</code> (read-only). Local path links to <code>./start-server.sh</code>; cloud path shows FTP/upload checklist. <strong>Start setup</strong> deep-links to <code>/admin/?page=onboarding&amp;install=local|cloud</code>.</p>
+<p><strong>Onboarding v2:</strong> State per user in <code>users/onboarding/{key}.json</code>; site-level <code>install_path</code> in <code>settings/onboarding.json</code> (from START_HERE <code>?install=</code> or wizard). Progress persisted via <code>api/onboarding.php?action=update_progress</code> (<code>last_step</code>, <code>ai_skipped</code>). Wizard sets <code>setup_wizard_completed</code> on finish or full skip. Steps: <code>step-first-user</code> (0), <code>step-welcome</code>, <code>step-install-context</code>, <code>step-site-info</code>, <code>step-use-case</code>, <code>step-marketplace</code>, <code>step-connect-ai</code> (inline BYOAI: provider → key → test → role; <code>require_approval</code> default true). Redirect to onboarding when <code>setup_wizard_completed</code> is false.</p>
+<p><strong>Dashboard checklist v2:</strong> <code>api/admin_templates.php</code> → <code>getDashboardData()</code>. Essential IDs: <code>first_collection</code>, <code>first_entry</code>, <code>install_marketplace_plugins</code> (conditional). <strong>Connect AI</strong> (<code>connect_ai</code>) appended only when <code>ai_skipped === true</code> and no AI connection exists — never a default essential item (P19-D4 / P5.6-D locked). Removed: <code>site_setup_done</code>, <code>configure_settings</code>, <code>upload_media</code>, <code>create_template</code>, <code>setup_complete</code>. Dismiss per item (<code>dismiss_checklist_item</code>) and hide panel (<code>hide_checklist</code>) persist in onboarding progress. Local <code>install_path</code> adds localhost hints on checklist copy.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="../00-overview/getting-started.html">Getting started</a></li>
 <li><a href="../DOCS_ARCHITECTURE.html">DOCS_ARCHITECTURE.md</a> (for maintainers)</li>

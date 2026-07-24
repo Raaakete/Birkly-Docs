@@ -13,7 +13,7 @@
 <li>Sidebar → <strong>Content</strong> → <strong>Create collection</strong> (or <strong>New collection</strong>).</li>
 <li><strong>Name:</strong> e.g. “Blog posts”. <strong>Handle:</strong> e.g. <code>blog</code> (often auto-filled from the name; use lowercase, no spaces). The handle is what templates and the API use—don’t change it later if you can avoid it.</li>
 <li><strong>Add fields:</strong> For each field set a <strong>label</strong> (what editors see), a <strong>field type</strong> (Text, Editor, Date, Media, etc.), and whether it’s <strong>required</strong>. See <a href="field-types.html">Field types</a> for the full list and when to use each.</li>
-<li><strong>Settings</strong> tab: Choose <strong>Entry method</strong>.</li>
+<li><strong>Settings</strong> tab (sidebar): Set slug (auto-generate from name by default), description, sort order, and <strong>Entry method</strong>.</li>
 </ol>
 <p>   - <strong>Admin only</strong> — Only logged-in users can create or edit entries. Default and safest for most content.    - <strong>Public API</strong> — Your website (or another app) can create entries too, e.g. a contact form or a signup form. If you enable this, you can usually set rate limits and security options.</p>
 <ol>
@@ -41,6 +41,7 @@
 }</code></pre>
 <p><strong>Best practices:</strong> Keep handle stable. Avoid removing or renaming field keys after entries exist (orphaned data, broken templates). For public submit, use rate limiting and validation.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="../01-admin/collection-editor.html">Collection editor</a></li>
 <li><a href="entries.html">Entries</a></li>
 <li><a href="field-types.html">Field types</a></li>
 <li><a href="slugs-and-status.html">Slugs and status</a></li>

@@ -113,6 +113,20 @@
       ]
     },
     {
+      "id": "plugin-economy",
+      "label": "Plugin economy",
+      "items": [
+        { "path": "06-plugin-economy/overview.md", "label": "Overview" },
+        { "path": "06-plugin-economy/for-site-owners.md", "label": "For site owners" },
+        { "path": "06-plugin-economy/for-providers.md", "label": "For providers" },
+        { "path": "06-plugin-economy/plugin-development.md", "label": "Plugin development" },
+        { "path": "06-plugin-economy/theme-and-template-packs.md", "label": "Themes and template packs" },
+        { "path": "06-plugin-economy/security-and-review.md", "label": "Security and review" },
+        { "path": "06-plugin-economy/official-plugins.md", "label": "Official plugins" },
+        { "path": "06-plugin-economy/api-reference.md", "label": "API reference" }
+      ]
+    },
+    {
       "id": "operations",
       "label": "Operations",
       "items": [

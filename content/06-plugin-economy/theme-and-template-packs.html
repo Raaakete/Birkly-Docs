@@ -1,0 +1,58 @@
+<p>Birkly offers two ways to bootstrap site content and public pages: <strong>Ops-hosted starter packs</strong> during onboarding and <strong>marketplace template packs</strong> sold as offers. Both populate collections and files under <code>project/</code> — your public site folder.</p>
+<div class="doc-summary"><p><strong>Starter packs</strong> are curated demo content and sample sites served from <strong>Birkly Ops</strong> during the setup wizard — blog, shop, business, and docs templates plus a blank option. <strong>Template packs</strong> on the <strong>marketplace</strong> are provider-published offers that install collections and <code>project/</code> site files after purchase. <strong>Themes</strong> change visual styling; <strong>template packs</strong> include structure and content.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Ops starter packs (onboarding)</strong></p>
+<p>When you first set up Birkly, the onboarding wizard offers starter templates:</p>
+<p>| Starter | What you get | |---------|--------------| | <strong>Blog</strong> | Blog posts, pages, sample front-end site | | <strong>Shop</strong> | Product catalog and storefront demo | | <strong>Business</strong> | Services, team, company site demo | | <strong>Documentation</strong> | Help articles and docs-style site | | <strong>Start blank</strong> | Empty content and project folder |</p>
+<p>Starters download from Ops (<code>ops.birkly.cloud</code>) — not from the marketplace checkout flow. They install demo <strong>collections</strong> under <code>content/</code> and a sample public site under <strong><code>project/</code></strong> (the canonical public site folder).</p>
+<p><strong>Choosing a starter</strong></p>
+<ol>
+<li>Complete CMS deploy and open the admin.</li>
+<li>Follow the <strong>onboarding wizard</strong> (or revisit from Help).</li>
+<li>Pick a starter that matches your use case, or choose <strong>Start blank</strong>.</li>
+<li>Wait for download and extraction to finish.</li>
+<li>Explore collections in <strong>Content</strong> and preview the public site.</li>
+</ol>
+<p>Availability depends on Ops catalog settings — some starters may show as &quot;coming soon&quot; until the platform publishes a release.</p>
+<p><strong>Marketplace template packs</strong></p>
+<p>Providers can publish <strong>template pack</strong> offers on the marketplace. These are products you buy or get for free through checkout, then install via <strong>Plugins → Marketplace</strong> like any other offer.</p>
+<p>Template packs typically include:</p>
+<ul>
+<li>Pre-defined <strong>collections</strong> and sample entries</li>
+<li>HTML, CSS, and JS for the public site in <code>project/</code></li>
+<li>Optional plugin dependencies declared in the offer manifest</li>
+</ul>
+<p><strong>Themes vs template packs</strong></p>
+<p>| Type | What changes | |------|--------------| | <strong>Theme</strong> | Visual styling — colors, typography, layout tokens | | <strong>Template pack</strong> | Content structure plus site files — collections, pages, demo entries |</p>
+<p>A template pack may bundle a theme, but they are separate offer types on the marketplace.</p>
+<p><strong>After install</strong></p>
+<ul>
+<li>Edit content in <strong>Content</strong> like any other collection.</li>
+<li>Customize public site files in <code>project/</code> (or via your deployment workflow).</li>
+<li>Remove demo entries you do not need; starter content is a starting point, not permanent.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Project folder (<code>project/</code>)</strong></p>
+<p>Public site files live under <code>project/</code> (P36). Legacy <code>demo-website/</code> paths migrate on demand. Template packs and starters extract into this folder plus <code>content/collections/</code>.</p>
+<p><strong>Ops starter API</strong></p>
+<p>| Endpoint | Purpose | |----------|---------| | <code>GET /api/ops/v1/starters?channel={channel}</code> | Catalog with <code>onboarding_enabled</code> flags | | <code>GET /api/ops/v1/starters/{id}/download</code> | Signed zip download |</p>
+<p>CMS resolves catalog URL from <code>starters_catalog_url</code> in platform config, <code>BIRKLY_OPS_STARTERS_URL</code>, or derived from the Ops feedback relay URL. Default: <code>https://ops.birkly.cloud/api/ops/v1/starters</code>.</p>
+<p><strong>Marketplace template pack install</strong></p>
+<p>Offer type <code>template_pack</code> in the offer manifest. Install flow:</p>
+<ol>
+<li>License activation (if paid).</li>
+<li>Permission consent (if the pack includes a plugin component).</li>
+<li>Extract collections and <code>project/</code> files per pack manifest.</li>
+<li>Record installed version for updates.</li>
+</ol>
+<p>See <a href="api-reference.html">API reference</a> for registry endpoints used during install.</p>
+<p><strong>Local fallback</strong></p>
+<p>If Ops is unreachable, onboarding falls back to bundled catalog metadata and local <code>demo-content/</code> when present. Production sites should ensure Ops connectivity or choose <strong>Start blank</strong>.</p>
+<p><strong>Custom starters (platform)</strong></p>
+<p>Birkly Ops staff manage starter pack versions, featured flags, and onboarding visibility. Starters are not provider-published marketplace offers — they are platform-curated content.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="overview.html">Plugin economy overview</a></li>
+<li><a href="for-site-owners.html">For site owners</a></li>
+<li><a href="for-providers.html">For providers</a></li>
+<li><a href="../00-overview/getting-started.html">Getting started</a></li>
+<li><a href="../03-templating/templating-overview.html">Templating overview</a></li>
+<li><a href="../03-templating/reference-projects.html">Reference projects</a></li>
+</ul></div>

@@ -125,6 +125,42 @@
       "docs_path": "06-extensibility/marketplace-buyer-guide.html"
     },
     {
+      "id": "plugin-economy",
+      "title": "Plugin economy overview",
+      "keywords": ["marketplace", "plugin economy", "ops", "starters", "extensions", "catalog"],
+      "docs_path": "06-plugin-economy/overview.html"
+    },
+    {
+      "id": "plugin-economy-install",
+      "title": "Install plugins from marketplace",
+      "keywords": ["install", "marketplace", "license", "consent", "permissions", "activate"],
+      "docs_path": "06-plugin-economy/for-site-owners.html"
+    },
+    {
+      "id": "plugin-economy-providers",
+      "title": "Marketplace providers",
+      "keywords": ["provider", "publisher", "seller", "stripe connect", "publish", "offer"],
+      "docs_path": "06-plugin-economy/for-providers.html"
+    },
+    {
+      "id": "plugin-economy-official",
+      "title": "Official vs third-party plugins",
+      "keywords": ["official", "third-party", "commerce", "events", "automation", "free"],
+      "docs_path": "06-plugin-economy/official-plugins.html"
+    },
+    {
+      "id": "plugin-economy-starters",
+      "title": "Starter and template packs",
+      "keywords": ["starter", "template pack", "onboarding", "ops", "project", "demo"],
+      "docs_path": "06-plugin-economy/theme-and-template-packs.html"
+    },
+    {
+      "id": "plugin-economy-security",
+      "title": "Plugin security and consent",
+      "keywords": ["security", "consent", "permissions", "qc", "review", "denylist"],
+      "docs_path": "06-plugin-economy/security-and-review.html"
+    },
+    {
       "id": "commerce",
       "title": "Commerce plugin",
       "keywords": ["commerce", "cart", "checkout", "orders", "payments"],

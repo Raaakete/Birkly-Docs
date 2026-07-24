@@ -1,0 +1,18 @@
+<div class="doc-summary"><p>Phase 30 improves <strong>admin navigation and forms</strong> on laptop-width viewports: smart breadcrumb truncation in the topbar and stacked field labels across entry and collection editors.</p>
+<h2>Breadcrumbs</h2>
+<p>When the trail is longer than the topbar allows, Birkly collapses segments <strong>from the left</strong> and keeps the <strong>last two</strong> visible — for example <code>… / Blog / My long entry title</code>.</p>
+<ul>
+<li>The <code>…</code> prefix is not a link.</li>
+<li>Hover the <code>…</code> or focus the breadcrumb nav to see the <strong>full path</strong> in a tooltip.</li>
+<li><code>aria-label</code> on the breadcrumb <code>&lt;nav&gt;</code> includes the complete trail for screen readers.</li>
+<li>Truncation re-runs when you resize the window or collapse/expand the sidebar.</li>
+</ul>
+<h2>Form layout</h2>
+<p>All <strong><code>.field-block</code></strong> rows in the entry and collection editors use a <strong>label-above-control</strong> layout at every breakpoint. Wide fieldtypes (ContentEditor, Media, Relation, and others) use the full width of the main column.</p>
+<h3>Field validation errors</h3>
+<p>When the entry save API returns <code>field_errors</code>, the entry editor highlights the matching <code>.field-block</code> with <code>.field-block--error</code> and shows an inline message under the control. Required schema fields are validated server-side before save.</p></div>
+<div class="doc-related"><ul>
+<li><a href="entry-editor.html">Entry editor</a></li>
+<li><a href="collection-editor.html">Collection editor</a></li>
+<li><a href="content-overview.html">Content overview</a></li>
+</ul></div>

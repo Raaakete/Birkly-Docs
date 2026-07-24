@@ -51,12 +51,13 @@ See [Marketplace go-live — installing plugins](marketplace-go-live.md) for fre
 
 **Birkly Marketplace**
 
-Browse official and community extensions at [marketplace.birkly.io](https://marketplace.birkly.io).
+Browse official and community extensions at [marketplace.birkly.cloud](https://marketplace.birkly.cloud).
 
 | Role | Guide |
 |------|-------|
-| **Buyer** (install in CMS) | [Marketplace — buyer license and install](marketplace-buyer-guide.md) |
-| **Provider** (publish offers) | [Marketplace — provider publishing guide](marketplace-provider-guide.md) |
+| **Plugin economy curriculum** | [Overview](../06-plugin-economy/overview.md) — full multi-page guide |
+| **Buyer** (install in CMS) | [For site owners](../06-plugin-economy/for-site-owners.md) · [Marketplace — buyer license and install](marketplace-buyer-guide.md) |
+| **Provider** (publish offers) | [For providers](../06-plugin-economy/for-providers.md) · [Marketplace — provider publishing guide](marketplace-provider-guide.md) |
 | **Go-live / unbundling** | [Marketplace go-live — installing plugins](marketplace-go-live.md) |
 
 ## Advanced Users
@@ -99,6 +100,9 @@ The plugin system may support capabilities, permissions, migrations, scheduled t
 
 ## Related
 
+- [Plugin economy overview](../06-plugin-economy/overview.md)
+- [Official plugins](../06-plugin-economy/official-plugins.md)
+- [Security and review](../06-plugin-economy/security-and-review.md)
 - [Marketplace go-live — installing plugins](marketplace-go-live.md)
 - [Marketplace — buyer license and install](marketplace-buyer-guide.md)
 - [Marketplace — provider publishing guide](marketplace-provider-guide.md)

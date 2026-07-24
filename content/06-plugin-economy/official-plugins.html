@@ -1,0 +1,48 @@
+<p>Birkly publishes and maintains a set of <strong>official plugins</strong> on the marketplace. They are free or paid offers from the Birkly team, kept compatible with each CMS release. Third-party plugins come from independent providers with their own support and trust levels.</p>
+<div class="doc-summary"><p><strong>Official Birkly plugins</strong> — Commerce, Events, Automation, and User Management — are <strong>free</strong> marketplace offers installed in one click from <strong>Plugins → Marketplace</strong>. Additional official extensions (for example SEO Basics, Analytics Pro) may be <strong>paid</strong> or <strong>subscription</strong> offers. <strong>Third-party</strong> plugins are published by independent providers; review trust level, permissions consent, and reviews before installing. CMS downloads ship without bundled plugins — install what you need from the marketplace.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Free official plugins</strong></p>
+<p>These four plugins cover common site needs and are maintained by Birkly:</p>
+<p>| Plugin | What it adds | Install | |--------|--------------|---------| | <strong>Commerce</strong> | Products, cart, checkout, orders, payments | <strong>Plugins → Marketplace → Install</strong> | | <strong>Events</strong> | Events, RSVP, paid tickets (uses Commerce for sales) | Same | | <strong>Automation</strong> | Workflows, triggers, conditions, actions | Same | | <strong>User Management</strong> | Registration, login, tiers, permissions | Same |</p>
+<p>No checkout, license key, or marketplace buyer account is required for these four.</p>
+<p><strong>Recommended install order</strong></p>
+<ol>
+<li><strong>Commerce</strong> first if you sell anything.</li>
+<li><strong>Events</strong> next if you run ticketed events (install Commerce first for paid tickets).</li>
+<li><strong>Automation</strong> when you need workflows.</li>
+<li><strong>User Management</strong> when you need public registration or member tiers.</li>
+</ol>
+<p><strong>Paid official plugins</strong></p>
+<p>Some Birkly-published extensions are paid one-time or subscription offers on the marketplace. They show a <strong>price badge</strong> and <strong>Purchase</strong> button in the CMS Marketplace tab. Complete checkout, activate your license, accept permission consent, then install.</p>
+<p><strong>Third-party plugins</strong></p>
+<p>Community and partner plugins are published by <strong>independent providers</strong>, not Birkly. Before installing:</p>
+<ul>
+<li>Check the provider name and trust level on the offer page.</li>
+<li>Read reviews from verified purchases.</li>
+<li>Review the <strong>permission consent</strong> screen carefully.</li>
+<li>Prefer verified-tier offers for production sites.</li>
+</ul>
+<p>Third-party support goes to the provider's contact email on the listing. Birkly platform support covers official plugins and marketplace infrastructure.</p>
+<p><strong>Official vs third-party — quick comparison</strong></p>
+<p>| | Official (Birkly) | Third-party | |--|-------------------|-------------| | <strong>Publisher</strong> | Birkly team | Independent providers | | <strong>Core four plugins</strong> | Free, one-click | N/A | | <strong>Updates</strong> | Tied to Birkly releases | Provider publishes versions | | <strong>Support</strong> | Birkly platform | Provider | | <strong>Trust</strong> | Verified by default | Community, trusted, or verified | | <strong>Pricing</strong> | Free, paid, or subscription | Provider sets pricing |</p>
+<p><strong>Grandfathered installs</strong></p>
+<p>Sites upgraded from older Birkly builds that already had plugins in <code>plugins/</code> keep working. Use the Marketplace <strong>Update</strong> action to sync with registry checksums and licenses going forward.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Source and release pipeline</strong></p>
+<p>Official plugin source is built and published to the marketplace registry on tag (<code>plugin/{name}/v*</code>). CMS release zips exclude plugin folders — production installs always pull artifacts from the registry API.</p>
+<p><strong>Marketplace slugs (official)</strong></p>
+<p>| Folder | Slug | |--------|------| | <code>commerce</code> | <code>birkly-commerce</code> | | <code>events</code> | <code>birkly-events</code> | | <code>automation</code> | <code>birkly-automation</code> | | <code>user_management</code> | <code>birkly-user-management</code> |</p>
+<p><strong>Dependencies</strong></p>
+<p>Events declares a soft dependency on Commerce for paid ticket flows. User Management integrates with Commerce membership tiers when both are installed. Check <code>requires_plugins</code> in each release's <code>plugin.json</code>.</p>
+<p><strong>API gating</strong></p>
+<p>Core routes that depend on a plugin return 404 or 503 when the plugin is not installed — for example automation webhooks or commerce APIs — instead of fatal errors.</p>
+<p><strong>Dev installs</strong></p>
+<p>Local development uses <code>scripts/install-dev-plugins.sh</code> in the Birkly platform repo to install plugin zips without the marketplace UI. Production and staging should use the CMS marketplace client.</p>
+<p><strong>Compatibility</strong></p>
+<p>Each release declares <code>requires_birkly</code> and <code>requires_php</code> semver ranges. The CMS preflight blocks install when the site core is too old. Keep Birkly updated before installing new plugin major versions.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="overview.html">Plugin economy overview</a></li>
+<li><a href="for-site-owners.html">For site owners</a></li>
+<li><a href="../06-extensibility/marketplace-go-live.html">Marketplace go-live — installing plugins</a></li>
+<li><a href="../06-extensibility/plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="../06-extensibility/user-plugin.html">User plugin</a></li>
+<li><a href="../05-automation/automation-overview.html">Automation overview</a></li>
+</ul></div>

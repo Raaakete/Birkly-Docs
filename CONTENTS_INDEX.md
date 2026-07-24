@@ -113,6 +113,19 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Audit log and activity | `06-extensibility/audit-log-and-activity.md` | Who did what, when |
 | Updates | `06-extensibility/updates.md` | Updating Birkly and extensions |
 
+## 06 — Plugin economy
+
+| Topic | File | Description |
+|-------|------|-------------|
+| Overview | `06-plugin-economy/overview.md` | CMS vs marketplace vs Ops; thin client model |
+| For site owners | `06-plugin-economy/for-site-owners.md` | Browse, license, install, consent, updates |
+| For providers | `06-plugin-economy/for-providers.md` | Provider Studio, packaging, QC, payouts (summary) |
+| Plugin development | `06-plugin-economy/plugin-development.md` | `plugin.json`, hooks, permissions, `data_access` |
+| Themes and template packs | `06-plugin-economy/theme-and-template-packs.md` | Ops starters, marketplace template packs, `project/` |
+| Security and review | `06-plugin-economy/security-and-review.md` | Permission consent, QC tiers, supply chain |
+| Official plugins | `06-plugin-economy/official-plugins.md` | Birkly-maintained vs third-party offers |
+| API reference | `06-plugin-economy/api-reference.md` | Registry, embed, Ops starter API |
+
 ## 07 — Operations
 
 | Topic | File | Description |

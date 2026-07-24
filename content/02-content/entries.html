@@ -11,9 +11,8 @@
 </ol>
 <p>   - <strong>Text / Textarea</strong> — Type in the box.    - <strong>Editor</strong> — Use the toolbar for bold, lists, links, images.    - <strong>Media / Gallery</strong> — Click the field → choose from the Media Library (or upload). For Gallery you can pick several and reorder.    - <strong>Date / DateTime</strong> — Use the calendar (and time picker if the field has time).    - <strong>Select / Radio</strong> — Pick one option. <strong>MultiSelect / Checkbox</strong> — Pick multiple or yes/no as the field allows.    - <strong>Tags</strong> — Type a word and press Enter; repeat for more tags.</p>
 <ol>
-<li><strong>Slug</strong> — Often auto-filled from the title (e.g. “Welcome to our blog” → <code>welcome-to-our-blog</code>). You can edit it. This is what your site will use in the URL and when loading “this one post.”</li>
-<li><strong>Status</strong> — <strong>Draft</strong> = saved but not visible on the site. <strong>Published</strong> = visible. Choose <strong>Save</strong> or <strong>Save &amp; Publish</strong>.</li>
-<li>Click <strong>Save</strong>.</li>
+<li><strong>Sidebar → General</strong> — Set <strong>Slug</strong> (auto-generates from title by default; see <a href="../01-admin/entry-editor.html">Entry editor</a>) and <strong>Status</strong> (<strong>Draft</strong> = not on site; <strong>Published</strong> = visible).</li>
+<li>Click <strong>Save</strong> or <strong>Save &amp; Publish</strong>.</li>
 </ol>
 <p><strong>Editing:</strong> Open the collection, click the entry in the list (or the edit icon), change any fields, and save. <strong>Deleting:</strong> Use the delete option from the list or the entry screen—usually permanent, so be sure. <strong>Duplicate:</strong> If available, “Duplicate” creates a new entry with the same content (and a new slug) so you can tweak it for a similar post or product.</p>
 <p><strong>Important:</strong> Only <strong>Published</strong> entries are shown on the live site (and in the public API by default). Keep entries as <strong>Draft</strong> until they’re ready to go live; you can switch back to Draft to “unpublish” without deleting.</p></div></details>
@@ -33,6 +32,7 @@
 }</code></pre>
 <p><strong>API:</strong> <code>GET /api/public/collections/blog/entries</code> returns published entries; <code>GET /api/public/collections/blog/entries/welcome-to-our-blog</code> returns this entry by slug. Template: <code>{from 'blog' get entry 'welcome-to-our-blog'}</code> then <code>{ title }</code>, <code>{ content }</code>, etc.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="../01-admin/entry-editor.html">Entry editor</a></li>
 <li><a href="collections.html">Collections</a></li>
 <li><a href="field-types.html">Field types</a></li>
 <li><a href="slugs-and-status.html">Slugs and status</a></li>

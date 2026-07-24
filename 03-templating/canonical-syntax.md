@@ -79,7 +79,17 @@ There is no third active engine. `render_page.php` and `templates/template_engin
 2. **Loops:** `{for each <var> in <source>}` … `{endfor}`.
 3. **Existence:** `{if <path> exist}` or `{if 'collection' has entries}`.
 4. **Comparison:** `{if entry.status == 'published'}`.
-5. **Published-only on public API:** loops via `api/public.php` return published entries only.
+5. **Published-only on public API:** loops via `api/public.php` and `page_bundle.php` return **published** entries only. Draft entries exist in the CMS but render as empty on the live site until published.
+
+### Where the client renders templates
+
+`birkly-client.js` scans `<body>` for the **outermost** HTML elements whose content includes Birkly template tags (`{for`, `{from`, `{if`, field placeholders, etc.) and renders each region in place. You do **not** need `<main>`, `<header>`, or `<nav>` specifically — any wrapper (`<div class="overlay-menu">`, `<section>`, etc.) works.
+
+Optional: add `data-birkly-region` on an element to make the intent explicit (useful in complex layouts).
+
+**`<title>`** is handled separately when it contains template syntax.
+
+**Not rendered:** tags inside `<script>` / `<style>`, or nested inside another template region (the parent region wins).
 
 ### UI decoupling (admin)
 

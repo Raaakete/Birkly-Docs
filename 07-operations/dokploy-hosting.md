@@ -111,6 +111,126 @@ Public host with `public_site_mode: project` serves files from `project/` at cle
 | `/admin` on public host stays on public host | Enable **Redirect `/admin` on public host** in Hosting settings |
 | 502 / **Containers (0)** | Bad mount type; switch to Volume Mount |
 | Wrong host serves admin | **Settings → Hosting** — CMS URL and public site URL must match Dokploy domains |
+| `test.example.com` redirects to production CMS | Test app uses prod volume or prod `hosting.json` — see **Test and production** below |
+
+## Test and production (two separate installs)
+
+Use this when you run **two** Birkly apps (e.g. `cms.birkly.cloud` for real work and `test.birkly.cloud` for experiments).
+
+### The one rule
+
+**Each app gets its own volume.** Never mount the same volume name on both apps.
+
+| | Production app | Test app |
+|--|----------------|----------|
+| Dokploy app name | e.g. `Birkly CMS` | e.g. `Birkly Test` |
+| Domain | `cms.birkly.cloud` | `test.birkly.cloud` |
+| Volume name | e.g. `birkly-cms-data` | e.g. `birkly-cms-test-data` |
+| Mount path | `/app/data` | `/app/data` |
+
+If test uses prod’s volume (or a copy of prod’s data), opening `test.birkly.cloud` redirects to `cms.birkly.cloud`. That is expected — the saved CMS URL still says production.
+
+### Fix test redirecting to production
+
+Pick **one** method. You only need one.
+
+---
+
+#### Method 1 — Environment variables in Dokploy (recommended)
+
+Use this when you can open the Dokploy dashboard.
+
+1. Log in to **Dokploy** (your server’s Dokploy URL).
+2. Open your **Project** (the group that contains Birkly).
+3. Click the **test** application — **not** the production one.  
+   (If you only have one app, create a second app for test first.)
+4. Open the **Environment** tab.  
+   (Some Dokploy versions label this **Env** or put it under **Advanced → Environment**.)
+5. Click **Add variable** (or the **+** button) three times and enter:
+
+   | Name | Value |
+   |------|--------|
+   | `BIRKLY_CMS_BASE_URL` | `https://test.birkly.cloud` |
+   | `BIRKLY_TRUST_REQUEST_HOST` | `true` |
+   | `BIRKLY_PUBLIC_SITE_MODE` | `none` |
+
+6. Click **Save**.
+7. Click **Deploy** or **Rebuild** (not only Restart) so the container starts with the new variables.
+8. Wait until **Logs** shows **Containers (1)**.
+9. Open `https://test.birkly.cloud/admin` in your browser — it should stay on test, not jump to `cms.birkly.cloud`.
+
+**Note:** These variables require Birkly build from **2026-07-25** or later (PR #302). If they have no effect after rebuild, use Method 2.
+
+---
+
+#### Method 2 — Paste one command in Dokploy Terminal
+
+Use this when Method 1 is unavailable or you prefer a permanent fix on the test volume.
+
+1. In Dokploy, open the **test** application.
+2. Open **Terminal** (or **Exec** / **Console** — a shell into the running container).  
+   If there is no Terminal tab, use your host’s SSH and run `docker exec -it <container> bash` (ask whoever manages the server).
+3. Paste this entire block and press Enter:
+
+```bash
+php /app/scripts/repair-hosting-domain.php https://test.birkly.cloud --public-mode=none
+```
+
+4. You should see `Hosting repaired.` and `cms_base_url: https://test.birkly.cloud`.
+5. Open `https://test.birkly.cloud/admin` — no redirect to production.
+
+If the script is missing (`No such file`), rebuild the test app from latest `main` on GitHub, then run the command again.
+
+**Manual alternative** (same result, no script):
+
+```bash
+cat > /app/data/settings/hosting.json << 'EOF'
+{
+  "cms_base_url": "https://test.birkly.cloud",
+  "public_site_mode": "none",
+  "public_site_url": "",
+  "same_host_landing": "admin",
+  "strict_admin_host": true
+}
+EOF
+```
+
+Then reload `https://test.birkly.cloud/admin`.
+
+---
+
+#### Method 3 — Start test with a fresh volume (when nothing else works)
+
+Use this if test and prod were ever mixed and you do not need to keep test data.
+
+1. In Dokploy, open the **test** application.
+2. **Volumes** → note the current volume name → remove the mount (or create a **new** volume name, e.g. `birkly-cms-test-data-v2`).
+3. Mount the new empty volume at **`/app/data`**.
+4. **Deploy** / **Rebuild**.
+5. Open `https://test.birkly.cloud/admin` → create a **new** admin account (once).
+6. Complete onboarding on test — hosting will use `test.birkly.cloud` automatically.
+
+Production is untouched as long as you only change the **test** app’s volume.
+
+---
+
+### How to know it worked
+
+Open in your browser:
+
+`https://test.birkly.cloud/api/deploy_revision.php`
+
+Look at the `hosting` section (after latest deploy):
+
+| Field | Good value for test |
+|-------|---------------------|
+| `cms_base_url` | `https://test.birkly.cloud` |
+| `request_host` | `test.birkly.cloud` |
+| `request_host_role` | `cms` |
+
+If `request_host_role` is `unknown` and `cms_base_url` is still `https://cms.birkly.cloud`, the fix is not applied yet — retry Method 1 or 2.
+
+Then you can test Marsk onboarding on test without affecting production.
 
 ## Related
 

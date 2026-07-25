@@ -14,6 +14,14 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-25 — P43 configurable hosting URLs (P43-M9)
+
+- **Updated:** `07-operations/dokploy-hosting.md` — CMS URL vs public site URL, `settings/hosting.json`, Dokploy Internal Path `/`, two-domain example (`cms.birkly.cloud` + `birkly.cloud`), no `cms.` subdomain requirement.
+- **Updated:** `07-operations/deployment.md` — Hosting settings instead of `cms.` convention; cross-links.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`.
+
+---
+
 ## 2026-07-25 — P41 plugin navigation icon and admin design system (P41-M12, P41-M13)
 
 - **New:** `06-plugin-economy/plugin-navigation-icon.md` — `navigation.icon` registry names, inline SVG fallback, `core/icons.php` and `admin/assets/icons/`.

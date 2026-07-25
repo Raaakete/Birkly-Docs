@@ -1,0 +1,52 @@
+<p>How to set the sidebar icon for a plugin via <code>plugin.json</code> → <code>navigation.icon</code>.</p>
+<div class="doc-summary"><p>Plugins that add an admin sidebar item declare <code>navigation</code> in <code>plugin.json</code>. The <strong><code>icon</code></strong> field controls the glyph shown next to the plugin name. Prefer a <strong>registry name</strong> string (for example <code>&quot;gear&quot;</code> or <code>&quot;shopping-bag&quot;</code>) that matches the Birkly admin icon set. For one-off artwork, you can instead supply <strong>inline SVG</strong> markup. Icon names are defined in <code>core/icons.php</code> (PHP) and mirrored in <code>admin/js/icon.js</code> (JavaScript); matching SVG files live under <code>admin/assets/icons/</code>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>When your plugin appears in the admin sidebar, visitors see a small icon beside its label. You choose that icon in <code>plugin.json</code>:</p>
+<pre><code>{
+  &quot;name&quot;: &quot;My Plugin&quot;,
+  &quot;navigation&quot;: {
+    &quot;name&quot;: &quot;My Plugin&quot;,
+    &quot;page&quot;: &quot;my-plugin&quot;,
+    &quot;icon&quot;: &quot;gear&quot;
+  }
+}</code></pre>
+<p><strong>Registry name (recommended)</strong> — Use a short name from the built-in set, such as <code>gear</code>, <code>shopping-bag</code>, <code>file-text</code>, or <code>users</code>. The admin renders it in the same stroke style as Dashboard, Content, and Settings.</p>
+<p><strong>Custom inline SVG (fallback)</strong> — If you need a unique mark, set <code>icon</code> to a full <code>&lt;svg&gt;...&lt;/svg&gt;</code> string. Keep it <strong>16×16</strong>, use <code>stroke=&quot;currentColor&quot;</code>, and add <code>class=&quot;nav-icon&quot;</code> so it aligns with core nav icons.</p>
+<p><strong>If you omit <code>icon</code></strong> — The sidebar falls back to the <code>gear</code> registry icon.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3><code>navigation</code> block</h3>
+<p>| Field | Purpose | |-------|---------| | <code>name</code> | Sidebar label | | <code>page</code> | Admin page slug (matches your registered admin route) | | <code>icon</code> | Registry name <strong>or</strong> inline SVG string |</p>
+<p>Example with registry name:</p>
+<pre><code>&quot;navigation&quot;: {
+  &quot;name&quot;: &quot;Commerce&quot;,
+  &quot;page&quot;: &quot;commerce&quot;,
+  &quot;icon&quot;: &quot;shopping-bag&quot;
+}</code></pre>
+<p>Example with inline SVG fallback:</p>
+<pre><code>&quot;navigation&quot;: {
+  &quot;name&quot;: &quot;My Integration&quot;,
+  &quot;page&quot;: &quot;my-integration&quot;,
+  &quot;icon&quot;: &quot;&lt;svg class=\&quot;nav-icon\&quot; width=\&quot;16\&quot; height=\&quot;16\&quot; viewBox=\&quot;0 0 24 24\&quot; fill=\&quot;none\&quot; stroke=\&quot;currentColor\&quot; stroke-width=\&quot;2\&quot; aria-hidden=\&quot;true\&quot;&gt;&lt;circle cx=\&quot;12\&quot; cy=\&quot;12\&quot; r=\&quot;10\&quot;/&gt;&lt;/svg&gt;&quot;
+}</code></pre>
+<h3>Icon registry sources</h3>
+<p>| Location | Role | |----------|------| | <code>core/icons.php</code> | PHP helper <code>birkly_icon($name, $attrs)</code> — registry keys and inline SVG paths | | <code>admin/js/icon.js</code> | <code>Birkly.icon(name, opts)</code> — same names for admin JavaScript | | <code>admin/assets/icons/{name}.svg</code> | Standalone SVG assets; used by <code>Birkly.iconImg()</code> and reference |</p>
+<p>Registry names use <strong>kebab-case</strong> (for example <code>magnifying-glass</code>, <code>pencil-simple</code>, <code>dots-six-vertical</code>). Aliases exist where useful (<code>gauge</code> / <code>speedometer</code>).</p>
+<p><strong>Listing names in PHP:</strong> <code>array_keys(birkly_icon_paths())</code></p>
+<p><strong>Listing names in JS:</strong> <code>Birkly.iconNames</code></p>
+<h3>Rendering in admin</h3>
+<ul>
+<li>Core nav items call <code>birkly_icon('gauge', ['class' =&gt; 'nav-icon'])</code> in <code>admin/partials/sidebar.php</code>.</li>
+<li>Plugin entries use <code>navigation.icon</code> from <code>plugin.json</code>. Registry names are resolved through the same helper with <code>class=&quot;nav-icon&quot;</code> so size and stroke match core items.</li>
+<li>The plugin API (<code>api/plugins.php</code>, action <code>get_navigation</code>) returns the resolved icon markup for dynamic clients.</li>
+</ul>
+<h3>Plugin shelf navigation</h3>
+<p>Plugins that register via the <strong>admin shelf</strong> API can set <code>sidebar.icon</code> in shelf metadata using the same registry names or inline SVG convention. See <code>core/plugins/admin_shelf.php</code> → <code>birkly_plugin_admin_sidebar_navigation()</code>.</p>
+<h3>Choosing an icon</h3>
+<ol>
+<li>Pick a registry name that fits the feature (<code>shopping-bag</code> for commerce, <code>users</code> for membership, <code>stack</code> for automation).</li>
+<li>If no registry icon fits, add inline SVG only for that plugin — do not fork <code>core/icons.php</code> for a single plugin unless you are contributing a reusable icon to core.</li>
+<li>Test in light and dark themes; icons inherit <code>currentColor</code> from the sidebar.</li>
+</ol></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugin-development.html">Plugin development</a></li>
+<li><a href="../01-admin/design-system.html">Admin design system</a> — tokens and <code>birkly_icon</code> / <code>Birkly.icon</code></li>
+<li><a href="../06-extensibility/plugins.html">Plugins</a></li>
+</ul></div>

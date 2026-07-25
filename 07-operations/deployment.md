@@ -21,8 +21,9 @@ Deployment is how you put Birkly on a server so it’s reachable on the internet
 1. **Server** — PHP and web server installed; document root or virtual host pointing to the Birkly folder.
 2. **Upload/clone** — Put Birkly files in place.
 3. **Permissions** — Make `content/`, `media/`, `settings/` writable by the web server user.
-4. **Open in browser** — Go to `https://your-domain.com` (or the path where Birkly is). Complete first-time setup: create the first admin user, set project name.
-5. **HTTPS** — In production, use HTTPS (SSL certificate) so login and data are encrypted. Many hosts offer free Let’s Encrypt certificates.
+4. **Persistence (Docker/Dokploy)** — Attach storage **before** first admin login. See [Hosting on Dokploy](dokploy-hosting.md).
+5. **Open in browser** — Go to `https://your-domain.com/admin` (not only the site root). Complete first-time setup: create the first admin user, set project name.
+6. **HTTPS** — In production, use HTTPS (SSL certificate) so login and data are encrypted. Many hosts offer free Let’s Encrypt certificates.
 
 **Example: shared hosting**
 
@@ -69,6 +70,7 @@ Deployment is how you put Birkly on a server so it’s reachable on the internet
 
 ## Related
 
+- [Hosting on Dokploy (Docker)](dokploy-hosting.md) — site owners, first install order, admin account
 - [Security](security.md)
 - [Backup and restore](backup-and-restore.md)
 - [Troubleshooting](troubleshooting.md)

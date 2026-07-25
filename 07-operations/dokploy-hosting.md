@@ -232,6 +232,28 @@ If `request_host_role` is `unknown` and `cms_base_url` is still `https://cms.bir
 
 Then you can test Marsk onboarding on test without affecting production.
 
+### Cannot log in on test after fixing hosting
+
+The hosting repair script does **not** delete accounts. You usually see a login form because accounts still exist on the volume, but the password may differ from production (separate install = separate passwords).
+
+**Check what the test volume has** (Dokploy → test app → **Terminal**):
+
+```bash
+ls -la /app/data/users/
+```
+
+If you see files like `a1b2c3d4....json`, admin accounts exist. Try the password you used when you first set up **test**, or use a full reset below.
+
+**Full reset on test only** (new admin, empty site — keeps `hosting.json`):
+
+```bash
+php /app/scripts/reset-fresh-install.php --yes
+```
+
+Then open `https://test.birkly.cloud/admin` — you should get the **onboarding wizard** to create a new admin.
+
+**Complete wipe** (Dokploy UI, no terminal): test app → **Volumes** → remove mount → add a **new** empty volume at `/app/data` → **Deploy** → open `/admin` → create admin once.
+
 ## Related
 
 - [Deployment](deployment.md)

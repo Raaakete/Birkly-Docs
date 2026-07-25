@@ -24,6 +24,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Collection editor | `01-admin/collection-editor.md` | Field schema, Settings tab slug parity |
 | Media library | `01-admin/media-library.md` | Upload, organize, use media in content |
 | Settings | `01-admin/settings.md` | General, branding, security, monitoring tab |
+| Storage backend | `01-admin/storage-backend.md` | Flat file vs MySQL/PostgreSQL, test connection, migration |
 | Roles and permissions | `01-admin/roles-and-permissions.md` | User roles and what they can do |
 | Account | `01-admin/account.md` | Profile, password, 2FA, cloud account link |
 | Admin appearance | `01-admin/admin-appearance.md` | Light/dark/system theme, responsive admin (P15) |

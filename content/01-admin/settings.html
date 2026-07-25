@@ -26,7 +26,7 @@
 <li><strong>Security</strong> — Session timeout, login lockout, password rules, and CSRF protection. See <a href="#security-settings-enforcement">Security settings</a> below for what each control does.</li>
 </ul>
 <ul>
-<li><strong>Storage</strong> — Choose where Birkly stores configuration and content metadata. <strong>Flat file</strong> is the default (JSON under <code>settings/</code> and content on disk). <strong>MySQL/MariaDB</strong> and <strong>PostgreSQL</strong> are available for database-backed storage with test connection and migration tools. See <a href="#storage-backends">Storage backends</a>.</li>
+<li><strong>Storage</strong> — Choose where Birkly stores content metadata. <strong>Flat file</strong> is the default; <strong>MySQL/MariaDB</strong> and <strong>PostgreSQL</strong> are optional with test connection and migration. See <a href="storage-backend.html">Storage backend guide</a>.</li>
 </ul>
 <ul>
 <li><strong>API &amp; Domains</strong> — Honest readout of public API behaviour; domain registration and rate limits where configured.</li>
@@ -52,35 +52,7 @@
 <p>Security values are stored in <code>settings/security.json</code> and <strong>enforced at runtime</strong> when you save via global Save—not display-only toggles.</p>
 <p>| Setting | What it does | |---------|----------------| | <strong>Session timeout (minutes)</strong> | Maximum idle time before the admin session expires. Checked on each authenticated request (<code>api/auth.php</code>). | | <strong>Max login attempts</strong> | Failed logins allowed before lockout for that account/IP (<code>api/users.php</code>). Default range in UI: 3–20. | | <strong>Lockout time (minutes)</strong> | How long login stays blocked after max attempts is exceeded. Stored in seconds internally. | | <strong>Password min length</strong> | Minimum characters required when creating or resetting passwords (<code>api/validate.php</code>). | | <strong>Require strong password</strong> | When enabled, passwords must meet complexity rules (upper, lower, number, symbol). When disabled, only min length applies. | | <strong>Enable CSRF protection</strong> | When enabled, mutating API requests must include a valid CSRF token. When disabled, token checks are skipped (use only in controlled environments). |</p>
 <p><strong>Plugin security denylist</strong> — Paths, collections, or <strong>admin spaces</strong> blocked from all plugins regardless of granted capabilities. Managed in the Security tab; changes apply immediately. Supports collection slugs, entry ids, wildcard patterns (for example <code>payroll/*</code>), and space ids (for example <code>commerce</code>). See <a href="../06-extensibility/plugin-security-denylist.html">Plugin security denylist</a>.</p>
-<p><strong>Two-factor authentication</strong> — Per-user feature under <strong>Account</strong>, not global Settings.</p>
-<h2>Storage backends</h2>
-<p>Birkly supports three storage modes in Settings → <strong>Storage</strong>:</p>
-<h3>Flat file (default)</h3>
-<ul>
-<li><strong>Driver:</strong> <code>flatfile</code></li>
-<li><strong>Config file:</strong> <code>settings/storage.json</code> (key <code>driver</code>: <code>flatfile</code>)</li>
-<li>Content and settings remain JSON/files on disk under the project root. No database required. Best for small sites, local development, and alpha installs.</li>
-</ul>
-<h3>MySQL / MariaDB</h3>
-<ol>
-<li>Create an empty database and a user with CREATE/INSERT/UPDATE/DELETE on that database.</li>
-<li>In <strong>Settings → Storage</strong>, select <strong>MySQL/MariaDB</strong>.</li>
-<li>Enter host, port (default 3306), database name, user, password, and optional table prefix (default <code>birkly_</code>).</li>
-<li>Click <strong>Test connection</strong> — verifies credentials before migration.</li>
-<li>Click <strong>Save settings</strong> (global Save) to persist credentials.</li>
-<li>Use <strong>Migrate data</strong> to copy existing flat-file data into the database. Review the result message; verify collections and entries in admin after migration.</li>
-</ol>
-<h3>PostgreSQL</h3>
-<p>Same workflow as MySQL with port default <strong>5432</strong>. The UI and API accept <code>postgresql</code> as the driver name (<code>postgres</code> is normalized automatically).</p>
-<h3>SQLite</h3>
-<p>Shown in the UI as <strong>coming soon</strong> and is not selectable. Use flat file or MySQL/PostgreSQL for production.</p>
-<h3>Test connection and migrate (API)</h3>
-<ul>
-<li><strong>Test connection:</strong> <code>POST /api/settings.php?action=test_database</code> with CSRF token and database fields. Available for MySQL and PostgreSQL only.</li>
-<li><strong>Migrate:</strong> <code>POST /api/settings.php?action=migrate_storage</code> after a successful connection test. Migrates from the current flat-file layout to the configured database driver.</li>
-<li><strong>Save:</strong> Storage fields are included in the global <code>save_all</code> action together with General and Security settings.</li>
-</ul>
-<p><strong>Warning:</strong> Changing the active backend affects where Birkly reads and writes data. Back up <code>settings/</code> and <code>content/</code> before migrating. Do not switch drivers without running migration or restoring from backup.</p></div></details>
+<p><strong>Two-factor authentication</strong> — Per-user feature under <strong>Account</strong>, not global Settings.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Structure:</strong> Settings are stored under <code>settings/</code> as JSON: <code>admin.json</code>, <code>site.json</code>, <code>media.json</code>, <code>security.json</code>, <code>branding.json</code>, <code>storage.json</code>, <code>plugins.json</code>, plus roles/users as applicable. Webhooks, domains, and API options may use additional files.</p>
 <p><strong>Global Save implementation:</strong></p>
 <ul>
@@ -89,7 +61,7 @@
 <li>Server: <code>api/settings.php</code> — maps camelCase form keys to snake_case JSON, writes each category, persists storage via <code>StorageFactory::saveStorageConfig()</code>.</li>
 </ul>
 <p><strong>Security:</strong> Values in <code>security.json</code> are read by <code>api/auth.php</code> (session timeout), <code>api/users.php</code> (lockout), <code>api/validate.php</code> (password rules), and <code>core/csrf.php</code> (<code>enable_csrf</code> flag).</p>
-<p><strong>Storage factory:</strong> <code>core/storage/StorageFactory.php</code> — unified config path <code>settings/storage.json</code>, drivers <code>flatfile</code>, <code>mysql</code>, <code>postgresql</code>. <code>MySqlStorage</code> and <code>PostgresStorage</code> implement <code>StorageInterface</code>; flat file uses <code>FlatFileStorage</code>.</p>
+<p><strong>Storage:</strong> See <a href="storage-backend.html">Storage backend guide</a> for driver choice, test connection, migration caveats, and API actions (<code>test_database</code>, <code>migrate_storage</code>). Factory: <code>core/storage/StorageFactory.php</code>; config: <code>settings/storage.json</code>.</p>
 <p><strong>Tab hash routing:</strong> Deep links such as <code>#security</code>, <code>#storage</code>, <code>#ai-integrations</code>, and alias <code>#mcp-connections</code> activate the correct tab on load.</p>
 <p><strong>Standalone pages (D7):</strong> Full management for plugins, activity, webhooks, and users remains on dedicated admin pages; Settings tabs show summaries and deep links.</p>
 <p><strong>Access control:</strong> Settings UI and API require <strong>manage settings</strong> permission. CSRF applies to mutating actions when enabled.</p></div></details>
@@ -102,5 +74,6 @@
 <li><a href="../06-extensibility/plugins.html">Plugins</a></li>
 <li><a href="../06-extensibility/updates.html">Updates</a></li>
 <li><a href="../07-operations/security.html">Security</a></li>
+<li><a href="storage-backend.html">Storage backend guide</a></li>
 <li><a href="../07-operations/backup-and-restore.html">Backup and restore</a></li>
 </ul></div>

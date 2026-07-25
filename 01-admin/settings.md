@@ -31,7 +31,7 @@ If something fails (for example invalid CSRF or missing permission), the message
 
 - **Security** — Session timeout, login lockout, password rules, and CSRF protection. See [Security settings](#security-settings-enforcement) below for what each control does.
 
-- **Storage** — Choose where Birkly stores configuration and content metadata. **Flat file** is the default (JSON under `settings/` and content on disk). **MySQL/MariaDB** and **PostgreSQL** are available for database-backed storage with test connection and migration tools. See [Storage backends](#storage-backends).
+- **Storage** — Choose where Birkly stores content metadata. **Flat file** is the default; **MySQL/MariaDB** and **PostgreSQL** are optional with test connection and migration. See [Storage backend guide](storage-backend.md).
 
 - **API & Domains** — Honest readout of public API behaviour; domain registration and rate limits where configured.
 
@@ -66,41 +66,6 @@ Security values are stored in `settings/security.json` and **enforced at runtime
 
 **Two-factor authentication** — Per-user feature under **Account**, not global Settings.
 
-## Storage backends
-
-Birkly supports three storage modes in Settings → **Storage**:
-
-### Flat file (default)
-
-- **Driver:** `flatfile`
-- **Config file:** `settings/storage.json` (key `driver`: `flatfile`)
-- Content and settings remain JSON/files on disk under the project root. No database required. Best for small sites, local development, and alpha installs.
-
-### MySQL / MariaDB
-
-1. Create an empty database and a user with CREATE/INSERT/UPDATE/DELETE on that database.
-2. In **Settings → Storage**, select **MySQL/MariaDB**.
-3. Enter host, port (default 3306), database name, user, password, and optional table prefix (default `birkly_`).
-4. Click **Test connection** — verifies credentials before migration.
-5. Click **Save settings** (global Save) to persist credentials.
-6. Use **Migrate data** to copy existing flat-file data into the database. Review the result message; verify collections and entries in admin after migration.
-
-### PostgreSQL
-
-Same workflow as MySQL with port default **5432**. The UI and API accept `postgresql` as the driver name (`postgres` is normalized automatically).
-
-### SQLite
-
-Shown in the UI as **coming soon** and is not selectable. Use flat file or MySQL/PostgreSQL for production.
-
-### Test connection and migrate (API)
-
-- **Test connection:** `POST /api/settings.php?action=test_database` with CSRF token and database fields. Available for MySQL and PostgreSQL only.
-- **Migrate:** `POST /api/settings.php?action=migrate_storage` after a successful connection test. Migrates from the current flat-file layout to the configured database driver.
-- **Save:** Storage fields are included in the global `save_all` action together with General and Security settings.
-
-**Warning:** Changing the active backend affects where Birkly reads and writes data. Back up `settings/` and `content/` before migrating. Do not switch drivers without running migration or restoring from backup.
-
 ## Advanced Users
 
 **Structure:** Settings are stored under `settings/` as JSON: `admin.json`, `site.json`, `media.json`, `security.json`, `branding.json`, `storage.json`, `plugins.json`, plus roles/users as applicable. Webhooks, domains, and API options may use additional files.
@@ -113,7 +78,7 @@ Shown in the UI as **coming soon** and is not selectable. Use flat file or MySQL
 
 **Security:** Values in `security.json` are read by `api/auth.php` (session timeout), `api/users.php` (lockout), `api/validate.php` (password rules), and `core/csrf.php` (`enable_csrf` flag).
 
-**Storage factory:** `core/storage/StorageFactory.php` — unified config path `settings/storage.json`, drivers `flatfile`, `mysql`, `postgresql`. `MySqlStorage` and `PostgresStorage` implement `StorageInterface`; flat file uses `FlatFileStorage`.
+**Storage:** See [Storage backend guide](storage-backend.md) for driver choice, test connection, migration caveats, and API actions (`test_database`, `migrate_storage`). Factory: `core/storage/StorageFactory.php`; config: `settings/storage.json`.
 
 **Tab hash routing:** Deep links such as `#security`, `#storage`, `#ai-integrations`, and alias `#mcp-connections` activate the correct tab on load.
 
@@ -131,4 +96,5 @@ Shown in the UI as **coming soon** and is not selectable. Use flat file or MySQL
 - [Plugins](../06-extensibility/plugins.md)
 - [Updates](../06-extensibility/updates.md)
 - [Security](../07-operations/security.md)
+- [Storage backend guide](storage-backend.md)
 - [Backup and restore](../07-operations/backup-and-restore.md)

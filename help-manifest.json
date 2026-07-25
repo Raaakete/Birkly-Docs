@@ -71,6 +71,12 @@
       "docs_path": "01-admin/settings.html"
     },
     {
+      "id": "storage-backend",
+      "title": "Storage backend",
+      "keywords": ["storage", "database", "mysql", "postgresql", "flat file", "migration", "test connection", "mariadb"],
+      "docs_path": "01-admin/storage-backend.html"
+    },
+    {
       "id": "monitoring-alerts",
       "title": "Monitoring and health alerts",
       "keywords": ["monitoring", "health", "alert", "webhook", "email", "ops"],

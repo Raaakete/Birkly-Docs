@@ -14,6 +14,14 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-25 — P40 storage backend guide (P40-M8)
+
+- **New:** `01-admin/storage-backend.md` — when to use flat file vs MySQL/PostgreSQL, Settings → Storage test connection workflow, `StorageMigration` caveats, CI note (mock credentials, no production DB).
+- **Updated:** `01-admin/settings.md` — Storage tab summary links to dedicated guide; duplicate storage section removed.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json` — storage backend topic.
+
+---
+
 ## 2026-07-25 — P39 collection groups API and templating (P39-M9)
 
 - **New:** `02-content/collection-groups.md` — nested group tree (`groups.json`), max depth 3, public API and templating overview.

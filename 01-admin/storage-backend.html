@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>storage backend — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="media-library.html" class="nav-link">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="storage-backend.html" class="nav-link active">Storage backend</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="ai-overview.html" class="nav-link">AI overview</a>
+        <a href="ai-connections.html" class="nav-link">AI connections</a>
+        <a href="mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><div class="doc-summary"><p>Birkly stores <strong>content metadata</strong> (collections, entries, schemas, and related JSON) through a pluggable storage layer. <strong>Flat file</strong> is the default: JSON under <code>content/</code> on disk, with no database required. <strong>MySQL/MariaDB</strong> and <strong>PostgreSQL</strong> are optional backends for teams that want content JSON in a database table while keeping the same CMS APIs. Configure the driver in <strong>Settings → Storage</strong>, test the database connection, then migrate from flat file when you are ready. <code>settings/storage.json</code> always lives on disk and records which driver is active.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>When to use each backend</h3>
+<p>| Backend | Best for | |---------|----------| | <strong>Flat file (default)</strong> | New installs, local development, small sites, alpha/testing, and any setup where you want zero database configuration. Back up by copying folders. | | <strong>MySQL / MariaDB</strong> | Production hosting that already provides MySQL, shared hosting with a MySQL database, or teams whose ops stack is MySQL-first. | | <strong>PostgreSQL</strong> | Production hosting where PostgreSQL is the standard, or when your infrastructure team prefers Postgres for backups and tooling. |</p>
+<p><strong>Stay on flat file when:</strong></p>
+<ul>
+<li>You are evaluating Birkly or running a single small site.</li>
+<li>You do not have (or do not want) a separate database server.</li>
+<li>Simple file-based backups (<code>content/</code>, <code>media/</code>, <code>settings/</code>) are enough for your recovery plan.</li>
+</ul>
+<p><strong>Consider MySQL or PostgreSQL when:</strong></p>
+<ul>
+<li>Your host or organization expects all application data in a managed database.</li>
+<li>You want database-native backup/restore alongside other apps.</li>
+<li>You are moving to a multi-server or container setup where shared filesystem storage is awkward but a central database is not.</li>
+</ul>
+<p><strong>What does <em>not</em> move to the database</strong></p>
+<ul>
+<li>Uploaded files stay in <strong><code>media/</code></strong> on disk.</li>
+<li>CMS configuration in <strong><code>settings/</code></strong> (users, security, branding, and <code>storage.json</code> itself) stays as JSON files on disk.</li>
+<li>Migration copies <strong>JSON content files</strong> from your flat-file content tree into the database — not images, not plugin binaries.</li>
+</ul>
+<p><strong>SQLite</strong> appears in the Storage dropdown as <em>coming soon</em> and cannot be selected. Use flat file or MySQL/PostgreSQL today.</p>
+<h3>Open Settings → Storage</h3>
+<ol>
+<li>Log in as an administrator (or a user with <strong>manage settings</strong>).</li>
+<li>Open <strong>Settings</strong> in the admin sidebar.</li>
+<li>Select the <strong>Storage</strong> tab (or open <code>?page=settings#storage</code>).</li>
+</ol>
+<h3>Test the database connection</h3>
+<p>Use this before saving credentials or running migration.</p>
+<ol>
+<li>In <strong>Storage backend</strong>, choose <strong>MySQL/MariaDB</strong> or <strong>PostgreSQL</strong>.</li>
+<li>Fill in:</li>
+</ol>
+<p>   - <strong>Host</strong> (often <code>localhost</code> or your provider’s DB hostname)    - <strong>Port</strong> — <code>3306</code> for MySQL/MariaDB, <code>5432</code> for PostgreSQL    - <strong>Database name</strong> — empty database the CMS user can write to    - <strong>Database user</strong> and <strong>password</strong>    - <strong>Table prefix</strong> (default <code>birkly_</code>) — useful if the database hosts multiple apps</p>
+<ol>
+<li>Click <strong>Test connection</strong>.</li>
+<li>Wait for the result next to the button:</li>
+</ol>
+<p>   - <strong>✓ Connection successful</strong> — credentials work and Birkly can create its storage table.    - <strong>✗ …</strong> — read the message (wrong password, database missing, host unreachable, and so on) and fix the fields.</p>
+<p>Testing does <strong>not</strong> change your live content. It only checks that Birkly can reach the database.</p>
+<h3>Save, then migrate from flat file to SQL</h3>
+<p>Migration is <strong>one-way</strong> (flat file → MySQL/PostgreSQL). Back up first.</p>
+<ol>
+<li><strong>Back up</strong> <code>content/</code>, <code>media/</code>, and <code>settings/</code> (see <a href="../07-operations/backup-and-restore.html">Backup and restore</a>).</li>
+<li>Create an <strong>empty</strong> database and grant the user <code>CREATE</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> on that database.</li>
+<li><strong>Test connection</strong> (steps above) until it succeeds.</li>
+<li>Click <strong>Save settings</strong> at the top of the Settings page so database credentials are written to <code>settings/storage.json</code>. Migration reads the <strong>saved</strong> config, not unsaved form fields.</li>
+<li>Click <strong>Start migration</strong> and confirm both prompts.</li>
+<li>When migration finishes, open <strong>Content</strong> and verify collections and entries. Check the success message for how many JSON files were migrated.</li>
+</ol>
+<p>If migration fails partway through, restore from backup before retrying. Do not switch the backend dropdown manually without a successful migration or a known-good restore.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Configuration</h3>
+<p>| Item | Location / value | |------|------------------| | Config file | <code>settings/storage.json</code> | | Drivers | <code>flatfile</code> (default), <code>mysql</code>, <code>postgresql</code> (<code>postgres</code> normalized to <code>postgresql</code>) | | Content root (flat file) | <code>base_path</code>, default project <code>content/</code> | | SQL table | <code>{prefix}storage</code> (default <code>birkly_storage</code>), columns <code>path</code>, <code>content</code> (JSON text), <code>updated_at</code> | | Factory | <code>core/storage/StorageFactory.php</code> | | Drivers | <code>FlatFileStorage</code>, <code>MySqlStorage</code>, <code>PostgresStorage</code> — all implement <code>StorageInterface</code> |</p>
+<p>Global helper: <code>get_storage()</code> / <code>StorageFactory::getStorage()</code>. Content APIs (<code>api/content.php</code>, public API, templating data layer) use this factory; <code>settings/*.json</code> are written directly by <code>api/settings.php</code>, not through the SQL drivers.</p>
+<h3>Test connection (API)</h3>
+<pre><code>POST /api/settings.php?action=test_database
+Content-Type: application/json
+
+{
+  &quot;backend&quot;: &quot;mysql&quot;,
+  &quot;host&quot;: &quot;localhost&quot;,
+  &quot;port&quot;: 3306,
+  &quot;name&quot;: &quot;birkly&quot;,
+  &quot;user&quot;: &quot;birkly_user&quot;,
+  &quot;password&quot;: &quot;secret&quot;,
+  &quot;prefix&quot;: &quot;birkly_&quot;,
+  &quot;_csrf&quot;: &quot;&lt;token&gt;&quot;
+}</code></pre>
+<ul>
+<li>Requires <strong>manage settings</strong> and a valid CSRF token when CSRF enforcement is on.</li>
+<li>Only <code>mysql</code> and <code>postgresql</code> are accepted; other drivers return an error.</li>
+<li>On success: <code>{ &quot;status&quot;: &quot;ok&quot;, &quot;message&quot;: &quot;Connection successful&quot; }</code>.</li>
+<li>Implementation: <code>StorageFactory::testDatabaseConnection()</code> → driver <code>testConnection()</code> (PDO connect + <code>SELECT 1</code> + schema ensure).</li>
+</ul>
+<p>UI: <code>admin/js/settings-page.js</code> → <code>testDatabaseConnection()</code> → <code>#db-test-result</code>.</p>
+<h3>Migration (<code>StorageMigration</code>)</h3>
+<pre><code>POST /api/settings.php?action=migrate_storage</code></pre>
+<p>Body includes <code>backend</code> and <code>_csrf</code>. Server merges <code>StorageFactory::loadStorageConfig(true)</code> with the requested driver, re-runs connection test, then:</p>
+<ol>
+<li>Source: <code>FlatFileStorage</code> at <code>base_path</code> (default <code>content/</code>).</li>
+<li>Target: <code>MySqlStorage</code> or <code>PostgresStorage</code> from saved config.</li>
+<li><code>StorageMigration::migrateFlatFileToStorage()</code> walks the source tree, collects every <code>*.json</code> file, and <code>write()</code>s each decoded document to the SQL backend inside a transaction.</li>
+</ol>
+<p><strong>Caveats</strong></p>
+<p>| Topic | Behaviour | |-------|-----------| | Direction | Flat file → SQL only. No SQL → flat file or SQL → SQL migration in admin. | | Scope | JSON under <code>base_path</code> only. Not <code>settings/</code>, not <code>media/</code>, not plugin artifact trees unless they live as JSON under <code>content/</code>. | | Invalid JSON | Files that do not decode to an array are skipped and reported in <code>errors</code> (up to 10 paths in the response). | | Partial failure | If any file fails, response is <code>ok: false</code> with <code>migrated</code> count; transaction rolls back on uncaught exceptions. | | Source files | Original flat-file JSON is <strong>not</strong> deleted after migration. Archive or remove only after you verify the SQL backend. | | Credentials | <code>migrate_storage</code> uses <strong>saved</strong> <code>settings/storage.json</code> credentials. Save Settings after editing host/user/password before migrating. | | Driver switch | On success, <code>StorageFactory::saveStorageConfig()</code> persists the new driver; <code>storage_migrated</code> is logged to the security audit log. | | Re-run | Running migration again against the same database overwrites paths via upsert — safe only if you intend to refresh SQL from disk. |</p>
+<h3>Choosing MySQL vs PostgreSQL</h3>
+<p>Functionally equivalent for Birkly: both store one JSON blob per logical path in a single prefixed table. Choose based on <strong>hosting</strong>, <strong>team expertise</strong>, and <strong>ops tooling</strong>, not CMS feature gaps. JSON encoding and <code>StorageInterface</code> semantics are shared via <code>AbstractSqlStorage</code>.</p>
+<h3>CI and automated tests</h3>
+<p>Birkly’s CI and PHPUnit suites <strong>do not</strong> connect to a production or shared database for storage tests. Storage-related tests use <strong>mock PDO</strong>, in-memory fixtures, or <strong>intentionally invalid credentials</strong> to assert error paths (<code>test_database</code> rejects non-SQL drivers, connection failures, migration dry-runs with mock targets). Do not point CI at a real MySQL/PostgreSQL instance unless you maintain a dedicated ephemeral test service yourself.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="settings.html">Settings</a> — global Save, Security tab, and other Settings sections</li>
+<li><a href="../07-operations/backup-and-restore.html">Backup and restore</a></li>
+<li><a href="../07-operations/deployment.html">Deployment</a></li>
+<li><a href="../07-operations/troubleshooting.html">Troubleshooting</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

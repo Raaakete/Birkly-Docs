@@ -41,6 +41,7 @@
       "label": "Content",
       "items": [
         { "path": "02-content/collections.md", "label": "Collections" },
+        { "path": "02-content/collection-groups.md", "label": "Collection groups" },
         { "path": "02-content/sub-collections.md", "label": "Sub-Collections" },
         { "path": "02-content/entries.md", "label": "Entries" },
         { "path": "02-content/field-types.md", "label": "Field types" },

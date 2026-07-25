@@ -28,6 +28,14 @@ Example: get all published blog entries.
 - **URL:** `https://your-cms.com/api/public.php?action=list_collections`
 - **Response shape:** `{ "status": "ok", "data": { "collections": [ { "id", "title", "slug" }, ... ] } }`
 
+**Listing collection groups (tree)**
+
+- **URL:** `https://your-cms.com/api/public.php?action=list_collection_groups`
+- **Method:** GET (or POST with JSON body)
+- **No login** required.
+- **Response shape:** `{ "status": "ok", "data": { "groups": [ { "id", "name", "icon?", "collections": ["handle", ...], "children"? }, ... ] } }`
+- Groups mirror `content/collections/groups.json` (nested up to 3 levels). Use this to build site navigation or sectioned index pages. See [Collection groups](../02-content/collection-groups.md).
+
 **Reading one entry by slug**
 
 To get a single post (e.g. for a “post detail” page):
@@ -82,6 +90,7 @@ Creating or updating entries (e.g. contact form) is done through a **submit** or
 - **Endpoint:** `GET` or `POST` `/api/public.php` with `action` parameter (and JSON body for POST actions).
 - **Common actions:**
   - `list_collections` — returns `{ id, title, slug }` per collection (`title` falls back from `name` if needed)
+  - `list_collection_groups` — returns nested group tree from `groups.json` (`id`, `name`, optional `icon`, `collections` handles, optional `children`)
   - `list_entries` — `collection` (slug) required; returns published entries
   - `get_entry` — `collection` + `slug` (or `entry_id`)
   - `get_collection_info` — metadata for one collection
@@ -115,9 +124,63 @@ If you call the API from the browser, the Birkly server must send CORS headers a
 
 Public endpoints may be rate-limited (e.g. N requests per minute per IP). Check response headers (e.g. `X-RateLimit-*`) or docs for limits and back-off behavior.
 
+### List collection groups
+
+Returns the collection group tree configured in the admin Content overview. Same structure as `content/collections/groups.json` after normalization.
+
+**Request**
+
+```
+GET /api/public.php?action=list_collection_groups
+```
+
+**Response (example)**
+
+```json
+{
+  "status": "ok",
+  "data": {
+    "groups": [
+      {
+        "id": "marketing",
+        "name": "Marketing",
+        "icon": "📣",
+        "collections": [],
+        "children": [
+          {
+            "id": "blog-group",
+            "name": "Blog",
+            "collections": ["blog", "news"]
+          }
+        ]
+      },
+      {
+        "id": "ungrouped",
+        "name": "Ungrouped",
+        "collections": ["contact"]
+      }
+    ]
+  }
+}
+```
+
+**Page bundle**
+
+```json
+{
+  "language": "en",
+  "requests": [
+    { "type": "list_collection_groups", "into": "collection_groups" }
+  ]
+}
+```
+
+The client auto-prefetches `collection_groups` when templates use `{for each group in collection_groups}`. See [Collection groups](../02-content/collection-groups.md) and [Loops and lists](../03-templating/loops-and-lists.md#collection-groups).
+
 ## Related
 
 - [Website integration](website-integration.md)
 - [Client library](client-library.md)
 - [Public forms](public-forms.md)
+- [Collection groups](../02-content/collection-groups.md)
 - [Collections](../02-content/collections.md)

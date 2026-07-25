@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ai site builder — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="media-library.html" class="nav-link">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="ai-overview.html" class="nav-link">AI overview</a>
+        <a href="ai-connections.html" class="nav-link">AI connections</a>
+        <a href="mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="ai-site-builder.html" class="nav-link active">AI site builder</a>
+        <a href="ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Use <strong>Cursor</strong>, <strong>Claude</strong>, or <strong>ChatGPT</strong> connected via MCP to build and edit your public site under <code>project/</code> — HTML, CSS, and JavaScript — alongside CMS content tools in a single prompt.</p>
+<h2>When to use this</h2>
+<ul>
+<li>You installed a starter pack (e.g. <strong>Marsk</strong>) and want AI to add pages, tweak templates, or wire homepage sections to new blog posts.</li>
+<li>You prefer editing static templates in <code>project/</code> rather than only CMS entries.</li>
+<li>You want one connected AI session that can both <strong>create content</strong> (<code>create_entry</code>) and <strong>update templates</strong> (<code>write_project_file</code>).</li>
+</ul>
+<p>Studio (visual builder) is separate — this guide covers the canonical public site folder <code>project/</code> only.</p>
+<h2>Prerequisites</h2>
+<ol>
+<li><strong>MCP connected</strong> — see <a href="mcp-connections.html">MCP connections</a>.</li>
+<li><strong>Admin role</strong> (or a service agent with Admin) — project file writes require <code>manage_project_site</code>, which is enabled for Admin by default.</li>
+<li><strong>Starter site optional</strong> — fresh installs have an empty <code>project/</code>; Marsk and other starters populate it during onboarding.</li>
+</ol>
+<h2>Quick setup: Site builder service agent</h2>
+<ol>
+<li>Open <strong>Settings → AI</strong> → <strong>Connect your AI app</strong>.</li>
+<li>Click <strong>Add agent</strong> → choose <strong>Service agent</strong>.</li>
+<li>Click the <strong>Site builder</strong> preset (sets Admin role and a helpful name).</li>
+<li>Choose who may use the agent, then create it and copy the <strong>Connector URL</strong>.</li>
+<li>Paste the URL in Cursor (or Claude / ChatGPT) and sign in.</li>
+</ol>
+<p><strong>Personal connector:</strong> sign in with your own Birkly account — you need the <strong>Admin</strong> role on that account to edit <code>project/</code> files.</p>
+<h2>Available tools</h2>
+<p>| Tool | What it does | |------|----------------| | <code>get_project_info</code> | Paths, collections list, templating cheat sheet — <strong>call this first</strong> | | <code>list_project_files</code> | List files/folders under <code>project/</code> (optional <code>path</code>) | | <code>read_project_file</code> | Read one file by relative path | | <code>write_project_file</code> | Create or overwrite a file | | <code>create_project_file</code> | Create only if the path does not exist | | <code>delete_project_file</code> | Delete a file (Admin by default) |</p>
+<p>Content tools (<code>list_collections</code>, <code>create_entry</code>, <code>update_entry</code>, …) work in the same session.</p>
+<h2>Sandbox rules</h2>
+<p>AI can only touch files under <code>project/</code>:</p>
+<ul>
+<li><strong>Allowed extensions:</strong> <code>html</code>, <code>css</code>, <code>js</code>, <code>json</code>, <code>md</code>, <code>svg</code>, <code>webp</code>, <code>txt</code></li>
+<li><strong>Blocked:</strong> <code>..</code> path traversal, PHP files, dotfiles (e.g. <code>.htaccess</code>)</li>
+</ul>
+<h2>Approvals</h2>
+<p>| Channel | Write behavior | |---------|----------------| | <strong>MCP</strong> (Cursor, Claude, ChatGPT) | Your AI app asks you to approve each tool call | | <strong>Built-in admin chat</strong> | Birkly <strong>Approvals</strong> tab when <strong>Require approval</strong> is on |</p>
+<h2>Example prompt (smoke test)</h2>
+<p>After Marsk onboarding, try:</p>
+<blockquote><p>Add a new blog post titled &quot;Morning light&quot; with a short body, then update <code>index.html</code> to feature that post in the journal section.</p></blockquote>
+<p>The AI should:</p>
+<ol>
+<li><code>get_project_info</code> — learn collection slugs and template syntax</li>
+<li><code>read_project_file</code> on <code>index.html</code> — see current homepage markup</li>
+<li><code>create_entry</code> in the blog collection</li>
+<li><code>write_project_file</code> on <code>index.html</code> — link or loop the new post</li>
+</ol>
+<h2>MCP resource</h2>
+<p>Clients that support MCP resources can read <code>birkly://project</code> for the same info as <code>get_project_info</code> (JSON).</p>
+<div class="doc-related"><ul>
+<li><a href="mcp-connections.html">MCP connections</a> — connector setup</li>
+<li><a href="ai-overview.html">AI overview</a> — outbound vs inbound channels</li>
+<li><a href="ai-connections.html">Built-in assistant</a> — in-admin chat with approval queue</li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

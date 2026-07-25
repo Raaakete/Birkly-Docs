@@ -52,7 +52,51 @@
 {endfor}</code></pre>
 <p>Again, the exact variable names depend on your version; see <a href="media-in-templates.html">Media in templates</a>.</p>
 <p><strong>Important</strong></p>
-<p>Loops typically show only <strong>published</strong> entries. Drafts are usually hidden on the public site (and may appear only in preview mode if your setup supports it).</p></div></details>
+<p>Loops typically show only <strong>published</strong> entries. Drafts are usually hidden on the public site (and may appear only in preview mode if your setup supports it).</p>
+<h3>Collection groups</h3>
+<p>Use the <strong><code>collection_groups</code></strong> tree to build navigation, sitemaps, or sectioned index pages that match the admin Content overview. The client loads the tree from the public API when your template references <code>collection_groups</code>.</p>
+<p><strong>Top-level groups</strong></p>
+<pre><code>&lt;nav aria-label=&quot;Content sections&quot;&gt;
+  {for each group in collection_groups}
+    &lt;section&gt;
+      &lt;h2&gt;{if group has icon}&lt;span&gt;{ icon }&lt;/span&gt; {endif}{ name }&lt;/h2&gt;
+      {for each slug in group.collections}
+        &lt;a href=&quot;/{ slug }/&quot;&gt;{ slug }&lt;/a&gt;
+      {endfor}
+    &lt;/section&gt;
+  {endfor}
+&lt;/nav&gt;</code></pre>
+<ul>
+<li><code>collection_groups</code> is the root array from <code>groups.json</code> (max depth 3).</li>
+<li>Inside the loop, <code>{ name }</code>, <code>{ id }</code>, and <code>{ icon }</code> refer to the <strong>current group</strong>.</li>
+<li><code>group.collections</code> is an array of collection <strong>handles</strong> (strings). Loop with <code>{for each slug in group.collections}</code>; <code>{ slug }</code> is the handle for link paths and <code>{for each entry in '…'}</code> loops.</li>
+</ul>
+<p><strong>Nested subgroups</strong></p>
+<pre><code>{for each group in collection_groups}
+  &lt;h2&gt;{ name }&lt;/h2&gt;
+  {for each child in group.children}
+    &lt;h3&gt;{ child.name }&lt;/h3&gt;
+    {for each slug in child.collections}
+      &lt;a href=&quot;/{ slug }/&quot;&gt;{ slug }&lt;/a&gt;
+    {endfor}
+  {endfor}
+{endfor}</code></pre>
+<p>Use <strong>dot paths</strong> (<code>group.children</code>, <code>child.name</code>) when you need a parent field inside a nested loop. The special <code>ungrouped</code> group has no <code>children</code>; skip it in public nav with <code>{if group.id != 'ungrouped'}</code> if you only want named sections.</p>
+<p><strong>Combining groups with entry loops</strong></p>
+<p>List entries under each collection in a group:</p>
+<pre><code>{for each group in collection_groups}
+  {if group.id != 'ungrouped'}
+    &lt;h2&gt;{ name }&lt;/h2&gt;
+    {for each slug in group.collections}
+      &lt;h3&gt;{ slug }&lt;/h3&gt;
+      {for each entry in slug}
+        &lt;a href=&quot;/{ slug }/{ entry.slug }&quot;&gt;{ entry.title }&lt;/a&gt;
+      {endfor}
+    {endfor}
+  {endif}
+{endfor}</code></pre>
+<p>Exact syntax for looping entries by a variable handle may vary by client version; when supported, <code>{for each entry in slug}</code> uses the current <code>slug</code> value. Otherwise fetch entries per collection via <code>{from 'blog' get entries}</code> style helpers or the public API.</p>
+<p>See <a href="../02-content/collection-groups.html">Collection groups</a> for the data model and API.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Loop constructs</strong></p>
 <ul>
 <li><strong>Collection entries:</strong> <code>{for each entry in 'handle'}</code> … <code>{endfor}</code>. Iterator name (<code>entry</code>) and handle (<code>'blog'</code>) are engine-defined. Alternative: fetch first with <code>{from 'blog' get entries}</code> (optionally with <code>limit</code>, <code>sort</code>, <code>offset</code>) then <code>{for each entry in entries}</code>.</li>
@@ -60,6 +104,7 @@
 <li><strong>Limit / offset:</strong> <code>limit=5</code>, <code>offset=10</code> for pagination or “latest N”.</li>
 <li><strong>List fields (tags, multi-select):</strong> Loop over the field value, e.g. <code>{for each tag in tags}</code>; inside loop, <code>{ tag }</code> or equivalent.</li>
 <li><strong>Gallery / multi-item media:</strong> Loop over the field; each item may expose <code>url</code>, <code>alt</code>, or a single value; use in <code>&lt;img src=&quot;…&quot;&gt;</code>.</li>
+<li><strong>Collection groups:</strong> <code>{for each group in collection_groups}</code> … <code>{endfor}</code>. Nested: <code>{for each child in group.children}</code>. Collection handles: <code>{for each slug in group.collections}</code>. Data from <code>list_collection_groups</code> / page bundle; tree max depth 3. See <a href="../02-content/collection-groups.html">Collection groups</a>.</li>
 </ul>
 <p><strong>Single entry by slug</strong></p>
 <p>To render one entry (e.g. blog post detail):</p>
@@ -83,6 +128,7 @@
 <li><a href="variables-and-output.html">Variables and output</a></li>
 <li><a href="conditionals.html">Conditionals</a></li>
 <li><a href="media-in-templates.html">Media in templates</a></li>
+<li><a href="../02-content/collection-groups.html">Collection groups</a></li>
 <li><a href="../02-content/entries.html">Entries</a></li>
 <li><a href="../02-content/collections.html">Collections</a></li>
 </ul></div>

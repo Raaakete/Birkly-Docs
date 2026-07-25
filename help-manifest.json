@@ -53,6 +53,12 @@
       "docs_path": "02-content/entries.html"
     },
     {
+      "id": "collection-groups",
+      "title": "Collection groups",
+      "keywords": ["groups", "collection groups", "groups.json", "nested", "navigation", "content overview", "collection_groups"],
+      "docs_path": "02-content/collection-groups.html"
+    },
+    {
       "id": "entry-editor",
       "title": "Entry editor",
       "keywords": ["entry editor", "write", "publish", "draft", "fields", "save"],

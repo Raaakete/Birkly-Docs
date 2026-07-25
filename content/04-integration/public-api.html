@@ -18,6 +18,14 @@
 <li><strong>URL:</strong> <code>https://your-cms.com/api/public.php?action=list_collections</code></li>
 <li><strong>Response shape:</strong> <code>{ &quot;status&quot;: &quot;ok&quot;, &quot;data&quot;: { &quot;collections&quot;: [ { &quot;id&quot;, &quot;title&quot;, &quot;slug&quot; }, ... ] } }</code></li>
 </ul>
+<p><strong>Listing collection groups (tree)</strong></p>
+<ul>
+<li><strong>URL:</strong> <code>https://your-cms.com/api/public.php?action=list_collection_groups</code></li>
+<li><strong>Method:</strong> GET (or POST with JSON body)</li>
+<li><strong>No login</strong> required.</li>
+<li><strong>Response shape:</strong> <code>{ &quot;status&quot;: &quot;ok&quot;, &quot;data&quot;: { &quot;groups&quot;: [ { &quot;id&quot;, &quot;name&quot;, &quot;icon?&quot;, &quot;collections&quot;: [&quot;handle&quot;, ...], &quot;children&quot;? }, ... ] } }</code></li>
+<li>Groups mirror <code>content/collections/groups.json</code> (nested up to 3 levels). Use this to build site navigation or sectioned index pages. See <a href="../02-content/collection-groups.html">Collection groups</a>.</li>
+</ul>
 <p><strong>Reading one entry by slug</strong></p>
 <p>To get a single post (e.g. for a “post detail” page):</p>
 <ul>
@@ -61,7 +69,7 @@ fetch(`${base}/api/public.php?action=get_entry&amp;collection=blog&amp;slug=${sl
 <li><strong>Endpoint:</strong> <code>GET</code> or <code>POST</code> <code>/api/public.php</code> with <code>action</code> parameter (and JSON body for POST actions).</li>
 <li><strong>Common actions:</strong></li>
 </ul>
-<p>  - <code>list_collections</code> — returns <code>{ id, title, slug }</code> per collection (<code>title</code> falls back from <code>name</code> if needed)   - <code>list_entries</code> — <code>collection</code> (slug) required; returns published entries   - <code>get_entry</code> — <code>collection</code> + <code>slug</code> (or <code>entry_id</code>)   - <code>get_collection_info</code> — metadata for one collection</p>
+<p>  - <code>list_collections</code> — returns <code>{ id, title, slug }</code> per collection (<code>title</code> falls back from <code>name</code> if needed)   - <code>list_collection_groups</code> — returns nested group tree from <code>groups.json</code> (<code>id</code>, <code>name</code>, optional <code>icon</code>, <code>collections</code> handles, optional <code>children</code>)   - <code>list_entries</code> — <code>collection</code> (slug) required; returns published entries   - <code>get_entry</code> — <code>collection</code> + <code>slug</code> (or <code>entry_id</code>)   - <code>get_collection_info</code> — metadata for one collection</p>
 <ul>
 <li><strong>Batch reads:</strong> <code>POST /api/page_bundle.php</code> with <code>{ language, requests: [...] }</code> — see <a href="client-library.html">Client library</a>.</li>
 <li><strong>Snapshots:</strong> <code>GET /api/page_snapshot.php?page=index</code> — cached bundle JSON when publish pipeline wrote snapshots.</li>
@@ -81,10 +89,49 @@ fetch(`${base}/api/public.php?action=get_entry&amp;collection=blog&amp;slug=${sl
 <p><strong>CORS</strong></p>
 <p>If you call the API from the browser, the Birkly server must send CORS headers allowing your origin. Configure allowed origins in Birkly or your reverse proxy.</p>
 <p><strong>Rate limiting</strong></p>
-<p>Public endpoints may be rate-limited (e.g. N requests per minute per IP). Check response headers (e.g. <code>X-RateLimit-*</code>) or docs for limits and back-off behavior.</p></div></details>
+<p>Public endpoints may be rate-limited (e.g. N requests per minute per IP). Check response headers (e.g. <code>X-RateLimit-*</code>) or docs for limits and back-off behavior.</p>
+<h3>List collection groups</h3>
+<p>Returns the collection group tree configured in the admin Content overview. Same structure as <code>content/collections/groups.json</code> after normalization.</p>
+<p><strong>Request</strong></p>
+<pre><code>GET /api/public.php?action=list_collection_groups</code></pre>
+<p><strong>Response (example)</strong></p>
+<pre><code>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;data&quot;: {
+    &quot;groups&quot;: [
+      {
+        &quot;id&quot;: &quot;marketing&quot;,
+        &quot;name&quot;: &quot;Marketing&quot;,
+        &quot;icon&quot;: &quot;📣&quot;,
+        &quot;collections&quot;: [],
+        &quot;children&quot;: [
+          {
+            &quot;id&quot;: &quot;blog-group&quot;,
+            &quot;name&quot;: &quot;Blog&quot;,
+            &quot;collections&quot;: [&quot;blog&quot;, &quot;news&quot;]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;ungrouped&quot;,
+        &quot;name&quot;: &quot;Ungrouped&quot;,
+        &quot;collections&quot;: [&quot;contact&quot;]
+      }
+    ]
+  }
+}</code></pre>
+<p><strong>Page bundle</strong></p>
+<pre><code>{
+  &quot;language&quot;: &quot;en&quot;,
+  &quot;requests&quot;: [
+    { &quot;type&quot;: &quot;list_collection_groups&quot;, &quot;into&quot;: &quot;collection_groups&quot; }
+  ]
+}</code></pre>
+<p>The client auto-prefetches <code>collection_groups</code> when templates use <code>{for each group in collection_groups}</code>. See <a href="../02-content/collection-groups.html">Collection groups</a> and <a href="../03-templating/loops-and-lists.html#collection-groups">Loops and lists</a>.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="website-integration.html">Website integration</a></li>
 <li><a href="client-library.html">Client library</a></li>
 <li><a href="public-forms.html">Public forms</a></li>
+<li><a href="../02-content/collection-groups.html">Collection groups</a></li>
 <li><a href="../02-content/collections.html">Collections</a></li>
 </ul></div>

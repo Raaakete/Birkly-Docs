@@ -40,6 +40,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Topic | File | Description |
 |-------|------|-------------|
 | Collections | `02-content/collections.md` | Content types, fields, entry method |
+| Collection groups | `02-content/collection-groups.md` | Nested group tree, groups.json, API and templating |
 | Sub-Collections | `02-content/sub-collections.md` | Child content types attached to entries (comments, reviews, etc.) |
 | Entries | `02-content/entries.md` | Creating and editing content items |
 | Field types | `02-content/field-types.md` | All field types (Text, Editor, Media, etc.) |

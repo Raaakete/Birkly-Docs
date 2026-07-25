@@ -41,11 +41,13 @@
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
         <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
         <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
         <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
         <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
         <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
         <a href="../02-content/entries.html" class="nav-link">Entries</a>
         <a href="../02-content/field-types.html" class="nav-link">Field types</a>
@@ -138,13 +140,24 @@
 <div class="doc-summary"><p><strong>Starter packs</strong> are curated demo content and sample sites served from <strong>Birkly Ops</strong> during the setup wizard — blog, shop, business, and docs templates plus a blank option. <strong>Template packs</strong> on the <strong>marketplace</strong> are provider-published offers that install collections and <code>project/</code> site files after purchase. <strong>Themes</strong> change visual styling; <strong>template packs</strong> include structure and content.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Ops starter packs (onboarding)</strong></p>
 <p>When you first set up Birkly, the onboarding wizard offers starter templates:</p>
-<p>| Starter | What you get | |---------|--------------| | <strong>Blog</strong> | Blog posts, pages, sample front-end site | | <strong>Shop</strong> | Product catalog and storefront demo | | <strong>Business</strong> | Services, team, company site demo | | <strong>Documentation</strong> | Help articles and docs-style site | | <strong>Start blank</strong> | Empty content and project folder |</p>
-<p>Starters download from Ops (<code>ops.birkly.cloud</code>) — not from the marketplace checkout flow. They install demo <strong>collections</strong> under <code>content/</code> and a sample public site under <strong><code>project/</code></strong> (the canonical public site folder).</p>
+<p>| Starter | What you get | |---------|--------------| | <strong>Marsk</strong> | Flagship slow-living journal — blog, gallery, about pages, and editorial demo site | | <strong>Start blank</strong> | Empty content and project folder |</p>
+<p>Legacy starters (blog, shop, business, docs) remain available via Ops for staff but are not shown in the default onboarding picker.</p>
+<p><strong>Marsk example</strong></p>
+<p>The <strong>Marsk</strong> pack (<code>marsk</code>) is the recommended onboarding demo:</p>
+<ol>
+<li>Complete CMS deploy and open the admin onboarding wizard.</li>
+<li>Choose <strong>Marsk</strong> — the wizard downloads the pack from Ops (<code>GET /api/ops/v1/starters/marsk/download</code>).</li>
+<li>Collections installed: <code>blog</code>, <code>about</code>, <code>gallery</code>, <code>site_elements</code>.</li>
+<li>Public site files extract to <code>project/</code> — <code>index.html</code>, <code>blog.html</code>, <code>post.html</code>, <code>about.html</code>, <code>gallery.html</code>, plus <code>css/marsk.css</code> and <code>js/marsk.js</code>.</li>
+<li>Browse <code>/project/index.html</code> to preview; edit posts in <strong>Content → Blog</strong>.</li>
+</ol>
+<pre><code># Verify Marsk is published on Ops (stable channel)
+curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.starters[] | select(.id==&quot;marsk&quot;)'</code></pre>
 <p><strong>Choosing a starter</strong></p>
 <ol>
 <li>Complete CMS deploy and open the admin.</li>
 <li>Follow the <strong>onboarding wizard</strong> (or revisit from Help).</li>
-<li>Pick a starter that matches your use case, or choose <strong>Start blank</strong>.</li>
+<li>Pick <strong>Marsk</strong> or choose <strong>Start blank</strong>.</li>
 <li>Wait for download and extraction to finish.</li>
 <li>Explore collections in <strong>Content</strong> and preview the public site.</li>
 </ol>

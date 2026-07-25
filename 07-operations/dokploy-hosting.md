@@ -254,6 +254,27 @@ Then open `https://test.birkly.cloud/admin` — you should get the **onboarding 
 
 **Complete wipe** (Dokploy UI, no terminal): test app → **Volumes** → remove mount → add a **new** empty volume at `/app/data` → **Deploy** → open `/admin` → create admin once.
 
+### ⚠️ Test and production share the same data (most common mistake)
+
+If **both** Dokploy apps mount the **same volume name** (e.g. both use `birkly-cms-data`), they are **not** two separate websites — they are **one** Birkly install with two domain names.
+
+Anything you do on test affects production immediately:
+
+| Action on test | Effect on production |
+|----------------|----------------------|
+| Delete users / fresh reset | Production logins stop working |
+| Create new admin (same email) | Production password changes to the new one |
+| Install Marsk starter | Production content changes |
+| Repair hosting URL | Can break which domain is “home” |
+
+**Check in Dokploy:** production app → **Volumes** → note the volume name. Test app → **Volumes**. If the name is **identical**, they share data. Test must use a **different** name (e.g. `birkly-cms-test-data`).
+
+**Recover production login:** try `https://cms.birkly.cloud/admin` with the **same email and password you created on test**. Or reset:
+
+```bash
+php /app/scripts/reset-admin-password.php --email=YOUR@EMAIL.com --password='YourNewProdPassword123!'
+```
+
 ## Related
 
 - [Deployment](deployment.md)

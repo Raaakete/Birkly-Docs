@@ -110,12 +110,15 @@ The client uses the same syntax as the rest of the templating docs: `{ variable 
   "language": "en",
   "requests": [
     { "type": "list_entries", "into": "blog", "collection": "blog" },
-    { "type": "get_entry", "into": "about", "collection": "about", "slug": "about" }
+    { "type": "get_entry", "into": "about", "collection": "about", "slug": "about" },
+    { "type": "list_collection_groups", "into": "collection_groups" }
   ]
 }
 ```
 
-Response: `{ "status": "ok", "data": { "blog": [...], "about": {...} } }`.
+Response: `{ "status": "ok", "data": { "blog": [...], "about": {...}, "collection_groups": [...] } }`.
+
+When your HTML uses `{for each group in collection_groups}`, the client includes a `list_collection_groups` request automatically (or reads it from a snapshot). See [Collection groups](../02-content/collection-groups.md).
 
 **Errors and fallbacks**
 

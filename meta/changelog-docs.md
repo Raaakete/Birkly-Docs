@@ -14,6 +14,18 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-25 — P39 collection groups API and templating (P39-M9)
+
+- **New:** `02-content/collection-groups.md` — nested group tree (`groups.json`), max depth 3, public API and templating overview.
+- **Updated:** `03-templating/loops-and-lists.md` — `{for each group in collection_groups}`, nested `group.children`, collection handle loops.
+- **Updated:** `03-templating/canonical-syntax.md` — collection groups loop example.
+- **Updated:** `04-integration/public-api.md` — `list_collection_groups` action and page bundle request type.
+- **Updated:** `04-integration/client-library.md` — page bundle prefetch for `collection_groups`.
+- **Updated:** `02-content/collections.md`, `01-admin/content-overview.md` — cross-links and group overview UX.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json` — collection groups topic.
+
+---
+
 ## 2026-07-24 — P36 plugin economy curriculum (P36-M16)
 
 - **New:** `06-plugin-economy/` — eight-page curriculum: overview, site owners, providers, plugin development, themes and template packs, security and review, official plugins, API reference.

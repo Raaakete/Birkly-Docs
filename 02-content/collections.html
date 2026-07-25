@@ -41,11 +41,13 @@
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
         <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
         <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
         <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
         <a href="collections.html" class="nav-link active">Collections</a>
+        <a href="collection-groups.html" class="nav-link">Collection groups</a>
         <a href="sub-collections.html" class="nav-link">Sub-Collections</a>
         <a href="entries.html" class="nav-link">Entries</a>
         <a href="field-types.html" class="nav-link">Field types</a>
@@ -160,6 +162,7 @@
 <p><strong>Create/edit:</strong> Content → Create collection. Add fields (see <a href="field-types.html">Field types</a>). In Settings set <strong>entry method</strong>: <strong>Admin only</strong> (default) or <strong>Public API</strong> (often with rate limit, auto-publish, CAPTCHA). Handle is used in:</p>
 <ul>
 <li><strong>Templating:</strong> <code>{from 'blog' get entries}</code>, <code>{for each entry in 'blog'}</code>.</li>
+<li><strong>Collection groups:</strong> <code>{for each group in collection_groups}</code> — tree from <code>groups.json</code>; see <a href="collection-groups.html">Collection groups</a>.</li>
 <li><strong>Public API:</strong> <code>GET /api/public/collections/blog/entries</code>, <code>GET /api/public/collections/blog/entries/my-slug</code>.</li>
 <li><strong>Submit:</strong> <code>POST /api/public/collections/blog/entries</code> (or dedicated form endpoint) when entry method is Public API.</li>
 </ul>
@@ -178,6 +181,7 @@
 <p><strong>Best practices:</strong> Keep handle stable. Avoid removing or renaming field keys after entries exist (orphaned data, broken templates). For public submit, use rate limiting and validation.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="../01-admin/collection-editor.html">Collection editor</a></li>
+<li><a href="collection-groups.html">Collection groups</a></li>
 <li><a href="entries.html">Entries</a></li>
 <li><a href="field-types.html">Field types</a></li>
 <li><a href="slugs-and-status.html">Slugs and status</a></li>

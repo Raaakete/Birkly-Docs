@@ -1,0 +1,75 @@
+<div class="doc-summary"><p><strong>Collection groups</strong> organize your content types in the admin Content overview and on your public site. Groups can be nested up to <strong>three levels</strong> deep (group → subgroup → collections). Each group has a label, optional emoji icon, and a list of collection handles. The tree is stored in <code>content/collections/groups.json</code>, exposed via the public API, and available in templates as <code>collection_groups</code>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>In the admin <strong>Content</strong> area, collections are not just a flat list — you can arrange them into <strong>groups</strong> (for example “Marketing”, “Shop”, “Company”). Groups help editors find collections faster and let you build site navigation that mirrors the same structure.</p>
+<p><strong>What you see in the admin</strong></p>
+<ul>
+<li>A <strong>groups panel</strong> on the Content overview page.</li>
+<li>Each group shows its name, optional emoji icon, and the collections inside it.</li>
+<li>Groups can contain <strong>subgroups</strong> (nested groups) as well as collections.</li>
+<li>Collections that are not in any custom group appear under <strong>Ungrouped</strong>.</li>
+<li>Drag-and-drop reorders groups, subgroups, and collection membership. Changes are saved to <code>groups.json</code>.</li>
+</ul>
+<p><strong>Example structure</strong></p>
+<p>| Group | Contains | |-------|----------| | Marketing | Blog, News | | Shop | Products (subgroup: Sale items → <code>sale-products</code>) | | Ungrouped | Contact |</p>
+<p><strong>On your website</strong></p>
+<p>Groups are not only an admin convenience. When you use the Birkly client or public API, the same tree is available so you can render a sitemap, footer links, or sectioned index pages that match how content is organized in the CMS. See <a href="../03-templating/loops-and-lists.html#collection-groups">Loops and lists — collection groups</a> and <a href="../04-integration/public-api.html#list-collection-groups">Public API — list collection groups</a>.</p>
+<p><strong>Good practices</strong></p>
+<ul>
+<li>Keep group <strong>ids</strong> stable if templates or integrations reference them.</li>
+<li>Use short, clear <strong>names</strong> — they appear in admin and can be shown on the public site.</li>
+<li>Put rarely used collections in <strong>Ungrouped</strong> rather than creating empty groups.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Collection groups are persisted in <strong><code>content/collections/groups.json</code></strong> as a JSON array of tree nodes. The CMS normalizes legacy flat group files on load (P39-M7).</p>
+<p><strong>Node shape (normalized)</strong></p>
+<p>| Field | Type | Description | |-------|------|-------------| | <code>id</code> | string | Stable group identifier (auto-generated if missing). Special value: <code>ungrouped</code>. | | <code>name</code> | string | Display label (legacy <code>label</code> is migrated to <code>name</code>). | | <code>icon</code> | string | Optional emoji shown in admin and available in templates. | | <code>collections</code> | string[] | Collection handles (slugs) directly in this group, in display order. | | <code>children</code> | object[] | Optional nested subgroups (same shape, without ungrouped). |</p>
+<p><strong>Constraints</strong></p>
+<ul>
+<li>Maximum nesting depth: <strong>3</strong> levels (root group → child → grandchild).</li>
+<li>A collection handle may appear in only one group (including Ungrouped).</li>
+<li>Saving invalid depth returns an error from the admin content API.</li>
+</ul>
+<p><strong>Example <code>groups.json</code></strong></p>
+<pre><code>[
+  {
+    &quot;id&quot;: &quot;marketing&quot;,
+    &quot;name&quot;: &quot;Marketing&quot;,
+    &quot;icon&quot;: &quot;📣&quot;,
+    &quot;collections&quot;: [],
+    &quot;children&quot;: [
+      {
+        &quot;id&quot;: &quot;blog-group&quot;,
+        &quot;name&quot;: &quot;Blog&quot;,
+        &quot;collections&quot;: [&quot;blog&quot;, &quot;news&quot;]
+      }
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;shop&quot;,
+    &quot;name&quot;: &quot;Shop&quot;,
+    &quot;icon&quot;: &quot;🛒&quot;,
+    &quot;collections&quot;: [&quot;products&quot;]
+  },
+  {
+    &quot;id&quot;: &quot;ungrouped&quot;,
+    &quot;name&quot;: &quot;Ungrouped&quot;,
+    &quot;collections&quot;: [&quot;contact&quot;]
+  }
+]</code></pre>
+<p><strong>Admin API (authenticated)</strong></p>
+<p>Used by the Content overview UI — not for public sites.</p>
+<p>| Action | Endpoint | Auth | |--------|----------|------| | <code>list_groups</code> | <code>POST /api/content.php</code> with <code>{ &quot;action&quot;: &quot;list_groups&quot; }</code> | <code>manage_content</code> | | <code>save_groups</code> | <code>POST /api/content.php</code> with <code>{ &quot;action&quot;: &quot;save_groups&quot;, &quot;groups&quot;: [...] }</code> | <code>manage_content</code> + CSRF |</p>
+<p><strong>Public read</strong></p>
+<ul>
+<li><code>list_collection_groups</code> on <code>api/public.php</code> — see <a href="../04-integration/public-api.html#list-collection-groups">Public API</a>.</li>
+<li>Page bundle request type <code>list_collection_groups</code> — see <a href="../04-integration/client-library.html">Client library</a>.</li>
+</ul>
+<p><strong>Templating</strong></p>
+<ul>
+<li>Global variable / loop source: <code>collection_groups</code></li>
+<li><code>{for each group in collection_groups}</code> — see <a href="../03-templating/loops-and-lists.html#collection-groups">Loops and lists</a>.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="../01-admin/content-overview.html">Content overview</a></li>
+<li><a href="collections.html">Collections</a></li>
+<li><a href="../03-templating/loops-and-lists.html#collection-groups">Loops and lists — collection groups</a></li>
+<li><a href="../04-integration/public-api.html">Public API</a></li>
+</ul></div>

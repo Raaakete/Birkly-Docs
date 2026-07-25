@@ -13,7 +13,7 @@ The Content area is where you manage your content types (collections) and the ac
 
 **What you see when you open Content**
 
-- A **list of collections**. Each row or card might show the collection name, maybe a short description, and sometimes how many entries it has.
+- A **list of collections**, organized into **groups** (with optional nested subgroups). Each group can show a name and emoji icon; collections can show icon and description on cards or in list view.
 - A button or link to **Create collection** (or “New collection”) so you can add a new content type.
 - When you **click a collection**, the view changes to show the **entries** in that collection: a list of titles, dates, and status (Draft/Published), with options to add or edit.
 
@@ -36,6 +36,7 @@ For step-by-step instructions on creating a collection and its fields, see [Coll
 Content is the admin UI for the content model: **collections** (schema) and **entries** (records).
 
 - **Collections:** Stored as config (e.g. `collection.json` + `schema.json` per collection). List view reads the content directory or registry; “Create collection” adds a new schema (handle, fields, entry method). Editing a collection updates field definitions and settings; handle should stay stable for API and templates.
+- **Collection groups:** Tree in `content/collections/groups.json` (max depth 3). Admin drag-and-drop updates membership and order; public API and templates expose the same tree as `collection_groups`. See [Collection groups](../02-content/collection-groups.md).
 - **Entries:** One file per entry (e.g. `content/collections/blog/entries/{slug-or-id}.json`) or DB rows. Entry list is derived from that store; “New entry” creates a new record; editor loads one entry by id/slug and saves back. Status (draft/published) and slug are system fields; rest are collection-defined.
 - **Public API submissions:** When entry method is “Public API,” entries can be created via `POST /api/public/collections/{handle}/entries` (or equivalent). Those entries appear in the same collection list; may be draft by default depending on config.
 
@@ -45,6 +46,7 @@ Workflow: define collection once → add/edit entries. Media is referenced by fi
 
 - [Entry editor](entry-editor.md)
 - [Collection editor](collection-editor.md)
+- [Collection groups](../02-content/collection-groups.md)
 - [Collections](../02-content/collections.md)
 - [Entries](../02-content/entries.md)
 - [Media library](media-library.md)

@@ -41,11 +41,13 @@
         <a href="ai-overview.html" class="nav-link">AI overview</a>
         <a href="ai-connections.html" class="nav-link">AI connections</a>
         <a href="mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="ai-site-builder.html" class="nav-link">AI site builder</a>
         <a href="ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
         <a href="ai-approvals.html" class="nav-link">AI approvals</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
         <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
         <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
         <a href="../02-content/entries.html" class="nav-link">Entries</a>
         <a href="../02-content/field-types.html" class="nav-link">Field types</a>
@@ -142,7 +144,7 @@
 </ol>
 <p><strong>What you see when you open Content</strong></p>
 <ul>
-<li>A <strong>list of collections</strong>. Each row or card might show the collection name, maybe a short description, and sometimes how many entries it has.</li>
+<li>A <strong>list of collections</strong>, organized into <strong>groups</strong> (with optional nested subgroups). Each group can show a name and emoji icon; collections can show icon and description on cards or in list view.</li>
 <li>A button or link to <strong>Create collection</strong> (or “New collection”) so you can add a new content type.</li>
 <li>When you <strong>click a collection</strong>, the view changes to show the <strong>entries</strong> in that collection: a list of titles, dates, and status (Draft/Published), with options to add or edit.</li>
 </ul>
@@ -162,6 +164,7 @@
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Content is the admin UI for the content model: <strong>collections</strong> (schema) and <strong>entries</strong> (records).</p>
 <ul>
 <li><strong>Collections:</strong> Stored as config (e.g. <code>collection.json</code> + <code>schema.json</code> per collection). List view reads the content directory or registry; “Create collection” adds a new schema (handle, fields, entry method). Editing a collection updates field definitions and settings; handle should stay stable for API and templates.</li>
+<li><strong>Collection groups:</strong> Tree in <code>content/collections/groups.json</code> (max depth 3). Admin drag-and-drop updates membership and order; public API and templates expose the same tree as <code>collection_groups</code>. See <a href="../02-content/collection-groups.html">Collection groups</a>.</li>
 <li><strong>Entries:</strong> One file per entry (e.g. <code>content/collections/blog/entries/{slug-or-id}.json</code>) or DB rows. Entry list is derived from that store; “New entry” creates a new record; editor loads one entry by id/slug and saves back. Status (draft/published) and slug are system fields; rest are collection-defined.</li>
 <li><strong>Public API submissions:</strong> When entry method is “Public API,” entries can be created via <code>POST /api/public/collections/{handle}/entries</code> (or equivalent). Those entries appear in the same collection list; may be draft by default depending on config.</li>
 </ul>
@@ -169,6 +172,7 @@
 <div class="doc-related"><ul>
 <li><a href="entry-editor.html">Entry editor</a></li>
 <li><a href="collection-editor.html">Collection editor</a></li>
+<li><a href="../02-content/collection-groups.html">Collection groups</a></li>
 <li><a href="../02-content/collections.html">Collections</a></li>
 <li><a href="../02-content/entries.html">Entries</a></li>
 <li><a href="media-library.html">Media library</a></li>

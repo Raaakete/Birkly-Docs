@@ -21,12 +21,15 @@
 <p><strong>What happens when the page loads</strong></p>
 <ol>
 <li>The script runs after the page (DOM) is ready.</li>
-<li>It looks through the page for Birkly template syntax: <code>{ title }</code>, <code>{for each entry in 'blog'}</code>, <code>{if}</code>, etc.</li>
+<li>It finds the <strong>outermost</strong> elements in <code>&lt;body&gt;</code> that contain Birkly template syntax (<code>{ title }</code>, <code>{for each entry in 'blog'}</code>, <code>{if}</code>, etc.).</li>
 <li>It figures out which collection(s) to request (from those tags, the URL, or <code>data-collection</code>).</li>
-<li>It calls the Birkly public API (e.g. “give me all blog entries” or “give me the entry with this slug”).</li>
+<li>It calls the Birkly public API (e.g. “give me all blog entries” or “give me the entry with this slug”). <strong>Only published entries</strong> are returned for public pages.</li>
 <li>It replaces the placeholders with the real content: titles, links, dates, images. Loops and conditionals are evaluated.</li>
 <li>The visitor sees the updated page. No extra click or reload is needed for content to appear.</li>
 </ol>
+<p><strong>Template regions</strong></p>
+<p>You can put template tags in any HTML element — not only <code>&lt;main&gt;</code>. The client renders each <strong>outermost</strong> element that contains template syntax. Example: Marsk’s fullscreen menu is a <code>&lt;div class=&quot;overlay-menu&quot;&gt;</code> with a <code>&lt;nav&gt;</code> loop inside; the parent div is rendered as one region.</p>
+<p>If a loop renders nothing, check that entries are <strong>published</strong> in the CMS (draft entries are invisible on the public site).</p>
 <p><strong>Example: blog index</strong></p>
 <pre><code>&lt;main&gt;
   &lt;h1&gt;Blog&lt;/h1&gt;
@@ -63,10 +66,12 @@
   &quot;language&quot;: &quot;en&quot;,
   &quot;requests&quot;: [
     { &quot;type&quot;: &quot;list_entries&quot;, &quot;into&quot;: &quot;blog&quot;, &quot;collection&quot;: &quot;blog&quot; },
-    { &quot;type&quot;: &quot;get_entry&quot;, &quot;into&quot;: &quot;about&quot;, &quot;collection&quot;: &quot;about&quot;, &quot;slug&quot;: &quot;about&quot; }
+    { &quot;type&quot;: &quot;get_entry&quot;, &quot;into&quot;: &quot;about&quot;, &quot;collection&quot;: &quot;about&quot;, &quot;slug&quot;: &quot;about&quot; },
+    { &quot;type&quot;: &quot;list_collection_groups&quot;, &quot;into&quot;: &quot;collection_groups&quot; }
   ]
 }</code></pre>
-<p>Response: <code>{ &quot;status&quot;: &quot;ok&quot;, &quot;data&quot;: { &quot;blog&quot;: [...], &quot;about&quot;: {...} } }</code>.</p>
+<p>Response: <code>{ &quot;status&quot;: &quot;ok&quot;, &quot;data&quot;: { &quot;blog&quot;: [...], &quot;about&quot;: {...}, &quot;collection_groups&quot;: [...] } }</code>.</p>
+<p>When your HTML uses <code>{for each group in collection_groups}</code>, the client includes a <code>list_collection_groups</code> request automatically (or reads it from a snapshot). See <a href="../02-content/collection-groups.html">Collection groups</a>.</p>
 <p><strong>Errors and fallbacks</strong></p>
 <ul>
 <li>On network or API error, the script may leave placeholders unchanged, show a minimal fallback, or expose an error in the console. No admin credentials are sent; failures are “no data” rather than auth leaks.</li>

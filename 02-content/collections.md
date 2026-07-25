@@ -57,6 +57,7 @@ A collection is the **schema** for one content type: **name** (admin label), **h
 **Create/edit:** Content → Create collection. Add fields (see [Field types](field-types.md)). In Settings set **entry method**: **Admin only** (default) or **Public API** (often with rate limit, auto-publish, CAPTCHA). Handle is used in:
 
 - **Templating:** `{from 'blog' get entries}`, `{for each entry in 'blog'}`.
+- **Collection groups:** `{for each group in collection_groups}` — tree from `groups.json`; see [Collection groups](collection-groups.md).
 - **Public API:** `GET /api/public/collections/blog/entries`, `GET /api/public/collections/blog/entries/my-slug`.
 - **Submit:** `POST /api/public/collections/blog/entries` (or dedicated form endpoint) when entry method is Public API.
 
@@ -81,6 +82,7 @@ A collection is the **schema** for one content type: **name** (admin label), **h
 ## Related
 
 - [Collection editor](../01-admin/collection-editor.md)
+- [Collection groups](collection-groups.md)
 - [Entries](entries.md)
 - [Field types](field-types.md)
 - [Slugs and status](slugs-and-status.md)

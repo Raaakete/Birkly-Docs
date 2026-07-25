@@ -41,11 +41,13 @@
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
         <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
         <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
         <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
         <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
         <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
         <a href="../02-content/entries.html" class="nav-link">Entries</a>
         <a href="../02-content/field-types.html" class="nav-link">Field types</a>
@@ -141,6 +143,17 @@
 <li><strong>YYYY-MM-DD</strong> — Short description. (Optional: file or section.)</li>
 </ul>
 <p>---</p>
+<p>---</p>
+<h2>2026-07-25 — P39 collection groups API and templating (P39-M9)</h2>
+<ul>
+<li><strong>New:</strong> <code>02-content/collection-groups.md</code> — nested group tree (<code>groups.json</code>), max depth 3, public API and templating overview.</li>
+<li><strong>Updated:</strong> <code>03-templating/loops-and-lists.md</code> — <code>{for each group in collection_groups}</code>, nested <code>group.children</code>, collection handle loops.</li>
+<li><strong>Updated:</strong> <code>03-templating/canonical-syntax.md</code> — collection groups loop example.</li>
+<li><strong>Updated:</strong> <code>04-integration/public-api.md</code> — <code>list_collection_groups</code> action and page bundle request type.</li>
+<li><strong>Updated:</strong> <code>04-integration/client-library.md</code> — page bundle prefetch for <code>collection_groups</code>.</li>
+<li><strong>Updated:</strong> <code>02-content/collections.md</code>, <code>01-admin/content-overview.md</code> — cross-links and group overview UX.</li>
+<li><strong>Updated:</strong> <code>CONTENTS_INDEX.md</code>, <code>manifest.json</code>, <code>help-manifest.json</code> — collection groups topic.</li>
+</ul>
 <p>---</p>
 <h2>2026-07-24 — P36 plugin economy curriculum (P36-M16)</h2>
 <ul>

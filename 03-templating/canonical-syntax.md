@@ -32,6 +32,22 @@ Inside a loop, names refer to the **current** item (e.g. `{ title }` inside `{fo
 - Collection handle is usually quoted: `'blog'`, `'pages'`
 - Close with `{endfor}`
 
+### Collection groups (public site)
+
+```html
+{for each group in collection_groups}
+  <h2>{ name }</h2>
+  {for each slug in group.collections}
+    <a href="/{ slug }/">{ slug }</a>
+  {endfor}
+  {for each child in group.children}
+    <h3>{ child.name }</h3>
+  {endfor}
+{endfor}
+```
+
+Loaded from `list_collection_groups` / page bundle into `collection_groups`. Max tree depth: 3. See [Collection groups](../02-content/collection-groups.md).
+
 ### Conditionals
 
 ```html

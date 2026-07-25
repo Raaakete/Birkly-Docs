@@ -16,6 +16,7 @@ See **SYNC.md** for detailed integration instructions.
 
 - **DOCS_ARCHITECTURE.md** — How docs are structured, the Summary + Beginner + Advanced Users pattern, and how other systems (CMS, website, etc.) consume this content. Read this first if you maintain or integrate the docs.
 - **CONTENTS_INDEX.md** — Index of every topic and file path for maintainers and tooling.
+- **01-admin/design-system.md** — Admin mint tokens, neutral scale, icon system, dark mode, and component classes (P41).
 - **Numbered topic folders** (`00-overview`, `01-admin`, `02-content`, …) — All actual documentation in Markdown, one topic per file.
 - **Built HTML files** — Generated from Markdown via `build-static.js`. These are what CMS and website consume.
 - **Content-only HTML** — In the `content/` folder, HTML fragments (no layout) for embedding in custom pages. See "Content-only output" below.

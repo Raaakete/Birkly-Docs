@@ -81,7 +81,7 @@ Zip the plugin folder (no path traversal, no parent `..` segments) and upload as
 
 Register services on load. Typical patterns:
 
-- Navigation via `plugin.json` `navigation` block or programmatic sidebar registration.
+- Navigation via `plugin.json` `navigation` block or programmatic sidebar registration. Set `navigation.icon` to a registry name (for example `"gear"`) or inline SVG — see [Plugin navigation icon](plugin-navigation-icon.md).
 - Routes under `api/` mapped to `/api/{handle}/...`.
 - Hook callbacks registered against names declared in `plugin.json`.
 
@@ -116,6 +116,8 @@ Marketplace preflight checks:
 
 ## Related
 
+- [Plugin navigation icon](plugin-navigation-icon.md)
+- [Admin design system](../01-admin/design-system.md)
 - [For providers](for-providers.md)
 - [Security and review](security-and-review.md)
 - [Official plugins](official-plugins.md)

@@ -14,7 +14,14 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
-## 2026-07-25 — P39 collection groups API and templating (P39-M9)
+## 2026-07-25 — P41 plugin navigation icon and admin design system (P41-M12, P41-M13)
+
+- **New:** `06-plugin-economy/plugin-navigation-icon.md` — `navigation.icon` registry names, inline SVG fallback, `core/icons.php` and `admin/assets/icons/`.
+- **New:** `01-admin/design-system.md` — mint primary tokens, neutral scale, `birkly_icon` / `Birkly.icon`, dark mode, `.card`, `.empty-state`, `.status-badge`.
+- **Updated:** `06-plugin-economy/plugin-development.md`, `06-extensibility/plugins.md`, `01-admin/admin-appearance.md` — cross-links.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `README.md`.
+
+---
 
 - **New:** `02-content/collection-groups.md` — nested group tree (`groups.json`), max depth 3, public API and templating overview.
 - **Updated:** `03-templating/loops-and-lists.md` — `{for each group in collection_groups}`, nested `group.children`, collection handle loops.

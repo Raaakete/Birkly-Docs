@@ -135,6 +135,7 @@
       "label": "Operations",
       "items": [
         { "path": "07-operations/deployment.md", "label": "Deployment" },
+        { "path": "07-operations/dokploy-hosting.md", "label": "Hosting on Dokploy" },
         { "path": "07-operations/production-deploy-checklist.md", "label": "Production deploy checklist" },
         { "path": "07-operations/monitoring-alerts.md", "label": "Monitoring and health alerts" },
         { "path": "07-operations/security.md", "label": "Security" },

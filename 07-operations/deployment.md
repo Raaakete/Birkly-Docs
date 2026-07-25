@@ -4,7 +4,7 @@ Deployment is how you put Birkly on a server so it’s reachable on the internet
 
 ## Summary
 
-**Deploying Birkly** means: (1) Have a server with **PHP** (version required by Birkly) and a **web server** (Apache or Nginx). (2) Upload or clone the Birkly files so the **document root** (or a subdirectory) points to the folder that contains `index.php`. (3) Ensure **content**, **media**, and **settings** (and any other writable dirs) are writable by the web server. (4) Open the site in the browser and complete setup (first user, project name). Use **HTTPS** in production and restrict admin access (e.g. firewall or IP) if possible. See [Security](security.md) and [Backup and restore](backup-and-restore.md).
+**Deploying Birkly** means: (1) Have a server with **PHP** (version required by Birkly) and a **web server** (Apache or Nginx). (2) Upload or clone the Birkly files so the **document root** (or a subdirectory) points to the folder that contains `index.php`. (3) Ensure **content**, **media**, and **settings** (and any other writable dirs) are writable by the web server. (4) Open the site in the browser and complete setup (first user, project name). (5) Set **CMS URL** and optional **public site URL** in **Settings → Hosting** (`settings/hosting.json`) so admin, API, and public routing use the correct hostnames — no `cms.` subdomain required. Use **HTTPS** in production. See [Security](security.md), [Backup and restore](backup-and-restore.md), and [Hosting on Dokploy](dokploy-hosting.md) for Docker.
 
 ## Beginner
 
@@ -22,19 +22,22 @@ Deployment is how you put Birkly on a server so it’s reachable on the internet
 2. **Upload/clone** — Put Birkly files in place.
 3. **Permissions** — Make `content/`, `media/`, `settings/` writable by the web server user.
 4. **Persistence (Docker/Dokploy)** — Attach storage **before** first admin login. See [Hosting on Dokploy](dokploy-hosting.md).
-5. **Open in browser** — Go to `https://your-domain.com/admin` (not only the site root). Complete first-time setup: create the first admin user, set project name.
-6. **HTTPS** — In production, use HTTPS (SSL certificate) so login and data are encrypted. Many hosts offer free Let’s Encrypt certificates.
+5. **Open in browser** — Go to `https://your-cms-host/admin`. Complete first-time setup: create the first admin user, set project name.
+6. **Hosting URLs** — In **Settings → Hosting**, set **CMS URL** (admin + API) and, if needed, **public site URL**. Any hostname works; you are not required to use `cms.yourdomain.com`.
+7. **HTTPS** — In production, use HTTPS (SSL certificate) so login and data are encrypted. Many hosts offer free Let’s Encrypt certificates.
 
 **Example: shared hosting**
 
 - Upload the Birkly zip (or extract it) into a folder (e.g. `public_html/cms/`).
 - In the host’s control panel, set the domain or subdomain to point to that folder.
 - Set folder permissions for `content/`, `media/`, `settings/` to be writable (often 755 or 775; the host’s docs will say).
-- Visit `https://your-domain.com/cms/` and follow the setup wizard.
+- Visit `https://your-domain.com/cms/admin` and follow the setup wizard.
+- Set **CMS URL** in Hosting settings to match how you reach the admin.
 
 **After deployment**
 
 - Create the first user, set project name and branding.
+- Confirm **Settings → Hosting** — CMS URL and public site URL match your DNS.
 - Test: log in, create a collection, add an entry, and load a public page that uses the Birkly client.
 - Set up [Backup and restore](backup-and-restore.md) and review [Security](security.md).
 
@@ -60,9 +63,14 @@ Deployment is how you put Birkly on a server so it’s reachable on the internet
 
 **Environment and config**
 
-- **Base URL** — Set in settings or env so links and client script point to the correct domain.
+- **Hosting URLs** — `settings/hosting.json`: `cms_base_url`, `public_site_mode` (`none` \| `external` \| `project`), `public_site_url`, `same_host_landing`, `strict_admin_host`. Admin UI: **Settings → Hosting**. Hostname routing is settings-driven (replaces legacy `cms.` prefix detection).
+- **Domains allowlist** — Public API CORS; public site hosts are auto-registered when you save Hosting settings.
 - **Secrets** — DB credentials, API keys from env or secure config, not from repo.
 - **Debug** — Disable in production; enable only for temporary troubleshooting.
+
+**Docker / Dokploy**
+
+- Single volume at `/app/data`; all domains on one app with Internal Path **`/`**. See [Hosting on Dokploy](dokploy-hosting.md).
 
 **Post-deploy**
 
@@ -70,7 +78,7 @@ Deployment is how you put Birkly on a server so it’s reachable on the internet
 
 ## Related
 
-- [Hosting on Dokploy (Docker)](dokploy-hosting.md) — site owners, first install order, admin account
+- [Hosting on Dokploy (Docker)](dokploy-hosting.md) — volume mount, two-domain setup, Internal Path `/`
 - [Security](security.md)
 - [Backup and restore](backup-and-restore.md)
 - [Troubleshooting](troubleshooting.md)

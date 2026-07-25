@@ -135,6 +135,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Topic | File | Description |
 |-------|------|-------------|
 | Deployment | `07-operations/deployment.md` | Hosting, server, env |
+| Hosting on Dokploy | `07-operations/dokploy-hosting.md` | CMS vs public URLs, `hosting.json`, two-domain Docker |
 | Production deploy checklist | `07-operations/production-deploy-checklist.md` | CMS, marketplace, client site smoke |
 | Monitoring and health alerts | `07-operations/monitoring-alerts.md` | Health alert email/webhook (P13) |
 | Security | `07-operations/security.md` | Hardening, HTTPS, auth |

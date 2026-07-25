@@ -1,0 +1,50 @@
+<p>Deploy Birkly from <strong><code>Raaakete/Birkly</code></strong> (<code>main</code>, Dockerfile, port <strong>80</strong>) on <a href="https://dokploy.com">Dokploy</a>. Birkly decides what each hostname serves — Dokploy only forwards traffic to the container.</p>
+<p>Technical reference: <a href="https://github.com/Raaakete/Birkly/blob/main/docs/deployment/docker.html">Birkly &lt;code&gt;docs/deployment/docker.md&lt;/code&gt;</a>.</p>
+<div class="doc-summary"><p><strong>CMS URL</strong> and <strong>public site URL</strong> are explicit settings (admin <strong>Settings → Hosting</strong>), stored in <code>settings/hosting.json</code>. You do <strong>not</strong> need a <code>cms.</code> subdomain — any hostname works. On Dokploy, add every domain to the same app with Path <strong><code>/</code></strong> and Internal Path <strong><code>/</code></strong> (never <code>/project</code>). Mount one volume at <strong><code>/app/data</code></strong> before first admin login.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Concepts</h3>
+<p>| Setting | Meaning | |---------|---------| | <strong>CMS URL</strong> | Where admin, API, and <code>birkly-client.js</code> live (e.g. <code>https://cms.birkly.cloud</code>) | | <strong>Public site URL</strong> | Where visitors see your marketing site (optional; e.g. <code>https://birkly.cloud</code>) | | <strong>Public website mode</strong> | <strong>None</strong> (CMS only) · <strong>Hosted elsewhere</strong> · <strong>In Birkly</strong> (<code>project/</code> folder) |</p>
+<p>Birkly routes by hostname using these settings. A <code>cms.</code> prefix is <strong>not</strong> required — <code>admin.example.com</code> and <code>www.example.com</code> work the same way.</p>
+<h3>Dokploy setup</h3>
+<p>| Step | Action | |------|--------| | 1 | Create app from GitHub → Birkly → Dockerfile, port <strong>80</strong>. | | 2 | <strong>Volume Mount</strong> (not Bind Mount): e.g. <code>birkly-cms-data</code> → <strong><code>/app/data</code></strong>. | | 3 | Add domains — CMS host and public host (if used) on the <strong>same app</strong>. | | 4 | For <strong>each</strong> domain: Path <strong><code>/</code></strong>, Internal Path <strong><code>/</code></strong>, HTTPS on. | | 5 | Deploy → <strong>Logs</strong> shows <strong>Containers (1)</strong>. | | 6 | Open <strong><code>https://your-cms-host/admin</code></strong> → create admin <strong>once</strong>. | | 7 | <strong>Settings → Hosting</strong> → set CMS URL and public site URL → Save. |</p>
+<p><strong>Do not</strong> set Internal Path to <code>/project</code>. That double-prefixes URLs and breaks clean public paths.</p>
+<h3>Two domains (example)</h3>
+<p>Production layout used by Birkly:</p>
+<p>| Host | Role | Root <code>/</code> serves | |------|------|-----------------| | <code>cms.birkly.cloud</code> | CMS URL | Admin dashboard | | <code>birkly.cloud</code> | Public site URL | Marketing site from <code>project/</code> (no <code>/project/</code> in the browser) |</p>
+<p>Both domains point to the same Dokploy app. Internal Path <strong><code>/</code></strong> on both.</p>
+<p>In <strong>Settings → Hosting</strong>:</p>
+<ul>
+<li><strong>CMS URL:</strong> <code>https://cms.birkly.cloud</code></li>
+<li><strong>Public website:</strong> In Birkly (<code>project/</code>)</li>
+<li><strong>Public site URL:</strong> <code>https://birkly.cloud</code></li>
+</ul>
+<p>Saving auto-registers hosts in <strong>Settings → Domains</strong>. Use the generated integration snippet on public pages — <code>data-cms-url</code> must be the <strong>CMS URL</strong>, not the public host.</p>
+<h3>First install order</h3>
+<p>Attach the volume <strong>before</strong> first admin login. If you created an admin without a volume, then added a new empty volume and redeployed, you must create the admin again once (the first account lived in the temporary container).</p>
+<p>| Situation | Create admin again? | |-----------|---------------------| | Volume at <code>/app/data</code> from the start | No | | No volume first, then new empty volume | Yes (once) | | Every redeploy with volume attached | No |</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3><code>settings/hosting.json</code></h3>
+<pre><code>{
+  &quot;cms_base_url&quot;: &quot;https://cms.birkly.cloud&quot;,
+  &quot;public_site_mode&quot;: &quot;project&quot;,
+  &quot;public_site_url&quot;: &quot;https://birkly.cloud&quot;,
+  &quot;same_host_landing&quot;: &quot;admin&quot;,
+  &quot;strict_admin_host&quot;: true
+}</code></pre>
+<p>| Field | Values | Notes | |-------|--------|-------| | <code>cms_base_url</code> | HTTPS URL | Canonical admin + API base (required after onboarding) | | <code>public_site_mode</code> | <code>none</code> \| <code>external</code> \| <code>project</code> | <code>external</code> = site hosted outside Birkly | | <code>public_site_url</code> | HTTPS URL or empty | Required when mode ≠ <code>none</code> | | <code>same_host_landing</code> | <code>admin</code> \| <code>public</code> | When CMS and public share one host | | <code>strict_admin_host</code> | boolean | Redirect <code>/admin</code> on public host to CMS URL (default <code>true</code>) |</p>
+<p>Editable in admin or on disk under <code>/app/data/settings/hosting.json</code> (Docker). Legacy installs with empty <code>hosting.json</code> may infer CMS URL from a <code>cms.*</code> request host on first access.</p>
+<h3>Routing</h3>
+<p>| Request | CMS host | Public host | |---------|----------|-------------| | <code>/</code> | Admin (or <code>same_host_landing</code>) | Public site root | | <code>/admin</code> | Admin | Redirect to CMS <code>/admin</code> | | <code>/api/*</code> | API | API (CORS per Domains allowlist) |</p>
+<p>Public host with <code>public_site_mode: project</code> serves files from <code>project/</code> at clean URLs (e.g. <code>/about</code>, not <code>/project/about</code>).</p>
+<h3>Dokploy domains checklist</h3>
+<ul>
+<li>One app, all hostnames, Path <strong><code>/</code></strong>, Internal Path <strong><code>/</code></strong>, port <strong>80</strong></li>
+<li>Volume Mount → <code>/app/data</code> (not Bind Mount to host paths — Swarm often yields <strong>Containers (0)</strong> / 502)</li>
+<li>Test: CMS root → admin · public root → site · <code>/api/deploy_revision.php</code> returns JSON</li>
+</ul>
+<h3>Troubleshooting</h3>
+<p>| Symptom | Check | |---------|-------| | Public site shows <code>/project/</code> in URL | Internal Path must be <code>/</code>; confirm Hosting mode = <code>project</code> | | <code>/admin</code> on public host stays on public host | Enable <strong>Redirect <code>/admin</code> on public host</strong> in Hosting settings | | 502 / <strong>Containers (0)</strong> | Bad mount type; switch to Volume Mount | | Wrong host serves admin | <strong>Settings → Hosting</strong> — CMS URL and public site URL must match Dokploy domains |</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="deployment.html">Deployment</a></li>
+<li><a href="backup-and-restore.html">Backup and restore</a></li>
+<li><a href="troubleshooting.html">Troubleshooting</a></li>
+<li><a href="../04-integration/website-integration.html">Website integration</a></li>
+</ul></div>

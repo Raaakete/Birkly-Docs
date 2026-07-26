@@ -7,9 +7,13 @@ Read-only endpoints expose the **published** brand context on your **public site
 | Channel | URL | Format |
 |---------|-----|--------|
 | Well-known file | `GET /.well-known/brand-context.json` | JSON |
-| Public API | `GET /api/public/ai_presence.php?action=brand` | JSON envelope |
+| Public API (full) | `GET /api/public/ai_presence.php?action=brand` | JSON envelope |
+| Public API (summary) | `GET /api/public/ai_presence.php?action=brand&view=summary` | Lightweight identity + supported claims |
+| Public API (products) | `GET /api/public/ai_presence.php?action=brand&view=products` | Products & services only |
+| Single product | `GET /api/public/ai_presence.php?action=product&id={id}` | One product/service |
+| Single claim | `GET /api/public/ai_presence.php?action=claim&id={id}` | Supported claim by id |
 
-Both return the same canonical export with:
+Both well-known and `action=brand` return the full canonical export unless `view` is set on the API.
 
 - `schema_version`: `ai_presence.v1`
 - `published_version`: integer incremented on each publish

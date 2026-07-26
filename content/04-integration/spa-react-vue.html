@@ -1,0 +1,115 @@
+<p>Build a single-page app that loads Birkly content as JSON and renders with your framework — not with <code>{for each}</code> inside JSX.</p>
+<div class="doc-summary"><p>For React, Vue, and similar SPAs: call the <strong>Public API</strong> or <code>Birkly.fetch</code> / <code>Birkly.getEntryBySlug</code>, then render with components. <strong>Do not</strong> put Birkly template tags in JSX. Optional: load <code>birkly-client.js</code> and use <code>Birkly.render(html, data)</code> into a DOM ref when you want the string engine without Light DOM discovery.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>The rule</h3>
+<p>| Do | Don’t | |----|-------| | <code>fetch</code> JSON → map to <code>&lt;Article /&gt;</code> | <code>{for each entry in 'blog'}</code> inside JSX | | <code>Birkly.getEntryBySlug('blog', slug)</code> | <code>{from 'blog' get entry …}</code> as React children | | Configure CORS for your app origin | Expect <code>processTemplates()</code> to walk React’s virtual DOM |</p>
+<h3>Minimal React hook (Public API)</h3>
+<pre><code>import { useEffect, useState } from 'react';
+
+const CMS = 'https://your-cms.com';
+
+export function useBlogEntry(slug) {
+  const [entry, setEntry] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() =&gt; {
+    let cancelled = false;
+    const url =
+      `${CMS}/api/public.php?action=get_entry` +
+      `&amp;collection=blog&amp;slug=${encodeURIComponent(slug)}`;
+
+    fetch(url)
+      .then((r) =&gt; r.json())
+      .then((body) =&gt; {
+        if (cancelled) return;
+        if (body.status !== 'ok') throw new Error(body.message || 'API error');
+        setEntry(body.data?.entry ?? null);
+      })
+      .catch((e) =&gt; !cancelled &amp;&amp; setError(e));
+
+    return () =&gt; { cancelled = true; };
+  }, [slug]);
+
+  return { entry, error };
+}
+
+export function BlogPost({ slug }) {
+  const { entry, error } = useBlogEntry(slug);
+  if (error) return &lt;p&gt;Could not load post.&lt;/p&gt;;
+  if (!entry) return &lt;p&gt;Loading…&lt;/p&gt;;
+  return (
+    &lt;article&gt;
+      &lt;h1&gt;{entry.title}&lt;/h1&gt;
+      &lt;div dangerouslySetInnerHTML={{ __html: entry.content || '' }} /&gt;
+    &lt;/article&gt;
+  );
+}</code></pre>
+<h3>List with React (not a template loop)</h3>
+<pre><code>function BlogIndex() {
+  const [entries, setEntries] = useState([]);
+  useEffect(() =&gt; {
+    fetch(`${CMS}/api/public.php?action=list_entries&amp;collection=blog`)
+      .then((r) =&gt; r.json())
+      .then((body) =&gt; setEntries(body.data?.entries || []));
+  }, []);
+  return (
+    &lt;ul&gt;
+      {entries.map((e) =&gt; (
+        &lt;li key={e.id || e.slug}&gt;
+          &lt;a href={`/blog/${e.slug}`}&gt;{e.title}&lt;/a&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}</code></pre>
+<h3>Optional: Birkly client helpers</h3>
+<pre><code>&lt;script src=&quot;https://your-cms.com/birkly-client.js&quot;
+        data-cms-url=&quot;https://your-cms.com&quot;&gt;&lt;/script&gt;</code></pre>
+<pre><code>// After the script loads:
+const entry = await Birkly.getEntryBySlug('blog', 'my-post-slug');
+const list = await Birkly.fetch('list_entries', { collection: 'blog' });</code></pre>
+<h3>Optional: <code>Birkly.render</code> into a ref</h3>
+<p>When you have a template <strong>string</strong> (not JSX tags) and JSON data:</p>
+<pre><code>function CmsFragment({ template, data }) {
+  const ref = useRef(null);
+  useEffect(() =&gt; {
+    if (!ref.current || !window.Birkly?.render) return;
+    ref.current.innerHTML = Birkly.render(template, data);
+  }, [template, data]);
+  return &lt;div ref={ref} /&gt;;
+}
+
+// template = &quot;&lt;h1&gt;{title}&lt;/h1&gt;&lt;article&gt;{'content'}&lt;/article&gt;&quot;
+// data = entry object from the API</code></pre>
+<p>Still do <strong>not</strong> write <code>{for each}</code> as JSX syntax — only as a string if you intentionally use the Birkly string engine.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>CORS</h3>
+<p>The browser origin of your SPA (e.g. <code>https://app.example.com</code>) must be allowed by Birkly / your reverse proxy. Failed CORS looks like a network error in DevTools, not a JSON body.</p>
+<h3>API shapes</h3>
+<ul>
+<li>List: <code>GET /api/public.php?action=list_entries&amp;collection=blog</code></li>
+<li>One entry: <code>action=get_entry&amp;collection=blog&amp;slug=…</code></li>
+<li>Batch: <code>POST /api/page_bundle.php</code> with a <code>requests</code> array (see <a href="client-library.html">Client library</a> / <a href="public-api.html">Public API</a>)</li>
+</ul>
+<p><code>Birkly.fetch(action, params)</code> wraps the public endpoint. Prefer framework-owned state for routing and caching; use the client when you already load <code>birkly-client.js</code>.</p>
+<h3>Why not Light DOM <code>processTemplates</code> in SPA roots?</h3>
+<p><code>processTemplates</code> discovers <strong>DOM</strong> regions with template text. React/Vue continuously reconcile their trees — mixing Birkly <code>innerHTML</code> replacement with virtual DOM usually fights the framework. Keep Birkly tags on static HTML pages; keep SPAs on JSON.</p>
+<h3>Vue sketch</h3>
+<pre><code>import { ref, onMounted } from 'vue';
+
+export function useEntries(collection) {
+  const entries = ref([]);
+  onMounted(async () =&gt; {
+    const res = await fetch(
+      `https://your-cms.com/api/public.php?action=list_entries&amp;collection=${collection}`
+    );
+    const body = await res.json();
+    entries.value = body.data?.entries || [];
+  });
+  return { entries };
+}</code></pre></div></details>
+<div class="doc-related"><ul>
+<li><a href="choose-your-stack.html">Choose your stack</a></li>
+<li><a href="public-api.html">Public API</a></li>
+<li><a href="client-library.html">Client library</a></li>
+<li><a href="ssr-and-build-time.html">SSR and build-time</a></li>
+<li><a href="website-integration.html">Website integration</a></li>
+</ul></div>

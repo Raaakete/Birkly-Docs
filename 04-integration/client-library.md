@@ -52,9 +52,17 @@ Some versions support `data-collection` so the page “belongs” to one collect
 
 **Template regions**
 
-You can put template tags in any HTML element — not only `<main>`. The client renders each **outermost** element that contains template syntax. Example: Marsk’s fullscreen menu is a `<div class="overlay-menu">` with a `<nav>` loop inside; the parent div is rendered as one region.
+You can put template tags in any HTML element — not only `<main>`. The client renders each **outermost** element that contains template syntax, and any element marked with **`data-birkly-region`** or **`<birkly-region>`**. Example: Marsk’s fullscreen menu is a `<div class="overlay-menu">` with a `<nav>` loop inside; the parent div is rendered as one region.
 
 If a loop renders nothing, check that entries are **published** in the CMS (draft entries are invisible on the public site).
+
+**One-line regions**
+
+```html
+<birkly-region collection="site_elements" entry="header"></birkly-region>
+```
+
+See [Web components](web-components.md) and [Choose your stack](choose-your-stack.md).
 
 **Example: blog index**
 
@@ -125,12 +133,68 @@ When your HTML uses `{for each group in collection_groups}`, the client includes
 - On network or API error, the script may leave placeholders unchanged, show a minimal fallback, or expose an error in the console. No admin credentials are sent; failures are “no data” rather than auth leaks.
 - For debugging: check Console for script errors and Network for status codes and response bodies.
 
-**Programmatic use**
+**Programmatic API (`window.Birkly`)**
 
-Some builds expose a global or module API (e.g. `Birkly.getEntries('blog')`) so you can fetch content and render it yourself (e.g. in a SPA). This is optional and version-dependent; see the Birkly docs or client source for your release.
+| API | Purpose |
+|-----|---------|
+| `Birkly.processTemplates({ root?, silent?, force? })` | Discover and render Light DOM regions. Omit args for full document. `root` scopes to a subtree (the root itself is included if it is a region). `force` re-processes nodes marked `data-birkly-processed="1"`. |
+| `Birkly.processRegion(host, options?)` | Prepare + process a `<birkly-region>` / attributed host. |
+| `Birkly.getEntryBySlug(collection, slug)` | Resolve one published entry (async). |
+| `Birkly.fetch(action, params?)` | Low-level public API helper (e.g. `'list_entries'`, `{ collection: 'blog' }`). |
+| `Birkly.render(html, data)` | Run the string template engine once; returns HTML string (does not discover DOM regions). |
+| `Birkly.renderEngine` | Full engine object (`discoverPageRegions`, `buildRegionTemplate`, `render`, …). |
+| `Birkly.submit(…)` | Public form submit helper. |
+
+```js
+// Scoped re-render after a dynamic mount
+await Birkly.processTemplates({ root: document.querySelector('#island'), silent: true });
+
+const post = await Birkly.getEntryBySlug('blog', 'welcome');
+const html = Birkly.render('<h1>{title}</h1>', post);
+```
+
+**Events**
+
+| Event | Where | When |
+|-------|-------|------|
+| `birkly:region-processed` | Region element (bubbles) | After that region’s HTML/text is written |
+| `birkly:templates-processed` | `document` | After a **full-document** `processTemplates()` finishes (`detail.regions` = count) |
+
+```js
+document.addEventListener('birkly:templates-processed', () => {
+  console.log('All page regions ready');
+});
+el.addEventListener('birkly:region-processed', (e) => {
+  console.log('Region done', e.detail);
+});
+```
+
+**Optional: `birkly-components.js` (enhance-only)**
+
+Load after the client. Helpers must **never** wipe CMS `innerHTML`.
+
+```html
+<script src="https://your-cms.com/birkly-client.js" data-cms-url="https://your-cms.com"></script>
+<script src="https://your-cms.com/birkly-components.js"></script>
+<script>
+  document.addEventListener('birkly:templates-processed', function () {
+    BirklyComponents.setActiveNav(document);
+  });
+</script>
+```
+
+- `BirklyComponents.setActiveNav(root?, currentPage?, { linkSelector, activeClass }?)`
+- `<birkly-enhance-nav>` — same on connect; no `innerHTML` writes
+
+For SPA frameworks, prefer JSON + components over DOM template discovery — [SPA (React / Vue)](spa-react-vue.md).
 
 ## Related
 
+- [Choose your stack](choose-your-stack.md)
 - [Website integration](website-integration.md)
+- [Web components](web-components.md)
+- [SPA (React / Vue)](spa-react-vue.md)
+- [SSR and build-time](ssr-and-build-time.md)
 - [Public API](public-api.md)
 - [Templating overview](../03-templating/templating-overview.md)
+

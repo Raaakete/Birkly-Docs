@@ -97,11 +97,22 @@ There is no third active engine. `render_page.php` and `templates/template_engin
 4. **Comparison:** `{if entry.status == 'published'}`.
 5. **Published-only on public API:** loops via `api/public.php` and `page_bundle.php` return **published** entries only. Draft entries exist in the CMS but render as empty on the live site until published.
 
+### Single entry by slug
+
+```html
+{from 'blog' get entry 'my-post-slug'}
+  <h1>{title}</h1>
+  <article>{'content'}</article>
+{endget}
+```
+
+Close with `{endget}` (or `{end}`). Do **not** use `{entry 'collection'.'slug'}…{endentry}` — that form is not valid for single-entry load.
+
 ### Where the client renders templates
 
 `birkly-client.js` scans `<body>` for the **outermost** HTML elements whose content includes Birkly template tags (`{for`, `{from`, `{if`, field placeholders, etc.) and renders each region in place. You do **not** need `<main>`, `<header>`, or `<nav>` specifically — any wrapper (`<div class="overlay-menu">`, `<section>`, etc.) works.
 
-Optional: add `data-birkly-region` on an element to make the intent explicit (useful in complex layouts).
+`data-birkly-region` will mark an explicit outermost region root for the client discoverer (**P45-M4** — not yet implemented). Until then, discovery is syntax-based only: outermost elements that contain template tags.
 
 **`<title>`** is handled separately when it contains template syntax.
 

@@ -71,7 +71,7 @@ Yes. Plain text (e.g. from a Text or Textarea field) is usually **escaped**: cha
 |--------|-----------------|--------|
 | Variable | `{ variable_name }` | Single braces, spaces; name = field key. |
 | Loop (collection) | `{for each entry in 'collection'}` … `{endfor}` | Inside loop, variables refer to current entry. |
-| Single entry | `{from 'blog' get entry 'slug'}` | Load one entry by slug; following vars refer to it. |
+| Single entry | `{from 'blog' get entry 'slug'}` … `{endget}` | Load one entry by slug; vars inside the block refer to it. |
 | Conditional | `{if condition}` … `{else}` … `{endif}` | e.g. `{if 'blog' has entries}`, `{if entry has excerpt}`. |
 | Date format | `{ date_field "F j, Y" }` | PHP-style format string. |
 | Media | `{ media 'file.jpg' }` or `{ media field_name }` | URL; some engines support width/height/crop. |

@@ -189,7 +189,11 @@
   &lt;div class=&quot;content-editor-grid-item&quot;&gt;Normal cell&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 <p><strong>Stripped on save:</strong> Editor-only attributes and chrome (<code>data-ce-*</code>, resize handles, inspector wrappers) are removed by <code>ContentEditorSync</code> and PHP <code>processValue</code> before persistence.</p>
-<p><strong>Templates:</strong> Output editor HTML unescaped in templates, e.g. <code>{'content'}</code> or <code>{entry 'blog'.'slug'} … {'body'} {endentry}</code>. Ensure site CSS does not override layout inline styles unintentionally. Optional field option <code>css_url</code> loads project CSS in the admin preview only — it is not embedded in saved HTML.</p>
+<p><strong>Templates:</strong> Output editor HTML unescaped in templates, e.g. <code>{'content'}</code> inside a single-entry block:</p>
+<pre><code>{from 'blog' get entry 'my-post-slug'}
+  &lt;article&gt;{'body'}&lt;/article&gt;
+{endget}</code></pre>
+<p>Ensure site CSS does not override layout inline styles unintentionally. Optional field option <code>css_url</code> loads project CSS in the admin preview only — it is not embedded in saved HTML.</p>
 <p><strong>Layout studio modules</strong> (platform): <code>fieldtypes/ContentEditor/layout/</code> — shared inspector, resize controller, table-layout, grid-layout. Tests: <code>layout_roundtrip_test.php</code>, <code>table_layout_test.php</code>, <code>grid_layout_test.php</code>, <code>caret_insert_test.php</code>.</p>
 <p><strong>Out of scope (Phase 5.5):</strong> nested tables/grids, spreadsheet formulas, cell merge/split (deferred to a future phase).</p></div></details>
 <div class="doc-related"><ul>

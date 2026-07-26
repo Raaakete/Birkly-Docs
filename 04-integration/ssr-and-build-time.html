@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ssr and build time — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="website-integration.html" class="nav-link">Website integration</a>
+        <a href="web-components.html" class="nav-link">Web components</a>
+        <a href="spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="ssr-and-build-time.html" class="nav-link active">SSR and build-time</a>
+        <a href="client-library.html" class="nav-link">Client library</a>
+        <a href="public-api.html" class="nav-link">Public API</a>
+        <a href="public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Render Birkly content on the server or at build time so visitors get HTML without waiting on client-side template discovery.</p>
+<div class="doc-summary"><p>Fetch published content from the <strong>Public API</strong> or <strong><code>page_bundle.php</code></strong>, then render with PHP, Astro, Next.js, or another SSR/SSG stack. Use this for SEO, non-JS fallbacks, and static hosting. Runnable patterns below; for in-browser templates see <a href="website-integration.html">Website integration</a>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Idea:</strong> your server (or build job) asks Birkly for JSON, builds HTML, and sends that HTML to the browser. Visitors see content even if JavaScript is off.</p>
+<p>| Stack | Typical approach | |-------|------------------| | <strong>PHP</strong> | <code>file_get_contents</code> / cURL → JSON → <code>echo</code> fields (or pass into your PHP templates) | | <strong>Astro</strong> | <code>fetch</code> in frontmatter → <code>.map</code> into components | | <strong>Next.js</strong> | <code>fetch</code> in a Server Component or <code>getStaticProps</code> → React |</p>
+<p>Decision hub: <a href="choose-your-stack.html">Choose your stack</a>.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Public API — one entry (any language)</h3>
+<pre><code>GET https://your-cms.com/api/public.php?action=get_entry&amp;collection=blog&amp;slug=my-post-slug
+→ { &quot;status&quot;: &quot;ok&quot;, &quot;data&quot;: { &quot;entry&quot;: { &quot;title&quot;, &quot;slug&quot;, &quot;content&quot;, … } } }</code></pre>
+<h3>Page bundle — several collections in one round-trip</h3>
+<pre><code>POST https://your-cms.com/api/page_bundle.php
+Content-Type: application/json
+
+{
+  &quot;language&quot;: &quot;en&quot;,
+  &quot;requests&quot;: [
+    { &quot;type&quot;: &quot;list_entries&quot;, &quot;into&quot;: &quot;blog&quot;, &quot;collection&quot;: &quot;blog&quot; },
+    { &quot;type&quot;: &quot;get_entry&quot;, &quot;into&quot;: &quot;home&quot;, &quot;collection&quot;: &quot;pages&quot;, &quot;slug&quot;: &quot;home&quot; }
+  ]
+}</code></pre>
+<h3>PHP (runnable sketch)</h3>
+<p>Save as <code>blog-post.php</code> on a host that can reach your CMS (replace URLs/slug):</p>
+<pre><code>&lt;?php
+declare(strict_types=1);
+
+$cms = 'https://your-cms.com';
+$slug = preg_replace('/[^a-z0-9\-]/', '', $_GET['slug'] ?? 'hello-world') ?: 'hello-world';
+$url = $cms . '/api/public.php?action=get_entry&amp;collection=blog&amp;slug=' . rawurlencode($slug);
+
+$raw = file_get_contents($url, false, stream_context_create([
+    'http' =&gt; ['timeout' =&gt; 8, 'header' =&gt; &quot;Accept: application/json\r\n&quot;],
+]));
+$body = json_decode($raw ?: '', true);
+$entry = ($body['status'] ?? '') === 'ok' ? ($body['data']['entry'] ?? null) : null;
+
+if (!$entry) {
+    http_response_code(404);
+    echo '&lt;!DOCTYPE html&gt;&lt;title&gt;Not found&lt;/title&gt;&lt;p&gt;Post not found.&lt;/p&gt;';
+    exit;
+}
+
+$title = htmlspecialchars((string)($entry['title'] ?? ''), ENT_QUOTES, 'UTF-8');
+// Editor HTML is intentional; only use trusted CMS content.
+$content = (string)($entry['content'] ?? '');
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;&lt;?= $title ?&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;article&gt;
+    &lt;h1&gt;&lt;?= $title ?&gt;&lt;/h1&gt;
+    &lt;div class=&quot;content&quot;&gt;&lt;?= $content ?&gt;&lt;/div&gt;
+  &lt;/article&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3>Astro (build / SSR)</h3>
+<pre><code>---
+// src/pages/blog/[slug].astro
+const CMS = import.meta.env.PUBLIC_BIRKLY_CMS_URL || 'https://your-cms.com';
+const { slug } = Astro.params;
+const res = await fetch(
+  `${CMS}/api/public.php?action=get_entry&amp;collection=blog&amp;slug=${encodeURIComponent(slug)}`
+);
+const body = await res.json();
+if (body.status !== 'ok' || !body.data?.entry) {
+  return Astro.redirect('/404');
+}
+const entry = body.data.entry;
+---
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;&lt;title&gt;{entry.title}&lt;/title&gt;&lt;/head&gt;
+  &lt;body&gt;
+    &lt;article&gt;
+      &lt;h1&gt;{entry.title}&lt;/h1&gt;
+      &lt;div set:html={entry.content} /&gt;
+    &lt;/article&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Blog index with bundle:</p>
+<pre><code>---
+const CMS = import.meta.env.PUBLIC_BIRKLY_CMS_URL;
+const res = await fetch(`${CMS}/api/page_bundle.php`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    language: 'en',
+    requests: [{ type: 'list_entries', into: 'blog', collection: 'blog' }],
+  }),
+});
+const bundle = await res.json();
+const posts = bundle.data?.blog || [];
+---
+&lt;ul&gt;
+  {posts.map((p) =&gt; (
+    &lt;li&gt;&lt;a href={`/blog/${p.slug}`}&gt;{p.title}&lt;/a&gt;&lt;/li&gt;
+  ))}
+&lt;/ul&gt;</code></pre>
+<h3>Next.js (App Router server component)</h3>
+<pre><code>// app/blog/[slug]/page.tsx
+const CMS = process.env.BIRKLY_CMS_URL!;
+
+export default async function BlogPost({ params }: { params: { slug: string } }) {
+  const res = await fetch(
+    `${CMS}/api/public.php?action=get_entry&amp;collection=blog&amp;slug=${encodeURIComponent(params.slug)}`,
+    { next: { revalidate: 60 } }
+  );
+  const body = await res.json();
+  const entry = body.status === 'ok' ? body.data?.entry : null;
+  if (!entry) return &lt;p&gt;Not found&lt;/p&gt;;
+  return (
+    &lt;article&gt;
+      &lt;h1&gt;{entry.title}&lt;/h1&gt;
+      &lt;div dangerouslySetInnerHTML={{ __html: entry.content || '' }} /&gt;
+    &lt;/article&gt;
+  );
+}</code></pre>
+<h3>Notes</h3>
+<ul>
+<li><strong>Published only</strong> — public endpoints omit drafts.</li>
+<li><strong>CORS</strong> matters for browser fetches; server-side <code>fetch</code> / PHP usually does not need CORS.</li>
+<li>Client-side <code>Birkly.processTemplates</code> is optional on SSR pages if HTML is already final; keep <code>birkly-client.js</code> only for interactive islands.</li>
+<li>String engine in Node is optional/advanced (<code>Birkly.render</code> / <code>renderEngine</code>) — most SSR stacks map JSON fields directly.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="choose-your-stack.html">Choose your stack</a></li>
+<li><a href="public-api.html">Public API</a></li>
+<li><a href="client-library.html">Client library</a></li>
+<li><a href="spa-react-vue.html">SPA (React / Vue)</a></li>
+<li><a href="website-integration.html">Website integration</a></li>
+<li><a href="../03-templating/production-optimization.html">Production optimization</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

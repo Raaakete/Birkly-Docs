@@ -18,11 +18,23 @@ Sidebar → **AI Presence** (between Media and Marketplace).
 
 | Tab | Purpose |
 |-----|---------|
-| **Overview** | Completeness score, status cards, public URLs, recommended next steps |
-| **Context** | Identity, positioning, communication guidance, connected CMS refs |
-| **Claims & Evidence** | Factual claims with statuses and linked evidence |
+| **Overview** | Completeness score, status cards, CMS sync diffs, public URLs, recommended next steps |
+| **Context** | Full identity, positioning, terminology, relationships, connected CMS refs |
+| **Products & Services** | Structured catalog linked to CMS entries and claims |
+| **Claims & Evidence** | Factual claims with statuses, CMS-linked evidence, review workflow |
 | **Media** | Per-asset context (what it represents, intended use, restrictions) |
-| **Publish** | Enable publishing, staleness warnings, context preview |
+| **Publish** | Enable publishing, version history, staleness warnings, AI context preview |
+
+### AI Copilot (save bar)
+
+The sticky save bar includes:
+
+- **AI connection** picker (uses Settings → AI connections; optional — rules-only mode works without AI)
+- **AI Copilot** — suggestions panel with Fill gaps, Improve copy, Suggest claims; approve each or Accept all
+- **Brand Studio** — multi-collection wizard: generate draft identity, positioning, products, and claims from CMS sources, then apply to draft
+- Per-field **✨** buttons on Context fields for targeted AI suggestions
+
+Suggestions are **never auto-saved** until you accept them.
 
 ### Typical workflow
 
@@ -59,7 +71,25 @@ settings/ai_presence/
 
 ### AI suggestions
 
-The **Suggest from CMS** action analyzes connected content via rule-based extraction (and optional AI connection). Suggestions are **never auto-saved** — use Accept or Reject for each item.
+Rule-based and AI-powered suggestions (via configured AI connections). Modes: copilot, field-level, Brand Studio wizard. **Never auto-saved** — Accept or Reject each item.
+
+### CMS sync
+
+Overview shows drift between linked CMS entries and draft fields. One-click **Refresh from CMS** updates target fields from source entries.
+
+### Products & services
+
+Structured catalog (`products_services[]`) exported in full JSON, products API view, and JSON-LD Product/Service nodes when publishing.
+
+### MCP tools (for connected agents)
+
+When AI Presence is published, MCP clients with read access can call:
+
+- `get_brand_context` — `view`: `summary`, `full`, or `products`
+- `list_brand_products`
+- `get_brand_claim` — supported claims by id
+
+Resource: `birkly://brand-context`
 
 ### Staleness
 

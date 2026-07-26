@@ -61,6 +61,7 @@
         { "path": "03-templating/conditionals.md", "label": "Conditionals" },
         { "path": "03-templating/dates-and-formatting.md", "label": "Dates and formatting" },
         { "path": "03-templating/media-in-templates.md", "label": "Media in templates" },
+        { "path": "03-templating/web-components.md", "label": "Web components (templating)" },
         { "path": "03-templating/commerce-functions.md", "label": "Commerce functions" },
         { "path": "03-templating/events-functions.md", "label": "Events functions" },
         { "path": "03-templating/storefront-patterns.md", "label": "Storefront and events patterns" },
@@ -72,7 +73,11 @@
       "id": "integration",
       "label": "Integration",
       "items": [
+        { "path": "04-integration/choose-your-stack.md", "label": "Choose your stack" },
         { "path": "04-integration/website-integration.md", "label": "Website integration" },
+        { "path": "04-integration/web-components.md", "label": "Web components" },
+        { "path": "04-integration/spa-react-vue.md", "label": "SPA (React / Vue)" },
+        { "path": "04-integration/ssr-and-build-time.md", "label": "SSR and build-time" },
         { "path": "04-integration/client-library.md", "label": "Client library" },
         { "path": "04-integration/public-api.md", "label": "Public API" },
         { "path": "04-integration/public-forms.md", "label": "Public forms" }

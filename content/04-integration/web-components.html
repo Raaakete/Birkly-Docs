@@ -1,0 +1,67 @@
+<p>Use <code>&lt;birkly-region&gt;</code> and <code>data-birkly-region</code> so Birkly discovers and fills page regions with one line — without hand-writing <code>{from}</code> / <code>{for}</code> on every page.</p>
+<div class="doc-summary"><p><strong><code>&lt;birkly-region&gt;</code></strong> is a custom element in <code>birkly-client.js</code>. Set <code>collection</code> + <code>entry</code> (one entry) or <code>collection</code> + <code>list</code> (loop). Optional child HTML is your Light DOM template. <strong><code>data-birkly-region</code></strong> marks any element as an explicit region root. After render, enhance with <code>birkly-components.js</code> — never replace CMS <code>innerHTML</code>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>One-line entry region</h3>
+<pre><code>&lt;script src=&quot;https://your-cms.com/birkly-client.js&quot;
+        data-cms-url=&quot;https://your-cms.com&quot;&gt;&lt;/script&gt;
+
+&lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;header&quot;&gt;&lt;/birkly-region&gt;
+&lt;main&gt;…your page…&lt;/main&gt;
+&lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;footer&quot;&gt;&lt;/birkly-region&gt;</code></pre>
+<p>Empty entry regions get a small default template (title + content, or site_elements header/footer/nav markup).</p>
+<h3>List region</h3>
+<pre><code>&lt;birkly-region collection=&quot;blog&quot; list ordered=&quot;date:desc&quot;&gt;&lt;/birkly-region&gt;</code></pre>
+<p>Or supply the card markup as children (Light DOM):</p>
+<pre><code>&lt;birkly-region collection=&quot;blog&quot; list&gt;
+  &lt;article&gt;
+    &lt;h2&gt;&lt;a href=&quot;/blog/{slug}&quot;&gt;{title}&lt;/a&gt;&lt;/h2&gt;
+    &lt;p&gt;{excerpt}&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/birkly-region&gt;</code></pre>
+<p>The client wraps children in <code>{for each entry in 'blog'}…{endfor}</code> when needed.</p>
+<h3>Explicit region root</h3>
+<pre><code>&lt;section data-birkly-region&gt;
+  {from 'blog' get entry 'welcome'}
+    &lt;h1&gt;{title}&lt;/h1&gt;
+    &lt;article&gt;{'content'}&lt;/article&gt;
+  {endget}
+&lt;/section&gt;</code></pre>
+<p><code>data-birkly-region</code> is <strong>supported</strong>: the client treats the attributed element as the region root (and can prepare hosts that also have <code>collection</code> / <code>list</code>).</p>
+<h3>After content appears — enhance, don’t wipe</h3>
+<pre><code>&lt;script src=&quot;https://your-cms.com/birkly-components.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  document.addEventListener('birkly:templates-processed', function () {
+    BirklyComponents.setActiveNav(document);
+  });
+&lt;/script&gt;</code></pre>
+<p><strong>Never</strong> do this in a custom element’s <code>connectedCallback</code>:</p>
+<pre><code>// BAD — destroys CMS-rendered (or templated) content
+this.innerHTML = '&lt;nav&gt;…&lt;/nav&gt;';</code></pre></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Attributes</h3>
+<p>| Attribute | Role | |-----------|------| | <code>collection</code> | Collection handle (<code>blog</code>, <code>site_elements</code>, …) | | <code>entry</code> | Entry slug (entry mode) | | <code>list</code> | Presence flag — list/loop mode | | <code>ordered</code> | Optional sort clause for list mode (e.g. <code>date:desc</code>) | | <code>data-birkly-region</code> | Explicit region root (also set automatically on <code>&lt;birkly-region&gt;</code>) | | <code>data-birkly-processed=&quot;1&quot;</code> | Set after a successful render; skip unless <code>force: true</code> |</p>
+<h3>Lifecycle</h3>
+<ol>
+<li>Page load → <code>Birkly.processTemplates()</code> discovers outermost regions (syntax <strong>or</strong> explicit <code>data-birkly-region</code> / <code>&lt;birkly-region&gt;</code>).</li>
+<li>Hosts with <code>collection</code> / <code>list</code> are prepared via <code>buildRegionTemplate</code> (defaults or child wrap).</li>
+<li>Bundle fetch → <code>Birkly.render.render</code> into each region’s Light DOM.</li>
+<li>Each region dispatches <strong><code>birkly:region-processed</code></strong> (bubbles). Full-document runs also dispatch <strong><code>birkly:templates-processed</code></strong> on <code>document</code>.</li>
+<li>Late-mounted <code>[data-birkly-region]</code> nodes are observed and processed; <code>&lt;birkly-region&gt;</code> runs on <code>connectedCallback</code>.</li>
+</ol>
+<p>Manual re-run:</p>
+<pre><code>await Birkly.processTemplates({ root: el, silent: true, force: true });
+// or
+await Birkly.processRegion(el, { force: true });</code></pre>
+<h3>Light DOM vs Shadow DOM</h3>
+<p>| | Light DOM | Shadow DOM | |--|-----------|------------| | Templates <code>{…}</code> | <strong>Yes</strong> — discovered and processed | <strong>No</strong> — client does not walk closed shadow trees | | What to do | Put markup/templates as children | Fetch JSON (<code>Birkly.fetch</code> / Public API), then <code>Birkly.render(html, data)</code> into the shadow root yourself |</p>
+<h3>Enhance-only (<code>birkly-components.js</code>)</h3>
+<ul>
+<li><code>BirklyComponents.setActiveNav(root?, currentPage?, options?)</code> — toggles <code>.active</code> / <code>aria-current</code> on links.</li>
+<li><code>&lt;birkly-enhance-nav&gt;</code> — same on connect; <strong>never</strong> sets <code>innerHTML</code>.</li>
+</ul>
+<p>Templating-focused patterns: <a href="../03-templating/web-components.html">Web components (templating)</a>. Stack choice: <a href="choose-your-stack.html">Choose your stack</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="choose-your-stack.html">Choose your stack</a></li>
+<li><a href="client-library.html">Client library</a></li>
+<li><a href="../03-templating/canonical-syntax.html">Canonical syntax</a></li>
+<li><a href="../03-templating/web-components.html">Web components (templating)</a></li>
+<li><a href="website-integration.html">Website integration</a></li>
+</ul></div>

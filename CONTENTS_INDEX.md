@@ -59,6 +59,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Conditionals | `03-templating/conditionals.md` | `{if}`, `{endif}`, “has” checks |
 | Dates and formatting | `03-templating/dates-and-formatting.md` | Date formats in templates |
 | Media in templates | `03-templating/media-in-templates.md` | `{ media }` and image options |
+| Web components (templating) | `03-templating/web-components.md` | Region patterns, Light DOM, enhance-only anti-patterns |
 | Commerce functions | `03-templating/commerce-functions.md` | Commerce plugin template functions (cart, buy URL) |
 | Reference projects | `03-templating/reference-projects.md` | Six starter sites; live client only; install script |
 | Production optimization | `03-templating/production-optimization.md` | Optional hydrate/snapshot/bake (advanced) |
@@ -74,8 +75,12 @@ This index lists every documentation topic and its file path. Use it for navigat
 
 | Topic | File | Description |
 |-------|------|-------------|
+| Choose your stack | `04-integration/choose-your-stack.md` | Decision hub: HTML, web components, SPA, SSR |
 | Website integration | `04-integration/website-integration.md` | Connecting a site to Birkly |
-| Client library | `04-integration/client-library.md` | Script tag, options, behaviour |
+| Web components | `04-integration/web-components.md` | `<birkly-region>`, `data-birkly-region`, enhance-only |
+| SPA (React / Vue) | `04-integration/spa-react-vue.md` | Public API / fetch; no template tags in JSX |
+| SSR and build-time | `04-integration/ssr-and-build-time.md` | PHP, Astro, Next + page_bundle |
+| Client library | `04-integration/client-library.md` | Script tag, processTemplates, events, components |
 | Public API | `04-integration/public-api.md` | Reading content via API |
 | Public forms | `04-integration/public-forms.md` | Public submission and secure forms |
 

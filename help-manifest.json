@@ -231,6 +231,30 @@
       "title": "Production optimization",
       "keywords": ["hydrate", "snapshot", "bake", "performance", "seo", "birkly-client"],
       "docs_path": "03-templating/production-optimization.html"
+    },
+    {
+      "id": "choose-your-stack",
+      "title": "Choose your stack",
+      "keywords": ["stack", "integration", "html", "spa", "ssr", "web components", "react", "vue"],
+      "docs_path": "04-integration/choose-your-stack.html"
+    },
+    {
+      "id": "web-components",
+      "title": "Web components",
+      "keywords": ["birkly-region", "data-birkly-region", "custom element", "enhance", "shadow"],
+      "docs_path": "04-integration/web-components.html"
+    },
+    {
+      "id": "spa-react-vue",
+      "title": "SPA (React / Vue)",
+      "keywords": ["react", "vue", "spa", "json", "fetch", "jsx"],
+      "docs_path": "04-integration/spa-react-vue.html"
+    },
+    {
+      "id": "ssr-and-build-time",
+      "title": "SSR and build-time",
+      "keywords": ["ssr", "astro", "next", "php", "page_bundle", "static"],
+      "docs_path": "04-integration/ssr-and-build-time.html"
     }
   ]
 }

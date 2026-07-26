@@ -112,11 +112,11 @@ Close with `{endget}` (or `{end}`). Do **not** use `{entry 'collection'.'slug'}�
 
 `birkly-client.js` scans `<body>` for the **outermost** HTML elements whose content includes Birkly template tags (`{for`, `{from`, `{if`, field placeholders, etc.) and renders each region in place. You do **not** need `<main>`, `<header>`, or `<nav>` specifically — any wrapper (`<div class="overlay-menu">`, `<section>`, etc.) works.
 
-`data-birkly-region` will mark an explicit outermost region root for the client discoverer (**P45-M4** — not yet implemented). Until then, discovery is syntax-based only: outermost elements that contain template tags.
+**Explicit region roots (supported):** add `data-birkly-region` on an element, or use `<birkly-region collection entry|list …>`. The client discovers attributed roots, prepares default/wrapped Light DOM templates when needed, and runs `Birkly.processTemplates({ root })` for late mounts. See [Web components](../04-integration/web-components.md).
 
 **`<title>`** is handled separately when it contains template syntax.
 
-**Not rendered:** tags inside `<script>` / `<style>`, or nested inside another template region (the parent region wins).
+**Not rendered:** tags inside `<script>` / `<style>`, nested inside another template region (the parent / explicit root wins), or template tags sealed inside a **closed Shadow DOM** (fetch + `Birkly.render` there instead).
 
 ### UI decoupling (admin)
 
@@ -129,6 +129,8 @@ Admin parser currently compiles to PHP via `eval()` — a known security debt. R
 ## Related
 
 - [Templating overview](templating-overview.md)
+- [Web components (templating)](web-components.md)
 - [Loops and lists](loops-and-lists.md)
 - [Conditionals](conditionals.md)
 - [Variables and output](variables-and-output.md)
+- [Choose your stack](../04-integration/choose-your-stack.md)

@@ -1,5 +1,6 @@
 <p>Website integration is how you connect your website (or app) to Birkly so it can display content managed in the CMS. The main method is adding the Birkly client script and using the templating language in your HTML.</p>
-<div class="doc-summary"><p><strong>Connect your site to Birkly in two steps:</strong> (1) Add one script tag that loads the Birkly client and points to your CMS URL (<code>data-cms-url=&quot;https://your-cms.com&quot;</code>). (2) In your HTML use the template placeholders (<code>{ title }</code>, <code>{for each entry in 'blog'}</code>) where you want content. When the page loads, the client fetches content from Birkly and replaces those placeholders. No separate backend is required for a static site. For more control or server-side rendering, use the <a href="public-api.html">Public API</a> instead of or together with the client.</p></div>
+<div class="doc-summary"><p><strong>Connect your site to Birkly in two steps:</strong> (1) Add one script tag that loads the Birkly client and points to your CMS URL (<code>data-cms-url=&quot;https://your-cms.com&quot;</code>). (2) In your HTML use the template placeholders (<code>{ title }</code>, <code>{for each entry in 'blog'}</code>) where you want content. When the page loads, the client fetches content from Birkly and replaces those placeholders. No separate backend is required for a static site.</p>
+<p><strong>Not sure which approach fits?</strong> Start at <strong><a href="choose-your-stack.html">Choose your stack</a></strong> — HTML + templates, web components, SPA (React/Vue), or SSR/build-time. For more control or server-side rendering, use the <a href="public-api.html">Public API</a> instead of or together with the client.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Your <strong>website</strong> is what visitors see; <strong>Birkly</strong> is where you store and edit content. Integration is simply: “how does the website get that content?”</p>
 <p><strong>The simplest way: the Birkly client</strong></p>
 <ol>
@@ -42,13 +43,14 @@
 <p>If you run Birkly on your machine (e.g. <code>http://localhost:8080</code>), use that as the base URL:</p>
 <pre><code>&lt;script src=&quot;http://localhost:8080/birkly-client.js&quot;
         data-cms-url=&quot;http://localhost:8080&quot;&gt;&lt;/script&gt;</code></pre>
-<p><strong>When to use the Public API instead</strong></p>
+<p><strong>When to use another path</strong></p>
 <ul>
-<li>You’re building a <strong>single-page app</strong> (React, Vue, etc.) and want to fetch JSON and render yourself.</li>
-<li>You need <strong>server-side rendering</strong> (for SEO or so the site works without JavaScript).</li>
-<li>You want to <strong>combine</strong> Birkly content with other data in one backend.</li>
+<li><strong>Web components</strong> — one-line <code>&lt;birkly-region&gt;</code> for headers, footers, lists: <a href="web-components.html">Web components</a>.</li>
+<li><strong>SPA (React / Vue)</strong> — fetch JSON and render with your framework: <a href="spa-react-vue.html">SPA (React / Vue)</a>.</li>
+<li><strong>SSR / build-time</strong> — PHP, Astro, Next: <a href="ssr-and-build-time.html">SSR and build-time</a>.</li>
+<li><strong>Public API</strong> — combine Birkly with other backends: <a href="public-api.html">Public API</a>.</li>
 </ul>
-<p>In those cases, your server or frontend calls the <a href="public-api.html">Public API</a> (HTTP/JSON) and you render the data with your own code. You can also use both: client for some pages, API for others.</p>
+<p>Decision hub: <a href="choose-your-stack.html">Choose your stack</a>. You can also mix paths (client on marketing pages, API in an app).</p>
 <p><strong>Security</strong></p>
 <ul>
 <li>The client only <strong>reads</strong> content. It does not send admin credentials from your website.</li>
@@ -56,7 +58,8 @@
 <li>For <strong>form submissions</strong> (contact form, etc.), use the secure public submit or forms API—see <a href="public-forms.html">Public forms</a>—never put admin login on the frontend.</li>
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Integration options</strong></p>
-<p>| Option | How it works | Best for | |--------|--------------|----------| | <strong>Birkly client</strong> | Script in HTML; fetches from public API; replaces template syntax in DOM | Static sites, marketing pages, simple blogs | | <strong>Public API</strong> | Your app (frontend or backend) calls REST/JSON; you render | SPAs, SSR, custom backends, combining data sources | | <strong>Hybrid</strong> | Client on some pages, API on others | Mixed stacks |</p>
+<p>See <a href="choose-your-stack.html">Choose your stack</a> for the decision table. Short version:</p>
+<p>| Option | How it works | Best for | |--------|--------------|----------| | <strong>Birkly client</strong> | Script in HTML; fetches from public API; replaces template syntax in Light DOM | Static sites, marketing pages, simple blogs | | <strong>Web components</strong> | <code>&lt;birkly-region&gt;</code> / <code>data-birkly-region</code> + client | Shared regions, less repeated template boilerplate | | <strong>Public API / SPA</strong> | Your app calls REST/JSON; you render (no <code>{for}</code> in JSX) | React, Vue, custom UIs | | <strong>SSR / build-time</strong> | Server or CI fetches API / <code>page_bundle.php</code> | SEO, PHP hosts, static generators | | <strong>Hybrid</strong> | Client on some pages, API on others | Mixed stacks |</p>
 <p><strong>Client flow (concise)</strong></p>
 <ol>
 <li>Page loads; script runs when DOM is ready.</li>
@@ -73,6 +76,8 @@
 <p><strong>Server-side rendering</strong></p>
 <p>Same template syntax can be rendered on the server (PHP, Node, etc.): load entries from the API or from content files, run the template engine, send HTML. Benefits: SEO, no dependency on client JS, faster first paint. Implementation is environment-specific.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="choose-your-stack.html">Choose your stack</a></li>
+<li><a href="web-components.html">Web components</a></li>
 <li><a href="client-library.html">Client library</a></li>
 <li><a href="public-api.html">Public API</a></li>
 <li><a href="public-forms.html">Public forms</a></li>

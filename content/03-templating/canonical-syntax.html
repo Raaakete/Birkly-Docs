@@ -50,18 +50,26 @@
 <li><strong>Comparison:</strong> <code>{if entry.status == 'published'}</code>.</li>
 <li><strong>Published-only on public API:</strong> loops via <code>api/public.php</code> and <code>page_bundle.php</code> return <strong>published</strong> entries only. Draft entries exist in the CMS but render as empty on the live site until published.</li>
 </ol>
+<h3>Single entry by slug</h3>
+<pre><code>{from 'blog' get entry 'my-post-slug'}
+  &lt;h1&gt;{title}&lt;/h1&gt;
+  &lt;article&gt;{'content'}&lt;/article&gt;
+{endget}</code></pre>
+<p>Close with <code>{endget}</code> (or <code>{end}</code>). Do <strong>not</strong> use <code>{entry 'collection'.'slug'}…{endentry}</code> — that form is not valid for single-entry load.</p>
 <h3>Where the client renders templates</h3>
 <p><code>birkly-client.js</code> scans <code>&lt;body&gt;</code> for the <strong>outermost</strong> HTML elements whose content includes Birkly template tags (<code>{for</code>, <code>{from</code>, <code>{if</code>, field placeholders, etc.) and renders each region in place. You do <strong>not</strong> need <code>&lt;main&gt;</code>, <code>&lt;header&gt;</code>, or <code>&lt;nav&gt;</code> specifically — any wrapper (<code>&lt;div class=&quot;overlay-menu&quot;&gt;</code>, <code>&lt;section&gt;</code>, etc.) works.</p>
-<p>Optional: add <code>data-birkly-region</code> on an element to make the intent explicit (useful in complex layouts).</p>
+<p><strong>Explicit region roots (supported):</strong> add <code>data-birkly-region</code> on an element, or use <code>&lt;birkly-region collection entry|list …&gt;</code>. The client discovers attributed roots, prepares default/wrapped Light DOM templates when needed, and runs <code>Birkly.processTemplates({ root })</code> for late mounts. See <a href="../04-integration/web-components.html">Web components</a>.</p>
 <p><strong><code>&lt;title&gt;</code></strong> is handled separately when it contains template syntax.</p>
-<p><strong>Not rendered:</strong> tags inside <code>&lt;script&gt;</code> / <code>&lt;style&gt;</code>, or nested inside another template region (the parent region wins).</p>
+<p><strong>Not rendered:</strong> tags inside <code>&lt;script&gt;</code> / <code>&lt;style&gt;</code>, nested inside another template region (the parent / explicit root wins), or template tags sealed inside a <strong>closed Shadow DOM</strong> (fetch + <code>Birkly.render</code> there instead).</p>
 <h3>UI decoupling (admin)</h3>
 <p>Admin templates contain <strong>markup only</strong>. API calls and DOM logic live in <code>admin/js/*.js</code>. Reference: <code>admin/templates/activity.html</code> + <code>admin/js/activity.js</code>. See Birkly repo <code>docs/admin-templating.md</code>.</p>
 <h3>eval() note</h3>
 <p>Admin parser currently compiles to PHP via <code>eval()</code> — a known security debt. Replacement plan: Birkly repo <code>docs/admin-template-eval-replacement-plan.md</code> (interpreter, no new dependencies).</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="web-components.html">Web components (templating)</a></li>
 <li><a href="loops-and-lists.html">Loops and lists</a></li>
 <li><a href="conditionals.html">Conditionals</a></li>
 <li><a href="variables-and-output.html">Variables and output</a></li>
+<li><a href="../04-integration/choose-your-stack.html">Choose your stack</a></li>
 </ul></div>

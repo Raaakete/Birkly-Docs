@@ -4,7 +4,9 @@ Website integration is how you connect your website (or app) to Birkly so it can
 
 ## Summary
 
-**Connect your site to Birkly in two steps:** (1) Add one script tag that loads the Birkly client and points to your CMS URL (`data-cms-url="https://your-cms.com"`). (2) In your HTML use the template placeholders (`{ title }`, `{for each entry in 'blog'}`) where you want content. When the page loads, the client fetches content from Birkly and replaces those placeholders. No separate backend is required for a static site. For more control or server-side rendering, use the [Public API](public-api.md) instead of or together with the client.
+**Connect your site to Birkly in two steps:** (1) Add one script tag that loads the Birkly client and points to your CMS URL (`data-cms-url="https://your-cms.com"`). (2) In your HTML use the template placeholders (`{ title }`, `{for each entry in 'blog'}`) where you want content. When the page loads, the client fetches content from Birkly and replaces those placeholders. No separate backend is required for a static site.
+
+**Not sure which approach fits?** Start at **[Choose your stack](choose-your-stack.md)** — HTML + templates, web components, SPA (React/Vue), or SSR/build-time. For more control or server-side rendering, use the [Public API](public-api.md) instead of or together with the client.
 
 ## Beginner
 
@@ -72,13 +74,14 @@ If you run Birkly on your machine (e.g. `http://localhost:8080`), use that as th
         data-cms-url="http://localhost:8080"></script>
 ```
 
-**When to use the Public API instead**
+**When to use another path**
 
-- You’re building a **single-page app** (React, Vue, etc.) and want to fetch JSON and render yourself.
-- You need **server-side rendering** (for SEO or so the site works without JavaScript).
-- You want to **combine** Birkly content with other data in one backend.
+- **Web components** — one-line `<birkly-region>` for headers, footers, lists: [Web components](web-components.md).
+- **SPA (React / Vue)** — fetch JSON and render with your framework: [SPA (React / Vue)](spa-react-vue.md).
+- **SSR / build-time** — PHP, Astro, Next: [SSR and build-time](ssr-and-build-time.md).
+- **Public API** — combine Birkly with other backends: [Public API](public-api.md).
 
-In those cases, your server or frontend calls the [Public API](public-api.md) (HTTP/JSON) and you render the data with your own code. You can also use both: client for some pages, API for others.
+Decision hub: [Choose your stack](choose-your-stack.md). You can also mix paths (client on marketing pages, API in an app).
 
 **Security**
 
@@ -90,10 +93,14 @@ In those cases, your server or frontend calls the [Public API](public-api.md) (H
 
 **Integration options**
 
+See [Choose your stack](choose-your-stack.md) for the decision table. Short version:
+
 | Option | How it works | Best for |
 |--------|--------------|----------|
-| **Birkly client** | Script in HTML; fetches from public API; replaces template syntax in DOM | Static sites, marketing pages, simple blogs |
-| **Public API** | Your app (frontend or backend) calls REST/JSON; you render | SPAs, SSR, custom backends, combining data sources |
+| **Birkly client** | Script in HTML; fetches from public API; replaces template syntax in Light DOM | Static sites, marketing pages, simple blogs |
+| **Web components** | `<birkly-region>` / `data-birkly-region` + client | Shared regions, less repeated template boilerplate |
+| **Public API / SPA** | Your app calls REST/JSON; you render (no `{for}` in JSX) | React, Vue, custom UIs |
+| **SSR / build-time** | Server or CI fetches API / `page_bundle.php` | SEO, PHP hosts, static generators |
 | **Hybrid** | Client on some pages, API on others | Mixed stacks |
 
 **Client flow (concise)**
@@ -119,6 +126,8 @@ Same template syntax can be rendered on the server (PHP, Node, etc.): load entri
 
 ## Related
 
+- [Choose your stack](choose-your-stack.md)
+- [Web components](web-components.md)
 - [Client library](client-library.md)
 - [Public API](public-api.md)
 - [Public forms](public-forms.md)

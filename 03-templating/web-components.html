@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>web components — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="web-components.html" class="nav-link active">Web components (templating)</a>
+        <a href="commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="events-functions.html" class="nav-link">Events functions</a>
+        <a href="storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Patterns and anti-patterns for Birkly template tags inside regions and custom elements.</p>
+<div class="doc-summary"><p>Put <strong>template syntax in Light DOM</strong> children of <code>&lt;birkly-region&gt;</code> or <code>[data-birkly-region]</code>. Use <code>{from … get entry …}…{endget}</code> and <code>{for each}…{endfor}</code>. After render, <strong>enhance</strong> (classes, listeners) — never wipe <code>innerHTML</code>. Closed Shadow DOM is for fetch + <code>Birkly.render</code> only, not for <code>{for each}</code> discovery.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Good: template in Light DOM</h3>
+<pre><code>&lt;birkly-region collection=&quot;blog&quot; entry=&quot;my-post-slug&quot;&gt;
+  &lt;h1&gt;{title}&lt;/h1&gt;
+  &lt;article&gt;{'content'}&lt;/article&gt;
+&lt;/birkly-region&gt;</code></pre>
+<p>Or explicit root with full block:</p>
+<pre><code>&lt;main data-birkly-region&gt;
+  {from 'blog' get entry 'my-post-slug'}
+    &lt;h1&gt;{title}&lt;/h1&gt;
+    &lt;article&gt;{'content'}&lt;/article&gt;
+  {endget}
+&lt;/main&gt;</code></pre>
+<h3>Good: list children</h3>
+<pre><code>&lt;birkly-region collection=&quot;blog&quot; list ordered=&quot;date:desc&quot;&gt;
+  &lt;article class=&quot;card&quot;&gt;
+    &lt;h2&gt;{title}&lt;/h2&gt;
+    &lt;p&gt;{excerpt}&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/birkly-region&gt;</code></pre>
+<h3>Bad: wipe after CMS render</h3>
+<pre><code>class MyHeader extends HTMLElement {
+  connectedCallback() {
+    // BAD — deletes header content Birkly just rendered
+    this.innerHTML = '&lt;header class=&quot;site-header&quot;&gt;&lt;/header&gt;';
+  }
+}</code></pre>
+<h3>Good: enhance only</h3>
+<pre><code>document.addEventListener('birkly:region-processed', (e) =&gt; {
+  if (e.target.matches('birkly-region, [data-birkly-region]')) {
+    BirklyComponents.setActiveNav(e.target);
+  }
+});</code></pre></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Patterns</h3>
+<p>| Pattern | When | Notes | |---------|------|-------| | Empty <code>&lt;birkly-region collection entry&gt;</code> | Shared header/footer | Client injects default <code>{from}…{endget}</code> | | Children without <code>{from}</code> / <code>{for}</code> | Custom card/layout | Client wraps with get-entry or for-loop | | Children with full <code>{from}</code> / <code>{for}</code> | Full control | Child HTML wins as-is | | <code>[data-birkly-region]</code> + tags | Complex layout root | Explicit outermost region |</p>
+<h3>Anti-patterns</h3>
+<ol>
+<li><strong><code>innerHTML = …</code> in <code>connectedCallback</code></strong> on a host that holds templates or CMS output.</li>
+<li><strong><code>{for each}</code> / <code>{from}</code> inside React/Vue JSX</strong> — use the <a href="../04-integration/spa-react-vue.html">SPA guide</a>.</li>
+<li><strong>Templates inside closed Shadow DOM</strong> — <code>processTemplates</code> / discoverer won’t see them. Fetch data and call <code>Birkly.render(templateString, data)</code>, then assign into the shadow root.</li>
+<li><strong>Phantom single-entry syntax</strong> — <code>{entry 'x'.'y'}…{endentry}</code> is invalid; use <code>{from 'x' get entry 'y'}…{endget}</code>.</li>
+</ol>
+<h3>Events for template authors</h3>
+<ul>
+<li><code>birkly:region-processed</code> — one region finished (listen on the element or bubble).</li>
+<li><code>birkly:templates-processed</code> — full-document <code>processTemplates()</code> finished.</li>
+</ul>
+<p>Integration API and attributes: <a href="../04-integration/web-components.html">Web components (integration)</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="canonical-syntax.html">Canonical syntax</a></li>
+<li><a href="../04-integration/web-components.html">Web components (integration)</a></li>
+<li><a href="../04-integration/choose-your-stack.html">Choose your stack</a></li>
+<li><a href="../04-integration/client-library.html">Client library</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

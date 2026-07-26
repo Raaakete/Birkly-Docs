@@ -63,6 +63,7 @@
         <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
         <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
@@ -70,7 +71,11 @@
         <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
         <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
         <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
         <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
         <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
@@ -189,7 +194,11 @@
   &lt;div class=&quot;content-editor-grid-item&quot;&gt;Normal cell&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 <p><strong>Stripped on save:</strong> Editor-only attributes and chrome (<code>data-ce-*</code>, resize handles, inspector wrappers) are removed by <code>ContentEditorSync</code> and PHP <code>processValue</code> before persistence.</p>
-<p><strong>Templates:</strong> Output editor HTML unescaped in templates, e.g. <code>{'content'}</code> or <code>{entry 'blog'.'slug'} … {'body'} {endentry}</code>. Ensure site CSS does not override layout inline styles unintentionally. Optional field option <code>css_url</code> loads project CSS in the admin preview only — it is not embedded in saved HTML.</p>
+<p><strong>Templates:</strong> Output editor HTML unescaped in templates, e.g. <code>{'content'}</code> inside a single-entry block:</p>
+<pre><code>{from 'blog' get entry 'my-post-slug'}
+  &lt;article&gt;{'body'}&lt;/article&gt;
+{endget}</code></pre>
+<p>Ensure site CSS does not override layout inline styles unintentionally. Optional field option <code>css_url</code> loads project CSS in the admin preview only — it is not embedded in saved HTML.</p>
 <p><strong>Layout studio modules</strong> (platform): <code>fieldtypes/ContentEditor/layout/</code> — shared inspector, resize controller, table-layout, grid-layout. Tests: <code>layout_roundtrip_test.php</code>, <code>table_layout_test.php</code>, <code>grid_layout_test.php</code>, <code>caret_insert_test.php</code>.</p>
 <p><strong>Out of scope (Phase 5.5):</strong> nested tables/grids, spreadsheet formulas, cell merge/split (deferred to a future phase).</p></div></details>
 <div class="doc-related"><ul>

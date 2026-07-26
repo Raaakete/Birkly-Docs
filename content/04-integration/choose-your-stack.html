@@ -1,0 +1,27 @@
+<p>Pick how your site talks to Birkly. Four supported paths — start here, then follow one guide.</p>
+<div class="doc-summary"><p>Birkly content can power a site in four ways: <strong>HTML + templates</strong> (default), <strong>web components</strong> (<code>&lt;birkly-region&gt;</code>), a <strong>SPA</strong> (React/Vue fetching JSON), or <strong>SSR / build-time</strong> (PHP, Astro, Next). Use this page to choose; each path links to a focused guide.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Ask one question: <strong>who renders the page?</strong></p>
+<p>| If you… | Choose | Guide | |---------|--------|-------| | Write normal HTML and want Birkly to fill in titles, lists, and posts | <strong>HTML + templates</strong> | <a href="website-integration.html">Website integration</a> · <a href="../03-templating/templating-overview.html">Templating overview</a> | | Want one-line regions (header, footer, blog list) without repeating <code>{from}</code> / <code>{for}</code> | <strong>Web components</strong> | <a href="web-components.html">Web components (integration)</a> | | Build with React, Vue, or similar and render with your own components | <strong>SPA</strong> | <a href="spa-react-vue.html">SPA (React / Vue)</a> | | Need HTML before JavaScript runs (SEO, PHP host, static build) | <strong>SSR / build-time</strong> | <a href="ssr-and-build-time.html">SSR and build-time</a> |</p>
+<p><strong>Default for most marketing sites and blogs:</strong> HTML + templates with <code>birkly-client.js</code>. Add <code>&lt;birkly-region&gt;</code> when you want reusable one-line regions.</p>
+<p><strong>Do not mix blindly:</strong> SPA frameworks should <strong>not</strong> put <code>{for each}</code> inside JSX. Fetch JSON (Public API or <code>Birkly.fetch</code> / <code>getEntryBySlug</code>) and render with React/Vue — or call <code>Birkly.render</code> into a DOM ref. See the SPA guide.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>| Path | Runtime | Content load | Template language | |------|---------|--------------|-------------------| | HTML + templates | Browser (<code>birkly-client.js</code>) | <code>page_bundle.php</code> / public API | Light DOM <code>{…}</code> tags; auto <code>processTemplates()</code> | | Web components | Browser | Same client | <code>&lt;birkly-region&gt;</code> / <code>data-birkly-region</code> + optional child templates | | SPA | Your framework | Public API / <code>Birkly.fetch</code> | <strong>No</strong> Birkly tags in JSX; JSON → components (or <code>Birkly.render</code> into a ref) | | SSR / build-time | PHP / Node / CI | Public API or <code>page_bundle.php</code> | Your engine, or <code>Birkly.render</code> if you run the client string engine in Node |</p>
+<p><strong>Shared rules</strong></p>
+<ul>
+<li>Single entry: <code>{from 'collection' get entry 'slug'}…{endget}</code> (not <code>{entry}…{endentry}</code>).</li>
+<li>Light DOM holds templates the client discovers. Closed Shadow DOM is not scanned — fetch + <code>Birkly.render(html, data)</code> if you must render inside a shadow root.</li>
+<li>Enhance-only helpers (<code>birkly-components.js</code>) must <strong>never</strong> wipe <code>innerHTML</code> of CMS-rendered regions.</li>
+</ul>
+<p><strong>Related API surface</strong></p>
+<ul>
+<li><a href="client-library.html">Client library</a> — <code>processTemplates</code>, events, <code>getEntryBySlug</code></li>
+<li><a href="public-api.html">Public API</a> — JSON for SPA/SSR</li>
+<li><a href="../03-templating/canonical-syntax.html">Canonical syntax</a></li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="website-integration.html">Website integration</a></li>
+<li><a href="web-components.html">Web components</a></li>
+<li><a href="spa-react-vue.html">SPA (React / Vue)</a></li>
+<li><a href="ssr-and-build-time.html">SSR and build-time</a></li>
+<li><a href="client-library.html">Client library</a></li>
+<li><a href="public-api.html">Public API</a></li>
+</ul></div>

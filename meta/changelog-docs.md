@@ -14,6 +14,18 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-26 — P45 templating stacks (M8–M10)
+
+- **New:** `04-integration/choose-your-stack.md` — decision hub for HTML, web components, SPA, SSR.
+- **New:** `04-integration/web-components.md`, `03-templating/web-components.md` — `<birkly-region>`, `data-birkly-region`, Light vs Shadow, enhance-only.
+- **New:** `04-integration/spa-react-vue.md` — Public API / `getEntryBySlug`; no `{for each}` in JSX.
+- **New:** `04-integration/ssr-and-build-time.md` — PHP, Astro, Next + `page_bundle.php` snippets.
+- **Updated:** `03-templating/canonical-syntax.md` — `data-birkly-region` supported; region component pointer.
+- **Updated:** `04-integration/website-integration.md`, `04-integration/client-library.md` — stack hub, `processTemplates`, events, `birkly-components.js`.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`.
+
+---
+
 ## 2026-07-25 — P43 configurable hosting URLs (P43-M9)
 
 - **Updated:** `07-operations/dokploy-hosting.md` — CMS URL vs public site URL, `settings/hosting.json`, Dokploy Internal Path `/`, two-domain example (`cms.birkly.cloud` + `birkly.cloud`), no `cms.` subdomain requirement.

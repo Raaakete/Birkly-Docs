@@ -101,6 +101,16 @@ Install merges collections by slug into `content/collections/`. Re-installing ov
 
 User-story IDs (V-TPL-01 … V-TPL-06) and per-page acceptance criteria live in the Birkly repo: `docs/reference-projects/user-stories.md` and each project's `VIDEO.md`.
 
+## Marketing site (Birkly-Website)
+
+The public marketing site is **not** one of the six `reference-projects/` starters, but it follows the same Light DOM rule for chrome:
+
+- Header/footer markup lives in each HTML page inside `<birkly-header>` / `<birkly-footer>`.
+- Site JS (`js/components.js`) is **enhance-only** — it never assigns `innerHTML` on those hosts (that would wipe CMS templates).
+- Active nav uses platform `birkly-components.js` → `BirklyComponents.setActiveNav`.
+
+Prefer `<birkly-region collection="site_elements" entry="header">` when chrome is CMS-authored; use the enhance-only pattern when chrome is intentionally static (logo + hardcoded nav), as on Birkly-Website.
+
 ## Related
 
 - [Templating overview](templating-overview.md)

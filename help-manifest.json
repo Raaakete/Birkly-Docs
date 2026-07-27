@@ -233,6 +233,30 @@
       "docs_path": "03-templating/production-optimization.html"
     },
     {
+      "id": "ai-presence",
+      "title": "AI Presence",
+      "keywords": ["ai presence", "brand context", "claims", "evidence", "well-known", "brand-context", "cross-links", "publish"],
+      "docs_path": "02-content/ai-presence.html"
+    },
+    {
+      "id": "ai-presence-getting-started",
+      "title": "AI Presence — getting started",
+      "keywords": ["ai presence", "tutorial", "publish", "brand context", "first steps"],
+      "docs_path": "02-content/ai-presence-getting-started.html"
+    },
+    {
+      "id": "ai-presence-claims",
+      "title": "AI Presence — claims & cross-links",
+      "keywords": ["claims", "evidence", "amazon", "reviews", "marketplace", "sources", "proof"],
+      "docs_path": "02-content/ai-presence-claims-evidence-and-links.html"
+    },
+    {
+      "id": "ai-presence-api",
+      "title": "AI Presence public API",
+      "keywords": ["brand-context.json", "well-known", "public api", "graph", "json-ld"],
+      "docs_path": "04-integration/ai-presence-public-api.html"
+    },
+    {
       "id": "choose-your-stack",
       "title": "Choose your stack",
       "keywords": ["stack", "integration", "html", "spa", "ssr", "web components", "react", "vue"],

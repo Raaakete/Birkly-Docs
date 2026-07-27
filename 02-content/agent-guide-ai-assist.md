@@ -1,14 +1,16 @@
-# AI Presence — AI Assist
+# Agent Guide — AI Assist
 
 ## Summary
 
-AI Assist helps you build and maintain AI Presence faster. It **suggests** — it never writes to your draft until you **Accept**. You can use rule-based suggestions without any AI provider; connecting Settings → AI connections unlocks Copilot, Fill 100%, field Generate, and smarter link suggestions.
+AI Assist helps you build and maintain Agent Guide faster. It **suggests** — it never writes to your draft until you **Accept**. You can use rule-based suggestions without any AI provider; connecting Settings → AI connections unlocks Copilot, Fill 100%, field Generate, and smarter source/link suggestions.
+
+**Grounding rule:** AI Assist prefers declared **sources of truth** before inferring. When sources are missing, it may suggest `sources_of_truth.new` entries first.
 
 ## Where AI Assist lives
 
 - **Right sidebar** — AI Assist panel (FAB on smaller viewports)
 - **Context fields** — **Generate** button per field
-- **Overview** — Suggest cross-links (same engine as sidebar)
+- **Overview / Sources** — Suggest sources and cross-links (same engine as sidebar)
 
 **AI connection picker** — Top of sidebar. Empty = rules-only mode.
 
@@ -18,10 +20,10 @@ AI Assist helps you build and maintain AI Presence faster. It **suggests** — i
 
 | Action | Mode | Behavior |
 |--------|------|----------|
-| **Auto-fill** | `fill_complete` (creative) | Target ~100% completeness; infers gaps from draft + CMS |
+| **Auto-fill** | `fill_complete` (creative) | Target ~100% completeness; infers gaps from draft + sources |
 | **Fill gaps** | `fill_gaps` | Only incomplete completeness sections |
 | **Fill 100%** | `fill_complete` | Same as auto-fill — explicit label |
-| **Suggest cross-links** | `links` + rules | Product→CMS links, evidence URLs, derived-from |
+| **Suggest cross-links / sources** | `links` + rules | Registry entries, product→CMS links, evidence URLs, derived-from |
 
 All return a **review queue** in the sidebar unless you use field **Generate** (direct apply).
 
@@ -29,11 +31,11 @@ All return a **review queue** in the sidebar unless you use field **Generate** (
 
 | Action | Behavior |
 |--------|----------|
-| **Brand Studio** | Select CMS collections → wizard generates identity, products, claims from entries |
+| **Guide Studio** | Select CMS collections → wizard generates identity, products, claims from entries |
 | **Improve** | Refine existing copy |
-| **Suggest claims** | Claim ideas grounded in CMS excerpts |
+| **Suggest claims** | Claim ideas grounded in source excerpts |
 
-Brand Studio may attach `wizard_source` connected content refs for chosen collections.
+Guide Studio may add narrative **`cms_collection`** sources for chosen collections.
 
 ## Suggestion lifecycle
 
@@ -53,22 +55,23 @@ Draft updated in memory → Save draft → Publish
 
 | field | Applies |
 |-------|---------|
+| `sources_of_truth.new` | New registry entry `{type, role, label, url?, ref?}` |
 | `identity.short_description` | Identity text |
 | `positioning.best_known_for` | Array append |
 | `products_services.new` | New product object |
 | `products_services.link` | Add source to existing product |
 | `claims.new` | New claim string or object |
 | `evidence.new` | New evidence with optional claim link |
-| `identity.derived_from.short_description` | Mark CMS source for summary |
+| `identity.derived_from.short_description` | Mark source for summary |
 | `relationships.new` | Partner/parent/etc. |
 
-Each suggestion includes `source` (cms, ai, rule, wizard) and `confidence`.
+Each suggestion includes `source` (cms, source, ai, rule, wizard, inferred) and `confidence`.
 
 ## Field-level Generate (Context tab)
 
 Click **Generate** next to a field:
 
-- Calls field AI with full draft + CMS context
+- Calls field AI with full draft + **sources of truth** context
 - **Applies directly** to that field (no sidebar queue)
 - Uses creative grounding when AI connection set
 
@@ -78,28 +81,30 @@ Use for quick single-field polish; use Copilot for multi-section passes.
 
 | Mode | When | AI behavior |
 |------|------|-------------|
-| **Creative** | Fill 100%, field Generate default | Prefer CMS; infer plausible values when missing; mark source inferred |
+| **Creative** | Fill 100%, field Generate default | Prefer sources; infer plausible values when missing; mark source inferred |
 | **Grounded** | Some copilot modes without creative flag | Do not invent facts unsupported by sources |
 
 For regulated industries, review inferred suggestions carefully before accept.
 
-## Link suggestions (rules + AI)
+## Link and source suggestions (rules + AI)
 
 **Rule-based** (always available):
 
-- Product name ≈ connected CMS entry label → suggest `products_services.link`
+- Empty registry → suggest first CMS collection or primary website as `sources_of_truth.new`
+- Product name ≈ CMS entry label → suggest `products_services.link`
 - Claim mentions amazon/review/rating without marketplace evidence → suggest `evidence.new`
-- Short description filled + About entry connected → suggest `derived_from`
+- Short description filled + narrative CMS source exists → suggest `derived_from`
 
 **AI-enhanced** (with connection):
 
-- Copilot `links` mode adds AI proposals filtered to link-related fields
+- Copilot `links` mode adds AI proposals filtered to source/link fields
+- Copilot `sources` mode focuses on `sources_of_truth.new` only
 
-## CMS context gathering
+## Context gathering
 
-AI Assist reads **connected_content** entries (entry refs only) and excerpts text fields (title, body, description, etc.) — max ~2–4 KB per entry. More connected entries = better suggestions.
+AI Assist reads **sources_of_truth** (CMS entry/collection refs) and excerpts text fields (title, body, description, etc.) — max ~2–4 KB per entry. More declared sources = better suggestions.
 
-Brand Studio scans selected collections (up to ~12 entries each).
+Guide Studio scans selected collections (up to ~12 entries each).
 
 ## Loading and cancel
 
@@ -122,6 +127,6 @@ AI Assist read paths need `read`. Accept/save needs `manage_settings`. AI connec
 
 ## Related docs
 
-- [Getting started](ai-presence-getting-started.md)
-- [Claims, evidence & cross-links](ai-presence-claims-evidence-and-links.md)
+- [Getting started](agent-guide-getting-started.md)
+- [Claims, evidence & cross-links](agent-guide-claims-evidence-and-links.md)
 - [AI connections](../01-admin/ai-connections.md)

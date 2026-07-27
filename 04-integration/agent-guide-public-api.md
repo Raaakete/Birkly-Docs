@@ -1,10 +1,10 @@
-# AI Presence — public API
+# Agent Guide — public API
 
 ## Summary
 
-Read-only HTTP endpoints expose the **published** brand context on your **public site domain**. Draft content is never served. Use these endpoints for headless sites, custom chatbots, server-side agents, and verification tools.
+Read-only HTTP endpoints expose the **published** Agent Guide on your **public site domain**. Draft content is never served. Use these endpoints for headless sites, custom chatbots, server-side agents, and verification tools.
 
-**Related:** [MCP & agents](ai-presence-mcp-and-agents.md) · [Data model](../02-content/ai-presence-data-model.md)
+**Related:** [MCP & agents](agent-guide-mcp-and-agents.md) · [Data model](../02-content/agent-guide-data-model.md)
 
 ## Base URL
 
@@ -18,17 +18,18 @@ https://YOUR-PUBLIC-SITE/
 
 | Channel | URL | Format |
 |---------|-----|--------|
-| Well-known file | `GET /.well-known/brand-context.json` | Raw JSON export |
+| Well-known file (default) | `GET /.well-known/agent-guide.json` | Raw JSON export |
+| Well-known file (legacy) | `GET /.well-known/brand-context.json` | Same snapshot (legacy path) |
 | Public API | `GET /api/public/ai_presence.php` | JSON envelope `{ status, data }` |
 
-Both serve the same canonical export for `action=brand` (full view) unless a `view` filter is applied on the API.
+Both well-known paths and the API serve the same canonical export for `action=brand` (full view) unless a `view` filter is applied on the API.
 
 ## Endpoints
 
 | Action | URL | Returns |
 |--------|-----|---------|
-| Full brand | `?action=brand` or `?action=brand&view=full` | Complete enriched export |
-| Summary | `?action=brand&view=summary` | Identity, positioning, supported claims (lightweight) |
+| Full guide | `?action=brand` or `?action=brand&view=full` | Complete enriched export |
+| Summary | `?action=brand&view=summary` | Identity, positioning, supported claims, usage_hints |
 | Products | `?action=brand&view=products` | `products_services[]` only |
 | Claims | `?action=brand&view=claims` | Supported claims with sources |
 | Single product | `?action=product&id={id}` | One product (id or name match) |
@@ -69,9 +70,11 @@ HTTP status: **404** when publishing disabled or entity not found; **400** for u
 
 | Field | Description |
 |-------|-------------|
-| schema_version | Always `ai_presence.v1` |
+| schema_version | `agent_guide.v1` (legacy exports may show `ai_presence.v1`) |
 | published_version | Integer, increments on each publish |
 | generated_at | ISO 8601 publish timestamp |
+| guide_meta | Product marker, summary_layer flag |
+| sources_of_truth | Resolved registry of canonical sources |
 | usage_hints | AI consumer guidance (full export) |
 | json_ld | Optional schema.org graph when enabled in settings |
 
@@ -85,10 +88,23 @@ GET /api/public/ai_presence.php?action=brand&view=summary
 {
   "status": "ok",
   "data": {
-    "schema_version": "ai_presence.v1",
+    "schema_version": "agent_guide.v1",
     "published_version": 3,
     "generated_at": "2026-07-27T10:00:00+00:00",
     "view": "summary",
+    "guide_meta": {
+      "product": "Agent Guide",
+      "summary_layer": true
+    },
+    "sources_of_truth": [
+      {
+        "id": "truth_about",
+        "type": "cms_entry",
+        "role": "narrative",
+        "label": "About",
+        "url": "https://example.com/pages/about"
+      }
+    ],
     "identity": {
       "official_name": "Acme Co",
       "short_description": "Project management for remote teams",
@@ -116,6 +132,7 @@ GET /api/public/ai_presence.php?action=brand&view=summary
     ],
     "usage_hints": {
       "summary_layer": true,
+      "follow_sources_of_truth": true,
       "claims_require_evidence": true,
       "follow_links_for": ["product specs", "pricing", "reviews"]
     }
@@ -178,10 +195,16 @@ Includes `claim`, `evidence[]` (resolved items), `sources[]`, and `usage_hints.r
 ## Example — well-known file
 
 ```http
-GET /.well-known/brand-context.json
+GET /.well-known/agent-guide.json
 ```
 
 Returns raw JSON body (no `{ status, data }` wrapper). Same content as full API export including `json_ld` when enabled.
+
+Legacy path:
+
+```http
+GET /.well-known/brand-context.json
+```
 
 Pretty-printed; suitable for crawlers and static mirrors.
 
@@ -209,7 +232,7 @@ Validate with [Google Rich Results Test](https://search.google.com/test/rich-res
 | Header | Value |
 |--------|-------|
 | Cache-Control | `public, max-age=300` (5 minutes) |
-| X-AI-Presence-Version | Published version integer |
+| X-Agent-Guide-Version | Published version integer |
 
 Clients should re-fetch after known republish or when version header changes.
 
@@ -224,7 +247,7 @@ Returns **404** JSON when:
 - `publication_settings.enabled` is false
 - No published snapshot exists
 
-Message: `AI Presence not published or disabled`
+Message: `Agent Guide not published or disabled`
 
 ## Headless / separate public host
 
@@ -233,8 +256,10 @@ Configure **public site URL** under Settings → Site delivery. The well-known f
 For `public_site_mode=project`, publish also writes:
 
 ```
-project/.well-known/brand-context.json
+project/.well-known/agent-guide.json
 ```
+
+(Legacy filename `brand-context.json` when that path is configured.)
 
 ## Security
 
@@ -248,7 +273,7 @@ project/.well-known/brand-context.json
 
 ## Admin API (not public)
 
-Authenticated endpoints for draft edit, publish, AI suggest, link validate — see [Data model](../02-content/ai-presence-data-model.md#admin-api-authenticated).
+Authenticated endpoints for draft edit, publish, AI suggest, link validate — see [Data model](../02-content/agent-guide-data-model.md#admin-api-authenticated).
 
 Do not expose admin API to the public internet without normal Birkly auth.
 
@@ -258,7 +283,7 @@ Do not expose admin API to the public internet without normal Birkly auth.
 
 ```bash
 BASE="https://your-public-site.com"
-curl -s "$BASE/.well-known/brand-context.json" | jq .published_version
+curl -s "$BASE/.well-known/agent-guide.json" | jq .published_version
 curl -s "$BASE/api/public/ai_presence.php?action=brand&view=summary" | jq .data.identity.official_name
 ```
 
@@ -272,11 +297,11 @@ const products = data.products_services ?? [];
 
 ### Server-side agent (Node)
 
-Fetch summary on session start; cache 5 min keyed by `X-AI-Presence-Version`. For product questions, call graph endpoint.
+Fetch summary on session start; cache 5 min keyed by `X-Agent-Guide-Version`. Read `sources_of_truth` first; for product questions, call graph endpoint.
 
 ## Related docs
 
-- [AI Presence overview](../02-content/ai-presence.md)
-- [Getting started](../02-content/ai-presence-getting-started.md)
-- [MCP & agents](ai-presence-mcp-and-agents.md)
+- [Agent Guide overview](../02-content/agent-guide.md)
+- [Getting started](../02-content/agent-guide-getting-started.md)
+- [MCP & agents](agent-guide-mcp-and-agents.md)
 - [Website integration](website-integration.md)

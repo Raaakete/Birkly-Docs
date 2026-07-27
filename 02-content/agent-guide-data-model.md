@@ -1,16 +1,18 @@
-# AI Presence — data model
+# Agent Guide — data model
 
 ## Summary
 
-Technical reference for `ai_presence.v1`: storage layout, schema sections, completeness algorithm, publish pipeline, and export enrichment. Schema file: `schema/ai_presence.schema.json` in the Birkly repo.
+Technical reference for `agent_guide.v1`: storage layout, schema sections, completeness algorithm, publish pipeline, and export enrichment. Schema file: `schema/ai_presence.schema.json` in the Birkly repo (canonical `$id`: `agent_guide.v1.json`).
+
+Legacy schema version `ai_presence.v1` is accepted on load and normalized to current behavior.
 
 ## Schema version
 
 ```json
-"schema_version": "ai_presence.v1"
+"schema_version": "agent_guide.v1"
 ```
 
-Validation rejects unknown schema versions on save.
+Also accepted: `"ai_presence.v1"` (legacy). New saves use `agent_guide.v1`.
 
 ## Storage (runtime)
 
@@ -25,6 +27,8 @@ settings/ai_presence/
     1.json … N.json   ← optional history (cap 50)
 ```
 
+Internal path name `ai_presence` is historical; the product and export schema are **Agent Guide**.
+
 ### meta.json fields
 
 | Field | Description |
@@ -38,10 +42,12 @@ settings/ai_presence/
 
 | Key | Description |
 |-----|-------------|
-| identity | Brand name, descriptions, website, social, derived_from |
+| `sources_of_truth` | Registry of canonical sources (CMS, web, docs, media, marketplaces) |
+| `guide_meta` | Export hints (`product`, `summary_layer`) |
+| identity | Official name, descriptions, website, social, derived_from |
 | positioning | Best known for, differentiators, fit |
 | communication_guidance | Terms, tone, qualifications |
-| connected_content | CMS entry/collection refs with roles |
+| connected_content | **Legacy** — migrated to `sources_of_truth` on save |
 | products_services | Catalog items |
 | claims | Factual statements + status |
 | evidence | Proof artifacts |
@@ -51,6 +57,37 @@ settings/ai_presence/
 | setup_completed_at / setup_skipped_at | Onboarding markers |
 
 Published export adds: `published_version`, `generated_at`, `usage_hints`, optional `json_ld`.
+
+## sources_of_truth item
+
+```json
+{
+  "id": "truth_about",
+  "type": "cms_entry",
+  "role": "narrative",
+  "label": "About us",
+  "url": "https://example.com/pages/about",
+  "notes": "",
+  "priority": 80,
+  "last_verified_at": "2026-07-27T10:00:00+00:00",
+  "link_status": "ok",
+  "ref": {
+    "collection": "pages",
+    "entry_id": "abc123",
+    "slug": "about",
+    "label": "About us",
+    "ref_type": "entry"
+  }
+}
+```
+
+**Types:** `cms_entry`, `cms_collection`, `website`, `document`, `media_asset`, `marketplace`, `review_platform`, `other`
+
+**Roles:** `narrative`, `proof`, `reference`, `archive`
+
+For `document` and `media_asset`, optional `media_id` links Media library.
+
+On publish, CMS refs resolve to public URLs; `guide_meta` and enriched `usage_hints` mark the summary layer.
 
 ## identity
 
@@ -78,21 +115,6 @@ Published export adds: `published_version`, `generated_at`, `usage_hints`, optio
 
 On publish, `derived_from.*.url` resolves to public CMS URL when possible.
 
-## connected_content item
-
-```json
-{
-  "role": "about",
-  "ref_type": "entry",
-  "collection": "pages",
-  "entry_id": "abc123",
-  "slug": "about",
-  "label": "About us"
-}
-```
-
-`ref_type`: `entry` | `collection`
-
 ## products_services item
 
 ```json
@@ -117,7 +139,7 @@ On publish, `derived_from.*.url` resolves to public CMS URL when possible.
 
 `connected_entry` legacy field normalized into `sources[]` on save. Export omits raw `connected_entry`; exports resolved `sources`.
 
-## source_link definition
+## Product source_link definition
 
 ```json
 {
@@ -190,9 +212,10 @@ Generated at publish — guides AI consumers:
 ```json
 {
   "summary_layer": true,
+  "follow_sources_of_truth": true,
   "authoritative_fields": ["identity.official_name", "claims.supported", "evidence.user_verified"],
   "marketing_fields": ["positioning.best_known_for", "positioning.differentiators"],
-  "citation": "Prefer citing linked sources…",
+  "citation": "Prefer citing sources_of_truth and linked detail URLs over paraphrasing summaries alone.",
   "claims_require_evidence": true,
   "follow_links_for": ["product specs", "pricing", "reviews", "certifications"]
 }
@@ -204,7 +227,7 @@ Generated at publish — guides AI consumers:
 |-----|-----|-------|
 | identity | 20 | name 10 + short 10 |
 | description | 15 | full or what_we_do |
-| connected_content | 15 | count ≥ 1 |
+| sources_of_truth | 15 | narrative source 15; any source 8 |
 | claims | 20 | supported+evidence 20; any claim 8 |
 | evidence | 15 | any 10 + URL 5 |
 | positioning | 10 | best_known_for non-empty |
@@ -214,26 +237,26 @@ Generated at publish — guides AI consumers:
 
 ## Publish pipeline
 
-1. Load draft → validate
+1. Load draft → validate → normalize sources (`agent_guide_sources.php`)
 2. Require `publication_settings.enabled`
 3. Write `published.json`, bump version, save meta
 4. Snapshot to `versions/{n}.json`, prune >50
-5. `birkly_ai_presence_build_public_export()`:
-   - Attach version, timestamp
-   - Optional JSON-LD via `birkly_ai_presence_export_json_ld_pro()`
-   - `birkly_ai_presence_enrich_public_export()` — resolve sources, usage_hints, linked_evidence
-6. Write well-known file if `public_site_mode=project`
+5. Build public export:
+   - Attach version, timestamp, `guide_meta`
+   - Optional JSON-LD
+   - Enrich: resolve `sources_of_truth`, product sources, usage_hints, linked_evidence
+6. Write well-known file (default `/.well-known/agent-guide.json`) if `public_site_mode=project`
 
 ## Admin API (authenticated)
 
-Base: `/api/ai_presence.php`
+Base: `/api/ai_presence.php` (internal name; serves Agent Guide)
 
 | Action | Method | Notes |
 |--------|--------|-------|
 | get | read | Draft + published + completeness + staleness |
 | save_draft | write | CSRF, merge partial |
 | publish | write | Validate + snapshot |
-| suggest / copilot | write | AI suggestions |
+| suggest / copilot | write | AI suggestions (sources-first grounding) |
 | suggest_links | write | Link-specific suggestions |
 | validate_links | write | Optional `update_status` |
 | list_collection_entries | read | CMS picker |
@@ -249,5 +272,5 @@ Base: `/api/ai_presence.php`
 
 ## Related docs
 
-- [Public API](../04-integration/ai-presence-public-api.md)
-- [Claims, evidence & cross-links](ai-presence-claims-evidence-and-links.md)
+- [Public API](../04-integration/agent-guide-public-api.md)
+- [Claims, evidence & cross-links](agent-guide-claims-evidence-and-links.md)

@@ -233,28 +233,28 @@
       "docs_path": "03-templating/production-optimization.html"
     },
     {
-      "id": "ai-presence",
-      "title": "AI Presence",
-      "keywords": ["ai presence", "brand context", "claims", "evidence", "well-known", "brand-context", "cross-links", "publish"],
-      "docs_path": "02-content/ai-presence.html"
+      "id": "agent-guide",
+      "title": "Agent Guide",
+      "keywords": ["agent guide", "sources of truth", "claims", "evidence", "well-known", "agent-guide.json", "cross-links", "publish", "ai presence"],
+      "docs_path": "02-content/agent-guide.html"
     },
     {
-      "id": "ai-presence-getting-started",
-      "title": "AI Presence — getting started",
-      "keywords": ["ai presence", "tutorial", "publish", "brand context", "first steps"],
-      "docs_path": "02-content/ai-presence-getting-started.html"
+      "id": "agent-guide-getting-started",
+      "title": "Agent Guide — getting started",
+      "keywords": ["agent guide", "tutorial", "publish", "sources of truth", "first steps"],
+      "docs_path": "02-content/agent-guide-getting-started.html"
     },
     {
-      "id": "ai-presence-claims",
-      "title": "AI Presence — claims & cross-links",
-      "keywords": ["claims", "evidence", "amazon", "reviews", "marketplace", "sources", "proof"],
-      "docs_path": "02-content/ai-presence-claims-evidence-and-links.html"
+      "id": "agent-guide-claims",
+      "title": "Agent Guide — claims & cross-links",
+      "keywords": ["claims", "evidence", "amazon", "reviews", "marketplace", "sources of truth", "proof"],
+      "docs_path": "02-content/agent-guide-claims-evidence-and-links.html"
     },
     {
-      "id": "ai-presence-api",
-      "title": "AI Presence public API",
-      "keywords": ["brand-context.json", "well-known", "public api", "graph", "json-ld"],
-      "docs_path": "04-integration/ai-presence-public-api.html"
+      "id": "agent-guide-api",
+      "title": "Agent Guide public API",
+      "keywords": ["agent-guide.json", "well-known", "public api", "graph", "json-ld", "brand-context.json"],
+      "docs_path": "04-integration/agent-guide-public-api.html"
     },
     {
       "id": "choose-your-stack",

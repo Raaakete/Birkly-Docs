@@ -1,18 +1,49 @@
-# AI Presence — claims, evidence & cross-links
+# Agent Guide — claims, evidence & cross-links
 
 ## Summary
 
-Claims, evidence, and cross-links are how AI Presence stays **honest**: summaries tell agents the headline; links tell them where to verify. This doc covers strategy, types, and worked examples — especially marketplace and review URLs.
+Claims, evidence, and cross-links are how Agent Guide stays **honest**: summaries tell agents the headline; links and the **sources of truth** registry tell them where to verify. This doc covers strategy, types, and worked examples — especially marketplace and review URLs.
 
-## Three layers of truth
+## Four layers of truth
 
 | Layer | What it is | Agent should… |
 |-------|------------|---------------|
-| **Summary** | Short description, positioning bullets | Paraphrase carefully |
+| **Sources of truth** | Declared registry (`sources_of_truth[]`) | Read these first for narrative and proof |
+| **Summary** | Short description, positioning bullets | Paraphrase carefully; follow registry |
 | **Claim** | Asserted fact with status | Repeat only if supported |
-| **Evidence / source** | URL or CMS ref with proof | Follow link to verify |
+| **Evidence / source link** | URL or CMS ref with proof | Follow link to verify |
 
-**Rule:** Don’t paste Amazon review text into AI Presence. Store the **claim** (“Highly rated on Amazon”) + **link** to the listing + optional rating/count metadata.
+**Rule:** Don’t paste marketplace review text into Agent Guide. Store the **claim** (“Highly rated on Amazon”) + **link** to the listing + optional rating/count metadata.
+
+## Sources of truth vs product cross-links
+
+| Registry | Scope | When to use |
+|----------|-------|-------------|
+| **`sources_of_truth[]`** | Site-wide canonical reading list | About pages, primary website, key docs, proof archives |
+| **Product `sources[]`** | Per-offering detail links | Product page, marketplace listing, docs, purchase URL |
+
+Both export resolved URLs. The registry sets **global** reading order; product sources set **offering-specific** depth.
+
+### Registry entry example
+
+```json
+{
+  "id": "truth_about",
+  "type": "cms_entry",
+  "role": "narrative",
+  "label": "About us",
+  "url": "https://example.com/pages/about",
+  "ref": {
+    "collection": "pages",
+    "entry_id": "about",
+    "slug": "about",
+    "label": "About us",
+    "ref_type": "entry"
+  },
+  "priority": 80,
+  "link_status": "ok"
+}
+```
 
 ## Claims
 
@@ -21,7 +52,7 @@ Claims, evidence, and cross-links are how AI Presence stays **honest**: summarie
 Good claims are:
 
 - **Specific** — “ISO 27001 certified since 2023” not “very secure”
-- **Checkable** — You can point to evidence
+- **Checkable** — You can point to evidence or a proof source
 - **Bounded** — Time, geography, audience where relevant
 
 Bad claims:
@@ -48,6 +79,8 @@ Public export and `view=summary` only include **supported** claims.
 | **claim.sources[]** | Direct URLs tied only to this claim |
 
 Example: Claim “Featured in TechCrunch 2025” → one evidence row with publication URL. Claim “4.8★ on Amazon” → evidence type `marketplace_listing` + URL; optional rating 4.8, review_count 1200.
+
+Consider adding a **`proof`** role source in the registry when the same certification page supports multiple claims.
 
 ## Evidence
 
@@ -88,11 +121,11 @@ Use **Verify** in admin after checking the page live.
 
 Admin URL fetch and link check block localhost, private IPs, non-HTTP schemes. Only public HTTPS/HTTP URLs.
 
-## Cross-links (product & brand sources)
+## Cross-links (product sources)
 
 ### Source link shape
 
-Each source link has:
+Each product source link has:
 
 ```json
 {
@@ -114,7 +147,7 @@ Each source link has:
 
 CMS entries without stored URL get **resolved on publish** from collection + slug + public site base.
 
-### Source roles
+### Product source roles
 
 | Role | Purpose |
 |------|---------|
@@ -125,56 +158,33 @@ CMS entries without stored URL get **resolved on publish** from collection + slu
 | docs | Specs, API docs, manuals |
 | proof | Supports a specific assertion |
 | purchase | Checkout/pricing |
-| social | Social profile (also in identity.social_profiles) |
-
-### Product cross-link patterns
-
-**Pattern A — CMS-first**
-
-- Product summary in AI Presence
-- Canonical source: CMS product entry
-- Optional: Amazon listing as marketplace source
-
-**Pattern B — Site-first**
-
-- Canonical source: public product URL on your domain
-- CMS entry as reference if duplicate exists
-
-**Pattern C — Marketplace-heavy**
-
-- Short AI Presence summary
-- Canonical: your site page
-- Marketplace + review platform sources for social proof
-
-### Brand-level cross-links
-
-**Connected content** (Context) links brand narrative to CMS About/FAQ entries.
-
-**identity.derived_from** marks which entry grounds `short_description` (and other fields as you add them) — published export includes resolved URL.
+| social | Social profile |
 
 ## Worked example — Amazon reviews
 
 **Goal:** Agents can say you’re well-reviewed without hallucinating review text.
 
-1. **Claim:** “Consistently rated 4.5+ stars on Amazon US”
-2. **Evidence:**
+1. **Registry:** Optional `marketplace` source with role `proof` for the listing.
+2. **Claim:** “Consistently rated 4.5+ stars on Amazon US”
+3. **Evidence:**
    - type: `marketplace_listing`
    - url: `https://www.amazon.com/dp/B0XXXXXX`
    - rating: 4.7
    - review_count: 842
    - verification: user_verified after manual check
-3. **Do not** scrape or paste review bodies into AI Presence
-4. **Republish** when rating changes materially — set calendar reminder
+4. **Do not** scrape or paste review bodies into Agent Guide
+5. **Republish** when rating changes materially — set calendar reminder
 
 ## Worked example — B2B SaaS
 
-1. **Products:** Plan names with canonical links to `/pricing` anchors
-2. **Claims:** “SOC 2 Type II certified” → evidence type certification → auditor page
-3. **Claims:** “Listed on G2 with 4.8 rating” → review_platform URL
-4. **Cross-links:** Suggest links matches product names to CMS case study entries
+1. **Sources:** CMS About entry (`narrative`), pricing page (`reference`), security whitepaper (`proof`)
+2. **Products:** Plan names with canonical links to `/pricing` anchors
+3. **Claims:** “SOC 2 Type II certified” → evidence type certification → auditor page
+4. **Claims:** “Listed on G2 with 4.8 rating” → review_platform URL
 
 ## Completeness interaction
 
+- Sources: need **narrative** source for full 15 pts
 - Products: need **grounded source** for full 10 pts
 - Evidence: need **URL** for full 15 pts
 - Claims: need **supported + evidence_ids** for full 20 pts
@@ -183,15 +193,15 @@ Use completeness as quality gate, not checkbox filling.
 
 ## Public export & JSON-LD
 
-Published products include resolved `sources[]`. Supported claims in graph views include `linked_evidence`. JSON-LD adds:
+Published exports include resolved `sources_of_truth[]` and product `sources[]`. Supported claims in graph views include `linked_evidence`. JSON-LD adds:
 
 - Product `url`, `sameAs` from sources
 - Claim `isBasedOn` from evidence URLs
 
-See [Public API](../04-integration/ai-presence-public-api.md).
+See [Public API](../04-integration/agent-guide-public-api.md).
 
 ## Related docs
 
-- [Workflows](ai-presence-workflows.md)
-- [Best practices](ai-presence-best-practices.md)
-- [Data model](ai-presence-data-model.md)
+- [Workflows](agent-guide-workflows.md)
+- [Best practices](agent-guide-best-practices.md)
+- [Data model](agent-guide-data-model.md)

@@ -48,13 +48,13 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Content editor | `02-content/content-editor.md` | Rich text editor, tables, CSS grids, layout studio |
 | Slugs and status | `02-content/slugs-and-status.md` | URL slug, draft vs published |
 | ContentEditor | `02-content/content-editor.md` | Rich text fieldtype, blocks, HTML round-trip |
-| AI Presence | `02-content/ai-presence.md` | Brand context for AI systems — overview & doc map |
-| AI Presence — getting started | `02-content/ai-presence-getting-started.md` | Tutorial: first publish in ~30 minutes |
-| AI Presence — workflows | `02-content/ai-presence-workflows.md` | Tab-by-tab admin workflows |
-| AI Presence — claims & links | `02-content/ai-presence-claims-evidence-and-links.md` | Claims, evidence, cross-links, marketplace URLs |
-| AI Presence — AI Assist | `02-content/ai-presence-ai-assist.md` | Copilot, Brand Studio, field Generate |
-| AI Presence — best practices | `02-content/ai-presence-best-practices.md` | Quality, governance, operational cadence |
-| AI Presence — data model | `02-content/ai-presence-data-model.md` | Schema, storage, publish pipeline |
+| Agent Guide | `02-content/agent-guide.md` | Structured context for AI systems — overview & doc map |
+| Agent Guide — getting started | `02-content/agent-guide-getting-started.md` | Tutorial: first publish in ~30 minutes |
+| Agent Guide — workflows | `02-content/agent-guide-workflows.md` | Tab-by-tab admin workflows (sources-first) |
+| Agent Guide — claims & links | `02-content/agent-guide-claims-evidence-and-links.md` | Claims, evidence, cross-links, marketplace URLs |
+| Agent Guide — AI Assist | `02-content/agent-guide-ai-assist.md` | Copilot, Guide Studio, field Generate |
+| Agent Guide — best practices | `02-content/agent-guide-best-practices.md` | Quality, governance, operational cadence |
+| Agent Guide — data model | `02-content/agent-guide-data-model.md` | Schema, storage, publish pipeline |
 
 ## 03 — Templating
 
@@ -90,8 +90,8 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Client library | `04-integration/client-library.md` | Script tag, processTemplates, events, components |
 | Public API | `04-integration/public-api.md` | Reading content via API |
 | Public forms | `04-integration/public-forms.md` | Public submission and secure forms |
-| AI Presence public API | `04-integration/ai-presence-public-api.md` | Brand context HTTP endpoints, views, graph |
-| AI Presence MCP & agents | `04-integration/ai-presence-mcp-and-agents.md` | MCP tools, resources, agent patterns |
+| Agent Guide public API | `04-integration/agent-guide-public-api.md` | Published guide HTTP endpoints, views, graph |
+| Agent Guide MCP & agents | `04-integration/agent-guide-mcp-and-agents.md` | MCP tools, resources, agent patterns |
 
 ## 05 — Automation
 

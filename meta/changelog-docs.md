@@ -14,6 +14,18 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+---
+
+## 2026-07-27 — Agent Guide documentation (rename from AI Presence)
+
+- **Renamed & rewritten:** All Agent Guide docs — product name **Agent Guide**, neutral language, sources-of-truth-first workflow.
+- **Renamed:** `02-content/ai-presence*.md` → `02-content/agent-guide*.md` (7 files).
+- **Renamed:** `04-integration/ai-presence-*.md` → `04-integration/agent-guide-*.md` (2 files).
+- **Updated:** Schema references to `agent_guide.v1`, well-known path `/.well-known/agent-guide.json`, MCP tools `get_agent_guide_context`, admin URL `?page=agent-guide`.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`, `meta/glossary.md`.
+
+---
+
 ## 2026-07-27 — AI Presence documentation (full set)
 
 - **Rewritten:** `02-content/ai-presence.md` — overview hub, mental model, doc map, FAQ.

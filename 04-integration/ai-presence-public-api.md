@@ -10,8 +10,12 @@ Read-only endpoints expose the **published** brand context on your **public site
 | Public API (full) | `GET /api/public/ai_presence.php?action=brand` | JSON envelope |
 | Public API (summary) | `GET /api/public/ai_presence.php?action=brand&view=summary` | Lightweight identity + supported claims |
 | Public API (products) | `GET /api/public/ai_presence.php?action=brand&view=products` | Products & services only |
+| Public API (claims) | `GET /api/public/ai_presence.php?action=brand&view=claims` | Supported claims with sources |
 | Single product | `GET /api/public/ai_presence.php?action=product&id={id}` | One product/service |
+| Product graph | `GET /api/public/ai_presence.php?action=product&id={id}&graph=1` | Product + sources + linked claims |
 | Single claim | `GET /api/public/ai_presence.php?action=claim&id={id}` | Supported claim by id |
+| Claim graph | `GET /api/public/ai_presence.php?action=claim&id={id}&graph=1` | Claim + evidence + sources |
+| Resolve source URL | `GET /api/public/ai_presence.php?action=source&url={url}` | Find entities referencing a URL |
 
 Both well-known and `action=brand` return the full canonical export unless `view` is set on the API.
 

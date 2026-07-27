@@ -36,6 +36,19 @@ The sticky save bar includes:
 
 Suggestions are **never auto-saved** until you accept them.
 
+Published exports include:
+
+- **`sources[]`** on products and claims — resolved public URLs for CMS entries, product pages, marketplaces, and review sites
+- **`usage_hints`** — guidance for AI consumers (authoritative vs marketing fields, citation preferences)
+- **`identity.derived_from`** — which CMS entries ground summary fields
+- **`linked_evidence`** on claims in full/graph views
+
+### Cross-links (admin)
+
+On **Overview**, use **Suggest cross-links** (AI Assist) or **Check all links** to validate external URLs. Product and claim modals include a **Source links** editor (CMS entry picker, Amazon/review URLs, docs).
+
+Link-aware completeness: products score higher when grounded with at least one source; evidence requires verifiable URLs for full credit.
+
 ### Typical workflow
 
 1. Complete the skippable **Get started** setup (or skip to Context).

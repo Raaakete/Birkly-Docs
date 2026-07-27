@@ -47,7 +47,14 @@
         { "path": "02-content/entries.md", "label": "Entries" },
         { "path": "02-content/field-types.md", "label": "Field types" },
         { "path": "02-content/slugs-and-status.md", "label": "Slugs and status" },
-        { "path": "02-content/content-editor.md", "label": "ContentEditor" }
+        { "path": "02-content/content-editor.md", "label": "ContentEditor" },
+        { "path": "02-content/ai-presence.md", "label": "AI Presence" },
+        { "path": "02-content/ai-presence-getting-started.md", "label": "AI Presence — getting started" },
+        { "path": "02-content/ai-presence-workflows.md", "label": "AI Presence — workflows" },
+        { "path": "02-content/ai-presence-claims-evidence-and-links.md", "label": "AI Presence — claims & links" },
+        { "path": "02-content/ai-presence-ai-assist.md", "label": "AI Presence — AI Assist" },
+        { "path": "02-content/ai-presence-best-practices.md", "label": "AI Presence — best practices" },
+        { "path": "02-content/ai-presence-data-model.md", "label": "AI Presence — data model" }
       ]
     },
     {
@@ -80,7 +87,9 @@
         { "path": "04-integration/ssr-and-build-time.md", "label": "SSR and build-time" },
         { "path": "04-integration/client-library.md", "label": "Client library" },
         { "path": "04-integration/public-api.md", "label": "Public API" },
-        { "path": "04-integration/public-forms.md", "label": "Public forms" }
+        { "path": "04-integration/public-forms.md", "label": "Public forms" },
+        { "path": "04-integration/ai-presence-public-api.md", "label": "AI Presence public API" },
+        { "path": "04-integration/ai-presence-mcp-and-agents.md", "label": "AI Presence MCP & agents" }
       ]
     },
     {

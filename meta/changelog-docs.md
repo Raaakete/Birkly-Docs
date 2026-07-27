@@ -14,6 +14,21 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-27 — AI Presence documentation (full set)
+
+- **Rewritten:** `02-content/ai-presence.md` — overview hub, mental model, doc map, FAQ.
+- **New:** `02-content/ai-presence-getting-started.md` — step-by-step first publish tutorial.
+- **New:** `02-content/ai-presence-workflows.md` — tab-by-tab admin workflows.
+- **New:** `02-content/ai-presence-claims-evidence-and-links.md` — claims, evidence, cross-links, marketplace examples.
+- **New:** `02-content/ai-presence-ai-assist.md` — Copilot, Brand Studio, field Generate, link suggestions.
+- **New:** `02-content/ai-presence-best-practices.md` — governance, quality, operational cadence.
+- **New:** `02-content/ai-presence-data-model.md` — schema, storage, publish pipeline, completeness.
+- **Expanded:** `04-integration/ai-presence-public-api.md` — views, graph, examples, caching, integration.
+- **New:** `04-integration/ai-presence-mcp-and-agents.md` — MCP tools, resources, agent patterns.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`.
+
+---
+
 ## 2026-07-26 — P45 templating stacks (M8–M10)
 
 - **New:** `04-integration/choose-your-stack.md` — decision hub for HTML, web components, SPA, SSR.

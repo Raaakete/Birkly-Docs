@@ -42,7 +42,7 @@
 <li><strong>Automation</strong> — Register triggers or actions. Exact API depends on core/automation and plugin_integration.</li>
 </ul>
 <p><strong>Structure (developer)</strong></p>
-<p>| Path | Purpose | |------|---------| | <code>plugin.json</code> | Metadata: name, version, description; optional navigation (sidebar label, icon, page). | | <code>plugin.php</code> | Main entry; registers hooks, routes, services. | | <code>admin/</code> | HTML/JS for admin pages. | | <code>api/</code> | Optional PHP endpoints under <code>/api/plugin_handle/...</code>. |</p>
+<p>| Path | Purpose | |------|---------| | <code>plugin.json</code> | Metadata: name, version, description; optional navigation (sidebar label, icon, page). Icon: registry name or inline SVG — see <a href="../06-plugin-economy/plugin-navigation-icon.html">Plugin navigation icon</a>. | | <code>plugin.php</code> | Main entry; registers hooks, routes, services. | | <code>admin/</code> | HTML/JS for admin pages. | | <code>api/</code> | Optional PHP endpoints under <code>/api/plugin_handle/...</code>. |</p>
 <p>The plugin system may support capabilities, permissions, migrations, scheduled tasks, and template functions. See core/plugins/ and developer docs for the full API.</p>
 <p><strong>Installing</strong></p>
 <ul>

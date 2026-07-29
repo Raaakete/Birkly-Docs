@@ -109,9 +109,10 @@
 <p><strong>Single entry by slug</strong></p>
 <p>To render one entry (e.g. blog post detail):</p>
 <pre><code>{from 'blog' get entry 'my-post-slug'}
-&lt;h1&gt;{ title }&lt;/h1&gt;
-&lt;div&gt;{ content }&lt;/div&gt;</code></pre>
-<p>After <code>get entry 'slug'</code>, all variables in that scope refer to that entry. Slug can be literal or a variable (e.g. from the URL).</p>
+  &lt;h1&gt;{title}&lt;/h1&gt;
+  &lt;article&gt;{'content'}&lt;/article&gt;
+{endget}</code></pre>
+<p>Close with <code>{endget}</code>. Inside the block, variables refer to that entry. Slug can be literal or a variable (e.g. from the URL).</p>
 <p><strong>Pagination</strong></p>
 <p>If the API supports <code>page</code> and <code>per_page</code> (or <code>offset</code>/<code>limit</code>), you can request a page of entries and render them in a loop. “Next/Previous” links then point to the same template with different <code>page</code> (or slug range). Implementation is environment-specific (client vs server, URL scheme).</p>
 <p><strong>Empty state</strong></p>

@@ -170,11 +170,12 @@ To render one entry (e.g. blog post detail):
 
 ```html
 {from 'blog' get entry 'my-post-slug'}
-<h1>{ title }</h1>
-<div>{ content }</div>
+  <h1>{title}</h1>
+  <article>{'content'}</article>
+{endget}
 ```
 
-After `get entry 'slug'`, all variables in that scope refer to that entry. Slug can be literal or a variable (e.g. from the URL).
+Close with `{endget}`. Inside the block, variables refer to that entry. Slug can be literal or a variable (e.g. from the URL).
 
 **Pagination**
 

@@ -27,6 +27,7 @@
         { "path": "01-admin/roles-and-permissions.md", "label": "Roles and permissions" },
         { "path": "01-admin/account.md", "label": "Account" },
         { "path": "01-admin/admin-appearance.md", "label": "Admin appearance" },
+        { "path": "01-admin/design-system.md", "label": "Admin design system" },
         { "path": "01-admin/help-and-onboarding.md", "label": "Help and onboarding" },
         { "path": "01-admin/ai-overview.md", "label": "AI overview" },
         { "path": "01-admin/ai-connections.md", "label": "AI connections" },
@@ -46,7 +47,14 @@
         { "path": "02-content/entries.md", "label": "Entries" },
         { "path": "02-content/field-types.md", "label": "Field types" },
         { "path": "02-content/slugs-and-status.md", "label": "Slugs and status" },
-        { "path": "02-content/content-editor.md", "label": "ContentEditor" }
+        { "path": "02-content/content-editor.md", "label": "ContentEditor" },
+        { "path": "02-content/agent-guide.md", "label": "Agent Guide" },
+        { "path": "02-content/agent-guide-getting-started.md", "label": "Agent Guide — getting started" },
+        { "path": "02-content/agent-guide-workflows.md", "label": "Agent Guide — workflows" },
+        { "path": "02-content/agent-guide-claims-evidence-and-links.md", "label": "Agent Guide — claims & links" },
+        { "path": "02-content/agent-guide-ai-assist.md", "label": "Agent Guide — AI Assist" },
+        { "path": "02-content/agent-guide-best-practices.md", "label": "Agent Guide — best practices" },
+        { "path": "02-content/agent-guide-data-model.md", "label": "Agent Guide — data model" }
       ]
     },
     {
@@ -60,6 +68,7 @@
         { "path": "03-templating/conditionals.md", "label": "Conditionals" },
         { "path": "03-templating/dates-and-formatting.md", "label": "Dates and formatting" },
         { "path": "03-templating/media-in-templates.md", "label": "Media in templates" },
+        { "path": "03-templating/web-components.md", "label": "Web components (templating)" },
         { "path": "03-templating/commerce-functions.md", "label": "Commerce functions" },
         { "path": "03-templating/events-functions.md", "label": "Events functions" },
         { "path": "03-templating/storefront-patterns.md", "label": "Storefront and events patterns" },
@@ -71,10 +80,16 @@
       "id": "integration",
       "label": "Integration",
       "items": [
+        { "path": "04-integration/choose-your-stack.md", "label": "Choose your stack" },
         { "path": "04-integration/website-integration.md", "label": "Website integration" },
+        { "path": "04-integration/web-components.md", "label": "Web components" },
+        { "path": "04-integration/spa-react-vue.md", "label": "SPA (React / Vue)" },
+        { "path": "04-integration/ssr-and-build-time.md", "label": "SSR and build-time" },
         { "path": "04-integration/client-library.md", "label": "Client library" },
         { "path": "04-integration/public-api.md", "label": "Public API" },
-        { "path": "04-integration/public-forms.md", "label": "Public forms" }
+        { "path": "04-integration/public-forms.md", "label": "Public forms" },
+        { "path": "04-integration/agent-guide-public-api.md", "label": "Agent Guide public API" },
+        { "path": "04-integration/agent-guide-mcp-and-agents.md", "label": "Agent Guide MCP & agents" }
       ]
     },
     {
@@ -122,6 +137,7 @@
         { "path": "06-plugin-economy/for-site-owners.md", "label": "For site owners" },
         { "path": "06-plugin-economy/for-providers.md", "label": "For providers" },
         { "path": "06-plugin-economy/plugin-development.md", "label": "Plugin development" },
+        { "path": "06-plugin-economy/plugin-navigation-icon.md", "label": "Plugin navigation icon" },
         { "path": "06-plugin-economy/theme-and-template-packs.md", "label": "Themes and template packs" },
         { "path": "06-plugin-economy/security-and-review.md", "label": "Security and review" },
         { "path": "06-plugin-economy/official-plugins.md", "label": "Official plugins" },
@@ -133,6 +149,7 @@
       "label": "Operations",
       "items": [
         { "path": "07-operations/deployment.md", "label": "Deployment" },
+        { "path": "07-operations/dokploy-hosting.md", "label": "Hosting on Dokploy" },
         { "path": "07-operations/production-deploy-checklist.md", "label": "Production deploy checklist" },
         { "path": "07-operations/monitoring-alerts.md", "label": "Monitoring and health alerts" },
         { "path": "07-operations/security.md", "label": "Security" },

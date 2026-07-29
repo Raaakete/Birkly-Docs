@@ -6,7 +6,7 @@ Birkly uses a simple templating language in your HTML: placeholders like `{ titl
 
 **Templating** is how your website displays Birkly content. In your HTML you write variables (e.g. `{ title }`), loops (e.g. `{for each entry in 'blog'} … {endfor}`), and conditionals (e.g. `{if} … {endif}`). The Birkly client script in the browser—or server-side rendering—fetches content and replaces those placeholders. You use single braces `{ }`, plain-English style tags, and safe output by default. No full programming language is required—just the syntax described in the templating docs.
 
-**Canonical reference:** [Canonical template syntax](canonical-syntax.md) — single source of truth for `{for each}` and engine boundaries.
+**Canonical reference:** [Canonical template syntax](canonical-syntax.md) — single source of truth for `{for each}` and engine boundaries. **Stack choice:** [Choose your stack](../04-integration/choose-your-stack.md). **Regions:** [Web components (templating)](web-components.md).
 
 ## Beginner
 
@@ -71,7 +71,7 @@ Yes. Plain text (e.g. from a Text or Textarea field) is usually **escaped**: cha
 |--------|-----------------|--------|
 | Variable | `{ variable_name }` | Single braces, spaces; name = field key. |
 | Loop (collection) | `{for each entry in 'collection'}` … `{endfor}` | Inside loop, variables refer to current entry. |
-| Single entry | `{from 'blog' get entry 'slug'}` | Load one entry by slug; following vars refer to it. |
+| Single entry | `{from 'blog' get entry 'slug'}` … `{endget}` | Load one entry by slug; vars inside the block refer to it. |
 | Conditional | `{if condition}` … `{else}` … `{endif}` | e.g. `{if 'blog' has entries}`, `{if entry has excerpt}`. |
 | Date format | `{ date_field "F j, Y" }` | PHP-style format string. |
 | Media | `{ media 'file.jpg' }` or `{ media field_name }` | URL; some engines support width/height/crop. |
@@ -92,7 +92,9 @@ Yes. Plain text (e.g. from a Text or Textarea field) is usually **escaped**: cha
 - [Conditionals](conditionals.md)
 - [Dates and formatting](dates-and-formatting.md)
 - [Media in templates](media-in-templates.md)
+- [Web components (templating)](web-components.md) — `<birkly-region>`, Light DOM patterns
 - [Reference projects](reference-projects.md) — six starter sites (live client only)
 - [Production optimization](production-optimization.md) — optional hydrate/snapshot/bake
+- [Choose your stack](../04-integration/choose-your-stack.md)
 - [Website integration](../04-integration/website-integration.md)
 - [Client library](../04-integration/client-library.md)

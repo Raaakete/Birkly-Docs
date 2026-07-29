@@ -14,7 +14,61 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
-## 2026-07-25 — P39 collection groups API and templating (P39-M9)
+---
+
+## 2026-07-27 — Agent Guide documentation (rename from AI Presence)
+
+- **Renamed & rewritten:** All Agent Guide docs — product name **Agent Guide**, neutral language, sources-of-truth-first workflow.
+- **Renamed:** `02-content/ai-presence*.md` → `02-content/agent-guide*.md` (7 files).
+- **Renamed:** `04-integration/ai-presence-*.md` → `04-integration/agent-guide-*.md` (2 files).
+- **Updated:** Schema references to `agent_guide.v1`, well-known path `/.well-known/agent-guide.json`, MCP tools `get_agent_guide_context`, admin URL `?page=agent-guide`.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`, `meta/glossary.md`.
+
+---
+
+## 2026-07-27 — AI Presence documentation (full set)
+
+- **Rewritten:** `02-content/ai-presence.md` — overview hub, mental model, doc map, FAQ.
+- **New:** `02-content/ai-presence-getting-started.md` — step-by-step first publish tutorial.
+- **New:** `02-content/ai-presence-workflows.md` — tab-by-tab admin workflows.
+- **New:** `02-content/ai-presence-claims-evidence-and-links.md` — claims, evidence, cross-links, marketplace examples.
+- **New:** `02-content/ai-presence-ai-assist.md` — Copilot, Brand Studio, field Generate, link suggestions.
+- **New:** `02-content/ai-presence-best-practices.md` — governance, quality, operational cadence.
+- **New:** `02-content/ai-presence-data-model.md` — schema, storage, publish pipeline, completeness.
+- **Expanded:** `04-integration/ai-presence-public-api.md` — views, graph, examples, caching, integration.
+- **New:** `04-integration/ai-presence-mcp-and-agents.md` — MCP tools, resources, agent patterns.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`.
+
+---
+
+## 2026-07-26 — P45 templating stacks (M8–M10)
+
+- **New:** `04-integration/choose-your-stack.md` — decision hub for HTML, web components, SPA, SSR.
+- **New:** `04-integration/web-components.md`, `03-templating/web-components.md` — `<birkly-region>`, `data-birkly-region`, Light vs Shadow, enhance-only.
+- **New:** `04-integration/spa-react-vue.md` — Public API / `getEntryBySlug`; no `{for each}` in JSX.
+- **New:** `04-integration/ssr-and-build-time.md` — PHP, Astro, Next + `page_bundle.php` snippets.
+- **Updated:** `03-templating/canonical-syntax.md` — `data-birkly-region` supported; region component pointer.
+- **Updated:** `04-integration/website-integration.md`, `04-integration/client-library.md` — stack hub, `processTemplates`, events, `birkly-components.js`.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`.
+
+---
+
+## 2026-07-25 — P43 configurable hosting URLs (P43-M9)
+
+- **Updated:** `07-operations/dokploy-hosting.md` — CMS URL vs public site URL, `settings/hosting.json`, Dokploy Internal Path `/`, two-domain example (`cms.birkly.cloud` + `birkly.cloud`), no `cms.` subdomain requirement.
+- **Updated:** `07-operations/deployment.md` — Hosting settings instead of `cms.` convention; cross-links.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`.
+
+---
+
+## 2026-07-25 — P41 plugin navigation icon and admin design system (P41-M12, P41-M13)
+
+- **New:** `06-plugin-economy/plugin-navigation-icon.md` — `navigation.icon` registry names, inline SVG fallback, `core/icons.php` and `admin/assets/icons/`.
+- **New:** `01-admin/design-system.md` — mint primary tokens, neutral scale, `birkly_icon` / `Birkly.icon`, dark mode, `.card`, `.empty-state`, `.status-badge`.
+- **Updated:** `06-plugin-economy/plugin-development.md`, `06-extensibility/plugins.md`, `01-admin/admin-appearance.md` — cross-links.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `README.md`.
+
+---
 
 - **New:** `02-content/collection-groups.md` — nested group tree (`groups.json`), max depth 3, public API and templating overview.
 - **Updated:** `03-templating/loops-and-lists.md` — `{for each group in collection_groups}`, nested `group.children`, collection handle loops.

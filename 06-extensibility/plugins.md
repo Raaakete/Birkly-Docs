@@ -75,7 +75,7 @@ Browse official and community extensions at [marketplace.birkly.cloud](https://m
 
 | Path | Purpose |
 |------|---------|
-| `plugin.json` | Metadata: name, version, description; optional navigation (sidebar label, icon, page). |
+| `plugin.json` | Metadata: name, version, description; optional navigation (sidebar label, icon, page). Icon: registry name or inline SVG — see [Plugin navigation icon](../06-plugin-economy/plugin-navigation-icon.md). |
 | `plugin.php` | Main entry; registers hooks, routes, services. |
 | `admin/` | HTML/JS for admin pages. |
 | `api/` | Optional PHP endpoints under `/api/plugin_handle/...`. |

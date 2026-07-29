@@ -1,75 +1,169 @@
 # Agent Guide
 
-Agent Guide is how you publish an **official, structured map of your brand** for AI systems and agents — without building a chatbot or duplicating everything in Content.
-
 ## Summary
 
-**Agent Guide** (in the admin sidebar) lets you declare **where the truth lives** (CMS entries, your website, documents), write a concise **profile and positioning**, attach **claims with evidence**, describe **products and media**, then **Publish** a machine-readable file on your **public website**.
+**Agent Guide** is Birkly’s structured context layer for AI systems and connected agents. It sits on top of your existing CMS content, Media library, and other canonical sources — it does **not** replace them. You declare **sources of truth** first, then build concise summaries (identity, offerings, claims, voice), and **publish** a versioned, machine-readable snapshot on your **public site domain** so agents, crawlers, and integrations can discover and use it responsibly.
 
-Content stays in **Content** and **Media**. Agent Guide **references** it.
+Works for individuals, teams, enterprises, nonprofits, and any site that wants a single authoritative guide for automated assistants.
 
-This is **not** a vector database and **not** a website support bot. It is the right tool when you want machines to discover **what your brand officially says about itself**.
+**Product promise:** Publish an authoritative, structured, evidence-aware representation that is easier for AI systems to discover and use. This is **not** a guarantee that every AI model will ingest your guide, and it is **not** a chatbot builder.
 
-## Beginner
+## What problem does it solve?
 
-### Where to find it
+When someone asks an assistant “What does this organization do?” or “Is their offering a good fit for small teams?”, the answer often comes from scattered pages, outdated summaries, or guesswork. Agent Guide gives you one place to:
 
-Admin sidebar: **Agent Guide** (between Media and Marketplace).
+1. **Declare sources of truth** — CMS entries, websites, documents, media, marketplaces — where agents should read first.
+2. **Curate** the story you want AI to tell (identity, positioning, products, voice).
+3. **Ground** that story in evidence (URLs, certifications, review pages, CMS refs).
+4. **Publish** a versioned JSON snapshot agents can read without scraping your whole site.
+5. **Link** summaries to deeper sources so agents know where to verify details.
 
-### Typical workflow
+Think of Agent Guide as the **index and authority map** — not the full encyclopedia.
 
-1. **Sources** — Add CMS entries, website URLs, or documents agents should read first.
-2. **Context** — Official name, descriptions, positioning, tone.
-3. **Products & Services** — What you offer (optional but useful).
-4. **Claims & Evidence** — Statements you want AI to get right, linked to proof.
-5. **Media** — What key images represent (product hero, logo, etc.).
-6. **Publish** — Enable public publishing and click **Publish**.
+## Mental model
 
-After publish, your guide is available at:
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Sources of truth (registry)                                │
+│  CMS entries/collections · websites · documents · media     │
+└───────────────────────────┬─────────────────────────────────┘
+                            │ ground summaries & AI Assist
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│  CMS Content & Media (underlying content)                   │
+│  About pages, product entries, images, blog posts           │
+└───────────────────────────┬─────────────────────────────────┘
+                            │ references (IDs, slugs, URLs)
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Agent Guide (draft → publish)                              │
+│  Context · products · claims · evidence · cross-links       │
+└───────────────────────────┬─────────────────────────────────┘
+                            │ publish
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Public export (on your site domain)                        │
+│  /.well-known/agent-guide.json                              │
+│  /api/public/ai_presence.php                                │
+│  Optional JSON-LD · MCP tools · graph views                 │
+└─────────────────────────────────────────────────────────────┘
+```
 
-- `https://your-public-site/.well-known/agent-guide.json`
-- Public API: `GET /api/public/ai_presence.php` on your CMS host (see [Public API](../04-integration/public-api.md))
+**Draft vs published:** All edits save to a **draft**. Public endpoints serve the **published** snapshot only until you publish again. Iterate safely without affecting what agents see.
 
-### Draft vs published
+## Recommended workflow
 
-Edits save to **draft**. Visitors and AI crawlers only see the **published** snapshot until you publish again.
+Follow the admin workflow strip on the Overview tab:
 
-### Context preview
+1. **Sources** — Declare where agents should read the truth (start here).
+2. **Context** — Identity, positioning, terminology, relationships.
+3. **Products & Services** — Structured catalog with source links.
+4. **Claims & Evidence** — Factual statements and proof.
+5. **Publish** — Enable endpoints, preview, go live.
 
-On the **Publish** tab you can ask questions like “What is this brand known for?” Answers use **only the published guide** and list **sources** — this is a sanity check, not a customer chatbot.
+Summaries in Context and Products should **reflect** your declared sources — not invent parallel truth.
 
-## Advanced
+## Where to find it
 
-### Schema
+Admin sidebar → **Agent Guide** (between Media and Marketplace).
 
-Internal format: `agent_guide.v1` (stored in site settings, not in git). Legacy alias: `ai_presence.v1`.
+**URLs:** `/admin/?page=agent-guide` (legacy alias: `?page=ai-presence`).
 
-### Claims and evidence
+**Permissions:**
 
-Claims are **supported by sources you link**, not “certified true” by Birkly. Statuses: supported, pending review, unsupported, conflicting, expired.
+| Action | Permission |
+|--------|------------|
+| View Agent Guide | `read` |
+| Edit, publish | `manage_settings` |
 
-### JSON-LD
+## Admin tabs (at a glance)
 
-Optional structured data in the public export for search engines and crawlers that consume Schema.org-style graphs.
+| Tab | Purpose |
+|-----|---------|
+| **Overview** | Completeness score, source health, CMS sync drift, link checks, public URLs |
+| **Sources** | `sources_of_truth[]` registry — CMS, websites, documents, media, marketplaces |
+| **Context** | Identity, positioning, terminology, relationships |
+| **Products & Services** | Structured catalog with typed source links |
+| **Claims & Evidence** | Factual statements, proof sources, review workflow |
+| **Media** | Per-asset context (what it represents, intended use, restrictions) |
+| **Publish** | Enable publishing, version history, staleness warnings, AI preview |
 
-### Settings → AI vs Agent Guide
+## AI Assist sidebar
 
-| Feature | Purpose |
-|---------|---------|
-| **Settings → AI** | Connect OpenAI/Claude for **admin** chat and MCP tools |
-| **Agent Guide** | **Publish** brand context **outward** for machines |
+The sticky save bar and right-hand **AI Assist** panel help you fill gaps without auto-saving:
 
-They work together (AI Assist can suggest draft content) but serve different goals.
+- **Auto-fill / Fill gaps / Fill 100%** — AI suggestions you approve one-by-one or in bulk
+- **Suggest sources / cross-links** — Propose `sources_of_truth` entries, product→CMS links, evidence URLs
+- **Guide Studio** (Advanced) — Multi-collection wizard from CMS sources
+- Per-field **Generate** on Context fields — Targeted suggestions applied directly to the field
 
-### Vector databases — not required
+Suggestions are **never auto-saved** until you accept them. AI Assist prefers declared **sources of truth** before inferring.
 
-Birkly does **not** need a vector database for Agent Guide. Vectors help **search huge unstructured archives** (e.g. “find anything about refunds in 10,000 tickets”). Agent Guide is **curated truth + evidence** — a better fit for “what is officially true about our brand?”
+## Documentation map
 
-Optional semantic search over all entries could be a **future plugin** for support-bot-style products; it is not part of core CMS.
+| Doc | Audience | Contents |
+|-----|----------|----------|
+| [Getting started](agent-guide-getting-started.md) | Beginners | First publish in ~30 minutes |
+| [Workflows](agent-guide-workflows.md) | Editors | Tab-by-tab how-to |
+| [Claims, evidence & cross-links](agent-guide-claims-evidence-and-links.md) | Editors + strategists | Proof, marketplace/review links, source roles |
+| [AI Assist](agent-guide-ai-assist.md) | Power users | Copilot modes, Guide Studio, field AI |
+| [Best practices](agent-guide-best-practices.md) | Everyone | Quality, governance, what not to do |
+| [Data model](agent-guide-data-model.md) | Developers | Schema, storage, completeness scoring |
+| [Public API](../04-integration/agent-guide-public-api.md) | Integrators | Endpoints, views, graph, caching |
+| [MCP & agents](../04-integration/agent-guide-mcp-and-agents.md) | Developers | MCP tools, resources, agent patterns |
 
-## Related
+## Quick start (5 steps)
 
-- [Website integration](../04-integration/website-integration.md)
-- [Public API](../04-integration/public-api.md)
-- [Collections](collections.md)
-- [Media library](../05-media/media-library.md) (if exists — check path)
+1. **Sources** — Add at least one **narrative** source of truth (CMS entry, website, or document).
+2. **Context** — Official name, short description; link summaries to sources via `derived_from` where helpful.
+3. **Products** — Add at least one product/service with a **canonical source link** (CMS entry or public URL).
+4. **Claims** — Add 2–3 factual claims; attach evidence with verifiable URLs; mark reviewed claims as **Supported**.
+5. **Publish** — Enable publishing, click **Publish**, verify `/.well-known/agent-guide.json` on your public domain.
+
+Full walkthrough: [Getting started](agent-guide-getting-started.md).
+
+## What gets published
+
+Published JSON (`agent_guide.v1`; legacy exports may show `ai_presence.v1`) includes:
+
+- **`sources_of_truth[]`** — Resolved registry of canonical sources
+- **`guide_meta`** — Product marker and summary-layer hints
+- **identity**, **positioning**, **communication_guidance**
+- **products_services[]** with resolved **`sources[]`** (public URLs)
+- **claims[]** with **evidence** and optional direct **sources[]**
+- **media_context**, **relationships**
+- **`usage_hints`** — Guidance for AI consumers (authoritative vs marketing fields; follow sources of truth)
+- **`identity.derived_from`** — Which sources ground summary fields
+- Optional **`json_ld`** — Schema.org graph (Organization, Product/Service, Claim)
+
+Legacy field **`connected_content[]`** is migrated into `sources_of_truth[]` on save.
+
+## Related Birkly features
+
+- **Settings → Site delivery** — Public site URL where well-known and API are served
+- **Settings → AI connections** — Optional BYOAI for Assist (rules-only mode works without AI)
+- **MCP connections** — Inbound agents can read published guide context via MCP tools
+- **Admin AI chat** — Complementary; Agent Guide is structured publish, not conversational UI
+
+## FAQ
+
+**Does Agent Guide replace my About page or product CMS entries?**  
+No. Content stays in Content; Agent Guide references and summarizes for agents.
+
+**Why sources of truth first?**  
+Agents need a declared reading order. Summaries without sources invite hallucination; the registry tells consumers where to verify.
+
+**Will ChatGPT automatically use my guide?**  
+Not guaranteed. You make discovery easier via well-known JSON, public API, and JSON-LD. Adoption depends on crawlers, integrations, and MCP-connected tools.
+
+**Can I hide draft work from the public?**  
+Yes. Only **published** snapshots are public. Disable publishing or don’t publish until ready.
+
+**Do I need AI connections configured?**  
+No. Rule-based suggestions and manual editing work without AI. Connections unlock Copilot, Fill 100%, and smarter suggestions.
+
+**Do I need a vector database?**  
+No. Agent Guide is **curated truth + evidence + source links** — the right model for “what is officially true about our brand?” Vector search helps **fuzzy search over huge unstructured archives** (e.g. support tickets). That is a different product problem; optional semantic search could be a **future plugin**, not core CMS.
+
+**Legacy paths and tools?**  
+`/.well-known/brand-context.json`, MCP `get_brand_context`, and admin `?page=ai-presence` remain supported as aliases.

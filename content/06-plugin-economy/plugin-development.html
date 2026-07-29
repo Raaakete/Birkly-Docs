@@ -46,7 +46,7 @@
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Entry point (<code>plugin.php</code>)</strong></p>
 <p>Register services on load. Typical patterns:</p>
 <ul>
-<li>Navigation via <code>plugin.json</code> <code>navigation</code> block or programmatic sidebar registration.</li>
+<li>Navigation via <code>plugin.json</code> <code>navigation</code> block or programmatic sidebar registration. Set <code>navigation.icon</code> to a registry name (for example <code>&quot;gear&quot;</code>) or inline SVG — see <a href="plugin-navigation-icon.html">Plugin navigation icon</a>.</li>
 <li>Routes under <code>api/</code> mapped to <code>/api/{handle}/...</code>.</li>
 <li>Hook callbacks registered against names declared in <code>plugin.json</code>.</li>
 </ul>
@@ -67,6 +67,8 @@
 <p><strong>Developer tooling</strong></p>
 <p>| Tool | Purpose | |------|---------| | <code>scaffold-plugin.php</code> | Generate plugin skeleton | | <code>plugin-package.schema.json</code> | Validate local <code>plugin.json</code> | | Birkly test suite | Denylist and capability tests |</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="plugin-navigation-icon.html">Plugin navigation icon</a></li>
+<li><a href="../01-admin/design-system.html">Admin design system</a></li>
 <li><a href="for-providers.html">For providers</a></li>
 <li><a href="security-and-review.html">Security and review</a></li>
 <li><a href="official-plugins.html">Official plugins</a></li>

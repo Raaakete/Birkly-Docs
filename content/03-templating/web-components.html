@@ -1,0 +1,56 @@
+<p>Patterns and anti-patterns for Birkly template tags inside regions and custom elements.</p>
+<div class="doc-summary"><p>Put <strong>template syntax in Light DOM</strong> children of <code>&lt;birkly-region&gt;</code> or <code>[data-birkly-region]</code>. Use <code>{from … get entry …}…{endget}</code> and <code>{for each}…{endfor}</code>. After render, <strong>enhance</strong> (classes, listeners) — never wipe <code>innerHTML</code>. Closed Shadow DOM is for fetch + <code>Birkly.render</code> only, not for <code>{for each}</code> discovery.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Good: template in Light DOM</h3>
+<pre><code>&lt;birkly-region collection=&quot;blog&quot; entry=&quot;my-post-slug&quot;&gt;
+  &lt;h1&gt;{title}&lt;/h1&gt;
+  &lt;article&gt;{'content'}&lt;/article&gt;
+&lt;/birkly-region&gt;</code></pre>
+<p>Or explicit root with full block:</p>
+<pre><code>&lt;main data-birkly-region&gt;
+  {from 'blog' get entry 'my-post-slug'}
+    &lt;h1&gt;{title}&lt;/h1&gt;
+    &lt;article&gt;{'content'}&lt;/article&gt;
+  {endget}
+&lt;/main&gt;</code></pre>
+<h3>Good: list children</h3>
+<pre><code>&lt;birkly-region collection=&quot;blog&quot; list ordered=&quot;date:desc&quot;&gt;
+  &lt;article class=&quot;card&quot;&gt;
+    &lt;h2&gt;{title}&lt;/h2&gt;
+    &lt;p&gt;{excerpt}&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/birkly-region&gt;</code></pre>
+<h3>Bad: wipe after CMS render</h3>
+<pre><code>class MyHeader extends HTMLElement {
+  connectedCallback() {
+    // BAD — deletes header content Birkly just rendered
+    this.innerHTML = '&lt;header class=&quot;site-header&quot;&gt;&lt;/header&gt;';
+  }
+}</code></pre>
+<h3>Good: enhance only</h3>
+<pre><code>document.addEventListener('birkly:region-processed', (e) =&gt; {
+  if (e.target.matches('birkly-region, [data-birkly-region]')) {
+    BirklyComponents.setActiveNav(e.target);
+  }
+});</code></pre></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Patterns</h3>
+<p>| Pattern | When | Notes | |---------|------|-------| | Empty <code>&lt;birkly-region collection entry&gt;</code> | Shared header/footer | Client injects default <code>{from}…{endget}</code> | | Children without <code>{from}</code> / <code>{for}</code> | Custom card/layout | Client wraps with get-entry or for-loop | | Children with full <code>{from}</code> / <code>{for}</code> | Full control | Child HTML wins as-is | | <code>[data-birkly-region]</code> + tags | Complex layout root | Explicit outermost region |</p>
+<h3>Anti-patterns</h3>
+<ol>
+<li><strong><code>innerHTML = …</code> in <code>connectedCallback</code></strong> on a host that holds templates or CMS output.</li>
+<li><strong><code>{for each}</code> / <code>{from}</code> inside React/Vue JSX</strong> — use the <a href="../04-integration/spa-react-vue.html">SPA guide</a>.</li>
+<li><strong>Templates inside closed Shadow DOM</strong> — <code>processTemplates</code> / discoverer won’t see them. Fetch data and call <code>Birkly.render(templateString, data)</code>, then assign into the shadow root.</li>
+<li><strong>Phantom single-entry syntax</strong> — <code>{entry 'x'.'y'}…{endentry}</code> is invalid; use <code>{from 'x' get entry 'y'}…{endget}</code>.</li>
+</ol>
+<h3>Events for template authors</h3>
+<ul>
+<li><code>birkly:region-processed</code> — one region finished (listen on the element or bubble).</li>
+<li><code>birkly:templates-processed</code> — full-document <code>processTemplates()</code> finished.</li>
+</ul>
+<p>Integration API and attributes: <a href="../04-integration/web-components.html">Web components (integration)</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="canonical-syntax.html">Canonical syntax</a></li>
+<li><a href="../04-integration/web-components.html">Web components (integration)</a></li>
+<li><a href="../04-integration/choose-your-stack.html">Choose your stack</a></li>
+<li><a href="../04-integration/client-library.html">Client library</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+</ul></div>

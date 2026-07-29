@@ -8,7 +8,13 @@ This glossary defines key terms used across Birkly docs. Use it when you’re un
 
 | Term | Definition |
 |------|------------|
-| **Account** | The logged-in user’s own profile in the admin: name, email, password, two-factor authentication (2FA). See [Account](../01-admin/account.md). |
+| **Agent Guide** | Admin feature that publishes structured context for AI systems (sources of truth, identity, products, claims, evidence). Not a chatbot; references CMS/Media and declared sources rather than duplicating them. See [Agent Guide](../02-content/agent-guide.md). |
+| **Sources of truth (Agent Guide)** | Registry (`sources_of_truth[]`) of canonical sources — CMS entries/collections, websites, documents, media, marketplaces — with roles `narrative`, `proof`, `reference`, `archive`. Agents should read these before relying on summaries alone. |
+| **Agent guide context** | The published JSON snapshot (`agent_guide.v1`) describing a site or organization for machine consumption — well-known file, public API, MCP. Legacy schema: `ai_presence.v1`; legacy path: `/.well-known/brand-context.json`. |
+| **Claim (Agent Guide)** | A factual statement with a review status (`supported`, `pending_review`, etc.). Supported claims appear in public summary views when backed by evidence. |
+| **Cross-link (Agent Guide)** | Typed source reference from a product summary to deeper content — CMS entry, public page, marketplace listing, review site. Exported as resolved URLs in product `sources[]`. |
+| **Evidence (Agent Guide)** | Proof artifact linked to claims — URL, CMS ref, certification page, marketplace listing, etc. |
+| **Well-known agent guide** | Public file at `/.well-known/agent-guide.json` containing the published Agent Guide export. Legacy alias: `/.well-known/brand-context.json`. |
 | **AI connection** | A configured outbound link to an AI provider (OpenAI, Ollama, etc.) in Birkly. Stored in **Settings → AI & Integrations → Outbound**; each has provider, model, role, and optional approval requirement. See [AI connections](../01-admin/ai-connections.md). |
 | **MCP connection** | An inbound MCP endpoint that lets external AI tools connect to Birkly. Configured in **Settings → AI & Integrations → Inbound (MCP)** with API key and/or OAuth. See [MCP connections](../01-admin/mcp-connections.md). |
 | **AI approval** | A pending AI write action (e.g. create entry) waiting for a human to approve or reject. Shown in the approval queue when “Require approval for AI actions” is on. See [AI approvals](../01-admin/ai-approvals.md). |

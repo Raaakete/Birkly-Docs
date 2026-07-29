@@ -27,6 +27,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Roles and permissions | `01-admin/roles-and-permissions.md` | User roles and what they can do |
 | Account | `01-admin/account.md` | Profile, password, 2FA, cloud account link |
 | Admin appearance | `01-admin/admin-appearance.md` | Light/dark/system theme, responsive admin (P15) |
+| Admin design system | `01-admin/design-system.md` | Mint tokens, neutral scale, icons, dark mode, cards, empty-state, status-badge (P41) |
 | Help and onboarding | `01-admin/help-and-onboarding.md` | Live Birkly-Docs Help, onboarding wizard |
 | AI overview | `01-admin/ai-overview.md` | What the AI system is and where to find it |
 | AI connections | `01-admin/ai-connections.md` | Outbound BYOAI providers (OpenAI, Ollama, etc.) |
@@ -47,6 +48,13 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Content editor | `02-content/content-editor.md` | Rich text editor, tables, CSS grids, layout studio |
 | Slugs and status | `02-content/slugs-and-status.md` | URL slug, draft vs published |
 | ContentEditor | `02-content/content-editor.md` | Rich text fieldtype, blocks, HTML round-trip |
+| Agent Guide | `02-content/agent-guide.md` | Structured context for AI systems — overview & doc map |
+| Agent Guide — getting started | `02-content/agent-guide-getting-started.md` | Tutorial: first publish in ~30 minutes |
+| Agent Guide — workflows | `02-content/agent-guide-workflows.md` | Tab-by-tab admin workflows (sources-first) |
+| Agent Guide — claims & links | `02-content/agent-guide-claims-evidence-and-links.md` | Claims, evidence, cross-links, marketplace URLs |
+| Agent Guide — AI Assist | `02-content/agent-guide-ai-assist.md` | Copilot, Guide Studio, field Generate |
+| Agent Guide — best practices | `02-content/agent-guide-best-practices.md` | Quality, governance, operational cadence |
+| Agent Guide — data model | `02-content/agent-guide-data-model.md` | Schema, storage, publish pipeline |
 
 ## 03 — Templating
 
@@ -58,6 +66,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Conditionals | `03-templating/conditionals.md` | `{if}`, `{endif}`, “has” checks |
 | Dates and formatting | `03-templating/dates-and-formatting.md` | Date formats in templates |
 | Media in templates | `03-templating/media-in-templates.md` | `{ media }` and image options |
+| Web components (templating) | `03-templating/web-components.md` | Region patterns, Light DOM, enhance-only anti-patterns |
 | Commerce functions | `03-templating/commerce-functions.md` | Commerce plugin template functions (cart, buy URL) |
 | Reference projects | `03-templating/reference-projects.md` | Six starter sites; live client only; install script |
 | Production optimization | `03-templating/production-optimization.md` | Optional hydrate/snapshot/bake (advanced) |
@@ -73,10 +82,16 @@ This index lists every documentation topic and its file path. Use it for navigat
 
 | Topic | File | Description |
 |-------|------|-------------|
+| Choose your stack | `04-integration/choose-your-stack.md` | Decision hub: HTML, web components, SPA, SSR |
 | Website integration | `04-integration/website-integration.md` | Connecting a site to Birkly |
-| Client library | `04-integration/client-library.md` | Script tag, options, behaviour |
+| Web components | `04-integration/web-components.md` | `<birkly-region>`, `data-birkly-region`, enhance-only |
+| SPA (React / Vue) | `04-integration/spa-react-vue.md` | Public API / fetch; no template tags in JSX |
+| SSR and build-time | `04-integration/ssr-and-build-time.md` | PHP, Astro, Next + page_bundle |
+| Client library | `04-integration/client-library.md` | Script tag, processTemplates, events, components |
 | Public API | `04-integration/public-api.md` | Reading content via API |
 | Public forms | `04-integration/public-forms.md` | Public submission and secure forms |
+| Agent Guide public API | `04-integration/agent-guide-public-api.md` | Published guide HTTP endpoints, views, graph |
+| Agent Guide MCP & agents | `04-integration/agent-guide-mcp-and-agents.md` | MCP tools, resources, agent patterns |
 
 ## 05 — Automation
 
@@ -123,6 +138,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | For site owners | `06-plugin-economy/for-site-owners.md` | Browse, license, install, consent, updates |
 | For providers | `06-plugin-economy/for-providers.md` | Provider Studio, packaging, QC, payouts (summary) |
 | Plugin development | `06-plugin-economy/plugin-development.md` | `plugin.json`, hooks, permissions, `data_access` |
+| Plugin navigation icon | `06-plugin-economy/plugin-navigation-icon.md` | `navigation.icon` registry names and inline SVG fallback (P41) |
 | Themes and template packs | `06-plugin-economy/theme-and-template-packs.md` | Ops starters, marketplace template packs, `project/` |
 | Security and review | `06-plugin-economy/security-and-review.md` | Permission consent, QC tiers, supply chain |
 | Official plugins | `06-plugin-economy/official-plugins.md` | Birkly-maintained vs third-party offers |
@@ -133,6 +149,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Topic | File | Description |
 |-------|------|-------------|
 | Deployment | `07-operations/deployment.md` | Hosting, server, env |
+| Hosting on Dokploy | `07-operations/dokploy-hosting.md` | CMS vs public URLs, `hosting.json`, two-domain Docker |
 | Production deploy checklist | `07-operations/production-deploy-checklist.md` | CMS, marketplace, client site smoke |
 | Monitoring and health alerts | `07-operations/monitoring-alerts.md` | Health alert email/webhook (P13) |
 | Security | `07-operations/security.md` | Hardening, HTTPS, auth |

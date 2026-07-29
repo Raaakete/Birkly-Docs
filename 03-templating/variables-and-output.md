@@ -72,7 +72,7 @@ Use a format string in quotes after the field name: `{ date "F j, Y" }` for “J
 **Syntax and context**
 
 - **Pattern:** `{ variable_name }` — spaces inside braces; name = field key (or system key like `slug`, `id`, `status`).
-- **Context resolution:** Variables resolve against the current scope. In `{for each entry in 'blog'} … { title } … {endfor}`, `title` is resolved on the loop’s current entry. After `{from 'blog' get entry 'my-slug'}`, subsequent variables refer to that entry. Global or page-level variables (e.g. `site_title`) depend on the engine and bootstrap data.
+- **Context resolution:** Variables resolve against the current scope. In `{for each entry in 'blog'} … { title } … {endfor}`, `title` is resolved on the loop’s current entry. Inside `{from 'blog' get entry 'my-slug'}…{endget}`, variables refer to that entry. Global or page-level variables (e.g. `site_title`) depend on the engine and bootstrap data.
 
 **Output behaviour by field type**
 

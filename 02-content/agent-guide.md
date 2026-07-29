@@ -162,5 +162,8 @@ Yes. Only **published** snapshots are public. Disable publishing or don’t publ
 **Do I need AI connections configured?**  
 No. Rule-based suggestions and manual editing work without AI. Connections unlock Copilot, Fill 100%, and smarter suggestions.
 
+**Do I need a vector database?**  
+No. Agent Guide is **curated truth + evidence + source links** — the right model for “what is officially true about our brand?” Vector search helps **fuzzy search over huge unstructured archives** (e.g. support tickets). That is a different product problem; optional semantic search could be a **future plugin**, not core CMS.
+
 **Legacy paths and tools?**  
 `/.well-known/brand-context.json`, MCP `get_brand_context`, and admin `?page=ai-presence` remain supported as aliases.

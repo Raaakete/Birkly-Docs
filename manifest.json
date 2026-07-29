@@ -41,10 +41,13 @@
       "id": "content",
       "label": "Content",
       "items": [
+        { "path": "02-content/content-model-overview.md", "label": "Content model overview" },
         { "path": "02-content/collections.md", "label": "Collections" },
         { "path": "02-content/collection-groups.md", "label": "Collection groups" },
         { "path": "02-content/sub-collections.md", "label": "Sub-Collections" },
         { "path": "02-content/entries.md", "label": "Entries" },
+        { "path": "02-content/site-elements-pattern.md", "label": "Site elements pattern" },
+        { "path": "02-content/dynamic-items-field.md", "label": "Dynamic items field" },
         { "path": "02-content/field-types.md", "label": "Field types" },
         { "path": "02-content/slugs-and-status.md", "label": "Slugs and status" },
         { "path": "02-content/content-editor.md", "label": "ContentEditor" },

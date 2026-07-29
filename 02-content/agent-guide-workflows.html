@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>agent guide workflows — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="collections.html" class="nav-link">Collections</a>
+        <a href="collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="entries.html" class="nav-link">Entries</a>
+        <a href="site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="field-types.html" class="nav-link">Field types</a>
+        <a href="slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="agent-guide-workflows.html" class="nav-link active">Agent Guide — workflows</a>
+        <a href="agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><div class="doc-summary"><p>Tab-by-tab guide for day-to-day Agent Guide editing: what each area is for, typical tasks, and how sections connect. Follow the workflow <strong>Sources → Context → Products → Claims → Publish</strong>. Assumes you’ve read <a href="agent-guide-getting-started.html">Getting started</a>.</p>
+<h2>Essentials view and guided setup</h2>
+<p>Most day-to-day edits happen in <strong>Essentials</strong> view (the default). It surfaces identity, a sources preview, key positioning messages, a claims preview, and publish controls — without the full tab bar. Switch to <strong>Advanced</strong> for Overview, Products, Media, link health, version history, and the AI Assist sidebar.</p>
+<p><strong>Re-run the wizard</strong> anytime from the status strip <strong>Set up guide</strong> button (also linked from Overview as <strong>Run guided setup</strong>). Re-opening the wizard does not delete published data — it walks through setup steps with your current draft prefilled. Use it after skipping first-time setup or when onboarding a new editor.</p>
+<p>First publish can be completed via wizard + Essentials alone (~15 min). Advanced tabs add depth (products, cross-links, media context, completeness dashboard) for return visits.</p>
+<p>---</p>
+<h2>Overview tab</h2>
+<p><strong>Purpose:</strong> Dashboard — completeness, source registry health, CMS drift, link health, public URLs.</p>
+<h3>Completeness score (0–100)</h3>
+<p>| Section | Max pts | Complete when | |---------|---------|---------------| | Identity | 20 | Official name + short description | | Description | 15 | Full description or what we do | | Sources of truth | 15 | ≥1 <strong>narrative</strong> source in registry | | Reviewed claims | 20 | ≥1 <strong>supported</strong> claim with evidence | | Evidence sources | 15 | ≥1 evidence with <strong>verifiable URL</strong> | | Positioning | 10 | Best known for filled | | Products &amp; services | 10 | ≥1 product <strong>with grounded source</strong> | | Terminology | 5 | Preferred terms defined | | Publishing enabled | 5 | Publishing toggled on |</p>
+<p><strong>Next steps</strong> list links each gap to the relevant tab.</p>
+<h3>CMS sync panel</h3>
+<p>Compares narrative <strong>sources of truth</strong> and linked CMS refs to draft identity fields. Shows:</p>
+<ul>
+<li><strong>Empty field</strong> — CMS has content, Agent Guide field is blank → <strong>Refresh from CMS</strong></li>
+<li><strong>Drift</strong> — Content diverged → review before refresh</li>
+<li><strong>Missing entry</strong> — Linked entry deleted → fix sources</li>
+</ul>
+<p>Narrative CMS sources drive sync targets for full description and short description.</p>
+<h3>Cross-links &amp; source health</h3>
+<ul>
+<li><strong>Suggest cross-links / sources</strong> — Opens AI Assist with registry, product, evidence, and derived-from suggestions</li>
+<li><strong>Check all links</strong> — HEAD-checks external URLs on products, claims, evidence, and sources; updates <code>link_status</code> and <code>last_verified_at</code></li>
+</ul>
+<p>Review broken or redirect links before republishing.</p>
+<h3>Public URLs</h3>
+<p>Shows well-known URL (<code>/.well-known/agent-guide.json</code>), legacy path when configured, and public API base after publish. Requires <strong>Settings → Site delivery</strong> public site URL.</p>
+<p>---</p>
+<h2>Sources tab</h2>
+<p><strong>Purpose:</strong> Declare <strong>sources of truth</strong> — the canonical reading list for agents. <strong>Start here</strong> before writing summaries elsewhere.</p>
+<h3>Why a registry?</h3>
+<p>Summaries in Context and Products are a <strong>index layer</strong>. The registry tells agents (and AI Assist) which CMS entries, websites, documents, and other URLs to read first for narrative, proof, reference, or archive material.</p>
+<h3>Source shape</h3>
+<p>Each entry in <code>sources_of_truth[]</code> has:</p>
+<p>| Field | Purpose | |-------|---------| | <code>type</code> | Kind of source (see types below) | | <code>role</code> | How agents should use it | | <code>label</code> | Human-readable name | | <code>url</code> | Public URL when not CMS-resolved | | <code>ref</code> | CMS collection/entry when type is <code>cms_entry</code> or <code>cms_collection</code> | | <code>priority</code> | 0–100 hint for ordering (default 50) | | <code>notes</code> | Editor notes (not marketing copy) |</p>
+<h3>Source types</h3>
+<p>| Type | Use for | |------|---------| | <code>cms_entry</code> | Single CMS entry (About page, product page) | | <code>cms_collection</code> | Whole collection as background reading | | <code>website</code> | External or primary site URL | | <code>document</code> | PDF or file in Media library | | <code>media_asset</code> | Image or media with contextual meaning | | <code>marketplace</code> | Amazon, app store, Etsy listing | | <code>review_platform</code> | G2, Trustpilot, Capterra | | <code>other</code> | Anything else with a URL |</p>
+<h3>Source roles</h3>
+<p>| Role | Meaning | |------|---------| | <code>narrative</code> | Who you are, what you do — primary story sources | | <code>proof</code> | Evidence and verification material | | <code>reference</code> | Background reading, docs, FAQs | | <code>archive</code> | Historical or superseded material |</p>
+<p><strong>Completeness:</strong> At least one <strong>narrative</strong> source is required for full sources credit.</p>
+<h3>Adding sources</h3>
+<ol>
+<li><strong>Add source of truth</strong> → pick type and role.</li>
+<li>For CMS types, select collection and optionally entry.</li>
+<li>For website/document/media, provide URL or media picker.</li>
+<li>Run <strong>Check all links</strong> periodically on URL-backed sources.</li>
+</ol>
+<p>Legacy <strong><code>connected_content[]</code></strong> refs are migrated into this registry automatically on save.</p>
+<p>---</p>
+<h2>Context tab</h2>
+<p><strong>Purpose:</strong> Who you are, how you position, how you speak, who you’re related to. Summaries here should <strong>reflect</strong> declared sources of truth.</p>
+<h3>Identity</h3>
+<p>Core profile fields. Use <strong>Generate</strong> per field when AI Assist is available — it reads <code>sources_of_truth</code> first.</p>
+<p><strong>derived_from</strong> (published): When you mark short description as derived from a narrative CMS source, published JSON includes the resolved public URL under <code>identity.derived_from.short_description</code>.</p>
+<h3>Positioning</h3>
+<ul>
+<li><strong>Best known for</strong> — 3–5 bullets agents may quote</li>
+<li><strong>Differentiators</strong>, <strong>best suited for</strong>, <strong>not ideal for</strong> — Reduce mismatched recommendations</li>
+<li><strong>Competitive positioning</strong> — Optional narrative (keep factual)</li>
+</ul>
+<h3>Terminology &amp; voice</h3>
+<ul>
+<li><strong>Preferred terms</strong> — <code>{ term, meaning }</code> pairs</li>
+<li><strong>Avoided terms</strong> — Words agents should not use</li>
+<li><strong>Required qualifications</strong> — Claims that need hedging in copy</li>
+<li><strong>Tone</strong> — e.g. professional, approachable</li>
+</ul>
+<h3>Relationships</h3>
+<p>Partners, parent organization, subsidiaries — name, type, URL. Exported in full JSON; useful for graph and <code>sameAs</code>-style linking.</p>
+<p>---</p>
+<h2>Products &amp; Services tab</h2>
+<p><strong>Purpose:</strong> Structured catalog for agent Q&amp;A (“What do you offer?”).</p>
+<h3>Product card fields</h3>
+<p>| Field | Notes | |-------|-------| | Name, type, category | Required for clarity | | Short / full description | Summary layer — link out for specs | | Best for / not for | Audience fit | | Pricing model | Text hint (subscription, one-time, free) | | Media | From Media library or external image URL |</p>
+<h3>Product source links (modal)</h3>
+<p>Each product can have multiple <strong>typed sources</strong> (separate from top-level <code>sources_of_truth</code>):</p>
+<p>| Role | Type | Example | |------|------|---------| | canonical_detail | cms_entry | Product CMS entry | | canonical_detail | public_page | <code>https://yoursite.com/products/x</code> | | marketplace | marketplace_listing | Listing URL | | review | review_platform | G2 product page | | docs | docs | Technical documentation | | purchase | public_page | Checkout or pricing page |</p>
+<p>On <strong>publish</strong>, CMS refs resolve to public URLs on your site domain.</p>
+<h3>Link to claims</h3>
+<p>Products can reference claim IDs. Graph API returns linked claims for a product.</p>
+<p>---</p>
+<h2>Claims &amp; Evidence tab</h2>
+<p><strong>Purpose:</strong> Verifiable statements and proof.</p>
+<h3>Claim statuses</h3>
+<p>| Status | Meaning | |--------|---------| | <code>pending_review</code> | Draft statement, not for public “supported” export | | <code>supported</code> | Reviewed; included in summary/public views | | <code>unsupported</code> | Explicitly not standing behind | | <code>conflicting</code> | Internal disagreement — resolve before publish | | <code>expired</code> | Was true; time-bound claim ended |</p>
+<p>Only <strong>supported</strong> claims appear in <code>view=summary</code>, <code>view=claims</code>, and MCP claim tools.</p>
+<h3>Evidence types</h3>
+<p>| Type | Use for | |------|---------| | cms_content | CMS entry as proof | | external_url | Any HTTPS proof page | | marketplace_listing | Amazon, Etsy, app store | | review_platform | G2, Trustpilot, Capterra | | certification | ISO, SOC2 badge pages | | publication | Press, research papers | | upload | Internal doc reference (prefer URL when public) |</p>
+<p>Optional <strong>rating</strong> and <strong>review_count</strong> store lightweight metadata — <strong>URL remains source of truth</strong>.</p>
+<h3>Workflow tip</h3>
+<ol>
+<li>Select claim in list → detail panel</li>
+<li>Add evidence filtered to that claim</li>
+<li>Verify evidence (marks <code>user_verified</code>)</li>
+<li>When ≥2 evidence items attached, status may auto-promote to supported — still review manually</li>
+</ol>
+<p>See <a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a> for strategy.</p>
+<p>---</p>
+<h2>Media tab</h2>
+<p><strong>Purpose:</strong> Tell agents <strong>what an image means</strong>, not just that it exists.</p>
+<p>For each media asset in context:</p>
+<p>| Field | Example | |-------|---------| | Represents | organization, product, person, campaign | | Description | “2024 product hero — Widget Pro on desk” | | Intended use | “Marketing hero, not spec diagram” | | Restrictions | “Do not crop logo; no AI-generated derivatives” |</p>
+<p>Link media to products/claims via represents.ref when editing.</p>
+<p><strong>Staleness:</strong> If linked media metadata changes after publish, Overview/Publish warn you to review.</p>
+<p>---</p>
+<h2>Publish tab</h2>
+<p><strong>Purpose:</strong> Go live, preview, version history.</p>
+<h3>Publication settings</h3>
+<p>| Setting | Effect | |---------|--------| | Enabled | Master switch — off = public 404 | | Public path | Well-known file path (default <code>/.well-known/agent-guide.json</code>) | | Include JSON-LD | Embeds schema.org graph in export | | Public views enabled | API view parameters active | | Redact public fields | Advanced: omit fields from export |</p>
+<h3>Publish action</h3>
+<p>Creates immutable version snapshot:</p>
+<ul>
+<li>Increments <code>published_version</code></li>
+<li>Writes <code>published.json</code>, optional <code>versions/{n}.json</code> (cap 50)</li>
+<li>Writes well-known file when hosting mode is <code>project</code></li>
+<li>Public API serves new snapshot (5-minute cache)</li>
+</ul>
+<h3>Staleness warnings</h3>
+<p>After publish, warns when:</p>
+<ul>
+<li>Linked CMS entry updated</li>
+<li>Linked media changed</li>
+<li>External evidence link not verified in 180+ days</li>
+<li>Evidence link status is <strong>broken</strong></li>
+</ul>
+<p>Republish after review when material changes occur.</p>
+<h3>API view URLs</h3>
+<p>Publish tab lists example URLs:</p>
+<ul>
+<li><code>view=summary</code> — Lightweight identity + supported claims + sources hint</li>
+<li><code>view=products</code> — Catalog only</li>
+<li><code>view=claims</code> — Supported claims with sources</li>
+</ul>
+<p>---</p>
+<h2>Save bar workflow</h2>
+<ol>
+<li><strong>Sources first</strong> — Ensure narrative sources exist</li>
+<li>Edit any tab → <strong>Save draft</strong> (validates schema)</li>
+<li>Review completeness / staleness on Overview</li>
+<li><strong>Publish</strong> when ready</li>
+</ol>
+<p>Never rely on auto-save for AI suggestions — accept explicitly in AI Assist first, then save draft.</p>
+<h2>Related docs</h2>
+<ul>
+<li><a href="agent-guide-getting-started.html">Getting started</a></li>
+<li><a href="agent-guide-ai-assist.html">AI Assist</a></li>
+<li><a href="agent-guide-best-practices.html">Best practices</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

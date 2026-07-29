@@ -1,0 +1,184 @@
+<div class="doc-summary"><p>Read-only HTTP endpoints expose the <strong>published</strong> Agent Guide on your <strong>public site domain</strong>. Draft content is never served. Use these endpoints for headless sites, custom chatbots, server-side agents, and verification tools.</p>
+<p><strong>Related:</strong> <a href="agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a> · <a href="../02-content/agent-guide-data-model.html">Data model</a></p>
+<h2>Base URL</h2>
+<p>All URLs are on your <strong>public site</strong> (Settings → Site delivery), not the admin host:</p>
+<pre><code>https://YOUR-PUBLIC-SITE/</code></pre>
+<h2>Discovery channels</h2>
+<p>| Channel | URL | Format | |---------|-----|--------| | Well-known file (default) | <code>GET /.well-known/agent-guide.json</code> | Raw JSON export | | Well-known file (legacy) | <code>GET /.well-known/brand-context.json</code> | Same snapshot (legacy path) | | Public API | <code>GET /api/public/ai_presence.php</code> | JSON envelope <code>{ status, data }</code> |</p>
+<p>Both well-known paths and the API serve the same canonical export for <code>action=brand</code> (full view) unless a <code>view</code> filter is applied on the API.</p>
+<h2>Endpoints</h2>
+<p>| Action | URL | Returns | |--------|-----|---------| | Full guide | <code>?action=brand</code> or <code>?action=brand&amp;view=full</code> | Complete enriched export | | Summary | <code>?action=brand&amp;view=summary</code> | Identity, positioning, supported claims, usage_hints | | Products | <code>?action=brand&amp;view=products</code> | <code>products_services[]</code> only | | Claims | <code>?action=brand&amp;view=claims</code> | Supported claims with sources | | Single product | <code>?action=product&amp;id={id}</code> | One product (id or name match) | | Product graph | <code>?action=product&amp;id={id}&amp;graph=1</code> | Product + sources + linked claims | | Single claim | <code>?action=claim&amp;id={id}</code> | One supported claim | | Claim graph | <code>?action=claim&amp;id={id}&amp;graph=1</code> | Claim + evidence + sources | | Source lookup | <code>?action=source&amp;url={encoded_url}</code> | Entities referencing URL |</p>
+<h3>Parameters</h3>
+<ul>
+<li><strong>id</strong> — Product or claim <code>id</code> field, or product <code>name</code> (product action only)</li>
+<li><strong>graph</strong> — <code>1</code> or truthy to expand related objects</li>
+<li><strong>url</strong> — Full URL for source reverse lookup (must match published evidence/source URL exactly)</li>
+</ul>
+<h2>Response envelope (API)</h2>
+<p>Success:</p>
+<pre><code>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;data&quot;: { … }
+}</code></pre>
+<p>Error:</p>
+<pre><code>{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;Product not found&quot;
+}</code></pre>
+<p>HTTP status: <strong>404</strong> when publishing disabled or entity not found; <strong>400</strong> for unknown action or missing params.</p>
+<h2>Export metadata (all full/summary views)</h2>
+<p>| Field | Description | |-------|-------------| | schema_version | <code>agent_guide.v1</code> (legacy exports may show <code>ai_presence.v1</code>) | | published_version | Integer, increments on each publish | | generated_at | ISO 8601 publish timestamp | | guide_meta | Product marker, summary_layer flag | | sources_of_truth | Resolved registry of canonical sources | | usage_hints | AI consumer guidance (full export) | | json_ld | Optional schema.org graph when enabled in settings |</p>
+<h2>Example — summary view</h2>
+<pre><code>GET /api/public/ai_presence.php?action=brand&amp;view=summary</code></pre>
+<pre><code>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;data&quot;: {
+    &quot;schema_version&quot;: &quot;agent_guide.v1&quot;,
+    &quot;published_version&quot;: 3,
+    &quot;generated_at&quot;: &quot;2026-07-27T10:00:00+00:00&quot;,
+    &quot;view&quot;: &quot;summary&quot;,
+    &quot;guide_meta&quot;: {
+      &quot;product&quot;: &quot;Agent Guide&quot;,
+      &quot;summary_layer&quot;: true
+    },
+    &quot;sources_of_truth&quot;: [
+      {
+        &quot;id&quot;: &quot;truth_about&quot;,
+        &quot;type&quot;: &quot;cms_entry&quot;,
+        &quot;role&quot;: &quot;narrative&quot;,
+        &quot;label&quot;: &quot;About&quot;,
+        &quot;url&quot;: &quot;https://example.com/pages/about&quot;
+      }
+    ],
+    &quot;identity&quot;: {
+      &quot;official_name&quot;: &quot;Acme Co&quot;,
+      &quot;short_description&quot;: &quot;Project management for remote teams&quot;,
+      &quot;website&quot;: &quot;https://example.com&quot;,
+      &quot;derived_from&quot;: {
+        &quot;short_description&quot;: {
+          &quot;collection&quot;: &quot;pages&quot;,
+          &quot;entry_id&quot;: &quot;about&quot;,
+          &quot;slug&quot;: &quot;about&quot;,
+          &quot;label&quot;: &quot;About&quot;,
+          &quot;url&quot;: &quot;https://example.com/pages/about&quot;
+        }
+      }
+    },
+    &quot;positioning&quot;: {
+      &quot;best_known_for&quot;: [&quot;Async collaboration&quot;, &quot;Simple pricing&quot;],
+      &quot;differentiators&quot;: [&quot;No per-seat tax&quot;]
+    },
+    &quot;supported_claims&quot;: [
+      {
+        &quot;id&quot;: &quot;claim_soc2&quot;,
+        &quot;statement&quot;: &quot;SOC 2 Type II certified&quot;,
+        &quot;sources&quot;: []
+      }
+    ],
+    &quot;usage_hints&quot;: {
+      &quot;summary_layer&quot;: true,
+      &quot;follow_sources_of_truth&quot;: true,
+      &quot;claims_require_evidence&quot;: true,
+      &quot;follow_links_for&quot;: [&quot;product specs&quot;, &quot;pricing&quot;, &quot;reviews&quot;]
+    }
+  }
+}</code></pre>
+<h2>Example — product with sources</h2>
+<pre><code>GET /api/public/ai_presence.php?action=product&amp;id=prod_widget&amp;graph=1</code></pre>
+<pre><code>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;data&quot;: {
+    &quot;product&quot;: {
+      &quot;id&quot;: &quot;prod_widget&quot;,
+      &quot;name&quot;: &quot;Widget Pro&quot;,
+      &quot;type&quot;: &quot;product&quot;,
+      &quot;short_description&quot;: &quot;Flagship widget for teams&quot;,
+      &quot;sources&quot;: [
+        {
+          &quot;role&quot;: &quot;canonical_detail&quot;,
+          &quot;type&quot;: &quot;cms_entry&quot;,
+          &quot;label&quot;: &quot;Widget Pro&quot;,
+          &quot;url&quot;: &quot;https://example.com/products/widget-pro&quot;,
+          &quot;ref&quot;: {
+            &quot;collection&quot;: &quot;products&quot;,
+            &quot;entry_id&quot;: &quot;e1&quot;,
+            &quot;slug&quot;: &quot;widget-pro&quot;
+          }
+        },
+        {
+          &quot;role&quot;: &quot;marketplace&quot;,
+          &quot;type&quot;: &quot;marketplace_listing&quot;,
+          &quot;label&quot;: &quot;Amazon US&quot;,
+          &quot;url&quot;: &quot;https://www.amazon.com/dp/B0XXXXXX&quot;
+        }
+      ]
+    },
+    &quot;sources&quot;: [ &quot;… same as product.sources …&quot; ],
+    &quot;linked_claims&quot;: [],
+    &quot;usage_hints&quot;: {
+      &quot;follow_sources_for&quot;: &quot;full specs, pricing, purchase links, and proof&quot;
+    }
+  }
+}</code></pre>
+<h2>Example — claim graph</h2>
+<pre><code>GET /api/public/ai_presence.php?action=claim&amp;id=claim_soc2&amp;graph=1</code></pre>
+<p>Includes <code>claim</code>, <code>evidence[]</code> (resolved items), <code>sources[]</code>, and <code>usage_hints.repeat_only_with_evidence</code>.</p>
+<h2>Example — well-known file</h2>
+<pre><code>GET /.well-known/agent-guide.json</code></pre>
+<p>Returns raw JSON body (no <code>{ status, data }</code> wrapper). Same content as full API export including <code>json_ld</code> when enabled.</p>
+<p>Legacy path:</p>
+<pre><code>GET /.well-known/brand-context.json</code></pre>
+<p>Pretty-printed; suitable for crawlers and static mirrors.</p>
+<h2>JSON-LD (optional)</h2>
+<p>When <code>publication_settings.include_json_ld</code> is true, export includes:</p>
+<pre><code>{
+  &quot;json_ld&quot;: {
+    &quot;@context&quot;: &quot;https://schema.org&quot;,
+    &quot;@graph&quot;: [
+      { &quot;@type&quot;: &quot;Organization&quot;, &quot;name&quot;: &quot;…&quot;, &quot;url&quot;: &quot;…&quot;, &quot;sameAs&quot;: [&quot;…&quot;] },
+      { &quot;@type&quot;: &quot;Product&quot;, &quot;name&quot;: &quot;…&quot;, &quot;url&quot;: &quot;…&quot;, &quot;sameAs&quot;: [&quot;…&quot;] },
+      { &quot;@type&quot;: &quot;Claim&quot;, &quot;name&quot;: &quot;…&quot;, &quot;isBasedOn&quot;: […] }
+    ]
+  }
+}</code></pre>
+<p>Validate with <a href="https://search.google.com/test/rich-results">Google Rich Results Test</a> if using for SEO.</p>
+<h2>Caching</h2>
+<p>| Header | Value | |--------|-------| | Cache-Control | <code>public, max-age=300</code> (5 minutes) | | X-Agent-Guide-Version | Published version integer |</p>
+<p>Clients should re-fetch after known republish or when version header changes.</p>
+<h2>CORS</h2>
+<p>Same origin whitelist as other Birkly public APIs: registered domains + same-host dev origins. Browser fetch from allowed origins only.</p>
+<h2>Disabled / unpublished</h2>
+<p>Returns <strong>404</strong> JSON when:</p>
+<ul>
+<li><code>publication_settings.enabled</code> is false</li>
+<li>No published snapshot exists</li>
+</ul>
+<p>Message: <code>Agent Guide not published or disabled</code></p>
+<h2>Headless / separate public host</h2>
+<p>Configure <strong>public site URL</strong> under Settings → Site delivery. The well-known file is served on that domain — not the CMS admin host.</p>
+<p>For <code>public_site_mode=project</code>, publish also writes:</p>
+<pre><code>project/.well-known/agent-guide.json</code></pre>
+<p>(Legacy filename <code>brand-context.json</code> when that path is configured.)</p>
+<h2>Security</h2>
+<p>| Topic | Behavior | |-------|----------| | Authentication | None required (public read) | | Draft exposure | Never — separate admin API | | Admin API | <code>/api/ai_presence.php</code> — session auth + CSRF | | URL fetch (admin) | SSRF-safe validation for evidence metadata | | Rate limiting | Follows public API limits where configured |</p>
+<h2>Admin API (not public)</h2>
+<p>Authenticated endpoints for draft edit, publish, AI suggest, link validate — see <a href="../02-content/agent-guide-data-model.html#admin-api-authenticated">Data model</a>.</p>
+<p>Do not expose admin API to the public internet without normal Birkly auth.</p>
+<h2>Integration examples</h2>
+<h3>curl smoke test</h3>
+<pre><code>BASE=&quot;https://your-public-site.com&quot;
+curl -s &quot;$BASE/.well-known/agent-guide.json&quot; | jq .published_version
+curl -s &quot;$BASE/api/public/ai_presence.php?action=brand&amp;view=summary&quot; | jq .data.identity.official_name</code></pre>
+<h3>JavaScript (allowed origin)</h3>
+<pre><code>const res = await fetch('/api/public/ai_presence.php?action=brand&amp;view=products');
+const { data } = await res.json();
+const products = data.products_services ?? [];</code></pre>
+<h3>Server-side agent (Node)</h3>
+<p>Fetch summary on session start; cache 5 min keyed by <code>X-Agent-Guide-Version</code>. Read <code>sources_of_truth</code> first; for product questions, call graph endpoint.</p>
+<h2>Related docs</h2>
+<ul>
+<li><a href="../02-content/agent-guide.html">Agent Guide overview</a></li>
+<li><a href="../02-content/agent-guide-getting-started.html">Getting started</a></li>
+<li><a href="agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a></li>
+<li><a href="website-integration.html">Website integration</a></li>
+</ul></div>

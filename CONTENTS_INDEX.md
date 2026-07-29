@@ -40,7 +40,10 @@ This index lists every documentation topic and its file path. Use it for navigat
 
 | Topic | File | Description |
 |-------|------|-------------|
+| Content model overview | `02-content/content-model-overview.md` | Start here: collections vs entries, decision tree, examples |
 | Collections | `02-content/collections.md` | Content types, fields, entry method |
+| Site elements pattern | `02-content/site-elements-pattern.md` | Header/footer chrome via site-elements + birkly-region |
+| Dynamic items field | `02-content/dynamic-items-field.md` | Add Block fieldtype, repeating blocks in entries |
 | Collection groups | `02-content/collection-groups.md` | Nested group tree, groups.json, API and templating |
 | Sub-Collections | `02-content/sub-collections.md` | Child content types attached to entries (comments, reviews, etc.) |
 | Entries | `02-content/entries.md` | Creating and editing content items |

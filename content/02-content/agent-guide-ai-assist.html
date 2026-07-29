@@ -1,0 +1,74 @@
+<div class="doc-summary"><p>AI Assist helps you build and maintain Agent Guide faster. It <strong>suggests</strong> — it never writes to your draft until you <strong>Accept</strong>. You can use rule-based suggestions without any AI provider; connecting Settings → AI connections unlocks Copilot, Fill 100%, field Generate, and smarter source/link suggestions.</p>
+<p><strong>Grounding rule:</strong> AI Assist prefers declared <strong>sources of truth</strong> before inferring. When sources are missing, it may suggest <code>sources_of_truth.new</code> entries first.</p>
+<h2>Where AI Assist lives</h2>
+<ul>
+<li><strong>Right sidebar</strong> — AI Assist panel (FAB on smaller viewports)</li>
+<li><strong>Context fields</strong> — <strong>Generate</strong> button per field</li>
+<li><strong>Overview / Sources</strong> — Suggest sources and cross-links (same engine as sidebar)</li>
+</ul>
+<p><strong>AI connection picker</strong> — Top of sidebar. Empty = rules-only mode.</p>
+<h2>Modes (sidebar)</h2>
+<h3>Auto tab</h3>
+<p>| Action | Mode | Behavior | |--------|------|----------| | <strong>Auto-fill</strong> | <code>fill_complete</code> (creative) | Target ~100% completeness; infers gaps from draft + sources | | <strong>Fill gaps</strong> | <code>fill_gaps</code> | Only incomplete completeness sections | | <strong>Fill 100%</strong> | <code>fill_complete</code> | Same as auto-fill — explicit label | | <strong>Suggest cross-links / sources</strong> | <code>links</code> + rules | Registry entries, product→CMS links, evidence URLs, derived-from |</p>
+<p>All return a <strong>review queue</strong> in the sidebar unless you use field <strong>Generate</strong> (direct apply).</p>
+<h3>Advanced tab</h3>
+<p>| Action | Behavior | |--------|----------| | <strong>Guide Studio</strong> | Select CMS collections → wizard generates identity, products, claims from entries | | <strong>Improve</strong> | Refine existing copy | | <strong>Suggest claims</strong> | Claim ideas grounded in source excerpts |</p>
+<p>Guide Studio may add narrative <strong><code>cms_collection</code></strong> sources for chosen collections.</p>
+<h2>Suggestion lifecycle</h2>
+<pre><code>Trigger (Copilot / field / links)
+        ↓
+Suggestions appear in sidebar
+        ↓
+Accept one / Accept all / Reject
+        ↓
+Draft updated in memory → Save draft → Publish</code></pre>
+<p><strong>Accept all</strong> applies every pending suggestion sequentially — review count badge first.</p>
+<h3>Suggestion fields (common)</h3>
+<p>| field | Applies | |-------|---------| | <code>sources_of_truth.new</code> | New registry entry <code>{type, role, label, url?, ref?}</code> | | <code>identity.short_description</code> | Identity text | | <code>positioning.best_known_for</code> | Array append | | <code>products_services.new</code> | New product object | | <code>products_services.link</code> | Add source to existing product | | <code>claims.new</code> | New claim string or object | | <code>evidence.new</code> | New evidence with optional claim link | | <code>identity.derived_from.short_description</code> | Mark source for summary | | <code>relationships.new</code> | Partner/parent/etc. |</p>
+<p>Each suggestion includes <code>source</code> (cms, source, ai, rule, wizard, inferred) and <code>confidence</code>.</p>
+<h2>Field-level Generate (Context tab)</h2>
+<p>Click <strong>Generate</strong> next to a field:</p>
+<ul>
+<li>Calls field AI with full draft + <strong>sources of truth</strong> context</li>
+<li><strong>Applies directly</strong> to that field (no sidebar queue)</li>
+<li>Uses creative grounding when AI connection set</li>
+</ul>
+<p>Use for quick single-field polish; use Copilot for multi-section passes.</p>
+<h2>Creative vs grounded modes</h2>
+<p>| Mode | When | AI behavior | |------|------|-------------| | <strong>Creative</strong> | Fill 100%, field Generate default | Prefer sources; infer plausible values when missing; mark source inferred | | <strong>Grounded</strong> | Some copilot modes without creative flag | Do not invent facts unsupported by sources |</p>
+<p>For regulated industries, review inferred suggestions carefully before accept.</p>
+<h2>Link and source suggestions (rules + AI)</h2>
+<p><strong>Rule-based</strong> (always available):</p>
+<ul>
+<li>Empty registry → suggest first CMS collection or primary website as <code>sources_of_truth.new</code></li>
+<li>Product name ≈ CMS entry label → suggest <code>products_services.link</code></li>
+<li>Claim mentions amazon/review/rating without marketplace evidence → suggest <code>evidence.new</code></li>
+<li>Short description filled + narrative CMS source exists → suggest <code>derived_from</code></li>
+</ul>
+<p><strong>AI-enhanced</strong> (with connection):</p>
+<ul>
+<li>Copilot <code>links</code> mode adds AI proposals filtered to source/link fields</li>
+<li>Copilot <code>sources</code> mode focuses on <code>sources_of_truth.new</code> only</li>
+</ul>
+<h2>Context gathering</h2>
+<p>AI Assist reads <strong>sources_of_truth</strong> (CMS entry/collection refs) and excerpts text fields (title, body, description, etc.) — max ~2–4 KB per entry. More declared sources = better suggestions.</p>
+<p>Guide Studio scans selected collections (up to ~12 entries each).</p>
+<h2>Loading and cancel</h2>
+<p>Bulk operations show <strong>AI is working</strong> overlay with <strong>Cancel</strong> — aborts in-flight request via AbortController.</p>
+<h2>AI errors</h2>
+<p>If provider fails, sidebar may still show <strong>rule-based</strong> suggestions. Error string returned in API response (<code>ai_error</code>) — check connection, API key, model.</p>
+<h2>Permissions</h2>
+<p>AI Assist read paths need <code>read</code>. Accept/save needs <code>manage_settings</code>. AI connections respect role access from Settings.</p>
+<h2>What AI Assist does not do</h2>
+<ul>
+<li>Auto-publish</li>
+<li>Replace legal/compliance review</li>
+<li>Scrape third-party sites into your draft</li>
+<li>Modify published snapshot without explicit Publish</li>
+</ul>
+<h2>Related docs</h2>
+<ul>
+<li><a href="agent-guide-getting-started.html">Getting started</a></li>
+<li><a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a></li>
+<li><a href="../01-admin/ai-connections.html">AI connections</a></li>
+</ul></div>

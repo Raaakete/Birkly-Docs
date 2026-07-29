@@ -1,0 +1,167 @@
+<div class="doc-summary"><p>Technical reference for <code>agent_guide.v1</code>: storage layout, schema sections, completeness algorithm, publish pipeline, and export enrichment. Schema file: <code>schema/ai_presence.schema.json</code> in the Birkly repo (canonical <code>$id</code>: <code>agent_guide.v1.json</code>).</p>
+<p>Legacy schema version <code>ai_presence.v1</code> is accepted on load and normalized to current behavior.</p>
+<h2>Schema version</h2>
+<pre><code>&quot;schema_version&quot;: &quot;agent_guide.v1&quot;</code></pre>
+<p>Also accepted: <code>&quot;ai_presence.v1&quot;</code> (legacy). New saves use <code>agent_guide.v1</code>.</p>
+<h2>Storage (runtime)</h2>
+<p>Not committed to git — lives under project <code>settings/</code>:</p>
+<pre><code>settings/ai_presence/
+  draft.json          ← working copy (admin edits)
+  published.json      ← last published snapshot
+  meta.json           ← versions, timestamps, checksums
+  versions/
+    1.json … N.json   ← optional history (cap 50)</code></pre>
+<p>Internal path name <code>ai_presence</code> is historical; the product and export schema are <strong>Agent Guide</strong>.</p>
+<h3>meta.json fields</h3>
+<p>| Field | Description | |-------|-------------| | published_version | Integer, increments each publish | | last_published_at | ISO 8601 | | draft_updated_at | Last draft save | | draft_checksum / published_checksum | SHA-256 of normalized JSON |</p>
+<h2>Top-level document structure</h2>
+<p>| Key | Description | |-----|-------------| | <code>sources_of_truth</code> | Registry of canonical sources (CMS, web, docs, media, marketplaces) | | <code>guide_meta</code> | Export hints (<code>product</code>, <code>summary_layer</code>) | | identity | Official name, descriptions, website, social, derived_from | | positioning | Best known for, differentiators, fit | | communication_guidance | Terms, tone, qualifications | | connected_content | <strong>Legacy</strong> — migrated to <code>sources_of_truth</code> on save | | products_services | Catalog items | | claims | Factual statements + status | | evidence | Proof artifacts | | media_context | Media library contextual metadata | | relationships | Partners, parent orgs, etc. | | publication_settings | Enable, paths, JSON-LD, redactions | | setup_completed_at / setup_skipped_at | Onboarding markers |</p>
+<p>Published export adds: <code>published_version</code>, <code>generated_at</code>, <code>usage_hints</code>, optional <code>json_ld</code>.</p>
+<h2>sources_of_truth item</h2>
+<pre><code>{
+  &quot;id&quot;: &quot;truth_about&quot;,
+  &quot;type&quot;: &quot;cms_entry&quot;,
+  &quot;role&quot;: &quot;narrative&quot;,
+  &quot;label&quot;: &quot;About us&quot;,
+  &quot;url&quot;: &quot;https://example.com/pages/about&quot;,
+  &quot;notes&quot;: &quot;&quot;,
+  &quot;priority&quot;: 80,
+  &quot;last_verified_at&quot;: &quot;2026-07-27T10:00:00+00:00&quot;,
+  &quot;link_status&quot;: &quot;ok&quot;,
+  &quot;ref&quot;: {
+    &quot;collection&quot;: &quot;pages&quot;,
+    &quot;entry_id&quot;: &quot;abc123&quot;,
+    &quot;slug&quot;: &quot;about&quot;,
+    &quot;label&quot;: &quot;About us&quot;,
+    &quot;ref_type&quot;: &quot;entry&quot;
+  }
+}</code></pre>
+<p><strong>Types:</strong> <code>cms_entry</code>, <code>cms_collection</code>, <code>website</code>, <code>document</code>, <code>media_asset</code>, <code>marketplace</code>, <code>review_platform</code>, <code>other</code></p>
+<p><strong>Roles:</strong> <code>narrative</code>, <code>proof</code>, <code>reference</code>, <code>archive</code></p>
+<p>For <code>document</code> and <code>media_asset</code>, optional <code>media_id</code> links Media library.</p>
+<p>On publish, CMS refs resolve to public URLs; <code>guide_meta</code> and enriched <code>usage_hints</code> mark the summary layer.</p>
+<h2>identity</h2>
+<pre><code>{
+  &quot;official_name&quot;: &quot;Acme Co&quot;,
+  &quot;short_description&quot;: &quot;…&quot;,
+  &quot;full_description&quot;: &quot;…&quot;,
+  &quot;what_we_do&quot;: &quot;…&quot;,
+  &quot;industry&quot;: [&quot;SaaS&quot;],
+  &quot;categories&quot;: [&quot;Productivity&quot;],
+  &quot;locations&quot;: [&quot;Berlin&quot;, &quot;Remote-first&quot;],
+  &quot;website&quot;: &quot;https://example.com&quot;,
+  &quot;social_profiles&quot;: [{ &quot;platform&quot;: &quot;linkedin&quot;, &quot;url&quot;: &quot;https://…&quot; }],
+  &quot;derived_from&quot;: {
+    &quot;short_description&quot;: {
+      &quot;collection&quot;: &quot;pages&quot;,
+      &quot;entry_id&quot;: &quot;about&quot;,
+      &quot;slug&quot;: &quot;about&quot;,
+      &quot;label&quot;: &quot;About us&quot;
+    }
+  }
+}</code></pre>
+<p>On publish, <code>derived_from.*.url</code> resolves to public CMS URL when possible.</p>
+<h2>products_services item</h2>
+<pre><code>{
+  &quot;id&quot;: &quot;prod_x&quot;,
+  &quot;name&quot;: &quot;Widget Pro&quot;,
+  &quot;type&quot;: &quot;product&quot;,
+  &quot;short_description&quot;: &quot;…&quot;,
+  &quot;full_description&quot;: &quot;…&quot;,
+  &quot;category&quot;: &quot;Hardware&quot;,
+  &quot;pricing_model&quot;: &quot;subscription&quot;,
+  &quot;best_for&quot;: [&quot;Small teams&quot;],
+  &quot;not_for&quot;: [&quot;Enterprise SSO-only shops&quot;],
+  &quot;claim_ids&quot;: [&quot;claim_y&quot;],
+  &quot;sources&quot;: [{ &quot;$ref&quot;: &quot;source_link&quot; }],
+  &quot;connected_entry&quot;: { &quot;collection&quot;: &quot;…&quot;, &quot;entry_id&quot;: &quot;…&quot; },
+  &quot;media_id&quot;: &quot;…&quot;,
+  &quot;media_url&quot;: &quot;…&quot;,
+  &quot;public&quot;: true
+}</code></pre>
+<p><code>connected_entry</code> legacy field normalized into <code>sources[]</code> on save. Export omits raw <code>connected_entry</code>; exports resolved <code>sources</code>.</p>
+<h2>Product source_link definition</h2>
+<pre><code>{
+  &quot;id&quot;: &quot;src_abc&quot;,
+  &quot;role&quot;: &quot;canonical_detail&quot;,
+  &quot;type&quot;: &quot;cms_entry&quot;,
+  &quot;label&quot;: &quot;Widget Pro page&quot;,
+  &quot;url&quot;: &quot;https://example.com/products/widget-pro&quot;,
+  &quot;notes&quot;: &quot;&quot;,
+  &quot;rating&quot;: null,
+  &quot;review_count&quot;: null,
+  &quot;last_verified_at&quot;: &quot;2026-07-27T10:00:00+00:00&quot;,
+  &quot;link_status&quot;: &quot;ok&quot;,
+  &quot;ref&quot;: {
+    &quot;collection&quot;: &quot;products&quot;,
+    &quot;entry_id&quot;: &quot;e1&quot;,
+    &quot;slug&quot;: &quot;widget-pro&quot;,
+    &quot;label&quot;: &quot;Widget Pro&quot;
+  }
+}</code></pre>
+<p><strong>Roles:</strong> canonical_detail, reference, marketplace, review, docs, proof, purchase, social, other</p>
+<p><strong>Types:</strong> cms_entry, public_page, marketplace_listing, review_platform, docs, certification, other</p>
+<h2>claims item</h2>
+<pre><code>{
+  &quot;id&quot;: &quot;claim_x&quot;,
+  &quot;statement&quot;: &quot;ISO 27001 certified&quot;,
+  &quot;status&quot;: &quot;supported&quot;,
+  &quot;evidence_ids&quot;: [&quot;evidence_a&quot;, &quot;evidence_b&quot;],
+  &quot;related_content&quot;: [],
+  &quot;sources&quot;: [],
+  &quot;last_reviewed_at&quot;: &quot;&quot;,
+  &quot;expires_at&quot;: &quot;&quot;,
+  &quot;notes&quot;: &quot;&quot;
+}</code></pre>
+<p>Public graph views add <code>linked_evidence[]</code> on export.</p>
+<h2>evidence item</h2>
+<pre><code>{
+  &quot;id&quot;: &quot;evidence_a&quot;,
+  &quot;type&quot;: &quot;certification&quot;,
+  &quot;title&quot;: &quot;ISO 27001 certificate&quot;,
+  &quot;url&quot;: &quot;https://…&quot;,
+  &quot;rating&quot;: null,
+  &quot;review_count&quot;: null,
+  &quot;publisher&quot;: &quot;&quot;,
+  &quot;verification_status&quot;: &quot;user_verified&quot;,
+  &quot;claim_ids&quot;: [&quot;claim_x&quot;],
+  &quot;link_status&quot;: &quot;ok&quot;,
+  &quot;last_verified_at&quot;: &quot;2026-07-27T10:00:00+00:00&quot;,
+  &quot;notes&quot;: &quot;&quot;
+}</code></pre>
+<p><strong>Types:</strong> cms_content, external_url, upload, certification, publication, marketplace_listing, review_platform, other</p>
+<h2>usage_hints (export only)</h2>
+<p>Generated at publish — guides AI consumers:</p>
+<pre><code>{
+  &quot;summary_layer&quot;: true,
+  &quot;follow_sources_of_truth&quot;: true,
+  &quot;authoritative_fields&quot;: [&quot;identity.official_name&quot;, &quot;claims.supported&quot;, &quot;evidence.user_verified&quot;],
+  &quot;marketing_fields&quot;: [&quot;positioning.best_known_for&quot;, &quot;positioning.differentiators&quot;],
+  &quot;citation&quot;: &quot;Prefer citing sources_of_truth and linked detail URLs over paraphrasing summaries alone.&quot;,
+  &quot;claims_require_evidence&quot;: true,
+  &quot;follow_links_for&quot;: [&quot;product specs&quot;, &quot;pricing&quot;, &quot;reviews&quot;, &quot;certifications&quot;]
+}</code></pre>
+<h2>Completeness scoring (max 100)</h2>
+<p>| Key | Max | Logic | |-----|-----|-------| | identity | 20 | name 10 + short 10 | | description | 15 | full or what_we_do | | sources_of_truth | 15 | narrative source 15; any source 8 | | claims | 20 | supported+evidence 20; any claim 8 | | evidence | 15 | any 10 + URL 5 | | positioning | 10 | best_known_for non-empty | | products | 10 | any 5 + grounded 5 | | terminology | 5 | preferred_terms | | publishing | 5 | enabled flag |</p>
+<h2>Publish pipeline</h2>
+<ol>
+<li>Load draft → validate → normalize sources (<code>agent_guide_sources.php</code>)</li>
+<li>Require <code>publication_settings.enabled</code></li>
+<li>Write <code>published.json</code>, bump version, save meta</li>
+<li>Snapshot to <code>versions/{n}.json</code>, prune &gt;50</li>
+<li>Build public export:</li>
+</ol>
+<p>   - Attach version, timestamp, <code>guide_meta</code>    - Optional JSON-LD    - Enrich: resolve <code>sources_of_truth</code>, product sources, usage_hints, linked_evidence</p>
+<ol>
+<li>Write well-known file (default <code>/.well-known/agent-guide.json</code>) if <code>public_site_mode=project</code></li>
+</ol>
+<h2>Admin API (authenticated)</h2>
+<p>Base: <code>/api/ai_presence.php</code> (internal name; serves Agent Guide)</p>
+<p>| Action | Method | Notes | |--------|--------|-------| | get | read | Draft + published + completeness + staleness | | save_draft | write | CSRF, merge partial | | publish | write | Validate + snapshot | | suggest / copilot | write | AI suggestions (sources-first grounding) | | suggest_links | write | Link-specific suggestions | | validate_links | write | Optional <code>update_status</code> | | list_collection_entries | read | CMS picker | | fetch_url_meta | write | SSRF-safe title fetch | | cms_diff / cms_refresh | read/write | Sync helpers |</p>
+<h2>Permissions</h2>
+<p>| Capability | Permission | |------------|------------| | View | <code>read</code> OR <code>manage_settings</code> | | Edit, publish | <code>manage_settings</code> |</p>
+<h2>Related docs</h2>
+<ul>
+<li><a href="../04-integration/agent-guide-public-api.html">Public API</a></li>
+<li><a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a></li>
+</ul></div>

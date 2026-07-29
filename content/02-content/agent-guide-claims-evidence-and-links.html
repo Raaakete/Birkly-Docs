@@ -1,0 +1,123 @@
+<div class="doc-summary"><p>Claims, evidence, and cross-links are how Agent Guide stays <strong>honest</strong>: summaries tell agents the headline; links and the <strong>sources of truth</strong> registry tell them where to verify. This doc covers strategy, types, and worked examples — especially marketplace and review URLs.</p>
+<h2>Four layers of truth</h2>
+<p>| Layer | What it is | Agent should… | |-------|------------|---------------| | <strong>Sources of truth</strong> | Declared registry (<code>sources_of_truth[]</code>) | Read these first for narrative and proof | | <strong>Summary</strong> | Short description, positioning bullets | Paraphrase carefully; follow registry | | <strong>Claim</strong> | Asserted fact with status | Repeat only if supported | | <strong>Evidence / source link</strong> | URL or CMS ref with proof | Follow link to verify |</p>
+<p><strong>Rule:</strong> Don’t paste marketplace review text into Agent Guide. Store the <strong>claim</strong> (“Highly rated on Amazon”) + <strong>link</strong> to the listing + optional rating/count metadata.</p>
+<h2>Sources of truth vs product cross-links</h2>
+<p>| Registry | Scope | When to use | |----------|-------|-------------| | <strong><code>sources_of_truth[]</code></strong> | Site-wide canonical reading list | About pages, primary website, key docs, proof archives | | <strong>Product <code>sources[]</code></strong> | Per-offering detail links | Product page, marketplace listing, docs, purchase URL |</p>
+<p>Both export resolved URLs. The registry sets <strong>global</strong> reading order; product sources set <strong>offering-specific</strong> depth.</p>
+<h3>Registry entry example</h3>
+<pre><code>{
+  &quot;id&quot;: &quot;truth_about&quot;,
+  &quot;type&quot;: &quot;cms_entry&quot;,
+  &quot;role&quot;: &quot;narrative&quot;,
+  &quot;label&quot;: &quot;About us&quot;,
+  &quot;url&quot;: &quot;https://example.com/pages/about&quot;,
+  &quot;ref&quot;: {
+    &quot;collection&quot;: &quot;pages&quot;,
+    &quot;entry_id&quot;: &quot;about&quot;,
+    &quot;slug&quot;: &quot;about&quot;,
+    &quot;label&quot;: &quot;About us&quot;,
+    &quot;ref_type&quot;: &quot;entry&quot;
+  },
+  &quot;priority&quot;: 80,
+  &quot;link_status&quot;: &quot;ok&quot;
+}</code></pre>
+<h2>Claims</h2>
+<h3>Writing good claims</h3>
+<p>Good claims are:</p>
+<ul>
+<li><strong>Specific</strong> — “ISO 27001 certified since 2023” not “very secure”</li>
+<li><strong>Checkable</strong> — You can point to evidence or a proof source</li>
+<li><strong>Bounded</strong> — Time, geography, audience where relevant</li>
+</ul>
+<p>Bad claims:</p>
+<ul>
+<li>Pure opinion without qualification</li>
+<li>Superlatives you can’t prove (“best in the world”)</li>
+<li>Forward-looking guarantees without disclaimer</li>
+</ul>
+<h3>Status workflow</h3>
+<pre><code>pending_review → (evidence added, reviewed) → supported
+                    ↓
+              unsupported / expired / conflicting</code></pre>
+<p>Public export and <code>view=summary</code> only include <strong>supported</strong> claims.</p>
+<h3>Claim sources vs evidence</h3>
+<p>| Mechanism | When to use | |-----------|-------------| | <strong>evidence[]</strong> + <code>evidence_ids</code> | Reusable proof documents shared across claims | | <strong>claim.sources[]</strong> | Direct URLs tied only to this claim |</p>
+<p>Example: Claim “Featured in TechCrunch 2025” → one evidence row with publication URL. Claim “4.8★ on Amazon” → evidence type <code>marketplace_listing</code> + URL; optional rating 4.8, review_count 1200.</p>
+<p>Consider adding a <strong><code>proof</code></strong> role source in the registry when the same certification page supports multiple claims.</p>
+<h2>Evidence</h2>
+<h3>Evidence types (reference)</h3>
+<p>| Type | Typical URL | |------|-------------| | <code>cms_content</code> | Resolved public CMS entry URL | | <code>external_url</code> | Any allowed HTTPS page | | <code>marketplace_listing</code> | <code>amazon.com/dp/…</code>, App Store, Etsy | | <code>review_platform</code> | G2, Trustpilot, Capterra | | <code>certification</code> | Issuer badge or certificate page | | <code>publication</code> | News article, paper | | <code>upload</code> | Internal — prefer public URL when possible |</p>
+<h3>Verification</h3>
+<ul>
+<li><strong>user_verified</strong> — Editor confirmed link matches claim</li>
+<li><strong>unverified</strong> — Default for new evidence</li>
+</ul>
+<p>Use <strong>Verify</strong> in admin after checking the page live.</p>
+<h3>Link health</h3>
+<p><strong>Check all links</strong> (Overview) performs safe external HEAD requests:</p>
+<p>| link_status | Meaning | |-------------|---------| | ok | 2xx/3xx response | | redirect | Final URL differs — may update on check | | broken | 4xx/5xx or network failure | | unknown | Not checked yet | | blocked | SSRF-safe filter rejected URL |</p>
+<p><strong>Staleness:</strong> Evidence URLs not verified in 180 days trigger publish warnings.</p>
+<h3>SSRF safety</h3>
+<p>Admin URL fetch and link check block localhost, private IPs, non-HTTP schemes. Only public HTTPS/HTTP URLs.</p>
+<h2>Cross-links (product sources)</h2>
+<h3>Source link shape</h3>
+<p>Each product source link has:</p>
+<pre><code>{
+  &quot;id&quot;: &quot;src_abc&quot;,
+  &quot;role&quot;: &quot;canonical_detail&quot;,
+  &quot;type&quot;: &quot;cms_entry&quot;,
+  &quot;label&quot;: &quot;Widget Pro — product page&quot;,
+  &quot;url&quot;: &quot;https://example.com/products/widget-pro&quot;,
+  &quot;ref&quot;: {
+    &quot;collection&quot;: &quot;products&quot;,
+    &quot;entry_id&quot;: &quot;entry_123&quot;,
+    &quot;slug&quot;: &quot;widget-pro&quot;,
+    &quot;label&quot;: &quot;Widget Pro&quot;
+  },
+  &quot;link_status&quot;: &quot;ok&quot;,
+  &quot;last_verified_at&quot;: &quot;2026-07-27T10:00:00+00:00&quot;
+}</code></pre>
+<p>CMS entries without stored URL get <strong>resolved on publish</strong> from collection + slug + public site base.</p>
+<h3>Product source roles</h3>
+<p>| Role | Purpose | |------|---------| | canonical_detail | Authoritative full detail | | reference | General background | | marketplace | Where to buy / listing | | review | Reviews and ratings | | docs | Specs, API docs, manuals | | proof | Supports a specific assertion | | purchase | Checkout/pricing | | social | Social profile |</p>
+<h2>Worked example — Amazon reviews</h2>
+<p><strong>Goal:</strong> Agents can say you’re well-reviewed without hallucinating review text.</p>
+<ol>
+<li><strong>Registry:</strong> Optional <code>marketplace</code> source with role <code>proof</code> for the listing.</li>
+<li><strong>Claim:</strong> “Consistently rated 4.5+ stars on Amazon US”</li>
+<li><strong>Evidence:</strong></li>
+</ol>
+<p>   - type: <code>marketplace_listing</code>    - url: <code>https://www.amazon.com/dp/B0XXXXXX</code>    - rating: 4.7    - review_count: 842    - verification: user_verified after manual check</p>
+<ol>
+<li><strong>Do not</strong> scrape or paste review bodies into Agent Guide</li>
+<li><strong>Republish</strong> when rating changes materially — set calendar reminder</li>
+</ol>
+<h2>Worked example — B2B SaaS</h2>
+<ol>
+<li><strong>Sources:</strong> CMS About entry (<code>narrative</code>), pricing page (<code>reference</code>), security whitepaper (<code>proof</code>)</li>
+<li><strong>Products:</strong> Plan names with canonical links to <code>/pricing</code> anchors</li>
+<li><strong>Claims:</strong> “SOC 2 Type II certified” → evidence type certification → auditor page</li>
+<li><strong>Claims:</strong> “Listed on G2 with 4.8 rating” → review_platform URL</li>
+</ol>
+<h2>Completeness interaction</h2>
+<ul>
+<li>Sources: need <strong>narrative</strong> source for full 15 pts</li>
+<li>Products: need <strong>grounded source</strong> for full 10 pts</li>
+<li>Evidence: need <strong>URL</strong> for full 15 pts</li>
+<li>Claims: need <strong>supported + evidence_ids</strong> for full 20 pts</li>
+</ul>
+<p>Use completeness as quality gate, not checkbox filling.</p>
+<h2>Public export &amp; JSON-LD</h2>
+<p>Published exports include resolved <code>sources_of_truth[]</code> and product <code>sources[]</code>. Supported claims in graph views include <code>linked_evidence</code>. JSON-LD adds:</p>
+<ul>
+<li>Product <code>url</code>, <code>sameAs</code> from sources</li>
+<li>Claim <code>isBasedOn</code> from evidence URLs</li>
+</ul>
+<p>See <a href="../04-integration/agent-guide-public-api.html">Public API</a>.</p>
+<h2>Related docs</h2>
+<ul>
+<li><a href="agent-guide-workflows.html">Workflows</a></li>
+<li><a href="agent-guide-best-practices.html">Best practices</a></li>
+<li><a href="agent-guide-data-model.html">Data model</a></li>
+</ul></div>

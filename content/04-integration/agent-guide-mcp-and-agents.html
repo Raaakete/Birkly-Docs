@@ -1,0 +1,116 @@
+<div class="doc-summary"><p>When Agent Guide is <strong>published</strong> and <strong>publishing enabled</strong>, Birkly exposes guide context to connected AI agents via MCP tools and a dedicated MCP resource. Agents with <code>read</code> permission can retrieve summaries, products, claims, product graphs, and the sources-of-truth registry without scraping your site.</p>
+<p>This complements — does not replace — the public HTTP API and well-known JSON file.</p>
+<h2>Prerequisites</h2>
+<ol>
+<li>Agent Guide published (<code>published_version</code> ≥ 1)</li>
+<li><code>publication_settings.enabled</code> = true</li>
+<li>MCP connection configured (<a href="../01-admin/mcp-connections.html">MCP connections</a>)</li>
+<li>Agent role includes <code>read</code> permission</li>
+</ol>
+<p>Draft content is <strong>never</strong> exposed via MCP.</p>
+<h2>MCP resource</h2>
+<p>| URI | Content | |-----|---------| | <code>birkly://brand-context</code> | Published Agent Guide, <strong>summary</strong> view JSON (legacy URI name) |</p>
+<p>Use for lightweight agent system prompts or context injection. Summary includes <code>sources_of_truth</code> and <code>usage_hints.follow_sources_of_truth</code>.</p>
+<h2>MCP / AI read tools</h2>
+<p>Registered in Birkly’s AI tool registry (<code>core/ai_tool_registry.php</code>):</p>
+<h3>get_agent_guide_context</h3>
+<p>Primary tool. Legacy alias: <strong><code>get_brand_context</code></strong>.</p>
+<pre><code>{
+  &quot;view&quot;: &quot;summary | full | products&quot;
+}</code></pre>
+<p>| view | Returns | |------|---------| | summary | Identity, positioning highlights, supported claim statements, sources_of_truth, usage_hints | | full | Complete enriched export | | products | <code>products_services</code> array with resolved sources |</p>
+<p>Returns error if not published or disabled.</p>
+<h3>list_agent_guide_products</h3>
+<p>No arguments. Legacy alias: <strong><code>list_brand_products</code></strong>.</p>
+<p>Returns published <code>products_services[]</code> (public products only).</p>
+<h3>get_agent_guide_claim</h3>
+<pre><code>{ &quot;id&quot;: &quot;claim_x&quot; }</code></pre>
+<p>Legacy alias: <strong><code>get_brand_claim</code></strong>.</p>
+<p>Returns single <strong>supported</strong> claim from full export (includes sources, evidence_ids).</p>
+<h3>get_agent_guide_product</h3>
+<pre><code>{ &quot;id&quot;: &quot;prod_x&quot; }</code></pre>
+<p>Legacy alias: <strong><code>get_brand_product</code></strong>.</p>
+<p>Returns <strong>product graph</strong>:</p>
+<pre><code>{
+  &quot;product&quot;: { … },
+  &quot;sources&quot;: [ … ],
+  &quot;linked_claims&quot;: [ … ],
+  &quot;usage_hints&quot;: {
+    &quot;follow_sources_for&quot;: &quot;full specs, pricing, purchase links, and proof&quot;
+  }
+}</code></pre>
+<p>Product id or name match. Respects <code>public: false</code> exclusion.</p>
+<h2>HTTP public API parity</h2>
+<p>MCP tools read the same published snapshot as:</p>
+<ul>
+<li><code>/.well-known/agent-guide.json</code> (default)</li>
+<li><code>/.well-known/brand-context.json</code> (legacy)</li>
+<li><code>/api/public/ai_presence.php</code></li>
+</ul>
+<p>Graph equivalents:</p>
+<p>| MCP | HTTP | |-----|------| | get_agent_guide_product | <code>?action=product&amp;id=x&amp;graph=1</code> | | get_agent_guide_claim | <code>?action=claim&amp;id=x&amp;graph=1</code> |</p>
+<p>See <a href="agent-guide-public-api.html">Public API</a>.</p>
+<h2>Agent integration patterns</h2>
+<h3>Pattern 1 — Summary + sources in system prompt</h3>
+<ol>
+<li>Agent session starts</li>
+<li>Tool call: <code>get_agent_guide_context({ view: &quot;summary&quot; })</code></li>
+<li>Inject JSON into system message</li>
+<li>Instruct: “Read <code>sources_of_truth</code> first; cite sources[] and evidence URLs for factual claims”</li>
+</ol>
+<p>Low token cost; good for general Q&amp;A about the site or organization.</p>
+<h3>Pattern 2 — Product lookup</h3>
+<p>User asks about a specific offering:</p>
+<ol>
+<li><code>list_agent_guide_products()</code> or summary first</li>
+<li><code>get_agent_guide_product({ id: &quot;prod_widget&quot; })</code></li>
+<li>Follow <code>sources[].url</code> for specs/pricing (agent browsing or user handoff)</li>
+</ol>
+<h3>Pattern 3 — Claim verification</h3>
+<p>User asks “Are you SOC2 certified?”:</p>
+<ol>
+<li><code>get_agent_guide_context({ view: &quot;full&quot; })</code> or claim-specific tool</li>
+<li>Find supported claim matching topic</li>
+<li>Resolve evidence URLs from linked evidence</li>
+<li>Answer with citation links only — do not invent audit details</li>
+</ol>
+<h3>Pattern 4 — Sources-first depth</h3>
+<p>Guide context gives the map; CMS tools give depth:</p>
+<pre><code>get_agent_guide_context(summary)
+  → read sources_of_truth[narrative]
+  → user asks product detail
+get_agent_guide_product(id)
+  → canonical source is cms_entry
+read_entry(collection, slug)
+  → full specs from CMS</code></pre>
+<p>Aligns with Agent Guide “index layer + declared sources” design.</p>
+<h2>Claude Desktop / stdio bridge</h2>
+<p>Standard Birkly MCP setup (<a href="../01-admin/mcp-connections.html">MCP connections</a>) exposes all read tools. Ensure the connecting user’s role has <code>read</code>.</p>
+<p>Test:</p>
+<blockquote><p>“Use get_agent_guide_context with view summary and tell me what this organization is known for.”</p></blockquote>
+<p>Legacy tool names (<code>get_brand_context</code>, etc.) still work.</p>
+<h2>Admin AI chat</h2>
+<p>The admin <strong>AI chat</strong> may also dispatch read actions via <code>api/ai_read_actions.php</code> — same backends as MCP for guide tools.</p>
+<p>Write actions (edit draft, publish) are <strong>not</strong> exposed as MCP tools — use admin UI or authenticated admin API.</p>
+<h2>Caching &amp; freshness</h2>
+<ul>
+<li>Published MCP responses reflect last <strong>Publish</strong> action</li>
+<li>Public HTTP cache: 5 minutes (<code>Cache-Control: max-age=300</code>)</li>
+<li>Header <code>X-Agent-Guide-Version</code> on HTTP — MCP consumers should note <code>published_version</code> in JSON</li>
+</ul>
+<p>After republish, agents may need session refresh to pick up new version.</p>
+<h2>Security</h2>
+<ul>
+<li>Same permission model as other read tools</li>
+<li>No draft leakage</li>
+<li>Published JSON is already public via HTTP — MCP adds authenticated convenience for connected agents, not secret data</li>
+</ul>
+<h2>Error handling</h2>
+<p>| Condition | Tool result | |-----------|-------------| | Never published | Error: Agent Guide not published | | Publishing disabled | Error / null | | Unknown claim/product id | Error: Not found | | Unsupported claim id | Error (supported only) |</p>
+<h2>Related docs</h2>
+<ul>
+<li><a href="../02-content/agent-guide.html">Agent Guide overview</a></li>
+<li><a href="agent-guide-public-api.html">Public API</a></li>
+<li><a href="../01-admin/mcp-connections.html">MCP connections</a></li>
+<li><a href="../01-admin/ai-overview.html">AI overview</a></li>
+</ul></div>

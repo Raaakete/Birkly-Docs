@@ -1,0 +1,117 @@
+<div class="doc-summary"><p>Guidelines for building Agent Guide that is accurate, maintainable, and useful for AI systems — without over-promising what publication guarantees. Applies to personal sites, teams, and enterprise deployments alike.</p>
+<h2>Strategy</h2>
+<h3>Sources before summaries</h3>
+<ol>
+<li><strong>Declare sources of truth first</strong> — at least one narrative source (CMS About, primary website, key document).</li>
+<li><strong>Then</strong> write Context and Products summaries that reflect those sources.</li>
+<li><strong>Link</strong> with <code>derived_from</code> and product source links so agents can drill down.</li>
+</ol>
+<p>Skipping the registry invites duplicate truth and weak grounding.</p>
+<h3>Treat Agent Guide as an index, not a CMS duplicate</h3>
+<ul>
+<li><strong>Do</strong> write concise summaries agents can scan quickly.</li>
+<li><strong>Do</strong> link to CMS entries, product pages, and third-party proof.</li>
+<li><strong>Don’t</strong> paste full product specs, legal terms, or blog posts into Agent Guide fields.</li>
+</ul>
+<p>Single source of truth stays in <strong>Content</strong>, <strong>Media</strong>, and your declared <strong>sources of truth</strong>.</p>
+<h3>Publish for discovery, not omniscience</h3>
+<p>Publication makes structured context <strong>easier to find</strong> via well-known JSON, API, JSON-LD, and MCP. It does not force every assistant or crawler to ingest your guide overnight.</p>
+<p>Measure success by: integration tests, MCP agent answers, your own preview queries — not vanity “does AI know us?” anecdotes.</p>
+<h3>Version intentionally</h3>
+<p>Every <strong>Publish</strong> increments <code>published_version</code>. For material claim changes:</p>
+<ol>
+<li>Update draft + evidence</li>
+<li>Save draft</li>
+<li>Publish</li>
+<li>Note version in change log (internal)</li>
+</ol>
+<p>Keep version history (<code>versions/{n}.json</code>, cap 50) for rollback reference.</p>
+<h2>Content quality</h2>
+<h3>Sources of truth</h3>
+<ul>
+<li>Include at least one <strong><code>narrative</code></strong> source before publishing</li>
+<li>Use <strong><code>proof</code></strong> role for certification pages and audit reports</li>
+<li>Use <strong><code>reference</code></strong> for docs and FAQs agents should skim</li>
+<li>Set <strong>priority</strong> when multiple narrative sources exist (primary About &gt; blog)</li>
+</ul>
+<h3>Identity</h3>
+<ul>
+<li><strong>Short description</strong> — One sentence, no jargon stack</li>
+<li><strong>Full description</strong> — 2–4 sentences max; link to narrative sources for depth</li>
+<li><strong>Website</strong> — Canonical HTTPS homepage (also valid as a registry entry)</li>
+</ul>
+<h3>Positioning</h3>
+<ul>
+<li><strong>Best known for</strong> — What you want quoted (3–5 items)</li>
+<li><strong>Not ideal for</strong> — Reduces bad-fit recommendations</li>
+<li>Avoid unprovable superlatives</li>
+</ul>
+<h3>Products</h3>
+<ul>
+<li>Every public product needs at least one <strong>canonical_detail</strong> source</li>
+<li>Align product <strong>name</strong> with CMS entry title or public page H1</li>
+<li>Use <strong>best_for / not_for</strong> for audience matching</li>
+</ul>
+<h3>Claims &amp; evidence</h3>
+<ul>
+<li>One claim per atomic fact</li>
+<li><strong>Supported</strong> only after human review</li>
+<li>Prefer <strong>primary sources</strong> (your site, issuer, marketplace) over aggregators</li>
+<li>Refresh marketplace rating evidence periodically</li>
+</ul>
+<h3>Media context</h3>
+<ul>
+<li>Describe <strong>what</strong> the image shows and <strong>how</strong> agents may use it</li>
+<li>State restrictions (logo clear space, no AI training, etc.)</li>
+</ul>
+<h2>Cross-links &amp; evidence</h2>
+<p>| Do | Don’t | |----|-------| | Link marketplace <strong>listing URL</strong> | Paste review text | | Store rating + count as metadata | Scrape competitor reviews | | Use <code>user_verified</code> after checking | Mark supported without opening URL | | Run <strong>Check all links</strong> before publish | Ignore broken link warnings | | Register key docs in <strong>sources of truth</strong> | Hide proof only in free-text fields |</p>
+<h2>AI Assist governance</h2>
+<ul>
+<li>Review every suggestion before Accept — especially Fill 100% inferred fields</li>
+<li>Use <strong>rules-only</strong> mode when AI provider not approved for published content</li>
+<li>Assign <code>manage_settings</code> only to trusted editors</li>
+<li>Document who may publish (operational RACI)</li>
+</ul>
+<h2>Operational cadence</h2>
+<p>| Trigger | Action | |---------|--------| | CMS About page updated | Check CMS sync → refresh or edit → republish | | New product launched | Add product + sources → publish | | Certification renewed | Update evidence URL/date → republish | | Quarterly | Check all links + review supported claims + verify registry | | Rebrand / rename | Full Sources + Context pass + media context + republish |</p>
+<h2>Security &amp; privacy</h2>
+<ul>
+<li>Public export is <strong>unauthenticated read</strong> — never put secrets, unreleased products (set <code>public: false</code> on products), or PII in Agent Guide</li>
+<li>Admin URL fetch uses SSRF protection — cannot probe internal network</li>
+<li>Draft API requires auth — don’t expose admin endpoints</li>
+</ul>
+<h2>Anti-patterns</h2>
+<ol>
+<li><strong>Summaries without sources</strong> — High completeness but empty <code>sources_of_truth</code></li>
+<li><strong>Checkbox completeness</strong> — Filling fields without evidence or URLs</li>
+<li><strong>Claim spam</strong> — Twenty unsupported marketing lines</li>
+<li><strong>Stale marketplace stars</strong> — Old rating, still published years later</li>
+<li><strong>Duplicate truth</strong> — Same paragraph in CMS and full_description with no derived_from link</li>
+<li><strong>Publish once, forget</strong> — No staleness monitoring</li>
+</ol>
+<h2>Completeness as quality gate</h2>
+<p>Aim for high completeness <strong>and</strong>:</p>
+<ul>
+<li>≥1 narrative source of truth</li>
+<li>≥1 grounded product</li>
+<li>≥1 URL-backed evidence</li>
+<li>≥1 supported claim with evidence</li>
+<li>Link check clean</li>
+</ul>
+<p>80% completeness with strong sources beats 100% with empty URLs.</p>
+<h2>Integrations checklist (developers)</h2>
+<ul>
+<li>[ ] Public site URL configured</li>
+<li>[ ] Well-known URL returns 200 after publish (<code>/.well-known/agent-guide.json</code>)</li>
+<li>[ ] <code>view=summary</code> consumed by site chatbot</li>
+<li>[ ] MCP <code>get_agent_guide_context</code> tested for internal agents</li>
+<li>[ ] JSON-LD validates in Google Rich Results Test (optional)</li>
+</ul>
+<h2>Related docs</h2>
+<ul>
+<li><a href="agent-guide-getting-started.html">Getting started</a></li>
+<li><a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a></li>
+<li><a href="../04-integration/agent-guide-public-api.html">Public API</a></li>
+<li><a href="../04-integration/agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a></li>
+</ul></div>

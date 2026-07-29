@@ -47,13 +47,23 @@
         <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="content-model-overview.html" class="nav-link">Content model overview</a>
         <a href="collections.html" class="nav-link">Collections</a>
         <a href="collection-groups.html" class="nav-link">Collection groups</a>
         <a href="sub-collections.html" class="nav-link">Sub-Collections</a>
         <a href="entries.html" class="nav-link active">Entries</a>
+        <a href="site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="dynamic-items-field.html" class="nav-link">Dynamic items field</a>
         <a href="field-types.html" class="nav-link">Field types</a>
         <a href="slugs-and-status.html" class="nav-link">Slugs and status</a>
         <a href="content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
         <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
@@ -79,6 +89,8 @@
         <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
         <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
         <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -144,7 +156,8 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><div class="doc-summary"><p>Entries are the actual content items in a collection: one blog post, one product, one team member. You create and edit them in the admin by filling in the collection’s fields (title, content, date, image, etc.). Each entry has a <strong>slug</strong> (URL-friendly identifier) and a <strong>status</strong> (Draft or Published). Only published entries are normally shown on your website and in the Public API.</p></div>
+        <div class="doc-content"><div class="doc-summary"><p>Entries are the actual content items in a collection: one blog post, one product, one team member. You create and edit them in the admin by filling in the collection’s fields (title, content, date, image, etc.). Each entry has a <strong>slug</strong> (URL-friendly identifier) and a <strong>status</strong> (Draft or Published). Only published entries are normally shown on your website and in the Public API.</p>
+<p><strong>Collections vs entries:</strong> A <strong>collection</strong> is the schema (the form template); an <strong>entry</strong> is one filled-in instance. See <a href="content-model-overview.html">Content model overview</a> for the full mental model and decision tree.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>An <strong>entry</strong> is one filled-in “form” for a collection. If the collection is “Blog posts,” each entry is one post; if it’s “Products,” each entry is one product.</p>
 <p><strong>Example: one blog entry</strong></p>
 <p>For a “Blog posts” collection with fields Title, Content, Excerpt, Publication date, Featured image, Tags, you might create an entry like this:</p>
@@ -178,9 +191,12 @@
 }</code></pre>
 <p><strong>API:</strong> <code>GET /api/public/collections/blog/entries</code> returns published entries; <code>GET /api/public/collections/blog/entries/welcome-to-our-blog</code> returns this entry by slug. Template: <code>{from 'blog' get entry 'welcome-to-our-blog'}</code> then <code>{ title }</code>, <code>{ content }</code>, etc.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="content-model-overview.html">Content model overview</a></li>
 <li><a href="../01-admin/entry-editor.html">Entry editor</a></li>
 <li><a href="collections.html">Collections</a></li>
+<li><a href="sub-collections.html">Sub-collections</a></li>
 <li><a href="field-types.html">Field types</a></li>
+<li><a href="dynamic-items-field.html">Dynamic items field</a></li>
 <li><a href="slugs-and-status.html">Slugs and status</a></li>
 <li><a href="../03-templating/loops-and-lists.html">Loops and lists</a></li>
 <li><a href="../03-templating/variables-and-output.html">Variables and output</a></li>

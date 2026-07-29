@@ -54,6 +54,13 @@
         <a href="../02-content/field-types.html" class="nav-link">Field types</a>
         <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
         <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
         <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
@@ -71,14 +78,16 @@
         <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Integration</div>
-        <a href="choose-your-stack.html" class="nav-link active">Choose your stack</a>
-        <a href="website-integration.html" class="nav-link">Website integration</a>
-        <a href="web-components.html" class="nav-link">Web components</a>
-        <a href="spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
-        <a href="ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
-        <a href="client-library.html" class="nav-link">Client library</a>
-        <a href="public-api.html" class="nav-link">Public API</a>
-        <a href="public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -121,13 +130,13 @@
         <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
-        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
-        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
-        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
-        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
-        <a href="../07-operations/security.html" class="nav-link">Security</a>
-        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
-        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        <a href="deployment.html" class="nav-link">Deployment</a>
+        <a href="dokploy-hosting.html" class="nav-link active">Hosting on Dokploy</a>
+        <a href="production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="troubleshooting.html" class="nav-link">Troubleshooting</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Meta</div>
         <a href="../meta/glossary.html" class="nav-link">Glossary</a>
@@ -187,7 +196,103 @@
 <li>Test: CMS root → admin · public root → site · <code>/api/deploy_revision.php</code> returns JSON</li>
 </ul>
 <h3>Troubleshooting</h3>
-<p>| Symptom | Check | |---------|-------| | Public site shows <code>/project/</code> in URL | Internal Path must be <code>/</code>; confirm Hosting mode = <code>project</code> | | <code>/admin</code> on public host stays on public host | Enable <strong>Redirect <code>/admin</code> on public host</strong> in Hosting settings | | 502 / <strong>Containers (0)</strong> | Bad mount type; switch to Volume Mount | | Wrong host serves admin | <strong>Settings → Hosting</strong> — CMS URL and public site URL must match Dokploy domains |</p></div></details>
+<p>| Symptom | Check | |---------|-------| | Public site shows <code>/project/</code> in URL | Internal Path must be <code>/</code>; confirm Hosting mode = <code>project</code> | | <code>/admin</code> on public host stays on public host | Enable <strong>Redirect <code>/admin</code> on public host</strong> in Hosting settings | | 502 / <strong>Containers (0)</strong> | Bad mount type; switch to Volume Mount | | Wrong host serves admin | <strong>Settings → Hosting</strong> — CMS URL and public site URL must match Dokploy domains | | <code>test.example.com</code> redirects to production CMS | Test app uses prod volume or prod <code>hosting.json</code> — see <strong>Test and production</strong> below |</p>
+<h2>Test and production (two separate installs)</h2>
+<p>Use this when you run <strong>two</strong> Birkly apps (e.g. <code>cms.birkly.cloud</code> for real work and <code>test.birkly.cloud</code> for experiments).</p>
+<h3>The one rule</h3>
+<p><strong>Each app gets its own volume.</strong> Never mount the same volume name on both apps.</p>
+<p>| | Production app | Test app | |--|----------------|----------| | Dokploy app name | e.g. <code>Birkly CMS</code> | e.g. <code>Birkly Test</code> | | Domain | <code>cms.birkly.cloud</code> | <code>test.birkly.cloud</code> | | Volume name | e.g. <code>birkly-cms-data</code> | e.g. <code>birkly-cms-test-data</code> | | Mount path | <code>/app/data</code> | <code>/app/data</code> |</p>
+<p>If test uses prod’s volume (or a copy of prod’s data), opening <code>test.birkly.cloud</code> redirects to <code>cms.birkly.cloud</code>. That is expected — the saved CMS URL still says production.</p>
+<h3>Fix test redirecting to production</h3>
+<p>Pick <strong>one</strong> method. You only need one.</p>
+<p>---</p>
+<h4>Method 1 — Environment variables in Dokploy (recommended)</h4>
+<p>Use this when you can open the Dokploy dashboard.</p>
+<ol>
+<li>Log in to <strong>Dokploy</strong> (your server’s Dokploy URL).</li>
+<li>Open your <strong>Project</strong> (the group that contains Birkly).</li>
+<li>Click the <strong>test</strong> application — <strong>not</strong> the production one.</li>
+</ol>
+<p>   (If you only have one app, create a second app for test first.)</p>
+<ol>
+<li>Open the <strong>Environment</strong> tab.</li>
+</ol>
+<p>   (Some Dokploy versions label this <strong>Env</strong> or put it under <strong>Advanced → Environment</strong>.)</p>
+<ol>
+<li>Click <strong>Add variable</strong> (or the <strong>+</strong> button) three times and enter:</li>
+</ol>
+<p>   | Name | Value |    |------|--------|    | <code>BIRKLY_CMS_BASE_URL</code> | <code>https://test.birkly.cloud</code> |    | <code>BIRKLY_TRUST_REQUEST_HOST</code> | <code>true</code> |    | <code>BIRKLY_PUBLIC_SITE_MODE</code> | <code>none</code> |</p>
+<ol>
+<li>Click <strong>Save</strong>.</li>
+<li>Click <strong>Deploy</strong> or <strong>Rebuild</strong> (not only Restart) so the container starts with the new variables.</li>
+<li>Wait until <strong>Logs</strong> shows <strong>Containers (1)</strong>.</li>
+<li>Open <code>https://test.birkly.cloud/admin</code> in your browser — it should stay on test, not jump to <code>cms.birkly.cloud</code>.</li>
+</ol>
+<p><strong>Note:</strong> These variables require Birkly build from <strong>2026-07-25</strong> or later (PR #302). If they have no effect after rebuild, use Method 2.</p>
+<p>---</p>
+<h4>Method 2 — Paste one command in Dokploy Terminal</h4>
+<p>Use this when Method 1 is unavailable or you prefer a permanent fix on the test volume.</p>
+<ol>
+<li>In Dokploy, open the <strong>test</strong> application.</li>
+<li>Open <strong>Terminal</strong> (or <strong>Exec</strong> / <strong>Console</strong> — a shell into the running container).</li>
+</ol>
+<p>   If there is no Terminal tab, use your host’s SSH and run <code>docker exec -it &lt;container&gt; bash</code> (ask whoever manages the server).</p>
+<ol>
+<li>Paste this entire block and press Enter:</li>
+</ol>
+<pre><code>php /app/scripts/repair-hosting-domain.php https://test.birkly.cloud --public-mode=none</code></pre>
+<ol>
+<li>You should see <code>Hosting repaired.</code> and <code>cms_base_url: https://test.birkly.cloud</code>.</li>
+<li>Open <code>https://test.birkly.cloud/admin</code> — no redirect to production.</li>
+</ol>
+<p>If the script is missing (<code>No such file</code>), rebuild the test app from latest <code>main</code> on GitHub, then run the command again.</p>
+<p><strong>Manual alternative</strong> (same result, no script):</p>
+<pre><code>cat &gt; /app/data/settings/hosting.json &lt;&lt; 'EOF'
+{
+  &quot;cms_base_url&quot;: &quot;https://test.birkly.cloud&quot;,
+  &quot;public_site_mode&quot;: &quot;none&quot;,
+  &quot;public_site_url&quot;: &quot;&quot;,
+  &quot;same_host_landing&quot;: &quot;admin&quot;,
+  &quot;strict_admin_host&quot;: true
+}
+EOF</code></pre>
+<p>Then reload <code>https://test.birkly.cloud/admin</code>.</p>
+<p>---</p>
+<h4>Method 3 — Start test with a fresh volume (when nothing else works)</h4>
+<p>Use this if test and prod were ever mixed and you do not need to keep test data.</p>
+<ol>
+<li>In Dokploy, open the <strong>test</strong> application.</li>
+<li><strong>Volumes</strong> → note the current volume name → remove the mount (or create a <strong>new</strong> volume name, e.g. <code>birkly-cms-test-data-v2</code>).</li>
+<li>Mount the new empty volume at <strong><code>/app/data</code></strong>.</li>
+<li><strong>Deploy</strong> / <strong>Rebuild</strong>.</li>
+<li>Open <code>https://test.birkly.cloud/admin</code> → create a <strong>new</strong> admin account (once).</li>
+<li>Complete onboarding on test — hosting will use <code>test.birkly.cloud</code> automatically.</li>
+</ol>
+<p>Production is untouched as long as you only change the <strong>test</strong> app’s volume.</p>
+<p>---</p>
+<h3>How to know it worked</h3>
+<p>Open in your browser:</p>
+<p><code>https://test.birkly.cloud/api/deploy_revision.php</code></p>
+<p>Look at the <code>hosting</code> section (after latest deploy):</p>
+<p>| Field | Good value for test | |-------|---------------------| | <code>cms_base_url</code> | <code>https://test.birkly.cloud</code> | | <code>request_host</code> | <code>test.birkly.cloud</code> | | <code>request_host_role</code> | <code>cms</code> |</p>
+<p>If <code>request_host_role</code> is <code>unknown</code> and <code>cms_base_url</code> is still <code>https://cms.birkly.cloud</code>, the fix is not applied yet — retry Method 1 or 2.</p>
+<p>Then you can test Marsk onboarding on test without affecting production.</p>
+<h3>Cannot log in on test after fixing hosting</h3>
+<p>The hosting repair script does <strong>not</strong> delete accounts. You usually see a login form because accounts still exist on the volume, but the password may differ from production (separate install = separate passwords).</p>
+<p><strong>Check what the test volume has</strong> (Dokploy → test app → <strong>Terminal</strong>):</p>
+<pre><code>ls -la /app/data/users/</code></pre>
+<p>If you see files like <code>a1b2c3d4....json</code>, admin accounts exist. Try the password you used when you first set up <strong>test</strong>, or use a full reset below.</p>
+<p><strong>Full reset on test only</strong> (new admin, empty site — keeps <code>hosting.json</code>):</p>
+<pre><code>php /app/scripts/reset-fresh-install.php --yes</code></pre>
+<p>Then open <code>https://test.birkly.cloud/admin</code> — you should get the <strong>onboarding wizard</strong> to create a new admin.</p>
+<p><strong>Complete wipe</strong> (Dokploy UI, no terminal): test app → <strong>Volumes</strong> → remove mount → add a <strong>new</strong> empty volume at <code>/app/data</code> → <strong>Deploy</strong> → open <code>/admin</code> → create admin once.</p>
+<h3>⚠️ Test and production share the same data (most common mistake)</h3>
+<p>If <strong>both</strong> Dokploy apps mount the <strong>same volume name</strong> (e.g. both use <code>birkly-cms-data</code>), they are <strong>not</strong> two separate websites — they are <strong>one</strong> Birkly install with two domain names.</p>
+<p>Anything you do on test affects production immediately:</p>
+<p>| Action on test | Effect on production | |----------------|----------------------| | Delete users / fresh reset | Production logins stop working | | Create new admin (same email) | Production password changes to the new one | | Install Marsk starter | Production content changes | | Repair hosting URL | Can break which domain is “home” |</p>
+<p><strong>Check in Dokploy:</strong> production app → <strong>Volumes</strong> → note the volume name. Test app → <strong>Volumes</strong>. If the name is <strong>identical</strong>, they share data. Test must use a <strong>different</strong> name (e.g. <code>birkly-cms-test-data</code>).</p>
+<p><strong>Recover production login:</strong> try <code>https://cms.birkly.cloud/admin</code> with the <strong>same email and password you created on test</strong>. Or reset:</p>
+<pre><code>php /app/scripts/reset-admin-password.php --email=YOUR@EMAIL.com --password='YourNewProdPassword123!'</code></pre></div></details>
 <div class="doc-related"><ul>
 <li><a href="deployment.html">Deployment</a></li>
 <li><a href="backup-and-restore.html">Backup and restore</a></li>

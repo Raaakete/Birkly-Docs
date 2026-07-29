@@ -94,6 +94,37 @@
             "docs_path": "01-admin/admin-appearance.html"
         },
         {
+            "id": "content-model-overview",
+            "title": "Content model overview",
+            "keywords": [
+                "content model",
+                "collections",
+                "entries",
+                "schema",
+                "decision tree",
+                "site elements",
+                "structure",
+                "overview"
+            ],
+            "docs_path": "02-content/content-model-overview.html",
+            "ai_topic": "content-model"
+        },
+        {
+            "id": "collections",
+            "title": "Collections",
+            "keywords": [
+                "collection",
+                "collections",
+                "content type",
+                "schema",
+                "fields",
+                "handle",
+                "create collection"
+            ],
+            "docs_path": "02-content/collections.html",
+            "ai_topic": "content-model"
+        },
+        {
             "id": "entries",
             "title": "Entries & collections",
             "keywords": [
@@ -133,8 +164,37 @@
                 "fields",
                 "save"
             ],
-            "docs_path": "02-content/entries.html",
+            "docs_path": "01-admin/entry-editor.html",
             "ai_topic": "content-model"
+        },
+        {
+            "id": "dynamic-items-field",
+            "title": "Dynamic items field",
+            "keywords": [
+                "dynamic items",
+                "dynamicitems",
+                "add block",
+                "blocks",
+                "repeating",
+                "fieldtype"
+            ],
+            "docs_path": "02-content/dynamic-items-field.html",
+            "ai_topic": "content-model"
+        },
+        {
+            "id": "site-elements-pattern",
+            "title": "Site elements pattern",
+            "keywords": [
+                "site elements",
+                "header",
+                "footer",
+                "birkly-region",
+                "chrome",
+                "layout",
+                "global"
+            ],
+            "docs_path": "02-content/site-elements-pattern.html",
+            "ai_topic": "web-project-patterns"
         },
         {
             "id": "settings",

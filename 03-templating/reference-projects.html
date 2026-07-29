@@ -54,6 +54,13 @@
         <a href="../02-content/field-types.html" class="nav-link">Field types</a>
         <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
         <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
         <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
@@ -79,6 +86,8 @@
         <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
         <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
         <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -197,7 +206,15 @@
 <p><strong>Combining projects</strong></p>
 <p>Install merges collections by slug into <code>content/collections/</code>. Re-installing overwrites same-slug collections (<code>blog</code>, <code>events</code>, etc.). Use separate CMS instances or rename slugs when combining manually.</p>
 <p><strong>Upstream catalog</strong></p>
-<p>User-story IDs (V-TPL-01 … V-TPL-06) and per-page acceptance criteria live in the Birkly repo: <code>docs/reference-projects/user-stories.md</code> and each project's <code>VIDEO.md</code>.</p></div></details>
+<p>User-story IDs (V-TPL-01 … V-TPL-06) and per-page acceptance criteria live in the Birkly repo: <code>docs/reference-projects/user-stories.md</code> and each project's <code>VIDEO.md</code>.</p>
+<h2>Marketing site (Birkly-Website)</h2>
+<p>The public marketing site is <strong>not</strong> one of the six <code>reference-projects/</code> starters, but it follows the same Light DOM rule for chrome:</p>
+<ul>
+<li>Header/footer markup lives in each HTML page inside <code>&lt;birkly-header&gt;</code> / <code>&lt;birkly-footer&gt;</code>.</li>
+<li>Site JS (<code>js/components.js</code>) is <strong>enhance-only</strong> — it never assigns <code>innerHTML</code> on those hosts (that would wipe CMS templates).</li>
+<li>Active nav uses platform <code>birkly-components.js</code> → <code>BirklyComponents.setActiveNav</code>.</li>
+</ul>
+<p>Prefer <code>&lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;header&quot;&gt;</code> when chrome is CMS-authored; use the enhance-only pattern when chrome is intentionally static (logo + hardcoded nav), as on Birkly-Website.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="templating-overview.html">Templating overview</a></li>
 <li><a href="../04-integration/client-library.html">Client library</a></li>

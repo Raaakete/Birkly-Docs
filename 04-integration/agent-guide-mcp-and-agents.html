@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>agent guide mcp and agents — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="website-integration.html" class="nav-link">Website integration</a>
+        <a href="web-components.html" class="nav-link">Web components</a>
+        <a href="spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="client-library.html" class="nav-link">Client library</a>
+        <a href="public-api.html" class="nav-link">Public API</a>
+        <a href="public-forms.html" class="nav-link">Public forms</a>
+        <a href="agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="agent-guide-mcp-and-agents.html" class="nav-link active">Agent Guide MCP &amp; agents</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><div class="doc-summary"><p>When Agent Guide is <strong>published</strong> and <strong>publishing enabled</strong>, Birkly exposes guide context to connected AI agents via MCP tools and a dedicated MCP resource. Agents with <code>read</code> permission can retrieve summaries, products, claims, product graphs, and the sources-of-truth registry without scraping your site.</p>
+<p>This complements — does not replace — the public HTTP API and well-known JSON file.</p>
+<h2>Prerequisites</h2>
+<ol>
+<li>Agent Guide published (<code>published_version</code> ≥ 1)</li>
+<li><code>publication_settings.enabled</code> = true</li>
+<li>MCP connection configured (<a href="../01-admin/mcp-connections.html">MCP connections</a>)</li>
+<li>Agent role includes <code>read</code> permission</li>
+</ol>
+<p>Draft content is <strong>never</strong> exposed via MCP.</p>
+<h2>MCP resource</h2>
+<p>| URI | Content | |-----|---------| | <code>birkly://brand-context</code> | Published Agent Guide, <strong>summary</strong> view JSON (legacy URI name) |</p>
+<p>Use for lightweight agent system prompts or context injection. Summary includes <code>sources_of_truth</code> and <code>usage_hints.follow_sources_of_truth</code>.</p>
+<h2>MCP / AI read tools</h2>
+<p>Registered in Birkly’s AI tool registry (<code>core/ai_tool_registry.php</code>):</p>
+<h3>get_agent_guide_context</h3>
+<p>Primary tool. Legacy alias: <strong><code>get_brand_context</code></strong>.</p>
+<pre><code>{
+  &quot;view&quot;: &quot;summary | full | products&quot;
+}</code></pre>
+<p>| view | Returns | |------|---------| | summary | Identity, positioning highlights, supported claim statements, sources_of_truth, usage_hints | | full | Complete enriched export | | products | <code>products_services</code> array with resolved sources |</p>
+<p>Returns error if not published or disabled.</p>
+<h3>list_agent_guide_products</h3>
+<p>No arguments. Legacy alias: <strong><code>list_brand_products</code></strong>.</p>
+<p>Returns published <code>products_services[]</code> (public products only).</p>
+<h3>get_agent_guide_claim</h3>
+<pre><code>{ &quot;id&quot;: &quot;claim_x&quot; }</code></pre>
+<p>Legacy alias: <strong><code>get_brand_claim</code></strong>.</p>
+<p>Returns single <strong>supported</strong> claim from full export (includes sources, evidence_ids).</p>
+<h3>get_agent_guide_product</h3>
+<pre><code>{ &quot;id&quot;: &quot;prod_x&quot; }</code></pre>
+<p>Legacy alias: <strong><code>get_brand_product</code></strong>.</p>
+<p>Returns <strong>product graph</strong>:</p>
+<pre><code>{
+  &quot;product&quot;: { … },
+  &quot;sources&quot;: [ … ],
+  &quot;linked_claims&quot;: [ … ],
+  &quot;usage_hints&quot;: {
+    &quot;follow_sources_for&quot;: &quot;full specs, pricing, purchase links, and proof&quot;
+  }
+}</code></pre>
+<p>Product id or name match. Respects <code>public: false</code> exclusion.</p>
+<h2>HTTP public API parity</h2>
+<p>MCP tools read the same published snapshot as:</p>
+<ul>
+<li><code>/.well-known/agent-guide.json</code> (default)</li>
+<li><code>/.well-known/brand-context.json</code> (legacy)</li>
+<li><code>/api/public/ai_presence.php</code></li>
+</ul>
+<p>Graph equivalents:</p>
+<p>| MCP | HTTP | |-----|------| | get_agent_guide_product | <code>?action=product&amp;id=x&amp;graph=1</code> | | get_agent_guide_claim | <code>?action=claim&amp;id=x&amp;graph=1</code> |</p>
+<p>See <a href="agent-guide-public-api.html">Public API</a>.</p>
+<h2>Agent integration patterns</h2>
+<h3>Pattern 1 — Summary + sources in system prompt</h3>
+<ol>
+<li>Agent session starts</li>
+<li>Tool call: <code>get_agent_guide_context({ view: &quot;summary&quot; })</code></li>
+<li>Inject JSON into system message</li>
+<li>Instruct: “Read <code>sources_of_truth</code> first; cite sources[] and evidence URLs for factual claims”</li>
+</ol>
+<p>Low token cost; good for general Q&amp;A about the site or organization.</p>
+<h3>Pattern 2 — Product lookup</h3>
+<p>User asks about a specific offering:</p>
+<ol>
+<li><code>list_agent_guide_products()</code> or summary first</li>
+<li><code>get_agent_guide_product({ id: &quot;prod_widget&quot; })</code></li>
+<li>Follow <code>sources[].url</code> for specs/pricing (agent browsing or user handoff)</li>
+</ol>
+<h3>Pattern 3 — Claim verification</h3>
+<p>User asks “Are you SOC2 certified?”:</p>
+<ol>
+<li><code>get_agent_guide_context({ view: &quot;full&quot; })</code> or claim-specific tool</li>
+<li>Find supported claim matching topic</li>
+<li>Resolve evidence URLs from linked evidence</li>
+<li>Answer with citation links only — do not invent audit details</li>
+</ol>
+<h3>Pattern 4 — Sources-first depth</h3>
+<p>Guide context gives the map; CMS tools give depth:</p>
+<pre><code>get_agent_guide_context(summary)
+  → read sources_of_truth[narrative]
+  → user asks product detail
+get_agent_guide_product(id)
+  → canonical source is cms_entry
+read_entry(collection, slug)
+  → full specs from CMS</code></pre>
+<p>Aligns with Agent Guide “index layer + declared sources” design.</p>
+<h2>Claude Desktop / stdio bridge</h2>
+<p>Standard Birkly MCP setup (<a href="../01-admin/mcp-connections.html">MCP connections</a>) exposes all read tools. Ensure the connecting user’s role has <code>read</code>.</p>
+<p>Test:</p>
+<blockquote><p>“Use get_agent_guide_context with view summary and tell me what this organization is known for.”</p></blockquote>
+<p>Legacy tool names (<code>get_brand_context</code>, etc.) still work.</p>
+<h2>Admin AI chat</h2>
+<p>The admin <strong>AI chat</strong> may also dispatch read actions via <code>api/ai_read_actions.php</code> — same backends as MCP for guide tools.</p>
+<p>Write actions (edit draft, publish) are <strong>not</strong> exposed as MCP tools — use admin UI or authenticated admin API.</p>
+<h2>Caching &amp; freshness</h2>
+<ul>
+<li>Published MCP responses reflect last <strong>Publish</strong> action</li>
+<li>Public HTTP cache: 5 minutes (<code>Cache-Control: max-age=300</code>)</li>
+<li>Header <code>X-Agent-Guide-Version</code> on HTTP — MCP consumers should note <code>published_version</code> in JSON</li>
+</ul>
+<p>After republish, agents may need session refresh to pick up new version.</p>
+<h2>Security</h2>
+<ul>
+<li>Same permission model as other read tools</li>
+<li>No draft leakage</li>
+<li>Published JSON is already public via HTTP — MCP adds authenticated convenience for connected agents, not secret data</li>
+</ul>
+<h2>Error handling</h2>
+<p>| Condition | Tool result | |-----------|-------------| | Never published | Error: Agent Guide not published | | Publishing disabled | Error / null | | Unknown claim/product id | Error: Not found | | Unsupported claim id | Error (supported only) |</p>
+<h2>Related docs</h2>
+<ul>
+<li><a href="../02-content/agent-guide.html">Agent Guide overview</a></li>
+<li><a href="agent-guide-public-api.html">Public API</a></li>
+<li><a href="../01-admin/mcp-connections.html">MCP connections</a></li>
+<li><a href="../01-admin/ai-overview.html">AI overview</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

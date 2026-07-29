@@ -1,4 +1,10 @@
-<div class="doc-summary"><p><strong>Sub-collections</strong> are secondary content types attached to a parent collection. Each entry in the parent can hold any number of child items (<strong>sub-entries</strong>) grouped by sub-collection — for example, &quot;Comments&quot; on a Blog post, or &quot;Reviews&quot; on a Product. Sub-collections are defined in the collection schema, managed from the entry editor in the admin, and optionally exposed for public submission via the API.</p></div>
+<div class="doc-summary"><p><strong>Sub-collections</strong> are secondary content types attached to a parent collection. Each entry in the parent can hold any number of child items (<strong>sub-entries</strong>) grouped by sub-collection — for example, &quot;Comments&quot; on a Blog post, or &quot;Reviews&quot; on a Product. Sub-collections are defined in the collection schema, managed from the entry editor in the admin, and optionally exposed for public submission via the API.</p>
+<p><strong>Parent → child model:</strong></p>
+<pre><code>Collection (e.g. Blog posts)
+  └── Entry (e.g. &quot;Welcome post&quot;)
+        └── Sub-collection: Comments
+              └── Sub-entries (one per comment)</code></pre>
+<p>For top-level lists (many posts, products) use a <strong>collection + entries</strong>. For shared site chrome use the <a href="site-elements-pattern.html">Site elements pattern</a>. See <a href="content-model-overview.html">Content model overview</a>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>A sub-collection is like a mini-collection that lives <em>inside</em> each entry. Instead of a separate top-level collection for comments, you attach a &quot;Comments&quot; sub-collection to your Blog posts collection. Every blog post then has its own list of comments, and the admin shows them under that post.</p>
 <p><strong>When would I use sub-collections?</strong></p>
 <ul>
@@ -113,8 +119,10 @@
 <p><strong>Nested sub-entries</strong></p>
 <p>Sub-entries of sub-entries are supported via the <code>nested</code> action on the API. Ancestry is tracked automatically.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="content-model-overview.html">Content model overview</a></li>
 <li><a href="collections.html">Collections</a></li>
 <li><a href="entries.html">Entries</a></li>
+<li><a href="site-elements-pattern.html">Site elements pattern</a></li>
 <li><a href="../05-automation/triggers.html">Triggers</a></li>
 <li><a href="../04-integration/public-api.html">Public API</a></li>
 <li><a href="../04-integration/public-forms.html">Public forms</a></li>

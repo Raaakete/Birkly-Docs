@@ -16,6 +16,17 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-07-29 — Content model documentation hub (P50)
+
+- **New:** `02-content/content-model-overview.md` — decision tree, blog/site-elements/forms examples, best practices.
+- **New:** `02-content/dynamic-items-field.md` — Add Block workflow, multilang, site-elements use case.
+- **New:** `02-content/site-elements-pattern.md` — header/footer pattern with `<birkly-region>`.
+- **Expanded:** `collections.md`, `entries.md`, `sub-collections.md` — cross-links to overview and related topics.
+- **Updated:** `help-manifest.json` — topics `content-model-overview`, `collections`, `dynamic-items-field`, `site-elements-pattern`; fixed `entry-editor` path.
+- **Updated:** `CONTENTS_INDEX.md`.
+
+---
+
 ## 2026-07-27 — Agent Guide documentation (rename from AI Presence)
 
 - **Renamed & rewritten:** All Agent Guide docs — product name **Agent Guide**, neutral language, sources-of-truth-first workflow.

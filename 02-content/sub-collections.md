@@ -4,6 +4,17 @@
 
 **Sub-collections** are secondary content types attached to a parent collection. Each entry in the parent can hold any number of child items (**sub-entries**) grouped by sub-collection — for example, "Comments" on a Blog post, or "Reviews" on a Product. Sub-collections are defined in the collection schema, managed from the entry editor in the admin, and optionally exposed for public submission via the API.
 
+**Parent → child model:**
+
+```
+Collection (e.g. Blog posts)
+  └── Entry (e.g. "Welcome post")
+        └── Sub-collection: Comments
+              └── Sub-entries (one per comment)
+```
+
+For top-level lists (many posts, products) use a **collection + entries**. For shared site chrome use the [Site elements pattern](site-elements-pattern.md). See [Content model overview](content-model-overview.md).
+
 ## Beginner
 
 A sub-collection is like a mini-collection that lives *inside* each entry. Instead of a separate top-level collection for comments, you attach a "Comments" sub-collection to your Blog posts collection. Every blog post then has its own list of comments, and the admin shows them under that post.
@@ -180,8 +191,10 @@ Sub-entries of sub-entries are supported via the `nested` action on the API. Anc
 
 ## Related
 
+- [Content model overview](content-model-overview.md)
 - [Collections](collections.md)
 - [Entries](entries.md)
+- [Site elements pattern](site-elements-pattern.md)
 - [Triggers](../05-automation/triggers.md)
 - [Public API](../04-integration/public-api.md)
 - [Public forms](../04-integration/public-forms.md)

@@ -4,6 +4,8 @@
 
 Entries are the actual content items in a collection: one blog post, one product, one team member. You create and edit them in the admin by filling in the collection’s fields (title, content, date, image, etc.). Each entry has a **slug** (URL-friendly identifier) and a **status** (Draft or Published). Only published entries are normally shown on your website and in the Public API.
 
+**Collections vs entries:** A **collection** is the schema (the form template); an **entry** is one filled-in instance. See [Content model overview](content-model-overview.md) for the full mental model and decision tree.
+
 ## Beginner
 
 An **entry** is one filled-in “form” for a collection. If the collection is “Blog posts,” each entry is one post; if it’s “Products,” each entry is one product.
@@ -69,9 +71,12 @@ An entry is one **record** in a collection: field values plus system fields (**s
 
 ## Related
 
+- [Content model overview](content-model-overview.md)
 - [Entry editor](../01-admin/entry-editor.md)
 - [Collections](collections.md)
+- [Sub-collections](sub-collections.md)
 - [Field types](field-types.md)
+- [Dynamic items field](dynamic-items-field.md)
 - [Slugs and status](slugs-and-status.md)
 - [Loops and lists](../03-templating/loops-and-lists.md)
 - [Variables and output](../03-templating/variables-and-output.md)

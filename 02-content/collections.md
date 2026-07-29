@@ -4,6 +4,8 @@
 
 Collections are content types in Birkly (e.g. “Blog posts”, “Products”, “Team members”). You define each collection once with a set of fields (title, text, image, date, dropdown, etc.) and optional settings (who can create entries: admin only or public API). You then add as many entries as you need. The collection’s **handle** (e.g. `blog`) is used in the admin, in templates, and in the API—so choose it carefully and avoid changing it after your site or integrations use it.
 
+**Start here:** [Content model overview](content-model-overview.md) — decision tree, worked examples (blog, site elements, forms), and best practices.
+
 ## Beginner
 
 A **collection** is the “form template” for one kind of content. You create it once; after that, every new item of that kind is just filling out that same form (with a title, body, date, image, and whatever else you defined).
@@ -81,10 +83,14 @@ A collection is the **schema** for one content type: **name** (admin label), **h
 
 ## Related
 
+- [Content model overview](content-model-overview.md)
 - [Collection editor](../01-admin/collection-editor.md)
 - [Collection groups](collection-groups.md)
 - [Entries](entries.md)
+- [Sub-collections](sub-collections.md)
+- [Site elements pattern](site-elements-pattern.md)
 - [Field types](field-types.md)
+- [Dynamic items field](dynamic-items-field.md)
 - [Slugs and status](slugs-and-status.md)
 - [Public API](../04-integration/public-api.md)
 - [Public forms](../04-integration/public-forms.md)

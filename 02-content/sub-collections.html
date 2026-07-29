@@ -54,6 +54,13 @@
         <a href="field-types.html" class="nav-link">Field types</a>
         <a href="slugs-and-status.html" class="nav-link">Slugs and status</a>
         <a href="content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
         <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
@@ -79,6 +86,8 @@
         <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
         <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
         <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -144,7 +153,13 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><div class="doc-summary"><p><strong>Sub-collections</strong> are secondary content types attached to a parent collection. Each entry in the parent can hold any number of child items (<strong>sub-entries</strong>) grouped by sub-collection — for example, &quot;Comments&quot; on a Blog post, or &quot;Reviews&quot; on a Product. Sub-collections are defined in the collection schema, managed from the entry editor in the admin, and optionally exposed for public submission via the API.</p></div>
+        <div class="doc-content"><div class="doc-summary"><p><strong>Sub-collections</strong> are secondary content types attached to a parent collection. Each entry in the parent can hold any number of child items (<strong>sub-entries</strong>) grouped by sub-collection — for example, &quot;Comments&quot; on a Blog post, or &quot;Reviews&quot; on a Product. Sub-collections are defined in the collection schema, managed from the entry editor in the admin, and optionally exposed for public submission via the API.</p>
+<p><strong>Parent → child model:</strong></p>
+<pre><code>Collection (e.g. Blog posts)
+  └── Entry (e.g. &quot;Welcome post&quot;)
+        └── Sub-collection: Comments
+              └── Sub-entries (one per comment)</code></pre>
+<p>For top-level lists (many posts, products) use a <strong>collection + entries</strong>. For shared site chrome use the <a href="site-elements-pattern.html">Site elements pattern</a>. See <a href="content-model-overview.html">Content model overview</a>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>A sub-collection is like a mini-collection that lives <em>inside</em> each entry. Instead of a separate top-level collection for comments, you attach a &quot;Comments&quot; sub-collection to your Blog posts collection. Every blog post then has its own list of comments, and the admin shows them under that post.</p>
 <p><strong>When would I use sub-collections?</strong></p>
 <ul>
@@ -259,8 +274,10 @@
 <p><strong>Nested sub-entries</strong></p>
 <p>Sub-entries of sub-entries are supported via the <code>nested</code> action on the API. Ancestry is tracked automatically.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="content-model-overview.html">Content model overview</a></li>
 <li><a href="collections.html">Collections</a></li>
 <li><a href="entries.html">Entries</a></li>
+<li><a href="site-elements-pattern.html">Site elements pattern</a></li>
 <li><a href="../05-automation/triggers.html">Triggers</a></li>
 <li><a href="../04-integration/public-api.html">Public API</a></li>
 <li><a href="../04-integration/public-forms.html">Public forms</a></li>

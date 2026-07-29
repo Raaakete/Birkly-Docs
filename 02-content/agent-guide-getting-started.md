@@ -2,7 +2,7 @@
 
 ## Summary
 
-This tutorial walks you from an empty Agent Guide draft to a **published** guide on your public site domain. Plan for one focused session (~30 minutes) if you already have CMS content (About page, products); longer if you’re building from scratch.
+This tutorial walks you from an empty Agent Guide draft to a **published** guide on your public site domain. On first visit, a **guided setup wizard** is the default path — most teams can reach first publish in **~15 minutes** using Essentials view and the wizard alone, without opening Advanced tabs.
 
 **Prerequisites:**
 
@@ -10,21 +10,90 @@ This tutorial walks you from an empty Agent Guide draft to a **published** guide
 - At least one CMS collection with content (e.g. About, Products)
 - **Settings → Site delivery** configured with your public site URL (for well-known verification)
 
-## Step 1 — Open Agent Guide
+## First visit — guided setup wizard
 
 1. Sidebar → **Agent Guide** (or `/admin/?page=agent-guide`).
-2. If you see **Get started**, either:
-   - Follow the wizard (prefills from project settings and first collection), or
-   - **Skip** and go straight to the **Sources** tab.
+2. If the draft is empty and setup has not been completed or skipped, the **Set up your Agent Guide** wizard opens automatically after the page loads.
+3. On **Welcome**, choose:
+   - **Guided setup** — step-by-step flow, best for first publish (~15 min), or
+   - **Advanced editing** — skip the wizard and land in Essentials or full tabs.
 
-The Overview tab shows **completeness** and the recommended workflow — use it as your checklist.
+The wizard has **7 steps**:
 
-## Step 2 — Sources of truth (Sources tab) — start here
+| Step | What you do |
+|------|-------------|
+| **Welcome** | Choose guided setup or advanced editing |
+| **Identity** | Official name, short description, website |
+| **Sources** | At least one narrative source (CMS entry/collection or external URL) |
+| **Enrich** | Optional positioning — best known for, differentiators |
+| **Claims** | 1–3 factual claims with proof URL |
+| **Publish** | Enable publishing and publish |
+| **Success** | Live URL, version, copy/open public JSON |
 
-Before writing summaries, declare where agents should read the truth.
+Each step explains **what** you are filling in, **why** it matters, and **what appears in public JSON** after publish. You can **skip individual steps** or close the wizard — it is not blocking. Closing with unsaved changes prompts for confirmation.
 
-1. **Sources** tab → **Add source of truth**.
-2. Add at least one **narrative** source:
+After wizard completion (or skip), the page defaults to **Essentials** view.
+
+## Essentials vs Advanced view
+
+Use the **Essentials / Advanced** toggle at the top of the page:
+
+| View | Best for |
+|------|----------|
+| **Essentials** (default) | Day-to-day edits — identity, source/claim previews, key messages, publish controls |
+| **Advanced** | Full tab set — Overview, Sources, Context, Products, Claims, Media, Publish |
+
+**Essentials** sections:
+
+- **Who we are** — official name, short description, website
+- **Sources** — preview of declared sources (link to Sources tab for full registry)
+- **Key messages** — best known for, differentiators
+- **Claims** — preview of claims (link to Claims tab for evidence workflow)
+- **Publish** — enable publishing, **Publish**, **Save draft**
+
+Your view choice is remembered in the browser. The **AI Assist** sidebar (floating button) appears only in **Advanced** view.
+
+For first publish, you do **not** need Advanced tabs — the wizard and Essentials cover identity, sources, positioning, claims, and publish.
+
+## Status strip and publish feedback
+
+A **status strip** at the top of the page shows live state at a glance:
+
+| Badge | Meaning |
+|-------|---------|
+| **Not live** | Publishing enabled but never published |
+| **Live · vN** | Published version N is on your public URL |
+| **Unpublished changes** | Draft differs from the live snapshot |
+| **Publishing off** | Public endpoints return 404 until enabled |
+
+The strip also shows **last published** time and the well-known URL when configured. **Set up guide** re-opens the wizard; **Publish updates** appears when live with draft changes.
+
+### Unmissable publish success
+
+Publish feedback is designed to be obvious — not only a small toast:
+
+- **First publish** — a **success modal** with version, timestamp, public JSON URL, and actions to copy URL or open JSON.
+- **Republish** — a **banner** below the sticky save bar with the same details (dismissible), plus a toast.
+
+The sticky save bar message also updates: warnings when not live or when draft has unpublished changes; success when draft matches the published snapshot.
+
+## Wizard walkthrough (technical detail)
+
+### Identity
+
+| Field | Example |
+|-------|---------|
+| Official name | Acme Co |
+| Short description | One sentence: what you are and who you serve |
+| Website | `https://example.com` |
+
+Required for the wizard to continue. These fields appear in public JSON under `identity`.
+
+### Sources of truth
+
+Before writing summaries elsewhere, declare where agents should read the truth.
+
+Pick at least one **narrative** source in the wizard (CMS collection + optional entry, or external URL):
 
 | Type | Example | Role |
 |------|---------|------|
@@ -37,84 +106,68 @@ Before writing summaries, declare where agents should read the truth.
 
 **Source roles:** `narrative` (who you are), `proof` (evidence), `reference` (background), `archive` (historical)
 
-3. Optional: run **Suggest sources** in AI Assist — review and accept suggestions.
-4. **Save draft**.
-
 Completeness awards full credit when you have at least one **narrative** source.
 
-## Step 3 — Identity and context (Context tab)
+### Enrich (optional)
 
-Fill at minimum:
+Add positioning messages agents can quote:
 
-| Field | Example |
-|-------|---------|
-| Official name | Acme Co |
-| Short description | One sentence: what you are and who you serve |
-| Website | `https://example.com` |
+- **Best known for** — one per line
+- **Differentiators** — one per line
 
-Optional but valuable: full description, what we do, industry, locations, social profiles.
+**AI Assist in this step is optional.** Click **Suggest from sources** when you have an AI connection — suggestions appear in a list with **Accept** and **Reject** for each item. Nothing is applied until you accept explicitly; you can continue manually without AI.
 
-Use **Generate** on any field if you have an AI connection — AI Assist reads your **sources of truth** first.
+### Claims
+
+Add 1–3 factual statements with a **proof URL** (press release, case study, review page, etc.). Supported claims with evidence appear in the public summary view. In Advanced editing, use the Claims tab for full evidence workflow and status management.
+
+### Publish
+
+Enable **Publishing**, confirm the public path (default: `/.well-known/agent-guide.json`), and click **Publish**. The wizard **Success** step shows your live URL and version. Legacy well-known path `/.well-known/brand-context.json` is also listed when applicable.
+
+## Optional — Advanced tabs
+
+Use **Advanced** view when you need the full editor. Recommended workflow: **Sources → Context → Products → Claims → Publish**.
+
+### Context tab (identity depth)
+
+Beyond Essentials fields, fill full description, what we do, industry, locations, social profiles, terminology, and voice. Use **Generate** per field when AI Assist is available — it reads **sources of truth** first.
 
 If your short description comes from a CMS About entry, accept a **derived_from** suggestion so published JSON includes the resolved source URL.
 
-**Save draft**.
+### Products tab
 
-## Step 4 — One product or service (Products tab)
-
-1. **Add product or service**.
-2. Name, type (product / service / bundle), short description.
-3. **Source links** (bottom of modal):
+1. **Add product or service** — name, type (product / service / bundle), short description.
+2. **Source links** (bottom of modal):
    - **Canonical detail** → CMS entry *or* public product URL on your site
    - Optional: **Marketplace** → listing URL; **Review** → G2, Trustpilot, etc.
 
 Completeness gives partial credit for having products and **full product credit when at least one product has a grounded source**.
 
-**Save draft**.
-
-## Step 5 — Claims and evidence (Claims tab)
+### Claims tab (full evidence workflow)
 
 Claims are **statements you’re willing to stand behind**. Evidence is **proof**.
 
-### Add a claim
+1. **Add claim** → write a factual statement; start with `pending_review`.
+2. Attach evidence — external URL, CMS entry, marketplace listing, or review platform.
+3. Mark **Supported** only when you have solid evidence (typically ≥2 sources for high-stakes claims).
 
-1. **Add claim** → write a factual statement, e.g. “Used by 500+ teams in Europe”.
-2. Status: start with `pending_review`.
-
-### Attach evidence
-
-Select the claim, then:
-
-- **Add evidence** (external URL) — press release, case study, certification page
-- **Add CMS evidence** — link a CMS entry as proof
-
-For marketplace/review claims (“4.8 stars on Amazon”):
-
-- Evidence type: **Marketplace listing** or **Review platform**
-- URL: the listing page (not scraped review text)
-- Optional: rating, review count
-
-**Best practice:** Mark a claim **Supported** only when you have solid evidence (typically ≥2 sources for high-stakes claims).
-
-**Save draft**.
-
-## Step 6 — Link health (Overview tab)
+### Link health (Overview tab)
 
 1. **Suggest cross-links** (AI Assist or Overview) — review suggestions; accept product→CMS links, evidence URLs, derived-from mappings.
 2. **Check all links** — validates external URLs, updates link status on draft.
 
-Fix any broken links before publishing.
+Fix any broken links before republishing.
 
-## Step 7 — Enable publishing and publish (Publish tab)
+### Save and publish (Advanced)
 
-1. Enable **Publishing**.
-2. Optional: **Include JSON-LD**, **Public views enabled**.
-3. Confirm **public path** (default: `/.well-known/agent-guide.json`).
-4. Click **Publish** (sticky bar).
+1. Edit any tab → **Save draft** (validates schema).
+2. Review completeness / staleness on Overview.
+3. **Publish** from the sticky bar or Publish tab.
 
-Note the version number and **public URLs** on Overview/Publish. Legacy well-known path `/.well-known/brand-context.json` is also listed when applicable.
+Never rely on auto-save for AI suggestions — accept explicitly in AI Assist (or wizard Enrich step) first, then save draft.
 
-## Step 8 — Verify on your public domain
+## Verify on your public domain
 
 On your **public site** (not necessarily the admin host):
 
@@ -131,7 +184,7 @@ If you get **404**:
 - Wrong domain — check Settings → Site delivery
 - Hosting mode — for `project` mode, file is also written under `project/.well-known/`
 
-## Step 9 — Preview how AI might answer (Publish tab)
+## Preview how AI might answer (Publish tab)
 
 Use **Ask about your published guide** with a test question:
 

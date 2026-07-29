@@ -4,6 +4,16 @@
 
 Tab-by-tab guide for day-to-day Agent Guide editing: what each area is for, typical tasks, and how sections connect. Follow the workflow **Sources → Context → Products → Claims → Publish**. Assumes you’ve read [Getting started](agent-guide-getting-started.md).
 
+## Essentials view and guided setup
+
+Most day-to-day edits happen in **Essentials** view (the default). It surfaces identity, a sources preview, key positioning messages, a claims preview, and publish controls — without the full tab bar. Switch to **Advanced** for Overview, Products, Media, link health, version history, and the AI Assist sidebar.
+
+**Re-run the wizard** anytime from the status strip **Set up guide** button (also linked from Overview as **Run guided setup**). Re-opening the wizard does not delete published data — it walks through setup steps with your current draft prefilled. Use it after skipping first-time setup or when onboarding a new editor.
+
+First publish can be completed via wizard + Essentials alone (~15 min). Advanced tabs add depth (products, cross-links, media context, completeness dashboard) for return visits.
+
+---
+
 ## Overview tab
 
 **Purpose:** Dashboard — completeness, source registry health, CMS drift, link health, public URLs.

@@ -1,0 +1,42 @@
+<div class="doc-summary"><p><strong>Site elements</strong> is a content-model pattern for shared site chrome: headers, footers, announcement bars, and other blocks that appear on many pages. You store them as <strong>entries</strong> in a dedicated collection (typically handle <code>site-elements</code>) and inject them on your site with <strong><code>&lt;birkly-region&gt;</code></strong> — not as a separate CMS content type.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Why a collection, not a “global settings” doc?</h3>
+<p>Birkly uses <strong>collections + entries only</strong>. Shared layout content is still entries — usually one entry per region (<code>header</code>, <code>footer</code>). That keeps versioning, drafts, multilanguage, and the Public API consistent with the rest of your content.</p>
+<h3>Setup steps</h3>
+<ol>
+<li><strong>Create collection</strong> — Name: “Site elements”, handle: <code>site-elements</code>.</li>
+<li><strong>Fields (example):</strong></li>
+</ol>
+<p>   - <strong>Title</strong> (text) — admin label, e.g. “Header”.    - <strong>Blocks</strong> (Dynamic items) — logo, nav links, CTA buttons, legal links.</p>
+<ol>
+<li><strong>Create entries</strong> — one per region:</li>
+</ol>
+<p>   - Entry slug <code>header</code> — main site header blocks.    - Entry slug <code>footer</code> — footer columns and copyright.</p>
+<ol>
+<li><strong>Publish</strong> entries when ready (status <strong>Published</strong>).</li>
+<li><strong>On your site</strong>, bind regions:</li>
+</ol>
+<pre><code>&lt;birkly-region collection=&quot;site-elements&quot; entry=&quot;header&quot; field=&quot;blocks&quot;&gt;&lt;/birkly-region&gt;
+
+&lt;main&gt;&lt;!-- page-specific content --&gt;&lt;/main&gt;
+
+&lt;birkly-region collection=&quot;site-elements&quot; entry=&quot;footer&quot; field=&quot;blocks&quot;&gt;&lt;/birkly-region&gt;</code></pre>
+<p>The Birkly client fetches live content and hydrates the region. See <a href="../04-integration/web-components.html">Web components</a> and <a href="../04-integration/choose-your-stack.html">Choose your stack</a>.</p>
+<h3>Multilingual sites</h3>
+<p>Enable <strong>multilanguage</strong> on the site-elements collection. Edit <strong>Blocks</strong> per language tab so header/footer copy matches each locale. Regions respect the active site language when configured.</p>
+<h3>When not to use site elements</h3>
+<p>| Scenario | Better pattern | |----------|----------------| | Many similar items (blog posts, products) | Regular collection + list/detail templates | | Child rows on one page (comments) | <a href="sub-collections.html">Sub-collections</a> | | One long article | Single entry with Content editor field | | Visitor-submitted data | Public API collection — <a href="../04-integration/public-forms.html">Public forms</a> |</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Handles in templates and API:</strong></p>
+<ul>
+<li>Collection: <code>{from 'site-elements' get entries}</code> or Public API <code>GET /api/public/collections/site-elements/entries/header</code></li>
+<li>Prefer stable entry slugs (<code>header</code>, <code>footer</code>) — referenced in HTML and build scripts.</li>
+</ul>
+<p><strong>Dynamic items inside regions:</strong> The <code>field</code> attribute points to your Dynamic items field API name (e.g. <code>blocks</code>). Block structure is defined in <a href="dynamic-items-field.html">Dynamic items field</a>.</p>
+<p><strong>Draft workflow:</strong> Keep region entries as <strong>Draft</strong> while redesigning; published site keeps the last published version until you publish updates.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="content-model-overview.html">Content model overview</a></li>
+<li><a href="dynamic-items-field.html">Dynamic items field</a></li>
+<li><a href="collections.html">Collections</a></li>
+<li><a href="entries.html">Entries</a></li>
+<li><a href="../04-integration/web-components.html">Web components</a></li>
+<li><a href="../03-templating/reference-projects.html">Reference projects</a></li>
+</ul></div>

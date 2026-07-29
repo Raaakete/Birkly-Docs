@@ -1,0 +1,83 @@
+<div class="doc-summary"><p>Birkly organizes site content with two primitives: <strong>collections</strong> (content types / schemas) and <strong>entries</strong> (individual items). There is no separate “singleton” or “document” type — one-off pages, shared chrome, and repeating lists all use collections and entries. Use this page as the start-here guide before creating schema in the admin.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>The two-level model</h3>
+<p>| Concept | What it is | Example | |---------|------------|---------| | <strong>Collection</strong> | A content type you define once: name, handle, fields, settings | “Blog posts”, “Products”, “Site elements” | | <strong>Entry</strong> | One filled-in instance of that collection | One blog post, one product, one header block |</p>
+<p>You create a collection’s fields <strong>once</strong>, then add as many entries as you need. Templates and the Public API use the collection <strong>handle</strong> (e.g. <code>blog</code>) and each entry’s <strong>slug</strong> (e.g. <code>welcome-post</code>).</p>
+<h3>Decision tree — which pattern fits?</h3>
+<pre><code>Need to store content?
+│
+├─ Many items of the same shape (posts, products, team members)?
+│  └─► Top-level collection + entries
+│      • List page: loop over entries
+│      • Detail page: fetch one entry by slug
+│
+├─ Shared site chrome (header, footer, nav, global CTAs)?
+│  └─► site-elements collection + named entries + &lt;birkly-region&gt;
+│      See [Site elements pattern](site-elements-pattern.md)
+│
+├─ Rows that belong to one parent entry (comments, reviews, lessons)?
+│  └─► Sub-collection on the parent collection
+│      See [Sub-collections](sub-collections.md)
+│
+└─ Visitors submit data (contact form, signup, review)?
+   └─► Collection with entry_method: public_api
+       See [Public forms](../04-integration/public-forms.md)</code></pre>
+<h3>Worked examples</h3>
+<p><strong>Blog (list + detail)</strong></p>
+<ol>
+<li>Create collection <strong>Blog posts</strong> (handle: <code>blog</code>) with Title, Content (editor), Date, Featured image.</li>
+<li>Add entries — one per post.</li>
+<li>Templates: <code>{for each entry in 'blog'}</code> for the list; <code>{from 'blog' get entry 'my-slug'}</code> for a single post.</li>
+</ol>
+<p><strong>Bakery menu</strong></p>
+<ol>
+<li>Collection <strong>Menu items</strong> (handle: <code>menu</code>) with Name, Description, Price, Category (select), Photo.</li>
+<li>Many entries — one per dish.</li>
+<li>Group or filter in templates by category field.</li>
+</ol>
+<p><strong>Site header / footer (site elements)</strong></p>
+<ol>
+<li>Collection <strong>Site elements</strong> (handle: <code>site-elements</code>) with Title + <strong>Dynamic items</strong> field for flexible blocks.</li>
+<li>One entry per region: <code>header</code>, <code>footer</code>, <code>announcement-bar</code>.</li>
+<li>Front-end: <code>&lt;birkly-region collection=&quot;site-elements&quot; entry=&quot;header&quot; field=&quot;blocks&quot;&gt;</code> injects live content.</li>
+</ol>
+<p><strong>Contact form submissions</strong></p>
+<ol>
+<li>Collection <strong>Form submissions</strong> (handle: <code>form-submissions</code>) with Name, Email, Message.</li>
+<li>Set <strong>Entry method</strong> to <strong>Public API</strong>.</li>
+<li>Your site POSTs to the public API; entries appear in admin for review.</li>
+</ol>
+<h3>Best practices</h3>
+<ol>
+<li><strong>Define schema before entries</strong> — add all fields (and sub-collections) before editors create content.</li>
+<li><strong>Stable handles</strong> — collection handle and field API names are used in templates and integrations; avoid renaming after go-live.</li>
+<li><strong>Published vs draft</strong> — only <strong>Published</strong> entries appear on the live site and in the public API by default.</li>
+<li><strong>One shape per collection</strong> — do not mix unrelated content types in one collection; create another collection instead.</li>
+<li><strong>One-off pages</strong> — use a collection such as “Pages” with one entry per page (title + body or dynamic items), not a separate document type.</li>
+</ol>
+<h3>What we intentionally do not have</h3>
+<p>Birkly does <strong>not</strong> ship a singleton/document content primitive. A “single about page” is <strong>one entry</strong> in a Pages or Site elements collection. Shared layout chrome uses <strong>named entries</strong> in a site-elements collection plus <code>&lt;birkly-region&gt;</code> on your site.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Storage layout (typical file-based install):</strong></p>
+<pre><code>content/collections/{handle}/
+  collection.json    # name, handle, entry_method, sub_collections, multilanguage
+  schema.json        # fields array (may be merged in collection.json)
+  entries/
+    {slug}.json      # field values + slug + status + timestamps</code></pre>
+<p><strong>API surface:</strong></p>
+<ul>
+<li><code>GET /api/public/collections/{handle}/entries</code> — published entries</li>
+<li><code>GET /api/public/collections/{handle}/entries/{slug}</code> — one entry</li>
+<li>Admin CRUD via <code>/api/admin_collections.php</code>, entry APIs, sub-entry APIs</li>
+</ul>
+<p><strong>Multilanguage:</strong> When enabled on a collection, entry field values are stored per language code; templates and API expose the active locale.</p>
+<p><strong>Related fieldtypes:</strong> Repeating in-entry blocks → <a href="dynamic-items-field.html">Dynamic items field</a>. Rich body → <a href="content-editor.html">Content editor</a>. Full list → <a href="field-types.html">Field types</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="collections.html">Collections</a></li>
+<li><a href="entries.html">Entries</a></li>
+<li><a href="sub-collections.html">Sub-collections</a></li>
+<li><a href="site-elements-pattern.html">Site elements pattern</a></li>
+<li><a href="dynamic-items-field.html">Dynamic items field</a></li>
+<li><a href="collection-groups.html">Collection groups</a></li>
+<li><a href="../04-integration/public-forms.html">Public forms</a></li>
+<li><a href="../01-admin/collection-editor.html">Collection editor</a></li>
+<li><a href="../01-admin/entry-editor.html">Entry editor</a></li>
+</ul></div>

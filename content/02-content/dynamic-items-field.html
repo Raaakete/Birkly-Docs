@@ -1,0 +1,58 @@
+<div class="doc-summary"><p>The <strong>Dynamic items</strong> field type (<code>dynamicitems</code>) lets editors build repeating <strong>blocks</strong> inside a single entry. Each block has its own field type (text, textarea, number, media, etc.). Use it for flexible page sections, FAQ lists, feature grids, and the <strong>site-elements</strong> pattern where one entry holds many named blocks.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>When to use Dynamic items</h3>
+<p>| Use case | Example | |----------|---------| | Flexible page body | Homepage sections: hero, features, testimonial | | FAQ | Each block: question (text) + answer (textarea) | | Site chrome | Header entry: logo block, nav links block, CTA block | | Repeating specs | Product entry: multiple “spec row” blocks |</p>
+<p>Prefer <strong>Dynamic items</strong> when block <strong>types and order</strong> vary per entry. Prefer a <strong>sub-collection</strong> when many child rows share one schema and belong to a parent entry (e.g. comments on a blog post).</p>
+<h3>Adding Dynamic items to a collection</h3>
+<ol>
+<li>Open the collection in the <strong>Collection editor</strong>.</li>
+<li>Add a field; choose type <strong>Dynamic items</strong>.</li>
+<li>Save the collection.</li>
+<li>When editing an entry, click <strong>+ Add Block</strong>, pick a field type, set label and API name, and add the block.</li>
+</ol>
+<p>Each block’s <strong>API name</strong> must be unique within that Dynamic items field (lowercase letters, numbers, underscores).</p>
+<h3>Add Block workflow (entry editor)</h3>
+<ol>
+<li>Open an entry that has a Dynamic items field.</li>
+<li>Click <strong>+ Add Block</strong>.</li>
+<li>In the modal: select <strong>Field type</strong>, enter <strong>Label</strong> and <strong>API name</strong>, optionally mark <strong>Required</strong>.</li>
+<li>Click <strong>Add Block</strong> — the inner field renders inline.</li>
+<li>Fill block values and <strong>Save</strong> the entry.</li>
+</ol>
+<p>On <strong>multilingual</strong> collections, add blocks separately per language tab; values are stored per locale.</p>
+<h3>Site elements pattern</h3>
+<p>For shared header/footer content:</p>
+<ol>
+<li>Create collection <strong>Site elements</strong> (handle: <code>site-elements</code>).</li>
+<li>Add fields: <strong>Title</strong> (text) + <strong>Blocks</strong> (Dynamic items).</li>
+<li>Create entries: <code>header</code>, <code>footer</code>, etc.</li>
+<li>Bind on your site with <code>&lt;birkly-region&gt;</code> — see <a href="site-elements-pattern.html">Site elements pattern</a>.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Stored value shape</strong> (JSON array on the entry field):</p>
+<pre><code>[
+  {
+    &quot;type&quot;: &quot;text&quot;,
+    &quot;name&quot;: &quot;headline&quot;,
+    &quot;label&quot;: &quot;Headline&quot;,
+    &quot;required&quot;: true,
+    &quot;settings&quot;: {},
+    &quot;value&quot;: &quot;Welcome&quot;
+  },
+  {
+    &quot;type&quot;: &quot;textarea&quot;,
+    &quot;name&quot;: &quot;intro&quot;,
+    &quot;label&quot;: &quot;Intro&quot;,
+    &quot;required&quot;: false,
+    &quot;settings&quot;: {},
+    &quot;value&quot;: &quot;Short intro copy.&quot;
+  }
+]</code></pre>
+<p><strong>Allowed block types:</strong> Most built-in fieldtypes except nested Dynamic items, Gallery, Map, Relation, and full Content editor (to avoid excessive nesting). The admin discovers available types automatically.</p>
+<p><strong>Templates:</strong> Output depends on integration — with <code>&lt;birkly-region&gt;</code>, the client hydrates the field HTML. In custom JSON consumers, iterate the array and map <code>type</code> + <code>value</code>.</p>
+<p><strong>Multilanguage:</strong> Field container IDs and block handlers are scoped per language tab (<code>field_en_blocks</code>, etc.); Add Block must target the active tab’s field name.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="content-model-overview.html">Content model overview</a></li>
+<li><a href="site-elements-pattern.html">Site elements pattern</a></li>
+<li><a href="field-types.html">Field types</a></li>
+<li><a href="collections.html">Collections</a></li>
+<li><a href="../01-admin/entry-editor.html">Entry editor</a></li>
+</ul></div>

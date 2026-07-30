@@ -197,7 +197,7 @@ allPaths.forEach((p) => {
   if (dir !== root && !fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
-const homeBody = '<h1>Birkly Docs</h1><p>Use the sidebar to open a topic. Each doc has a <strong>Shortcut</strong> (quick, non-technical) and a <strong>Detailed</strong> section.</p><p>No server or build step—just open <code>index.html</code> in your browser.</p>';
+const homeBody = '<h1>Birkly Docs</h1><p>Official documentation for Birkly CMS — admin, content model, templating, integrations, and operations.</p><p>Pick a topic from the sidebar, or start with <a href="00-overview/what-is-birkly.html">What is Birkly</a> and <a href="00-overview/getting-started.html">Getting started</a>.</p><p>Each topic includes a quick summary plus expandable <strong>Beginner</strong> and <strong>Advanced</strong> sections.</p>';
 fs.writeFileSync(path.join(root, 'index.html'), template('Home', buildNav(manifest, 'index.html'), homeBody, 'index.html'), 'utf8');
 
 // Content-only output for website embedding

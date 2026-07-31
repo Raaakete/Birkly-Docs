@@ -35,7 +35,9 @@
 <li><code>user_login</code> — after successful login</li>
 </ul>
 <p><strong>Ops guide (maintainers)</strong></p>
-<p>See platform repo <code>docs/user-plugin-ops.md</code> for checklist, backup scope, and troubleshooting.</p></div></details>
+<p>See platform repo <code>docs/user-plugin-ops.md</code> for checklist, backup scope, and troubleshooting. Plugin source of truth: <a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-User">Birkly-Other-Things/Birkly-Plugin-User</a>.</p>
+<p><strong>Follow-up — public list/search permission filtering</strong></p>
+<p>Plugin-local entry visibility (<code>EntryPermissions</code>) is implemented and tested in the SoT repo. <strong>Public</strong> list/detail (and related read surfaces) may still skip that filter until the CMS adds a shared <strong>public-read hook contract</strong> (load active plugins, then filter in <code>core/public_read.php</code> / public API list and get paths). Documented as a CMS follow-up — not closable from the plugin alone. See SoT <code>docs/WAVE3-RELEASE-EVIDENCE.md</code>.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="plugins.html">Plugins</a></li>
 <li><a href="roles-and-permissions.html">Roles and permissions</a></li>

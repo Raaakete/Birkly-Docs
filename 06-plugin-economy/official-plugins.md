@@ -64,6 +64,24 @@ Sites upgraded from older Birkly builds that already had plugins in `plugins/` k
 
 Official plugin source is built and published to the marketplace registry on tag (`plugin/{name}/v*`). CMS release zips exclude plugin folders — production installs always pull artifacts from the registry API.
 
+**Source of truth (maintainers)**
+
+Plugin source of truth lives under the **Birkly-Other-Things** GitHub org — not in the public CMS repo. Maintainers should work in these SoT repos:
+
+| Plugin | SoT repository |
+|--------|----------------|
+| Commerce | [Birkly-Other-Things/Birkly-Plugin-Commerce](https://github.com/Birkly-Other-Things/Birkly-Plugin-Commerce) |
+| Events | [Birkly-Other-Things/Birkly-Plugin-Events](https://github.com/Birkly-Other-Things/Birkly-Plugin-Events) |
+| Automation | [Birkly-Other-Things/Birkly-Plugin-Automation](https://github.com/Birkly-Other-Things/Birkly-Plugin-Automation) |
+| User Management | [Birkly-Other-Things/Birkly-Plugin-User](https://github.com/Birkly-Other-Things/Birkly-Plugin-User) |
+| Studio | [Birkly-Other-Things/Birkly-Plugin-Studio](https://github.com/Birkly-Other-Things/Birkly-Plugin-Studio) |
+
+`Raaakete/Birkly` is the runtime host only. Install plugins under `plugins/{id}/` (marketplace zip or copy); do not symlink SoT checkouts into `plugins/`.
+
+**Marketplace v1 readiness (Wave 3)**
+
+As of Wave 3 release-readiness work, the five official plugins above are **hardening toward Marketplace v1**, not declared fully production-released end-to-end. In-repo P0 hardening, packaging scripts, and local test gates have advanced; residual items remain — for example clean marketplace install/update smoke, recorded visual walkthroughs, and **CMS host hooks** that some plugin features still depend on (such as a shared public-read filter contract for User Management list/detail visibility). Treat SoT `docs/WAVE3-RELEASE-EVIDENCE.md` (and related readiness docs in each plugin repo) as the current status notes for maintainers.
+
 **Marketplace slugs (official)**
 
 | Folder | Slug |
@@ -72,6 +90,7 @@ Official plugin source is built and published to the marketplace registry on tag
 | `events` | `birkly-events` |
 | `automation` | `birkly-automation` |
 | `user_management` | `birkly-user-management` |
+| `studio` | `birkly-studio` |
 
 **Dependencies**
 

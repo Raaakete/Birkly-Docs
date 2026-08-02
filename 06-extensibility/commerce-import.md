@@ -1,6 +1,6 @@
 # Commerce CSV import
 
-Import purchasable entries from CSV via **Commerce → Settings → Import & migrate** in admin. For **live API sync (Beta)**, see [Commerce live import](commerce-live-import.md).
+Import purchasable entries from CSV via **Commerce → Settings → Import & migrate** in admin. For a one-time Shopify move with customers and archived orders, see [Shopify cutover](commerce-shopify-cutover.md). For **live API sync (Beta)**, see [Commerce live import](commerce-live-import.md).
 
 ## Summary
 
@@ -67,14 +67,15 @@ For ongoing sync without manual CSV export:
 
 - [Commerce live import](commerce-live-import.md) — Shopify, WooCommerce, Etsy, Square (Beta); preview and scheduled cron sync.
 
-## Out of scope (v1)
+## Out of scope (CSV v1)
 
-- Order or customer import
-- Webhook-driven real-time sync (deferred)
+- Order or customer import via CSV (Shopify customers/archived orders: [Shopify cutover](commerce-shopify-cutover.md))
+- Webhook-driven real-time sync (see [inventory webhooks](commerce-inventory-webhooks.md) for stock)
 - Automatic collection creation without Commerce fieldtype (wizard can create Commerce-enabled collection)
 
 ## Related
 
+- [Shopify cutover playbook](commerce-shopify-cutover.md)
 - [Commerce plugin](commerce-plugin.md)
 - [Commerce live import](commerce-live-import.md)
 - [Commerce migration wizard](commerce-migration-wizard.md)

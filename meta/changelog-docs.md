@@ -16,6 +16,14 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-02 — Shopify cutover playbook (P54 P1-M2)
+
+- **New:** `06-extensibility/commerce-shopify-cutover.md` — one-time Shopify → Birkly cutover (not perpetual sync); steps 1–3 detailed; steps 4–11 checklist outline; dry-run/rollback; archived orders do not re-fulfill; customers without passwords.
+- **Updated:** `plugins/commerce.md`, `commerce-plugin.md`, `commerce-live-import.md`, `commerce-import.md`, `commerce-migration-wizard.md` — cross-links and Import & migrate wording.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`.
+
+---
+
 ## 2026-08-02 — Hub & site packs (P53-M12)
 
 - **Rewritten:** `06-plugin-economy/theme-and-template-packs.md` — Hub naming, site packs (`template_pack` → `content/collections/` + `project/`, never `themes/`), Upload pack, required-plugins confirm, demo opt-in, safe updates, provider publish.

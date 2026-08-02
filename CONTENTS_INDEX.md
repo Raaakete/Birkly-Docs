@@ -118,6 +118,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Commerce gift cards and quotes | `06-extensibility/commerce-gift-cards-quotes.md` | Store credit, B2B quote workflow |
 | Commerce analytics | `06-extensibility/commerce-analytics.md` | Revenue widget, CSV export |
 | Commerce migration wizard | `06-extensibility/commerce-migration-wizard.md` | Shop/Events → Commerce import |
+| Shopify cutover playbook | `06-extensibility/commerce-shopify-cutover.md` | One-time Shopify → Birkly transfer (P54 P1-M2) |
 | Commerce live import | `06-extensibility/commerce-live-import.md` | Shopify/Woo/Etsy/Square API sync |
 | Commerce multi-currency | `06-extensibility/commerce-multi-currency.md` | Site default + per-option currency (P14) |
 | Commerce inventory webhooks | `06-extensibility/commerce-inventory-webhooks.md` | Shopify/Woo real-time stock (P14) |

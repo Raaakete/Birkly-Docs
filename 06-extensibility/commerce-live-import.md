@@ -6,7 +6,7 @@ Connect a live store and sync products into Commerce catalog entries. **Live API
 
 **Live import (Beta)** uses REST APIs to fetch products from **Shopify** (custom app access token), **WooCommerce** (REST API keys), **Etsy** (Open API v3 — shop ID, API key, OAuth access token), or **Square** (Catalog API access token). Credentials are stored encrypted under **Commerce → Settings → Import & migrate**. The sync wizard supports **preview → import → schedule** (cron token). Products map to Commerce fieldtype values (title, SKU, price, stock, optional image URL ingest).
 
-Live import does **not** import customers or order history. Full Shopify cutover (customers + archived orders) is a later phase.
+Live import does **not** import customers or order history. For a one-time move including customers and archived orders, use [Shopify cutover](commerce-shopify-cutover.md) — not perpetual sync.
 
 ## Beginner
 
@@ -15,6 +15,7 @@ Live import does **not** import customers or order history. Full Shopify cutover
 | Mode | When to use |
 |------|-------------|
 | **CSV upload** | One-time export from any platform (see [Commerce import](commerce-import.md)) — preferred stable path |
+| **Shopify cutover** | One-time transfer: products + customers + archived orders (see [Shopify cutover](commerce-shopify-cutover.md)) |
 | **Live API (Beta)** | Ongoing product sync from Shopify, WooCommerce, Etsy, or Square |
 | **Inventory webhooks** | Real-time stock for Shopify/Woo only (see [Commerce inventory webhooks](commerce-inventory-webhooks.md)) |
 
@@ -100,12 +101,13 @@ See Birkly `docs/reviews/P12-import-threat-model.md` and `P14-webhook-threat-mod
 **Out of scope / not shipped**
 
 - Webhook-driven sync for Etsy/Square (Shopify/Woo inventory webhooks only)
-- Order or customer import (Shopify cutover playbook is a later phase)
+- Order or customer import via live sync (use [Shopify cutover](commerce-shopify-cutover.md) for one-time transfer)
 - Automatic collection schema creation without Commerce fieldtype
 - Production-grade guarantees on live adapters — feature is **Beta**
 
 ## Related
 
+- [Shopify cutover playbook](commerce-shopify-cutover.md)
 - [Commerce CSV import](commerce-import.md)
 - [Commerce inventory webhooks](commerce-inventory-webhooks.md)
 - [Commerce warehouse stock](commerce-warehouse-stock.md)

@@ -25,7 +25,7 @@ For a beginner walkthrough, see [Commerce plugin overview](plugins/commerce.md) 
 | **Gift Cards** | Issue and manage store credit |
 | **Settings** | Connections, General, Fieldtypes, Mappings, Import & migrate, Shipping, Tax, Fulfillment, Activity, Documentation |
 
-Inside **Settings → Import & migrate**: CSV imports and Beta live product import adapters. Legacy Shop / Events migration appears only when legacy sources are detected.
+Inside **Settings → Import & migrate**: **Shopify cutover** (one-time products, customers, archived orders), CSV imports, and Beta live product import adapters. Legacy Shop / Events migration appears only when legacy sources are detected. See [Shopify cutover playbook](commerce-shopify-cutover.md).
 
 Inside **Settings → Fulfillment**: Manual / Export is the only merchant-selectable adapter. ShipStation is an internal stub and is not merchant-selectable.
 
@@ -96,6 +96,7 @@ Consumer plugins (Shopping Cart, Events) continue to use `payment_shelf` during 
 ## Related
 
 - [Commerce plugin overview](plugins/commerce.md)
+- [Shopify cutover playbook](commerce-shopify-cutover.md)
 - [Commerce fieldtype](commerce-fieldtype.md)
 - [Payment shelf API](payment-shelf-api.md) (legacy naming; use `commerce_shelf`)
 - [Shopping Cart plugin](shopping-cart-plugin.md) (legacy)

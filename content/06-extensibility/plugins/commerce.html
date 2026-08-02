@@ -1,13 +1,17 @@
-<p>The <strong>Commerce</strong> plugin (<code>plugins/commerce/</code>) is Birkly’s content-first commerce platform for P6.5 v2: payment providers, the <strong>Commerce fieldtype</strong>, catalog index, cart, checkout, orders, and <strong>PostPurchaseRouter</strong> fulfillment.</p>
-<div class="doc-summary"><p>Activate <strong>Commerce</strong> under Settings → Plugins, configure a payment provider, add the Commerce fieldtype to collections, and model products with <strong>fulfillment</strong> (ship, deliver, register, none) plus one or more <strong>purchase_options</strong> (one-time and/or recurring on the same entry). Use variant <strong>sub-entries</strong> for SKUs. Template functions expose cart count and buy URLs on client sites. Plugin docs register via <code>register_plugin_docs()</code> and appear under Help → Plugin extensions when active.</p></div>
+<p>The <strong>Commerce</strong> plugin (<code>plugins/commerce/</code>) is Birkly’s content-first store: payment providers, the <strong>Commerce fieldtype</strong>, catalog, cart, checkout, orders, inventory, and <strong>PostPurchaseRouter</strong> fulfillment — all driven by CMS entries.</p>
+<p>Plugin help in admin (when Commerce is active) mirrors this overview: Help → Plugin extensions → Commerce.</p>
+<div class="doc-summary"><p>Activate <strong>Commerce</strong> under Settings → Plugins, configure a payment provider under <strong>Settings → Connections</strong>, add the Commerce fieldtype to collections, and model products with <strong>fulfillment</strong> (ship, deliver, register, none) plus one or more <strong>purchase_options</strong> (one-time and/or recurring on the same entry). Use variant <strong>sub-entries</strong> for SKUs. Template functions expose cart count and buy URLs on client sites.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What Commerce does</strong></p>
-<p>Commerce turns Birkly entries into things you can sell: physical products, digital downloads, class tickets, and memberships — without a separate e-commerce database.</p>
+<p>Commerce turns Birkly entries into things you can sell: physical products, digital downloads, class tickets, and memberships — without a separate e-commerce product database. Edit content in the CMS; Commerce indexes sellable units for checkout.</p>
 <p><strong>Two settings on each sellable item</strong></p>
 <p>| Setting | Plain language | |---------|----------------| | <strong>Fulfillment</strong> | What happens after someone pays (ship a box, send a download, register for a class, or grant access) | | <strong>Purchase options</strong> | How they pay — e.g. €25 once <strong>or</strong> €19/month on the <strong>same</strong> product |</p>
+<p><strong>Catalog, inventory, and orders</strong></p>
+<p>| Area | Role | |------|------| | <strong>Catalog</strong> | Read model of sellable CMS entries (edit the entry, then rebuild the index if needed) | | <strong>Inventory</strong> | Ledger system of record for countable stock | | <strong>Orders</strong> | Commercial history with frozen money/tax snapshots from checkout |</p>
+<p><strong>Stock modes</strong> (Inventory): <strong>Unlimited</strong> (ignore counts) · <strong>Simple</strong> (one row per SKU) · <strong>Locations</strong> (SKU stock per warehouse).</p>
 <p><strong>Quick setup</strong></p>
 <ol>
 <li><strong>Settings → Plugins</strong> → enable <strong>Commerce</strong>.</li>
-<li>Open <strong>Commerce</strong> in the sidebar → <strong>Connections</strong> → add Stripe, Mollie, or another provider.</li>
+<li>Open <strong>Commerce</strong> in the sidebar → <strong>Settings → Connections</strong> → add Stripe, Mollie, or another provider.</li>
 <li>Edit a collection schema → add field type <strong>Commerce</strong>.</li>
 <li>Create an entry with price, fulfillment, and purchase options.</li>
 <li>On your website, add a buy button using <code>{commerce_buy_url entry_id collection}</code>.</li>
@@ -22,7 +26,7 @@
 <p><strong>After payment</strong></p>
 <p>Commerce routes each order line by fulfillment:</p>
 <ul>
-<li><strong>Ship</strong> — order exported for packing/shipping</li>
+<li><strong>Ship</strong> — order exported for packing/shipping (Manual / Export is the merchant-selectable adapter)</li>
 <li><strong>Deliver</strong> — secure download link emailed</li>
 <li><strong>Register</strong> — attendee recorded, capacity reduced</li>
 <li><strong>None</strong> — tier grant or automation (memberships)</li>
@@ -37,11 +41,16 @@
   &quot;quantity_available&quot;: null,
   &quot;sku&quot;: &quot;SKU-250G&quot;
 }</code></pre>
+<p><code>quantity_available</code> is a catalog projection of Inventory <strong>Available</strong> (or null for unlimited / capacity for <code>register</code>). Inventory is the ledger SoR for countable SKUs.</p>
 <p><strong>PostPurchaseRouter</strong> — idempotent handler keyed on <code>order_id</code> + line; fires typed automation triggers: <code>commerce_physical_fulfilled</code>, <code>commerce_digital_delivered</code>, <code>commerce_event_registered</code>, <code>commerce_membership_started</code>.</p>
-<p><strong>Phase 11 (P11):</strong> Subscription upgrades and dunning, gift cards, B2B quotes, analytics dashboard, Shop/Events migration wizard.</p>
-<p><strong>Phase 12 (P12):</strong> Live Shopify/Woo API import, membership tier wiring, plugin denylist (Settings → Security).</p>
-<p><strong>Phase 14 (P14):</strong> Multi-currency checkout, inventory webhooks, warehouse stock, Etsy/Square live import, denylist spaces.</p>
-<p><strong>Admin tabs:</strong> Connections, Catalog, Orders, <strong>Subscriptions</strong>, Discounts, <strong>Gift Cards</strong>, <strong>Quotes</strong>, <strong>Analytics</strong>, Import, <strong>Stock</strong>, Mappings, Fulfillment, Tax, Fieldtypes, Activity, Settings (dunning emails, dashboard widget, shipping zones v1, default currency).</p>
+<p><strong>Admin areas</strong> (Commerce 1.0.16+)</p>
+<p>| Tab | Purpose | |-----|---------| | <strong>Dashboard</strong> | Revenue, order, product, and affiliate summary (default landing) | | <strong>Orders</strong> | Paid orders, fulfillment state, frozen money/tax lines; <strong>Draft orders / Quotes</strong> live inside Orders | | <strong>Catalog</strong> | Indexed read model of sellable CMS entries | | <strong>Inventory</strong> | Stock ledger: Unlimited, Simple, or Locations | | <strong>Subscriptions</strong> | Recurring purchases and lifecycle actions | | <strong>Discounts</strong> | Coupons and rules | | <strong>Gift Cards</strong> | Issue and manage store credit | | <strong>Settings</strong> | Connections, General, Fieldtypes, Mappings, Import &amp; migrate, Shipping, Tax, Fulfillment, Activity, Documentation |</p>
+<p><strong>Stub honesty</strong></p>
+<ul>
+<li><strong>Fulfillment:</strong> Manual / Export is the only merchant-selectable adapter. ShipStation is an internal stub and is not offered as a shipping option.</li>
+<li><strong>Import &amp; migrate:</strong> <strong>Shopify cutover</strong> (one-time products/customers/archived orders), CSV, and live product import adapters (Beta). Legacy Shopping Cart / Events migration appears only when legacy sources are detected.</li>
+<li><strong>Gift cards:</strong> Admin-issued store credit. Sellable gift-card products are not shipped in this release.</li>
+</ul>
 <p><strong>Plugin docs shelf:</strong> <code>register_plugin_docs('commerce', …)</code> ships <code>plugins/commerce/docs/</code> for AI, Admin Help, and MCP (<code>birkly://docs/plugin/commerce</code>).</p>
 <p><strong>Public API:</strong> <code>/api/index.php?route=commerce</code> — cart get/add/update/remove/checkout; checkout selects <code>purchase_option_id</code> and collects shipping/attendee per fulfillment.</p>
 <p><strong>Legacy:</strong> P6.4 flat schema (<code>price_cents</code> + <code>billing</code>) migrates to single purchase_option + inferred fulfillment.</p></div></details>
@@ -50,12 +59,13 @@
 <li><a href="../../03-templating/commerce-functions.html">Commerce template functions</a></li>
 <li><a href="../commerce-subscriptions.html">Commerce subscriptions</a> — upgrades and dunning</li>
 <li><a href="../commerce-gift-cards-quotes.html">Commerce gift cards and quotes</a></li>
-<li><a href="../commerce-analytics.html">Commerce analytics</a></li>
-<li><a href="../commerce-migration-wizard.html">Commerce migration wizard</a> — Shop/Events import</li>
-<li><a href="../commerce-live-import.html">Commerce live import</a> — Shopify/Woo/Etsy/Square API</li>
+<li><a href="../commerce-analytics.html">Commerce analytics</a> — Dashboard metrics and CSV export</li>
+<li><a href="../commerce-shopify-cutover.html">Shopify cutover playbook</a> — one-time Shopify transfer (not perpetual sync)</li>
+<li><a href="../commerce-migration-wizard.html">Commerce migration wizard</a> — Shop/Events import (when detected)</li>
+<li><a href="../commerce-live-import.html">Commerce live import</a> — Shopify/Woo/Etsy/Square API (Beta)</li>
 <li><a href="../commerce-multi-currency.html">Commerce multi-currency</a></li>
 <li><a href="../commerce-inventory-webhooks.html">Commerce inventory webhooks</a></li>
-<li><a href="../commerce-warehouse-stock.html">Commerce warehouse stock</a></li>
+<li><a href="../commerce-warehouse-stock.html">Commerce warehouse stock</a> — Inventory modes</li>
 <li><a href="../commerce-membership.html">Commerce membership wiring</a></li>
 <li><a href="../commerce-import.html">Commerce CSV import</a></li>
 <li><a href="../plugin-security-denylist.html">Plugin security denylist</a></li>

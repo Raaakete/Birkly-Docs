@@ -108,6 +108,7 @@
         <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
         <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
         <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
         <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
         <a href="commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
         <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
@@ -156,11 +157,11 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Import purchasable entries from CSV via <strong>Commerce → Import</strong> in admin. For <strong>live Shopify/WooCommerce API sync</strong>, see <a href="commerce-live-import.html">Commerce live import</a>.</p>
-<div class="doc-summary"><p>The import wizard supports <strong>CSV upload</strong> from many platforms (WooCommerce, Shopify, Magento, and more) with preset column mapping. Choose a target collection, preview rows, and import with idempotent SKU matching. Import history supports rollback. Live REST API import is available for Shopify and WooCommerce (Phase 12).</p></div>
+        <div class="doc-content"><p>Import purchasable entries from CSV via <strong>Commerce → Settings → Import &amp; migrate</strong> in admin. For a one-time Shopify move with customers and archived orders, see <a href="commerce-shopify-cutover.html">Shopify cutover</a>. For <strong>live API sync (Beta)</strong>, see <a href="commerce-live-import.html">Commerce live import</a>.</p>
+<div class="doc-summary"><p>The import wizard supports <strong>CSV upload</strong> from many platforms (WooCommerce, Shopify, Magento, and more) with preset column mapping. Choose a target collection, preview rows, and import with idempotent SKU matching. Import history supports rollback. Live REST API import (Beta) is grouped in the same Import &amp; migrate area. Legacy Shop / Events migration appears only when those sources are detected — see <a href="commerce-migration-wizard.html">Commerce migration wizard</a>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Start an import</strong></p>
 <ol>
-<li>Open <strong>Commerce → Import</strong>.</li>
+<li>Open <strong>Commerce → Settings → Import &amp; migrate</strong>.</li>
 <li>Click <strong>Import products</strong>.</li>
 <li><strong>Step 1 — Platform:</strong> Search or filter (Stores / Inventory) and pick your source (for example WooCommerce or Shopify CSV).</li>
 <li><strong>Step 2 — Upload:</strong> Select target collection (existing or create new), default currency, and upload the CSV (or paste CSV text).</li>
@@ -174,7 +175,7 @@
 <li><strong>Shopify:</strong> Products → Export → CSV (Variant SKU, Variant price, inventory qty).</li>
 </ul>
 <p><strong>Import history</strong></p>
-<p>The Import tab lists past runs with status, counts, and actions:</p>
+<p>Import &amp; migrate lists past runs with status, counts, and actions:</p>
 <ul>
 <li><strong>Details</strong> — view created/updated breakdown.</li>
 <li><strong>Remove</strong> — rollback imported entries (optionally delete collection if the import created it).</li>
@@ -187,18 +188,19 @@
 <p>Match existing entries by <strong>SKU</strong> or <strong>external_id</strong> column — update vs create.</p>
 <h2>Dry-run</h2>
 <p>Use dry-run mode (preview step) to validate rows before writing entries.</p>
-<h2>Live API import (Phase 12)</h2>
+<h2>Live API import (Beta)</h2>
 <p>For ongoing sync without manual CSV export:</p>
 <ul>
-<li><a href="commerce-live-import.html">Commerce live import</a> — Shopify custom app + WooCommerce REST keys, preview, scheduled cron sync.</li>
+<li><a href="commerce-live-import.html">Commerce live import</a> — Shopify, WooCommerce, Etsy, Square (Beta); preview and scheduled cron sync.</li>
 </ul>
-<h2>Out of scope (v1)</h2>
+<h2>Out of scope (CSV v1)</h2>
 <ul>
-<li>Order or customer import</li>
-<li>Webhook-driven real-time sync (deferred)</li>
+<li>Order or customer import via CSV (Shopify customers/archived orders: <a href="commerce-shopify-cutover.html">Shopify cutover</a>)</li>
+<li>Webhook-driven real-time sync (see <a href="commerce-inventory-webhooks.html">inventory webhooks</a> for stock)</li>
 <li>Automatic collection creation without Commerce fieldtype (wizard can create Commerce-enabled collection)</li>
 </ul></div></details>
 <div class="doc-related"><ul>
+<li><a href="commerce-shopify-cutover.html">Shopify cutover playbook</a></li>
 <li><a href="commerce-plugin.html">Commerce plugin</a></li>
 <li><a href="commerce-live-import.html">Commerce live import</a></li>
 <li><a href="commerce-migration-wizard.html">Commerce migration wizard</a></li>

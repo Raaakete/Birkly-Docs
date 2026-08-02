@@ -92,7 +92,7 @@ Commerce routes each order line by fulfillment:
 **Stub honesty**
 
 - **Fulfillment:** Manual / Export is the only merchant-selectable adapter. ShipStation is an internal stub and is not offered as a shipping option.
-- **Import & migrate:** CSV and live product import adapters (Beta). Legacy Shopping Cart / Events migration appears only when legacy sources are detected.
+- **Import & migrate:** **Shopify cutover** (one-time products/customers/archived orders), CSV, and live product import adapters (Beta). Legacy Shopping Cart / Events migration appears only when legacy sources are detected.
 - **Gift cards:** Admin-issued store credit. Sellable gift-card products are not shipped in this release.
 
 **Plugin docs shelf:** `register_plugin_docs('commerce', …)` ships `plugins/commerce/docs/` for AI, Admin Help, and MCP (`birkly://docs/plugin/commerce`).
@@ -108,6 +108,7 @@ Commerce routes each order line by fulfillment:
 - [Commerce subscriptions](../commerce-subscriptions.md) — upgrades and dunning
 - [Commerce gift cards and quotes](../commerce-gift-cards-quotes.md)
 - [Commerce analytics](../commerce-analytics.md) — Dashboard metrics and CSV export
+- [Shopify cutover playbook](../commerce-shopify-cutover.md) — one-time Shopify transfer (not perpetual sync)
 - [Commerce migration wizard](../commerce-migration-wizard.md) — Shop/Events import (when detected)
 - [Commerce live import](../commerce-live-import.md) — Shopify/Woo/Etsy/Square API (Beta)
 - [Commerce multi-currency](../commerce-multi-currency.md)

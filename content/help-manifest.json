@@ -131,6 +131,12 @@
       "docs_path": "06-extensibility/commerce-multi-currency.html"
     },
     {
+      "id": "commerce-shopify-cutover",
+      "title": "Shopify cutover playbook",
+      "keywords": ["shopify", "cutover", "migration", "import", "customers", "archived orders", "dry-run", "rollback"],
+      "docs_path": "06-extensibility/commerce-shopify-cutover.html"
+    },
+    {
       "id": "commerce-live-import",
       "title": "Commerce live import",
       "keywords": ["import", "shopify", "woocommerce", "etsy", "square", "sync"],

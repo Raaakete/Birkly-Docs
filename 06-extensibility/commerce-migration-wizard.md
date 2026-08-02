@@ -98,5 +98,6 @@ Use **Import history** to view the migration run. When the run created a new col
 ## Related
 
 - [Coexistence with Shop and Events](commerce-coexistence.md)
+- [Shopify cutover playbook](commerce-shopify-cutover.md) — external Shopify → Birkly (not this wizard)
 - [Commerce import](commerce-import.md)
 - [Commerce plugin](plugins/commerce.md)

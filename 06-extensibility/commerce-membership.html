@@ -108,6 +108,7 @@
         <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
         <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
         <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
         <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
         <a href="commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
         <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
@@ -157,17 +158,17 @@
     <main class="main">
       <div class="content doc-body">
         <div class="doc-content"><p>Link sellable <strong>membership products</strong> to <strong>User Management</strong> tiers so a paid purchase automatically grants site access.</p>
-<div class="doc-summary"><p>Membership products use Commerce <strong>fulfillment: none</strong> with a <strong>recurring</strong> purchase option. After payment, <strong>PostPurchaseRouter</strong> fires <code>commerce_membership_started</code> and <strong>Purchase mappings</strong> grant the configured user tier. Use the <strong>Mappings</strong> tab (or membership wizard) to connect a product slug to a tier id. Requires the <strong>User Management</strong> plugin.</p></div>
+<div class="doc-summary"><p>Membership products use Commerce <strong>fulfillment: none</strong> with a <strong>recurring</strong> purchase option. After payment, <strong>PostPurchaseRouter</strong> fires <code>commerce_membership_started</code> and <strong>Purchase mappings</strong> grant the configured user tier. Use <strong>Settings → Mappings</strong> (or membership wizard) to connect a product slug to a tier id. Requires the <strong>User Management</strong> plugin.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Set up a membership product</strong></p>
 <ol>
 <li>Activate <strong>Commerce</strong> and <strong>User Management</strong>.</li>
-<li>In <strong>Commerce → Fieldtypes</strong>, use the <strong>Membership</strong> preset (fulfillment <code>none</code>, recurring intervals enabled).</li>
+<li>In <strong>Commerce → Settings → Fieldtypes</strong>, use the <strong>Membership</strong> preset (fulfillment <code>none</code>, recurring intervals enabled).</li>
 <li>Add the fieldtype to a collection (for example <code>memberships</code>).</li>
 <li>Create an entry with a recurring purchase option (for example €9/month).</li>
 </ol>
 <p><strong>Wire tier on purchase</strong></p>
 <ol>
-<li>Open <strong>Commerce → Mappings</strong>.</li>
+<li>Open <strong>Commerce → Settings → Mappings</strong>.</li>
 <li>Enter a mapping key:</li>
 </ol>
 <p>   - <strong>Per product:</strong> <code>entry:memberships:premium</code> (collection slug + entry slug)    - <strong>Whole collection:</strong> <code>collection:memberships</code></p>
@@ -184,7 +185,7 @@
 <li>Automation trigger <code>commerce_membership_started</code> fires (welcome email, etc.).</li>
 </ol>
 <p><strong>Membership fieldtype preset</strong></p>
-<p>Commerce → Fieldtypes → <strong>Membership</strong> quick start sets:</p>
+<p>Commerce → Settings → Fieldtypes → <strong>Membership</strong> quick start sets:</p>
 <ul>
 <li>Default fulfillment: <code>none</code></li>
 <li>Billing intervals: month, year</li>

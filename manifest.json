@@ -118,6 +118,7 @@
         { "path": "06-extensibility/commerce-gift-cards-quotes.md", "label": "Commerce gift cards and quotes" },
         { "path": "06-extensibility/commerce-analytics.md", "label": "Commerce analytics" },
         { "path": "06-extensibility/commerce-migration-wizard.md", "label": "Commerce migration wizard" },
+        { "path": "06-extensibility/commerce-shopify-cutover.md", "label": "Shopify cutover playbook" },
         { "path": "06-extensibility/commerce-live-import.md", "label": "Commerce live import" },
         { "path": "06-extensibility/commerce-multi-currency.md", "label": "Commerce multi-currency" },
         { "path": "06-extensibility/commerce-inventory-webhooks.md", "label": "Commerce inventory webhooks" },

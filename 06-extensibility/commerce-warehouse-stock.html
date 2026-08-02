@@ -108,6 +108,7 @@
         <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
         <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
         <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
         <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
         <a href="commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
         <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
@@ -156,38 +157,40 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Single-warehouse SKU inventory with decrement on paid orders and restore on full refunds (Phase 14).</p>
-<div class="doc-summary"><p><strong>Warehouse stock v1</strong> tracks <code>quantity_on_hand</code> per SKU in one logical warehouse. Paid orders decrement stock; full refunds restore it. Checkout blocks or warns when stock is insufficient. Live import and inventory webhooks can sync the same SKU rows.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Warehouse vs catalog quantity</strong></p>
+        <div class="doc-content"><p>SKU inventory with decrement on paid orders and restore on full refunds. Managed under <strong>Commerce → Inventory</strong>.</p>
+<div class="doc-summary"><p><strong>Inventory</strong> is the stock ledger system of record. Merchants choose a <strong>stock mode</strong>: <strong>Unlimited</strong> (ignore counts), <strong>Simple</strong> (one row per SKU), or <strong>Locations</strong> (SKU stock per warehouse). Paid orders decrement stock; full refunds restore it. Checkout blocks or warns when stock is insufficient. Live import and inventory webhooks can sync the same SKU rows.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Catalog vs Inventory</strong></p>
 <ul>
-<li><strong>Catalog</strong> <code>quantity_available</code> on a Commerce entry is what customers see on the product.</li>
-<li><strong>Warehouse</strong> stock is SKU-level inventory used for fulfillment accuracy and checkout guards.</li>
-<li>When both exist for a SKU, webhooks and import update both; checkout uses warehouse counts when a warehouse row is present.</li>
+<li><strong>Catalog</strong> is a checkout read model. <code>quantity_available</code> on a Commerce entry is a <strong>projection</strong> of Inventory Available (or null for unlimited).</li>
+<li><strong>Inventory</strong> is the ledger: <strong>On hand</strong>, <strong>Reserved</strong>, <strong>Available</strong> (on hand − reserved), and <strong>Low threshold</strong>.</li>
+<li>Edit product names and pricing on the CMS entry; adjust countable stock in <strong>Inventory</strong>.</li>
 </ul>
+<p><strong>Stock modes</strong></p>
+<p>| Mode | Behaviour | |------|-----------| | <strong>Unlimited</strong> | No ledger counts; catalog shows unlimited | | <strong>Simple</strong> | One stock row per SKU | | <strong>Locations</strong> | Stock per SKU per warehouse location |</p>
 <p><strong>View and edit stock</strong></p>
 <ol>
 <li>Open <strong>Commerce</strong> in the admin.</li>
-<li>Go to <strong>Catalog</strong> and open a product (or the <strong>Stock</strong> tab when shown).</li>
-<li>Enter <strong>SKU</strong>, <strong>Quantity on hand</strong>, and optional <strong>Low stock threshold</strong>.</li>
+<li>Go to <strong>Inventory</strong>.</li>
+<li>Enter <strong>SKU</strong>, <strong>On hand</strong>, and optional <strong>Low threshold</strong> (and location when in Locations mode).</li>
 <li>Save.</li>
 </ol>
 <p><strong>Bulk import (optional)</strong></p>
 <ul>
 <li>Export a CSV with columns <code>sku</code>, <code>quantity_on_hand</code>, <code>low_stock_threshold</code>.</li>
-<li>Use <strong>Commerce → Stock → Import CSV</strong> when available on your build.</li>
+<li>Use <strong>Commerce → Inventory → Import CSV</strong> when available on your build.</li>
 </ul>
 <p><strong>Checkout behaviour</strong></p>
 <ul>
-<li>Adding to cart checks warehouse availability when a SKU row exists.</li>
-<li>Checkout fails or shows a warning if <code>quantity_on_hand</code> is less than cart quantity.</li>
+<li>Adding to cart checks availability when a countable SKU row exists.</li>
+<li>Checkout fails or shows a warning if Available is less than cart quantity.</li>
 <li>When payment completes (<code>order.paid</code>), stock decrements automatically.</li>
 <li><strong>Full refund</strong> restores the decremented quantity.</li>
 </ul>
 <p><strong>Low stock</strong></p>
 <ul>
-<li>Set a threshold per SKU; admin lists or badges can highlight SKUs at or below threshold (exact UI varies by Commerce version).</li>
+<li>Set a threshold per SKU; admin lists or badges can highlight SKUs at or below threshold.</li>
 </ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Store:</strong> <code>data/plugins/commerce/warehouse_stock.json</code></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Store:</strong> <code>data/plugins/commerce/warehouse_stock.json</code> (and location rows when Locations mode is active)</p>
 <pre><code>{
   &quot;skus&quot;: {
     &quot;SKU-250G&quot;: {
@@ -207,14 +210,13 @@
 </ul>
 <p><strong>Integration:</strong></p>
 <ul>
-<li><code>CommerceInventoryWebhookService::applyStockUpdate</code> updates warehouse when SKU matches</li>
-<li>Live import maps external SKU to catalog; warehouse rows are manual or CSV unless synced by webhook</li>
+<li><code>CommerceInventoryWebhookService::applyStockUpdate</code> updates inventory when SKU matches</li>
+<li>Live import maps external SKU to catalog; inventory rows are manual, CSV, or webhook-synced</li>
 </ul>
-<p><strong>Limitations (v1):</strong></p>
+<p><strong>Limitations (current):</strong></p>
 <ul>
-<li>Single warehouse only — no multi-location routing</li>
-<li>No reserved stock / allocation queues</li>
-<li>Partial refunds may not restore warehouse quantity (full refund restores)</li>
+<li>Reserved-stock allocation queues beyond active holds are limited</li>
+<li>Partial refunds may not restore quantity (full refund restores)</li>
 </ul>
 <p><strong>Tests:</strong> <code>commerce_warehouse_stock_test.php</code></p></div></details>
 <div class="doc-related"><ul>

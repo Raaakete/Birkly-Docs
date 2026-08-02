@@ -1,21 +1,22 @@
 <p>Move legacy <strong>Shopping Cart</strong> and <strong>Events</strong> plugin data into Commerce fieldtype entries without deleting the old plugins.</p>
-<div class="doc-summary"><p>The <strong>Migration wizard</strong> in Commerce admin detects legacy Shop (<code>shopping_cart</code>) and Events plugin data, previews how entries will map to Commerce (<code>ship</code>, <code>register</code>, purchase options), and imports idempotently. Existing slugs are skipped on re-run. Legacy plugins remain installed — the wizard copies data only.</p></div>
+<div class="doc-summary"><p>The <strong>Migration wizard</strong> lives under <strong>Commerce → Settings → Import &amp; migrate</strong>. It appears <strong>only when legacy Shop (<code>shopping_cart</code>) or Events sources are detected</strong>. When no legacy data exists, the section is hidden. The wizard previews how entries map to Commerce (<code>ship</code>, <code>register</code>, purchase options) and imports idempotently. Existing slugs are skipped on re-run. Legacy plugins remain installed — the wizard copies data only.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>When to use this</strong></p>
 <ul>
 <li>You started with the demo <strong>Shopping Cart</strong> or <strong>Events</strong> plugin and want a unified Commerce catalog.</li>
 <li>You need Commerce cart, subscriptions, or gift cards on products that still live in legacy collections.</li>
+<li>The Import &amp; migrate UI shows a legacy migration section (otherwise this wizard is not shown).</li>
 </ul>
 <p><strong>Before you start</strong></p>
 <ol>
 <li><strong>Back up</strong> <code>content/</code> and <code>data/</code>.</li>
-<li>Activate <strong>Commerce</strong> and configure at least one payment provider.</li>
+<li>Activate <strong>Commerce</strong> and configure at least one payment provider (<strong>Settings → Connections</strong>).</li>
 <li>Leave legacy plugins active until you verify the import.</li>
 </ol>
 <p><strong>Run the wizard</strong></p>
 <ol>
 <li>Open <strong>Commerce</strong> in the admin sidebar.</li>
-<li>Open the <strong>Migration</strong> tab (or <strong>Import → Migrate legacy plugins</strong> when shown).</li>
-<li>The wizard detects:</li>
+<li>Open <strong>Settings → Import &amp; migrate</strong>.</li>
+<li>If legacy sources were detected, the wizard shows:</li>
 </ol>
 <p>   - <strong>Shopping Cart</strong> — <code>shop_products</code> (or configured shop collection) → Commerce entries with <code>fulfillment: ship</code> and one-time purchase options.    - <strong>Events</strong> — legacy event entries → Commerce entries with <code>fulfillment: register</code> and capacity from RSVP settings.</p>
 <ol>
@@ -67,6 +68,7 @@
 </ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="commerce-coexistence.html">Coexistence with Shop and Events</a></li>
+<li><a href="commerce-shopify-cutover.html">Shopify cutover playbook</a> — external Shopify → Birkly (not this wizard)</li>
 <li><a href="commerce-import.html">Commerce import</a></li>
 <li><a href="plugins/commerce.html">Commerce plugin</a></li>
 </ul></div>

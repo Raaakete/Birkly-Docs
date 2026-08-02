@@ -1,9 +1,9 @@
-<p>Purchase plugins, themes, and template packs from the <a href="https://marketplace.birkly.io">Birkly Marketplace</a> and install them in your self-hosted Birkly CMS. This guide is for <strong>buyers</strong> (site owners and admins). Developers publishing offers should see <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a>.</p>
-<div class="doc-summary"><p><strong>Buyers</strong> browse the marketplace catalog and install extensions in the CMS admin under <strong>Plugins → Marketplace</strong>. <strong>Official Birkly plugins</strong> (commerce, events, automation, user management) are <strong>free</strong>: click <strong>Install</strong> in the CMS — no checkout, email, or manual license key. <strong>Paid official</strong> and <strong>third-party</strong> offers require marketplace checkout (Stripe); <strong>subscription</strong> offers renew monthly/yearly until canceled. A <strong>license key</strong> (emailed or <strong>My purchases</strong> / <strong>My subscriptions</strong>) activates on your site. Licenses bind to an <strong>installation</strong> (<code>installation_id</code>); seat tiers limit how many CMS installs may use one key. Marketplace accounts are separate from CMS admin accounts.</p></div>
+<p>Purchase plugins, themes, and site packs from the <a href="https://marketplace.birkly.io">Birkly Marketplace</a> and install them in your self-hosted Birkly CMS. This guide is for <strong>buyers</strong> (site owners and admins). Developers publishing offers should see <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a>.</p>
+<div class="doc-summary"><p><strong>Buyers</strong> browse the marketplace catalog and install extensions in the CMS admin under <strong>Plugins → Hub</strong> (admin label; APIs may still say marketplace). <strong>Official Birkly plugins</strong> (commerce, events, automation, user management) are <strong>free</strong>: click <strong>Install</strong> in the CMS — no checkout, email, or manual license key. <strong>Paid official</strong> and <strong>third-party</strong> offers require marketplace checkout (Stripe); <strong>subscription</strong> offers renew monthly/yearly until canceled. A <strong>license key</strong> (emailed or <strong>My purchases</strong> / <strong>My subscriptions</strong>) activates on your site. Licenses bind to an <strong>installation</strong> (<code>installation_id</code>); seat tiers limit how many CMS installs may use one key. Marketplace accounts are separate from CMS admin accounts.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Official free plugins (recommended first)</strong></p>
 <ol>
 <li>Log in to your Birkly <strong>admin</strong> (<code>/admin</code>).</li>
-<li>Go to <strong>Plugins → Marketplace</strong>.</li>
+<li>Go to <strong>Plugins → Hub</strong>.</li>
 <li>Find an official Birkly offer (Commerce, Events, Automation, User Management) or open <a href="https://marketplace.birkly.io/catalog">marketplace.birkly.io/catalog</a>.</li>
 <li>Click <strong>Install</strong> in the CMS. The marketplace auto-issues a free license — you do <strong>not</strong> need to copy a license key.</li>
 <li><strong>Enable</strong> the plugin from the Plugins list if needed.</li>
@@ -18,11 +18,11 @@
 <li>Check your email for the <strong>license key</strong> and receipt.</li>
 </ol>
 <p><strong>Paid official plugins</strong></p>
-<p>Some official Birkly extensions (for example SEO Basics) are <strong>paid one-time</strong> offers on the marketplace. They show a <strong>price badge</strong> and <strong>Purchase</strong> CTA in <strong>Plugins → Marketplace</strong>.</p>
+<p>Some official Birkly extensions (for example SEO Basics) are <strong>paid one-time</strong> offers on the marketplace. They show a <strong>price badge</strong> and <strong>Purchase</strong> CTA in <strong>Plugins → Hub</strong>.</p>
 <ol>
 <li>Click <strong>Purchase</strong> — opens marketplace checkout for that offer.</li>
 <li>Complete Stripe payment with your email.</li>
-<li>Return to CMS → <strong>Plugins → Marketplace</strong> → <strong>Activate license</strong> (or install with emailed key).</li>
+<li>Return to CMS → <strong>Plugins → Hub</strong> → <strong>Activate license</strong> (or install with emailed key).</li>
 <li>Paid official plugins <strong>cannot</strong> install without a valid license — free official plugins still use one-click <strong>Install</strong>.</li>
 </ol>
 <p><strong>Subscription licenses</strong></p>
@@ -38,12 +38,13 @@
 <ol>
 <li>Log in to your Birkly <strong>admin</strong> (<code>/admin</code>).</li>
 <li>Go to <strong>Plugins</strong> (or <strong>Settings → Plugins</strong>).</li>
-<li>Open the <strong>Marketplace</strong> tab.</li>
+<li>Open the <strong>Hub</strong> tab.</li>
 <li>Browse or search the catalog (read-only view of marketplace listings).</li>
 <li>Click <strong>Install</strong> on an offer you own, or use <strong>Activate license</strong> and paste your license key.</li>
-<li>The CMS downloads the artifact, verifies the SHA-256 checksum, runs preflight checks, and extracts the plugin to <code>plugins/</code>.</li>
+<li>The CMS downloads the artifact, verifies the SHA-256 checksum, runs preflight checks, and extracts by offer type: plugins → <code>plugins/</code>, themes → <code>themes/</code>, site packs (<code>template_pack</code>) → <code>content/collections/</code> + <code>project/</code>.</li>
 <li><strong>Enable</strong> the plugin from the Plugins list if it is not enabled automatically.</li>
 </ol>
+<p>For site pack options (demo entries, overwrite mode, required plugins, Upload pack), see <a href="../06-plugin-economy/theme-and-template-packs.html">Hub, themes, and site packs</a>.</p>
 <p><strong>Free vs paid</strong></p>
 <p>| Offer type | Checkout on marketplace | License key in CMS | |------------|-------------------------|------------------| | Official Birkly plugins (commerce, events, automation, user management) | No | No — one-click <strong>Install</strong> | | Paid official (one-time) | Yes (Stripe) | Yes — required before install | | Subscription official / third-party | Yes (Stripe Billing) | Yes — active subscription required for updates | | Free community offers | Often yes (email capture) | Yes — emailed or <strong>My purchases</strong> | | Paid one-time third-party | Yes (Stripe) | Yes — required before install |</p>
 <p><strong>Seat limits</strong></p>
@@ -62,11 +63,11 @@
 <p><strong>Settings</strong></p>
 <p>Default marketplace URL: <code>https://marketplace.birkly.io</code>. Override via environment variable <code>BIRKLY_MARKETPLACE_URL</code> or <code>settings/marketplace.json</code> (<code>marketplace_url</code>) for staging or self-hosted marketplace instances.</p>
 <p><strong>Updates</strong></p>
-<p>Installed marketplace plugins store <code>marketplace_slug</code> and version metadata. The Marketplace tab checks the registry API for newer semver releases. When an update is available, use <strong>Update</strong> to download, verify checksum, and replace files (backup first — see <a href="updates.html">Updates</a>). <strong>Subscription</strong> licenses: update is blocked when marketplace reports <code>license_inactive</code> or lapsed subscription — renew at <strong>My subscriptions</strong> first.</p>
+<p>Installed marketplace plugins store <code>marketplace_slug</code> and version metadata. The Hub tab checks the registry API for newer semver releases. When an update is available, use <strong>Update</strong> to download, verify checksum, and replace files (backup first — see <a href="updates.html">Updates</a>). Site pack updates skip user-edited <code>project/</code> files and entry content. <strong>Subscription</strong> licenses: update is blocked when marketplace reports <code>license_inactive</code> or lapsed subscription — renew at <strong>My subscriptions</strong> first.</p>
 <p><strong>Offline / air-gapped installs</strong></p>
 <p>Browse and install require network access to the marketplace registry. Already-installed plugins continue to work offline; update checks fail gracefully until connectivity returns.</p>
 <p><strong>Manual install (fallback)</strong></p>
-<p>If you cannot use the Marketplace tab, download the release zip from your purchase email or <strong>My purchases</strong>, verify the published SHA-256 from the offer page, and extract manually into <code>plugins/</code>. You still need a valid license for paid offers if the plugin enforces marketplace licensing.</p>
+<p>If you cannot use the Hub tab for a plugin, download the release zip from your purchase email or <strong>My purchases</strong>, verify the published SHA-256 from the offer page, and extract manually into <code>plugins/</code>. For site packs, prefer <strong>Upload pack</strong> on the Installed tab (same engine as Hub) rather than hand-extracting into <code>themes/</code>. You still need a valid license for paid offers if the plugin enforces marketplace licensing.</p>
 <p><strong>Security</strong></p>
 <ul>
 <li>Install only from the official marketplace or sources you trust.</li>

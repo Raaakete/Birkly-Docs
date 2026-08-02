@@ -400,14 +400,19 @@
         },
         {
             "id": "plugin-economy-starters",
-            "title": "Starter and template packs",
+            "title": "Hub, themes, and site packs",
             "keywords": [
+                "hub",
                 "starter",
+                "site pack",
                 "template pack",
+                "template_pack",
+                "upload pack",
                 "onboarding",
                 "ops",
                 "project",
-                "demo"
+                "demo",
+                "theme"
             ],
             "docs_path": "06-plugin-economy/theme-and-template-packs.html"
         },

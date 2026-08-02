@@ -1,10 +1,10 @@
 # Plugin economy overview
 
-Birkly separates the **CMS core** (your self-hosted site), the **Marketplace** (where extensions are bought and distributed), and **Ops** (Birkly platform services such as starter packs and release checks). Plugins extend the CMS without changing core code.
+Birkly separates the **CMS core** (your self-hosted site), the **Marketplace** (where extensions are bought and distributed), and **Ops** (Birkly platform services such as starter packs and release checks). In the CMS admin, buyers install from **Plugins → Hub**. Plugins extend the CMS without changing core code.
 
 ## Summary
 
-The **plugin economy** is how Birkly distributes extensions: **official and third-party offers** on the [Birkly Marketplace](https://marketplace.birkly.cloud), **one-click or licensed installs** in the CMS admin, and **Ops-hosted starter packs** for onboarding. The CMS ships as a thin runtime — no bundled plugins — so you choose only what you need. Marketplace accounts are separate from CMS admin logins.
+The **plugin economy** is how Birkly distributes extensions: **official and third-party offers** on the [Birkly Marketplace](https://marketplace.birkly.cloud), **one-click or licensed installs** in the CMS **Hub**, and **Ops-hosted starter packs** for onboarding. The CMS ships as a thin runtime — no bundled plugins — so you choose only what you need. Marketplace accounts are separate from CMS admin logins.
 
 ## Beginner
 
@@ -19,9 +19,9 @@ The **plugin economy** is how Birkly distributes extensions: **official and thir
 **How it fits together**
 
 1. You download and run **Birkly CMS** on your server. The `plugins/` folder starts empty.
-2. You browse **Plugins → Marketplace** in the admin or visit [marketplace.birkly.cloud/catalog](https://marketplace.birkly.cloud/catalog).
+2. You browse **Plugins → Hub** in the admin or visit [marketplace.birkly.cloud/catalog](https://marketplace.birkly.cloud/catalog).
 3. You **install** free official plugins in one click, or **purchase** paid and third-party offers and activate a license.
-4. During onboarding, you can install a **starter pack** from Ops — demo collections and a sample public site under `project/` — without using the marketplace.
+4. During onboarding, you can install a **starter pack** from Ops — demo collections and a sample public site under `project/` — without using the marketplace. Hub site packs use the same zip shape.
 
 **Why unbundled plugins**
 
@@ -57,10 +57,10 @@ License activation binds `license_key + installation_id` (local CMS UUID). Provi
 | `offer_type` | Installs to | Typical use |
 |--------------|-------------|-------------|
 | `plugin` | `plugins/{folder}/` | Admin features, APIs, field types |
-| `theme` | Theme paths per manifest | Visual styling |
-| `template_pack` | Collections + `project/` site files | Site templates sold as products |
+| `theme` | `themes/{id}/` | Visual styling packages |
+| `template_pack` | `content/collections/` + `project/` | Site packs (never `themes/`) |
 
-Ops **starter packs** are platform-curated template packs served outside the marketplace catalog during onboarding; see [Themes and template packs](theme-and-template-packs.md).
+Admin UI label is **Hub**; registry/API names may still say marketplace. Ops **starter packs** are platform-curated packs served outside the marketplace catalog during onboarding; see [Hub, themes, and site packs](theme-and-template-packs.md).
 
 ## Related
 

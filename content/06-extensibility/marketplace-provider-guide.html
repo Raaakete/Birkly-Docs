@@ -1,12 +1,13 @@
-<p>Publish plugins, themes, and template packs on the <a href="https://marketplace.birkly.io">Birkly Marketplace</a>. This guide is for <strong>providers</strong> (developers and agencies who sell or distribute extensions). Buyers installing plugins in the CMS should see <a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a> or <a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a>.</p>
-<div class="doc-summary"><p><strong>Providers</strong> create a marketplace account, accept the Provider Agreement, complete Stripe Connect onboarding, then publish offers with versioned zip artifacts. Each offer has a manifest (title, pricing, license seats, compatibility) and one or more releases. Automated preflight checks validate <code>plugin.json</code>, zip structure, and security patterns; verified-tier offers also go through manual review. Payouts flow through Stripe Connect after buyer checkout.</p></div>
+<p>Publish plugins, themes, and site packs on the <a href="https://marketplace.birkly.io">Birkly Marketplace</a>. Buyers install them from the CMS <strong>Hub</strong>. This guide is for <strong>providers</strong> (developers and agencies who sell or distribute extensions). Buyers installing in the CMS should see <a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a> or <a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a>.</p>
+<div class="doc-summary"><p><strong>Providers</strong> create a marketplace account, accept the Provider Agreement, complete Stripe Connect onboarding, then publish offers with versioned zip artifacts — including <strong>site packs</strong> (<code>offer_type: template_pack</code>). Each offer has a manifest (title, pricing, license seats, compatibility) and one or more releases. Automated preflight is offer-type-aware: plugins need <code>plugin.json</code>; site packs need starter/pack layout (<code>manifest.json</code> + <code>collections/</code> + <code>project/</code>). Verified-tier offers also go through manual review. Payouts flow through Stripe Connect after buyer checkout.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What you need before publishing</strong></p>
 <ol>
 <li>A <strong>provider account</strong> on <a href="https://marketplace.birkly.io">marketplace.birkly.io</a> (email + password — separate from your CMS admin login).</li>
 <li>Acceptance of the <strong>Provider Agreement</strong> (seller liability, content warranty).</li>
 <li><strong>Stripe Connect</strong> onboarding (identity and payout details).</li>
-<li>A valid <strong>plugin package</strong> — a <code>.zip</code> containing at minimum <code>plugin.json</code> and <code>plugin.php</code> (or <code>index.php</code>).</li>
+<li>A valid <strong>package</strong> for your offer type:</li>
 </ol>
+<p>   - <strong>Plugin</strong> — <code>.zip</code> with at least <code>plugin.json</code> and <code>plugin.php</code> (or <code>index.php</code>)    - <strong>Site pack</strong> — <code>.zip</code> with <code>manifest.json</code> + <code>collections/</code> + <code>project/</code> (Ops starter shape; not <code>plugin.json</code>)    - <strong>Theme</strong> — theme zip that installs under <code>themes/</code></p>
 <p><strong>Publishing steps</strong></p>
 <ol>
 <li>Sign up at <strong>Provider → Sign up</strong> on the marketplace site.</li>
@@ -15,11 +16,11 @@
 <li>Complete <strong>Stripe Connect</strong> onboarding (charges and payouts must be enabled).</li>
 <li>Click <strong>New offer</strong> and fill in:</li>
 </ol>
-<p>   - <strong>Slug</strong> — stable URL id (lowercase, hyphens, e.g. <code>my-seo-plugin</code>)    - <strong>Title</strong> and <strong>summary</strong> — shown in the public catalog    - <strong>Offer type</strong> — plugin, theme, or template pack    - <strong>Category</strong> and <strong>tags</strong> — help buyers find your offer    - <strong>Pricing</strong> — free, one-time, or <strong>subscription</strong> (with currency, amount, and interval <code>month</code> / <code>year</code>)    - <strong>License seats</strong> — single site, multi-site tiers, or unlimited    - <strong>Compatibility</strong> — <code>requires_birkly</code> and <code>requires_php</code> semver ranges; optional capability declarations</p>
+<p>   - <strong>Slug</strong> — stable URL id (lowercase, hyphens, e.g. <code>my-seo-plugin</code>)    - <strong>Title</strong> and <strong>summary</strong> — shown in the public catalog and CMS Hub    - <strong>Offer type</strong> — plugin, theme, or site pack (<code>template_pack</code>)    - <strong>Category</strong> and <strong>tags</strong> — help buyers find your offer    - <strong>Pricing</strong> — free, one-time, or <strong>subscription</strong> (with currency, amount, and interval <code>month</code> / <code>year</code>)    - <strong>License seats</strong> — single site, multi-site tiers, or unlimited    - <strong>Compatibility</strong> — <code>requires_birkly</code> and <code>requires_php</code> semver ranges; optional capability declarations</p>
 <ol>
-<li><strong>Upload a release</strong> — zip artifact for a semver version (e.g. <code>1.0.0</code>) plus changelog text.</li>
+<li><strong>Upload a release</strong> — zip artifact for a semver version (e.g. <code>1.0.0</code>) plus changelog text. Match the zip layout to the offer type.</li>
 <li><strong>Publish</strong> — preflight and QC run automatically; verified-tier offers enter a manual review queue first.</li>
-<li>After publish, your offer appears in the <a href="https://marketplace.birkly.io/catalog">public catalog</a> and the registry API for CMS installs.</li>
+<li>After publish, your offer appears in the <a href="https://marketplace.birkly.io/catalog">public catalog</a> and the registry API for CMS Hub installs.</li>
 </ol>
 <p><strong>After publish</strong></p>
 <ul>
@@ -41,7 +42,9 @@
 }</code></pre>
 <p>Stripe webhooks (<code>customer.subscription.updated</code>, <code>customer.subscription.deleted</code>) update license status. CMS update checks call <code>GET /api/v1/licenses/status</code> and block updates when subscription lapses.</p>
 <p><strong>Plugin package (<code>plugin.json</code>)</strong></p>
-<p>Artifacts are validated against <code>plugin-package.schema.json</code>. Required: <code>name</code>, <code>version</code>, <code>description</code>. Recommended: <code>requires_birkly</code>, <code>requires_php</code>, declared <code>capabilities</code> (least privilege).</p>
+<p>Plugin artifacts are validated against <code>plugin-package.schema.json</code>. Required: <code>name</code>, <code>version</code>, <code>description</code>. Recommended: <code>requires_birkly</code>, <code>requires_php</code>, declared <code>capabilities</code> (least privilege).</p>
+<p><strong>Site pack package</strong></p>
+<p>Site pack (<code>template_pack</code>) artifacts use the starter/pack layout. QC expects pack <code>manifest.json</code> + <code>collections/</code> + <code>project/</code> — a plugin zip fails pack preflight. Buyers install to <code>content/collections/</code> + <code>project/</code> (never <code>themes/</code>). See <a href="../06-plugin-economy/theme-and-template-packs.html">Hub, themes, and site packs</a>.</p>
 <p><strong>Registry API</strong></p>
 <p>Published offers are exposed at:</p>
 <ul>
@@ -49,7 +52,7 @@
 <li><code>GET /api/v1/offer?slug={slug}</code> — offer detail + releases</li>
 <li><code>GET /api/v1/release?slug={slug}&amp;version={version}</code> — release metadata + download URL</li>
 </ul>
-<p>The Birkly CMS marketplace client consumes these endpoints; do not break slug or checksum contracts without a major version bump.</p>
+<p>The Birkly CMS Hub client consumes these endpoints; do not break slug or checksum contracts without a major version bump.</p>
 <p><strong>Trust levels</strong></p>
 <p>| Level | Meaning | |-------|---------| | <code>untrusted</code> | Community listing; automated preflight only | | <code>trusted</code> | Passed automated checks; Birkly team may spot-check | | <code>verified</code> | Manual technical review for first release and major updates |</p>
 <p><strong>QC and security</strong></p>

@@ -46,7 +46,7 @@
     &quot;value&quot;: &quot;Short intro copy.&quot;
   }
 ]</code></pre>
-<p><strong>Allowed block types:</strong> Most built-in fieldtypes except nested Dynamic items, Gallery, Map, Relation, and full Content editor (to avoid excessive nesting). The admin discovers available types automatically.</p>
+<p><strong>Allowed block types:</strong> Most built-in fieldtypes except nested Dynamic items, Gallery, Map, and Relation (to avoid excessive nesting). <strong>ContentEditor</strong> is available for rich body blocks. The admin discovers available types automatically.</p>
 <p><strong>Templates:</strong> Output depends on integration — with <code>&lt;birkly-region&gt;</code>, the client hydrates the field HTML. In custom JSON consumers, iterate the array and map <code>type</code> + <code>value</code>.</p>
 <p><strong>Multilanguage:</strong> Field container IDs and block handlers are scoped per language tab (<code>field_en_blocks</code>, etc.); Add Block must target the active tab’s field name.</p></div></details>
 <div class="doc-related"><ul>

@@ -47,10 +47,13 @@
         <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
         <a href="../02-content/collections.html" class="nav-link">Collections</a>
         <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
         <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
         <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
         <a href="../02-content/field-types.html" class="nav-link">Field types</a>
         <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
         <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
@@ -124,7 +127,7 @@
         <a href="for-providers.html" class="nav-link">For providers</a>
         <a href="plugin-development.html" class="nav-link">Plugin development</a>
         <a href="plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
-        <a href="theme-and-template-packs.html" class="nav-link active">Themes and template packs</a>
+        <a href="theme-and-template-packs.html" class="nav-link active">Hub, themes, and site packs</a>
         <a href="security-and-review.html" class="nav-link">Security and review</a>
         <a href="official-plugins.html" class="nav-link">Official plugins</a>
         <a href="api-reference.html" class="nav-link">API reference</a>
@@ -153,14 +156,21 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Birkly offers two ways to bootstrap site content and public pages: <strong>Ops-hosted starter packs</strong> during onboarding and <strong>marketplace template packs</strong> sold as offers. Both populate collections and files under <code>project/</code> — your public site folder.</p>
-<div class="doc-summary"><p><strong>Starter packs</strong> are curated demo content and sample sites served from <strong>Birkly Ops</strong> during the setup wizard — blog, shop, business, and docs templates plus a blank option. <strong>Template packs</strong> on the <strong>marketplace</strong> are provider-published offers that install collections and <code>project/</code> site files after purchase. <strong>Themes</strong> change visual styling; <strong>template packs</strong> include structure and content.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Ops starter packs (onboarding)</strong></p>
+        <div class="doc-content"><p>Birkly bootstraps public sites three ways: <strong>Ops starters</strong> during onboarding, <strong>Hub site packs</strong> (<code>offer_type: template_pack</code>) from the catalog or <strong>Upload pack</strong>, and separate <strong>theme</strong> offers. Site packs and starters install collections plus files under <code>project/</code> — never under <code>themes/</code>.</p>
+<div class="doc-summary"><p>In the CMS admin, the catalog tab is labeled <strong>Hub</strong> (APIs and routes may still say <code>marketplace</code>). <strong>Site packs</strong> are marketplace offers with <code>offer_type: template_pack</code>. They use one shared install engine for Hub download and manual ZIP upload: validate pack layout, optionally confirm missing required plugins, then write <code>content/collections/</code> and <code>project/</code>. <strong>Demo entries</strong> are opt-in. <strong>Pack updates</strong> skip user-edited <code>project/</code> files and entry content. <strong>Themes</strong> remain a separate offer type and install under <code>themes/</code>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Hub (admin label)</strong></p>
+<ol>
+<li>Log in to <strong>admin</strong> (<code>/admin</code>).</li>
+<li>Open <strong>Plugins → Hub</strong>.</li>
+<li>Browse plugins, <strong>site packs</strong>, and themes (filter by type).</li>
+<li>Install free official plugins in one click, or activate a license for paid offers.</li>
+</ol>
+<blockquote><p><strong>Note:</strong> The public storefront and registry may still be called the Birkly Marketplace. In the CMS UI, use <strong>Hub</strong>. Internal API actions stay under <code>/api/marketplace.php</code> for this phase.</p></blockquote>
+<p><strong>Ops starters (onboarding)</strong></p>
 <p>When you first set up Birkly, the onboarding wizard offers starter templates:</p>
 <p>| Starter | What you get | |---------|--------------| | <strong>Marsk</strong> | Flagship slow-living journal — blog, gallery, about pages, and editorial demo site | | <strong>Start blank</strong> | Empty content and project folder |</p>
 <p>Legacy starters (blog, shop, business, docs) remain available via Ops for staff but are not shown in the default onboarding picker.</p>
 <p><strong>Marsk example</strong></p>
-<p>The <strong>Marsk</strong> pack (<code>marsk</code>) is the recommended onboarding demo:</p>
 <ol>
 <li>Complete CMS deploy and open the admin onboarding wizard.</li>
 <li>Choose <strong>Marsk</strong> — the wizard downloads the pack from Ops (<code>GET /api/ops/v1/starters/marsk/download</code>).</li>
@@ -170,54 +180,92 @@
 </ol>
 <pre><code># Verify Marsk is published on Ops (stable channel)
 curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.starters[] | select(.id==&quot;marsk&quot;)'</code></pre>
-<p><strong>Choosing a starter</strong></p>
-<ol>
-<li>Complete CMS deploy and open the admin.</li>
-<li>Follow the <strong>onboarding wizard</strong> (or revisit from Help).</li>
-<li>Pick <strong>Marsk</strong> or choose <strong>Start blank</strong>.</li>
-<li>Wait for download and extraction to finish.</li>
-<li>Explore collections in <strong>Content</strong> and preview the public site.</li>
-</ol>
-<p>Availability depends on Ops catalog settings — some starters may show as &quot;coming soon&quot; until the platform publishes a release.</p>
-<p><strong>Marketplace template packs</strong></p>
-<p>Providers can publish <strong>template pack</strong> offers on the marketplace. These are products you buy or get for free through checkout, then install via <strong>Plugins → Marketplace</strong> like any other offer.</p>
-<p>Template packs typically include:</p>
+<p><strong>Site packs from Hub</strong></p>
+<p>Providers (and Birkly) publish <strong>site pack</strong> offers. Buy or get free through marketplace checkout, then install from <strong>Plugins → Hub</strong> like any other offer. Filter type <strong>Site pack</strong> (registry value <code>template_pack</code>).</p>
+<p>A site pack typically includes:</p>
 <ul>
-<li>Pre-defined <strong>collections</strong> and sample entries</li>
+<li>Pre-defined <strong>collections</strong> (schemas under <code>content/collections/</code>)</li>
 <li>HTML, CSS, and JS for the public site in <code>project/</code></li>
-<li>Optional plugin dependencies declared in the offer manifest</li>
+<li>Optional sample (demo) entries — <strong>off by default</strong>; check <strong>Include demo / sample entries</strong> to add them</li>
+<li>Optional <strong>required</strong> and <strong>recommended</strong> plugins in the pack manifest</li>
 </ul>
-<p><strong>Themes vs template packs</strong></p>
-<p>| Type | What changes | |------|--------------| | <strong>Theme</strong> | Visual styling — colors, typography, layout tokens | | <strong>Template pack</strong> | Content structure plus site files — collections, pages, demo entries |</p>
-<p>A template pack may bundle a theme, but they are separate offer types on the marketplace.</p>
+<p><strong>Upload pack (manual ZIP)</strong></p>
+<p>On <strong>Plugins → Installed</strong>, use <strong>Upload pack</strong> to install a site pack ZIP without going through the catalog. The ZIP must use the Ops starter / site pack layout (<code>manifest.json</code> + <code>collections/</code> + <code>project/</code>). Invalid ZIPs and path traversal are rejected. Upload uses the <strong>same install engine</strong> as Hub <code>template_pack</code> installs.</p>
+<blockquote><p><strong>Note:</strong> Fuller Hub information architecture (Discover · Installed · Updates · Licenses · Upload pack as first-class Hub sections) may still be rolling out. <strong>Upload pack</strong> is available from the Installed plugins area today.</p></blockquote>
+<p><strong>Install options</strong></p>
+<p>| Option | Behavior | |--------|----------| | <strong>Merge</strong> (default) | Overlay pack files onto the existing site; backup first when content already exists | | <strong>Replace</strong> | Remove pack-targeted collections and <code>project/</code> overlay, then install; backup first | | <strong>Fresh-only</strong> | Refuse install if the site already has collections or project files | | <strong>Include demo / sample entries</strong> | Opt-in; schemas and <code>project/</code> files always install |</p>
+<p><strong>Required plugins</strong></p>
+<p>If the pack declares <code>required_plugins</code> that are not installed, install <strong>blocks</strong> until you confirm. Confirming installs the missing required plugins (with license/consent when needed), then continues the pack. Cancel writes nothing. <strong>Recommended</strong> plugins warn only and never block.</p>
+<p><strong>Themes vs site packs</strong></p>
+<p>| Type | <code>offer_type</code> | Installs to | What changes | |------|--------------|-------------|--------------| | <strong>Theme</strong> | <code>theme</code> | <code>themes/{id}/</code> | Visual styling package | | <strong>Site pack</strong> | <code>template_pack</code> | <code>content/collections/</code> + <code>project/</code> | Content structure plus public site files | | <strong>Plugin</strong> | <code>plugin</code> | <code>plugins/{folder}/</code> | Admin features, APIs, field types |</p>
+<p>A site pack may ship CSS inside <code>project/</code>; that is not the same as a theme offer. Theme activation / apply-to-site is a separate track and not required for pack installs.</p>
 <p><strong>After install</strong></p>
 <ul>
 <li>Edit content in <strong>Content</strong> like any other collection.</li>
 <li>Customize public site files in <code>project/</code> (or via your deployment workflow).</li>
-<li>Remove demo entries you do not need; starter content is a starting point, not permanent.</li>
+<li>Remove demo entries you do not need; sample content is a starting point, not permanent.</li>
+</ul>
+<p><strong>Pack updates</strong></p>
+<p>When a newer pack version is available, Hub <strong>Update</strong> (or an equivalent pack update action) re-downloads and applies changes with <strong>safe update</strong> behavior:</p>
+<ul>
+<li>User-edited <code>project/</code> files and entry content are <strong>skipped</strong> (tracked via install file hashes).</li>
+<li>Unchanged vendor files from the pack may update.</li>
+<li>Schema / collection config may update even when entries are protected.</li>
+<li>Per-file <strong>reset to pack version</strong> and rare <strong>replace all</strong> (backup + confirm) are available for recovery when you intentionally want pack files back.</li>
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Project folder (<code>project/</code>)</strong></p>
-<p>Public site files live under <code>project/</code> (P36). Legacy <code>demo-website/</code> paths migrate on demand. Template packs and starters extract into this folder plus <code>content/collections/</code>.</p>
+<p>Public site files live under <code>project/</code> (P36). Legacy <code>demo-website/</code> paths migrate on demand. Site packs and starters extract into this folder plus <code>content/collections/</code>. They must <strong>never</strong> extract into <code>themes/</code>.</p>
+<p><strong>Canonical pack ZIP layout</strong></p>
+<pre><code>{id}-pack-{version}.zip
+├── manifest.json         # id, version, collections[], required_plugins[]
+├── collections/…         # → content/collections/
+└── project/…             # → project/</code></pre>
+<p>Optional media may be included. Manifest must pass starter/site-pack validation (<code>manifest.id</code>, <code>manifest.version</code>, non-empty <code>collections</code>).</p>
+<p><strong>Shared install engine</strong></p>
+<p>Hub catalog install (<code>template_pack</code>) and <strong>Upload pack</strong> (<code>install_template_pack_zip</code> / preflight) call the same engine (<code>birkly_marketplace_install_template_pack_from_zip</code>). Registry metadata is stored in <code>installed_template_packs.json</code> (slug, version, collections, file hashes, source).</p>
+<p>| Source | Typical <code>source</code> value | |--------|------------------------| | Hub offer | <code>marketplace</code> | | Manual ZIP | <code>upload</code> | | Onboarding starter | Ops path (separate download; same extract layout) |</p>
+<p><strong>Overwrite modes (detail)</strong></p>
+<p>| Mode | When site is dirty | |------|--------------------| | <code>merge</code> | Backup if needed, then overlay pack files | | <code>replace</code> | Backup, remove pack-targeted collections + project overlay, then extract | | <code>fresh-only</code> | Error <code>site_not_fresh</code> — no write |</p>
+<p><strong>Demo entries (detail)</strong></p>
+<ul>
+<li>Default for Hub/ZIP: <code>include_demo_entries: false</code></li>
+<li>Schemas + <code>project/</code> HTML/CSS/JS always install</li>
+<li>Entry JSON under <code>collections/*/entries/</code> only when opt-in</li>
+<li>Onboarding starters may still seed demo content by design</li>
+</ul>
+<p><strong>Safe update protection</strong></p>
+<p>Protected paths (skip when user-touched unless force/replace-all):</p>
+<ul>
+<li>Everything under <code>project/</code></li>
+<li>Entry files matching <code>collections/*/entries/</code></li>
+</ul>
+<p>Collection schema files are not treated as protected user content the same way.</p>
 <p><strong>Ops starter API</strong></p>
 <p>| Endpoint | Purpose | |----------|---------| | <code>GET /api/ops/v1/starters?channel={channel}</code> | Catalog with <code>onboarding_enabled</code> flags | | <code>GET /api/ops/v1/starters/{id}/download</code> | Signed zip download |</p>
 <p>CMS resolves catalog URL from <code>starters_catalog_url</code> in platform config, <code>BIRKLY_OPS_STARTERS_URL</code>, or derived from the Ops feedback relay URL. Default: <code>https://ops.birkly.cloud/api/ops/v1/starters</code>.</p>
-<p><strong>Marketplace template pack install</strong></p>
-<p>Offer type <code>template_pack</code> in the offer manifest. Install flow:</p>
+<p><strong>Hub / registry install flow (<code>template_pack</code>)</strong></p>
 <ol>
+<li>Resolve offer + release (<code>offer_type: template_pack</code>).</li>
 <li>License activation (if paid).</li>
-<li>Permission consent (if the pack includes a plugin component).</li>
-<li>Extract collections and <code>project/</code> files per pack manifest.</li>
-<li>Record installed version for updates.</li>
+<li>Permission consent when required plugins need install.</li>
+<li>Preflight pack layout + missing <code>required_plugins</code>.</li>
+<li>User confirms required plugins if any are missing.</li>
+<li>Extract to <code>content/collections/</code> + <code>project/</code> (never <code>themes/</code>).</li>
+<li>Apply demo-entry preference and overwrite mode.</li>
+<li>Record install + file hashes for safe updates.</li>
 </ol>
 <p>See <a href="api-reference.html">API reference</a> for registry endpoints used during install.</p>
-<p><strong>Local fallback</strong></p>
+<p><strong>Provider publish</strong></p>
+<p>Providers can publish site pack offers (<code>offer_type: template_pack</code>) with a pack-layout ZIP. Marketplace QC is offer-type-aware: pack artifacts need pack/starter manifest layout, not <code>plugin.json</code>. See <a href="for-providers.html">For providers</a> and <a href="../06-extensibility/marketplace-provider-guide.html">Marketplace — provider publishing guide</a>.</p>
+<p><strong>Local fallback (onboarding)</strong></p>
 <p>If Ops is unreachable, onboarding falls back to bundled catalog metadata and local <code>demo-content/</code> when present. Production sites should ensure Ops connectivity or choose <strong>Start blank</strong>.</p>
 <p><strong>Custom starters (platform)</strong></p>
-<p>Birkly Ops staff manage starter pack versions, featured flags, and onboarding visibility. Starters are not provider-published marketplace offers — they are platform-curated content.</p></div></details>
+<p>Birkly Ops staff manage starter pack versions, featured flags, and onboarding visibility. Starters are platform-curated; provider-published site packs are separate Hub offers that use the same zip shape.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="overview.html">Plugin economy overview</a></li>
 <li><a href="for-site-owners.html">For site owners</a></li>
 <li><a href="for-providers.html">For providers</a></li>
+<li><a href="../06-extensibility/marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
 <li><a href="../00-overview/getting-started.html">Getting started</a></li>
 <li><a href="../03-templating/templating-overview.html">Templating overview</a></li>
 <li><a href="../03-templating/reference-projects.html">Reference projects</a></li>

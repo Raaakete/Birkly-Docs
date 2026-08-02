@@ -4,7 +4,7 @@ Birkly CMS downloads ship **without bundled plugins**. After a fresh install, th
 
 ## Summary
 
-**Fresh installs** contain core CMS only: no commerce, events, automation, or user-management code in the download. Open **Plugins → Marketplace** in the admin to browse the catalog and install extensions. **Free official** plugins install in one click. **Paid official** plugins show a price badge and **Purchase** CTA — complete checkout, then activate the license in CMS. **Existing installs** that already have plugin folders keep working; future updates for those plugins come from the marketplace.
+**Fresh installs** contain core CMS only: no commerce, events, automation, or user-management code in the download. Open **Plugins → Hub** in the admin to browse the catalog and install extensions. **Free official** plugins install in one click. **Paid official** plugins show a price badge and **Purchase** CTA — complete checkout, then activate the license in CMS. **Existing installs** that already have plugin folders keep working; future updates for those plugins come from the marketplace (Hub tab).
 
 ## Beginner
 
@@ -16,7 +16,7 @@ Older Birkly builds included official plugins inside the CMS zip. Current releas
 
 1. Download and deploy Birkly CMS (see [Getting started](../00-overview/getting-started.md)).
 2. Log in to **admin** and complete onboarding if prompted.
-3. Open **Plugins → Marketplace**.
+3. Open **Plugins → Hub**.
 4. Browse **Official** or filter the catalog for Birkly-published plugins.
 5. Click **Install** on a free official plugin (e.g. Commerce). No marketplace account or license key is needed.
 6. When install finishes, **Enable** the plugin if it is not enabled automatically.
@@ -24,11 +24,11 @@ Older Birkly builds included official plugins inside the CMS zip. Current releas
 
 **Onboarding hint**
 
-The setup wizard may suggest installing recommended plugins from the marketplace. You can skip this step and install later from **Plugins → Marketplace**.
+The setup wizard may suggest installing recommended plugins from the marketplace. You can skip this step and install later from **Plugins → Hub**.
 
 **Existing sites (grandfathered)**
 
-If you upgraded from an older build that already had plugins in `plugins/`, those copies continue to work. You are not required to reinstall them. When you want updates, use the **Marketplace** tab **Update** action (or reinstall from the marketplace) so checksums and licenses stay in sync.
+If you upgraded from an older build that already had plugins in `plugins/`, those copies continue to work. You are not required to reinstall them. When you want updates, use the **Hub** tab **Update** action (or reinstall from the marketplace) so checksums and licenses stay in sync.
 
 ## Official plugins
 

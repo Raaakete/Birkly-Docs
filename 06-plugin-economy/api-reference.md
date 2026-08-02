@@ -12,7 +12,7 @@ The **marketplace registry API** exposes catalog, offer detail, release download
 
 | Audience | Typical use |
 |----------|-------------|
-| **CMS admin** | Built-in Marketplace tab — no direct API calls |
+| **CMS admin** | Built-in Hub tab — no direct API calls |
 | **Site owner** | Use the admin UI; APIs run in the background |
 | **Integrator / DevOps** | Custom install scripts, air-gapped workflows |
 | **Provider** | Publish via Provider Studio; registry exposes your offers |
@@ -56,7 +56,7 @@ Link to public offer pages:
 - Catalog: `https://marketplace.birkly.cloud/catalog`
 - Offer: `https://marketplace.birkly.cloud/offers/{slug}`
 
-The CMS Marketplace tab embeds a read-only catalog view backed by the registry API.
+The CMS Hub tab embeds a read-only catalog view backed by the registry API (`/api/marketplace.php`).
 
 ## Advanced Users
 
@@ -67,7 +67,7 @@ GET /api/v1/registry
 Accept: application/json
 ```
 
-Returns offer summaries: `slug`, `title`, `offer_type`, `pricing`, latest `version`, trust level. CMS caches responses briefly; bust cache on manual refresh in Marketplace tab.
+Returns offer summaries: `slug`, `title`, `offer_type`, `pricing`, latest `version`, trust level. CMS caches responses briefly; bust cache on manual refresh in the Hub tab.
 
 **Registry — offer detail**
 
@@ -164,7 +164,7 @@ Point CMS at staging marketplace or Ops by setting override URLs. Do not mix pro
 
 - [Plugin economy overview](overview.md)
 - [For site owners](for-site-owners.md)
-- [Themes and template packs](theme-and-template-packs.md)
+- [Hub, themes, and site packs](theme-and-template-packs.md)
 - [Security and review](security-and-review.md)
 - [Marketplace — buyer license and install](../06-extensibility/marketplace-buyer-guide.md)
 - [Marketplace — provider publishing guide](../06-extensibility/marketplace-provider-guide.md)

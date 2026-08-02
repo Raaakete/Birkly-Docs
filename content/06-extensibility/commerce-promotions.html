@@ -1,0 +1,30 @@
+<p><strong>Discounts</strong> (Promotions v2, Commerce <strong>1.0.19+</strong> / current <strong>1.0.22</strong>) covers coupons, automatic rules, and affiliate discounts with usage limits, min purchase, date windows, free shipping, and stack rules — edited in a structured admin form.</p>
+<div class="doc-summary"><p>Open <strong>Commerce → Discounts → Add Rule</strong>. Rules evaluate at cart/checkout. Paid orders increment usage counts. Non-stackable rules compete (highest customer savings wins); stackable rules may combine afterward.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Create a rule</h3>
+<ol>
+<li>Open <strong>Commerce → Discounts</strong>.</li>
+<li>Click <strong>Add Rule</strong>.</li>
+<li>Set <strong>Name</strong>, <strong>Type</strong> (<code>coupon</code>, <code>automatic</code>, or <code>affiliate</code>), and value type:</li>
+</ol>
+<p>   - <strong>Percent off</strong>    - <strong>Fixed amount</strong> (cents)    - <strong>Free shipping</strong></p>
+<ol>
+<li>Optional constraints:</li>
+</ol>
+<p>   - <strong>Min purchase</strong> (cents of goods subtotal)    - <strong>Usage limit</strong> (blank = unlimited; increments when an order is paid)    - <strong>Starts at</strong> / <strong>Ends at</strong> (date window)    - <strong>Target</strong> (optional <code>collection:…</code> or <code>entry:…:slug</code>)</p>
+<ol>
+<li>Check <strong>Stackable</strong> if the rule may combine with other stackable rules.</li>
+<li>Leave <strong>Enabled</strong> on, then <strong>Save rule</strong>.</li>
+</ol>
+<h3>Stack rules (plain language)</h3>
+<p>| Kind | Behavior | |------|----------| | <strong>Non-stackable</strong> (<code>stackable</code> off) | Among matching exclusive candidates, only the <strong>highest customer savings</strong> applies | | <strong>Stackable</strong> (<code>stackable</code> on) | May apply <strong>in addition</strong> to the winning exclusive rule | | <strong>Coupon + automatic</strong> | May combine when <strong>both</strong> are stackable |</p>
+<h3>Affiliate</h3>
+<p>Affiliate rules match <code>?ref=partner_id</code> on storefront URLs (session) plus the rule’s affiliate ID field.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Engine:</strong> <code>DiscountEngine::evaluateCart()</code> — returns <code>line_discounts</code>, <code>free_shipping</code>, <code>discount_cents</code>, <code>allocations</code>, <code>applied_rule_ids</code>.</p>
+<p><strong>Value types:</strong> <code>percent</code>, <code>fixed</code>, <code>free_shipping</code>. Free shipping can apply cart-wide when target is empty; with a target, matching lines are required.</p>
+<p><strong>Admin form fields:</strong> name, type, code / affiliate id, value_type, value, <code>min_purchase_cents</code>, <code>usage_limit</code>, <code>starts_at</code>, <code>ends_at</code>, target, <code>stackable</code>, enabled.</p>
+<blockquote><p><strong>Note:</strong> This is <strong>manual</strong> promotions configuration. Stripe Tax, live shipping rates, and other P2 provider features are out of scope here.</p></blockquote></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
+<li><a href="commerce-gift-cards-quotes.html">Commerce gift cards and quotes</a></li>
+<li><a href="commerce-multi-currency.html">Commerce multi-currency</a></li>
+</ul></div>

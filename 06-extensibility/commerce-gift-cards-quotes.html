@@ -104,8 +104,12 @@
         <a href="marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
         <a href="marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
         <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
-        <a href="commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="commerce-promotions.html" class="nav-link">Commerce promotions</a>
         <a href="commerce-gift-cards-quotes.html" class="nav-link active">Commerce gift cards and quotes</a>
+        <a href="commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="commerce-fulfillment.html" class="nav-link">Commerce manual fulfillment</a>
+        <a href="commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
         <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
         <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
         <a href="commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
@@ -157,10 +161,9 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p><strong>Gift cards</strong> are admin-issued store credit at checkout. <strong>Draft orders / Quotes</strong> are negotiated prices with a customer accept link — they live under <strong>Commerce → Orders</strong>, not as a top-level tab.</p>
-<p>Sellable gift-card products (fulfillment that issues a card on pay) are not shipped in this release; issue cards from the Gift Cards admin only.</p>
-<div class="doc-summary"><p><strong>Gift cards</strong> are codes with a balance in cents. Issue them in <strong>Commerce → Gift Cards</strong>; customers apply a code at checkout. Balances support <strong>partial redemption</strong> — unused balance remains on the card. <strong>Draft orders / Quotes</strong> snapshot cart lines at custom prices; the admin sends an accept URL; the customer accepts and pays through normal checkout.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Gift cards</h3>
+        <div class="doc-content"><p><strong>Gift cards</strong> are store credit applied at checkout. Issue them from <strong>Commerce → Gift Cards</strong>, or sell them as products with fulfillment <strong><code>gift_card</code></strong> (codes issued on pay). <strong>Draft orders / Quotes</strong> are negotiated prices with a customer accept link — they live under <strong>Commerce → Orders</strong>, not as a top-level tab.</p>
+<div class="doc-summary"><p><strong>Gift cards</strong> are codes with a balance in cents. Admin-issued cards and sellable gift-card products share the same redemption store. Customers apply a code at checkout. Balances support <strong>partial redemption</strong>. <strong>Draft orders / Quotes</strong> snapshot cart lines at custom prices; the admin sends an accept URL; the customer accepts and pays through normal checkout.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Admin-issued gift cards</h3>
 <p><strong>Issue a gift card</strong></p>
 <ol>
 <li>Open <strong>Commerce → Gift Cards</strong>.</li>
@@ -168,10 +171,18 @@
 <li>Enter balance (for example <code>50</code> for €50.00) and optionally a custom code (leave blank to auto-generate).</li>
 <li>The card appears in the list with status <strong>active</strong>.</li>
 </ol>
-<p><strong>Customer checkout</strong></p>
-<p>Customers enter a gift card code during checkout (or your template calls the cart API with <code>set_gift_card</code>). The discount applies after coupons. If the order total is less than the card balance, the remainder stays on the card for a future purchase.</p>
 <p><strong>Void a card</strong></p>
 <p>Click <strong>Void</strong> on an active card to disable it. Voided and expired cards are rejected at checkout.</p>
+<h3>Sellable gift-card products</h3>
+<ol>
+<li>On a CMS entry with a Commerce field, set <strong>Fulfillment</strong> to <strong>Gift card</strong>.</li>
+<li>Set purchase option <strong>price</strong> to the face value to issue (currency must match checkout).</li>
+<li>After payment, PostPurchaseRouter issues one code per quantity and fires Automation trigger <code>commerce_gift_card_issued</code>.</li>
+<li>Codes appear on the order detail and in <strong>Gift Cards</strong>.</li>
+</ol>
+<p>Checkout for <code>gift_card</code> lines collects email only (no shipping).</p>
+<h3>Customer checkout (redeem)</h3>
+<p>Customers enter a gift card code during checkout (or your template calls the cart API with <code>set_gift_card</code>). The tender applies after coupons. If the order total is less than the card balance, the remainder stays on the card for a future purchase.</p>
 <p><strong>Rules (v1)</strong></p>
 <ul>
 <li>One gift card per checkout.</li>
@@ -201,6 +212,11 @@
 <p>Default expiry is 30 days from creation.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Gift card storage</strong></p>
 <p><code>GiftCardStore</code> — flat files under <code>data/plugins/commerce/gift_cards/</code>. Fields: <code>code</code>, <code>balance_cents</code>, <code>initial_balance_cents</code>, <code>currency</code>, <code>status</code>, <code>expires_at</code>, <code>redemptions[]</code>.</p>
+<p><strong>Sellable fulfillment</strong></p>
+<ul>
+<li>Field value: <code>fulfillment: &quot;gift_card&quot;</code> (face value = purchase option unit price).</li>
+<li>Automation: <code>commerce_gift_card_issued</code> (one event per issued batch/line result).</li>
+</ul>
 <p><strong>Checkout integration</strong></p>
 <p><code>DiscountEngine::applyGiftCardTender()</code> validates and applies balance. Cart API:</p>
 <ul>
@@ -226,8 +242,11 @@
 <p>Quotes snapshot line prices at creation. Custom per-line overrides are supported in the store API for future admin UI extensions.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="commerce-fieldtype.html">Commerce fieldtype</a></li>
+<li><a href="commerce-promotions.html">Commerce promotions</a></li>
 <li><a href="commerce-subscriptions.html">Commerce subscriptions</a></li>
 <li><a href="commerce-analytics.html">Commerce analytics</a></li>
+<li><a href="../05-automation/triggers.html">Automation triggers</a></li>
 </ul></div></div>
       </div>
     </main>

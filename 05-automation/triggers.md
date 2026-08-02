@@ -137,8 +137,11 @@ For webhook triggers, the incoming body is parsed (JSON or form) and available a
 | `commerce_physical_fulfilled` | Physical line fulfilled |
 | `commerce_digital_delivered` | Digital download delivered |
 | `commerce_event_registered` | Event/workshop registration completed |
+| `commerce_gift_card_issued` | Sellable gift-card line issued codes after pay |
+| `commerce_shipment_created` | Manual shipment created on an order |
+| `commerce_order_shipped` | Customer notify when a shipment is created with notify enabled |
 
-See [Commerce subscriptions](../06-extensibility/commerce-subscriptions.md) for dunning configuration.
+See [Commerce subscriptions](../06-extensibility/commerce-subscriptions.md) for dunning, [Commerce gift cards](../06-extensibility/commerce-gift-cards-quotes.md), and [Commerce manual fulfillment](../06-extensibility/commerce-fulfillment.md).
 
 ## Related
 

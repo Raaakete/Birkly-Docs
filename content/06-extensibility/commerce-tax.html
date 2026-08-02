@@ -1,0 +1,30 @@
+<p>Manual tax for Commerce <strong>1.0.21+</strong> / current <strong>1.0.22</strong>: product <strong>tax classes</strong>, class×country rates, and frozen <strong><code>tax_lines</code></strong> on each paid order. No Stripe Tax / automated provider in this release.</p>
+<div class="doc-summary"><p>Configure rates under <strong>Commerce → Settings → Tax</strong>. Assign a <code>tax_class</code> on each sellable Commerce field (default <code>standard</code>). At checkout, each line resolves a rate and the order stores matching <code>tax_lines</code> (not recalculated later from catalog).</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Enable and set rates</h3>
+<ol>
+<li>Open <strong>Commerce → Settings → Tax</strong>.</li>
+<li>Check <strong>Enable tax at checkout</strong>.</li>
+<li>Set a <strong>default rate</strong> (%) and optional <strong>country overrides</strong>.</li>
+<li>Under <strong>Tax classes</strong>, add classes (built-ins: <code>standard</code>, <code>reduced</code>, <code>zero</code>, plus custom codes). Leave a class default blank to inherit country/default; use <code>0</code> for explicit zero-rated.</li>
+<li>Under <strong>Class × country rates</strong>, add overrides (e.g. reduced × DE = 7%).</li>
+<li><strong>Save Tax Rules</strong>.</li>
+</ol>
+<h3>Assign class on products</h3>
+<p>In the entry editor Commerce field, set <strong>Tax class</strong> (<code>standard</code>, <code>reduced</code>, <code>zero</code>, or a custom code). Rates always come from Settings → Tax — the field only picks the class.</p>
+<h3>Resolution order (per line)</h3>
+<ol>
+<li><strong>Class × country</strong> rate</li>
+<li>Else <strong>class default</strong> rate</li>
+<li>Else <strong>country</strong> override</li>
+<li>Else site <strong>default</strong> rate</li>
+</ol>
+<p>Tax applies to the goods subtotal (after line discounts). Shipping tax policy follows the current checkout builder (goods-focused manual tax).</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Field:</strong> <code>tax_class</code> on the Commerce fieldtype value (string; default <code>standard</code>).</p>
+<p><strong>Order snapshot:</strong> Paid orders freeze <code>tax_cents</code> and <code>tax_lines[]</code> with <code>tax_class</code>, title, rate, and <code>tax_cents</code>. Mixed carts emit <strong>one tax line per class</strong>.</p>
+<p><strong>Catalog helper:</strong> <code>resolveTaxRateForClass($class, $country, $taxSettings)</code>.</p>
+<blockquote><p><strong>Warning:</strong> Do not claim Stripe Tax, OSS/IOSS automation, or B2B VAT ID validation — those are later (P2+) milestones.</p></blockquote></div></details>
+<div class="doc-related"><ul>
+<li><a href="commerce-fieldtype.html">Commerce fieldtype</a></li>
+<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
+<li><a href="commerce-plugin.html">Commerce plugin reference</a></li>
+</ul></div>

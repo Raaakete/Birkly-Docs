@@ -50,7 +50,7 @@
 </ol>
 <p>Rollback removes customers and archived orders created by that cutover batch and rolls back the linked product import when recorded. Prefer rollback over hand-deleting mixed catalog rows.</p>
 <h3>Steps 4–11 (checklist outline)</h3>
-<p>These steps complete a full merchant move. Steps <strong>4–5</strong> are available in the cutover panel today; <strong>6–11</strong> are the remaining go-live checklist (detailed docs may expand later). Do <strong>not</strong> assume gift-card balance import, promotions v2, tax classes, or advanced fulfillment features are part of cutover unless you have verified them on your Commerce build.</p>
+<p>These steps complete a full merchant move. Steps <strong>4–5</strong> are available in the cutover panel today; <strong>6–11</strong> are the remaining go-live checklist. Cutover itself does <strong>not</strong> import gift-card balances, discount rules, tax class mappings, or open fulfillments — recreate those in Commerce after products/customers land (see <a href="commerce-promotions.html">promotions</a>, <a href="commerce-tax.html">tax</a>, <a href="commerce-gift-cards-quotes.html">gift cards</a>, <a href="commerce-fulfillment.html">fulfillment</a>).</p>
 <p>| Step | Checklist | |------|-----------| | <strong>4. Customers</strong> | Dry-run → import customers; verify profiles under Commerce Customers; plan invite / password-reset (no password migration). | | <strong>5. Orders archive</strong> | Dry-run → import archived orders; confirm status <code>archived</code>, no stock movement, no fulfillment emails; spot-check totals and line items. | | <strong>6. Verify catalog + inventory</strong> | Rebuild catalog index if needed; set Inventory mode (Unlimited / Simple / Locations); reconcile on-hand vs Shopify before go-live. | | <strong>7. Memberships / purchase options</strong> | Map Shopify subscriptions or memberships to Commerce <code>purchase_options</code> and Settings → Mappings; test one recurring or membership SKU if used. | | <strong>8. Storefront / checkout smoke</strong> | Rebuild storefront on Birkly (<code>commerce-storefront.js</code> / templates — not Liquid); test ship, deliver, register, and membership paths you sell. | | <strong>9. Gift cards / credits</strong> | Recreate or migrate balances only when your Commerce version supports it; disable Shopify gift-card codes at cutover so they are not double-spent. <em>(Balance import is not claimed as shipped with cutover alone.)</em> | | <strong>10. Discounts + DNS cutover</strong> | Recreate critical discount codes in Commerce; put Shopify in password / closed mode; point domain to Birkly; smoke-test checkout on the live host. | | <strong>11. SEO + hypercare</strong> | Publish redirects CSV (old Shopify URLs → Birkly); reconcile inventory daily for the first week; disable Shopify apps that still charge fees; keep Shopify admin read-only as needed. |</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Admin UI actions</h3>
 <p>| Control | Behavior | |---------|----------| | <strong>1. Test connection</strong> | <code>shopify_cutover_test</code> — validates saved Shopify credentials | | <strong>2. Dry-run</strong> | <code>shopify_cutover_dry_run</code> — preview counts/samples; returns <code>dry_run_token</code> / <code>batch_id</code>; no catalog writes | | <strong>3. Import cutover</strong> | <code>shopify_cutover_import</code> — requires <code>confirm: true</code> or <code>dry_run_token</code>; resources: <code>products</code>, <code>customers</code>, <code>orders</code>, or <code>all</code> | | <strong>Rollback last batch</strong> | <code>shopify_cutover_rollback</code> — <code>batch_id</code>; deletes created customers/orders; rolls back linked product import |</p>
@@ -74,18 +74,20 @@
 <li>Order import may upsert a lightweight customer from the order email when missing</li>
 </ul>
 <h3>Out of scope / not claimed here</h3>
-<p>Unless verified on your installed Commerce build, do <strong>not</strong> treat the following as shipped by this playbook:</p>
+<p>Cutover does <strong>not</strong> include:</p>
 <ul>
 <li>Perpetual Shopify ↔ Birkly sync of customers or orders</li>
 <li>Shopify password migration</li>
-<li>Gift-card <strong>balance</strong> import as part of cutover (see promotions / gift-card milestones separately)</li>
-<li>Promotions v2 (usage limits, free shipping stack rules, etc.)</li>
-<li>Manual tax classes or advanced multi-package fulfillment excellence</li>
+<li>Gift-card <strong>balance</strong> import (recreate cards in Commerce; sellable <code>gift_card</code> products are separate)</li>
+<li>Discount / promotion rule import</li>
+<li>Tax class or shipping zone import</li>
+<li>Open / unfulfilled shipment migration</li>
 <li>Automatic Liquid → Birkly theme conversion</li>
 </ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
 <li><a href="commerce-plugin.html">Commerce plugin reference</a></li>
+<li><a href="commerce-customers.html">Commerce customers</a></li>
 <li><a href="commerce-live-import.html">Commerce live import</a> — Beta product sync (not cutover)</li>
 <li><a href="commerce-import.html">Commerce CSV import</a></li>
 <li><a href="commerce-migration-wizard.html">Commerce migration wizard</a> — legacy Birkly Shop / Events</li>

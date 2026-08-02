@@ -437,10 +437,77 @@
                 "cart",
                 "checkout",
                 "orders",
-                "payments"
+                "payments",
+                "customers",
+                "promotions",
+                "gift cards",
+                "tax",
+                "fulfillment"
             ],
             "docs_path": "06-extensibility/plugins/commerce.html",
             "ai_topic": "commerce"
+        },
+        {
+            "id": "commerce-customers",
+            "title": "Commerce customers",
+            "keywords": [
+                "customers",
+                "commerce",
+                "csv",
+                "email",
+                "timeline",
+                "user management"
+            ],
+            "docs_path": "06-extensibility/commerce-customers.html"
+        },
+        {
+            "id": "commerce-promotions",
+            "title": "Commerce promotions",
+            "keywords": [
+                "discounts",
+                "promotions",
+                "coupon",
+                "free shipping",
+                "stacking",
+                "usage limit"
+            ],
+            "docs_path": "06-extensibility/commerce-promotions.html"
+        },
+        {
+            "id": "commerce-gift-cards-quotes",
+            "title": "Commerce gift cards and quotes",
+            "keywords": [
+                "gift card",
+                "store credit",
+                "quotes",
+                "draft orders",
+                "commerce_gift_card_issued"
+            ],
+            "docs_path": "06-extensibility/commerce-gift-cards-quotes.html"
+        },
+        {
+            "id": "commerce-tax",
+            "title": "Commerce tax",
+            "keywords": [
+                "tax",
+                "tax class",
+                "vat",
+                "tax_lines",
+                "commerce"
+            ],
+            "docs_path": "06-extensibility/commerce-tax.html"
+        },
+        {
+            "id": "commerce-fulfillment",
+            "title": "Commerce manual fulfillment",
+            "keywords": [
+                "fulfillment",
+                "shipment",
+                "packing slip",
+                "partial ship",
+                "tracking"
+            ],
+            "docs_path": "06-extensibility/commerce-fulfillment.html"
         },
         {
             "id": "commerce-multi-currency",

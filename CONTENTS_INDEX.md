@@ -113,9 +113,13 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Marketplace go-live | `06-extensibility/marketplace-go-live.md` | Fresh install, paid/free official plugins |
 | Marketplace — provider guide | `06-extensibility/marketplace-provider-guide.md` | Publishing offers, subscription pricing |
 | Marketplace — buyer guide | `06-extensibility/marketplace-buyer-guide.md` | Paid official, subscription licenses, install |
-| Commerce plugin | `06-extensibility/plugins/commerce.md` | Commerce v2: fulfillment, purchase_options, variants |
+| Commerce plugin | `06-extensibility/plugins/commerce.md` | Commerce v2: fulfillment, purchase_options, variants (1.0.22) |
+| Commerce customers | `06-extensibility/commerce-customers.md` | Email-keyed profiles, CSV import, timeline (P54 P1) |
+| Commerce promotions | `06-extensibility/commerce-promotions.md` | Discounts v2: limits, dates, free shipping, stacking |
+| Commerce gift cards and quotes | `06-extensibility/commerce-gift-cards-quotes.md` | Admin + sellable gift cards, B2B quotes |
+| Commerce tax | `06-extensibility/commerce-tax.md` | Manual tax classes, class×country, tax_lines |
+| Commerce manual fulfillment | `06-extensibility/commerce-fulfillment.md` | Partial ship, packing slips, notify triggers |
 | Commerce subscriptions | `06-extensibility/commerce-subscriptions.md` | Upgrades, dunning, retry |
-| Commerce gift cards and quotes | `06-extensibility/commerce-gift-cards-quotes.md` | Store credit, B2B quote workflow |
 | Commerce analytics | `06-extensibility/commerce-analytics.md` | Revenue widget, CSV export |
 | Commerce migration wizard | `06-extensibility/commerce-migration-wizard.md` | Shop/Events → Commerce import |
 | Shopify cutover playbook | `06-extensibility/commerce-shopify-cutover.md` | One-time Shopify → Birkly transfer (P54 P1-M2) |

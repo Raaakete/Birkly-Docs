@@ -85,7 +85,7 @@ Rollback removes customers and archived orders created by that cutover batch and
 
 ### Steps 4–11 (checklist outline)
 
-These steps complete a full merchant move. Steps **4–5** are available in the cutover panel today; **6–11** are the remaining go-live checklist (detailed docs may expand later). Do **not** assume gift-card balance import, promotions v2, tax classes, or advanced fulfillment features are part of cutover unless you have verified them on your Commerce build.
+These steps complete a full merchant move. Steps **4–5** are available in the cutover panel today; **6–11** are the remaining go-live checklist. Cutover itself does **not** import gift-card balances, discount rules, tax class mappings, or open fulfillments — recreate those in Commerce after products/customers land (see [promotions](commerce-promotions.md), [tax](commerce-tax.md), [gift cards](commerce-gift-cards-quotes.md), [fulfillment](commerce-fulfillment.md)).
 
 | Step | Checklist |
 |------|-----------|
@@ -137,19 +137,21 @@ Fulfillment spies and PostPurchaseRouter must not run on archive import.
 
 ### Out of scope / not claimed here
 
-Unless verified on your installed Commerce build, do **not** treat the following as shipped by this playbook:
+Cutover does **not** include:
 
 - Perpetual Shopify ↔ Birkly sync of customers or orders
 - Shopify password migration
-- Gift-card **balance** import as part of cutover (see promotions / gift-card milestones separately)
-- Promotions v2 (usage limits, free shipping stack rules, etc.)
-- Manual tax classes or advanced multi-package fulfillment excellence
+- Gift-card **balance** import (recreate cards in Commerce; sellable `gift_card` products are separate)
+- Discount / promotion rule import
+- Tax class or shipping zone import
+- Open / unfulfilled shipment migration
 - Automatic Liquid → Birkly theme conversion
 
 ## Related
 
 - [Commerce plugin overview](plugins/commerce.md)
 - [Commerce plugin reference](commerce-plugin.md)
+- [Commerce customers](commerce-customers.md)
 - [Commerce live import](commerce-live-import.md) — Beta product sync (not cutover)
 - [Commerce CSV import](commerce-import.md)
 - [Commerce migration wizard](commerce-migration-wizard.md) — legacy Birkly Shop / Events

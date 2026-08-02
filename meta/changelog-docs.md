@@ -16,6 +16,17 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-02 — Commerce P1 parity docs (1.0.22)
+
+- **New:** `commerce-customers.md`, `commerce-promotions.md`, `commerce-tax.md`, `commerce-fulfillment.md` — P54 P1 customers, promotions v2, manual tax classes, manual fulfillment.
+- **Updated:** `plugins/commerce.md`, `commerce-plugin.md` — admin IA tables for 1.0.22 (Customers, Discounts v2, gift_card, tax, fulfillment).
+- **Updated:** `commerce-gift-cards-quotes.md`, `commerce-fieldtype.md` — sellable `gift_card` fulfillment + `tax_class`; `commerce_gift_card_issued`.
+- **Updated:** `05-automation/triggers.md` — `commerce_gift_card_issued`, `commerce_shipment_created`, `commerce_order_shipped`.
+- **Updated:** `commerce-shopify-cutover.md` — cutover still excludes balance/rule/tax import; cross-links to P1 pages.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`.
+
+---
+
 ## 2026-08-02 — Shopify cutover playbook (P54 P1-M2)
 
 - **New:** `06-extensibility/commerce-shopify-cutover.md` — one-time Shopify → Birkly cutover (not perpetual sync); steps 1–3 detailed; steps 4–11 checklist outline; dry-run/rollback; archived orders do not re-fulfill; customers without passwords.

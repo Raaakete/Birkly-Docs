@@ -1,10 +1,10 @@
 # Commerce plugin
 
-The **Commerce** plugin (`plugins/commerce/`) is Birkly’s content-first commerce platform: payment providers, the **Commerce fieldtype**, catalog index, inventory ledger, cart, checkout, orders, discounts, import, and fulfillment.
+The **Commerce** plugin (`plugins/commerce/`) is Birkly’s content-first commerce platform: payment providers, the **Commerce fieldtype**, catalog index, inventory ledger, cart, checkout, orders, customers, discounts, gift cards, tax, import, and fulfillment.
 
 It replaces the legacy **Payments** plugin (`plugins/payments/` is now a compatibility shim).
 
-For a beginner walkthrough, see [Commerce plugin overview](plugins/commerce.md) and the in-admin help shelf when Commerce is active.
+Current documented build: Commerce **1.0.22**. For a beginner walkthrough, see [Commerce plugin overview](plugins/commerce.md) and the in-admin help shelf when Commerce is active.
 
 ## Prerequisites
 
@@ -18,16 +18,19 @@ For a beginner walkthrough, see [Commerce plugin overview](plugins/commerce.md) 
 |-----|---------|
 | **Dashboard** | Revenue, order, product, and affiliate summary (default landing) |
 | **Orders** | Commercial history with frozen money/tax snapshots; **Draft orders / Quotes** live inside Orders |
+| **Customers** | Email-keyed profiles, CSV import, timeline; optional User Management link; no passwords |
 | **Catalog** | Indexed read model of sellable CMS entries |
 | **Inventory** | Ledger SoR for countable stock (Unlimited · Simple · Locations) |
 | **Subscriptions** | Recurring purchases and lifecycle |
-| **Discounts** | Rules, coupons, affiliate programs |
-| **Gift Cards** | Issue and manage store credit |
+| **Discounts** | Promotions v2: usage limits, min purchase, dates, free shipping, stacking |
+| **Gift Cards** | Admin-issued store credit (sellable cards use field fulfillment `gift_card`) |
 | **Settings** | Connections, General, Fieldtypes, Mappings, Import & migrate, Shipping, Tax, Fulfillment, Activity, Documentation |
 
 Inside **Settings → Import & migrate**: **Shopify cutover** (one-time products, customers, archived orders), CSV imports, and Beta live product import adapters. Legacy Shop / Events migration appears only when legacy sources are detected. See [Shopify cutover playbook](commerce-shopify-cutover.md).
 
-Inside **Settings → Fulfillment**: Manual / Export is the only merchant-selectable adapter. ShipStation is an internal stub and is not merchant-selectable.
+Inside **Settings → Tax**: manual default/country rates, tax classes, and class×country overrides. See [Commerce tax](commerce-tax.md).
+
+Inside **Settings → Fulfillment**: Manual / Export is the only merchant-selectable adapter. ShipStation is an internal stub and is not merchant-selectable. See [Commerce manual fulfillment](commerce-fulfillment.md).
 
 ## Mental model
 
@@ -36,6 +39,7 @@ Inside **Settings → Fulfillment**: Manual / Export is the only merchant-select
 | **Catalog** | Checkout read model from CMS entries with Commerce fields |
 | **Inventory** | Stock ledger (on hand, reserved, available, low threshold) |
 | **Orders** | History — totals and tax lines are frozen at payment, not recalculated from current catalog |
+| **Customers** | Commercial profiles keyed by email (not login credentials) |
 
 ## Commerce fieldtype
 
@@ -49,7 +53,8 @@ Add to any collection schema:
 
 | Field | Notes |
 |-------|-------|
-| `fulfillment` | `ship`, `deliver`, `register`, or `none` |
+| `fulfillment` | `ship`, `deliver`, `register`, `gift_card`, or `none` |
+| `tax_class` | Product tax class (`standard`, `reduced`, `zero`, or custom). Default `standard` |
 | `purchase_options[]` | id, label, billing, pricing_mode, price_cents, currency, interval? |
 | `quantity_available` | Catalog projection of Inventory Available, or null for unlimited; capacity for `register` |
 | `sku` | Optional; defaults to entry slug |
@@ -96,6 +101,11 @@ Consumer plugins (Shopping Cart, Events) continue to use `payment_shelf` during 
 ## Related
 
 - [Commerce plugin overview](plugins/commerce.md)
+- [Commerce customers](commerce-customers.md)
+- [Commerce promotions](commerce-promotions.md)
+- [Commerce gift cards and quotes](commerce-gift-cards-quotes.md)
+- [Commerce tax](commerce-tax.md)
+- [Commerce manual fulfillment](commerce-fulfillment.md)
 - [Shopify cutover playbook](commerce-shopify-cutover.md)
 - [Commerce fieldtype](commerce-fieldtype.md)
 - [Payment shelf API](payment-shelf-api.md) (legacy naming; use `commerce_shelf`)

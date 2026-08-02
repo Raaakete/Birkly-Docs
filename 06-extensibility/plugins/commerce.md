@@ -1,6 +1,6 @@
 # Commerce plugin
 
-The **Commerce** plugin (`plugins/commerce/`) is Birkly’s content-first store: payment providers, the **Commerce fieldtype**, catalog, cart, checkout, orders, customers, inventory, promotions, gift cards, tax, and **PostPurchaseRouter** fulfillment — all driven by CMS entries.
+The **Commerce** plugin (`plugins/commerce/`) is Birkly’s content-first store: payment providers, the **Commerce fieldtype**, catalog, cart, checkout, orders, customers, inventory, promotions, gift cards, tax providers, shipping rate providers, and **PostPurchaseRouter** fulfillment — all driven by CMS entries.
 
 Plugin help in admin (when Commerce is active) mirrors this overview: Help → Plugin extensions → Commerce.
 
@@ -51,7 +51,7 @@ For products with multiple SKUs (size, grind, color):
 
 Commerce routes each order line by fulfillment:
 
-- **Ship** — order exported for packing/shipping; admin can create partial / multi-package shipments (Manual / Export)
+- **Ship** — Manual export or EasyPost tracker/label; admin can create partial / multi-package shipments
 - **Deliver** — secure download link emailed
 - **Register** — attendee recorded, capacity reduced
 - **Gift card** — store-credit codes issued (face value = unit price)
@@ -65,6 +65,7 @@ Commerce routes each order line by fulfillment:
 {
   "fulfillment": "ship",
   "tax_class": "standard",
+  "weight_grams": 250,
   "purchase_options": [
     { "id": "once", "label": "Buy once", "billing": "one_time", "price_cents": 1499, "currency": "eur" },
     { "id": "sub", "label": "Subscribe", "billing": "recurring", "interval": "month", "price_cents": 1299, "currency": "eur" }
@@ -74,34 +75,36 @@ Commerce routes each order line by fulfillment:
 }
 ```
 
-`quantity_available` is a catalog projection of Inventory **Available** (or null for unlimited / capacity for `register`). Inventory is the ledger SoR for countable SKUs. `tax_class` defaults to `standard`; rates come from **Settings → Tax**.
+`quantity_available` is a catalog projection of Inventory **Available** (or null for unlimited / capacity for `register`). Inventory is the ledger SoR for countable SKUs. `tax_class` defaults to `standard`; rates come from **Settings → Tax**. `weight_grams` is required on `ship` lines when EasyPost live rates are enabled.
 
-**PostPurchaseRouter** — idempotent handler keyed on `order_id` + line; fires typed automation triggers including `commerce_physical_fulfilled`, `commerce_digital_delivered`, `commerce_event_registered`, `commerce_gift_card_issued`, `commerce_membership_started`. Manual shipments also fire `commerce_shipment_created` / `commerce_order_shipped` when notify is enabled.
+**PostPurchaseRouter** — idempotent handler keyed on `order_id` + line; fires typed automation triggers including `commerce_physical_fulfilled`, `commerce_digital_delivered`, `commerce_event_registered`, `commerce_gift_card_issued`, `commerce_membership_started`. Shipments also fire `commerce_shipment_created` / `commerce_order_shipped` when notify is enabled; EasyPost tracking fires `commerce_tracking_updated`.
 
-**Admin areas** (Commerce **1.0.22**)
+**Admin areas** (Commerce **1.0.27**)
 
 | Tab | Purpose |
 |-----|---------|
 | **Dashboard** | Revenue, order, product, and affiliate summary (default landing) |
-| **Orders** | Paid orders, fulfillment state, frozen money/tax lines; **Draft orders / Quotes** live inside Orders |
+| **Orders** | Paid orders, fulfillment state, frozen money/tax lines; **Draft orders / Quotes** include a cart-free editor |
 | **Customers** | Email-keyed profiles, CSV import, order/subscription timeline; optional User Management link; no passwords |
 | **Catalog** | Indexed read model of sellable CMS entries |
 | **Inventory** | Stock ledger: Unlimited, Simple, or Locations |
 | **Subscriptions** | Recurring purchases and lifecycle actions |
 | **Discounts** | Promotions v2: usage limits, min purchase, date window, free shipping, stack rules |
 | **Gift Cards** | Admin-issued store credit; sellable products use fulfillment `gift_card` |
-| **Settings** | Connections, General, Fieldtypes, Mappings, Import & migrate, Shipping, Tax (classes + class×country), Fulfillment, Activity, Documentation |
+| **Settings** | Connections, General, Fieldtypes, Mappings, Import & migrate, Shipping (Manual / EasyPost rates), Tax (Manual / Stripe Tax + B2B reverse charge), Fulfillment (Manual / EasyPost), Activity, Documentation |
 
-**Stub honesty**
+**Provider honesty (P2)**
 
-- **Fulfillment:** Manual / Export is the only merchant-selectable adapter. ShipStation is an internal stub and is not offered as a shipping option. Partial / multi-package ship + packing slips are supported on Manual.
-- **Import & migrate:** **Shopify cutover** (one-time products/customers/archived orders), CSV, and live product import adapters (Beta). Legacy Shopping Cart / Events migration appears only when legacy sources are detected.
-- **Tax:** Manual classes and class×country rates only — not Stripe Tax / automated providers (later).
+- **Tax:** Manual or Stripe Tax (orthogonal to charge PSP). Frozen `tax_lines` on paid orders. Optional B2B reverse charge via `vat_id` — no live VIES.
+- **Shipping rates:** Manual zones or EasyPost live quotes; fallback to zones on live failure; weight required for EasyPost.
+- **Fulfillment:** Manual / Export (default) or EasyPost (push + tracking webhook). ShipStation is an internal stub and is not offered.
+- **Draft orders:** Admin editor under Orders — create/edit lines without a cart, preview tax/shipping, save & send accept link.
+- **Import & migrate:** Shopify cutover, CSV, and live product import adapters (Beta). Legacy Shop / Events migration appears only when detected.
 - **Gift cards:** Admin-issued **and** sellable products (`fulfillment: gift_card` issues codes on pay).
 
 **Plugin docs shelf:** `register_plugin_docs('commerce', …)` ships `plugins/commerce/docs/` for AI, Admin Help, and MCP (`birkly://docs/plugin/commerce`).
 
-**Public API:** `/api/index.php?route=commerce` — cart get/add/update/remove/checkout; checkout selects `purchase_option_id` and collects shipping/attendee per fulfillment.
+**Public API:** `/api/index.php?route=commerce` — cart get/add/update/remove/checkout; checkout selects `purchase_option_id` and collects shipping/attendee/VAT per fulfillment.
 
 **Legacy:** P6.4 flat schema (`price_cents` + `billing`) migrates to single purchase_option + inferred fulfillment.
 
@@ -110,9 +113,10 @@ Commerce routes each order line by fulfillment:
 - [Commerce fieldtype](../commerce-fieldtype.md)
 - [Commerce customers](../commerce-customers.md)
 - [Commerce promotions](../commerce-promotions.md)
-- [Commerce gift cards and quotes](../commerce-gift-cards-quotes.md)
+- [Commerce gift cards and draft orders](../commerce-gift-cards-quotes.md)
 - [Commerce tax](../commerce-tax.md)
-- [Commerce manual fulfillment](../commerce-fulfillment.md)
+- [Commerce shipping rates](../commerce-shipping.md)
+- [Commerce fulfillment](../commerce-fulfillment.md)
 - [Commerce template functions](../../03-templating/commerce-functions.md)
 - [Commerce subscriptions](../commerce-subscriptions.md) — upgrades and dunning
 - [Commerce analytics](../commerce-analytics.md) — Dashboard metrics and CSV export

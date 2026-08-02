@@ -1,47 +1,66 @@
-# Commerce tax (manual classes)
+# Commerce tax (providers + B2B VAT)
 
-Manual tax for Commerce **1.0.21+** / current **1.0.22**: product **tax classes**, class×country rates, and frozen **`tax_lines`** on each paid order. No Stripe Tax / automated provider in this release.
+Tax for Commerce **1.0.23+** / current **1.0.27**: selectable **tax providers** (Manual or Stripe Tax), product **tax classes**, class×country rates, optional **B2B reverse charge**, and frozen **`tax_lines`** on each paid order.
 
 ## Summary
 
-Configure rates under **Commerce → Settings → Tax**. Assign a `tax_class` on each sellable Commerce field (default `standard`). At checkout, each line resolves a rate and the order stores matching `tax_lines` (not recalculated later from catalog).
+Choose a tax provider under **Commerce → Settings → Tax**. **Manual** uses your rate table. **Stripe Tax** calls Stripe’s Tax Calculations API for quotes — orthogonal to the payment PSP (you can charge with Mollie/PayPal/etc.). Paid orders freeze `tax_cents` / `tax_lines` and never re-call the provider. Optional B2B reverse charge zeroes tax when a VAT ID and country rules match (format normalize only — no live VIES).
 
 ## Beginner
 
-### Enable and set rates
+### Choose a provider
 
 1. Open **Commerce → Settings → Tax**.
-2. Check **Enable tax at checkout**.
-3. Set a **default rate** (%) and optional **country overrides**.
-4. Under **Tax classes**, add classes (built-ins: `standard`, `reduced`, `zero`, plus custom codes). Leave a class default blank to inherit country/default; use `0` for explicit zero-rated.
-5. Under **Class × country rates**, add overrides (e.g. reduced × DE = 7%).
-6. **Save Tax Rules**.
+2. Set **Tax provider** to **Manual** (default) or **Stripe Tax**.
+3. Check **Enable tax at checkout**.
+4. **Save Tax Rules**.
 
-### Assign class on products
+Stripe Tax uses the Stripe **secret key** from **Settings → Connections** for calculation only. Charge PSP can be any configured provider.
 
-In the entry editor Commerce field, set **Tax class** (`standard`, `reduced`, `zero`, or a custom code). Rates always come from Settings → Tax — the field only picks the class.
+### Manual rates and classes
 
-### Resolution order (per line)
+1. Set a **default rate** (%) and optional **country overrides**.
+2. Under **Tax classes**, add classes (`standard`, `reduced`, `zero`, plus custom). Leave a class default blank to inherit; use `0` for explicit zero-rated.
+3. Under **Class × country rates**, add overrides (e.g. reduced × DE = 7%).
+4. On each sellable Commerce field, set **Tax class** (default `standard`).
 
-1. **Class × country** rate  
-2. Else **class default** rate  
-3. Else **country** override  
-4. Else site **default** rate  
+**Resolution order (Manual, per line):** class×country → class default → country override → site default. Tax applies to the goods subtotal (after line discounts).
 
-Tax applies to the goods subtotal (after line discounts). Shipping tax policy follows the current checkout builder (goods-focused manual tax).
+### B2B reverse charge (VAT ID)
+
+1. In **Settings → Tax**, enable **B2B reverse charge**.
+2. Set **Merchant country** (ISO) and optionally edit the **eligible countries** list (defaults to an EU-style set).
+3. Leave **Require different country** on (default) so same-country B2B still uses normal rates.
+4. At checkout (or draft order), the buyer enters a **VAT ID** (`vat_id` / `tax_id`).
+
+When enabled + both countries are eligible + VAT ID present (+ different-country rule if on) → `tax_cents` is `0` and `tax_lines` use `reason: reverse_charge`. The order stores `vat_id`. IDs are normalized for format only — **live VIES validation is not included**.
 
 ## Advanced Users
 
-**Field:** `tax_class` on the Commerce fieldtype value (string; default `standard`).
+**Setting:** `commerce_tax_provider` — `manual` | `stripe_tax` (default `manual`).
 
-**Order snapshot:** Paid orders freeze `tax_cents` and `tax_lines[]` with `tax_class`, title, rate, and `tax_cents`. Mixed carts emit **one tax line per class**.
+**Interfaces:** `TaxProviderInterface` → `ManualTaxProvider` | `StripeTaxProvider` via `TaxProviderResolver`. Catalog `calculateTax` delegates to the resolved provider.
 
-**Catalog helper:** `resolveTaxRateForClass($class, $country, $taxSettings)`.
+**Field:** `tax_class` on the Commerce fieldtype (string; default `standard`).
 
-> **Warning:** Do not claim Stripe Tax, OSS/IOSS automation, or B2B VAT ID validation — those are later (P2+) milestones.
+**Order snapshot:** Paid orders freeze `tax_cents` and `tax_lines[]` (`tax_class`, title, rate, `tax_cents`, `source` / `provider`). Mixed carts emit **one tax line per class**. Recalculating from current catalog settings must not mutate paid-order lines.
+
+**Stripe Tax:** Uses Connections Stripe secret when present; otherwise mock / soft-fallback shaped results so checkout does not break. Reverse-charge eligibility is evaluated before (or inherited into) Stripe Tax mock paths; live Stripe Tax still accepts `vat_id` in context.
+
+**B2B rules shape** (`tax_rules.b2b_reverse_charge`):
+
+| Key | Meaning |
+|-----|---------|
+| `enabled` | Toggle reverse charge |
+| `merchant_country` | Merchant ISO country |
+| `eligible_countries` | List of ISO codes (default EU set) |
+| `require_different_country` | Default `true` |
+
+> **Note:** OSS/IOSS automation and live VIES are out of scope for this release.
 
 ## Related
 
 - [Commerce fieldtype](commerce-fieldtype.md)
+- [Commerce shipping rates](commerce-shipping.md)
 - [Commerce plugin overview](plugins/commerce.md)
 - [Commerce plugin reference](commerce-plugin.md)

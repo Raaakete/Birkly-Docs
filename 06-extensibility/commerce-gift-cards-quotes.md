@@ -1,10 +1,10 @@
 # Commerce gift cards and draft orders (quotes)
 
-**Gift cards** are store credit applied at checkout. Issue them from **Commerce → Gift Cards**, or sell them as products with fulfillment **`gift_card`** (codes issued on pay). **Draft orders / Quotes** are negotiated prices with a customer accept link — they live under **Commerce → Orders**, not as a top-level tab.
+**Gift cards** are store credit applied at checkout. Issue them from **Commerce → Gift Cards**, or sell them as products with fulfillment **`gift_card`** (codes issued on pay). **Draft orders / Quotes** (Commerce **1.0.27+**) support a cart-free admin editor plus accept links — under **Commerce → Orders**, not as a top-level tab.
 
 ## Summary
 
-**Gift cards** are codes with a balance in cents. Admin-issued cards and sellable gift-card products share the same redemption store. Customers apply a code at checkout. Balances support **partial redemption**. **Draft orders / Quotes** snapshot cart lines at custom prices; the admin sends an accept URL; the customer accepts and pays through normal checkout.
+**Gift cards** are codes with a balance in cents. Admin-issued cards and sellable gift-card products share the same redemption store. Customers apply a code at checkout. Balances support **partial redemption**. **Draft orders / Quotes** let merchants build lines from the catalog (no storefront cart), preview tax/shipping, save an accept URL, and optionally run merchant-assisted checkout.
 
 ## Beginner
 
@@ -42,13 +42,21 @@ Customers enter a gift card code during checkout (or your template calls the car
 
 ### Draft orders / Quotes
 
-**Create a quote**
+**Create from the editor (no cart)**
 
-1. Build a cart in the storefront (or admin test cart) with the intended lines.
-2. Open **Commerce → Orders → Draft orders** (or **Quotes**).
-3. Click **Create Quote from Cart**.
-4. Enter the customer email when prompted.
-5. Copy the **accept URL** from the list and send it to the customer.
+1. Open **Commerce → Orders → Draft orders**.
+2. Click **New draft order**.
+3. Search the catalog (title / SKU), add lines, set qty, and optionally override unit price.
+4. Enter customer email, shipping address, and optional **VAT ID**.
+5. Use **Preview** to recalculate shipping/tax from current providers.
+6. **Save** — copy the **accept URL** and send it to the customer.
+7. Optional: **merchant-assisted checkout** from the editor when the buyer pays with staff help.
+
+**Create from cart (still available)**
+
+1. Build a cart in the storefront (or admin test cart).
+2. Open **Draft orders** → **Create Quote from Cart**.
+3. Enter customer email; copy the accept URL.
 
 **Customer flow**
 
@@ -70,7 +78,7 @@ Click **Cancel** on an open quote to invalidate the token.
 | `paid` | Order completed |
 | `expired` / `canceled` | No longer valid |
 
-Default expiry is 30 days from creation.
+Default expiry is 30 days from creation. Backing store marks editor drafts with `draft_order: true`.
 
 ## Advanced Users
 
@@ -116,8 +124,11 @@ Admin:
 
 - `create_quote` — from current built cart + `customer_email`
 - `list_quotes`, `cancel_quote`
+- `draft_order_create` / `draft_order_update` / `draft_order_preview` / `draft_order_get` — cart-free editor (`CommerceDraftOrderService`)
+- `draft_order_search_catalog` — line picker
+- `draft_order_checkout` — merchant-assisted payment start
 
-Quotes snapshot line prices at creation. Custom per-line overrides are supported in the store API for future admin UI extensions.
+Quotes snapshot line prices (and optional unit overrides) at create/update. Preview recalculates shipping/tax via the active rate and tax providers.
 
 ## Related
 

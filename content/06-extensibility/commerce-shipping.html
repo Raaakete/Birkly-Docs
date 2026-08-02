@@ -1,0 +1,32 @@
+<p>Shipping rate providers for Commerce <strong>1.0.24+</strong> / current <strong>1.0.27</strong>: <strong>Manual</strong> zones and <strong>EasyPost</strong> live quotes, with fallback to manual zones when live rates fail.</p>
+<div class="doc-summary"><p>Under <strong>Commerce → Settings → Shipping</strong>, choose <strong>Manual</strong> (zone table) or <strong>EasyPost</strong> (live carrier quotes). EasyPost needs an API key and <strong>weight (grams)</strong> on every shippable line. If live quoting fails or returns no rates, Commerce falls back to manual zones. Rate selection is separate from the <strong>fulfillment</strong> adapter (labels/tracking).</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Manual zones</h3>
+<ol>
+<li>Open <strong>Commerce → Settings → Shipping</strong>.</li>
+<li>Leave <strong>Shipping rate provider</strong> on <strong>Manual</strong>.</li>
+<li>Configure zones (countries/regions, flat or weight-based amounts as offered in the UI).</li>
+<li><strong>Save</strong>.</li>
+</ol>
+<p>Manual zones also serve as the <strong>fallback</strong> when EasyPost is selected but live quoting cannot complete.</p>
+<h3>EasyPost live rates</h3>
+<ol>
+<li>Set <strong>Shipping rate provider</strong> to <strong>EasyPost</strong>.</li>
+<li>Enter the <strong>EasyPost API key</strong> and save (key status shows when stored).</li>
+<li>On each <code>ship</code> product / variant Commerce field, set <strong>Weight (grams)</strong> (<code>weight_grams</code> &gt; 0). Optional length/width/height (mm) improve parcel dimensions.</li>
+<li>At checkout, the customer picks a returned rate; the order stores <code>shipping_lines</code> with <code>source: easypost</code>.</li>
+</ol>
+<p>Without weight on a shippable line, live quoting returns an error asking for weight — fix the product before checkout can price shipping.</p>
+<h3>Fallback</h3>
+<p>When EasyPost fails (missing destination, API error, no rates), Commerce quotes <strong>manual zones</strong> instead and may mark the snapshot with <code>fallback: true</code>. Keep zones configured even if you primarily use EasyPost.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Setting:</strong> <code>commerce_shipping_rate_provider</code> — <code>manual</code> | <code>easypost</code>. Secret: <code>commerce_easypost_api_key</code>.</p>
+<p><strong>Interfaces:</strong> <code>ShippingRateProviderInterface</code> → <code>ManualShippingRateProvider</code> | <code>EasyPostShippingRateProvider</code> via <code>ShippingRateProviderResolver</code>.</p>
+<p><strong>Quote shape:</strong> <code>rates[]</code>, selected <code>shipping_lines[]</code>, <code>shipping_cents</code>, <code>provider</code>, optional <code>ok</code> / <code>error</code> / <code>fallback</code>.</p>
+<p><strong>Weight gate:</strong> <code>CommerceCatalog::validateShippableWeights()</code> — every <code>fulfillment: ship</code> line (and shippable bundle components) must have <code>weight_grams &gt; 0</code> when live rates are on.</p>
+<p><strong>Field extras (<code>ship</code>):</strong> <code>weight_grams</code> (required for EasyPost), optional <code>length_mm</code> / <code>width_mm</code> / <code>height_mm</code>.</p>
+<blockquote><p><strong>Note:</strong> Shipping <strong>rate</strong> provider ≠ fulfillment <strong>adapter</strong>. Labels and tracking webhooks are configured under <a href="commerce-fulfillment.html">Fulfillment</a>.</p></blockquote></div></details>
+<div class="doc-related"><ul>
+<li><a href="commerce-fulfillment.html">Commerce fulfillment</a></li>
+<li><a href="commerce-fieldtype.html">Commerce fieldtype</a></li>
+<li><a href="commerce-tax.html">Commerce tax</a></li>
+<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
+</ul></div>

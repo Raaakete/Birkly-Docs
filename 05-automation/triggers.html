@@ -108,7 +108,8 @@
         <a href="../06-extensibility/commerce-promotions.html" class="nav-link">Commerce promotions</a>
         <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
         <a href="../06-extensibility/commerce-tax.html" class="nav-link">Commerce tax</a>
-        <a href="../06-extensibility/commerce-fulfillment.html" class="nav-link">Commerce manual fulfillment</a>
+        <a href="../06-extensibility/commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="../06-extensibility/commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
         <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
         <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
         <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
@@ -257,8 +258,8 @@
 <li>Entry trigger: create/update an entry in the target collection; check Automation logs.</li>
 </ul>
 <p><strong>Commerce plugin triggers (when Commerce is active)</strong></p>
-<p>| Trigger | When | |---------|------| | <code>commerce_order_receipt</code> | Order paid — customer receipt | | <code>commerce_order_admin_notify</code> | Order paid — staff notification | | <code>commerce_subscription_payment_failed</code> | Subscription renewal failed (<code>past_due</code>) | | <code>commerce_subscription_recovered</code> | Subscription payment recovered after failure | | <code>commerce_membership_started</code> | Recurring membership (<code>fulfillment: none</code>) paid | | <code>commerce_physical_fulfilled</code> | Physical line fulfilled | | <code>commerce_digital_delivered</code> | Digital download delivered | | <code>commerce_event_registered</code> | Event/workshop registration completed | | <code>commerce_gift_card_issued</code> | Sellable gift-card line issued codes after pay | | <code>commerce_shipment_created</code> | Manual shipment created on an order | | <code>commerce_order_shipped</code> | Customer notify when a shipment is created with notify enabled |</p>
-<p>See <a href="../06-extensibility/commerce-subscriptions.html">Commerce subscriptions</a> for dunning, <a href="../06-extensibility/commerce-gift-cards-quotes.html">Commerce gift cards</a>, and <a href="../06-extensibility/commerce-fulfillment.html">Commerce manual fulfillment</a>.</p></div></details>
+<p>| Trigger | When | |---------|------| | <code>commerce_order_receipt</code> | Order paid — customer receipt | | <code>commerce_order_admin_notify</code> | Order paid — staff notification | | <code>commerce_subscription_payment_failed</code> | Subscription renewal failed (<code>past_due</code>) | | <code>commerce_subscription_recovered</code> | Subscription payment recovered after failure | | <code>commerce_membership_started</code> | Recurring membership (<code>fulfillment: none</code>) paid | | <code>commerce_physical_fulfilled</code> | Physical line fulfilled | | <code>commerce_digital_delivered</code> | Digital download delivered | | <code>commerce_event_registered</code> | Event/workshop registration completed | | <code>commerce_gift_card_issued</code> | Sellable gift-card line issued codes after pay | | <code>commerce_shipment_created</code> | Shipment created on an order (Manual or EasyPost) | | <code>commerce_order_shipped</code> | Customer notify when a shipment is created with notify enabled | | <code>commerce_tracking_updated</code> | EasyPost tracking webhook updates a shipment |</p>
+<p>See <a href="../06-extensibility/commerce-subscriptions.html">Commerce subscriptions</a> for dunning, <a href="../06-extensibility/commerce-gift-cards-quotes.html">Commerce gift cards and draft orders</a>, and <a href="../06-extensibility/commerce-fulfillment.html">Commerce fulfillment</a>.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="automation-overview.html">Automation overview</a></li>
 <li><a href="conditions-and-actions.html">Conditions and actions</a></li>

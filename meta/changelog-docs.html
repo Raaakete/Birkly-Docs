@@ -108,7 +108,8 @@
         <a href="../06-extensibility/commerce-promotions.html" class="nav-link">Commerce promotions</a>
         <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
         <a href="../06-extensibility/commerce-tax.html" class="nav-link">Commerce tax</a>
-        <a href="../06-extensibility/commerce-fulfillment.html" class="nav-link">Commerce manual fulfillment</a>
+        <a href="../06-extensibility/commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="../06-extensibility/commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
         <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
         <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
         <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
@@ -169,6 +170,16 @@
 </ul>
 <p>---</p>
 <p>---</p>
+<p>---</p>
+<h2>2026-08-02 — Commerce P2 automation docs (1.0.27)</h2>
+<ul>
+<li><strong>New:</strong> <code>commerce-shipping.md</code> — Manual / EasyPost shipping rate providers, weight required, fallback.</li>
+<li><strong>Updated:</strong> <code>commerce-tax.md</code> — Manual + Stripe Tax providers (orthogonal to PSP), frozen tax_lines, B2B reverse charge (<code>vat_id</code>, no live VIES).</li>
+<li><strong>Updated:</strong> <code>commerce-fulfillment.md</code> — EasyPost live fulfillment + tracking webhook; Manual default; ShipStation hidden.</li>
+<li><strong>Updated:</strong> <code>commerce-gift-cards-quotes.md</code> — cart-free draft order editor (1.0.27).</li>
+<li><strong>Updated:</strong> <code>plugins/commerce.md</code>, <code>commerce-plugin.md</code>, <code>commerce-fieldtype.md</code>, <code>05-automation/triggers.md</code> (<code>commerce_tracking_updated</code>).</li>
+<li><strong>Updated:</strong> <code>CONTENTS_INDEX.md</code>, <code>manifest.json</code>, <code>help-manifest.json</code>.</li>
+</ul>
 <p>---</p>
 <h2>2026-08-02 — Commerce P1 parity docs (1.0.22)</h2>
 <ul>

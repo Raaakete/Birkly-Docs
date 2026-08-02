@@ -16,6 +16,17 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-02 — Commerce P2 automation docs (1.0.27)
+
+- **New:** `commerce-shipping.md` — Manual / EasyPost shipping rate providers, weight required, fallback.
+- **Updated:** `commerce-tax.md` — Manual + Stripe Tax providers (orthogonal to PSP), frozen tax_lines, B2B reverse charge (`vat_id`, no live VIES).
+- **Updated:** `commerce-fulfillment.md` — EasyPost live fulfillment + tracking webhook; Manual default; ShipStation hidden.
+- **Updated:** `commerce-gift-cards-quotes.md` — cart-free draft order editor (1.0.27).
+- **Updated:** `plugins/commerce.md`, `commerce-plugin.md`, `commerce-fieldtype.md`, `05-automation/triggers.md` (`commerce_tracking_updated`).
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`.
+
+---
+
 ## 2026-08-02 — Commerce P1 parity docs (1.0.22)
 
 - **New:** `commerce-customers.md`, `commerce-promotions.md`, `commerce-tax.md`, `commerce-fulfillment.md` — P54 P1 customers, promotions v2, manual tax classes, manual fulfillment.

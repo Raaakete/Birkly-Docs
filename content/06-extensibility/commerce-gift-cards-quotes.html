@@ -1,5 +1,5 @@
-<p><strong>Gift cards</strong> are store credit applied at checkout. Issue them from <strong>Commerce → Gift Cards</strong>, or sell them as products with fulfillment <strong><code>gift_card</code></strong> (codes issued on pay). <strong>Draft orders / Quotes</strong> are negotiated prices with a customer accept link — they live under <strong>Commerce → Orders</strong>, not as a top-level tab.</p>
-<div class="doc-summary"><p><strong>Gift cards</strong> are codes with a balance in cents. Admin-issued cards and sellable gift-card products share the same redemption store. Customers apply a code at checkout. Balances support <strong>partial redemption</strong>. <strong>Draft orders / Quotes</strong> snapshot cart lines at custom prices; the admin sends an accept URL; the customer accepts and pays through normal checkout.</p></div>
+<p><strong>Gift cards</strong> are store credit applied at checkout. Issue them from <strong>Commerce → Gift Cards</strong>, or sell them as products with fulfillment <strong><code>gift_card</code></strong> (codes issued on pay). <strong>Draft orders / Quotes</strong> (Commerce <strong>1.0.27+</strong>) support a cart-free admin editor plus accept links — under <strong>Commerce → Orders</strong>, not as a top-level tab.</p>
+<div class="doc-summary"><p><strong>Gift cards</strong> are codes with a balance in cents. Admin-issued cards and sellable gift-card products share the same redemption store. Customers apply a code at checkout. Balances support <strong>partial redemption</strong>. <strong>Draft orders / Quotes</strong> let merchants build lines from the catalog (no storefront cart), preview tax/shipping, save an accept URL, and optionally run merchant-assisted checkout.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Admin-issued gift cards</h3>
 <p><strong>Issue a gift card</strong></p>
 <ol>
@@ -27,13 +27,21 @@
 <li>Expired cards (when <code>expires_at</code> is set) cannot be redeemed.</li>
 </ul>
 <h3>Draft orders / Quotes</h3>
-<p><strong>Create a quote</strong></p>
+<p><strong>Create from the editor (no cart)</strong></p>
 <ol>
-<li>Build a cart in the storefront (or admin test cart) with the intended lines.</li>
-<li>Open <strong>Commerce → Orders → Draft orders</strong> (or <strong>Quotes</strong>).</li>
-<li>Click <strong>Create Quote from Cart</strong>.</li>
-<li>Enter the customer email when prompted.</li>
-<li>Copy the <strong>accept URL</strong> from the list and send it to the customer.</li>
+<li>Open <strong>Commerce → Orders → Draft orders</strong>.</li>
+<li>Click <strong>New draft order</strong>.</li>
+<li>Search the catalog (title / SKU), add lines, set qty, and optionally override unit price.</li>
+<li>Enter customer email, shipping address, and optional <strong>VAT ID</strong>.</li>
+<li>Use <strong>Preview</strong> to recalculate shipping/tax from current providers.</li>
+<li><strong>Save</strong> — copy the <strong>accept URL</strong> and send it to the customer.</li>
+<li>Optional: <strong>merchant-assisted checkout</strong> from the editor when the buyer pays with staff help.</li>
+</ol>
+<p><strong>Create from cart (still available)</strong></p>
+<ol>
+<li>Build a cart in the storefront (or admin test cart).</li>
+<li>Open <strong>Draft orders</strong> → <strong>Create Quote from Cart</strong>.</li>
+<li>Enter customer email; copy the accept URL.</li>
 </ol>
 <p><strong>Customer flow</strong></p>
 <ol>
@@ -46,7 +54,7 @@
 <p>Click <strong>Cancel</strong> on an open quote to invalidate the token.</p>
 <p><strong>Quote states</strong></p>
 <p>| Status | Meaning | |--------|---------| | <code>quote</code> | Created, awaiting customer accept | | <code>pending_payment</code> | Accepted, checkout in progress | | <code>paid</code> | Order completed | | <code>expired</code> / <code>canceled</code> | No longer valid |</p>
-<p>Default expiry is 30 days from creation.</p></div></details>
+<p>Default expiry is 30 days from creation. Backing store marks editor drafts with <code>draft_order: true</code>.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Gift card storage</strong></p>
 <p><code>GiftCardStore</code> — flat files under <code>data/plugins/commerce/gift_cards/</code>. Fields: <code>code</code>, <code>balance_cents</code>, <code>initial_balance_cents</code>, <code>currency</code>, <code>status</code>, <code>expires_at</code>, <code>redemptions[]</code>.</p>
 <p><strong>Sellable fulfillment</strong></p>
@@ -75,8 +83,11 @@
 <ul>
 <li><code>create_quote</code> — from current built cart + <code>customer_email</code></li>
 <li><code>list_quotes</code>, <code>cancel_quote</code></li>
+<li><code>draft_order_create</code> / <code>draft_order_update</code> / <code>draft_order_preview</code> / <code>draft_order_get</code> — cart-free editor (<code>CommerceDraftOrderService</code>)</li>
+<li><code>draft_order_search_catalog</code> — line picker</li>
+<li><code>draft_order_checkout</code> — merchant-assisted payment start</li>
 </ul>
-<p>Quotes snapshot line prices at creation. Custom per-line overrides are supported in the store API for future admin UI extensions.</p></div></details>
+<p>Quotes snapshot line prices (and optional unit overrides) at create/update. Preview recalculates shipping/tax via the active rate and tax providers.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="plugins/commerce.html">Commerce plugin</a></li>
 <li><a href="commerce-fieldtype.html">Commerce fieldtype</a></li>

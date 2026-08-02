@@ -44,7 +44,7 @@ Affiliate rules match `?ref=partner_id` on storefront URLs (session) plus the ru
 
 **Admin form fields:** name, type, code / affiliate id, value_type, value, `min_purchase_cents`, `usage_limit`, `starts_at`, `ends_at`, target, `stackable`, enabled.
 
-> **Note:** This is **manual** promotions configuration. Stripe Tax, live shipping rates, and other P2 provider features are out of scope here.
+> **Note:** This page covers **promotions only**. Tax providers and live shipping rates are documented under [Commerce tax](commerce-tax.md) and [Commerce shipping rates](commerce-shipping.md).
 
 ## Related
 

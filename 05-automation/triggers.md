@@ -138,10 +138,11 @@ For webhook triggers, the incoming body is parsed (JSON or form) and available a
 | `commerce_digital_delivered` | Digital download delivered |
 | `commerce_event_registered` | Event/workshop registration completed |
 | `commerce_gift_card_issued` | Sellable gift-card line issued codes after pay |
-| `commerce_shipment_created` | Manual shipment created on an order |
+| `commerce_shipment_created` | Shipment created on an order (Manual or EasyPost) |
 | `commerce_order_shipped` | Customer notify when a shipment is created with notify enabled |
+| `commerce_tracking_updated` | EasyPost tracking webhook updates a shipment |
 
-See [Commerce subscriptions](../06-extensibility/commerce-subscriptions.md) for dunning, [Commerce gift cards](../06-extensibility/commerce-gift-cards-quotes.md), and [Commerce manual fulfillment](../06-extensibility/commerce-fulfillment.md).
+See [Commerce subscriptions](../06-extensibility/commerce-subscriptions.md) for dunning, [Commerce gift cards and draft orders](../06-extensibility/commerce-gift-cards-quotes.md), and [Commerce fulfillment](../06-extensibility/commerce-fulfillment.md).
 
 ## Related
 

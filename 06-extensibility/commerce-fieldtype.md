@@ -12,7 +12,7 @@ Commerce v2 stores **fulfillment** (ship, deliver, register, none) and one or mo
 |-------|------|-------|
 | `fulfillment` | enum | `ship`, `deliver`, `register`, `none` |
 | `purchase_options[]` | array | `id`, `label`, `billing`, `price_cents`, `currency`, `interval?` |
-| `quantity_available` | int \| null | Capacity for `register`; null = unlimited |
+| `quantity_available` | int \| null | Catalog projection of Inventory Available; capacity for `register`; null = unlimited |
 | `sku` | string \| null | Fulfillment/import; defaults to entry slug |
 
 Example:
@@ -40,13 +40,14 @@ Collection schema may include `commerce_settings` to preset enabled fulfillments
 
 ## What is NOT on the fieldtype
 
-- Discount amounts — Commerce **Discount rules**
+- Discount amounts — Commerce **Discounts**
 - Affiliate codes — `?ref=` + rule engine
-- Tier grants — **Purchase mappings**
+- Tier grants — **Settings → Mappings**
+- Stock ledger rows — **Inventory** (modes: Unlimited · Simple · Locations)
 
 ## Catalog index
 
-One indexed row per **sellable unit** (variant sub-entry if variants exist, else parent). Cart/checkout read from `catalog_index.json`.
+One indexed row per **sellable unit** (variant sub-entry if variants exist, else parent). Cart/checkout read from `catalog_index.json`. For countable SKUs, **Inventory** is the ledger system of record; Catalog stores projected availability.
 
 ## Legacy migration
 

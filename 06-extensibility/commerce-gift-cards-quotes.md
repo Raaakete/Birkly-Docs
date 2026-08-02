@@ -1,10 +1,12 @@
-# Commerce gift cards and B2B quotes
+# Commerce gift cards and draft orders (quotes)
 
-Phase 11 adds **gift cards** (store credit at checkout) and **B2B quotes** (negotiated prices with a customer accept link).
+**Gift cards** are admin-issued store credit at checkout. **Draft orders / Quotes** are negotiated prices with a customer accept link — they live under **Commerce → Orders**, not as a top-level tab.
+
+Sellable gift-card products (fulfillment that issues a card on pay) are not shipped in this release; issue cards from the Gift Cards admin only.
 
 ## Summary
 
-**Gift cards** are codes with a balance in cents. Issue them in **Commerce → Gift Cards**; customers apply a code at checkout. Balances support **partial redemption** — unused balance remains on the card. **B2B quotes** snapshot cart lines at custom prices; the admin sends an accept URL; the customer accepts and pays through normal checkout.
+**Gift cards** are codes with a balance in cents. Issue them in **Commerce → Gift Cards**; customers apply a code at checkout. Balances support **partial redemption** — unused balance remains on the card. **Draft orders / Quotes** snapshot cart lines at custom prices; the admin sends an accept URL; the customer accepts and pays through normal checkout.
 
 ## Beginner
 
@@ -31,15 +33,15 @@ Click **Void** on an active card to disable it. Voided and expired cards are rej
 - Currency must match the order.
 - Expired cards (when `expires_at` is set) cannot be redeemed.
 
-### B2B quotes
+### Draft orders / Quotes
 
 **Create a quote**
 
 1. Build a cart in the storefront (or admin test cart) with the intended lines.
-2. Open **Commerce → Quotes**.
+2. Open **Commerce → Orders → Draft orders** (or **Quotes**).
 3. Click **Create Quote from Cart**.
 4. Enter the customer email when prompted.
-5. Copy the **accept URL** from the quotes list and send it to the customer.
+5. Copy the **accept URL** from the list and send it to the customer.
 
 **Customer flow**
 

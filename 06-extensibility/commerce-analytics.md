@@ -1,33 +1,33 @@
-# Commerce analytics
+# Commerce analytics (Dashboard)
 
 Revenue reporting and order export for merchants running Commerce on Birkly.
 
 ## Summary
 
-The **Analytics** tab in Commerce admin shows revenue, order count, average order value (AOV), top products, and affiliate attribution for a date range. Export paid orders to **CSV** for spreadsheets or external BI. An optional **dashboard widget** surfaces last-30-day revenue on the admin home page for selected roles.
+The **Dashboard** tab (Commerce default landing) shows revenue, order count, average order value (AOV), top products, and affiliate attribution for a date range. Export paid orders to **CSV** for spreadsheets or external BI. An optional **dashboard widget** surfaces last-30-day revenue on the Birkly admin home page for selected roles.
 
 ## Beginner
 
-**View analytics**
+**View metrics**
 
-1. Open **Commerce → Analytics**.
+1. Open **Commerce → Dashboard** (opens by default when you enter Commerce).
 2. Review the summary cards: order count, revenue, refunds, AOV.
 3. Scroll to **Top products** and **Affiliates** tables.
 4. Click **Refresh** to reload.
 
 **Export orders**
 
-1. On the Analytics tab, click **Export Orders CSV**.
+1. On the Dashboard, click **Export Orders CSV**.
 2. Your browser downloads a CSV with order id, status, date, customer email, totals, and affiliate id.
 3. Open in Excel, Google Sheets, or your accounting tool.
 
-**Dashboard widget (optional)**
+**Admin home widget (optional)**
 
 1. Open **Commerce → Settings**.
 2. Enable **Enable dashboard widget**.
 3. Select which roles see the widget (Admin, Editor, etc.).
 4. Save settings.
-5. The admin **Dashboard** shows a revenue summary for the recent period.
+5. The Birkly admin **Dashboard** shows a revenue summary for the recent period.
 
 The widget is opt-in so editors without commerce permissions are not surprised by financial data.
 

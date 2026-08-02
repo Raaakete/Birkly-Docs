@@ -4,20 +4,20 @@ Link sellable **membership products** to **User Management** tiers so a paid pur
 
 ## Summary
 
-Membership products use Commerce **fulfillment: none** with a **recurring** purchase option. After payment, **PostPurchaseRouter** fires `commerce_membership_started` and **Purchase mappings** grant the configured user tier. Use the **Mappings** tab (or membership wizard) to connect a product slug to a tier id. Requires the **User Management** plugin.
+Membership products use Commerce **fulfillment: none** with a **recurring** purchase option. After payment, **PostPurchaseRouter** fires `commerce_membership_started` and **Purchase mappings** grant the configured user tier. Use **Settings → Mappings** (or membership wizard) to connect a product slug to a tier id. Requires the **User Management** plugin.
 
 ## Beginner
 
 **Set up a membership product**
 
 1. Activate **Commerce** and **User Management**.
-2. In **Commerce → Fieldtypes**, use the **Membership** preset (fulfillment `none`, recurring intervals enabled).
+2. In **Commerce → Settings → Fieldtypes**, use the **Membership** preset (fulfillment `none`, recurring intervals enabled).
 3. Add the fieldtype to a collection (for example `memberships`).
 4. Create an entry with a recurring purchase option (for example €9/month).
 
 **Wire tier on purchase**
 
-1. Open **Commerce → Mappings**.
+1. Open **Commerce → Settings → Mappings**.
 2. Enter a mapping key:
    - **Per product:** `entry:memberships:premium` (collection slug + entry slug)
    - **Whole collection:** `collection:memberships`
@@ -34,7 +34,7 @@ Membership products use Commerce **fulfillment: none** with a **recurring** purc
 
 **Membership fieldtype preset**
 
-Commerce → Fieldtypes → **Membership** quick start sets:
+Commerce → Settings → Fieldtypes → **Membership** quick start sets:
 
 - Default fulfillment: `none`
 - Billing intervals: month, year

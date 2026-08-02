@@ -1,16 +1,16 @@
 # Commerce CSV import
 
-Import purchasable entries from CSV via **Commerce → Import** in admin. For **live Shopify/WooCommerce API sync**, see [Commerce live import](commerce-live-import.md).
+Import purchasable entries from CSV via **Commerce → Settings → Import & migrate** in admin. For **live API sync (Beta)**, see [Commerce live import](commerce-live-import.md).
 
 ## Summary
 
-The import wizard supports **CSV upload** from many platforms (WooCommerce, Shopify, Magento, and more) with preset column mapping. Choose a target collection, preview rows, and import with idempotent SKU matching. Import history supports rollback. Live REST API import is available for Shopify and WooCommerce (Phase 12).
+The import wizard supports **CSV upload** from many platforms (WooCommerce, Shopify, Magento, and more) with preset column mapping. Choose a target collection, preview rows, and import with idempotent SKU matching. Import history supports rollback. Live REST API import (Beta) is grouped in the same Import & migrate area. Legacy Shop / Events migration appears only when those sources are detected — see [Commerce migration wizard](commerce-migration-wizard.md).
 
 ## Beginner
 
 **Start an import**
 
-1. Open **Commerce → Import**.
+1. Open **Commerce → Settings → Import & migrate**.
 2. Click **Import products**.
 3. **Step 1 — Platform:** Search or filter (Stores / Inventory) and pick your source (for example WooCommerce or Shopify CSV).
 4. **Step 2 — Upload:** Select target collection (existing or create new), default currency, and upload the CSV (or paste CSV text).
@@ -26,7 +26,7 @@ Each platform card shows export steps. Typical paths:
 
 **Import history**
 
-The Import tab lists past runs with status, counts, and actions:
+Import & migrate lists past runs with status, counts, and actions:
 
 - **Details** — view created/updated breakdown.
 - **Remove** — rollback imported entries (optionally delete collection if the import created it).
@@ -61,11 +61,11 @@ Match existing entries by **SKU** or **external_id** column — update vs create
 
 Use dry-run mode (preview step) to validate rows before writing entries.
 
-## Live API import (Phase 12)
+## Live API import (Beta)
 
 For ongoing sync without manual CSV export:
 
-- [Commerce live import](commerce-live-import.md) — Shopify custom app + WooCommerce REST keys, preview, scheduled cron sync.
+- [Commerce live import](commerce-live-import.md) — Shopify, WooCommerce, Etsy, Square (Beta); preview and scheduled cron sync.
 
 ## Out of scope (v1)
 

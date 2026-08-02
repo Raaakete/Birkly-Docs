@@ -4,7 +4,7 @@ Move legacy **Shopping Cart** and **Events** plugin data into Commerce fieldtype
 
 ## Summary
 
-The **Migration wizard** in Commerce admin detects legacy Shop (`shopping_cart`) and Events plugin data, previews how entries will map to Commerce (`ship`, `register`, purchase options), and imports idempotently. Existing slugs are skipped on re-run. Legacy plugins remain installed — the wizard copies data only.
+The **Migration wizard** lives under **Commerce → Settings → Import & migrate**. It appears **only when legacy Shop (`shopping_cart`) or Events sources are detected**. When no legacy data exists, the section is hidden. The wizard previews how entries map to Commerce (`ship`, `register`, purchase options) and imports idempotently. Existing slugs are skipped on re-run. Legacy plugins remain installed — the wizard copies data only.
 
 ## Beginner
 
@@ -12,18 +12,19 @@ The **Migration wizard** in Commerce admin detects legacy Shop (`shopping_cart`)
 
 - You started with the demo **Shopping Cart** or **Events** plugin and want a unified Commerce catalog.
 - You need Commerce cart, subscriptions, or gift cards on products that still live in legacy collections.
+- The Import & migrate UI shows a legacy migration section (otherwise this wizard is not shown).
 
 **Before you start**
 
 1. **Back up** `content/` and `data/`.
-2. Activate **Commerce** and configure at least one payment provider.
+2. Activate **Commerce** and configure at least one payment provider (**Settings → Connections**).
 3. Leave legacy plugins active until you verify the import.
 
 **Run the wizard**
 
 1. Open **Commerce** in the admin sidebar.
-2. Open the **Migration** tab (or **Import → Migrate legacy plugins** when shown).
-3. The wizard detects:
+2. Open **Settings → Import & migrate**.
+3. If legacy sources were detected, the wizard shows:
    - **Shopping Cart** — `shop_products` (or configured shop collection) → Commerce entries with `fulfillment: ship` and one-time purchase options.
    - **Events** — legacy event entries → Commerce entries with `fulfillment: register` and capacity from RSVP settings.
 4. Click **Preview** to see how many entries will be created or updated.

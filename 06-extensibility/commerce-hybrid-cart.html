@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>commerce hybrid cart — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="commerce-hybrid-cart.html" class="nav-link active">Commerce hybrid cart</a>
+        <a href="commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>One session cart can mix <strong>ship</strong>, <strong>deliver</strong>, <strong>register</strong>, and <strong>subscribe</strong> lines. Checkout splits <strong>billing groups</strong> (one-time vs recurring) and reuses email / address from a checkout draft. Plugin help shelf: <strong>Hybrid cart</strong> (<code>help-hybrid-cart</code>).</p>
+<div class="doc-summary"><p>Commerce <strong>1.0.29</strong> (P54 P3) certifies mixed-fulfillment carts with <strong>split checkout</strong>. One-time lines (ship + deliver + register) settle together; recurring / subscribe lines pay in a later group. Prefer <code>/plugins/commerce/assets/commerce-storefront.js</code> over a custom cart engine.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What shoppers can mix</h3>
+<p>| Line type | Fulfillment | Billing | Checkout group | |-----------|-------------|---------|----------------| | Physical product | <code>ship</code> | one-time | One-time | | Digital download | <code>deliver</code> | one-time | One-time | | Event / class | <code>register</code> | one-time | One-time | | Membership / club | <code>none</code> (or product) | recurring | <strong>Separate</strong> subscription group |</p>
+<p>Example: coffee bag (ship) + PDF (deliver) + workshop seat (register) + monthly club (subscribe).</p>
+<h3>What buyers enter once</h3>
+<p>Collect <strong>email</strong>, <strong>shipping address</strong> (only when the cart has <code>ship</code> lines), and <strong>attendee name</strong> (when it has <code>register</code> lines) on the first step. Commerce stores a checkout draft and reuses those details for later groups.</p>
+<h3>Payment order</h3>
+<ol>
+<li><strong>One-time group</strong> — ship + deliver + register (gift cards and coupons apply here).</li>
+<li><strong>Subscription group(s)</strong> — each recurring interval is its own payment (gift cards/coupons do <strong>not</strong> re-apply).</li>
+</ol>
+<p>Shipping is calculated only from <code>ship</code> lines. Digital-only or register-only carts do not require a shipping address for fulfillment.</p>
+<h3>After payment</h3>
+<p><strong>PostPurchaseRouter</strong> runs per paid line: ship → fulfillment adapter; deliver → download token; register → attendee + capacity; subscribe / none → subscription + optional membership mapping.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Groups API</h3>
+<p>Cart <code>get</code> / <code>buildCartLines</code> expose <code>split_required</code> and <code>groups[]</code>. Checkout without <code>group_key</code> on a multi-group cart returns <code>needs_split: true</code> plus <code>checkout_session_id</code> and <code>groups</code>. Pass <code>group_key</code> + <code>checkout_session_id</code> to pay one group.</p>
+<h3>Storefront helper</h3>
+<pre><code>BirklyCommerce.checkout({ email, shipping_address, attendee_name });
+await BirklyCommerce.confirmPayment(stripe, elements);
+if (BirklyCommerce.getSplitState().nextGroupKey) {
+  await BirklyCommerce.continueSplitCheckout();
+}</code></pre>
+<p>Helpers: <code>cartNeedsShipping()</code>, <code>cartNeedsAttendee()</code>, <code>continueSplitCheckout()</code>, <code>getSplitState()</code>.</p>
+<p>Markup hooks: <code>[data-commerce-shipping-fields]</code>, <code>[data-commerce-attendee-fields]</code>, <code>[data-commerce-status]</code>.</p>
+<h3>Capacity and stock</h3>
+<ul>
+<li><strong>Register</strong> uses catalog <code>quantity_available</code>; spots reserved at checkout, committed when paid.</li>
+<li><strong>Deliver / gift_card / none</strong> do not hold warehouse stock.</li>
+<li><strong>Ship</strong> tracked SKUs reserve inventory until pay or release.</li>
+</ul>
+<blockquote><p><strong>Note:</strong> In-admin plugin help: Commerce → Documentation → <strong>Hybrid cart</strong> (<code>plugins/commerce/docs/help-hybrid-cart.md</code>).</p></blockquote></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
+<li><a href="commerce-store-kit.html">Commerce store kit (MCP / Agent)</a></li>
+<li><a href="../03-templating/commerce-functions.html">Commerce template functions</a></li>
+<li><a href="commerce-subscriptions.html">Commerce subscriptions</a></li>
+<li><a href="commerce-fulfillment.html">Commerce fulfillment</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

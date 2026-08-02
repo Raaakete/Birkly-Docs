@@ -1,0 +1,31 @@
+<p>End-to-end starter path for seeding a physical shop: products collection, three shippable products, tax/shipping guidance, and a working cart/checkout page. AI topic: <strong><code>commerce-store-kit</code></strong>.</p>
+<div class="doc-summary"><p>P54 P3-M2 ships a <strong>store kit</strong> playbook for agents and MCP clients. Merchants ask an connected agent to “build a shop” or “seed products + checkout”; the agent follows <code>commerce-store-kit</code> step order instead of improvising. Depth reference remains the <code>commerce</code> playbook and this docs shelf.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>For merchants</h3>
+<ol>
+<li>Install and enable <strong>Commerce</strong> (Marketplace → birkly-commerce if needed).</li>
+<li>Connect a payment provider under <strong>Commerce → Settings → Connections</strong> (agents cannot set secrets).</li>
+<li>Ask your agent (MCP / admin AI) to seed a starter shop — e.g. “Build me an online store with three products and checkout.”</li>
+<li>Confirm <strong>Tax</strong> (Manual) and <strong>Shipping</strong> zones under Commerce → Settings when the agent guides you there.</li>
+<li>Rebuild <strong>Catalog</strong> if the index looks empty after seeding.</li>
+</ol>
+<h3>For developers / agents</h3>
+<p>| Invoke | How | |--------|-----| | Playbook topic | <code>read_birkly_docs</code> → topic <strong><code>commerce-store-kit</code></strong> | | MCP resource | <code>birkly://docs/commerce-store-kit</code> | | Auto-load | Prompts about store kit, seed store, demo shop, build a shop |</p>
+<p>Step order (do not skip ahead to HTML):</p>
+<ol>
+<li>Ensure Commerce is active (<code>list_plugins</code> / <code>activate_plugin</code>).</li>
+<li>Guide Manual tax + Manual shipping zones.</li>
+<li>Create a products collection with a <strong><code>commerce</code></strong> field.</li>
+<li>Create <strong>3</strong> published <code>fulfillment: ship</code> entries (SKU, <code>weight_grams</code>, purchase_options).</li>
+<li>Write <code>project/</code> shop + cart/checkout using <code>commerce-storefront.js</code> + <code>{commerce_*}</code> template functions.</li>
+<li>Smoke-check list → add to cart → checkout fields.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Kit scope:</strong> greenfield <strong>physical</strong> store smoke path. Variants, subscriptions, Stripe Tax, and EasyPost are optional later — use the <code>commerce</code> playbook and <a href="commerce-hybrid-cart.html">hybrid cart</a> for mixed carts.</p>
+<p><strong>AI limits:</strong> no dedicated tax/shipping write tools; payment secrets stay in admin Connections; prefer plugin storefront helpers over custom <code>fetch</code> cart engines.</p>
+<p><strong>Related AI topics:</strong> <code>commerce</code>, <code>plugins-overview</code>, <code>site-building</code>, <code>web-project-patterns</code>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
+<li><a href="commerce-hybrid-cart.html">Commerce hybrid cart</a></li>
+<li><a href="../03-templating/commerce-functions.html">Commerce template functions</a></li>
+<li><a href="../01-admin/mcp-connections.html">MCP connections</a></li>
+<li><a href="../01-admin/ai-site-builder.html">AI site builder</a></li>
+</ul></div>

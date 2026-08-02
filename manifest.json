@@ -101,6 +101,7 @@
       "items": [
         { "path": "05-automation/automation-overview.md", "label": "Automation overview" },
         { "path": "05-automation/triggers.md", "label": "Triggers" },
+        { "path": "05-automation/commerce-recipes.md", "label": "Commerce recipe pack" },
         { "path": "05-automation/conditions-and-actions.md", "label": "Conditions and actions" },
         { "path": "05-automation/webhooks.md", "label": "Webhooks" }
       ]
@@ -114,6 +115,8 @@
         { "path": "06-extensibility/marketplace-provider-guide.md", "label": "Marketplace — provider guide" },
         { "path": "06-extensibility/marketplace-buyer-guide.md", "label": "Marketplace — buyer guide" },
         { "path": "06-extensibility/plugins/commerce.md", "label": "Commerce plugin" },
+        { "path": "06-extensibility/commerce-hybrid-cart.md", "label": "Commerce hybrid cart" },
+        { "path": "06-extensibility/commerce-store-kit.md", "label": "Commerce store kit" },
         { "path": "06-extensibility/commerce-customers.md", "label": "Commerce customers" },
         { "path": "06-extensibility/commerce-promotions.md", "label": "Commerce promotions" },
         { "path": "06-extensibility/commerce-gift-cards-quotes.md", "label": "Commerce gift cards and quotes" },

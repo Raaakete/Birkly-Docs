@@ -2,7 +2,9 @@
 
 The **Commerce** plugin (`plugins/commerce/`) is Birkly’s content-first store: payment providers, the **Commerce fieldtype**, catalog, cart, checkout, orders, customers, inventory, promotions, gift cards, tax providers, shipping rate providers, and **PostPurchaseRouter** fulfillment — all driven by CMS entries.
 
-Plugin help in admin (when Commerce is active) mirrors this overview: Help → Plugin extensions → Commerce.
+**Commerce 0→1 complete (P54 P3 / 1.0.29):** hybrid cart + split checkout, MCP/Agent store kit, Automation commerce recipes, and ops intelligence (cohorts, fulfillment SLA, low-stock trigger). This closes the foundation path from empty site → sellable catalog → checkout → ops. Do not expect P4 features here.
+
+Plugin help in admin (when Commerce is active) mirrors this overview: Help → Plugin extensions → Commerce (including **Hybrid cart** → `help-hybrid-cart`).
 
 ## Summary
 
@@ -79,21 +81,28 @@ Commerce routes each order line by fulfillment:
 
 **PostPurchaseRouter** — idempotent handler keyed on `order_id` + line; fires typed automation triggers including `commerce_physical_fulfilled`, `commerce_digital_delivered`, `commerce_event_registered`, `commerce_gift_card_issued`, `commerce_membership_started`. Shipments also fire `commerce_shipment_created` / `commerce_order_shipped` when notify is enabled; EasyPost tracking fires `commerce_tracking_updated`.
 
-**Admin areas** (Commerce **1.0.27**)
+**Admin areas** (Commerce **1.0.29**)
 
 | Tab | Purpose |
 |-----|---------|
-| **Dashboard** | Revenue, order, product, and affiliate summary (default landing) |
+| **Dashboard** | Revenue, AOV, new vs returning, first-order cohorts, needs-shipping / SLA breaches, avg fulfillment time, top products, affiliates |
 | **Orders** | Paid orders, fulfillment state, frozen money/tax lines; **Draft orders / Quotes** include a cart-free editor |
 | **Customers** | Email-keyed profiles, CSV import, order/subscription timeline; optional User Management link; no passwords |
 | **Catalog** | Indexed read model of sellable CMS entries |
-| **Inventory** | Stock ledger: Unlimited, Simple, or Locations |
+| **Inventory** | Stock ledger: Unlimited, Simple, or Locations; low-stock threshold feeds `commerce_low_stock` |
 | **Subscriptions** | Recurring purchases and lifecycle actions |
 | **Discounts** | Promotions v2: usage limits, min purchase, date window, free shipping, stack rules |
 | **Gift Cards** | Admin-issued store credit; sellable products use fulfillment `gift_card` |
-| **Settings** | Connections, General, Fieldtypes, Mappings, Import & migrate, Shipping (Manual / EasyPost rates), Tax (Manual / Stripe Tax + B2B reverse charge), Fulfillment (Manual / EasyPost), Activity, Documentation |
+| **Settings** | Connections, General (incl. fulfillment SLA hours), Fieldtypes, Mappings, Import & migrate, Shipping, Tax, Fulfillment, Activity, Documentation |
 
-**Provider honesty (P2)**
+**Differentiation (P3 / 1.0.29)**
+
+- **Hybrid cart:** mix ship + deliver + register + subscribe; split checkout by billing group — see [Hybrid cart](../commerce-hybrid-cart.md) and plugin `help-hybrid-cart`.
+- **Store kit:** MCP/Agent playbook topic **`commerce-store-kit`** seeds products + checkout — see [Store kit](../commerce-store-kit.md).
+- **Automation recipes:** import post-purchase, dunning, low-stock, shipped starters — see [Commerce recipes](../../05-automation/commerce-recipes.md).
+- **Ops intelligence:** Dashboard cohorts + fulfillment SLA (`commerce_fulfillment_sla_hours`, default 48) + `commerce_low_stock` — see [Analytics](../commerce-analytics.md).
+
+**Provider honesty (P2, still current)**
 
 - **Tax:** Manual or Stripe Tax (orthogonal to charge PSP). Frozen `tax_lines` on paid orders. Optional B2B reverse charge via `vat_id` — no live VIES.
 - **Shipping rates:** Manual zones or EasyPost live quotes; fallback to zones on live failure; weight required for EasyPost.
@@ -104,12 +113,16 @@ Commerce routes each order line by fulfillment:
 
 **Plugin docs shelf:** `register_plugin_docs('commerce', …)` ships `plugins/commerce/docs/` for AI, Admin Help, and MCP (`birkly://docs/plugin/commerce`).
 
-**Public API:** `/api/index.php?route=commerce` — cart get/add/update/remove/checkout; checkout selects `purchase_option_id` and collects shipping/attendee/VAT per fulfillment.
+**Public API:** `/api/index.php?route=commerce` — cart get/add/update/remove/checkout; cart payload may include `split_required` / `groups[]`; checkout selects `purchase_option_id` (and `group_key` + `checkout_session_id` when split) and collects shipping/attendee/VAT per fulfillment.
 
 **Legacy:** P6.4 flat schema (`price_cents` + `billing`) migrates to single purchase_option + inferred fulfillment.
 
 ## Related
 
+- [Commerce hybrid cart](../commerce-hybrid-cart.md) — ship+deliver+register+subscribe / split checkout
+- [Commerce store kit](../commerce-store-kit.md) — MCP/Agent `commerce-store-kit`
+- [Automation Commerce recipes](../../05-automation/commerce-recipes.md) — import post-purchase, dunning, low-stock, shipped
+- [Commerce analytics](../commerce-analytics.md) — Dashboard cohorts, SLA, low-stock
 - [Commerce fieldtype](../commerce-fieldtype.md)
 - [Commerce customers](../commerce-customers.md)
 - [Commerce promotions](../commerce-promotions.md)
@@ -119,7 +132,6 @@ Commerce routes each order line by fulfillment:
 - [Commerce fulfillment](../commerce-fulfillment.md)
 - [Commerce template functions](../../03-templating/commerce-functions.md)
 - [Commerce subscriptions](../commerce-subscriptions.md) — upgrades and dunning
-- [Commerce analytics](../commerce-analytics.md) — Dashboard metrics and CSV export
 - [Shopify cutover playbook](../commerce-shopify-cutover.md) — one-time Shopify transfer (not perpetual sync)
 - [Commerce migration wizard](../commerce-migration-wizard.md) — Shop/Events import (when detected)
 - [Commerce live import](../commerce-live-import.md) — Shopify/Woo/Etsy/Square API (Beta)

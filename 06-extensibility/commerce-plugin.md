@@ -4,7 +4,7 @@ The **Commerce** plugin (`plugins/commerce/`) is Birkly’s content-first commer
 
 It replaces the legacy **Payments** plugin (`plugins/payments/` is now a compatibility shim).
 
-Current documented build: Commerce **1.0.27**. For a beginner walkthrough, see [Commerce plugin overview](plugins/commerce.md) and the in-admin help shelf when Commerce is active.
+Current documented build: Commerce **1.0.29** (P54 P3 — Commerce 0→1 foundation complete). For a beginner walkthrough, see [Commerce plugin overview](plugins/commerce.md) and the in-admin help shelf when Commerce is active.
 
 ## Prerequisites
 
@@ -16,15 +16,15 @@ Current documented build: Commerce **1.0.27**. For a beginner walkthrough, see [
 
 | Tab | Purpose |
 |-----|---------|
-| **Dashboard** | Revenue, order, product, and affiliate summary (default landing) |
+| **Dashboard** | Revenue, cohorts, needs-shipping / SLA breaches, avg fulfillment time, top products, affiliates (default landing) |
 | **Orders** | Commercial history with frozen money/tax snapshots; **Draft orders / Quotes** (cart-free editor) live inside Orders |
 | **Customers** | Email-keyed profiles, CSV import, timeline; optional User Management link; no passwords |
 | **Catalog** | Indexed read model of sellable CMS entries |
-| **Inventory** | Ledger SoR for countable stock (Unlimited · Simple · Locations) |
+| **Inventory** | Ledger SoR for countable stock (Unlimited · Simple · Locations); low-stock threshold → `commerce_low_stock` |
 | **Subscriptions** | Recurring purchases and lifecycle |
 | **Discounts** | Promotions v2: usage limits, min purchase, dates, free shipping, stacking |
 | **Gift Cards** | Admin-issued store credit (sellable cards use field fulfillment `gift_card`) |
-| **Settings** | Connections, General, Fieldtypes, Mappings, Import & migrate, Shipping, Tax, Fulfillment, Activity, Documentation |
+| **Settings** | Connections, General (fulfillment SLA hours), Fieldtypes, Mappings, Import & migrate, Shipping, Tax, Fulfillment, Activity, Documentation |
 
 Inside **Settings → Import & migrate**: **Shopify cutover** (one-time products, customers, archived orders), CSV imports, and Beta live product import adapters. Legacy Shop / Events migration appears only when legacy sources are detected. See [Shopify cutover playbook](commerce-shopify-cutover.md).
 
@@ -70,7 +70,7 @@ See [Commerce fieldtype](commerce-fieldtype.md) for panels and variants.
 
 Base: `/api/index.php?route=commerce`
 
-Cart actions: `get`, `add`, `update`, `remove`, `checkout` (entry-based lines from catalog index).
+Cart actions: `get`, `add`, `update`, `remove`, `checkout` (entry-based lines from catalog index). Hybrid carts may return `split_required` / `groups[]`; pass `group_key` + `checkout_session_id` for split checkout. See [Hybrid cart](commerce-hybrid-cart.md).
 
 Affiliate: pass `?ref=partner_id` — stored in session for checkout discount rules.
 
@@ -106,6 +106,10 @@ Consumer plugins (Shopping Cart, Events) continue to use `payment_shelf` during 
 ## Related
 
 - [Commerce plugin overview](plugins/commerce.md)
+- [Commerce hybrid cart](commerce-hybrid-cart.md)
+- [Commerce store kit](commerce-store-kit.md)
+- [Automation Commerce recipes](../05-automation/commerce-recipes.md)
+- [Commerce analytics](commerce-analytics.md)
 - [Commerce customers](commerce-customers.md)
 - [Commerce promotions](commerce-promotions.md)
 - [Commerce gift cards and draft orders](commerce-gift-cards-quotes.md)

@@ -16,6 +16,20 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-02 — Commerce 0→1 complete (P54 P3 / 1.0.29)
+
+Commerce **0→1 foundation** docs for **1.0.29**: hybrid cart, MCP/Agent store kit, Automation commerce recipes, ops intelligence. P3 close-out — no P4 claims.
+
+- **New:** `commerce-hybrid-cart.md` — ship+deliver+register+subscribe / split checkout; links plugin `help-hybrid-cart`.
+- **New:** `commerce-store-kit.md` — points merchants/devs to AI topic `commerce-store-kit`.
+- **New:** `05-automation/commerce-recipes.md` — import post-purchase, dunning, low-stock, shipped recipes.
+- **Updated:** `commerce-analytics.md` — Dashboard cohorts, fulfillment SLA, `commerce_low_stock`.
+- **Updated:** `plugins/commerce.md`, `commerce-plugin.md` — P3 / 1.0.29 complete for 0→1 foundation.
+- **Updated:** `05-automation/triggers.md` — `commerce_order_paid`, `commerce_low_stock`.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`.
+
+---
+
 ## 2026-08-02 — Commerce P2 automation docs (1.0.27)
 
 - **New:** `commerce-shipping.md` — Manual / EasyPost shipping rate providers, weight required, fallback.

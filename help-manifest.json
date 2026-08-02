@@ -275,10 +275,25 @@
                 "workflow",
                 "trigger",
                 "webhook",
-                "schedule"
+                "schedule",
+                "recipe"
             ],
             "docs_path": "05-automation/automation-overview.html",
             "ai_topic": "automation"
+        },
+        {
+            "id": "commerce-recipes",
+            "title": "Automation Commerce recipe pack",
+            "keywords": [
+                "recipe",
+                "commerce",
+                "post-purchase",
+                "dunning",
+                "low-stock",
+                "shipped",
+                "import_recipe"
+            ],
+            "docs_path": "05-automation/commerce-recipes.html"
         },
         {
             "id": "user-plugin",
@@ -436,16 +451,49 @@
                 "commerce",
                 "cart",
                 "checkout",
+                "hybrid cart",
                 "orders",
                 "payments",
                 "customers",
                 "promotions",
                 "gift cards",
                 "tax",
-                "fulfillment"
+                "fulfillment",
+                "store kit",
+                "ops intelligence"
             ],
             "docs_path": "06-extensibility/plugins/commerce.html",
             "ai_topic": "commerce"
+        },
+        {
+            "id": "commerce-hybrid-cart",
+            "title": "Commerce hybrid cart",
+            "keywords": [
+                "hybrid cart",
+                "split checkout",
+                "ship",
+                "deliver",
+                "register",
+                "subscribe",
+                "help-hybrid-cart",
+                "commerce-storefront"
+            ],
+            "docs_path": "06-extensibility/commerce-hybrid-cart.html"
+        },
+        {
+            "id": "commerce-store-kit",
+            "title": "Commerce store kit",
+            "keywords": [
+                "store kit",
+                "seed store",
+                "demo shop",
+                "starter shop",
+                "mcp",
+                "agent",
+                "commerce-store-kit"
+            ],
+            "docs_path": "06-extensibility/commerce-store-kit.html",
+            "ai_topic": "commerce-store-kit"
         },
         {
             "id": "commerce-customers",

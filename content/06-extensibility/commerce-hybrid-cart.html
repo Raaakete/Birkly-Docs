@@ -1,0 +1,39 @@
+<p>One session cart can mix <strong>ship</strong>, <strong>deliver</strong>, <strong>register</strong>, and <strong>subscribe</strong> lines. Checkout splits <strong>billing groups</strong> (one-time vs recurring) and reuses email / address from a checkout draft. Plugin help shelf: <strong>Hybrid cart</strong> (<code>help-hybrid-cart</code>).</p>
+<div class="doc-summary"><p>Commerce <strong>1.0.29</strong> (P54 P3) certifies mixed-fulfillment carts with <strong>split checkout</strong>. One-time lines (ship + deliver + register) settle together; recurring / subscribe lines pay in a later group. Prefer <code>/plugins/commerce/assets/commerce-storefront.js</code> over a custom cart engine.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What shoppers can mix</h3>
+<p>| Line type | Fulfillment | Billing | Checkout group | |-----------|-------------|---------|----------------| | Physical product | <code>ship</code> | one-time | One-time | | Digital download | <code>deliver</code> | one-time | One-time | | Event / class | <code>register</code> | one-time | One-time | | Membership / club | <code>none</code> (or product) | recurring | <strong>Separate</strong> subscription group |</p>
+<p>Example: coffee bag (ship) + PDF (deliver) + workshop seat (register) + monthly club (subscribe).</p>
+<h3>What buyers enter once</h3>
+<p>Collect <strong>email</strong>, <strong>shipping address</strong> (only when the cart has <code>ship</code> lines), and <strong>attendee name</strong> (when it has <code>register</code> lines) on the first step. Commerce stores a checkout draft and reuses those details for later groups.</p>
+<h3>Payment order</h3>
+<ol>
+<li><strong>One-time group</strong> — ship + deliver + register (gift cards and coupons apply here).</li>
+<li><strong>Subscription group(s)</strong> — each recurring interval is its own payment (gift cards/coupons do <strong>not</strong> re-apply).</li>
+</ol>
+<p>Shipping is calculated only from <code>ship</code> lines. Digital-only or register-only carts do not require a shipping address for fulfillment.</p>
+<h3>After payment</h3>
+<p><strong>PostPurchaseRouter</strong> runs per paid line: ship → fulfillment adapter; deliver → download token; register → attendee + capacity; subscribe / none → subscription + optional membership mapping.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Groups API</h3>
+<p>Cart <code>get</code> / <code>buildCartLines</code> expose <code>split_required</code> and <code>groups[]</code>. Checkout without <code>group_key</code> on a multi-group cart returns <code>needs_split: true</code> plus <code>checkout_session_id</code> and <code>groups</code>. Pass <code>group_key</code> + <code>checkout_session_id</code> to pay one group.</p>
+<h3>Storefront helper</h3>
+<pre><code>BirklyCommerce.checkout({ email, shipping_address, attendee_name });
+await BirklyCommerce.confirmPayment(stripe, elements);
+if (BirklyCommerce.getSplitState().nextGroupKey) {
+  await BirklyCommerce.continueSplitCheckout();
+}</code></pre>
+<p>Helpers: <code>cartNeedsShipping()</code>, <code>cartNeedsAttendee()</code>, <code>continueSplitCheckout()</code>, <code>getSplitState()</code>.</p>
+<p>Markup hooks: <code>[data-commerce-shipping-fields]</code>, <code>[data-commerce-attendee-fields]</code>, <code>[data-commerce-status]</code>.</p>
+<h3>Capacity and stock</h3>
+<ul>
+<li><strong>Register</strong> uses catalog <code>quantity_available</code>; spots reserved at checkout, committed when paid.</li>
+<li><strong>Deliver / gift_card / none</strong> do not hold warehouse stock.</li>
+<li><strong>Ship</strong> tracked SKUs reserve inventory until pay or release.</li>
+</ul>
+<blockquote><p><strong>Note:</strong> In-admin plugin help: Commerce → Documentation → <strong>Hybrid cart</strong> (<code>plugins/commerce/docs/help-hybrid-cart.md</code>).</p></blockquote></div></details>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
+<li><a href="commerce-store-kit.html">Commerce store kit (MCP / Agent)</a></li>
+<li><a href="../03-templating/commerce-functions.html">Commerce template functions</a></li>
+<li><a href="commerce-subscriptions.html">Commerce subscriptions</a></li>
+<li><a href="commerce-fulfillment.html">Commerce fulfillment</a></li>
+</ul></div>

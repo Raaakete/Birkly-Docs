@@ -129,6 +129,7 @@ For webhook triggers, the incoming body is parsed (JSON or form) and available a
 
 | Trigger | When |
 |---------|------|
+| `commerce_order_paid` | Order paid (primary post-purchase trigger; recipe pack uses this) |
 | `commerce_order_receipt` | Order paid — customer receipt |
 | `commerce_order_admin_notify` | Order paid — staff notification |
 | `commerce_subscription_payment_failed` | Subscription renewal failed (`past_due`) |
@@ -141,12 +142,14 @@ For webhook triggers, the incoming body is parsed (JSON or form) and available a
 | `commerce_shipment_created` | Shipment created on an order (Manual or EasyPost) |
 | `commerce_order_shipped` | Customer notify when a shipment is created with notify enabled |
 | `commerce_tracking_updated` | EasyPost tracking webhook updates a shipment |
+| `commerce_low_stock` | Available inventory hits/goes below SKU threshold (debounced; Commerce 1.0.29) |
 
-See [Commerce subscriptions](../06-extensibility/commerce-subscriptions.md) for dunning, [Commerce gift cards and draft orders](../06-extensibility/commerce-gift-cards-quotes.md), and [Commerce fulfillment](../06-extensibility/commerce-fulfillment.md).
+Starter workflows: [Commerce recipe pack](commerce-recipes.md). See also [Commerce subscriptions](../06-extensibility/commerce-subscriptions.md), [Commerce gift cards and draft orders](../06-extensibility/commerce-gift-cards-quotes.md), [Commerce fulfillment](../06-extensibility/commerce-fulfillment.md), and [Commerce analytics](../06-extensibility/commerce-analytics.md).
 
 ## Related
 
 - [Automation overview](automation-overview.md)
+- [Commerce recipe pack](commerce-recipes.md)
 - [Conditions and actions](conditions-and-actions.md)
 - [Webhooks](webhooks.md)
 - [Sub-collections](../02-content/sub-collections.md)

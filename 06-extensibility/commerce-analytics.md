@@ -1,25 +1,36 @@
 # Commerce analytics (Dashboard)
 
-Revenue reporting and order export for merchants running Commerce on Birkly.
+Revenue reporting, order export, and **ops intelligence** (cohorts, fulfillment SLA, low-stock trigger) for merchants running Commerce on Birkly.
 
 ## Summary
 
-The **Dashboard** tab (Commerce default landing) shows revenue, order count, average order value (AOV), top products, and affiliate attribution for a date range. Export paid orders to **CSV** for spreadsheets or external BI. An optional **dashboard widget** surfaces last-30-day revenue on the Birkly admin home page for selected roles.
+The **Dashboard** tab (Commerce default landing) shows revenue, order count, AOV, new vs returning customers, first-order **cohorts**, needs-shipping / **SLA breaches**, average fulfillment time, top products, and affiliate attribution. Export paid orders to **CSV**. An optional **dashboard widget** surfaces last-30-day revenue on the Birkly admin home page. Commerce **1.0.29** (P3-M4) adds the ops intelligence fields and the `commerce_low_stock` automation trigger.
 
 ## Beginner
 
 **View metrics**
 
 1. Open **Commerce → Dashboard** (opens by default when you enter Commerce).
-2. Review the summary cards: order count, revenue, refunds, AOV.
-3. Scroll to **Top products** and **Affiliates** tables.
+2. Review summary cards: order count, revenue, refunds, AOV, **new / returning customers**, **needs shipping**, **SLA breaches**, avg fulfillment hours.
+3. Scroll to **Customer cohorts**, **Top products**, and **Affiliates**.
 4. Click **Refresh** to reload.
+
+**Fulfillment SLA**
+
+1. Open **Commerce → Settings → General**.
+2. Set **Fulfillment SLA (hours)** (default **48**).
+3. Paid ship orders with remaining unshipped quantity older than this count as SLA breaches on the Dashboard.
+
+**Low stock alerts**
+
+1. On Inventory rows, set a **low stock threshold** per SKU.
+2. When available stock hits or goes below the threshold, Commerce fires `commerce_low_stock` once per SKU (debounced until stock recovers above the threshold).
+3. Import the **Low stock alert** recipe under Automation → Recipe pack, or wire your own workflow on that trigger.
 
 **Export orders**
 
 1. On the Dashboard, click **Export Orders CSV**.
 2. Your browser downloads a CSV with order id, status, date, customer email, totals, and affiliate id.
-3. Open in Excel, Google Sheets, or your accounting tool.
 
 **Admin home widget (optional)**
 
@@ -27,9 +38,6 @@ The **Dashboard** tab (Commerce default landing) shows revenue, order count, ave
 2. Enable **Enable dashboard widget**.
 3. Select which roles see the widget (Admin, Editor, etc.).
 4. Save settings.
-5. The Birkly admin **Dashboard** shows a revenue summary for the recent period.
-
-The widget is opt-in so editors without commerce permissions are not surprised by financial data.
 
 ## Advanced Users
 
@@ -37,7 +45,7 @@ The widget is opt-in so editors without commerce permissions are not surprised b
 
 Aggregates from `CommerceOrderStore` — paid, partially refunded, and refunded orders count toward revenue (net of refunds).
 
-Summary payload:
+Summary payload (P3 ops intelligence fields included):
 
 ```json
 {
@@ -45,10 +53,32 @@ Summary payload:
   "revenue_cents": 125000,
   "refunded_cents": 3500,
   "aov_cents": 2976,
+  "new_customers": 12,
+  "returning_customers": 8,
+  "cohorts": [{ "period": "2026-07", "customers": 5, "orders": 7, "revenue_cents": 21000 }],
+  "cohort_period": "month",
+  "needs_shipping_count": 3,
+  "avg_fulfillment_hours": 26.5,
+  "sla_breach_count": 1,
+  "fulfillment_sla_hours": 48,
   "top_products": [{ "key": "products:coffee-250g", "title": "...", "quantity": 10, "revenue_cents": 14990 }],
   "affiliates": [{ "affiliate_id": "partner-a", "orders": 5, "revenue_cents": 22000 }]
 }
 ```
+
+**Settings**
+
+| Key | Default | Notes |
+|-----|---------|-------|
+| `commerce_fulfillment_sla_hours` | `48` | Paid ship orders with remaining qty older than this → `sla_breach_count` |
+
+**Low-stock trigger**
+
+| Trigger | Payload |
+|---------|---------|
+| `commerce_low_stock` | `{ sku, on_hand, reserved, available, threshold }` |
+
+Implemented by `CommerceLowStockService` — fires once per SKU until available recovers above threshold.
 
 **API**
 
@@ -72,5 +102,7 @@ Requires `view_commerce_stats` (or legacy `view_payment_stats`).
 ## Related
 
 - [Commerce plugin](plugins/commerce.md)
+- [Automation Commerce recipes](../05-automation/commerce-recipes.md)
+- [Commerce warehouse stock](commerce-warehouse-stock.md)
 - [Commerce gift cards and quotes](commerce-gift-cards-quotes.md)
 - [Dashboard](../01-admin/dashboard.md)

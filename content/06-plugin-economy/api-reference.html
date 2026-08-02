@@ -1,7 +1,7 @@
 <p>Integrators and developers consume Birkly marketplace and Ops APIs to browse offers, install artifacts, and fetch starter packs. The CMS marketplace client wraps these endpoints; custom tooling can call them directly.</p>
 <div class="doc-summary"><p>The <strong>marketplace registry API</strong> exposes catalog, offer detail, release downloads, and license status at <code>marketplace.birkly.cloud/api/v1/</code>. The <strong>Ops starter API</strong> lists and downloads onboarding template packs at <code>ops.birkly.cloud/api/ops/v1/starters</code>. CMS installs use <code>installation_id</code> for license activation. Override base URLs via environment variables or settings files for staging.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Who needs these APIs</strong></p>
-<p>| Audience | Typical use | |----------|-------------| | <strong>CMS admin</strong> | Built-in Marketplace tab — no direct API calls | | <strong>Site owner</strong> | Use the admin UI; APIs run in the background | | <strong>Integrator / DevOps</strong> | Custom install scripts, air-gapped workflows | | <strong>Provider</strong> | Publish via Provider Studio; registry exposes your offers |</p>
+<p>| Audience | Typical use | |----------|-------------| | <strong>CMS admin</strong> | Built-in Hub tab — no direct API calls | | <strong>Site owner</strong> | Use the admin UI; APIs run in the background | | <strong>Integrator / DevOps</strong> | Custom install scripts, air-gapped workflows | | <strong>Provider</strong> | Publish via Provider Studio; registry exposes your offers |</p>
 <p><strong>Marketplace base URL</strong></p>
 <p>Production: <code>https://marketplace.birkly.cloud</code></p>
 <p>Override in CMS:</p>
@@ -22,11 +22,11 @@
 <li>Catalog: <code>https://marketplace.birkly.cloud/catalog</code></li>
 <li>Offer: <code>https://marketplace.birkly.cloud/offers/{slug}</code></li>
 </ul>
-<p>The CMS Marketplace tab embeds a read-only catalog view backed by the registry API.</p></div></details>
+<p>The CMS Hub tab embeds a read-only catalog view backed by the registry API (<code>/api/marketplace.php</code>).</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Registry — catalog index</strong></p>
 <pre><code>GET /api/v1/registry
 Accept: application/json</code></pre>
-<p>Returns offer summaries: <code>slug</code>, <code>title</code>, <code>offer_type</code>, <code>pricing</code>, latest <code>version</code>, trust level. CMS caches responses briefly; bust cache on manual refresh in Marketplace tab.</p>
+<p>Returns offer summaries: <code>slug</code>, <code>title</code>, <code>offer_type</code>, <code>pricing</code>, latest <code>version</code>, trust level. CMS caches responses briefly; bust cache on manual refresh in the Hub tab.</p>
 <p><strong>Registry — offer detail</strong></p>
 <pre><code>GET /api/v1/offer?slug=birkly-commerce</code></pre>
 <p>Response includes <code>releases[]</code> with <code>version</code>, <code>changelog</code>, <code>checksum_sha256</code>, <code>download_url</code>, <code>permissions_manifest</code>, and optional embedded <code>plugin_json</code>.</p>
@@ -77,7 +77,7 @@ Accept: application/json</code></pre>
 <div class="doc-related"><ul>
 <li><a href="overview.html">Plugin economy overview</a></li>
 <li><a href="for-site-owners.html">For site owners</a></li>
-<li><a href="theme-and-template-packs.html">Themes and template packs</a></li>
+<li><a href="theme-and-template-packs.html">Hub, themes, and site packs</a></li>
 <li><a href="security-and-review.html">Security and review</a></li>
 <li><a href="../06-extensibility/marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
 <li><a href="../06-extensibility/marketplace-provider-guide.html">Marketplace — provider publishing guide</a></li>

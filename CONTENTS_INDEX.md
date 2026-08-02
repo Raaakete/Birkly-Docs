@@ -142,7 +142,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | For providers | `06-plugin-economy/for-providers.md` | Provider Studio, packaging, QC, payouts (summary) |
 | Plugin development | `06-plugin-economy/plugin-development.md` | `plugin.json`, hooks, permissions, `data_access` |
 | Plugin navigation icon | `06-plugin-economy/plugin-navigation-icon.md` | `navigation.icon` registry names and inline SVG fallback (P41) |
-| Themes and template packs | `06-plugin-economy/theme-and-template-packs.md` | Ops starters, marketplace template packs, `project/` |
+| Hub, themes, and site packs | `06-plugin-economy/theme-and-template-packs.md` | Hub naming, site packs (`template_pack`), Upload pack, starters, `project/` |
 | Security and review | `06-plugin-economy/security-and-review.md` | Permission consent, QC tiers, supply chain |
 | Official plugins | `06-plugin-economy/official-plugins.md` | Birkly-maintained vs third-party offers |
 | API reference | `06-plugin-economy/api-reference.md` | Registry, embed, Ops starter API |

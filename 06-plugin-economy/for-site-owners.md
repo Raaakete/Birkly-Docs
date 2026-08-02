@@ -1,17 +1,17 @@
 # For site owners — browse, license, and install
 
-Install plugins, themes, and template packs from the Birkly Marketplace directly in your CMS admin. Free official plugins install in one click; paid and third-party offers require checkout and a license key.
+Install plugins, themes, and site packs from the Birkly Hub in your CMS admin (catalog backed by the Birkly Marketplace). Free official plugins install in one click; paid and third-party offers require checkout and a license key.
 
 ## Summary
 
-Open **Plugins → Marketplace** in the admin to browse the catalog, install free official extensions, or activate a license for paid offers. Before install, the CMS shows a **permission consent** screen listing what the plugin can access. Updates download from the registry with SHA-256 verification. Marketplace buyer accounts are separate from your CMS login.
+Open **Plugins → Hub** in the admin to browse the catalog, install free official extensions, or activate a license for paid offers. Before install, the CMS shows a **permission consent** screen listing what the plugin can access. Updates download from the registry with SHA-256 verification. Marketplace buyer accounts are separate from your CMS login. APIs may still use `marketplace_*` names.
 
 ## Beginner
 
 **Install a free official plugin**
 
 1. Log in to **admin** (`/admin`).
-2. Go to **Plugins → Marketplace**.
+2. Go to **Plugins → Hub**.
 3. Find an official Birkly offer (Commerce, Events, Automation, User Management).
 4. Review the **permissions** summary if prompted.
 5. Click **Install** — no checkout or license key needed for free official plugins.
@@ -19,17 +19,17 @@ Open **Plugins → Marketplace** in the admin to browse the catalog, install fre
 
 **Buy and install a paid or third-party extension**
 
-1. Browse [marketplace.birkly.cloud/catalog](https://marketplace.birkly.cloud/catalog) or the CMS Marketplace tab.
+1. Browse [marketplace.birkly.cloud/catalog](https://marketplace.birkly.cloud/catalog) or the CMS **Hub** tab.
 2. Click **Purchase** or **Buy** on the offer.
 3. Complete checkout with your email (Stripe for paid offers).
-4. Return to **Plugins → Marketplace** → **Activate license** (or paste the key from your email).
+4. Return to **Plugins → Hub** → **Activate license** (or paste the key from your email).
 5. Review **permission consent** — read what data and admin areas the plugin requests.
-6. Accept and **Install**. The CMS downloads, verifies, and extracts the plugin.
+6. Accept and **Install**. The CMS downloads, verifies, and extracts the plugin (or site pack — see [Hub, themes, and site packs](theme-and-template-packs.md)).
 7. **Enable** the plugin if needed.
 
 **Permission consent**
 
-Every marketplace install shows what the plugin declared in its manifest:
+Every Hub install shows what the plugin declared in its manifest:
 
 - **Permissions** — admin capabilities (for example manage collections, read settings).
 - **Hooks** — events the plugin listens to (for example entry saved, user login).
@@ -37,9 +37,13 @@ Every marketplace install shows what the plugin declared in its manifest:
 
 You must accept before install proceeds. Consent is recorded per offer version. If a new version requests additional access, you see the consent screen again. See [Security and review](security-and-review.md) for denylist and revoking access.
 
+**Site packs**
+
+Filter Hub by **Site pack** (`template_pack`) to install collections + `project/` site files. Demo entries are opt-in. Missing **required plugins** need your confirm before the pack writes. You can also use **Upload pack** on the Installed tab for a private ZIP. Details: [Hub, themes, and site packs](theme-and-template-packs.md).
+
 **Updates**
 
-When a newer version is available, use **Update** on the Marketplace tab. The CMS re-downloads from the registry and verifies the checksum. Subscription licenses must stay active for updates to succeed.
+When a newer version is available, use **Update** on the Hub tab. The CMS re-downloads from the registry and verifies the checksum. Subscription licenses must stay active for updates to succeed. Site pack updates skip user-edited `project/` files and entry content.
 
 **Seat limits**
 

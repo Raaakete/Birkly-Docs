@@ -1,10 +1,10 @@
 # Marketplace — provider publishing guide
 
-Publish plugins, themes, and template packs on the [Birkly Marketplace](https://marketplace.birkly.io). This guide is for **providers** (developers and agencies who sell or distribute extensions). Buyers installing plugins in the CMS should see [Marketplace — buyer license and install](marketplace-buyer-guide.md) or [Marketplace go-live — installing plugins](marketplace-go-live.md).
+Publish plugins, themes, and site packs on the [Birkly Marketplace](https://marketplace.birkly.io). Buyers install them from the CMS **Hub**. This guide is for **providers** (developers and agencies who sell or distribute extensions). Buyers installing in the CMS should see [Marketplace — buyer license and install](marketplace-buyer-guide.md) or [Marketplace go-live — installing plugins](marketplace-go-live.md).
 
 ## Summary
 
-**Providers** create a marketplace account, accept the Provider Agreement, complete Stripe Connect onboarding, then publish offers with versioned zip artifacts. Each offer has a manifest (title, pricing, license seats, compatibility) and one or more releases. Automated preflight checks validate `plugin.json`, zip structure, and security patterns; verified-tier offers also go through manual review. Payouts flow through Stripe Connect after buyer checkout.
+**Providers** create a marketplace account, accept the Provider Agreement, complete Stripe Connect onboarding, then publish offers with versioned zip artifacts — including **site packs** (`offer_type: template_pack`). Each offer has a manifest (title, pricing, license seats, compatibility) and one or more releases. Automated preflight is offer-type-aware: plugins need `plugin.json`; site packs need starter/pack layout (`manifest.json` + `collections/` + `project/`). Verified-tier offers also go through manual review. Payouts flow through Stripe Connect after buyer checkout.
 
 ## Beginner
 
@@ -13,7 +13,10 @@ Publish plugins, themes, and template packs on the [Birkly Marketplace](https://
 1. A **provider account** on [marketplace.birkly.io](https://marketplace.birkly.io) (email + password — separate from your CMS admin login).
 2. Acceptance of the **Provider Agreement** (seller liability, content warranty).
 3. **Stripe Connect** onboarding (identity and payout details).
-4. A valid **plugin package** — a `.zip` containing at minimum `plugin.json` and `plugin.php` (or `index.php`).
+4. A valid **package** for your offer type:
+   - **Plugin** — `.zip` with at least `plugin.json` and `plugin.php` (or `index.php`)
+   - **Site pack** — `.zip` with `manifest.json` + `collections/` + `project/` (Ops starter shape; not `plugin.json`)
+   - **Theme** — theme zip that installs under `themes/`
 
 **Publishing steps**
 
@@ -23,15 +26,15 @@ Publish plugins, themes, and template packs on the [Birkly Marketplace](https://
 4. Complete **Stripe Connect** onboarding (charges and payouts must be enabled).
 5. Click **New offer** and fill in:
    - **Slug** — stable URL id (lowercase, hyphens, e.g. `my-seo-plugin`)
-   - **Title** and **summary** — shown in the public catalog
-   - **Offer type** — plugin, theme, or template pack
+   - **Title** and **summary** — shown in the public catalog and CMS Hub
+   - **Offer type** — plugin, theme, or site pack (`template_pack`)
    - **Category** and **tags** — help buyers find your offer
    - **Pricing** — free, one-time, or **subscription** (with currency, amount, and interval `month` / `year`)
    - **License seats** — single site, multi-site tiers, or unlimited
    - **Compatibility** — `requires_birkly` and `requires_php` semver ranges; optional capability declarations
-6. **Upload a release** — zip artifact for a semver version (e.g. `1.0.0`) plus changelog text.
+6. **Upload a release** — zip artifact for a semver version (e.g. `1.0.0`) plus changelog text. Match the zip layout to the offer type.
 7. **Publish** — preflight and QC run automatically; verified-tier offers enter a manual review queue first.
-8. After publish, your offer appears in the [public catalog](https://marketplace.birkly.io/catalog) and the registry API for CMS installs.
+8. After publish, your offer appears in the [public catalog](https://marketplace.birkly.io/catalog) and the registry API for CMS Hub installs.
 
 **After publish**
 
@@ -69,7 +72,11 @@ Stripe webhooks (`customer.subscription.updated`, `customer.subscription.deleted
 
 **Plugin package (`plugin.json`)**
 
-Artifacts are validated against `plugin-package.schema.json`. Required: `name`, `version`, `description`. Recommended: `requires_birkly`, `requires_php`, declared `capabilities` (least privilege).
+Plugin artifacts are validated against `plugin-package.schema.json`. Required: `name`, `version`, `description`. Recommended: `requires_birkly`, `requires_php`, declared `capabilities` (least privilege).
+
+**Site pack package**
+
+Site pack (`template_pack`) artifacts use the starter/pack layout. QC expects pack `manifest.json` + `collections/` + `project/` — a plugin zip fails pack preflight. Buyers install to `content/collections/` + `project/` (never `themes/`). See [Hub, themes, and site packs](../06-plugin-economy/theme-and-template-packs.md).
 
 **Registry API**
 
@@ -79,7 +86,7 @@ Published offers are exposed at:
 - `GET /api/v1/offer?slug={slug}` — offer detail + releases
 - `GET /api/v1/release?slug={slug}&version={version}` — release metadata + download URL
 
-The Birkly CMS marketplace client consumes these endpoints; do not break slug or checksum contracts without a major version bump.
+The Birkly CMS Hub client consumes these endpoints; do not break slug or checksum contracts without a major version bump.
 
 **Trust levels**
 

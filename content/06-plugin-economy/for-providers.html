@@ -1,5 +1,5 @@
-<p>Developers and agencies publish plugins, themes, and template packs on the Birkly Marketplace. Providers manage offers through <strong>Provider Studio</strong>, receive payouts via Stripe Connect, and pass automated quality checks before listings go live.</p>
-<div class="doc-summary"><p><strong>Providers</strong> sign up at <a href="https://providers.birkly.cloud">providers.birkly.cloud</a>, accept the Provider Agreement, complete Stripe Connect onboarding, then publish versioned offers with zip artifacts. Each offer has pricing (free, one-time, or subscription), license seat tiers, and declared plugin capabilities. Automated preflight validates structure and security; verified-tier offers also receive manual review. Payouts flow to your Connect account after buyer checkout.</p></div>
+<p>Developers and agencies publish plugins, themes, and site packs on the Birkly Marketplace. Buyers install them from the CMS <strong>Hub</strong>. Providers manage offers through <strong>Provider Studio</strong>, receive payouts via Stripe Connect, and pass automated quality checks before listings go live.</p>
+<div class="doc-summary"><p><strong>Providers</strong> sign up at <a href="https://providers.birkly.cloud">providers.birkly.cloud</a>, accept the Provider Agreement, complete Stripe Connect onboarding, then publish versioned offers with zip artifacts — including <strong>site packs</strong> (<code>offer_type: template_pack</code>). Each offer has pricing (free, one-time, or subscription), license seat tiers, and declared capabilities. Automated preflight is offer-type-aware (plugin vs pack layout); verified-tier offers also receive manual review. Payouts flow to your Connect account after buyer checkout.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Who is a provider</strong></p>
 <p>A <strong>provider</strong> (also called publisher or seller) is anyone who lists extensions on the marketplace — independent developers, agencies, or Birkly itself for official plugins. Providers are <strong>not</strong> the same as CMS admin users on customer sites.</p>
 <p><strong>Getting started</strong></p>
@@ -13,7 +13,8 @@
 <li>Your offer appears in the <a href="https://marketplace.birkly.cloud/catalog">public catalog</a> and the registry API for CMS installs.</li>
 </ol>
 <p><strong>What you can sell</strong></p>
-<p>| Offer type | Examples | |------------|----------| | <strong>Plugin</strong> | SEO tools, integrations, custom field types | | <strong>Theme</strong> | Admin or storefront styling packages | | <strong>Template pack</strong> | Pre-built collections plus public site files |</p>
+<p>| Offer type | <code>offer_type</code> | Examples / install target | |------------|--------------|---------------------------| | <strong>Plugin</strong> | <code>plugin</code> | SEO tools, integrations, custom field types → <code>plugins/</code> | | <strong>Theme</strong> | <code>theme</code> | Styling packages → <code>themes/</code> | | <strong>Site pack</strong> | <code>template_pack</code> | Collections + <code>project/</code> site files (same zip shape as Ops starters) |</p>
+<p>Site pack ZIPs need <code>manifest.json</code> + <code>collections/</code> + <code>project/</code> — not <code>plugin.json</code>. Buyers install from <strong>Plugins → Hub</strong> or <strong>Upload pack</strong>. See <a href="theme-and-template-packs.html">Hub, themes, and site packs</a>.</p>
 <p><strong>Pricing options</strong></p>
 <p>| Model | Buyer experience | |-------|------------------| | <strong>Free</strong> | Email capture optional; CMS one-click or license key | | <strong>One-time</strong> | Single payment; perpetual license per seat tier | | <strong>Subscription</strong> | Monthly or yearly billing; license active while subscribed |</p>
 <p><strong>After publish</strong></p>
@@ -34,7 +35,7 @@
 <li><code>GET /api/v1/offer?slug={slug}</code> — detail plus releases</li>
 <li><code>GET /api/v1/release?slug={slug}&amp;version={version}</code> — download metadata</li>
 </ul>
-<p>The CMS marketplace client consumes these endpoints. Do not break slug or checksum contracts without a major version bump.</p>
+<p>The CMS Hub client consumes these endpoints. Do not break slug or checksum contracts without a major version bump.</p>
 <p><strong>Revenue split</strong></p>
 <p>Buyer pays gross price → Stripe fee → Birkly application fee → remainder to your Stripe Connect account. Refunds are primarily the provider's responsibility per the Provider Agreement.</p>
 <p><strong>QC pipeline</strong></p>
@@ -44,7 +45,7 @@
 <li><a href="overview.html">Plugin economy overview</a></li>
 <li><a href="plugin-development.html">Plugin development</a></li>
 <li><a href="security-and-review.html">Security and review</a></li>
-<li><a href="theme-and-template-packs.html">Themes and template packs</a></li>
+<li><a href="theme-and-template-packs.html">Hub, themes, and site packs</a></li>
 <li><a href="../06-extensibility/marketplace-provider-guide.html">Marketplace — provider publishing guide</a></li>
 <li><a href="https://providers.birkly.cloud">Provider Studio</a></li>
 </ul></div>

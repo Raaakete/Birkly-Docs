@@ -4,7 +4,7 @@ Birkly publishes and maintains a set of **official plugins** on the marketplace.
 
 ## Summary
 
-**Official Birkly plugins** — Commerce, Events, Automation, and User Management — are **free** marketplace offers installed in one click from **Plugins → Marketplace**. Additional official extensions (for example SEO Basics, Analytics Pro) may be **paid** or **subscription** offers. **Third-party** plugins are published by independent providers; review trust level, permissions consent, and reviews before installing. CMS downloads ship without bundled plugins — install what you need from the marketplace.
+**Official Birkly plugins** — Commerce, Events, Automation, and User Management — are **free** marketplace offers installed in one click from **Plugins → Hub**. Additional official extensions (for example SEO Basics, Analytics Pro) may be **paid** or **subscription** offers. **Third-party** plugins are published by independent providers; review trust level, permissions consent, and reviews before installing. CMS downloads ship without bundled plugins — install what you need from the Hub.
 
 ## Beginner
 
@@ -14,7 +14,7 @@ These four plugins cover common site needs and are maintained by Birkly:
 
 | Plugin | What it adds | Install |
 |--------|--------------|---------|
-| **Commerce** | Products, cart, checkout, orders, payments | **Plugins → Marketplace → Install** |
+| **Commerce** | Products, cart, checkout, orders, payments | **Plugins → Hub → Install** |
 | **Events** | Events, RSVP, paid tickets (uses Commerce for sales) | Same |
 | **Automation** | Workflows, triggers, conditions, actions | Same |
 | **User Management** | Registration, login, tiers, permissions | Same |
@@ -30,7 +30,7 @@ No checkout, license key, or marketplace buyer account is required for these fou
 
 **Paid official plugins**
 
-Some Birkly-published extensions are paid one-time or subscription offers on the marketplace. They show a **price badge** and **Purchase** button in the CMS Marketplace tab. Complete checkout, activate your license, accept permission consent, then install.
+Some Birkly-published extensions are paid one-time or subscription offers on the marketplace. They show a **price badge** and **Purchase** button in the CMS Hub tab. Complete checkout, activate your license, accept permission consent, then install.
 
 **Third-party plugins**
 

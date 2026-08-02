@@ -47,10 +47,13 @@
         <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
         <a href="../02-content/collections.html" class="nav-link">Collections</a>
         <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
         <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
         <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
         <a href="../02-content/field-types.html" class="nav-link">Field types</a>
         <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
         <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
@@ -124,7 +127,7 @@
         <a href="for-providers.html" class="nav-link">For providers</a>
         <a href="plugin-development.html" class="nav-link">Plugin development</a>
         <a href="plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
-        <a href="theme-and-template-packs.html" class="nav-link">Themes and template packs</a>
+        <a href="theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="security-and-review.html" class="nav-link">Security and review</a>
         <a href="official-plugins.html" class="nav-link">Official plugins</a>
         <a href="api-reference.html" class="nav-link">API reference</a>
@@ -153,12 +156,12 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Install plugins, themes, and template packs from the Birkly Marketplace directly in your CMS admin. Free official plugins install in one click; paid and third-party offers require checkout and a license key.</p>
-<div class="doc-summary"><p>Open <strong>Plugins → Marketplace</strong> in the admin to browse the catalog, install free official extensions, or activate a license for paid offers. Before install, the CMS shows a <strong>permission consent</strong> screen listing what the plugin can access. Updates download from the registry with SHA-256 verification. Marketplace buyer accounts are separate from your CMS login.</p></div>
+        <div class="doc-content"><p>Install plugins, themes, and site packs from the Birkly Hub in your CMS admin (catalog backed by the Birkly Marketplace). Free official plugins install in one click; paid and third-party offers require checkout and a license key.</p>
+<div class="doc-summary"><p>Open <strong>Plugins → Hub</strong> in the admin to browse the catalog, install free official extensions, or activate a license for paid offers. Before install, the CMS shows a <strong>permission consent</strong> screen listing what the plugin can access. Updates download from the registry with SHA-256 verification. Marketplace buyer accounts are separate from your CMS login. APIs may still use <code>marketplace_*</code> names.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Install a free official plugin</strong></p>
 <ol>
 <li>Log in to <strong>admin</strong> (<code>/admin</code>).</li>
-<li>Go to <strong>Plugins → Marketplace</strong>.</li>
+<li>Go to <strong>Plugins → Hub</strong>.</li>
 <li>Find an official Birkly offer (Commerce, Events, Automation, User Management).</li>
 <li>Review the <strong>permissions</strong> summary if prompted.</li>
 <li>Click <strong>Install</strong> — no checkout or license key needed for free official plugins.</li>
@@ -166,24 +169,26 @@
 </ol>
 <p><strong>Buy and install a paid or third-party extension</strong></p>
 <ol>
-<li>Browse <a href="https://marketplace.birkly.cloud/catalog">marketplace.birkly.cloud/catalog</a> or the CMS Marketplace tab.</li>
+<li>Browse <a href="https://marketplace.birkly.cloud/catalog">marketplace.birkly.cloud/catalog</a> or the CMS <strong>Hub</strong> tab.</li>
 <li>Click <strong>Purchase</strong> or <strong>Buy</strong> on the offer.</li>
 <li>Complete checkout with your email (Stripe for paid offers).</li>
-<li>Return to <strong>Plugins → Marketplace</strong> → <strong>Activate license</strong> (or paste the key from your email).</li>
+<li>Return to <strong>Plugins → Hub</strong> → <strong>Activate license</strong> (or paste the key from your email).</li>
 <li>Review <strong>permission consent</strong> — read what data and admin areas the plugin requests.</li>
-<li>Accept and <strong>Install</strong>. The CMS downloads, verifies, and extracts the plugin.</li>
+<li>Accept and <strong>Install</strong>. The CMS downloads, verifies, and extracts the plugin (or site pack — see <a href="theme-and-template-packs.html">Hub, themes, and site packs</a>).</li>
 <li><strong>Enable</strong> the plugin if needed.</li>
 </ol>
 <p><strong>Permission consent</strong></p>
-<p>Every marketplace install shows what the plugin declared in its manifest:</p>
+<p>Every Hub install shows what the plugin declared in its manifest:</p>
 <ul>
 <li><strong>Permissions</strong> — admin capabilities (for example manage collections, read settings).</li>
 <li><strong>Hooks</strong> — events the plugin listens to (for example entry saved, user login).</li>
 <li><strong>Data access</strong> — read or write access to entries, media, users, or settings.</li>
 </ul>
 <p>You must accept before install proceeds. Consent is recorded per offer version. If a new version requests additional access, you see the consent screen again. See <a href="security-and-review.html">Security and review</a> for denylist and revoking access.</p>
+<p><strong>Site packs</strong></p>
+<p>Filter Hub by <strong>Site pack</strong> (<code>template_pack</code>) to install collections + <code>project/</code> site files. Demo entries are opt-in. Missing <strong>required plugins</strong> need your confirm before the pack writes. You can also use <strong>Upload pack</strong> on the Installed tab for a private ZIP. Details: <a href="theme-and-template-packs.html">Hub, themes, and site packs</a>.</p>
 <p><strong>Updates</strong></p>
-<p>When a newer version is available, use <strong>Update</strong> on the Marketplace tab. The CMS re-downloads from the registry and verifies the checksum. Subscription licenses must stay active for updates to succeed.</p>
+<p>When a newer version is available, use <strong>Update</strong> on the Hub tab. The CMS re-downloads from the registry and verifies the checksum. Subscription licenses must stay active for updates to succeed. Site pack updates skip user-edited <code>project/</code> files and entry content.</p>
 <p><strong>Seat limits</strong></p>
 <p>Licenses bind to your site's <strong>installation ID</strong>. A single-site tier allows one CMS install. Multi-site tiers cover staging plus production. If activation fails with a seat error, deactivate on an old install or upgrade your license tier.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Installation flow</strong></p>

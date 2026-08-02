@@ -38,7 +38,7 @@ Plugins run with the same access as the CMS. They can read and change content an
 
 **Official plugins (marketplace)**
 
-CMS downloads do **not** include plugins. Install official Birkly extensions from **Plugins → Marketplace** (free, one-click) or [marketplace.birkly.io](https://marketplace.birkly.io).
+CMS downloads do **not** include plugins. Install official Birkly extensions from **Plugins → Hub** (free, one-click) or [marketplace.birkly.io](https://marketplace.birkly.io).
 
 | Plugin | Marketplace | Docs |
 |--------|-------------|------|

@@ -1,10 +1,10 @@
 # For providers — publish on the marketplace
 
-Developers and agencies publish plugins, themes, and template packs on the Birkly Marketplace. Providers manage offers through **Provider Studio**, receive payouts via Stripe Connect, and pass automated quality checks before listings go live.
+Developers and agencies publish plugins, themes, and site packs on the Birkly Marketplace. Buyers install them from the CMS **Hub**. Providers manage offers through **Provider Studio**, receive payouts via Stripe Connect, and pass automated quality checks before listings go live.
 
 ## Summary
 
-**Providers** sign up at [providers.birkly.cloud](https://providers.birkly.cloud), accept the Provider Agreement, complete Stripe Connect onboarding, then publish versioned offers with zip artifacts. Each offer has pricing (free, one-time, or subscription), license seat tiers, and declared plugin capabilities. Automated preflight validates structure and security; verified-tier offers also receive manual review. Payouts flow to your Connect account after buyer checkout.
+**Providers** sign up at [providers.birkly.cloud](https://providers.birkly.cloud), accept the Provider Agreement, complete Stripe Connect onboarding, then publish versioned offers with zip artifacts — including **site packs** (`offer_type: template_pack`). Each offer has pricing (free, one-time, or subscription), license seat tiers, and declared capabilities. Automated preflight is offer-type-aware (plugin vs pack layout); verified-tier offers also receive manual review. Payouts flow to your Connect account after buyer checkout.
 
 ## Beginner
 
@@ -24,11 +24,13 @@ A **provider** (also called publisher or seller) is anyone who lists extensions 
 
 **What you can sell**
 
-| Offer type | Examples |
-|------------|----------|
-| **Plugin** | SEO tools, integrations, custom field types |
-| **Theme** | Admin or storefront styling packages |
-| **Template pack** | Pre-built collections plus public site files |
+| Offer type | `offer_type` | Examples / install target |
+|------------|--------------|---------------------------|
+| **Plugin** | `plugin` | SEO tools, integrations, custom field types → `plugins/` |
+| **Theme** | `theme` | Styling packages → `themes/` |
+| **Site pack** | `template_pack` | Collections + `project/` site files (same zip shape as Ops starters) |
+
+Site pack ZIPs need `manifest.json` + `collections/` + `project/` — not `plugin.json`. Buyers install from **Plugins → Hub** or **Upload pack**. See [Hub, themes, and site packs](theme-and-template-packs.md).
 
 **Pricing options**
 
@@ -67,7 +69,7 @@ Published offers appear at:
 - `GET /api/v1/offer?slug={slug}` — detail plus releases
 - `GET /api/v1/release?slug={slug}&version={version}` — download metadata
 
-The CMS marketplace client consumes these endpoints. Do not break slug or checksum contracts without a major version bump.
+The CMS Hub client consumes these endpoints. Do not break slug or checksum contracts without a major version bump.
 
 **Revenue split**
 
@@ -84,6 +86,6 @@ For step-by-step publishing instructions, manifest examples, GitHub App automati
 - [Plugin economy overview](overview.md)
 - [Plugin development](plugin-development.md)
 - [Security and review](security-and-review.md)
-- [Themes and template packs](theme-and-template-packs.md)
+- [Hub, themes, and site packs](theme-and-template-packs.md)
 - [Marketplace — provider publishing guide](../06-extensibility/marketplace-provider-guide.md)
 - [Provider Studio](https://providers.birkly.cloud)

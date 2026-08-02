@@ -1,13 +1,13 @@
-<p>Birkly separates the <strong>CMS core</strong> (your self-hosted site), the <strong>Marketplace</strong> (where extensions are bought and distributed), and <strong>Ops</strong> (Birkly platform services such as starter packs and release checks). Plugins extend the CMS without changing core code.</p>
-<div class="doc-summary"><p>The <strong>plugin economy</strong> is how Birkly distributes extensions: <strong>official and third-party offers</strong> on the <a href="https://marketplace.birkly.cloud">Birkly Marketplace</a>, <strong>one-click or licensed installs</strong> in the CMS admin, and <strong>Ops-hosted starter packs</strong> for onboarding. The CMS ships as a thin runtime — no bundled plugins — so you choose only what you need. Marketplace accounts are separate from CMS admin logins.</p></div>
+<p>Birkly separates the <strong>CMS core</strong> (your self-hosted site), the <strong>Marketplace</strong> (where extensions are bought and distributed), and <strong>Ops</strong> (Birkly platform services such as starter packs and release checks). In the CMS admin, buyers install from <strong>Plugins → Hub</strong>. Plugins extend the CMS without changing core code.</p>
+<div class="doc-summary"><p>The <strong>plugin economy</strong> is how Birkly distributes extensions: <strong>official and third-party offers</strong> on the <a href="https://marketplace.birkly.cloud">Birkly Marketplace</a>, <strong>one-click or licensed installs</strong> in the CMS <strong>Hub</strong>, and <strong>Ops-hosted starter packs</strong> for onboarding. The CMS ships as a thin runtime — no bundled plugins — so you choose only what you need. Marketplace accounts are separate from CMS admin logins.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Three surfaces, one ecosystem</strong></p>
 <p>| Surface | What it is | Who uses it | |---------|------------|-------------| | <strong>Birkly CMS</strong> | Your self-hosted site admin and API | Site owners, editors, developers | | <strong>Marketplace</strong> | Public catalog, checkout, and plugin registry | Buyers and providers | | <strong>Ops</strong> | Birkly platform services (starters, feedback relay, release checks) | CMS onboarding; platform staff |</p>
 <p><strong>How it fits together</strong></p>
 <ol>
 <li>You download and run <strong>Birkly CMS</strong> on your server. The <code>plugins/</code> folder starts empty.</li>
-<li>You browse <strong>Plugins → Marketplace</strong> in the admin or visit <a href="https://marketplace.birkly.cloud/catalog">marketplace.birkly.cloud/catalog</a>.</li>
+<li>You browse <strong>Plugins → Hub</strong> in the admin or visit <a href="https://marketplace.birkly.cloud/catalog">marketplace.birkly.cloud/catalog</a>.</li>
 <li>You <strong>install</strong> free official plugins in one click, or <strong>purchase</strong> paid and third-party offers and activate a license.</li>
-<li>During onboarding, you can install a <strong>starter pack</strong> from Ops — demo collections and a sample public site under <code>project/</code> — without using the marketplace.</li>
+<li>During onboarding, you can install a <strong>starter pack</strong> from Ops — demo collections and a sample public site under <code>project/</code> — without using the marketplace. Hub site packs use the same zip shape.</li>
 </ol>
 <p><strong>Why unbundled plugins</strong></p>
 <p>Keeping plugins out of the CMS zip keeps downloads small, lets you skip features you do not need, and ensures updates come from a single registry with checksum verification. Official Birkly plugins (Commerce, Events, Automation, User Management) remain free on the marketplace.</p>
@@ -19,8 +19,8 @@
 <p>| Account type | Scope | |--------------|-------| | CMS admin user | Local site roles and permissions | | Marketplace buyer | Licenses, purchases, subscriptions | | Marketplace provider | Offers, Stripe Connect, payouts |</p>
 <p>License activation binds <code>license_key + installation_id</code> (local CMS UUID). Provider and buyer accounts do not grant CMS admin access.</p>
 <p><strong>Offer types on the marketplace</strong></p>
-<p>| <code>offer_type</code> | Installs to | Typical use | |--------------|-------------|-------------| | <code>plugin</code> | <code>plugins/{folder}/</code> | Admin features, APIs, field types | | <code>theme</code> | Theme paths per manifest | Visual styling | | <code>template_pack</code> | Collections + <code>project/</code> site files | Site templates sold as products |</p>
-<p>Ops <strong>starter packs</strong> are platform-curated template packs served outside the marketplace catalog during onboarding; see <a href="theme-and-template-packs.html">Themes and template packs</a>.</p></div></details>
+<p>| <code>offer_type</code> | Installs to | Typical use | |--------------|-------------|-------------| | <code>plugin</code> | <code>plugins/{folder}/</code> | Admin features, APIs, field types | | <code>theme</code> | <code>themes/{id}/</code> | Visual styling packages | | <code>template_pack</code> | <code>content/collections/</code> + <code>project/</code> | Site packs (never <code>themes/</code>) |</p>
+<p>Admin UI label is <strong>Hub</strong>; registry/API names may still say marketplace. Ops <strong>starter packs</strong> are platform-curated packs served outside the marketplace catalog during onboarding; see <a href="theme-and-template-packs.html">Hub, themes, and site packs</a>.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="for-site-owners.html">For site owners</a></li>
 <li><a href="official-plugins.html">Official plugins</a></li>

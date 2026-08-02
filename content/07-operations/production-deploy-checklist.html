@@ -7,7 +7,7 @@
 <li>Pull latest <code>main</code> on the server (or run <code>./scripts/deploy-pull.sh</code>).</li>
 <li>Ensure writable dirs: <code>content/</code>, <code>media/</code>, <code>settings/</code>, <code>data/</code>, <code>cache/</code>, <code>logs/</code>.</li>
 <li>Run smoke script: <code>./scripts/production-smoke.sh</code> (or manual checks below).</li>
-<li>Log in to admin; verify <strong>Commerce</strong>, <strong>Plugins → Marketplace</strong>, <strong>Settings → Security</strong>, and <strong>Settings → Monitoring</strong> load.</li>
+<li>Log in to admin; verify <strong>Commerce</strong>, <strong>Plugins → Hub</strong>, <strong>Settings → Security</strong>, and <strong>Settings → Monitoring</strong> load.</li>
 <li>Hit <code>GET /api/health.php</code> — extended checks: disk writable, plugin state, marketplace reachability. Configure alert email in Monitoring before go-live (see <a href="monitoring-alerts.html">Monitoring and health alerts</a>).</li>
 </ol>
 <h3>Marketplace deploy</h3>
@@ -37,7 +37,7 @@
 <li>[ ] Monitoring alerts configured</li>
 </ul>
 <h3>Post-deploy smoke (manual)</h3>
-<p>| Check | Expected | |-------|----------| | Admin login | <code>/admin</code> loads | | Commerce catalog | Products indexed | | Marketplace tab | Official plugins install | | Health endpoint | HTTP 200, checks pass | | Checkout (test) | Test mode order or small live transaction | | Subscriptions | List loads; upgrade UI on detail | | Plugin denylist | Add/remove test entry in Settings → Security |</p>
+<p>| Check | Expected | |-------|----------| | Admin login | <code>/admin</code> loads | | Commerce catalog | Products indexed | | Hub tab | Official plugins install | | Health endpoint | HTTP 200, checks pass | | Checkout (test) | Test mode order or small live transaction | | Subscriptions | List loads; upgrade UI on detail | | Plugin denylist | Add/remove test entry in Settings → Security |</p>
 <h3>Rollback</h3>
 <ol>
 <li>Revert server git to previous SHA.</li>

@@ -16,6 +16,15 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-02 — Hub & site packs (P53-M12)
+
+- **Rewritten:** `06-plugin-economy/theme-and-template-packs.md` — Hub naming, site packs (`template_pack` → `content/collections/` + `project/`, never `themes/`), Upload pack, required-plugins confirm, demo opt-in, safe updates, provider publish.
+- **Updated (buyer-facing Hub label):** `for-site-owners.md`, `marketplace-buyer-guide.md`, `marketplace-go-live.md`, `plugins.md`, `overview.md`, `official-plugins.md`.
+- **Updated (providers):** `for-providers.md`, `marketplace-provider-guide.md` — site pack offer type and pack ZIP layout.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json` labels/keywords.
+
+---
+
 ## 2026-07-29 — Content model documentation hub (P50)
 
 - **New:** `02-content/content-model-overview.md` — decision tree, blog/site-elements/forms examples, best practices.

@@ -82,6 +82,17 @@ Paid checkout issues an entitlement and a fallback activation key. Free and free
 
 Single-site tiers allow **one production** activation plus **one staging** activation. Buyers can deactivate an old installation to free that environment seat. Multi-site and unlimited tiers follow the seat limits declared on the offer.
 
+**Partner keys (complimentary entitlements)**
+
+Use **Partner keys** in Provider Studio when you want to give a friend, agency, or press contact access to a **paid or freemium** offer without sending them through checkout:
+
+1. Open **Partner keys** and choose the offer.
+2. Optionally set a recipient email, internal note, and expiry date.
+3. Generate the key and share it securely — they activate it in Birkly Hub like a purchased key.
+4. Revoke the key later if the partnership ends.
+
+Partner keys use the same seat rules as paid purchases. They are audited and count toward a soft monthly limit (default 50 per 30 days; Ops can raise). Pure free catalog offers already install without keys, so partner keys are not issued for those. Prefer partner keys for one-off handoffs; use promo/discount codes when you want a reusable marketing campaign.
+
 **Plugin package (`plugin.json`)**
 
 Plugin artifacts are validated against `plugin-package.schema.json`. Required: `name`, `version`, `description`. Recommended: `requires_birkly`, `requires_php`, declared `capabilities` (least privilege).

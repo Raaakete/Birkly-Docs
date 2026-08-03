@@ -46,6 +46,15 @@
 <p><strong>Entitlements and seats</strong></p>
 <p>Paid checkout issues an entitlement and a fallback activation key. Free and freemium offers issue hidden entitlements so buyers do not see or copy keys. A signed local entitlement token lets the CMS continue checks during short outages; this is practical deterrence, not perfect DRM.</p>
 <p>Single-site tiers allow <strong>one production</strong> activation plus <strong>one staging</strong> activation. Buyers can deactivate an old installation to free that environment seat. Multi-site and unlimited tiers follow the seat limits declared on the offer.</p>
+<p><strong>Partner keys (complimentary entitlements)</strong></p>
+<p>Use <strong>Partner keys</strong> in Provider Studio when you want to give a friend, agency, or press contact access to a <strong>paid or freemium</strong> offer without sending them through checkout:</p>
+<ol>
+<li>Open <strong>Partner keys</strong> and choose the offer.</li>
+<li>Optionally set a recipient email, internal note, and expiry date.</li>
+<li>Generate the key and share it securely — they activate it in Birkly Hub like a purchased key.</li>
+<li>Revoke the key later if the partnership ends.</li>
+</ol>
+<p>Partner keys use the same seat rules as paid purchases. They are audited and count toward a soft monthly limit (default 50 per 30 days; Ops can raise). Pure free catalog offers already install without keys, so partner keys are not issued for those. Prefer partner keys for one-off handoffs; use promo/discount codes when you want a reusable marketing campaign.</p>
 <p><strong>Plugin package (<code>plugin.json</code>)</strong></p>
 <p>Plugin artifacts are validated against <code>plugin-package.schema.json</code>. Required: <code>name</code>, <code>version</code>, <code>description</code>. Recommended: <code>requires_birkly</code>, <code>requires_php</code>, declared <code>capabilities</code> (least privilege).</p>
 <p><strong>Site pack package</strong></p>

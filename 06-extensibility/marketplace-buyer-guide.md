@@ -51,6 +51,10 @@ Offers with **subscription** pricing (for example Analytics Pro) bill through St
 - **Freemium** installs create a hidden entitlement with plan capabilities. The CMS and plugin use those capabilities to decide which features are available, but buyers do not need to copy a key for the free plan.
 - Upgrading from trial or freemium to a paid plan goes through Stripe checkout.
 
+**Partner / complimentary keys**
+
+A provider may send you a **partner key** for a paid offer (friends, agencies, press). Activate it in Hub the same way as a purchased fallback key. Seat limits still apply, and the provider can revoke the key later.
+
 **Installing in Birkly CMS (paid / entitlement or activation key)**
 
 1. Log in to your Birkly **admin** (`/admin`).

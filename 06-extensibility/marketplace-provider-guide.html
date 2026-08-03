@@ -165,13 +165,13 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Publish plugins, themes, and site packs on the <a href="https://marketplace.birkly.io">Birkly Marketplace</a>. Buyers install them from the CMS <strong>Hub</strong>. This guide is for <strong>providers</strong> (developers and agencies who sell or distribute extensions). Buyers installing in the CMS should see <a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a> or <a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a>.</p>
-<div class="doc-summary"><p><strong>Providers</strong> create a marketplace account, accept the Provider Agreement, complete Stripe Connect onboarding, then publish offers with versioned zip artifacts — including <strong>site packs</strong> (<code>offer_type: template_pack</code>). Each offer has a manifest (title, pricing, license seats, compatibility) and one or more releases. Automated preflight is offer-type-aware: plugins need <code>plugin.json</code>; site packs need starter/pack layout (<code>manifest.json</code> + <code>collections/</code> + <code>project/</code>). Verified-tier offers also go through manual review. Payouts flow through Stripe Connect after buyer checkout.</p></div>
+        <div class="doc-content"><p>Publish plugins, themes, and site packs on the <a href="https://marketplace.birkly.io">Birkly Marketplace</a>. Buyers install them from the CMS <strong>Hub</strong>. This guide is for <strong>providers</strong> (developers and agencies who sell or distribute extensions). Buyers installing in the CMS should see <a href="marketplace-buyer-guide.html">Marketplace — buyer entitlement and install</a> or <a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a>.</p>
+<div class="doc-summary"><p><strong>Providers</strong> create a marketplace account, accept the Provider Agreement, complete Stripe Connect onboarding, then publish offers with versioned zip artifacts — including <strong>site packs</strong> (<code>offer_type: template_pack</code>). For third-party offers, the provider is the seller and merchant of record; Birkly collects a Stripe Connect application fee (default <strong>15%</strong>, configurable by Ops). Birkly is merchant of record only for official Birkly offers. P55 supports <strong>Stripe Connect only</strong> for Hub checkout and payouts; Mollie, multi-PSP, and regional PSPs are out of scope for this phase.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What you need before publishing</strong></p>
 <ol>
 <li>A <strong>provider account</strong> on <a href="https://marketplace.birkly.io">marketplace.birkly.io</a> (email + password — separate from your CMS admin login).</li>
 <li>Acceptance of the <strong>Provider Agreement</strong> (seller liability, content warranty).</li>
-<li><strong>Stripe Connect</strong> onboarding (identity and payout details).</li>
+<li><strong>Stripe Connect</strong> onboarding (identity and payout details). Paid third-party publishing is limited to countries where Stripe supports connected accounts.</li>
 <li>A valid <strong>package</strong> for your offer type:</li>
 </ol>
 <p>   - <strong>Plugin</strong> — <code>.zip</code> with at least <code>plugin.json</code> and <code>plugin.php</code> (or <code>index.php</code>)    - <strong>Site pack</strong> — <code>.zip</code> with <code>manifest.json</code> + <code>collections/</code> + <code>project/</code> (Ops starter shape; not <code>plugin.json</code>)    - <strong>Theme</strong> — theme zip that installs under <code>themes/</code></p>
@@ -180,10 +180,10 @@
 <li>Sign up at <strong>Provider → Sign up</strong> on the marketplace site.</li>
 <li>Log in and open <strong>Provider dashboard</strong>.</li>
 <li>Accept the <strong>Provider Agreement</strong> when prompted.</li>
-<li>Complete <strong>Stripe Connect</strong> onboarding (charges and payouts must be enabled).</li>
+<li>Complete <strong>Stripe Connect</strong> onboarding (charges and payouts must be enabled). P55 does not support Mollie or another PSP for Hub provider payouts.</li>
 <li>Click <strong>New offer</strong> and fill in:</li>
 </ol>
-<p>   - <strong>Slug</strong> — stable URL id (lowercase, hyphens, e.g. <code>my-seo-plugin</code>)    - <strong>Title</strong> and <strong>summary</strong> — shown in the public catalog and CMS Hub    - <strong>Offer type</strong> — plugin, theme, or site pack (<code>template_pack</code>)    - <strong>Category</strong> and <strong>tags</strong> — help buyers find your offer    - <strong>Pricing</strong> — free, one-time, or <strong>subscription</strong> (with currency, amount, and interval <code>month</code> / <code>year</code>)    - <strong>License seats</strong> — single site, multi-site tiers, or unlimited    - <strong>Compatibility</strong> — <code>requires_birkly</code> and <code>requires_php</code> semver ranges; optional capability declarations</p>
+<p>   - <strong>Slug</strong> — stable URL id (lowercase, hyphens, e.g. <code>my-seo-plugin</code>)    - <strong>Title</strong> and <strong>summary</strong> — shown in the public catalog and CMS Hub    - <strong>Offer type</strong> — plugin, theme, or site pack (<code>template_pack</code>)    - <strong>Category</strong> and <strong>tags</strong> — help buyers find your offer    - <strong>Pricing</strong> — free, freemium, no-card trial, one-time, or <strong>subscription</strong> (with currency, amount, and interval <code>month</code> / <code>year</code>)    - <strong>Entitlement seats</strong> — single site, multi-site tiers, or unlimited    - <strong>Compatibility</strong> — <code>requires_birkly</code> and <code>requires_php</code> semver ranges; optional capability declarations</p>
 <ol>
 <li><strong>Upload a release</strong> — zip artifact for a semver version (e.g. <code>1.0.0</code>) plus changelog text. Match the zip layout to the offer type.</li>
 <li><strong>Publish</strong> — preflight and QC run automatically; verified-tier offers enter a manual review queue first.</li>
@@ -195,11 +195,13 @@
 <li>View sales and payouts in the provider dashboard (Stripe Connect).</li>
 <li>Reply once to verified-purchase reviews on your listing.</li>
 <li><strong>Connect GitHub</strong> (optional) — automate release builds when you push tags (see below).</li>
-</ul></div></details>
+</ul>
+<p><strong>Provider responsibility</strong></p>
+<p>For third-party offers, you are the seller and merchant of record. You are responsible for the listing, support, taxes or invoices required by your jurisdiction, and the first refund decision. Birkly operates the platform, official Birkly offers, marketplace infrastructure, and Ops escalation.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Manifest schema</strong></p>
 <p>Offers validate against <code>offer-manifest.schema.json</code> in the marketplace repo. Required fields include <code>slug</code>, <code>title</code>, <code>summary</code>, <code>offer_type</code>, <code>category</code>, <code>pricing</code>, <code>license</code>, <code>compatibility</code>, <code>trust_level</code>, and at least one <code>releases[]</code> entry with artifact URL, SHA-256 checksum, and size.</p>
 <p><strong>Pricing models</strong></p>
-<p>| <code>pricing.model</code> | Fields | Buyer experience | |-----------------|--------|------------------| | <code>free</code> | <code>amount_cents: 0</code> | Checkout may capture email; CMS one-click or license | | <code>one_time</code> | <code>amount_cents</code> &gt; 0, <code>currency</code> | Single Stripe payment; perpetual license per seat tier | | <code>subscription</code> | <code>amount_cents</code> &gt; 0, <code>currency</code>, <code>subscription_interval</code> (<code>month</code> / <code>year</code>) | Stripe Billing; license <code>active</code> while subscription active; revoked on <code>customer.subscription.deleted</code> |</p>
+<p>| <code>pricing.model</code> | Fields | Buyer experience | |-----------------|--------|------------------| | <code>free</code> | <code>amount_cents: 0</code> | CMS installs immediately; hidden entitlement, no visible key | | <code>freemium</code> | Free plan plus paid plans/capabilities | Hidden free entitlement with plan capabilities; paid upgrade uses Stripe | | <code>trial</code> | <code>trial_days</code>, optional paid plan | No-card trial entitlement until <code>trial_ends_at</code>; no offline extension past trial end | | <code>one_time</code> | <code>amount_cents</code> &gt; 0, <code>currency</code> | Single Stripe payment; entitlement plus fallback activation key per seat tier | | <code>subscription</code> | <code>amount_cents</code> &gt; 0, <code>currency</code>, <code>subscription_interval</code> (<code>month</code> / <code>year</code>) | Stripe Billing; entitlement active while subscription active; lapsed subscriptions lose update/install rights after grace |</p>
 <p>Example subscription block in offer manifest:</p>
 <pre><code>&quot;pricing&quot;: {
   &quot;model&quot;: &quot;subscription&quot;,
@@ -207,7 +209,10 @@
   &quot;currency&quot;: &quot;USD&quot;,
   &quot;subscription_interval&quot;: &quot;month&quot;
 }</code></pre>
-<p>Stripe webhooks (<code>customer.subscription.updated</code>, <code>customer.subscription.deleted</code>) update license status. CMS update checks call <code>GET /api/v1/licenses/status</code> and block updates when subscription lapses.</p>
+<p>Stripe webhooks (<code>customer.subscription.updated</code>, <code>customer.subscription.deleted</code>) update entitlement/license status. CMS update checks call the marketplace status API and block updates when subscription access lapses.</p>
+<p><strong>Entitlements and seats</strong></p>
+<p>Paid checkout issues an entitlement and a fallback activation key. Free and freemium offers issue hidden entitlements so buyers do not see or copy keys. A signed local entitlement token lets the CMS continue checks during short outages; this is practical deterrence, not perfect DRM.</p>
+<p>Single-site tiers allow <strong>one production</strong> activation plus <strong>one staging</strong> activation. Buyers can deactivate an old installation to free that environment seat. Multi-site and unlimited tiers follow the seat limits declared on the offer.</p>
 <p><strong>Plugin package (<code>plugin.json</code>)</strong></p>
 <p>Plugin artifacts are validated against <code>plugin-package.schema.json</code>. Required: <code>name</code>, <code>version</code>, <code>description</code>. Recommended: <code>requires_birkly</code>, <code>requires_php</code>, declared <code>capabilities</code> (least privilege).</p>
 <p><strong>Site pack package</strong></p>
@@ -229,7 +234,14 @@
 <li>Declared capabilities should match what the plugin requests at install time.</li>
 </ul>
 <p><strong>Revenue</strong></p>
-<p>Stripe Connect splits: buyer pays gross price → Stripe fee → Birkly application fee → remainder to your Connect account. Refunds are primarily the provider's responsibility; see the Provider Agreement.</p>
+<p>Stripe Connect splits: buyer pays gross price → Stripe fee → Birkly application fee → remainder to your Connect account. The default Birkly application fee is <strong>15%</strong>; Ops may override the fee for a provider or agreement. Paid third-party offers can only be sold by providers in Stripe-supported connected-account countries during P55.</p>
+<p><strong>Refunds and chargebacks</strong></p>
+<ul>
+<li>Buyers may request refunds within the default <strong>14-day</strong> window.</li>
+<li>Providers approve or deny third-party refund requests first; Birkly Ops can escalate under marketplace policy.</li>
+<li>A full refund revokes the entitlement and active activation slots.</li>
+<li>Chargebacks put the entitlement on <strong>hold</strong> immediately. If the dispute is lost, the entitlement is revoked; if won, Ops may restore access.</li>
+</ul>
 <p><strong>GitHub App — automated releases (Phase 12)</strong></p>
 <p>Third-party providers can connect a repository so new tags trigger build → preflight → QC enqueue (offers are <strong>not</strong> auto-published).</p>
 <ol>
@@ -251,7 +263,7 @@
 <p><strong>Stripe webhooks (platform)</strong></p>
 <p>Marketplace operators configure Stripe → <code>POST /webhooks/stripe</code> for <code>account.updated</code>, <code>payment_intent.succeeded</code>, <code>charge.refunded</code>. Provider dashboard payout charts read from Connect APIs.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
+<li><a href="marketplace-buyer-guide.html">Marketplace — buyer entitlement and install</a></li>
 <li><a href="plugins.html">Plugins</a> — managing plugins in the CMS admin</li>
 <li><a href="updates.html">Updates</a> — updating marketplace-sourced plugins</li>
 <li><a href="https://marketplace.birkly.io">Birkly Marketplace</a> — public catalog and provider signup</li>

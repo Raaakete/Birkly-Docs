@@ -4,7 +4,7 @@ Integrators and developers consume Birkly marketplace and Ops APIs to browse off
 
 ## Summary
 
-The **marketplace registry API** exposes catalog, offer detail, release downloads, and license status at `marketplace.birkly.cloud/api/v1/`. The **Ops starter API** lists and downloads onboarding template packs at `ops.birkly.cloud/api/ops/v1/starters`. CMS installs use `installation_id` for license activation. Override base URLs via environment variables or settings files for staging.
+The **marketplace registry API** exposes catalog, offer detail, release downloads, checkout, entitlement/license activation, and status at `marketplace.birkly.cloud/api/v1/`. The **Ops starter API** lists and downloads onboarding template packs at `ops.birkly.cloud/api/ops/v1/starters`. CMS installs use `installation_id` for entitlement seats; paid offers keep license-key activation as a fallback. Override base URLs via environment variables or settings files for staging.
 
 ## Beginner
 
@@ -33,10 +33,11 @@ Override in CMS:
 | GET | `/api/v1/registry` | Catalog index (slugs, titles, latest versions) |
 | GET | `/api/v1/offer?slug={slug}` | Offer detail, releases, permissions manifest |
 | GET | `/api/v1/release?slug={slug}&version={version}` | Release metadata and download URL |
-| POST | `/api/v1/licenses/activate` | Bind license key to `installation_id` |
-| GET | `/api/v1/licenses/status` | Check license or subscription state |
+| POST | `/api/v1/checkout` | Create an order and entitlement after free/trial/paid checkout |
+| POST | `/api/v1/licenses/activate` | Fallback: bind activation key to `installation_id` |
+| GET | `/api/v1/licenses/status` | Check entitlement/license/subscription state |
 
-Buyer checkout and provider publishing use the marketplace web UI at [marketplace.birkly.cloud](https://marketplace.birkly.cloud) and [providers.birkly.cloud](https://providers.birkly.cloud) — not raw API forms.
+Buyer checkout and provider publishing normally use the marketplace web UI at [marketplace.birkly.cloud](https://marketplace.birkly.cloud) and [providers.birkly.cloud](https://providers.birkly.cloud) — not raw API forms. P55 Hub checkout uses Stripe Connect only for paid flows.
 
 **Ops starter API**
 
@@ -85,7 +86,22 @@ GET /api/v1/release?slug={slug}&version={version}
 
 Returns signed or direct artifact URL. CMS downloads, verifies SHA-256, runs zip preflight, extracts to `plugins/`.
 
-**License activation**
+**Checkout and entitlement issue**
+
+```
+POST /api/v1/checkout
+Content-Type: application/json
+
+{
+  "offer_slug": "example-offer",
+  "email": "buyer@example.com",
+  "plan_id": "pro"
+}
+```
+
+Free, freemium, and no-card trial checkout issue hidden or trialing entitlements without card details. Paid checkout issues an entitlement only after confirmed Stripe payment. Paid responses may include a fallback license key for recovery/manual activation; free/freemium responses should not expose a visible key.
+
+**Activation key fallback**
 
 ```
 POST /api/v1/licenses/activate
@@ -97,15 +113,15 @@ Content-Type: application/json
 }
 ```
 
-`installation_id` is the CMS-local UUID stored in settings. Seat tiers count distinct installation IDs per key.
+`installation_id` is the CMS-local UUID stored in settings. For P55, this endpoint remains the compatibility/fallback path for paid activation keys. Entitlement seats count active installation IDs by environment: single-site allows one production plus one staging activation.
 
-**License status (updates)**
+**Entitlement / license status (updates)**
 
 ```
 GET /api/v1/licenses/status?license_key=...&installation_id=...
 ```
 
-Subscription offers return `active` or inactive state. CMS blocks plugin updates when marketplace reports lapsed subscription.
+Subscription offers return active, held, revoked, grace, or inactive state through the marketplace status surface. CMS blocks plugin updates when marketplace reports lapsed, held, or revoked access. The CMS stores a signed local entitlement token for offline checks: one-time purchases have up to 30 days of grace, subscriptions up to 14 days, and trials no extension past trial end.
 
 **Install permissions (CMS internal)**
 
@@ -158,7 +174,7 @@ Returns zip with collections and `project/` site files. CMS extracts via `birkly
 
 **Staging**
 
-Point CMS at staging marketplace or Ops by setting override URLs. Do not mix production licenses with staging registry unless test keys are issued.
+Point CMS at staging marketplace or Ops by setting override URLs. Do not mix production entitlements or activation keys with staging registry unless test keys are issued.
 
 ## Related
 
@@ -166,5 +182,5 @@ Point CMS at staging marketplace or Ops by setting override URLs. Do not mix pro
 - [For site owners](for-site-owners.md)
 - [Hub, themes, and site packs](theme-and-template-packs.md)
 - [Security and review](security-and-review.md)
-- [Marketplace — buyer license and install](../06-extensibility/marketplace-buyer-guide.md)
+- [Marketplace — buyer entitlement and install](../06-extensibility/marketplace-buyer-guide.md)
 - [Marketplace — provider publishing guide](../06-extensibility/marketplace-provider-guide.md)

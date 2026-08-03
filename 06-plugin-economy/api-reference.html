@@ -166,7 +166,7 @@
     <main class="main">
       <div class="content doc-body">
         <div class="doc-content"><p>Integrators and developers consume Birkly marketplace and Ops APIs to browse offers, install artifacts, and fetch starter packs. The CMS marketplace client wraps these endpoints; custom tooling can call them directly.</p>
-<div class="doc-summary"><p>The <strong>marketplace registry API</strong> exposes catalog, offer detail, release downloads, and license status at <code>marketplace.birkly.cloud/api/v1/</code>. The <strong>Ops starter API</strong> lists and downloads onboarding template packs at <code>ops.birkly.cloud/api/ops/v1/starters</code>. CMS installs use <code>installation_id</code> for license activation. Override base URLs via environment variables or settings files for staging.</p></div>
+<div class="doc-summary"><p>The <strong>marketplace registry API</strong> exposes catalog, offer detail, release downloads, checkout, entitlement/license activation, and status at <code>marketplace.birkly.cloud/api/v1/</code>. The <strong>Ops starter API</strong> lists and downloads onboarding template packs at <code>ops.birkly.cloud/api/ops/v1/starters</code>. CMS installs use <code>installation_id</code> for entitlement seats; paid offers keep license-key activation as a fallback. Override base URLs via environment variables or settings files for staging.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Who needs these APIs</strong></p>
 <p>| Audience | Typical use | |----------|-------------| | <strong>CMS admin</strong> | Built-in Hub tab — no direct API calls | | <strong>Site owner</strong> | Use the admin UI; APIs run in the background | | <strong>Integrator / DevOps</strong> | Custom install scripts, air-gapped workflows | | <strong>Provider</strong> | Publish via Provider Studio; registry exposes your offers |</p>
 <p><strong>Marketplace base URL</strong></p>
@@ -177,8 +177,8 @@
 <li>Settings file: <code>settings/marketplace.json</code> → <code>marketplace_url</code></li>
 </ul>
 <p><strong>Common marketplace endpoints</strong></p>
-<p>| Method | Path | Purpose | |--------|------|---------| | GET | <code>/api/v1/registry</code> | Catalog index (slugs, titles, latest versions) | | GET | <code>/api/v1/offer?slug={slug}</code> | Offer detail, releases, permissions manifest | | GET | <code>/api/v1/release?slug={slug}&amp;version={version}</code> | Release metadata and download URL | | POST | <code>/api/v1/licenses/activate</code> | Bind license key to <code>installation_id</code> | | GET | <code>/api/v1/licenses/status</code> | Check license or subscription state |</p>
-<p>Buyer checkout and provider publishing use the marketplace web UI at <a href="https://marketplace.birkly.cloud">marketplace.birkly.cloud</a> and <a href="https://providers.birkly.cloud">providers.birkly.cloud</a> — not raw API forms.</p>
+<p>| Method | Path | Purpose | |--------|------|---------| | GET | <code>/api/v1/registry</code> | Catalog index (slugs, titles, latest versions) | | GET | <code>/api/v1/offer?slug={slug}</code> | Offer detail, releases, permissions manifest | | GET | <code>/api/v1/release?slug={slug}&amp;version={version}</code> | Release metadata and download URL | | POST | <code>/api/v1/checkout</code> | Create an order and entitlement after free/trial/paid checkout | | POST | <code>/api/v1/licenses/activate</code> | Fallback: bind activation key to <code>installation_id</code> | | GET | <code>/api/v1/licenses/status</code> | Check entitlement/license/subscription state |</p>
+<p>Buyer checkout and provider publishing normally use the marketplace web UI at <a href="https://marketplace.birkly.cloud">marketplace.birkly.cloud</a> and <a href="https://providers.birkly.cloud">providers.birkly.cloud</a> — not raw API forms. P55 Hub checkout uses Stripe Connect only for paid flows.</p>
 <p><strong>Ops starter API</strong></p>
 <p>Production: <code>https://ops.birkly.cloud/api/ops/v1/starters</code></p>
 <p>| Method | Path | Purpose | |--------|------|---------| | GET | <code>/api/ops/v1/starters?channel={channel}</code> | List starters with versions and onboarding flags | | GET | <code>/api/ops/v1/starters/{id}/download</code> | Download starter pack zip |</p>
@@ -200,7 +200,17 @@ Accept: application/json</code></pre>
 <p><strong>Registry — release download</strong></p>
 <pre><code>GET /api/v1/release?slug={slug}&amp;version={version}</code></pre>
 <p>Returns signed or direct artifact URL. CMS downloads, verifies SHA-256, runs zip preflight, extracts to <code>plugins/</code>.</p>
-<p><strong>License activation</strong></p>
+<p><strong>Checkout and entitlement issue</strong></p>
+<pre><code>POST /api/v1/checkout
+Content-Type: application/json
+
+{
+  &quot;offer_slug&quot;: &quot;example-offer&quot;,
+  &quot;email&quot;: &quot;buyer@example.com&quot;,
+  &quot;plan_id&quot;: &quot;pro&quot;
+}</code></pre>
+<p>Free, freemium, and no-card trial checkout issue hidden or trialing entitlements without card details. Paid checkout issues an entitlement only after confirmed Stripe payment. Paid responses may include a fallback license key for recovery/manual activation; free/freemium responses should not expose a visible key.</p>
+<p><strong>Activation key fallback</strong></p>
 <pre><code>POST /api/v1/licenses/activate
 Content-Type: application/json
 
@@ -208,10 +218,10 @@ Content-Type: application/json
   &quot;license_key&quot;: &quot;...&quot;,
   &quot;installation_id&quot;: &quot;...&quot;
 }</code></pre>
-<p><code>installation_id</code> is the CMS-local UUID stored in settings. Seat tiers count distinct installation IDs per key.</p>
-<p><strong>License status (updates)</strong></p>
+<p><code>installation_id</code> is the CMS-local UUID stored in settings. For P55, this endpoint remains the compatibility/fallback path for paid activation keys. Entitlement seats count active installation IDs by environment: single-site allows one production plus one staging activation.</p>
+<p><strong>Entitlement / license status (updates)</strong></p>
 <pre><code>GET /api/v1/licenses/status?license_key=...&amp;installation_id=...</code></pre>
-<p>Subscription offers return <code>active</code> or inactive state. CMS blocks plugin updates when marketplace reports lapsed subscription.</p>
+<p>Subscription offers return active, held, revoked, grace, or inactive state through the marketplace status surface. CMS blocks plugin updates when marketplace reports lapsed, held, or revoked access. The CMS stores a signed local entitlement token for offline checks: one-time purchases have up to 30 days of grace, subscriptions up to 14 days, and trials no extension past trial end.</p>
 <p><strong>Install permissions (CMS internal)</strong></p>
 <p>The CMS resolves install consent via marketplace offer detail or zip preview:</p>
 <ul>
@@ -240,13 +250,13 @@ Accept: application/json</code></pre>
 <p><strong>Error handling</strong></p>
 <p>| HTTP code | Meaning | |-----------|---------| | 404 | Unknown slug or starter id | | 403 | License seat exhausted or revoked | | 409 | Consent required (<code>consent_required</code>) | | 503 | Registry unreachable — CMS shows retry; installed plugins keep working |</p>
 <p><strong>Staging</strong></p>
-<p>Point CMS at staging marketplace or Ops by setting override URLs. Do not mix production licenses with staging registry unless test keys are issued.</p></div></details>
+<p>Point CMS at staging marketplace or Ops by setting override URLs. Do not mix production entitlements or activation keys with staging registry unless test keys are issued.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="overview.html">Plugin economy overview</a></li>
 <li><a href="for-site-owners.html">For site owners</a></li>
 <li><a href="theme-and-template-packs.html">Hub, themes, and site packs</a></li>
 <li><a href="security-and-review.html">Security and review</a></li>
-<li><a href="../06-extensibility/marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
+<li><a href="../06-extensibility/marketplace-buyer-guide.html">Marketplace — buyer entitlement and install</a></li>
 <li><a href="../06-extensibility/marketplace-provider-guide.html">Marketplace — provider publishing guide</a></li>
 </ul></div></div>
       </div>

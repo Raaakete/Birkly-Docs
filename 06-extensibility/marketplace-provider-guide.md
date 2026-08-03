@@ -1,10 +1,10 @@
 # Marketplace — provider publishing guide
 
-Publish plugins, themes, and site packs on the [Birkly Marketplace](https://marketplace.birkly.io). Buyers install them from the CMS **Hub**. This guide is for **providers** (developers and agencies who sell or distribute extensions). Buyers installing in the CMS should see [Marketplace — buyer license and install](marketplace-buyer-guide.md) or [Marketplace go-live — installing plugins](marketplace-go-live.md).
+Publish plugins, themes, and site packs on the [Birkly Marketplace](https://marketplace.birkly.io). Buyers install them from the CMS **Hub**. This guide is for **providers** (developers and agencies who sell or distribute extensions). Buyers installing in the CMS should see [Marketplace — buyer entitlement and install](marketplace-buyer-guide.md) or [Marketplace go-live — installing plugins](marketplace-go-live.md).
 
 ## Summary
 
-**Providers** create a marketplace account, accept the Provider Agreement, complete Stripe Connect onboarding, then publish offers with versioned zip artifacts — including **site packs** (`offer_type: template_pack`). Each offer has a manifest (title, pricing, license seats, compatibility) and one or more releases. Automated preflight is offer-type-aware: plugins need `plugin.json`; site packs need starter/pack layout (`manifest.json` + `collections/` + `project/`). Verified-tier offers also go through manual review. Payouts flow through Stripe Connect after buyer checkout.
+**Providers** create a marketplace account, accept the Provider Agreement, complete Stripe Connect onboarding, then publish offers with versioned zip artifacts — including **site packs** (`offer_type: template_pack`). For third-party offers, the provider is the seller and merchant of record; Birkly collects a Stripe Connect application fee (default **15%**, configurable by Ops). Birkly is merchant of record only for official Birkly offers. P55 supports **Stripe Connect only** for Hub checkout and payouts; Mollie, multi-PSP, and regional PSPs are out of scope for this phase.
 
 ## Beginner
 
@@ -12,7 +12,7 @@ Publish plugins, themes, and site packs on the [Birkly Marketplace](https://mark
 
 1. A **provider account** on [marketplace.birkly.io](https://marketplace.birkly.io) (email + password — separate from your CMS admin login).
 2. Acceptance of the **Provider Agreement** (seller liability, content warranty).
-3. **Stripe Connect** onboarding (identity and payout details).
+3. **Stripe Connect** onboarding (identity and payout details). Paid third-party publishing is limited to countries where Stripe supports connected accounts.
 4. A valid **package** for your offer type:
    - **Plugin** — `.zip` with at least `plugin.json` and `plugin.php` (or `index.php`)
    - **Site pack** — `.zip` with `manifest.json` + `collections/` + `project/` (Ops starter shape; not `plugin.json`)
@@ -23,14 +23,14 @@ Publish plugins, themes, and site packs on the [Birkly Marketplace](https://mark
 1. Sign up at **Provider → Sign up** on the marketplace site.
 2. Log in and open **Provider dashboard**.
 3. Accept the **Provider Agreement** when prompted.
-4. Complete **Stripe Connect** onboarding (charges and payouts must be enabled).
+4. Complete **Stripe Connect** onboarding (charges and payouts must be enabled). P55 does not support Mollie or another PSP for Hub provider payouts.
 5. Click **New offer** and fill in:
    - **Slug** — stable URL id (lowercase, hyphens, e.g. `my-seo-plugin`)
    - **Title** and **summary** — shown in the public catalog and CMS Hub
    - **Offer type** — plugin, theme, or site pack (`template_pack`)
    - **Category** and **tags** — help buyers find your offer
-   - **Pricing** — free, one-time, or **subscription** (with currency, amount, and interval `month` / `year`)
-   - **License seats** — single site, multi-site tiers, or unlimited
+   - **Pricing** — free, freemium, no-card trial, one-time, or **subscription** (with currency, amount, and interval `month` / `year`)
+   - **Entitlement seats** — single site, multi-site tiers, or unlimited
    - **Compatibility** — `requires_birkly` and `requires_php` semver ranges; optional capability declarations
 6. **Upload a release** — zip artifact for a semver version (e.g. `1.0.0`) plus changelog text. Match the zip layout to the offer type.
 7. **Publish** — preflight and QC run automatically; verified-tier offers enter a manual review queue first.
@@ -43,6 +43,10 @@ Publish plugins, themes, and site packs on the [Birkly Marketplace](https://mark
 - Reply once to verified-purchase reviews on your listing.
 - **Connect GitHub** (optional) — automate release builds when you push tags (see below).
 
+**Provider responsibility**
+
+For third-party offers, you are the seller and merchant of record. You are responsible for the listing, support, taxes or invoices required by your jurisdiction, and the first refund decision. Birkly operates the platform, official Birkly offers, marketplace infrastructure, and Ops escalation.
+
 ## Advanced Users
 
 **Manifest schema**
@@ -53,9 +57,11 @@ Offers validate against `offer-manifest.schema.json` in the marketplace repo. Re
 
 | `pricing.model` | Fields | Buyer experience |
 |-----------------|--------|------------------|
-| `free` | `amount_cents: 0` | Checkout may capture email; CMS one-click or license |
-| `one_time` | `amount_cents` > 0, `currency` | Single Stripe payment; perpetual license per seat tier |
-| `subscription` | `amount_cents` > 0, `currency`, `subscription_interval` (`month` / `year`) | Stripe Billing; license `active` while subscription active; revoked on `customer.subscription.deleted` |
+| `free` | `amount_cents: 0` | CMS installs immediately; hidden entitlement, no visible key |
+| `freemium` | Free plan plus paid plans/capabilities | Hidden free entitlement with plan capabilities; paid upgrade uses Stripe |
+| `trial` | `trial_days`, optional paid plan | No-card trial entitlement until `trial_ends_at`; no offline extension past trial end |
+| `one_time` | `amount_cents` > 0, `currency` | Single Stripe payment; entitlement plus fallback activation key per seat tier |
+| `subscription` | `amount_cents` > 0, `currency`, `subscription_interval` (`month` / `year`) | Stripe Billing; entitlement active while subscription active; lapsed subscriptions lose update/install rights after grace |
 
 Example subscription block in offer manifest:
 
@@ -68,7 +74,13 @@ Example subscription block in offer manifest:
 }
 ```
 
-Stripe webhooks (`customer.subscription.updated`, `customer.subscription.deleted`) update license status. CMS update checks call `GET /api/v1/licenses/status` and block updates when subscription lapses.
+Stripe webhooks (`customer.subscription.updated`, `customer.subscription.deleted`) update entitlement/license status. CMS update checks call the marketplace status API and block updates when subscription access lapses.
+
+**Entitlements and seats**
+
+Paid checkout issues an entitlement and a fallback activation key. Free and freemium offers issue hidden entitlements so buyers do not see or copy keys. A signed local entitlement token lets the CMS continue checks during short outages; this is practical deterrence, not perfect DRM.
+
+Single-site tiers allow **one production** activation plus **one staging** activation. Buyers can deactivate an old installation to free that environment seat. Multi-site and unlimited tiers follow the seat limits declared on the offer.
 
 **Plugin package (`plugin.json`)**
 
@@ -104,7 +116,14 @@ The Birkly CMS Hub client consumes these endpoints; do not break slug or checksu
 
 **Revenue**
 
-Stripe Connect splits: buyer pays gross price → Stripe fee → Birkly application fee → remainder to your Connect account. Refunds are primarily the provider's responsibility; see the Provider Agreement.
+Stripe Connect splits: buyer pays gross price → Stripe fee → Birkly application fee → remainder to your Connect account. The default Birkly application fee is **15%**; Ops may override the fee for a provider or agreement. Paid third-party offers can only be sold by providers in Stripe-supported connected-account countries during P55.
+
+**Refunds and chargebacks**
+
+- Buyers may request refunds within the default **14-day** window.
+- Providers approve or deny third-party refund requests first; Birkly Ops can escalate under marketplace policy.
+- A full refund revokes the entitlement and active activation slots.
+- Chargebacks put the entitlement on **hold** immediately. If the dispute is lost, the entitlement is revoked; if won, Ops may restore access.
 
 **GitHub App — automated releases (Phase 12)**
 
@@ -143,7 +162,7 @@ Marketplace operators configure Stripe → `POST /webhooks/stripe` for `account.
 
 ## Related
 
-- [Marketplace — buyer license and install](marketplace-buyer-guide.md)
+- [Marketplace — buyer entitlement and install](marketplace-buyer-guide.md)
 - [Plugins](plugins.md) — managing plugins in the CMS admin
 - [Updates](updates.md) — updating marketplace-sourced plugins
 - [Birkly Marketplace](https://marketplace.birkly.io) — public catalog and provider signup

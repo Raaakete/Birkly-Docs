@@ -172,7 +172,7 @@
 <li>Log in to <strong>admin</strong> (<code>/admin</code>).</li>
 <li>Open <strong>Plugins → Hub</strong>.</li>
 <li>Browse plugins, <strong>site packs</strong>, and themes (filter by type).</li>
-<li>Install free official plugins in one click, or activate a license for paid offers.</li>
+<li>Install free offers in one click, or install paid offers from an entitlement / fallback activation key.</li>
 </ol>
 <blockquote><p><strong>Note:</strong> The public storefront and registry may still be called the Birkly Marketplace. In the CMS UI, use <strong>Hub</strong>. Internal API actions stay under <code>/api/marketplace.php</code> for this phase.</p></blockquote>
 <p><strong>Ops starters (onboarding)</strong></p>
@@ -190,7 +190,7 @@
 <pre><code># Verify Marsk is published on Ops (stable channel)
 curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.starters[] | select(.id==&quot;marsk&quot;)'</code></pre>
 <p><strong>Site packs from Hub</strong></p>
-<p>Providers (and Birkly) publish <strong>site pack</strong> offers. Buy or get free through marketplace checkout, then install from <strong>Plugins → Hub</strong> like any other offer. Filter type <strong>Site pack</strong> (registry value <code>template_pack</code>).</p>
+<p>Providers (and Birkly) publish <strong>site pack</strong> offers. Free and freemium packs install with hidden entitlements and no visible key; paid packs use Stripe checkout, then install from <strong>Plugins → Hub</strong> like any other entitlement-backed offer. Filter type <strong>Site pack</strong> (registry value <code>template_pack</code>).</p>
 <p>A site pack typically includes:</p>
 <ul>
 <li>Pre-defined <strong>collections</strong> (schemas under <code>content/collections/</code>)</li>
@@ -204,7 +204,7 @@ curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.sta
 <p><strong>Install options</strong></p>
 <p>| Option | Behavior | |--------|----------| | <strong>Merge</strong> (default) | Overlay pack files onto the existing site; backup first when content already exists | | <strong>Replace</strong> | Remove pack-targeted collections and <code>project/</code> overlay, then install; backup first | | <strong>Fresh-only</strong> | Refuse install if the site already has collections or project files | | <strong>Include demo / sample entries</strong> | Opt-in; schemas and <code>project/</code> files always install |</p>
 <p><strong>Required plugins</strong></p>
-<p>If the pack declares <code>required_plugins</code> that are not installed, install <strong>blocks</strong> until you confirm. Confirming installs the missing required plugins (with license/consent when needed), then continues the pack. Cancel writes nothing. <strong>Recommended</strong> plugins warn only and never block.</p>
+<p>If the pack declares <code>required_plugins</code> that are not installed, install <strong>blocks</strong> until you confirm. Confirming installs the missing required plugins (with entitlement/activation and consent when needed), then continues the pack. Cancel writes nothing. <strong>Recommended</strong> plugins warn only and never block.</p>
 <p><strong>Themes vs site packs</strong></p>
 <p>| Type | <code>offer_type</code> | Installs to | What changes | |------|--------------|-------------|--------------| | <strong>Theme</strong> | <code>theme</code> | <code>themes/{id}/</code> | Visual styling package | | <strong>Site pack</strong> | <code>template_pack</code> | <code>content/collections/</code> + <code>project/</code> | Content structure plus public site files | | <strong>Plugin</strong> | <code>plugin</code> | <code>plugins/{folder}/</code> | Admin features, APIs, field types |</p>
 <p>A site pack may ship CSS inside <code>project/</code>; that is not the same as a theme offer. Theme activation / apply-to-site is a separate track and not required for pack installs.</p>
@@ -255,7 +255,7 @@ curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.sta
 <p><strong>Hub / registry install flow (<code>template_pack</code>)</strong></p>
 <ol>
 <li>Resolve offer + release (<code>offer_type: template_pack</code>).</li>
-<li>License activation (if paid).</li>
+<li>Entitlement activation (if paid, with activation key fallback).</li>
 <li>Permission consent when required plugins need install.</li>
 <li>Preflight pack layout + missing <code>required_plugins</code>.</li>
 <li>User confirms required plugins if any are missing.</li>
@@ -274,7 +274,7 @@ curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.sta
 <li><a href="overview.html">Plugin economy overview</a></li>
 <li><a href="for-site-owners.html">For site owners</a></li>
 <li><a href="for-providers.html">For providers</a></li>
-<li><a href="../06-extensibility/marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
+<li><a href="../06-extensibility/marketplace-buyer-guide.html">Marketplace — buyer entitlement and install</a></li>
 <li><a href="../00-overview/getting-started.html">Getting started</a></li>
 <li><a href="../03-templating/templating-overview.html">Templating overview</a></li>
 <li><a href="../03-templating/reference-projects.html">Reference projects</a></li>

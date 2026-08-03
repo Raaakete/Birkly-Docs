@@ -166,14 +166,14 @@
     <main class="main">
       <div class="content doc-body">
         <div class="doc-content"><p>Birkly separates the <strong>CMS core</strong> (your self-hosted site), the <strong>Marketplace</strong> (where extensions are bought and distributed), and <strong>Ops</strong> (Birkly platform services such as starter packs and release checks). In the CMS admin, buyers install from <strong>Plugins → Hub</strong>. Plugins extend the CMS without changing core code.</p>
-<div class="doc-summary"><p>The <strong>plugin economy</strong> is how Birkly distributes extensions: <strong>official and third-party offers</strong> on the <a href="https://marketplace.birkly.cloud">Birkly Marketplace</a>, <strong>one-click or licensed installs</strong> in the CMS <strong>Hub</strong>, and <strong>Ops-hosted starter packs</strong> for onboarding. The CMS ships as a thin runtime — no bundled plugins — so you choose only what you need. Marketplace accounts are separate from CMS admin logins.</p></div>
+<div class="doc-summary"><p>The <strong>plugin economy</strong> is how Birkly distributes extensions: <strong>official and third-party offers</strong> on the <a href="https://marketplace.birkly.cloud">Birkly Marketplace</a>, <strong>one-click or entitlement-backed installs</strong> in the CMS <strong>Hub</strong>, and <strong>Ops-hosted starter packs</strong> for onboarding. The CMS ships as a thin runtime — no bundled plugins — so you choose only what you need. Marketplace accounts are separate from CMS admin logins. In P55, Hub checkout uses <strong>Stripe Connect only</strong>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Three surfaces, one ecosystem</strong></p>
 <p>| Surface | What it is | Who uses it | |---------|------------|-------------| | <strong>Birkly CMS</strong> | Your self-hosted site admin and API | Site owners, editors, developers | | <strong>Marketplace</strong> | Public catalog, checkout, and plugin registry | Buyers and providers | | <strong>Ops</strong> | Birkly platform services (starters, feedback relay, release checks) | CMS onboarding; platform staff |</p>
 <p><strong>How it fits together</strong></p>
 <ol>
 <li>You download and run <strong>Birkly CMS</strong> on your server. The <code>plugins/</code> folder starts empty.</li>
 <li>You browse <strong>Plugins → Hub</strong> in the admin or visit <a href="https://marketplace.birkly.cloud/catalog">marketplace.birkly.cloud/catalog</a>.</li>
-<li>You <strong>install</strong> free official plugins in one click, or <strong>purchase</strong> paid and third-party offers and activate a license.</li>
+<li>You <strong>install</strong> free official plugins in one click, or <strong>purchase</strong> paid and third-party offers and install from an entitlement with a fallback activation key.</li>
 <li>During onboarding, you can install a <strong>starter pack</strong> from Ops — demo collections and a sample public site under <code>project/</code> — without using the marketplace. Hub site packs use the same zip shape.</li>
 </ol>
 <p><strong>Why unbundled plugins</strong></p>
@@ -183,8 +183,17 @@
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Thin client model</strong></p>
 <p>The CMS distribution manifest excludes plugin source. Production installs consume the marketplace <strong>registry API</strong> (<code>GET /api/v1/registry</code>, offer detail, release download) or Ops <strong>starter API</strong> (<code>GET /api/ops/v1/starters</code>). Override marketplace base URL with <code>BIRKLY_MARKETPLACE_URL</code> or <code>settings/marketplace.json</code>. Override starters with <code>BIRKLY_OPS_STARTERS_URL</code> or <code>starters_catalog_url</code> in platform config.</p>
 <p><strong>Identity boundaries</strong></p>
-<p>| Account type | Scope | |--------------|-------| | CMS admin user | Local site roles and permissions | | Marketplace buyer | Licenses, purchases, subscriptions | | Marketplace provider | Offers, Stripe Connect, payouts |</p>
-<p>License activation binds <code>license_key + installation_id</code> (local CMS UUID). Provider and buyer accounts do not grant CMS admin access.</p>
+<p>| Account type | Scope | |--------------|-------| | CMS admin user | Local site roles and permissions | | Marketplace buyer | Entitlements, purchases, subscriptions, fallback activation keys | | Marketplace provider | Offers, Stripe Connect, payouts |</p>
+<p>Entitlement activation binds access to an <code>installation_id</code> (local CMS UUID). Paid offers also keep a fallback activation key for recovery/manual activation. Provider and buyer accounts do not grant CMS admin access.</p>
+<p><strong>Commerce and platform roles</strong></p>
+<ul>
+<li>Birkly is merchant of record only for official Birkly offers.</li>
+<li>Third-party providers are the seller and merchant of record for their offers.</li>
+<li>Birkly collects a Stripe Connect application fee on third-party paid sales (default <strong>15%</strong>, with Ops override).</li>
+<li>Mollie, multi-PSP, and regional PSP support are outside P55 Hub payments scope.</li>
+</ul>
+<p><strong>Entitlement model</strong></p>
+<p>Free and freemium offers create hidden entitlements with no visible key. Paid checkout creates an entitlement, a fallback activation key, and a signed local token for offline checks. Single-site tiers allow one production activation plus one staging activation; buyer self-service deactivation frees a seat. Offline grace is limited: one-time purchases up to 30 days, subscriptions up to 14 days, and trials never extend past trial end.</p>
 <p><strong>Offer types on the marketplace</strong></p>
 <p>| <code>offer_type</code> | Installs to | Typical use | |--------------|-------------|-------------| | <code>plugin</code> | <code>plugins/{folder}/</code> | Admin features, APIs, field types | | <code>theme</code> | <code>themes/{id}/</code> | Visual styling packages | | <code>template_pack</code> | <code>content/collections/</code> + <code>project/</code> | Site packs (never <code>themes/</code>) |</p>
 <p>Admin UI label is <strong>Hub</strong>; registry/API names may still say marketplace. Ops <strong>starter packs</strong> are platform-curated packs served outside the marketplace catalog during onboarding; see <a href="theme-and-template-packs.html">Hub, themes, and site packs</a>.</p></div></details>

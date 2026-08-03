@@ -16,6 +16,13 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-03 — Hub payments and entitlements (P55)
+
+- **Updated:** `06-extensibility/marketplace-buyer-guide.md`, `marketplace-provider-guide.md`, `marketplace-go-live.md` — entitlement-first Hub install flow, free/freemium no visible key, paid Stripe checkout with activation-key fallback, trials, seats, offline grace, refunds, and chargebacks.
+- **Updated:** `06-plugin-economy/overview.md`, `for-site-owners.md`, `for-providers.md`, `official-plugins.md`, `theme-and-template-packs.md`, `api-reference.md` — provider-as-seller policy, Birkly official-only merchant-of-record role, Stripe Connect-only P55 scope, application fee, and entitlement status wording.
+
+---
+
 ## 2026-08-02 — Commerce 0→1 complete (P54 P3 / 1.0.29)
 
 Commerce **0→1 foundation** docs for **1.0.29**: hybrid cart, MCP/Agent store kit, Automation commerce recipes, ops intelligence. P3 close-out — no P4 claims.

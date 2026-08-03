@@ -56,7 +56,7 @@ Browse official and community extensions at [marketplace.birkly.cloud](https://m
 | Role | Guide |
 |------|-------|
 | **Plugin economy curriculum** | [Overview](../06-plugin-economy/overview.md) — full multi-page guide |
-| **Buyer** (install in CMS) | [For site owners](../06-plugin-economy/for-site-owners.md) · [Marketplace — buyer license and install](marketplace-buyer-guide.md) |
+| **Buyer** (install in CMS) | [For site owners](../06-plugin-economy/for-site-owners.md) · [Marketplace — buyer entitlement and install](marketplace-buyer-guide.md) |
 | **Provider** (publish offers) | [For providers](../06-plugin-economy/for-providers.md) · [Marketplace — provider publishing guide](marketplace-provider-guide.md) |
 | **Go-live / unbundling** | [Marketplace go-live — installing plugins](marketplace-go-live.md) |
 
@@ -104,7 +104,7 @@ The plugin system may support capabilities, permissions, migrations, scheduled t
 - [Official plugins](../06-plugin-economy/official-plugins.md)
 - [Security and review](../06-plugin-economy/security-and-review.md)
 - [Marketplace go-live — installing plugins](marketplace-go-live.md)
-- [Marketplace — buyer license and install](marketplace-buyer-guide.md)
+- [Marketplace — buyer entitlement and install](marketplace-buyer-guide.md)
 - [Marketplace — provider publishing guide](marketplace-provider-guide.md)
 - [Settings](../01-admin/settings.md)
 - [Commerce plugin](plugins/commerce.md)

@@ -13,7 +13,7 @@ In the CMS admin, the catalog tab is labeled **Hub** (APIs and routes may still 
 1. Log in to **admin** (`/admin`).
 2. Open **Plugins → Hub**.
 3. Browse plugins, **site packs**, and themes (filter by type).
-4. Install free official plugins in one click, or activate a license for paid offers.
+4. Install free offers in one click, or install paid offers from an entitlement / fallback activation key.
 
 > **Note:** The public storefront and registry may still be called the Birkly Marketplace. In the CMS UI, use **Hub**. Internal API actions stay under `/api/marketplace.php` for this phase.
 
@@ -43,7 +43,7 @@ curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.sta
 
 **Site packs from Hub**
 
-Providers (and Birkly) publish **site pack** offers. Buy or get free through marketplace checkout, then install from **Plugins → Hub** like any other offer. Filter type **Site pack** (registry value `template_pack`).
+Providers (and Birkly) publish **site pack** offers. Free and freemium packs install with hidden entitlements and no visible key; paid packs use Stripe checkout, then install from **Plugins → Hub** like any other entitlement-backed offer. Filter type **Site pack** (registry value `template_pack`).
 
 A site pack typically includes:
 
@@ -69,7 +69,7 @@ On **Plugins → Installed**, use **Upload pack** to install a site pack ZIP wit
 
 **Required plugins**
 
-If the pack declares `required_plugins` that are not installed, install **blocks** until you confirm. Confirming installs the missing required plugins (with license/consent when needed), then continues the pack. Cancel writes nothing. **Recommended** plugins warn only and never block.
+If the pack declares `required_plugins` that are not installed, install **blocks** until you confirm. Confirming installs the missing required plugins (with entitlement/activation and consent when needed), then continues the pack. Cancel writes nothing. **Recommended** plugins warn only and never block.
 
 **Themes vs site packs**
 
@@ -159,7 +159,7 @@ CMS resolves catalog URL from `starters_catalog_url` in platform config, `BIRKLY
 **Hub / registry install flow (`template_pack`)**
 
 1. Resolve offer + release (`offer_type: template_pack`).
-2. License activation (if paid).
+2. Entitlement activation (if paid, with activation key fallback).
 3. Permission consent when required plugins need install.
 4. Preflight pack layout + missing `required_plugins`.
 5. User confirms required plugins if any are missing.
@@ -186,7 +186,7 @@ Birkly Ops staff manage starter pack versions, featured flags, and onboarding vi
 - [Plugin economy overview](overview.md)
 - [For site owners](for-site-owners.md)
 - [For providers](for-providers.md)
-- [Marketplace — buyer license and install](../06-extensibility/marketplace-buyer-guide.md)
+- [Marketplace — buyer entitlement and install](../06-extensibility/marketplace-buyer-guide.md)
 - [Getting started](../00-overview/getting-started.md)
 - [Templating overview](../03-templating/templating-overview.md)
 - [Reference projects](../03-templating/reference-projects.md)

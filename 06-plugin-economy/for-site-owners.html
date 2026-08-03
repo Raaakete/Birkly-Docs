@@ -165,27 +165,33 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Install plugins, themes, and site packs from the Birkly Hub in your CMS admin (catalog backed by the Birkly Marketplace). Free official plugins install in one click; paid and third-party offers require checkout and a license key.</p>
-<div class="doc-summary"><p>Open <strong>Plugins → Hub</strong> in the admin to browse the catalog, install free official extensions, or activate a license for paid offers. Before install, the CMS shows a <strong>permission consent</strong> screen listing what the plugin can access. Updates download from the registry with SHA-256 verification. Marketplace buyer accounts are separate from your CMS login. APIs may still use <code>marketplace_*</code> names.</p></div>
+        <div class="doc-content"><p>Install plugins, themes, and site packs from the Birkly Hub in your CMS admin (catalog backed by the Birkly Marketplace). Free offers install in one click with no visible key; paid and third-party offers require Stripe checkout and install from an entitlement, with a fallback activation key for manual recovery.</p>
+<div class="doc-summary"><p>Open <strong>Plugins → Hub</strong> in the admin to browse the catalog, install free official extensions, start no-card trials, or activate paid entitlements. Before install, the CMS shows a <strong>permission consent</strong> screen listing what the plugin can access. Updates download from the registry with SHA-256 verification. Marketplace buyer accounts are separate from your CMS login. APIs may still use <code>marketplace_*</code> names.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Install a free official plugin</strong></p>
 <ol>
 <li>Log in to <strong>admin</strong> (<code>/admin</code>).</li>
 <li>Go to <strong>Plugins → Hub</strong>.</li>
 <li>Find an official Birkly offer (Commerce, Events, Automation, User Management).</li>
 <li>Review the <strong>permissions</strong> summary if prompted.</li>
-<li>Click <strong>Install</strong> — no checkout or license key needed for free official plugins.</li>
+<li>Click <strong>Install</strong> — no checkout or visible license key needed for free official plugins.</li>
 <li><strong>Enable</strong> the plugin from the Plugins list if it is not enabled automatically.</li>
 </ol>
 <p><strong>Buy and install a paid or third-party extension</strong></p>
 <ol>
 <li>Browse <a href="https://marketplace.birkly.cloud/catalog">marketplace.birkly.cloud/catalog</a> or the CMS <strong>Hub</strong> tab.</li>
-<li>Click <strong>Purchase</strong> or <strong>Buy</strong> on the offer.</li>
+<li>Click <strong>Purchase</strong>, <strong>Buy</strong>, <strong>Subscribe</strong>, or <strong>Start trial</strong> on the offer.</li>
 <li>Complete checkout with your email (Stripe for paid offers).</li>
-<li>Return to <strong>Plugins → Hub</strong> → <strong>Activate license</strong> (or paste the key from your email).</li>
+<li>Return to <strong>Plugins → Hub</strong> and install from your entitlement, or use <strong>Activate license</strong> with the fallback key from your email / <strong>My purchases</strong>.</li>
 <li>Review <strong>permission consent</strong> — read what data and admin areas the plugin requests.</li>
 <li>Accept and <strong>Install</strong>. The CMS downloads, verifies, and extracts the plugin (or site pack — see <a href="theme-and-template-packs.html">Hub, themes, and site packs</a>).</li>
 <li><strong>Enable</strong> the plugin if needed.</li>
 </ol>
+<p><strong>Trials and freemium</strong></p>
+<ul>
+<li>No-card trials create a time-limited entitlement. Offline use never extends past the trial end date.</li>
+<li>Freemium plans create a hidden entitlement with plan capabilities. You do not copy a key for the free plan.</li>
+<li>Upgrade from trial/freemium to paid through Stripe checkout.</li>
+</ul>
 <p><strong>Permission consent</strong></p>
 <p>Every Hub install shows what the plugin declared in its manifest:</p>
 <ul>
@@ -197,29 +203,31 @@
 <p><strong>Site packs</strong></p>
 <p>Filter Hub by <strong>Site pack</strong> (<code>template_pack</code>) to install collections + <code>project/</code> site files. Demo entries are opt-in. Missing <strong>required plugins</strong> need your confirm before the pack writes. You can also use <strong>Upload pack</strong> on the Installed tab for a private ZIP. Details: <a href="theme-and-template-packs.html">Hub, themes, and site packs</a>.</p>
 <p><strong>Updates</strong></p>
-<p>When a newer version is available, use <strong>Update</strong> on the Hub tab. The CMS re-downloads from the registry and verifies the checksum. Subscription licenses must stay active for updates to succeed. Site pack updates skip user-edited <code>project/</code> files and entry content.</p>
+<p>When a newer version is available, use <strong>Update</strong> on the Hub tab. The CMS re-downloads from the registry and verifies the checksum. Subscription entitlements must stay active for updates to succeed. Site pack updates skip user-edited <code>project/</code> files and entry content.</p>
 <p><strong>Seat limits</strong></p>
-<p>Licenses bind to your site's <strong>installation ID</strong>. A single-site tier allows one CMS install. Multi-site tiers cover staging plus production. If activation fails with a seat error, deactivate on an old install or upgrade your license tier.</p></div></details>
+<p>Entitlements bind to your site's <strong>installation ID</strong>. A single-site tier allows <strong>one production</strong> install plus <strong>one staging</strong> install. If activation fails with a seat error, deactivate on an old install to free that environment seat or upgrade your license tier.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Installation flow</strong></p>
 <ol>
 <li><code>GET /api/v1/offer?slug={slug}</code> — resolve latest release and <code>permissions_manifest</code>.</li>
 <li>Consent check — <code>consent_required</code> when no record exists for <code>{slug, version}</code> in <code>settings/marketplace_consent.json</code>.</li>
-<li>License activation — <code>license_key + installation_id</code> for paid offers.</li>
+<li>Entitlement activation — paid offers use entitlement status first; <code>license_key + installation_id</code> remains the fallback activation path.</li>
 <li>Artifact download — verify SHA-256, preflight zip structure, extract to <code>plugins/</code>.</li>
 </ol>
 <p><strong>Configuration</strong></p>
-<p>| Setting | Purpose | |---------|---------| | <code>BIRKLY_MARKETPLACE_URL</code> | Override marketplace base URL (staging) | | <code>settings/marketplace.json</code> | Persistent <code>marketplace_url</code> | | <code>installation_id</code> | Auto-generated local UUID for license seats |</p>
-<p><strong>Subscription licenses</strong></p>
-<p>Offers with <code>pricing.model: subscription</code> require an active Stripe Billing subscription. CMS update checks call license status; lapsed subscriptions block updates until renewal at marketplace <strong>My subscriptions</strong>.</p>
+<p>| Setting | Purpose | |---------|---------| | <code>BIRKLY_MARKETPLACE_URL</code> | Override marketplace base URL (staging) | | <code>settings/marketplace.json</code> | Persistent <code>marketplace_url</code> | | <code>installation_id</code> | Auto-generated local UUID for entitlement seats |</p>
+<p><strong>Subscription entitlements</strong></p>
+<p>Offers with <code>pricing.model: subscription</code> require an active Stripe Billing subscription. CMS update checks call marketplace status; lapsed, held, or revoked entitlements block updates until renewal or resolution at marketplace <strong>My subscriptions</strong>.</p>
+<p><strong>Offline grace</strong></p>
+<p>The CMS stores a signed local entitlement token. It is a practical deterrent, not perfect DRM. One-time purchases have one 30-day offline grace window after the last successful refresh, subscriptions have 14 days, and trials do not extend past the trial end date.</p>
 <p><strong>Manual fallback</strong></p>
-<p>Download the release zip from <strong>My purchases</strong>, verify SHA-256 from the offer page, extract to <code>plugins/</code>. Paid plugins may still enforce license checks at runtime.</p>
+<p>Download the release zip from <strong>My purchases</strong>, verify SHA-256 from the offer page, extract to <code>plugins/</code>. Paid plugins may still enforce entitlement checks at runtime and may require the fallback activation key.</p>
 <p><strong>Refunds</strong></p>
-<p>Request refunds within the policy window from <strong>My purchases</strong>. On approval, the license is revoked and paid features may stop receiving updates.</p></div></details>
+<p>Request refunds within the default 14-day policy window from <strong>My purchases</strong>. Third-party providers make the primary refund decision; Ops can escalate. A full refund revokes the entitlement and paid features may stop receiving updates. Chargebacks place access on hold immediately and revoke access if the dispute is lost.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="overview.html">Plugin economy overview</a></li>
 <li><a href="official-plugins.html">Official plugins</a></li>
 <li><a href="security-and-review.html">Security and review</a></li>
-<li><a href="../06-extensibility/marketplace-buyer-guide.html">Marketplace — buyer license and install</a></li>
+<li><a href="../06-extensibility/marketplace-buyer-guide.html">Marketplace — buyer entitlement and install</a></li>
 <li><a href="../06-extensibility/updates.html">Updates</a></li>
 </ul></div></div>
       </div>

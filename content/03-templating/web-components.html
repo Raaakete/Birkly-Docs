@@ -33,7 +33,8 @@
   }
 });</code></pre></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Patterns</h3>
-<p>| Pattern | When | Notes | |---------|------|-------| | Empty <code>&lt;birkly-region collection entry&gt;</code> | Shared header/footer | Client injects default <code>{from}…{endget}</code> | | Children without <code>{from}</code> / <code>{for}</code> | Custom card/layout | Client wraps with get-entry or for-loop | | Children with full <code>{from}</code> / <code>{for}</code> | Full control | Child HTML wins as-is | | <code>[data-birkly-region]</code> + tags | Complex layout root | Explicit outermost region |</p>
+<table><thead><tr><th>Pattern</th><th>When</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Empty <code>&lt;birkly-region collection entry&gt;</code></td><td>Shared header/footer</td><td>Client injects default <code>{from}…{endget}</code></td></tr><tr><td>Children without <code>{from}</code> / <code>{for}</code></td><td>Custom card/layout</td><td>Client wraps with get-entry or for-loop</td></tr><tr><td>Children with full <code>{from}</code> / <code>{for}</code></td><td>Full control</td><td>Child HTML wins as-is</td></tr><tr><td><code>[data-birkly-region]</code> + tags</td><td>Complex layout root</td><td>Explicit outermost region</td></tr></tbody></table>
 <h3>Anti-patterns</h3>
 <ol>
 <li><strong><code>innerHTML = …</code> in <code>connectedCallback</code></strong> on a host that holds templates or CMS output.</li>

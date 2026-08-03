@@ -38,6 +38,7 @@
         <a href="account.html" class="nav-link">Account</a>
         <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="design-system.html" class="nav-link">Admin design system</a>
+        <a href="admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="ai-overview.html" class="nav-link">AI overview</a>
         <a href="ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -189,7 +191,8 @@
 </ol>
 <p><strong>Personal connector:</strong> sign in with your own Birkly account — you need the <strong>Admin</strong> role on that account to edit <code>project/</code> files.</p>
 <h2>Available tools</h2>
-<p>| Tool | What it does | |------|----------------| | <code>get_project_info</code> | Paths, collections list, templating cheat sheet — <strong>call this first</strong> | | <code>list_project_files</code> | List files/folders under <code>project/</code> (optional <code>path</code>) | | <code>read_project_file</code> | Read one file by relative path | | <code>write_project_file</code> | Create or overwrite a file | | <code>create_project_file</code> | Create only if the path does not exist | | <code>delete_project_file</code> | Delete a file (Admin by default) |</p>
+<table><thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+<tbody><tr><td><code>get_project_info</code></td><td>Paths, collections list, templating cheat sheet — <strong>call this first</strong></td></tr><tr><td><code>list_project_files</code></td><td>List files/folders under <code>project/</code> (optional <code>path</code>)</td></tr><tr><td><code>read_project_file</code></td><td>Read one file by relative path</td></tr><tr><td><code>write_project_file</code></td><td>Create or overwrite a file</td></tr><tr><td><code>create_project_file</code></td><td>Create only if the path does not exist</td></tr><tr><td><code>delete_project_file</code></td><td>Delete a file (Admin by default)</td></tr></tbody></table>
 <p>Content tools (<code>list_collections</code>, <code>create_entry</code>, <code>update_entry</code>, …) work in the same session.</p>
 <h2>Sandbox rules</h2>
 <p>AI can only touch files under <code>project/</code>:</p>
@@ -198,7 +201,8 @@
 <li><strong>Blocked:</strong> <code>..</code> path traversal, PHP files, dotfiles (e.g. <code>.htaccess</code>)</li>
 </ul>
 <h2>Approvals</h2>
-<p>| Channel | Write behavior | |---------|----------------| | <strong>MCP</strong> (Cursor, Claude, ChatGPT) | Your AI app asks you to approve each tool call | | <strong>Built-in admin chat</strong> | Birkly <strong>Approvals</strong> tab when <strong>Require approval</strong> is on |</p>
+<table><thead><tr><th>Channel</th><th>Write behavior</th></tr></thead>
+<tbody><tr><td><strong>MCP</strong> (Cursor, Claude, ChatGPT)</td><td>Your AI app asks you to approve each tool call</td></tr><tr><td><strong>Built-in admin chat</strong></td><td>Birkly <strong>Approvals</strong> tab when <strong>Require approval</strong> is on</td></tr></tbody></table>
 <h2>Example prompt (smoke test)</h2>
 <p>After Marsk onboarding, try:</p>
 <blockquote><p>Add a new blog post titled &quot;Morning light&quot; with a short body, then update <code>index.html</code> to feature that post in the journal section.</p></blockquote>

@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -168,7 +170,8 @@
         <div class="doc-content"><p>Installable starter workflows for common Commerce events (P54 P3-M3). Pack lives in the Automation plugin under <code>recipes/commerce/</code>.</p>
 <div class="doc-summary"><p>Import four disabled workflows from <strong>Automation → Recipe pack</strong>, set real addresses, then enable. Recipes cover post-purchase receipt, subscription dunning, low-stock alert, and order shipped.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Recipes</h3>
-<p>| Recipe id | Name | Trigger | |-----------|------|---------| | <code>commerce-post-purchase-receipt</code> | Post-purchase receipt | <code>commerce_order_paid</code> | | <code>commerce-subscription-dunning</code> | Subscription dunning | <code>commerce_subscription_payment_failed</code> | | <code>commerce-low-stock-alert</code> | Low stock alert | <code>commerce_low_stock</code> | | <code>commerce-order-fulfilled</code> | Order shipped / fulfilled | <code>commerce_order_shipped</code> |</p>
+<table><thead><tr><th>Recipe id</th><th>Name</th><th>Trigger</th></tr></thead>
+<tbody><tr><td><code>commerce-post-purchase-receipt</code></td><td>Post-purchase receipt</td><td><code>commerce_order_paid</code></td></tr><tr><td><code>commerce-subscription-dunning</code></td><td>Subscription dunning</td><td><code>commerce_subscription_payment_failed</code></td></tr><tr><td><code>commerce-low-stock-alert</code></td><td>Low stock alert</td><td><code>commerce_low_stock</code></td></tr><tr><td><code>commerce-order-fulfilled</code></td><td>Order shipped / fulfilled</td><td><code>commerce_order_shipped</code></td></tr></tbody></table>
 <h3>How to import (admin)</h3>
 <ol>
 <li>Activate <strong>Automation</strong> and <strong>Commerce</strong>.</li>
@@ -179,7 +182,8 @@
 </ol>
 <p>Imported workflows are <strong>disabled</strong> by default so placeholders are not sent live.</p>
 <h3>Template variables</h3>
-<p>| Recipe | Useful keys | |--------|-------------| | Order paid | <code>order_id</code>, <code>customer_email</code>, <code>total_cents</code>, <code>currency</code>, <code>status</code>, <code>lines</code> | | Dunning | <code>subscription_id</code>, <code>order_id</code>, <code>customer_email</code>, <code>status</code>, <code>attempt_count</code>, <code>dunning</code> | | Shipped | <code>order_id</code>, <code>customer_email</code>, <code>shipment_id</code>, <code>tracking_number</code>, <code>carrier</code>, <code>package_count</code> | | Low stock | <code>sku</code>, <code>on_hand</code>, <code>reserved</code>, <code>available</code>, <code>threshold</code> |</p></div></details>
+<table><thead><tr><th>Recipe</th><th>Useful keys</th></tr></thead>
+<tbody><tr><td>Order paid</td><td><code>order_id</code>, <code>customer_email</code>, <code>total_cents</code>, <code>currency</code>, <code>status</code>, <code>lines</code></td></tr><tr><td>Dunning</td><td><code>subscription_id</code>, <code>order_id</code>, <code>customer_email</code>, <code>status</code>, <code>attempt_count</code>, <code>dunning</code></td></tr><tr><td>Shipped</td><td><code>order_id</code>, <code>customer_email</code>, <code>shipment_id</code>, <code>tracking_number</code>, <code>carrier</code>, <code>package_count</code></td></tr><tr><td>Low stock</td><td><code>sku</code>, <code>on_hand</code>, <code>reserved</code>, <code>available</code>, <code>threshold</code></td></tr></tbody></table></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>API</h3>
 <pre><code>GET  /api/automation.php?action=list_recipes
 GET  /api/automation.php?action=list_recipes&amp;pack=commerce

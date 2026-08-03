@@ -7,7 +7,8 @@
 <h2>Overview tab</h2>
 <p><strong>Purpose:</strong> Dashboard — completeness, source registry health, CMS drift, link health, public URLs.</p>
 <h3>Completeness score (0–100)</h3>
-<p>| Section | Max pts | Complete when | |---------|---------|---------------| | Identity | 20 | Official name + short description | | Description | 15 | Full description or what we do | | Sources of truth | 15 | ≥1 <strong>narrative</strong> source in registry | | Reviewed claims | 20 | ≥1 <strong>supported</strong> claim with evidence | | Evidence sources | 15 | ≥1 evidence with <strong>verifiable URL</strong> | | Positioning | 10 | Best known for filled | | Products &amp; services | 10 | ≥1 product <strong>with grounded source</strong> | | Terminology | 5 | Preferred terms defined | | Publishing enabled | 5 | Publishing toggled on |</p>
+<table><thead><tr><th>Section</th><th>Max pts</th><th>Complete when</th></tr></thead>
+<tbody><tr><td>Identity</td><td>20</td><td>Official name + short description</td></tr><tr><td>Description</td><td>15</td><td>Full description or what we do</td></tr><tr><td>Sources of truth</td><td>15</td><td>≥1 <strong>narrative</strong> source in registry</td></tr><tr><td>Reviewed claims</td><td>20</td><td>≥1 <strong>supported</strong> claim with evidence</td></tr><tr><td>Evidence sources</td><td>15</td><td>≥1 evidence with <strong>verifiable URL</strong></td></tr><tr><td>Positioning</td><td>10</td><td>Best known for filled</td></tr><tr><td>Products &amp; services</td><td>10</td><td>≥1 product <strong>with grounded source</strong></td></tr><tr><td>Terminology</td><td>5</td><td>Preferred terms defined</td></tr><tr><td>Publishing enabled</td><td>5</td><td>Publishing toggled on</td></tr></tbody></table>
 <p><strong>Next steps</strong> list links each gap to the relevant tab.</p>
 <h3>CMS sync panel</h3>
 <p>Compares narrative <strong>sources of truth</strong> and linked CMS refs to draft identity fields. Shows:</p>
@@ -32,11 +33,14 @@
 <p>Summaries in Context and Products are a <strong>index layer</strong>. The registry tells agents (and AI Assist) which CMS entries, websites, documents, and other URLs to read first for narrative, proof, reference, or archive material.</p>
 <h3>Source shape</h3>
 <p>Each entry in <code>sources_of_truth[]</code> has:</p>
-<p>| Field | Purpose | |-------|---------| | <code>type</code> | Kind of source (see types below) | | <code>role</code> | How agents should use it | | <code>label</code> | Human-readable name | | <code>url</code> | Public URL when not CMS-resolved | | <code>ref</code> | CMS collection/entry when type is <code>cms_entry</code> or <code>cms_collection</code> | | <code>priority</code> | 0–100 hint for ordering (default 50) | | <code>notes</code> | Editor notes (not marketing copy) |</p>
+<table><thead><tr><th>Field</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>type</code></td><td>Kind of source (see types below)</td></tr><tr><td><code>role</code></td><td>How agents should use it</td></tr><tr><td><code>label</code></td><td>Human-readable name</td></tr><tr><td><code>url</code></td><td>Public URL when not CMS-resolved</td></tr><tr><td><code>ref</code></td><td>CMS collection/entry when type is <code>cms_entry</code> or <code>cms_collection</code></td></tr><tr><td><code>priority</code></td><td>0–100 hint for ordering (default 50)</td></tr><tr><td><code>notes</code></td><td>Editor notes (not marketing copy)</td></tr></tbody></table>
 <h3>Source types</h3>
-<p>| Type | Use for | |------|---------| | <code>cms_entry</code> | Single CMS entry (About page, product page) | | <code>cms_collection</code> | Whole collection as background reading | | <code>website</code> | External or primary site URL | | <code>document</code> | PDF or file in Media library | | <code>media_asset</code> | Image or media with contextual meaning | | <code>marketplace</code> | Amazon, app store, Etsy listing | | <code>review_platform</code> | G2, Trustpilot, Capterra | | <code>other</code> | Anything else with a URL |</p>
+<table><thead><tr><th>Type</th><th>Use for</th></tr></thead>
+<tbody><tr><td><code>cms_entry</code></td><td>Single CMS entry (About page, product page)</td></tr><tr><td><code>cms_collection</code></td><td>Whole collection as background reading</td></tr><tr><td><code>website</code></td><td>External or primary site URL</td></tr><tr><td><code>document</code></td><td>PDF or file in Media library</td></tr><tr><td><code>media_asset</code></td><td>Image or media with contextual meaning</td></tr><tr><td><code>marketplace</code></td><td>Amazon, app store, Etsy listing</td></tr><tr><td><code>review_platform</code></td><td>G2, Trustpilot, Capterra</td></tr><tr><td><code>other</code></td><td>Anything else with a URL</td></tr></tbody></table>
 <h3>Source roles</h3>
-<p>| Role | Meaning | |------|---------| | <code>narrative</code> | Who you are, what you do — primary story sources | | <code>proof</code> | Evidence and verification material | | <code>reference</code> | Background reading, docs, FAQs | | <code>archive</code> | Historical or superseded material |</p>
+<table><thead><tr><th>Role</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>narrative</code></td><td>Who you are, what you do — primary story sources</td></tr><tr><td><code>proof</code></td><td>Evidence and verification material</td></tr><tr><td><code>reference</code></td><td>Background reading, docs, FAQs</td></tr><tr><td><code>archive</code></td><td>Historical or superseded material</td></tr></tbody></table>
 <p><strong>Completeness:</strong> At least one <strong>narrative</strong> source is required for full sources credit.</p>
 <h3>Adding sources</h3>
 <ol>
@@ -71,10 +75,12 @@
 <h2>Products &amp; Services tab</h2>
 <p><strong>Purpose:</strong> Structured catalog for agent Q&amp;A (“What do you offer?”).</p>
 <h3>Product card fields</h3>
-<p>| Field | Notes | |-------|-------| | Name, type, category | Required for clarity | | Short / full description | Summary layer — link out for specs | | Best for / not for | Audience fit | | Pricing model | Text hint (subscription, one-time, free) | | Media | From Media library or external image URL |</p>
+<table><thead><tr><th>Field</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Name, type, category</td><td>Required for clarity</td></tr><tr><td>Short / full description</td><td>Summary layer — link out for specs</td></tr><tr><td>Best for / not for</td><td>Audience fit</td></tr><tr><td>Pricing model</td><td>Text hint (subscription, one-time, free)</td></tr><tr><td>Media</td><td>From Media library or external image URL</td></tr></tbody></table>
 <h3>Product source links (modal)</h3>
 <p>Each product can have multiple <strong>typed sources</strong> (separate from top-level <code>sources_of_truth</code>):</p>
-<p>| Role | Type | Example | |------|------|---------| | canonical_detail | cms_entry | Product CMS entry | | canonical_detail | public_page | <code>https://yoursite.com/products/x</code> | | marketplace | marketplace_listing | Listing URL | | review | review_platform | G2 product page | | docs | docs | Technical documentation | | purchase | public_page | Checkout or pricing page |</p>
+<table><thead><tr><th>Role</th><th>Type</th><th>Example</th></tr></thead>
+<tbody><tr><td>canonical_detail</td><td>cms_entry</td><td>Product CMS entry</td></tr><tr><td>canonical_detail</td><td>public_page</td><td><code>https://yoursite.com/products/x</code></td></tr><tr><td>marketplace</td><td>marketplace_listing</td><td>Listing URL</td></tr><tr><td>review</td><td>review_platform</td><td>G2 product page</td></tr><tr><td>docs</td><td>docs</td><td>Technical documentation</td></tr><tr><td>purchase</td><td>public_page</td><td>Checkout or pricing page</td></tr></tbody></table>
 <p>On <strong>publish</strong>, CMS refs resolve to public URLs on your site domain.</p>
 <h3>Link to claims</h3>
 <p>Products can reference claim IDs. Graph API returns linked claims for a product.</p>
@@ -82,10 +88,12 @@
 <h2>Claims &amp; Evidence tab</h2>
 <p><strong>Purpose:</strong> Verifiable statements and proof.</p>
 <h3>Claim statuses</h3>
-<p>| Status | Meaning | |--------|---------| | <code>pending_review</code> | Draft statement, not for public “supported” export | | <code>supported</code> | Reviewed; included in summary/public views | | <code>unsupported</code> | Explicitly not standing behind | | <code>conflicting</code> | Internal disagreement — resolve before publish | | <code>expired</code> | Was true; time-bound claim ended |</p>
+<table><thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>pending_review</code></td><td>Draft statement, not for public “supported” export</td></tr><tr><td><code>supported</code></td><td>Reviewed; included in summary/public views</td></tr><tr><td><code>unsupported</code></td><td>Explicitly not standing behind</td></tr><tr><td><code>conflicting</code></td><td>Internal disagreement — resolve before publish</td></tr><tr><td><code>expired</code></td><td>Was true; time-bound claim ended</td></tr></tbody></table>
 <p>Only <strong>supported</strong> claims appear in <code>view=summary</code>, <code>view=claims</code>, and MCP claim tools.</p>
 <h3>Evidence types</h3>
-<p>| Type | Use for | |------|---------| | cms_content | CMS entry as proof | | external_url | Any HTTPS proof page | | marketplace_listing | Amazon, Etsy, app store | | review_platform | G2, Trustpilot, Capterra | | certification | ISO, SOC2 badge pages | | publication | Press, research papers | | upload | Internal doc reference (prefer URL when public) |</p>
+<table><thead><tr><th>Type</th><th>Use for</th></tr></thead>
+<tbody><tr><td>cms_content</td><td>CMS entry as proof</td></tr><tr><td>external_url</td><td>Any HTTPS proof page</td></tr><tr><td>marketplace_listing</td><td>Amazon, Etsy, app store</td></tr><tr><td>review_platform</td><td>G2, Trustpilot, Capterra</td></tr><tr><td>certification</td><td>ISO, SOC2 badge pages</td></tr><tr><td>publication</td><td>Press, research papers</td></tr><tr><td>upload</td><td>Internal doc reference (prefer URL when public)</td></tr></tbody></table>
 <p>Optional <strong>rating</strong> and <strong>review_count</strong> store lightweight metadata — <strong>URL remains source of truth</strong>.</p>
 <h3>Workflow tip</h3>
 <ol>
@@ -99,14 +107,16 @@
 <h2>Media tab</h2>
 <p><strong>Purpose:</strong> Tell agents <strong>what an image means</strong>, not just that it exists.</p>
 <p>For each media asset in context:</p>
-<p>| Field | Example | |-------|---------| | Represents | organization, product, person, campaign | | Description | “2024 product hero — Widget Pro on desk” | | Intended use | “Marketing hero, not spec diagram” | | Restrictions | “Do not crop logo; no AI-generated derivatives” |</p>
+<table><thead><tr><th>Field</th><th>Example</th></tr></thead>
+<tbody><tr><td>Represents</td><td>organization, product, person, campaign</td></tr><tr><td>Description</td><td>“2024 product hero — Widget Pro on desk”</td></tr><tr><td>Intended use</td><td>“Marketing hero, not spec diagram”</td></tr><tr><td>Restrictions</td><td>“Do not crop logo; no AI-generated derivatives”</td></tr></tbody></table>
 <p>Link media to products/claims via represents.ref when editing.</p>
 <p><strong>Staleness:</strong> If linked media metadata changes after publish, Overview/Publish warn you to review.</p>
 <p>---</p>
 <h2>Publish tab</h2>
 <p><strong>Purpose:</strong> Go live, preview, version history.</p>
 <h3>Publication settings</h3>
-<p>| Setting | Effect | |---------|--------| | Enabled | Master switch — off = public 404 | | Public path | Well-known file path (default <code>/.well-known/agent-guide.json</code>) | | Include JSON-LD | Embeds schema.org graph in export | | Public views enabled | API view parameters active | | Redact public fields | Advanced: omit fields from export |</p>
+<table><thead><tr><th>Setting</th><th>Effect</th></tr></thead>
+<tbody><tr><td>Enabled</td><td>Master switch — off = public 404</td></tr><tr><td>Public path</td><td>Well-known file path (default <code>/.well-known/agent-guide.json</code>)</td></tr><tr><td>Include JSON-LD</td><td>Embeds schema.org graph in export</td></tr><tr><td>Public views enabled</td><td>API view parameters active</td></tr><tr><td>Redact public fields</td><td>Advanced: omit fields from export</td></tr></tbody></table>
 <h3>Publish action</h3>
 <p>Creates immutable version snapshot:</p>
 <ul>

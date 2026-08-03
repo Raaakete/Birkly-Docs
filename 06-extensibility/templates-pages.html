@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -199,7 +201,8 @@
 </ul>
 <p>So: templates = structure and placeholders; CMS = data; routing = mapping URL → template + data.</p>
 <p><strong>Client-side vs server-side</strong></p>
-<p>| Mode | How routing works | Typical use | |------|-------------------|-------------| | <strong>Client (birkly-client.js)</strong> | Static HTML files (e.g. <code>blog.html</code>, <code>post.html</code>). Client infers collection/entry from URL or <code>data-collection</code>; fetches from API; fills placeholders. | Static hosting, no server language. | | <strong>Server (e.g. PHP)</strong> | Router (e.g. <code>render_page.php</code>) matches path to template + collection/entry; loads content (API or files); renders server-side; returns HTML. | SSR, SEO, single entry point. |</p>
+<table><thead><tr><th>Mode</th><th>How routing works</th><th>Typical use</th></tr></thead>
+<tbody><tr><td><strong>Client (birkly-client.js)</strong></td><td>Static HTML files (e.g. <code>blog.html</code>, <code>post.html</code>). Client infers collection/entry from URL or <code>data-collection</code>; fetches from API; fills placeholders.</td><td>Static hosting, no server language.</td></tr><tr><td><strong>Server (e.g. PHP)</strong></td><td>Router (e.g. <code>render_page.php</code>) matches path to template + collection/entry; loads content (API or files); renders server-side; returns HTML.</td><td>SSR, SEO, single entry point.</td></tr></tbody></table>
 <p><strong>Defining routes</strong></p>
 <ul>
 <li>Some setups have a <strong>routes</strong> or <strong>pages</strong> config (file or admin) mapping path patterns to template + collection. Others use convention (e.g. <code>/blog</code> → <code>templates/blog.html</code> + collection <code>blog</code>).</li>

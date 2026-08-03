@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -180,9 +182,11 @@
     1.json … N.json   ← optional history (cap 50)</code></pre>
 <p>Internal path name <code>ai_presence</code> is historical; the product and export schema are <strong>Agent Guide</strong>.</p>
 <h3>meta.json fields</h3>
-<p>| Field | Description | |-------|-------------| | published_version | Integer, increments each publish | | last_published_at | ISO 8601 | | draft_updated_at | Last draft save | | draft_checksum / published_checksum | SHA-256 of normalized JSON |</p>
+<table><thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody><tr><td>published_version</td><td>Integer, increments each publish</td></tr><tr><td>last_published_at</td><td>ISO 8601</td></tr><tr><td>draft_updated_at</td><td>Last draft save</td></tr><tr><td>draft_checksum / published_checksum</td><td>SHA-256 of normalized JSON</td></tr></tbody></table>
 <h2>Top-level document structure</h2>
-<p>| Key | Description | |-----|-------------| | <code>sources_of_truth</code> | Registry of canonical sources (CMS, web, docs, media, marketplaces) | | <code>guide_meta</code> | Export hints (<code>product</code>, <code>summary_layer</code>) | | identity | Official name, descriptions, website, social, derived_from | | positioning | Best known for, differentiators, fit | | communication_guidance | Terms, tone, qualifications | | connected_content | <strong>Legacy</strong> — migrated to <code>sources_of_truth</code> on save | | products_services | Catalog items | | claims | Factual statements + status | | evidence | Proof artifacts | | media_context | Media library contextual metadata | | relationships | Partners, parent orgs, etc. | | publication_settings | Enable, paths, JSON-LD, redactions | | setup_completed_at / setup_skipped_at | Onboarding markers |</p>
+<table><thead><tr><th>Key</th><th>Description</th></tr></thead>
+<tbody><tr><td><code>sources_of_truth</code></td><td>Registry of canonical sources (CMS, web, docs, media, marketplaces)</td></tr><tr><td><code>guide_meta</code></td><td>Export hints (<code>product</code>, <code>summary_layer</code>)</td></tr><tr><td>identity</td><td>Official name, descriptions, website, social, derived_from</td></tr><tr><td>positioning</td><td>Best known for, differentiators, fit</td></tr><tr><td>communication_guidance</td><td>Terms, tone, qualifications</td></tr><tr><td>connected_content</td><td><strong>Legacy</strong> — migrated to <code>sources_of_truth</code> on save</td></tr><tr><td>products_services</td><td>Catalog items</td></tr><tr><td>claims</td><td>Factual statements + status</td></tr><tr><td>evidence</td><td>Proof artifacts</td></tr><tr><td>media_context</td><td>Media library contextual metadata</td></tr><tr><td>relationships</td><td>Partners, parent orgs, etc.</td></tr><tr><td>publication_settings</td><td>Enable, paths, JSON-LD, redactions</td></tr><tr><td>setup_completed_at / setup_skipped_at</td><td>Onboarding markers</td></tr></tbody></table>
 <p>Published export adds: <code>published_version</code>, <code>generated_at</code>, <code>usage_hints</code>, optional <code>json_ld</code>.</p>
 <h2>sources_of_truth item</h2>
 <pre><code>{
@@ -309,7 +313,8 @@
   &quot;follow_links_for&quot;: [&quot;product specs&quot;, &quot;pricing&quot;, &quot;reviews&quot;, &quot;certifications&quot;]
 }</code></pre>
 <h2>Completeness scoring (max 100)</h2>
-<p>| Key | Max | Logic | |-----|-----|-------| | identity | 20 | name 10 + short 10 | | description | 15 | full or what_we_do | | sources_of_truth | 15 | narrative source 15; any source 8 | | claims | 20 | supported+evidence 20; any claim 8 | | evidence | 15 | any 10 + URL 5 | | positioning | 10 | best_known_for non-empty | | products | 10 | any 5 + grounded 5 | | terminology | 5 | preferred_terms | | publishing | 5 | enabled flag |</p>
+<table><thead><tr><th>Key</th><th>Max</th><th>Logic</th></tr></thead>
+<tbody><tr><td>identity</td><td>20</td><td>name 10 + short 10</td></tr><tr><td>description</td><td>15</td><td>full or what_we_do</td></tr><tr><td>sources_of_truth</td><td>15</td><td>narrative source 15; any source 8</td></tr><tr><td>claims</td><td>20</td><td>supported+evidence 20; any claim 8</td></tr><tr><td>evidence</td><td>15</td><td>any 10 + URL 5</td></tr><tr><td>positioning</td><td>10</td><td>best_known_for non-empty</td></tr><tr><td>products</td><td>10</td><td>any 5 + grounded 5</td></tr><tr><td>terminology</td><td>5</td><td>preferred_terms</td></tr><tr><td>publishing</td><td>5</td><td>enabled flag</td></tr></tbody></table>
 <h2>Publish pipeline</h2>
 <ol>
 <li>Load draft → validate → normalize sources (<code>agent_guide_sources.php</code>)</li>
@@ -324,9 +329,11 @@
 </ol>
 <h2>Admin API (authenticated)</h2>
 <p>Base: <code>/api/ai_presence.php</code> (internal name; serves Agent Guide)</p>
-<p>| Action | Method | Notes | |--------|--------|-------| | get | read | Draft + published + completeness + staleness | | save_draft | write | CSRF, merge partial | | publish | write | Validate + snapshot | | suggest / copilot | write | AI suggestions (sources-first grounding) | | suggest_links | write | Link-specific suggestions | | validate_links | write | Optional <code>update_status</code> | | list_collection_entries | read | CMS picker | | fetch_url_meta | write | SSRF-safe title fetch | | cms_diff / cms_refresh | read/write | Sync helpers |</p>
+<table><thead><tr><th>Action</th><th>Method</th><th>Notes</th></tr></thead>
+<tbody><tr><td>get</td><td>read</td><td>Draft + published + completeness + staleness</td></tr><tr><td>save_draft</td><td>write</td><td>CSRF, merge partial</td></tr><tr><td>publish</td><td>write</td><td>Validate + snapshot</td></tr><tr><td>suggest / copilot</td><td>write</td><td>AI suggestions (sources-first grounding)</td></tr><tr><td>suggest_links</td><td>write</td><td>Link-specific suggestions</td></tr><tr><td>validate_links</td><td>write</td><td>Optional <code>update_status</code></td></tr><tr><td>list_collection_entries</td><td>read</td><td>CMS picker</td></tr><tr><td>fetch_url_meta</td><td>write</td><td>SSRF-safe title fetch</td></tr><tr><td>cms_diff / cms_refresh</td><td>read/write</td><td>Sync helpers</td></tr></tbody></table>
 <h2>Permissions</h2>
-<p>| Capability | Permission | |------------|------------| | View | <code>read</code> OR <code>manage_settings</code> | | Edit, publish | <code>manage_settings</code> |</p>
+<table><thead><tr><th>Capability</th><th>Permission</th></tr></thead>
+<tbody><tr><td>View</td><td><code>read</code> OR <code>manage_settings</code></td></tr><tr><td>Edit, publish</td><td><code>manage_settings</code></td></tr></tbody></table>
 <h2>Related docs</h2>
 <ul>
 <li><a href="../04-integration/agent-guide-public-api.html">Public API</a></li>

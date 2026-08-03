@@ -38,6 +38,7 @@
         <a href="account.html" class="nav-link">Account</a>
         <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="design-system.html" class="nav-link">Admin design system</a>
+        <a href="admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="ai-overview.html" class="nav-link">AI overview</a>
         <a href="ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -178,7 +180,8 @@
 <p>Some cards are limited to administrators. Plugin cards appear only when their plugin is active and enabled. The Commerce card is enabled by default for administrators, but an administrator can disable it in Commerce settings.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>The P31 dashboard renders one <code>#dashboard-widget-grid</code> of <code>.card.dash-widget</code> elements. Widget definitions are returned by <code>GET /api/dashboard.php?action=widgets</code>, where core widgets are merged with widgets registered by active plugins and filtered by role and plugin settings.</p>
 <p>The Widget API v2 fields are:</p>
-<p>| Field | Purpose | |-------|---------| | <code>id</code> | Stable widget identifier | | <code>title</code> | Card heading | | <code>size</code> | Grid hint: <code>sm</code>, <code>md</code>, <code>lg</code>, or <code>full</code> | | <code>priority</code> | Ascending display order | | <code>mount</code> | Named client-side mount handler | | <code>endpoint</code> | Optional API URL for widget data | | <code>refresh</code> | Optional refresh interval in seconds; <code>0</code> disables refresh | | <code>roles</code> | Allowed CMS roles | | <code>plugin_id</code> | Owning plugin, used for its opt-in settings |</p>
+<table><thead><tr><th>Field</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>id</code></td><td>Stable widget identifier</td></tr><tr><td><code>title</code></td><td>Card heading</td></tr><tr><td><code>size</code></td><td>Grid hint: <code>sm</code>, <code>md</code>, <code>lg</code>, or <code>full</code></td></tr><tr><td><code>priority</code></td><td>Ascending display order</td></tr><tr><td><code>mount</code></td><td>Named client-side mount handler</td></tr><tr><td><code>endpoint</code></td><td>Optional API URL for widget data</td></tr><tr><td><code>refresh</code></td><td>Optional refresh interval in seconds; <code>0</code> disables refresh</td></tr><tr><td><code>roles</code></td><td>Allowed CMS roles</td></tr><tr><td><code>plugin_id</code></td><td>Owning plugin, used for its opt-in settings</td></tr></tbody></table>
 <p>Use a named mount handler registered with <code>Birkly.Dashboard</code>; do not supply executable JavaScript strings. The client fetches an optional endpoint and calls <code>Birkly.Dashboard.mountWidget(el, widget, data)</code>. This avoids <code>eval()</code> and keeps rendering behavior inspectable.</p>
 <p>Grid behavior is three columns above 1280px, two columns at and below 1280px, and one column at and below 768px. <code>lg</code> spans two columns on desktop and <code>full</code> spans all available columns.</p>
 <p>Core widgets cover quick actions, content snapshot, analytics, recent collections and entries, recent activity, drafts, system status, security, and updates. Active Commerce, Events, Studio, and Automation plugins can contribute their own widgets through the same contract.</p></div></details>

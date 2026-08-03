@@ -1,86 +1,58 @@
 # Admin design system
 
-Design tokens, icons, dark mode, and shared component classes for the Birkly admin UI (Phase 41).
-
 ## Summary
 
-The Birkly admin uses a **mint** primary palette and a **neutral** gray-green scale defined in `admin/css/core/variables.css`. Icons are stroke-based (24px viewBox) via `birkly_icon()` in PHP and `Birkly.icon()` in JavaScript, backed by `core/icons.php` and `admin/assets/icons/`. Theme is controlled with `data-theme` on the document root (`light`, `dark`, or `system`). Reusable layout classes include **`.card`**, **`.empty-state`**, and **`.status-badge`** — use these in admin templates and plugin pages for visual consistency.
+The Birkly admin is styled by one internal CSS framework: design tokens in `admin/css/core/variables.css`, a `u-*` helper layer in `admin/css/core/helpers.css`, and a component catalog in `admin/css/components/`. Admin pages are composed from those three and ship no page-specific CSS. **[Admin design language](admin-design-language.md) is the full build kit** — every token, every helper, every component with copy-paste markup, and the page skeleton. This page is the short orientation plus the entry points for icons and theming.
 
 ## Beginner
 
-### Colors you will see
+### The look, in four sentences
 
-- **Mint green** — Primary actions, active nav highlights, and focus accents (`#7CE3BF` in light mode).
-- **Neutral backgrounds** — Soft off-white panels and borders that stay readable in both themes.
-- **Semantic colors** — Green for success/published, amber for warnings/drafts, red for errors.
+Content sits in white panels on a warm off-white background. Panels have a thin grey outline instead of a drop shadow. Exactly one mint-green button per screen marks the main action; everything else is neutral. Text is 14px, rows are compact, and animation is short and small.
 
-### Icons
+### Where the page title comes from
 
-Admin icons are simple line drawings. In PHP templates you will see `<?= birkly_icon('gear', ['size' => 16]) ?>`. In JavaScript, `Birkly.icon('gear', { size: 16 })`. Names like `gear`, `plus`, and `trash` come from a fixed registry — you do not need to paste SVG for common actions.
+Admin pages don't have their own heading. Each page emits a breadcrumb trail, and the last segment of that trail *is* the page title — the admin lifts it into the top bar. So you see "Settings › Roles" once, at the top of the window.
 
-### Dark mode
+### Light and dark
 
-Users switch theme from the header (sun / moon / monitor). The choice is stored in the browser. Components automatically pick up darker backgrounds and lighter text through CSS variables — you rarely set hex colors directly in new markup.
+The theme switcher lives in the top bar (sun / moon / monitor) and the choice is remembered in your browser. Everything in the admin picks up the right colours automatically, because components refer to colours by role — "surface", "text", "border" — rather than by value.
 
-### Common components
+### Building something
 
-| Class | Use for |
-|-------|---------|
-| `.card` | Grouped content panels (settings sections, dashboard tiles) |
-| `.empty-state` | “Nothing here yet” messages with optional action button |
-| `.status-badge` | Entry status pills (draft, published, pending review) |
+If you're writing an admin page or a plugin screen, read the build kit rather than this page:
+
+- **[Admin design language](admin-design-language.md)** — tokens, helpers, components, page recipe
+- **[Plugin admin styling](../06-plugin-economy/plugin-admin-styling.md)** — the three adoption tiers, the guaranteed class contract, and a complete worked plugin page
 
 ## Advanced Users
 
 ### Source of truth
 
-All design tokens live in:
+| Layer | File |
+|-------|------|
+| Tokens | `admin/css/core/variables.css` — the only file allowed to contain a hex literal |
+| Legacy token aliases | `admin/css/core/compat-tokens.css` — for plugin CSS only; core admin CSS may not use these names |
+| Base | `admin/css/core/reset.css`, `core/typography.css` |
+| Components | `admin/css/components/*.css` |
+| Layout and page chrome | `admin/css/layout/*.css` |
+| Fieldtype CSS API | `admin/css/plugins/fieldtype-api.css` |
+| Helpers | `admin/css/core/helpers.css` — imported **last**, so helpers win on source order |
+| Import hub | `admin/css/style.css` |
 
-```
-admin/css/core/variables.css
-```
+Full reference — surfaces, text, borders, accent, semantic families, spacing, type scale, radius, elevation, z-index, motion, focus, control sizes, measure, breakpoints, the complete `u-*` list and the component catalog — is in [Admin design language](admin-design-language.md). Don't duplicate values here; that page tracks the CSS.
 
-Component styles:
+### Three things that catch people out
 
-| Component | Stylesheet |
-|-----------|------------|
-| Cards | `admin/css/components/cards.css` |
-| Empty states | `admin/css/components/empty-states.css` |
-| Status badges | `admin/css/components/status-badges.css` |
-| Tables (incl. badges in cells) | `admin/css/components/tables.css` |
+**1. Mint is a fill, not a text colour.** `--accent` (`#7CE3BF`) measures 1.54:1 on white. Use `--accent-text` for accent text and links, `--ink-on-accent` for text on a mint fill. `--primary-700` (2.95:1) must never be used as a text colour — it survives only as a legacy alias.
 
-### Mint primary tokens
+**2. Pages don't render an `<h1>`.** The breadcrumb's `.current` segment is the page title and is hoisted into the topbar by `moveBreadcrumbsToTopbar()`. Section titles are `<h2>` in `.card-header` or `.section-header`.
 
-Base brand color and derived scale (light theme defaults):
+**3. Dark mode is a token remap.** If a component needs a `[data-theme="dark"]` rule, a colour is hardcoded somewhere — fix that instead. CI rejects `data-theme` selectors in admin CSS outside the token file and one documented exception (the topbar shadow cast).
 
-| Token | Default | Notes |
-|-------|---------|-------|
-| `--color-primary` | `#7CE3BF` | Primary brand mint |
-| `--color-primary-hover` | `#8CECCA` | Hover / dark-theme primary |
-| `--color-primary-active` | `#79E1BD` | Pressed state |
-| `--primary-50` … `--primary-900` | Mint scale | Tints and shades for backgrounds, borders |
-| `--primary-light` | `var(--primary-100)` | Subtle highlight fills |
-| `--primary-color` | `var(--primary-500)` | Legacy alias |
+### Icons
 
-Use `var(--color-primary)` in custom admin CSS instead of hard-coded hex so dark mode and future token updates apply automatically.
-
-### Neutral scale
-
-| Token | Default (light) |
-|-------|-----------------|
-| `--color-neutral-100` | `#F8F9F7` |
-| `--color-neutral-200` | `#F4F6F2` |
-| `--color-neutral-300` | `#E7EAE4` |
-| `--color-neutral-400` | `#D9DBD5` |
-| `--color-neutral-500` | `#C4C6C1` |
-| `--color-neutral-600` | `#9B9D98` |
-| `--color-neutral-700` | `#72746F` |
-| `--color-neutral-800` | `#494B46` |
-| `--color-neutral-900` | `#20221D` |
-
-Text roles map to neutrals: `--text-primary`, `--text-secondary`, `--text-tertiary`. Backgrounds: `--bg-primary`, `--bg-secondary`, `--bg-elevated`, `--background-global`.
-
-### Icon system
+Stroke-based, 24×24 viewBox, `stroke="currentColor"`, from a shared registry with PHP and JS parity.
 
 **PHP** — `core/icons.php`:
 
@@ -88,78 +60,44 @@ Text roles map to neutrals: `--text-primary`, `--text-secondary`, `--text-tertia
 <?= birkly_icon('pencil-simple', ['size' => 16, 'class' => 'nav-icon']) ?>
 ```
 
-Options: `size`, `class`, `title`, `aria_hidden`. Output is inline SVG with class `birkly-icon`, 24×24 viewBox, `stroke="currentColor"`.
+Options: `size`, `class`, `title`, `aria_hidden`. Output carries the class `.birkly-icon`.
 
 **JavaScript** — `admin/js/icon.js`:
 
 ```javascript
-Birkly.icon('plus', { size: 16, class: 'btn-icon' });
+Birkly.icon('plus', { size: 16 });
 Birkly.iconImg('gear', { size: 16, alt: '' }); // loads admin/assets/icons/gear.svg
-Birkly.initIcons(document); // hydrates [data-icon="name"]
+Birkly.initIcons(document);                    // hydrates [data-icon="name"]
 ```
 
-Registry keys are identical in PHP and JS. SVG assets: `admin/assets/icons/{name}.svg`.
+Registry keys are identical in PHP and JS. SVG assets live in `admin/assets/icons/{name}.svg`. Size modifiers: `.birkly-icon--sm` 14px · `--md` 16px · `--lg` 20px · `--xl` 24px. Icons inside `.btn`, `.badge`, `.tab` and `.dropdown-item-icon` are sized by those components already.
 
 Plugin sidebar icons: see [Plugin navigation icon](../06-plugin-economy/plugin-navigation-icon.md).
 
-### Dark mode
+### Theming
 
-**Client:** `admin/js/theme.js` — `Birkly.Theme` sets `data-theme` on `<html>` and `<body>`. Values: `light`, `dark`, `system`.
+`admin/js/theme.js` (`Birkly.Theme`) sets `data-theme` on `<html>` and `<body>`. Values: `light`, `dark`, `system`.
 
-**CSS:** `[data-theme="dark"]` and `@media (prefers-color-scheme: dark)` on `[data-theme="system"]` remap surface, text, border, and primary tokens in `variables.css`. Dark primary mint shifts to `--dark-color-primary` (`#8CECCA`).
+`core/variables.css` defines the dark palette once as `--dk-*` properties, then remaps the semantic tokens under `[data-theme="dark"]` and under `[data-theme="system"]` inside `@media (prefers-color-scheme: dark)`, and sets `color-scheme: dark` so native controls follow.
 
-Plugin and custom admin CSS should use semantic variables (`var(--text-primary)`, `var(--border-light)`) — not light-only hex.
+User-facing behaviour: [Admin appearance](admin-appearance.md).
 
-See also [Admin appearance](admin-appearance.md) for the user-facing theme switcher.
+### Contributing to admin CSS
 
-### Component classes
+- No raw hex outside `core/variables.css`.
+- No retired token names (`--spacing-*`, `--border-radius-*`, `--gray-*`, `--shadow-sm/md/lg/xl`, `--font-size-*`, `--primary-N`, `--bg-*`, `--border-light/medium/color`, `--transition-*`) — most survive as aliases in `core/compat-tokens.css` for plugin compatibility only; `--spacing-*` and `--border-radius-*` are not aliased at all.
+- No raw `z-index` literal; use `--z-*`.
+- Media queries use one of five breakpoint values (640 / 768 / 1024 / 1280 / 1440), `min-width` preferred.
+- No `transition: all`, no hover scale, no shadow on a static panel.
+- No `!important`; the only allowlisted use is the global `prefers-reduced-motion` block.
+- New pages ship no page CSS. If you think you need some, it's a framework gap worth filing.
 
-#### Cards (`.card`)
-
-```html
-<div class="card">
-  <h3>Section title</h3>
-  <p>Body content</p>
-</div>
-
-<div class="card card--compact">...</div>
-<div class="card card--elevated">...</div>
-<div class="card card--bordered">...</div>
-```
-
-Split layout: `.card-header` + `.card-body` inside `.card` (padding handled by sub-regions).
-
-#### Empty state (`.empty-state`)
-
-```html
-<div class="empty-state">
-  <div class="empty-state__icon" data-icon="folder" data-icon-size="24"></div>
-  <h3 class="empty-state__title">No items yet</h3>
-  <p class="empty-state__message">Create your first item to get started.</p>
-  <div class="empty-state__action">
-    <a href="..." class="btn btn-primary">Create item</a>
-  </div>
-</div>
-```
-
-Modifiers: `.empty-state--compact`, `.empty-state--loading`, `.empty-state--error`. Template partial: `admin/templates/components/empty-state.html`.
-
-#### Status badge (`.status-badge`)
-
-```html
-<span class="status-badge published">Published</span>
-<span class="status-badge draft">Draft</span>
-<span class="status-badge pending_review">Pending review</span>
-```
-
-Status-specific classes: `.published`, `.draft`, `.scheduled`, `.pending_review`, `.approved`, `.rejected`, `.archived`. Template partial: `admin/templates/components/status-badge.html`.
-
-### Spacing, radius, shadows
-
-Also defined in `variables.css`: `--space-*` (rem scale), `--radius-*`, `--shadow-*`, breakpoints `--bp-sm` through `--bp-2xl` (documented for responsive work; use literal values in `@media` queries).
+The do/don't table with the reasoning behind each rule is in [Admin design language](admin-design-language.md).
 
 ## Related
 
+- [Admin design language](admin-design-language.md) — the full build kit
+- [Plugin admin styling](../06-plugin-economy/plugin-admin-styling.md) — adoption tiers and the public class contract
 - [Admin appearance](admin-appearance.md) — theme switcher and responsive layout
 - [Admin chrome and action zones](admin-chrome-action-zones.md)
 - [Plugin navigation icon](../06-plugin-economy/plugin-navigation-icon.md)

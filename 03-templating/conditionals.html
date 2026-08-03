@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -213,7 +215,8 @@
 <li>Show a friendly empty state for lists (“No posts yet”) instead of blank space.</li>
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Condition types (typical)</strong></p>
-<p>| Condition | Example | Meaning | |-----------|---------|--------| | Collection has entries | <code>{if 'blog' has entries}</code> | At least one published entry in that collection. | | Entry has field | <code>{if entry has excerpt}</code> | Current entry has a non-empty value for that field. | | Not | <code>{if not entry has image}</code> | Negation of the following condition. | | Equals / comparison | If supported: <code>{if status eq 'published'}</code> | Value comparison; syntax is engine-dependent. |</p>
+<table><thead><tr><th>Condition</th><th>Example</th><th>Meaning</th></tr></thead>
+<tbody><tr><td>Collection has entries</td><td><code>{if 'blog' has entries}</code></td><td>At least one published entry in that collection.</td></tr><tr><td>Entry has field</td><td><code>{if entry has excerpt}</code></td><td>Current entry has a non-empty value for that field.</td></tr><tr><td>Not</td><td><code>{if not entry has image}</code></td><td>Negation of the following condition.</td></tr><tr><td>Equals / comparison</td><td>If supported: <code>{if status eq 'published'}</code></td><td>Value comparison; syntax is engine-dependent.</td></tr></tbody></table>
 <p><strong>Scoping</strong></p>
 <ul>
 <li><strong>Inside a loop:</strong> “entry” is the current loop entry; “entry has excerpt” checks that entry’s excerpt.</li>

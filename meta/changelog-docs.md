@@ -16,6 +16,18 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-03 — Admin design language
+
+The admin is now built from one internal CSS framework — tokens, a `u-*` helper layer, and a component catalog — and admin pages ship no page-specific CSS.
+
+- **New:** `01-admin/admin-design-language.md` — the build kit: full token reference (surfaces, text, borders, accent, semantic, spacing, type scale, radius, elevation, z-index, motion, control sizes, widths, breakpoints), accent contrast rules, complete `u-*` helper reference, component catalog with copy-paste markup, page chrome recipe (breadcrumb-as-title, `.main-actions-bar`, `.page-body`), dark mode as a token remap, and the do/don't rules.
+- **New:** `06-plugin-economy/plugin-admin-styling.md` — adoption tiers (compose / extend / independent), the CI-enforced public class contract, plugin CSS rules, legacy token aliases, a complete Tier 0 worked example, and the `.fieldtype-*` contract.
+- **Rewritten:** `01-admin/design-system.md` — short orientation pointing at the build kit; removed the superseded token names.
+- **Updated:** `06-plugin-economy/plugin-development.md` — styling section and cross-links.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`.
+
+---
+
 ## 2026-08-03 — Hub payments and entitlements (P55)
 
 - **Updated:** `06-extensibility/marketplace-buyer-guide.md`, `marketplace-provider-guide.md`, `marketplace-go-live.md` — entitlement-first Hub install flow, free/freemium no visible key, paid Stripe checkout with activation-key fallback, trials, seats, offline grace, refunds, and chargebacks.

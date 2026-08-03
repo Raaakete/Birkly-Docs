@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -183,7 +185,8 @@
 <li>Leave <strong>Enabled</strong> on, then <strong>Save rule</strong>.</li>
 </ol>
 <h3>Stack rules (plain language)</h3>
-<p>| Kind | Behavior | |------|----------| | <strong>Non-stackable</strong> (<code>stackable</code> off) | Among matching exclusive candidates, only the <strong>highest customer savings</strong> applies | | <strong>Stackable</strong> (<code>stackable</code> on) | May apply <strong>in addition</strong> to the winning exclusive rule | | <strong>Coupon + automatic</strong> | May combine when <strong>both</strong> are stackable |</p>
+<table><thead><tr><th>Kind</th><th>Behavior</th></tr></thead>
+<tbody><tr><td><strong>Non-stackable</strong> (<code>stackable</code> off)</td><td>Among matching exclusive candidates, only the <strong>highest customer savings</strong> applies</td></tr><tr><td><strong>Stackable</strong> (<code>stackable</code> on)</td><td>May apply <strong>in addition</strong> to the winning exclusive rule</td></tr><tr><td><strong>Coupon + automatic</strong></td><td>May combine when <strong>both</strong> are stackable</td></tr></tbody></table>
 <h3>Affiliate</h3>
 <p>Affiliate rules match <code>?ref=partner_id</code> on storefront URLs (session) plus the rule’s affiliate ID field.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Engine:</strong> <code>DiscountEngine::evaluateCart()</code> — returns <code>line_discounts</code>, <code>free_shipping</code>, <code>discount_cents</code>, <code>allocations</code>, <code>applied_rule_ids</code>.</p>

@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -189,9 +191,11 @@
 <li><strong>Remove</strong> — rollback imported entries (optionally delete collection if the import created it).</li>
 </ul>
 <h2>Supported sources (CSV v1)</h2>
-<p>| Preset | Description | |--------|-------------| | <strong>Generic CSV</strong> | Column mapping wizard | | <strong>WooCommerce export</strong> | Preset column mapping | | <strong>Shopify export</strong> | Preset column mapping | | <strong>Magento, BigCommerce, PrestaShop, …</strong> | Preset mappings in import wizard |</p>
+<table><thead><tr><th>Preset</th><th>Description</th></tr></thead>
+<tbody><tr><td><strong>Generic CSV</strong></td><td>Column mapping wizard</td></tr><tr><td><strong>WooCommerce export</strong></td><td>Preset column mapping</td></tr><tr><td><strong>Shopify export</strong></td><td>Preset column mapping</td></tr><tr><td><strong>Magento, BigCommerce, PrestaShop, …</strong></td><td>Preset mappings in import wizard</td></tr></tbody></table>
 <h2>Mapping targets</h2>
-<p>| Column | Maps to | |--------|---------| | Title | Entry title | | Body / Description | Entry body field | | Price | Commerce <code>price_cents</code> (converted from decimal) | | Currency | Commerce <code>currency</code> | | SKU | Commerce <code>sku</code> | | Quantity | Commerce <code>quantity_available</code> | | Slug | Entry slug | | Image URL | Media field (when mapped) |</p>
+<table><thead><tr><th>Column</th><th>Maps to</th></tr></thead>
+<tbody><tr><td>Title</td><td>Entry title</td></tr><tr><td>Body / Description</td><td>Entry body field</td></tr><tr><td>Price</td><td>Commerce <code>price_cents</code> (converted from decimal)</td></tr><tr><td>Currency</td><td>Commerce <code>currency</code></td></tr><tr><td>SKU</td><td>Commerce <code>sku</code></td></tr><tr><td>Quantity</td><td>Commerce <code>quantity_available</code></td></tr><tr><td>Slug</td><td>Entry slug</td></tr><tr><td>Image URL</td><td>Media field (when mapped)</td></tr></tbody></table>
 <h2>Idempotency</h2>
 <p>Match existing entries by <strong>SKU</strong> or <strong>external_id</strong> column — update vs create.</p>
 <h2>Dry-run</h2>

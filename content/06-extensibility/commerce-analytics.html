@@ -51,12 +51,15 @@
   &quot;affiliates&quot;: [{ &quot;affiliate_id&quot;: &quot;partner-a&quot;, &quot;orders&quot;: 5, &quot;revenue_cents&quot;: 22000 }]
 }</code></pre>
 <p><strong>Settings</strong></p>
-<p>| Key | Default | Notes | |-----|---------|-------| | <code>commerce_fulfillment_sla_hours</code> | <code>48</code> | Paid ship orders with remaining qty older than this → <code>sla_breach_count</code> |</p>
+<table><thead><tr><th>Key</th><th>Default</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>commerce_fulfillment_sla_hours</code></td><td><code>48</code></td><td>Paid ship orders with remaining qty older than this → <code>sla_breach_count</code></td></tr></tbody></table>
 <p><strong>Low-stock trigger</strong></p>
-<p>| Trigger | Payload | |---------|---------| | <code>commerce_low_stock</code> | <code>{ sku, on_hand, reserved, available, threshold }</code> |</p>
+<table><thead><tr><th>Trigger</th><th>Payload</th></tr></thead>
+<tbody><tr><td><code>commerce_low_stock</code></td><td><code>{ sku, on_hand, reserved, available, threshold }</code></td></tr></tbody></table>
 <p>Implemented by <code>CommerceLowStockService</code> — fires once per SKU until available recovers above threshold.</p>
 <p><strong>API</strong></p>
-<p>| Action | Params | Response | |--------|--------|----------| | <code>analytics_summary</code> | <code>from</code>, <code>to</code> (optional ISO dates) | Summary JSON | | <code>analytics_export_csv</code> | <code>from</code>, <code>to</code> | <code>text/csv</code> download |</p>
+<table><thead><tr><th>Action</th><th>Params</th><th>Response</th></tr></thead>
+<tbody><tr><td><code>analytics_summary</code></td><td><code>from</code>, <code>to</code> (optional ISO dates)</td><td>Summary JSON</td></tr><tr><td><code>analytics_export_csv</code></td><td><code>from</code>, <code>to</code></td><td><code>text/csv</code> download</td></tr></tbody></table>
 <p>Requires <code>view_commerce_stats</code> (or legacy <code>view_payment_stats</code>).</p>
 <p><strong>Top products key</strong></p>
 <p><code>{collection_slug}:{entry_id}</code> from order line snapshots at checkout time.</p>

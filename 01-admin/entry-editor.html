@@ -38,6 +38,7 @@
         <a href="account.html" class="nav-link">Account</a>
         <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="design-system.html" class="nav-link">Admin design system</a>
+        <a href="admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="ai-overview.html" class="nav-link">AI overview</a>
         <a href="ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -188,7 +190,8 @@
 <p>Use <strong>Save</strong> or <strong>Save &amp; Publish</strong> at the top. Slug and status are read from the sidebar when you save.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Reserved fields (sidebar only):</strong> <code>slug</code>, <code>status</code>, <code>published_at</code>, <code>expires_at</code>, <code>reviewer</code>, <code>meta_title</code>, <code>meta_description</code> (plus related OG fields in Meta Data). These are filtered out of the main <code>$fields</code> render loop in <code>admin/templates/entry-editor.html</code>.</p>
 <p><strong>Slug resolution:</strong> Client-side auto-generation in <code>admin/js/entry-editor.js</code>; server-side <code>birkly_resolve_entry_slug()</code> in <code>core/entry_slug.php</code> on create/update via <code>api/admin_entries.php</code>.</p>
-<p>| Mode | Behavior | |------|----------| | Auto checkbox <strong>on</strong> (default) | Slug follows title on input; empty title → entry ID fallback on save | | Auto checkbox <strong>off</strong> | Slug preserved on title-only save (P2-R11); POST <code>slug</code> wins | | Re-check auto | Slug regenerates immediately from current title or ID |</p>
+<table><thead><tr><th>Mode</th><th>Behavior</th></tr></thead>
+<tbody><tr><td>Auto checkbox <strong>on</strong> (default)</td><td>Slug follows title on input; empty title → entry ID fallback on save</td></tr><tr><td>Auto checkbox <strong>off</strong></td><td>Slug preserved on title-only save (P2-R11); POST <code>slug</code> wins</td></tr><tr><td>Re-check auto</td><td>Slug regenerates immediately from current title or ID</td></tr></tbody></table>
 <p><strong>Sidebar tabs:</strong> Scoped under <code>.sidebar-tabs</code> so tab panes are not hidden by global <code>tabs.css</code>. Tab JS is scoped to <code>.sidebar-tabs</code> only.</p>
 <p><strong>Sub-entries:</strong> Sub-entry editors use the same sidebar layout and slug rules.</p></div></details>
 <div class="doc-related"><ul>

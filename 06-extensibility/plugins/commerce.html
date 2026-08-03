@@ -38,6 +38,7 @@
         <a href="../../01-admin/account.html" class="nav-link">Account</a>
         <a href="../../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -172,9 +174,11 @@
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What Commerce does</strong></p>
 <p>Commerce turns Birkly entries into things you can sell: physical products, digital downloads, class tickets, memberships, and sellable gift cards — without a separate e-commerce product database. Edit content in the CMS; Commerce indexes sellable units for checkout.</p>
 <p><strong>Two settings on each sellable item</strong></p>
-<p>| Setting | Plain language | |---------|----------------| | <strong>Fulfillment</strong> | What happens after someone pays (ship a box, send a download, register for a class, issue store credit, or grant access) | | <strong>Purchase options</strong> | How they pay — e.g. €25 once <strong>or</strong> €19/month on the <strong>same</strong> product |</p>
+<table><thead><tr><th>Setting</th><th>Plain language</th></tr></thead>
+<tbody><tr><td><strong>Fulfillment</strong></td><td>What happens after someone pays (ship a box, send a download, register for a class, issue store credit, or grant access)</td></tr><tr><td><strong>Purchase options</strong></td><td>How they pay — e.g. €25 once <strong>or</strong> €19/month on the <strong>same</strong> product</td></tr></tbody></table>
 <p><strong>Catalog, inventory, and orders</strong></p>
-<p>| Area | Role | |------|------| | <strong>Catalog</strong> | Read model of sellable CMS entries (edit the entry, then rebuild the index if needed) | | <strong>Inventory</strong> | Ledger system of record for countable stock | | <strong>Orders</strong> | Commercial history with frozen money/tax snapshots from checkout |</p>
+<table><thead><tr><th>Area</th><th>Role</th></tr></thead>
+<tbody><tr><td><strong>Catalog</strong></td><td>Read model of sellable CMS entries (edit the entry, then rebuild the index if needed)</td></tr><tr><td><strong>Inventory</strong></td><td>Ledger system of record for countable stock</td></tr><tr><td><strong>Orders</strong></td><td>Commercial history with frozen money/tax snapshots from checkout</td></tr></tbody></table>
 <p><strong>Stock modes</strong> (Inventory): <strong>Unlimited</strong> (ignore counts) · <strong>Simple</strong> (one row per SKU) · <strong>Locations</strong> (SKU stock per warehouse).</p>
 <p><strong>Quick setup</strong></p>
 <ol>
@@ -215,7 +219,8 @@
 <p><code>quantity_available</code> is a catalog projection of Inventory <strong>Available</strong> (or null for unlimited / capacity for <code>register</code>). Inventory is the ledger SoR for countable SKUs. <code>tax_class</code> defaults to <code>standard</code>; rates come from <strong>Settings → Tax</strong>. <code>weight_grams</code> is required on <code>ship</code> lines when EasyPost live rates are enabled.</p>
 <p><strong>PostPurchaseRouter</strong> — idempotent handler keyed on <code>order_id</code> + line; fires typed automation triggers including <code>commerce_physical_fulfilled</code>, <code>commerce_digital_delivered</code>, <code>commerce_event_registered</code>, <code>commerce_gift_card_issued</code>, <code>commerce_membership_started</code>. Shipments also fire <code>commerce_shipment_created</code> / <code>commerce_order_shipped</code> when notify is enabled; EasyPost tracking fires <code>commerce_tracking_updated</code>.</p>
 <p><strong>Admin areas</strong> (Commerce <strong>1.0.29</strong>)</p>
-<p>| Tab | Purpose | |-----|---------| | <strong>Dashboard</strong> | Revenue, AOV, new vs returning, first-order cohorts, needs-shipping / SLA breaches, avg fulfillment time, top products, affiliates | | <strong>Orders</strong> | Paid orders, fulfillment state, frozen money/tax lines; <strong>Draft orders / Quotes</strong> include a cart-free editor | | <strong>Customers</strong> | Email-keyed profiles, CSV import, order/subscription timeline; optional User Management link; no passwords | | <strong>Catalog</strong> | Indexed read model of sellable CMS entries | | <strong>Inventory</strong> | Stock ledger: Unlimited, Simple, or Locations; low-stock threshold feeds <code>commerce_low_stock</code> | | <strong>Subscriptions</strong> | Recurring purchases and lifecycle actions | | <strong>Discounts</strong> | Promotions v2: usage limits, min purchase, date window, free shipping, stack rules | | <strong>Gift Cards</strong> | Admin-issued store credit; sellable products use fulfillment <code>gift_card</code> | | <strong>Settings</strong> | Connections, General (incl. fulfillment SLA hours), Fieldtypes, Mappings, Import &amp; migrate, Shipping, Tax, Fulfillment, Activity, Documentation |</p>
+<table><thead><tr><th>Tab</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><strong>Dashboard</strong></td><td>Revenue, AOV, new vs returning, first-order cohorts, needs-shipping / SLA breaches, avg fulfillment time, top products, affiliates</td></tr><tr><td><strong>Orders</strong></td><td>Paid orders, fulfillment state, frozen money/tax lines; <strong>Draft orders / Quotes</strong> include a cart-free editor</td></tr><tr><td><strong>Customers</strong></td><td>Email-keyed profiles, CSV import, order/subscription timeline; optional User Management link; no passwords</td></tr><tr><td><strong>Catalog</strong></td><td>Indexed read model of sellable CMS entries</td></tr><tr><td><strong>Inventory</strong></td><td>Stock ledger: Unlimited, Simple, or Locations; low-stock threshold feeds <code>commerce_low_stock</code></td></tr><tr><td><strong>Subscriptions</strong></td><td>Recurring purchases and lifecycle actions</td></tr><tr><td><strong>Discounts</strong></td><td>Promotions v2: usage limits, min purchase, date window, free shipping, stack rules</td></tr><tr><td><strong>Gift Cards</strong></td><td>Admin-issued store credit; sellable products use fulfillment <code>gift_card</code></td></tr><tr><td><strong>Settings</strong></td><td>Connections, General (incl. fulfillment SLA hours), Fieldtypes, Mappings, Import &amp; migrate, Shipping, Tax, Fulfillment, Activity, Documentation</td></tr></tbody></table>
 <p><strong>Differentiation (P3 / 1.0.29)</strong></p>
 <ul>
 <li><strong>Hybrid cart:</strong> mix ship + deliver + register + subscribe; split checkout by billing group — see <a href="../commerce-hybrid-cart.html">Hybrid cart</a> and plugin <code>help-hybrid-cart</code>.</li>

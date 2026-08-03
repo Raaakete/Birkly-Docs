@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -204,7 +206,8 @@
 <pre><code>// BAD — destroys CMS-rendered (or templated) content
 this.innerHTML = '&lt;nav&gt;…&lt;/nav&gt;';</code></pre></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Attributes</h3>
-<p>| Attribute | Role | |-----------|------| | <code>collection</code> | Collection handle (<code>blog</code>, <code>site_elements</code>, …) | | <code>entry</code> | Entry slug (entry mode) | | <code>list</code> | Presence flag — list/loop mode | | <code>ordered</code> | Optional sort clause for list mode (e.g. <code>date:desc</code>) | | <code>data-birkly-region</code> | Explicit region root (also set automatically on <code>&lt;birkly-region&gt;</code>) | | <code>data-birkly-processed=&quot;1&quot;</code> | Set after a successful render; skip unless <code>force: true</code> |</p>
+<table><thead><tr><th>Attribute</th><th>Role</th></tr></thead>
+<tbody><tr><td><code>collection</code></td><td>Collection handle (<code>blog</code>, <code>site_elements</code>, …)</td></tr><tr><td><code>entry</code></td><td>Entry slug (entry mode)</td></tr><tr><td><code>list</code></td><td>Presence flag — list/loop mode</td></tr><tr><td><code>ordered</code></td><td>Optional sort clause for list mode (e.g. <code>date:desc</code>)</td></tr><tr><td><code>data-birkly-region</code></td><td>Explicit region root (also set automatically on <code>&lt;birkly-region&gt;</code>)</td></tr><tr><td><code>data-birkly-processed=&quot;1&quot;</code></td><td>Set after a successful render; skip unless <code>force: true</code></td></tr></tbody></table>
 <h3>Lifecycle</h3>
 <ol>
 <li>Page load → <code>Birkly.processTemplates()</code> discovers outermost regions (syntax <strong>or</strong> explicit <code>data-birkly-region</code> / <code>&lt;birkly-region&gt;</code>).</li>
@@ -218,7 +221,8 @@ this.innerHTML = '&lt;nav&gt;…&lt;/nav&gt;';</code></pre></div></details>
 // or
 await Birkly.processRegion(el, { force: true });</code></pre>
 <h3>Light DOM vs Shadow DOM</h3>
-<p>| | Light DOM | Shadow DOM | |--|-----------|------------| | Templates <code>{…}</code> | <strong>Yes</strong> — discovered and processed | <strong>No</strong> — client does not walk closed shadow trees | | What to do | Put markup/templates as children | Fetch JSON (<code>Birkly.fetch</code> / Public API), then <code>Birkly.render(html, data)</code> into the shadow root yourself |</p>
+<table><thead><tr><th></th><th>Light DOM</th><th>Shadow DOM</th></tr></thead>
+<tbody><tr><td>Templates <code>{…}</code></td><td><strong>Yes</strong> — discovered and processed</td><td><strong>No</strong> — client does not walk closed shadow trees</td></tr><tr><td>What to do</td><td>Put markup/templates as children</td><td>Fetch JSON (<code>Birkly.fetch</code> / Public API), then <code>Birkly.render(html, data)</code> into the shadow root yourself</td></tr></tbody></table>
 <h3>Enhance-only (<code>birkly-components.js</code>)</h3>
 <ul>
 <li><code>BirklyComponents.setActiveNav(root?, currentPage?, options?)</code> — toggles <code>.active</code> / <code>aria-current</code> on links.</li>

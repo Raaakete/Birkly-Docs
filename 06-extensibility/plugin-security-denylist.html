@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -209,9 +211,11 @@
 <p><strong>Enforcement</strong></p>
 <p><code>has_plugin_capability($plugin_id, $capability, $scope)</code> calls <code>is_resource_protected($scope)</code> first (denylist-first model). <code>is_space_denied($space_id)</code> checks <code>deny_spaces</code> before space-scoped plugin hooks and admin injections. Wildcard patterns use <code>*</code> glob semantics converted to regex.</p>
 <p><strong>API</strong> (<code>/api/plugins_permissions.php</code>, requires <code>manage_plugins</code>):</p>
-<p>| Action | Body | |--------|------| | <code>get_denylist</code> | — | | <code>add_to_denylist</code> | <code>{ resource }</code> or <code>{ resource, as_space: true }</code> | | <code>remove_from_denylist</code> | <code>{ resource }</code> | | <code>set_denylist</code> | <code>{ resources: [], deny_spaces: [] }</code> |</p>
+<table><thead><tr><th>Action</th><th>Body</th></tr></thead>
+<tbody><tr><td><code>get_denylist</code></td><td>—</td></tr><tr><td><code>add_to_denylist</code></td><td><code>{ resource }</code> or <code>{ resource, as_space: true }</code></td></tr><tr><td><code>remove_from_denylist</code></td><td><code>{ resource }</code></td></tr><tr><td><code>set_denylist</code></td><td><code>{ resources: [], deny_spaces: [] }</code></td></tr></tbody></table>
 <p><strong>Resource identifier conventions</strong></p>
-<p>| Pattern | Matches | |---------|---------| | <code>blog</code> | Collection slug <code>blog</code> | | <code>payroll/*</code> | Any resource starting with <code>payroll/</code> | | <code>entry:products:sku-123</code> | Specific entry scope | | <code>commerce</code> (in <code>deny_spaces</code>) | Commerce admin space hooks and panels |</p>
+<table><thead><tr><th>Pattern</th><th>Matches</th></tr></thead>
+<tbody><tr><td><code>blog</code></td><td>Collection slug <code>blog</code></td></tr><tr><td><code>payroll/*</code></td><td>Any resource starting with <code>payroll/</code></td></tr><tr><td><code>entry:products:sku-123</code></td><td>Specific entry scope</td></tr><tr><td><code>commerce</code> (in <code>deny_spaces</code>)</td><td>Commerce admin space hooks and panels</td></tr></tbody></table>
 <p><strong>Audit</strong></p>
 <p>Permission changes log to the plugin permissions audit trail. Test denylist behavior with <code>plugin_denylist_test.php</code> and <code>plugin_denylist_spaces_test.php</code> in the Birkly test suite.</p></div></details>
 <div class="doc-related"><ul>

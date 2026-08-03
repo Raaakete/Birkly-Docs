@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="for-site-owners.html" class="nav-link">For site owners</a>
         <a href="for-providers.html" class="nav-link active">For providers</a>
         <a href="plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="security-and-review.html" class="nav-link">Security and review</a>
@@ -180,10 +182,12 @@
 <li>Your offer appears in the <a href="https://marketplace.birkly.cloud/catalog">public catalog</a> and the registry API for CMS installs.</li>
 </ol>
 <p><strong>What you can sell</strong></p>
-<p>| Offer type | <code>offer_type</code> | Examples / install target | |------------|--------------|---------------------------| | <strong>Plugin</strong> | <code>plugin</code> | SEO tools, integrations, custom field types → <code>plugins/</code> | | <strong>Theme</strong> | <code>theme</code> | Styling packages → <code>themes/</code> | | <strong>Site pack</strong> | <code>template_pack</code> | Collections + <code>project/</code> site files (same zip shape as Ops starters) |</p>
+<table><thead><tr><th>Offer type</th><th><code>offer_type</code></th><th>Examples / install target</th></tr></thead>
+<tbody><tr><td><strong>Plugin</strong></td><td><code>plugin</code></td><td>SEO tools, integrations, custom field types → <code>plugins/</code></td></tr><tr><td><strong>Theme</strong></td><td><code>theme</code></td><td>Styling packages → <code>themes/</code></td></tr><tr><td><strong>Site pack</strong></td><td><code>template_pack</code></td><td>Collections + <code>project/</code> site files (same zip shape as Ops starters)</td></tr></tbody></table>
 <p>Site pack ZIPs need <code>manifest.json</code> + <code>collections/</code> + <code>project/</code> — not <code>plugin.json</code>. Buyers install from <strong>Plugins → Hub</strong> or <strong>Upload pack</strong>. See <a href="theme-and-template-packs.html">Hub, themes, and site packs</a>.</p>
 <p><strong>Pricing options</strong></p>
-<p>| Model | Buyer experience | |-------|------------------| | <strong>Free</strong> | Immediate CMS install; hidden entitlement, no visible key | | <strong>Freemium</strong> | Hidden free entitlement with plan capabilities; paid upgrade through Stripe | | <strong>Trial</strong> | No-card trial entitlement until trial end | | <strong>One-time</strong> | Single Stripe payment; entitlement plus fallback activation key per seat tier | | <strong>Subscription</strong> | Monthly or yearly Stripe Billing; entitlement active while subscribed |</p>
+<table><thead><tr><th>Model</th><th>Buyer experience</th></tr></thead>
+<tbody><tr><td><strong>Free</strong></td><td>Immediate CMS install; hidden entitlement, no visible key</td></tr><tr><td><strong>Freemium</strong></td><td>Hidden free entitlement with plan capabilities; paid upgrade through Stripe</td></tr><tr><td><strong>Trial</strong></td><td>No-card trial entitlement until trial end</td></tr><tr><td><strong>One-time</strong></td><td>Single Stripe payment; entitlement plus fallback activation key per seat tier</td></tr><tr><td><strong>Subscription</strong></td><td>Monthly or yearly Stripe Billing; entitlement active while subscribed</td></tr></tbody></table>
 <p><strong>After publish</strong></p>
 <ul>
 <li>Upload new versions from the offer editor; each version re-runs preflight.</li>
@@ -192,7 +196,8 @@
 <li>Optionally connect GitHub for tag-triggered release builds.</li>
 </ul>
 <p><strong>Trust levels</strong></p>
-<p>| Level | Meaning | |-------|---------| | Community | Automated preflight only | | Trusted | Passed automated checks; spot-checks possible | | Verified | Manual review for first release and major updates |</p></div></details>
+<table><thead><tr><th>Level</th><th>Meaning</th></tr></thead>
+<tbody><tr><td>Community</td><td>Automated preflight only</td></tr><tr><td>Trusted</td><td>Passed automated checks; spot-checks possible</td></tr><tr><td>Verified</td><td>Manual review for first release and major updates</td></tr></tbody></table></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Publishing workflow</strong></p>
 <p>Offers validate against <code>offer-manifest.schema.json</code>. Required fields include <code>slug</code>, <code>title</code>, <code>summary</code>, <code>offer_type</code>, <code>category</code>, <code>pricing</code>, <code>license</code>, <code>compatibility</code>, <code>trust_level</code>, and at least one <code>releases[]</code> entry with artifact URL, SHA-256 checksum, and size.</p>
 <p><strong>Registry exposure</strong></p>

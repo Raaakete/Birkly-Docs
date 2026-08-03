@@ -47,7 +47,8 @@
 <li>Artifact download — verify SHA-256, preflight zip structure, extract to <code>plugins/</code>.</li>
 </ol>
 <p><strong>Configuration</strong></p>
-<p>| Setting | Purpose | |---------|---------| | <code>BIRKLY_MARKETPLACE_URL</code> | Override marketplace base URL (staging) | | <code>settings/marketplace.json</code> | Persistent <code>marketplace_url</code> | | <code>installation_id</code> | Auto-generated local UUID for entitlement seats |</p>
+<table><thead><tr><th>Setting</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>BIRKLY_MARKETPLACE_URL</code></td><td>Override marketplace base URL (staging)</td></tr><tr><td><code>settings/marketplace.json</code></td><td>Persistent <code>marketplace_url</code></td></tr><tr><td><code>installation_id</code></td><td>Auto-generated local UUID for entitlement seats</td></tr></tbody></table>
 <p><strong>Subscription entitlements</strong></p>
 <p>Offers with <code>pricing.model: subscription</code> require an active Stripe Billing subscription. CMS update checks call marketplace status; lapsed, held, or revoked entitlements block updates until renewal or resolution at marketplace <strong>My subscriptions</strong>.</p>
 <p><strong>Offline grace</strong></p>

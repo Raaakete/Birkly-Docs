@@ -24,7 +24,8 @@
 <h3>Multilingual sites</h3>
 <p>Enable <strong>multilanguage</strong> on the site-elements collection. Edit <strong>Blocks</strong> per language tab so header/footer copy matches each locale. Regions respect the active site language when configured.</p>
 <h3>When not to use site elements</h3>
-<p>| Scenario | Better pattern | |----------|----------------| | Many similar items (blog posts, products) | Regular collection + list/detail templates | | Child rows on one page (comments) | <a href="sub-collections.html">Sub-collections</a> | | One long article | Single entry with Content editor field | | Visitor-submitted data | Public API collection — <a href="../04-integration/public-forms.html">Public forms</a> |</p></div></details>
+<table><thead><tr><th>Scenario</th><th>Better pattern</th></tr></thead>
+<tbody><tr><td>Many similar items (blog posts, products)</td><td>Regular collection + list/detail templates</td></tr><tr><td>Child rows on one page (comments)</td><td><a href="sub-collections.html">Sub-collections</a></td></tr><tr><td>One long article</td><td>Single entry with Content editor field</td></tr><tr><td>Visitor-submitted data</td><td>Public API collection — <a href="../04-integration/public-forms.html">Public forms</a></td></tr></tbody></table></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Handles in templates and API:</strong></p>
 <ul>
 <li>Collection: <code>{from 'site-elements' get entries}</code> or Public API <code>GET /api/public/collections/site-elements/entries/header</code></li>

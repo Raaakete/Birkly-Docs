@@ -80,7 +80,8 @@ fetch(`${base}/api/public.php?action=get_entry&amp;collection=blog&amp;slug=${sl
 <li><strong>JSON.</strong> List endpoints return an array of entry objects; single-entry returns one object. Field keys match the collection schema (title, content, slug, date, etc.). Meta (total count, pagination) may be present depending on version.</li>
 </ul>
 <p><strong>Query parameters (common)</strong></p>
-<p>| Parameter | Purpose | Example | |-----------|---------|---------| | limit | Max entries returned | <code>?limit=10</code> | | sort | Sort order | <code>?sort=date:desc</code> | | offset / page | Pagination | <code>?offset=20</code> or <code>?page=2</code> | | status | Filter by status; often only “published” by default | Version-dependent |</p>
+<table><thead><tr><th>Parameter</th><th>Purpose</th><th>Example</th></tr></thead>
+<tbody><tr><td>limit</td><td>Max entries returned</td><td><code>?limit=10</code></td></tr><tr><td>sort</td><td>Sort order</td><td><code>?sort=date:desc</code></td></tr><tr><td>offset / page</td><td>Pagination</td><td><code>?offset=20</code> or <code>?page=2</code></td></tr><tr><td>status</td><td>Filter by status; often only “published” by default</td><td>Version-dependent</td></tr></tbody></table>
 <p><strong>Authentication</strong></p>
 <ul>
 <li><strong>Read:</strong> Typically none. Public read is intended for unauthenticated callers. Restriction by domain is via CORS or server config, not HTTP auth.</li>

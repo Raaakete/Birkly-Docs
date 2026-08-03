@@ -1,0 +1,390 @@
+<div class="doc-summary"><p>A Birkly plugin's admin screens can look exactly like core without shipping a single line of CSS. Compose your page from the core classes — <code>.plugin-page</code>, <code>.card</code>, <code>.btn</code>, <code>.field</code>, <code>.table</code>, <code>.badge</code>, <code>.tabs</code>, <code>.modal</code> — plus the <code>u-<em></code> helpers, and you inherit the whole design language including dark mode, focus rings and reduced-motion handling for free. If you do need CSS, build it on the design tokens and namespace it as <code>.{plugin}-</em></code>. Plugins <strong>should</strong> adopt the design language, but are <strong>never required</strong> to: the platform will not force a rewrite of existing plugin CSS, and a compatibility layer keeps old token names working.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Three ways to style a plugin page</h3>
+<table><thead><tr><th>Tier</th><th>What you do</th><th>CSS you ship</th></tr></thead>
+<tbody><tr><td><strong>Tier 0 — Compose</strong> <em>(recommended)</em></td><td>Build the page out of core classes and helpers</td><td><strong>None</strong></td></tr><tr><td><strong>Tier 1 — Extend</strong></td><td>Ship a small stylesheet for genuinely plugin-specific UI, built on core tokens</td><td><code>.{plugin}-*</code> only</td></tr><tr><td><strong>Tier 2 — Independent</strong></td><td>Ship your own look</td><td>Fully namespaced, still meets the baseline rules</td></tr></tbody></table>
+<p>Start at Tier 0. Most plugin admin screens are a toolbar, some panels, a table and a form — all of which core already provides. Every line of CSS you don't write is a line that can't drift out of sync when the admin design changes.</p>
+<h3>Why Tier 0 is worth it</h3>
+<ul>
+<li><strong>Dark mode works automatically.</strong> Core classes read their colours from tokens that get remapped for dark themes. A plugin that hardcodes <code>#ffffff</code> looks broken the moment a user switches theme.</li>
+<li><strong>Accessibility comes with it.</strong> Focus rings, contrast-checked text colours, <code>prefers-reduced-motion</code>, keyboard-visible row actions — all already handled.</li>
+<li><strong>Your plugin looks native.</strong> Users don't have to learn a second visual language inside the same admin.</li>
+<li><strong>You inherit improvements.</strong> When core adjusts padding or a border colour, your page moves with it.</li>
+</ul>
+<h3>The one rule you cannot break</h3>
+<p><strong>Never restyle a core class.</strong> Writing <code>.btn { … }</code> or <code>.card { … }</code> in your plugin's stylesheet changes buttons and cards for the entire admin, including other plugins' pages. Scope everything to your own namespace.</p>
+<h3>Where to put your CSS</h3>
+<p>Plugin admin templates load their stylesheet themselves, at the top of the template:</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;{birkly_url '/admin/css/plugin-page.css'}&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;{birkly_url '/plugins/my-plugin/admin/my-plugin.css'}&quot;&gt;</code></pre>
+<p>A Tier 0 plugin only needs the first line — and often not even that, since <code>plugin-page.css</code> is already part of the admin bundle.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>1. Adoption tiers in detail</h3>
+<h4>Tier 0 — Compose (recommended)</h4>
+<p>Use <code>.plugin-page</code> as your root, <code>{plugin_page_header}</code> for breadcrumbs, and the contracted components below for everything else. Layout comes from <code>u-stack-<em></code>, <code>u-row</code>, <code>u-cluster</code>, <code>u-grid</em></code> and <code>u-split</code>. Ship no stylesheet at all.</p>
+<p>This is achievable for the large majority of plugin admin screens. If you find a genuine gap — a shape core has no component for — that is worth filing as a core gap rather than absorbing into your plugin.</p>
+<h4>Tier 1 — Extend</h4>
+<p>Ship a small stylesheet for UI that is genuinely specific to your plugin: a workflow canvas, a chart container, a domain-specific editor. Build it entirely from tokens; use core components for everything around it.</p>
+<p>Rules of thumb for Tier 1:</p>
+<ul>
+<li>One stylesheet, named after the plugin, under <code>admin/</code> in your plugin folder.</li>
+<li>Every declaration uses <code>var(--…)</code> for colour, spacing, radius, shadow, motion and z-index.</li>
+<li>Every selector starts with <code>.{plugin}-</code>.</li>
+<li>No selector matches a core class on its own.</li>
+</ul>
+<h4>Tier 2 — Independent</h4>
+<p>Ship your own look. This is allowed — the platform does not require adoption. You still must not restyle core classes, must not use <code>!important</code> against core, must not remove focus outlines, and must handle dark mode yourself (which is more work than adopting the tokens, which is why Tier 2 is rarely the right call).</p>
+<p>---</p>
+<h3>2. The public class contract</h3>
+<p>These class names and their visual meaning are guaranteed across minor versions. Their presence is verified in CI, so a core refactor cannot silently delete one out from under you.</p>
+<p><strong>Page chrome</strong></p>
+<p><code>.page</code> · <code>.plugin-page</code> · <code>.page-header</code> · <code>.page-header-left</code> · <code>.page-header-actions</code> · <code>.breadcrumbs</code> · <code>.main-actions-bar</code> · <code>.section-header</code> · <code>.section-title</code> · <code>.section-description</code></p>
+<p><strong>Panels</strong></p>
+<p><code>.card</code> · <code>.card-header</code> · <code>.card-title</code> · <code>.card-body</code> · <code>.card-footer</code></p>
+<p><strong>Controls</strong></p>
+<p><code>.btn</code> · <code>.btn-primary</code> · <code>.btn-secondary</code> · <code>.btn-outline</code> · <code>.btn-danger</code> · <code>.btn-sm</code> · <code>.btn-lg</code> · <code>.btn-icon</code></p>
+<p><strong>Forms</strong></p>
+<p><code>.field</code> · <code>.form-group</code> · <code>.input</code> · <code>.select</code> · <code>.textarea</code> · <code>.switch</code> · <code>.field-help</code> · <code>.field-error</code></p>
+<p><strong>Data</strong></p>
+<p><code>.table</code> · <code>.table-container</code> · <code>.data-list</code> · <code>.badge</code></p>
+<p><strong>Feedback and state</strong></p>
+<p><code>.callout</code> · <code>.empty-state</code> · <code>.skeleton</code> · <code>.spinner</code></p>
+<p><strong>Navigation and overlays</strong></p>
+<p><code>.tabs</code> · <code>.tab</code> · <code>.tab-panel</code> · <code>.modal</code> · <code>.modal-header</code> · <code>.modal-body</code> · <code>.modal-footer</code> · <code>.dropdown</code> · <code>.dropdown-item</code></p>
+<p><strong>Misc</strong></p>
+<p><code>.avatar</code> · <code>.divider</code> · <code>.birkly-icon</code></p>
+<p>Also contracted, though not in the CI presence check: every <code>u-<em></code> helper, every documented token, the <code>.fieldtype-</em></code> API, and the action-zone classes <code>.main-actions-left</code> / <code>.main-actions-right</code> / <code>.main-actions-bar--sticky</code> / <code>.cell-actions</code> / <code>.btn-icon--edit</code> / <code>.btn-icon--danger</code>.</p>
+<p><strong>Not contracted:</strong> internal element parts not listed above (for example <code>.card-heading</code>, <code>.data-list-main</code>, <code>.tabs-v2-<em></code> internals), page-level classes in <code>admin/css/pages/</em>.css</code>, and <code>.entries-smart-table</code> internals. Modifier suffixes documented in <a href="../01-admin/admin-design-language.html">Admin design language</a> — <code>.card--compact</code>, <code>.badge-success</code>, <code>.modal--lg</code>, <code>.table--compact</code> and so on — are stable in practice but the list above is what CI guarantees.</p>
+<p>---</p>
+<h3>3. Rules for plugin CSS (all tiers)</h3>
+<ol>
+<li><strong>Never restyle a core class.</strong> No <code>.btn { … }</code>, no <code>.card { … }</code>, no <code>#media-modal .modal-content { … }</code>. Scope to <code>.{plugin}-*</code>, or to a root class of your own plus a core class if you genuinely must adjust layout inside your page (<code>.my-plugin-page .card { margin: 0 }</code> is tolerable; <code>.card { margin: 0 }</code> is not).</li>
+<li><strong>Tokens, not hex.</strong> A plugin that hardcodes hex is broken in dark mode — that is the single most common plugin styling defect. Use <code>var(--surface)</code>, <code>var(--text-primary)</code>, <code>var(--border-subtle)</code> and friends.</li>
+<li><strong>No <code>!important</code> against core.</strong> If you're losing a specificity fight with a core rule, you are almost certainly restyling something you shouldn't be.</li>
+<li><strong>No new blues.</strong> Use <code>--info-surface</code> / <code>--info-border</code> / <code>--info-fg</code> / <code>--info-solid</code>. Shipping a Tailwind blue as an active-tab colour is the exact failure mode this token family exists to prevent.</li>
+<li><strong>Honour focus and reduced motion.</strong> Never remove a focus outline without an equivalent replacement. Don't add unguarded looping animation — the global <code>prefers-reduced-motion</code> block covers transitions and animations, but a decorative loop is still a decorative loop.</li>
+<li><strong>Namespace everything</strong> as <code>.{plugin}-*</code>. Do not use the <code>u-</code> prefix for private helpers; that prefix belongs to core.</li>
+<li><strong>Don't re-implement a contracted component.</strong> If <code>.card</code> doesn't fit your case, that's a core gap — file it rather than shipping a ninth card family.</li>
+<li><strong>Respect the accent rules.</strong> <code>--accent</code> is a fill and is 1.54:1 on white; <code>--accent-text</code> is the text ramp; <code>--ink-on-accent</code> is what goes on a mint fill. One mint-filled element per screen.</li>
+<li><strong>One page title.</strong> Your page gets its title from the breadcrumb <code>.current</code> segment via <code>{plugin_page_header}</code>. Don't render an <code>&lt;h1&gt;</code>.</li>
+</ol>
+<p>A Tier 1 stylesheet that follows these rules looks like this:</p>
+<pre><code>/* plugins/my-plugin/admin/my-plugin.css */
+
+.my-plugin-canvas {
+  position: relative;
+  min-height: 24rem;
+  padding: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--surface-sunken);
+}
+
+.my-plugin-node {
+  padding: var(--space-3);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  transition: border-color var(--motion-fast) var(--ease-out);
+}
+
+.my-plugin-node:hover { border-color: var(--border-control-hover); }
+
+.my-plugin-node.is-selected {
+  border-color: var(--accent-focus);
+  background: var(--accent-soft);
+}
+
+.my-plugin-node:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
+}</code></pre>
+<p>No hex, no <code>!important</code>, no core class touched, dark mode handled by the tokens.</p>
+<p>---</p>
+<h3>4. Legacy token aliases</h3>
+<p>Older plugin CSS references token names that no longer exist as primary definitions: <code>--color-primary</code>, <code>--bg-elevated</code>, <code>--border-color</code>, <code>--gray-200</code>, <code>--shadow-md</code>, <code>--radius-full</code>, <code>--error-600</code>, <code>--transition-fast</code> and similar.</p>
+<p><code>admin/css/core/compat-tokens.css</code> keeps every one of those working. It contains <strong>only</strong> aliases of the form <code>--old-name: var(--new-name)</code>, no rules and no classes, and it is imported immediately after the canonical token file. That means existing plugin CSS not only keeps working — it also picks up the new design, because each alias points at a semantic token rather than a frozen value.</p>
+<p>Two things to know:</p>
+<ol>
+<li><strong>Core admin CSS may not use any aliased name.</strong> That is enforced in CI, so the alias list can only shrink.</li>
+<li><strong>New plugin CSS should use the canonical names.</strong> The aliases exist for compatibility and will be removed in a future plugin-adoption phase. Writing new code against them means signing up for a migration you could have skipped.</li>
+</ol>
+<p>Common migrations:</p>
+<table><thead><tr><th>Legacy name</th><th>Canonical replacement</th></tr></thead>
+<tbody><tr><td><code>--color-primary</code>, <code>--primary-500</code></td><td><code>--accent</code> (fill) or <code>--accent-text</code> (text)</td></tr><tr><td><code>--color-primary-strong</code>, <code>--primary-700</code></td><td><code>--accent-text</code> — <strong><code>--primary-700</code> fails AA as text</strong></td></tr><tr><td><code>--color-primary-soft</code>, <code>--primary-50</code></td><td><code>--accent-soft</code></td></tr><tr><td><code>--bg-primary</code>, <code>--bg-elevated</code>, <code>--surface-1</code></td><td><code>--surface</code></td></tr><tr><td><code>--bg-secondary</code>, <code>--bg-tertiary</code>, <code>--surface-muted</code></td><td><code>--surface-sunken</code></td></tr><tr><td><code>--bg-hover</code></td><td><code>--surface-hover</code></td></tr><tr><td><code>--bg-overlay</code></td><td><code>--overlay</code></td></tr><tr><td><code>--border-light</code>, <code>--border-color</code>, <code>--gray-200</code></td><td><code>--border-subtle</code></td></tr><tr><td><code>--border-medium</code>, <code>--gray-300</code></td><td><code>--border-default</code></td></tr><tr><td><code>--gray-400</code></td><td><code>--border-control</code></td></tr><tr><td><code>--gray-500</code></td><td><code>--text-tertiary</code></td></tr><tr><td><code>--gray-800</code>, <code>--gray-900</code>, <code>--color-black</code></td><td><code>--text-primary</code></td></tr><tr><td><code>--error-*</code>, <code>--danger-100</code>, <code>--danger-700</code>, <code>--color-error</code></td><td><code>--danger-surface</code> / <code>--danger-border</code> / <code>--danger-fg</code> / <code>--danger-solid</code></td></tr><tr><td><code>--success-50/100/…</code>, <code>--warning-50/…</code></td><td><code>--{sem}-surface</code> / <code>-border</code> / <code>-fg</code> / <code>-solid</code></td></tr><tr><td><code>--info-500</code></td><td><code>--info-solid</code></td></tr><tr><td><code>--shadow-sm/md/lg/xl</code></td><td><code>--elevation-1</code> / <code>-2</code> / <code>-3</code></td></tr><tr><td><code>--radius-xs</code></td><td><code>--radius-sm</code></td></tr><tr><td><code>--radius-full</code>, <code>--radius-round</code></td><td><code>--radius-pill</code></td></tr><tr><td><code>--transition-fast</code>, <code>--transition-base</code></td><td><code>--motion-fast</code> / <code>--motion-base</code> plus <code>--ease-out</code></td></tr><tr><td><code>--font-size-base</code></td><td><code>--text-base</code></td></tr><tr><td><code>--font-medium</code></td><td><code>--weight-medium</code></td></tr><tr><td><code>--font-family-mono</code></td><td><code>--font-mono</code></td></tr><tr><td><code>--z-index-modal</code></td><td><code>--z-modal</code></td></tr></tbody></table>
+<p>That table is the complete alias set by family — if a legacy name you use is not in <code>compat-tokens.css</code>, it is <strong>not</strong> aliased and resolves to nothing. Spacing and radius are the common trap: there is no <code>--spacing-<em></code> or <code>--border-radius-</em></code> alias, so CSS using those names has no fallback. Move it to <code>--space-1</code> … <code>--space-16</code> and <code>--radius-sm</code> / <code>-md</code> / <code>-lg</code> / <code>-pill</code>.</p>
+<p>Full token reference: <a href="../01-admin/admin-design-language.html">Admin design language</a>.</p>
+<p>---</p>
+<h3>5. Worked example — a complete Tier 0 plugin page</h3>
+<p>This is a full plugin admin template. It ships <strong>no CSS</strong>, uses only contracted classes and <code>u-*</code> helpers, and covers page chrome, a stat row, a card, a table with row actions, a form, and a modal.</p>
+<pre><code>&lt;!-- plugins/my-plugin/admin/my-plugin.html --&gt;
+
+{plugin_page_header}
+
+&lt;div class=&quot;my-plugin-page plugin-page&quot;&gt;
+
+  &lt;!-- Toolbar: primary action left, search/filters right --&gt;
+  &lt;div class=&quot;main-actions-bar&quot;&gt;
+    &lt;div class=&quot;main-actions-left&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; id=&quot;mp-new&quot;&gt;New webhook&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;main-actions-right&quot;&gt;
+      &lt;input class=&quot;input input-search&quot; type=&quot;search&quot; id=&quot;mp-search&quot; placeholder=&quot;Search webhooks&quot;&gt;
+      &lt;div class=&quot;segmented&quot; role=&quot;group&quot; aria-label=&quot;View&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;segmented-item active&quot; aria-pressed=&quot;true&quot;&gt;All&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;segmented-item&quot; aria-pressed=&quot;false&quot;&gt;Failing&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;page-body u-stack-6&quot;&gt;
+
+    &lt;!-- Metrics --&gt;
+    &lt;div class=&quot;u-grid-auto&quot;&gt;
+      &lt;div class=&quot;stat&quot;&gt;
+        &lt;span class=&quot;stat-label&quot;&gt;Delivered today&lt;/span&gt;
+        &lt;span class=&quot;stat-value&quot;&gt;1,284&lt;/span&gt;
+        &lt;span class=&quot;stat-meta&quot;&gt;99.4% success&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;stat&quot;&gt;
+        &lt;span class=&quot;stat-label&quot;&gt;Failing endpoints&lt;/span&gt;
+        &lt;span class=&quot;stat-value&quot;&gt;2&lt;/span&gt;
+        &lt;span class=&quot;stat-meta&quot;&gt;Retrying&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- A notice --&gt;
+    &lt;div class=&quot;callout callout-info&quot;&gt;
+      &lt;div class=&quot;callout-body&quot;&gt;
+        &lt;p class=&quot;callout-title&quot;&gt;Retries are enabled&lt;/p&gt;
+        &lt;p&gt;Failed deliveries are retried three times with exponential backoff.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Data panel: flush card wrapping a table --&gt;
+    &lt;section class=&quot;card card--flush&quot;&gt;
+      &lt;header class=&quot;card-header&quot;&gt;
+        &lt;div class=&quot;card-heading&quot;&gt;
+          &lt;h2 class=&quot;card-title&quot;&gt;Endpoints&lt;/h2&gt;
+          &lt;p class=&quot;card-description&quot;&gt;Every URL this plugin delivers events to.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;card-actions&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn-sm&quot;&gt;Export&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/header&gt;
+
+      &lt;div class=&quot;card-body&quot;&gt;
+        &lt;div class=&quot;table-container&quot;&gt;
+          &lt;table class=&quot;table&quot;&gt;
+            &lt;thead&gt;
+              &lt;tr&gt;
+                &lt;th&gt;Endpoint&lt;/th&gt;
+                &lt;th&gt;Event&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+                &lt;th class=&quot;numeric&quot;&gt;Deliveries&lt;/th&gt;
+                &lt;th class=&quot;col-shrink&quot;&gt;&lt;/th&gt;
+              &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+              &lt;tr&gt;
+                &lt;td&gt;&lt;span class=&quot;cell-title&quot;&gt;https://example.com/hooks/orders&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;span class=&quot;cell-muted&quot;&gt;order.created&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;span class=&quot;badge badge-success&quot;&gt;Active&lt;/span&gt;&lt;/td&gt;
+                &lt;td class=&quot;numeric u-numeric&quot;&gt;842&lt;/td&gt;
+                &lt;td class=&quot;cell-actions&quot;&gt;
+                  &lt;button type=&quot;button&quot; class=&quot;btn-icon btn-icon-sm btn-icon--edit&quot; aria-label=&quot;Edit endpoint&quot;&gt;
+                    &lt;span data-icon=&quot;pencil-simple&quot; data-icon-size=&quot;14&quot;&gt;&lt;/span&gt;
+                  &lt;/button&gt;
+                  &lt;button type=&quot;button&quot; class=&quot;btn-icon btn-icon-sm btn-icon--danger&quot; aria-label=&quot;Delete endpoint&quot;&gt;
+                    &lt;span data-icon=&quot;trash&quot; data-icon-size=&quot;14&quot;&gt;&lt;/span&gt;
+                  &lt;/button&gt;
+                &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td&gt;&lt;span class=&quot;cell-title&quot;&gt;https://example.com/hooks/refunds&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;span class=&quot;cell-muted&quot;&gt;order.refunded&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;span class=&quot;badge badge-danger&quot;&gt;Failing&lt;/span&gt;&lt;/td&gt;
+                &lt;td class=&quot;numeric u-numeric&quot;&gt;17&lt;/td&gt;
+                &lt;td class=&quot;cell-actions&quot;&gt;
+                  &lt;button type=&quot;button&quot; class=&quot;btn-icon btn-icon-sm btn-icon--edit&quot; aria-label=&quot;Edit endpoint&quot;&gt;
+                    &lt;span data-icon=&quot;pencil-simple&quot; data-icon-size=&quot;14&quot;&gt;&lt;/span&gt;
+                  &lt;/button&gt;
+                  &lt;button type=&quot;button&quot; class=&quot;btn-icon btn-icon-sm btn-icon--danger&quot; aria-label=&quot;Delete endpoint&quot;&gt;
+                    &lt;span data-icon=&quot;trash&quot; data-icon-size=&quot;14&quot;&gt;&lt;/span&gt;
+                  &lt;/button&gt;
+                &lt;/td&gt;
+              &lt;/tr&gt;
+            &lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Required states. Toggle the `hidden` attribute from JS. --&gt;
+        &lt;div class=&quot;empty-state empty-state--compact&quot; id=&quot;mp-empty&quot; hidden&gt;
+          &lt;div class=&quot;empty-state-icon&quot;&gt;&lt;span data-icon=&quot;paper-plane-tilt&quot; data-icon-size=&quot;20&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+          &lt;p class=&quot;empty-state-title&quot;&gt;No endpoints yet&lt;/p&gt;
+          &lt;p class=&quot;empty-state-text&quot;&gt;Add an endpoint to start receiving events.&lt;/p&gt;
+          &lt;div class=&quot;empty-state-actions&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot;&gt;New webhook&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;loading-state&quot; id=&quot;mp-loading&quot; hidden&gt;Loading endpoints…&lt;/div&gt;
+
+        &lt;div class=&quot;error-state&quot; id=&quot;mp-error&quot; hidden&gt;
+          &lt;div class=&quot;empty-state-icon&quot;&gt;&lt;span data-icon=&quot;warning&quot; data-icon-size=&quot;20&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+          &lt;p class=&quot;empty-state-title&quot;&gt;Couldn't load endpoints&lt;/p&gt;
+          &lt;p class=&quot;empty-state-text&quot;&gt;The plugin API did not respond.&lt;/p&gt;
+          &lt;div class=&quot;empty-state-actions&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn&quot;&gt;Retry&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- Settings form --&gt;
+    &lt;section class=&quot;card&quot;&gt;
+      &lt;header class=&quot;card-header&quot;&gt;
+        &lt;h2 class=&quot;card-title&quot;&gt;Delivery settings&lt;/h2&gt;
+      &lt;/header&gt;
+      &lt;form class=&quot;card-body u-stack-4 u-max-w-measure-lg&quot; id=&quot;mp-settings&quot;&gt;
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label class=&quot;field-label&quot; for=&quot;mp-timeout&quot;&gt;
+            Timeout &lt;span class=&quot;field-required&quot;&gt;*&lt;/span&gt;
+          &lt;/label&gt;
+          &lt;input class=&quot;input&quot; id=&quot;mp-timeout&quot; name=&quot;timeout&quot; type=&quot;number&quot; value=&quot;10&quot; required&gt;
+          &lt;p class=&quot;field-help&quot;&gt;Seconds to wait for a 2xx response before treating the delivery as failed.&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label class=&quot;field-label&quot; for=&quot;mp-signature&quot;&gt;Signature algorithm&lt;/label&gt;
+          &lt;select class=&quot;select&quot; id=&quot;mp-signature&quot; name=&quot;signature&quot;&gt;
+            &lt;option value=&quot;sha256&quot;&gt;HMAC SHA-256&lt;/option&gt;
+            &lt;option value=&quot;sha512&quot;&gt;HMAC SHA-512&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label class=&quot;field-label&quot; for=&quot;mp-notes&quot;&gt;Internal notes&lt;/label&gt;
+          &lt;textarea class=&quot;textarea&quot; id=&quot;mp-notes&quot; name=&quot;notes&quot; rows=&quot;3&quot;&gt;&lt;/textarea&gt;
+          &lt;p class=&quot;field-error&quot; id=&quot;mp-notes-error&quot; hidden&gt;Notes are limited to 500 characters.&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;u-row u-justify-between&quot;&gt;
+          &lt;label class=&quot;checkbox-label&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; name=&quot;retry&quot; checked&gt;
+            Retry failed deliveries
+          &lt;/label&gt;
+          &lt;label class=&quot;switch&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; name=&quot;enabled&quot; checked&gt;
+            &lt;span class=&quot;switch__slider&quot;&gt;&lt;/span&gt;
+          &lt;/label&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+      &lt;footer class=&quot;card-footer&quot;&gt;
+        &lt;button type=&quot;submit&quot; form=&quot;mp-settings&quot; class=&quot;btn btn-primary&quot;&gt;Save settings&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot;&gt;Reset&lt;/button&gt;
+      &lt;/footer&gt;
+    &lt;/section&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Modal: add / edit endpoint --&gt;
+&lt;div class=&quot;modal&quot; id=&quot;mp-modal&quot;&gt;
+  &lt;div class=&quot;modal-content modal--md&quot;&gt;
+    &lt;header class=&quot;modal-header&quot;&gt;
+      &lt;h2 class=&quot;modal-title&quot; id=&quot;mp-modal-title&quot;&gt;New webhook&lt;/h2&gt;
+      &lt;button type=&quot;button&quot; class=&quot;modal-close&quot; aria-label=&quot;Close&quot;&gt;&amp;times;&lt;/button&gt;
+    &lt;/header&gt;
+    &lt;div class=&quot;modal-body&quot;&gt;
+      &lt;form id=&quot;mp-endpoint-form&quot; class=&quot;u-stack-4&quot;&gt;
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label class=&quot;field-label&quot; for=&quot;mp-url&quot;&gt;Endpoint URL &lt;span class=&quot;field-required&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+          &lt;input class=&quot;input&quot; id=&quot;mp-url&quot; name=&quot;url&quot; type=&quot;url&quot; required&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label class=&quot;field-label&quot; for=&quot;mp-event&quot;&gt;Event&lt;/label&gt;
+          &lt;select class=&quot;select&quot; id=&quot;mp-event&quot; name=&quot;event&quot;&gt;
+            &lt;option value=&quot;order.created&quot;&gt;order.created&lt;/option&gt;
+            &lt;option value=&quot;order.refunded&quot;&gt;order.refunded&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+    &lt;footer class=&quot;modal-footer&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn-secondary&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button type=&quot;submit&quot; form=&quot;mp-endpoint-form&quot; class=&quot;btn btn-primary&quot;&gt;Save&lt;/button&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>Notes on the example:</p>
+<ul>
+<li><code>{plugin_page_header}</code> emits the <code>.page-header</code> + <code>.breadcrumbs</code> block via <code>birkly_render_plugin_page_breadcrumbs()</code>. The last segment becomes the page title in the topbar. There is no <code>&lt;h1&gt;</code> anywhere in the template.</li>
+<li>Exactly one <code>.btn-primary</code> is visible per view.</li>
+<li><code>hidden</code> is the state switch, not <code>style=&quot;display:none&quot;</code> — core declares <code>[hidden] { display: none }</code> after every component, so it beats a component's own <code>display: flex</code>.</li>
+<li><code>data-icon</code> placeholders are hydrated by <code>Birkly.initIcons(document)</code>; in PHP use <code>birkly_icon('trash', ['size' =&gt; 14])</code>.</li>
+<li>Toasts and confirmations come from <code>BirklyFeedback.toast(...)</code> and <code>await BirklyFeedback.confirm(...)</code>. Don't use <code>alert()</code> or <code>confirm()</code>.</li>
+</ul>
+<p>---</p>
+<h3>6. Fieldtypes</h3>
+<p>A fieldtype ships outside <code>admin/</code>, so it gets its own frozen CSS contract in <code>admin/css/plugins/fieldtype-api.css</code>. Every class name there is stable; only the values behind them change when the design language changes, which means an existing fieldtype picks up a redesign without a single markup edit.</p>
+<p><strong>Prefer the shared components first</strong> — <code>.card</code>, <code>.btn</code>, <code>.input</code>, <code>.field</code>, <code>.callout</code>, <code>.empty-state</code>, <code>.badge</code> and the <code>u-<em></code> helpers. Use the <code>.fieldtype-</em></code> classes for the three things components don't cover: the toolbar rail, the preview grid, and the async states of a field editor.</p>
+<table><thead><tr><th>Class</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>.fieldtype-wrapper</code></td><td>Padded panel container: <code>--surface</code>, hairline border, <code>--radius-md</code></td></tr><tr><td><code>.fieldtype-with-toolbar</code></td><td>Container for an editor that has a toolbar rail — clips its children so the toolbar sits flush</td></tr><tr><td><code>.fieldtype-toolbar</code></td><td>Sunken toolbar band with a bottom hairline; stacks vertically below 768px</td></tr><tr><td><code>.fieldtype-toolbar-group</code></td><td>Group of toolbar controls with a trailing divider</td></tr><tr><td><code>.fieldtype-toolbar-spacer</code></td><td>Pushes the remaining toolbar controls to the trailing edge</td></tr><tr><td><code>.fieldtype-content</code></td><td>The editing surface. Shows a focus outline on <code>:focus-within</code></td></tr><tr><td><code>.fieldtype-preview-grid</code></td><td><code>auto-fill, minmax(7.5rem, 1fr)</code> thumbnail grid</td></tr><tr><td><code>.fieldtype-preview-list</code></td><td>Vertical preview stack</td></tr><tr><td><code>.fieldtype-preview-item</code></td><td>One preview tile; border brightens on hover</td></tr><tr><td><code>.fieldtype-preview-item-actions</code></td><td>Absolutely positioned action cluster, revealed on hover <strong>or</strong> <code>:focus-within</code></td></tr><tr><td><code>.fieldtype-empty-state</code></td><td>Centred empty block matching the admin's <code>.empty-state</code></td></tr><tr><td><code>.fieldtype-empty-state-icon</code></td><td>44px icon tile</td></tr><tr><td><code>.fieldtype-empty-state-text</code></td><td>Secondary copy, capped at <code>--measure-sm</code></td></tr><tr><td><code>.fieldtype-loading</code></td><td>Centred spinner block</td></tr><tr><td><code>.fieldtype-error</code></td><td>Danger-toned inline error panel</td></tr><tr><td><code>.fieldtype-help</code></td><td>Small tertiary help text below the field</td></tr></tbody></table>
+<p>Example:</p>
+<pre><code>&lt;div class=&quot;fieldtype-with-toolbar&quot; data-fieldtype=&quot;gallery&quot;&gt;
+  &lt;div class=&quot;fieldtype-toolbar&quot;&gt;
+    &lt;div class=&quot;fieldtype-toolbar-group&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn-sm&quot;&gt;Add images&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn-sm&quot;&gt;Reorder&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;fieldtype-toolbar-spacer&quot;&gt;&lt;/div&gt;
+    &lt;span class=&quot;badge badge-neutral u-numeric&quot;&gt;4&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;fieldtype-content&quot;&gt;
+    &lt;div class=&quot;fieldtype-preview-grid&quot;&gt;
+      &lt;figure class=&quot;fieldtype-preview-item&quot;&gt;
+        &lt;img src=&quot;…&quot; alt=&quot;&quot;&gt;
+        &lt;div class=&quot;fieldtype-preview-item-actions&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn-icon btn-icon-xs btn-icon--danger&quot; aria-label=&quot;Remove&quot;&gt;…&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/figure&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;fieldtype-empty-state&quot; hidden&gt;
+      &lt;div class=&quot;fieldtype-empty-state-icon&quot;&gt;…&lt;/div&gt;
+      &lt;p class=&quot;fieldtype-empty-state-text&quot;&gt;No images selected yet.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;fieldtype-loading&quot; hidden&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p class=&quot;fieldtype-help&quot;&gt;Drag to reorder. The first image is used as the thumbnail.&lt;/p&gt;
+&lt;div class=&quot;fieldtype-error&quot; hidden&gt;Upload failed — the file exceeds the size limit.&lt;/div&gt;</code></pre>
+<p>Fieldtypes that ship their own CSS follow the same rules as Tier 1 plugin CSS: tokens only, no <code>!important</code>, no restyling of core or <code>.fieldtype-*</code> classes belonging to someone else.</p>
+<p>---</p>
+<h3>7. Review checklist before you publish</h3>
+<ul>
+<li>[ ] No hex, <code>rgb()</code> or <code>hsl()</code> literal in plugin CSS — tokens only</li>
+<li>[ ] No selector that matches a bare core class</li>
+<li>[ ] No <code>!important</code></li>
+<li>[ ] Every selector namespaced <code>.{plugin}-*</code> (or scoped under your page root)</li>
+<li>[ ] Screens verified in <strong>both</strong> light and dark themes</li>
+<li>[ ] Exactly one <code>.btn-primary</code> visible per view; no page <code>&lt;h1&gt;</code></li>
+<li>[ ] Empty, loading and error states present for every async region</li>
+<li>[ ] Focus visible on every interactive element; Escape closes overlays; focus trapped and restored in modals</li>
+<li>[ ] Text contrast meets AA (4.5:1 body, 3:1 for ≥18px text and UI boundaries)</li>
+<li>[ ] <code>--accent</code> and <code>--primary-700</code> never used as a text colour; <code>--ink-on-accent</code> on every mint fill</li>
+<li>[ ] Checked at 640 / 768 / 1024 / 1280 / 1440+ with no unintended horizontal scroll</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="../01-admin/admin-design-language.html">Admin design language</a> — full token, helper and component reference</li>
+<li><a href="../01-admin/design-system.html">Admin design system</a> — short overview, icons and theming entry points</li>
+<li><a href="../01-admin/admin-chrome-action-zones.html">Admin chrome and action zones</a> — where each kind of action belongs</li>
+<li><a href="plugin-development.html">Plugin development</a> — structure, permissions and packaging</li>
+<li><a href="plugin-navigation-icon.html">Plugin navigation icon</a></li>
+<li><a href="../02-content/field-types.html">Field types</a></li>
+<li><a href="security-and-review.html">Security and review</a></li>
+</ul></div>

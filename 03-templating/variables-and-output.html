@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -216,7 +218,8 @@
 <li><strong>Context resolution:</strong> Variables resolve against the current scope. In <code>{for each entry in 'blog'} … { title } … {endfor}</code>, <code>title</code> is resolved on the loop’s current entry. Inside <code>{from 'blog' get entry 'my-slug'}…{endget}</code>, variables refer to that entry. Global or page-level variables (e.g. <code>site_title</code>) depend on the engine and bootstrap data.</li>
 </ul>
 <p><strong>Output behaviour by field type</strong></p>
-<p>| Field type | Typical output | Notes | |------------|----------------|--------| | Text, Textarea | Escaped text | HTML special chars encoded. | | Editor (rich text) | Raw HTML | Stored HTML inserted as-is. | | Number | String representation | Format may be configurable. | | Date / DateTime | Formatted string | Via <code>{ field &quot;format&quot; }</code>; see dates doc. | | Media / File | URL string | Use in <code>src</code> or <code>href</code>. | | Select, Radio | Selected option value (or label) | Engine-dependent. | | Tags | Often a list; may need loop | e.g. <code>{for each tag in tags}</code>. | | Relation | Entry ref(s); may need loop or single entry load | Depends on API shape. |</p>
+<table><thead><tr><th>Field type</th><th>Typical output</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Text, Textarea</td><td>Escaped text</td><td>HTML special chars encoded.</td></tr><tr><td>Editor (rich text)</td><td>Raw HTML</td><td>Stored HTML inserted as-is.</td></tr><tr><td>Number</td><td>String representation</td><td>Format may be configurable.</td></tr><tr><td>Date / DateTime</td><td>Formatted string</td><td>Via <code>{ field &quot;format&quot; }</code>; see dates doc.</td></tr><tr><td>Media / File</td><td>URL string</td><td>Use in <code>src</code> or <code>href</code>.</td></tr><tr><td>Select, Radio</td><td>Selected option value (or label)</td><td>Engine-dependent.</td></tr><tr><td>Tags</td><td>Often a list; may need loop</td><td>e.g. <code>{for each tag in tags}</code>.</td></tr><tr><td>Relation</td><td>Entry ref(s); may need loop or single entry load</td><td>Depends on API shape.</td></tr></tbody></table>
 <p><strong>Defaults and “if empty”</strong></p>
 <p>Some engines support inline defaults, e.g. <code>{ title default=&quot;Untitled&quot; }</code> or <code>{ title or &quot;Untitled&quot; }</code>. If not, use conditionals: <code>{if entry has title}{ title }{else}Untitled{endif}</code>.</p>
 <p><strong>Nested / dotted access</strong></p>

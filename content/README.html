@@ -30,7 +30,8 @@
 </ul>
 <h3>On-change update rule (M6)</h3>
 <p>Update Birkly-Docs <strong>when a CMS platform milestone ships</strong> — not as a parallel project during stabilization.</p>
-<p>| Trigger | Action | |---------|--------| | CMS milestone merged to <code>main</code> (security, templating, API, client) | Add or revise topics affected by that milestone | | New public API or template syntax | Update <code>04-integration/</code> and <code>03-templating/</code>; add entry to <code>meta/changelog-docs.md</code> | | No CMS change | No docs PR required |</p>
+<table><thead><tr><th>Trigger</th><th>Action</th></tr></thead>
+<tbody><tr><td>CMS milestone merged to <code>main</code> (security, templating, API, client)</td><td>Add or revise topics affected by that milestone</td></tr><tr><td>New public API or template syntax</td><td>Update <code>04-integration/</code> and <code>03-templating/</code>; add entry to <code>meta/changelog-docs.md</code></td></tr><tr><td>No CMS change</td><td>No docs PR required</td></tr></tbody></table>
 <p><strong>Workflow:</strong> edit <code>.md</code> → <code>npm run build</code> → update <code>CONTENTS_INDEX.md</code> if paths changed → <code>meta/changelog-docs.md</code> → commit <code>.md</code> + built <code>.html</code> + <code>content/</code> → PR to <code>main</code>. Site repos (Birkly-Website <code>docs/</code>) sync separately via submodule or <code>sync-docs.sh</code>.</p>
 <ul>
 <li>After changing or adding docs:</li>

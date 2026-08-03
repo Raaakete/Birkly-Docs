@@ -1,6 +1,7 @@
 <div class="doc-summary"><p>Birkly organizes site content with two primitives: <strong>collections</strong> (content types / schemas) and <strong>entries</strong> (individual items). There is no separate “singleton” or “document” type — one-off pages, shared chrome, and repeating lists all use collections and entries. Use this page as the start-here guide before creating schema in the admin.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>The two-level model</h3>
-<p>| Concept | What it is | Example | |---------|------------|---------| | <strong>Collection</strong> | A content type you define once: name, handle, fields, settings | “Blog posts”, “Products”, “Site elements” | | <strong>Entry</strong> | One filled-in instance of that collection | One blog post, one product, one header block |</p>
+<table><thead><tr><th>Concept</th><th>What it is</th><th>Example</th></tr></thead>
+<tbody><tr><td><strong>Collection</strong></td><td>A content type you define once: name, handle, fields, settings</td><td>“Blog posts”, “Products”, “Site elements”</td></tr><tr><td><strong>Entry</strong></td><td>One filled-in instance of that collection</td><td>One blog post, one product, one header block</td></tr></tbody></table>
 <p>You create a collection’s fields <strong>once</strong>, then add as many entries as you need. Templates and the Public API use the collection <strong>handle</strong> (e.g. <code>blog</code>) and each entry’s <strong>slug</strong> (e.g. <code>welcome-post</code>).</p>
 <h3>Decision tree — which pattern fits?</h3>
 <pre><code>Need to store content?

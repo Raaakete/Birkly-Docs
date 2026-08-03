@@ -38,6 +38,7 @@
         <a href="account.html" class="nav-link">Account</a>
         <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="design-system.html" class="nav-link">Admin design system</a>
+        <a href="admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="ai-overview.html" class="nav-link">AI overview</a>
         <a href="ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -169,7 +171,8 @@
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Roles</strong> are like job types. Each user has exactly one role, and that role decides what they can see and do in the admin.</p>
 <p><strong>Default CMS roles</strong></p>
 <p>Birkly seeds four roles the first time <strong>Settings → Users &amp; Roles</strong> is used (stored in <code>settings/roles.json</code>):</p>
-<p>| Role | Typical use | |------|-------------| | <strong>Admin</strong> | Full CMS access including settings, users, and plugins | | <strong>Editor</strong> | Manage collections, entries, media, and plugins | | <strong>Author</strong> | Create and edit content and media (no settings or user management) | | <strong>Viewer</strong> | Read-only access to collections |</p>
+<table><thead><tr><th>Role</th><th>Typical use</th></tr></thead>
+<tbody><tr><td><strong>Admin</strong></td><td>Full CMS access including settings, users, and plugins</td></tr><tr><td><strong>Editor</strong></td><td>Manage collections, entries, media, and plugins</td></tr><tr><td><strong>Author</strong></td><td>Create and edit content and media (no settings or user management)</td></tr><tr><td><strong>Viewer</strong></td><td>Read-only access to collections</td></tr></tbody></table>
 <ul>
 <li><strong>Viewer</strong> — Can log in and <strong>see</strong> content and media. They <strong>cannot</strong> create, edit, or delete anything.</li>
 </ul>
@@ -198,7 +201,8 @@
 <p>Only users who have permission to manage users (typically Administrators). Editors and Viewers cannot change roles or invite users.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Model:</strong> Users have one role; roles have a set of permissions. Stored in DB or config (e.g. <code>users</code> table + <code>roles</code> / <code>permissions</code> config). Auth middleware checks permission for each admin action (e.g. <code>edit_entries</code>, <code>manage_users</code>); Public API is usually unauthenticated read (and optionally submit with separate auth/rate limit).</p>
 <p><strong>Default roles (seeded):</strong></p>
-<p>| Role    | Typical permissions | |---------|----------------------| | Viewer  | <code>collections</code>: view | | Author  | <code>collections</code>, <code>media</code>: view, create, edit | | Editor  | <code>collections</code>, <code>media</code>, <code>plugins</code>: view, create, edit, delete | | Admin   | <code>*</code>: view, create, edit, delete |</p>
+<table><thead><tr><th>Role</th><th>Typical permissions</th></tr></thead>
+<tbody><tr><td>Viewer</td><td><code>collections</code>: view</td></tr><tr><td>Author</td><td><code>collections</code>, <code>media</code>: view, create, edit</td></tr><tr><td>Editor</td><td><code>collections</code>, <code>media</code>, <code>plugins</code>: view, create, edit, delete</td></tr><tr><td>Admin</td><td><code>*</code>: view, create, edit, delete</td></tr></tbody></table>
 <p>Seeding runs via <code>birkly_ensure_default_roles()</code> when <code>settings/roles.json</code> is missing or empty. <strong>API:</strong> <code>GET /api/roles.php?action=list_roles</code> — used by settings, AI connections, and MCP agent modals for dynamic role pickers.</p>
 <p><strong>Custom roles:</strong> Create in <strong>Settings → Users &amp; Roles</strong>; permissions use resource/action pairs. Plugins can register extra permissions; these appear in the role matrix.</p>
 <p><strong>Enforcement:</strong> Admin UI hides or disables actions the user can’t do; API returns 403 if the user lacks the required permission. Role change applies on next request or after re-login depending on whether permissions are read from DB on each request or cached in session.</p>

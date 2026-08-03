@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -173,6 +175,16 @@
 </ul>
 <p>---</p>
 <p>---</p>
+<p>---</p>
+<h2>2026-08-03 — Admin design language</h2>
+<p>The admin is now built from one internal CSS framework — tokens, a <code>u-*</code> helper layer, and a component catalog — and admin pages ship no page-specific CSS.</p>
+<ul>
+<li><strong>New:</strong> <code>01-admin/admin-design-language.md</code> — the build kit: full token reference (surfaces, text, borders, accent, semantic, spacing, type scale, radius, elevation, z-index, motion, control sizes, widths, breakpoints), accent contrast rules, complete <code>u-*</code> helper reference, component catalog with copy-paste markup, page chrome recipe (breadcrumb-as-title, <code>.main-actions-bar</code>, <code>.page-body</code>), dark mode as a token remap, and the do/don't rules.</li>
+<li><strong>New:</strong> <code>06-plugin-economy/plugin-admin-styling.md</code> — adoption tiers (compose / extend / independent), the CI-enforced public class contract, plugin CSS rules, legacy token aliases, a complete Tier 0 worked example, and the <code>.fieldtype-*</code> contract.</li>
+<li><strong>Rewritten:</strong> <code>01-admin/design-system.md</code> — short orientation pointing at the build kit; removed the superseded token names.</li>
+<li><strong>Updated:</strong> <code>06-plugin-economy/plugin-development.md</code> — styling section and cross-links.</li>
+<li><strong>Updated:</strong> <code>CONTENTS_INDEX.md</code>, <code>manifest.json</code>, <code>help-manifest.json</code>.</li>
+</ul>
 <p>---</p>
 <h2>2026-08-03 — Hub payments and entitlements (P55)</h2>
 <ul>

@@ -27,7 +27,8 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Roles and permissions | `01-admin/roles-and-permissions.md` | User roles and what they can do |
 | Account | `01-admin/account.md` | Profile, password, 2FA, cloud account link |
 | Admin appearance | `01-admin/admin-appearance.md` | Light/dark/system theme, responsive admin (P15) |
-| Admin design system | `01-admin/design-system.md` | Mint tokens, neutral scale, icons, dark mode, cards, empty-state, status-badge (P41) |
+| Admin design system | `01-admin/design-system.md` | Short orientation: where tokens, helpers, and components live; icons and theming |
+| Admin design language | `01-admin/admin-design-language.md` | Full build kit — token reference, `u-*` helpers, component catalog, page chrome, dark mode |
 | Help and onboarding | `01-admin/help-and-onboarding.md` | Live Birkly-Docs Help, onboarding wizard |
 | AI overview | `01-admin/ai-overview.md` | What the AI system is and where to find it |
 | AI connections | `01-admin/ai-connections.md` | Outbound BYOAI providers (OpenAI, Ollama, etc.) |
@@ -150,6 +151,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | For site owners | `06-plugin-economy/for-site-owners.md` | Browse, license, install, consent, updates |
 | For providers | `06-plugin-economy/for-providers.md` | Provider Studio, packaging, QC, payouts (summary) |
 | Plugin development | `06-plugin-economy/plugin-development.md` | `plugin.json`, hooks, permissions, `data_access` |
+| Plugin admin styling | `06-plugin-economy/plugin-admin-styling.md` | Adoption tiers, public class contract, plugin CSS rules, fieldtype contract |
 | Plugin navigation icon | `06-plugin-economy/plugin-navigation-icon.md` | `navigation.icon` registry names and inline SVG fallback (P41) |
 | Hub, themes, and site packs | `06-plugin-economy/theme-and-template-packs.md` | Hub naming, site packs (`template_pack`), Upload pack, starters, `project/` |
 | Security and review | `06-plugin-economy/security-and-review.md` | Permission consent, QC tiers, supply chain |

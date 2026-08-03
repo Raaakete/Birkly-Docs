@@ -94,6 +94,36 @@
             "docs_path": "01-admin/admin-appearance.html"
         },
         {
+            "id": "admin-design-language",
+            "title": "Admin design language",
+            "keywords": [
+                "design",
+                "design language",
+                "design system",
+                "tokens",
+                "helpers",
+                "components",
+                "css",
+                "styling",
+                "theme"
+            ],
+            "docs_path": "01-admin/admin-design-language.html"
+        },
+        {
+            "id": "plugin-admin-styling",
+            "title": "Plugin admin styling",
+            "keywords": [
+                "plugin",
+                "styling",
+                "css",
+                "design language",
+                "tokens",
+                "fieldtype",
+                "admin page"
+            ],
+            "docs_path": "06-plugin-economy/plugin-admin-styling.html"
+        },
+        {
             "id": "content-model-overview",
             "title": "Content model overview",
             "keywords": [

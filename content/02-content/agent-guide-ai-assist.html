@@ -9,10 +9,12 @@
 <p><strong>AI connection picker</strong> — Top of sidebar. Empty = rules-only mode.</p>
 <h2>Modes (sidebar)</h2>
 <h3>Auto tab</h3>
-<p>| Action | Mode | Behavior | |--------|------|----------| | <strong>Auto-fill</strong> | <code>fill_complete</code> (creative) | Target ~100% completeness; infers gaps from draft + sources | | <strong>Fill gaps</strong> | <code>fill_gaps</code> | Only incomplete completeness sections | | <strong>Fill 100%</strong> | <code>fill_complete</code> | Same as auto-fill — explicit label | | <strong>Suggest cross-links / sources</strong> | <code>links</code> + rules | Registry entries, product→CMS links, evidence URLs, derived-from |</p>
+<table><thead><tr><th>Action</th><th>Mode</th><th>Behavior</th></tr></thead>
+<tbody><tr><td><strong>Auto-fill</strong></td><td><code>fill_complete</code> (creative)</td><td>Target ~100% completeness; infers gaps from draft + sources</td></tr><tr><td><strong>Fill gaps</strong></td><td><code>fill_gaps</code></td><td>Only incomplete completeness sections</td></tr><tr><td><strong>Fill 100%</strong></td><td><code>fill_complete</code></td><td>Same as auto-fill — explicit label</td></tr><tr><td><strong>Suggest cross-links / sources</strong></td><td><code>links</code> + rules</td><td>Registry entries, product→CMS links, evidence URLs, derived-from</td></tr></tbody></table>
 <p>All return a <strong>review queue</strong> in the sidebar unless you use field <strong>Generate</strong> (direct apply).</p>
 <h3>Advanced tab</h3>
-<p>| Action | Behavior | |--------|----------| | <strong>Guide Studio</strong> | Select CMS collections → wizard generates identity, products, claims from entries | | <strong>Improve</strong> | Refine existing copy | | <strong>Suggest claims</strong> | Claim ideas grounded in source excerpts |</p>
+<table><thead><tr><th>Action</th><th>Behavior</th></tr></thead>
+<tbody><tr><td><strong>Guide Studio</strong></td><td>Select CMS collections → wizard generates identity, products, claims from entries</td></tr><tr><td><strong>Improve</strong></td><td>Refine existing copy</td></tr><tr><td><strong>Suggest claims</strong></td><td>Claim ideas grounded in source excerpts</td></tr></tbody></table>
 <p>Guide Studio may add narrative <strong><code>cms_collection</code></strong> sources for chosen collections.</p>
 <h2>Suggestion lifecycle</h2>
 <pre><code>Trigger (Copilot / field / links)
@@ -24,7 +26,8 @@ Accept one / Accept all / Reject
 Draft updated in memory → Save draft → Publish</code></pre>
 <p><strong>Accept all</strong> applies every pending suggestion sequentially — review count badge first.</p>
 <h3>Suggestion fields (common)</h3>
-<p>| field | Applies | |-------|---------| | <code>sources_of_truth.new</code> | New registry entry <code>{type, role, label, url?, ref?}</code> | | <code>identity.short_description</code> | Identity text | | <code>positioning.best_known_for</code> | Array append | | <code>products_services.new</code> | New product object | | <code>products_services.link</code> | Add source to existing product | | <code>claims.new</code> | New claim string or object | | <code>evidence.new</code> | New evidence with optional claim link | | <code>identity.derived_from.short_description</code> | Mark source for summary | | <code>relationships.new</code> | Partner/parent/etc. |</p>
+<table><thead><tr><th>field</th><th>Applies</th></tr></thead>
+<tbody><tr><td><code>sources_of_truth.new</code></td><td>New registry entry <code>{type, role, label, url?, ref?}</code></td></tr><tr><td><code>identity.short_description</code></td><td>Identity text</td></tr><tr><td><code>positioning.best_known_for</code></td><td>Array append</td></tr><tr><td><code>products_services.new</code></td><td>New product object</td></tr><tr><td><code>products_services.link</code></td><td>Add source to existing product</td></tr><tr><td><code>claims.new</code></td><td>New claim string or object</td></tr><tr><td><code>evidence.new</code></td><td>New evidence with optional claim link</td></tr><tr><td><code>identity.derived_from.short_description</code></td><td>Mark source for summary</td></tr><tr><td><code>relationships.new</code></td><td>Partner/parent/etc.</td></tr></tbody></table>
 <p>Each suggestion includes <code>source</code> (cms, source, ai, rule, wizard, inferred) and <code>confidence</code>.</p>
 <h2>Field-level Generate (Context tab)</h2>
 <p>Click <strong>Generate</strong> next to a field:</p>
@@ -35,7 +38,8 @@ Draft updated in memory → Save draft → Publish</code></pre>
 </ul>
 <p>Use for quick single-field polish; use Copilot for multi-section passes.</p>
 <h2>Creative vs grounded modes</h2>
-<p>| Mode | When | AI behavior | |------|------|-------------| | <strong>Creative</strong> | Fill 100%, field Generate default | Prefer sources; infer plausible values when missing; mark source inferred | | <strong>Grounded</strong> | Some copilot modes without creative flag | Do not invent facts unsupported by sources |</p>
+<table><thead><tr><th>Mode</th><th>When</th><th>AI behavior</th></tr></thead>
+<tbody><tr><td><strong>Creative</strong></td><td>Fill 100%, field Generate default</td><td>Prefer sources; infer plausible values when missing; mark source inferred</td></tr><tr><td><strong>Grounded</strong></td><td>Some copilot modes without creative flag</td><td>Do not invent facts unsupported by sources</td></tr></tbody></table>
 <p>For regulated industries, review inferred suggestions carefully before accept.</p>
 <h2>Link and source suggestions (rules + AI)</h2>
 <p><strong>Rule-based</strong> (always available):</p>

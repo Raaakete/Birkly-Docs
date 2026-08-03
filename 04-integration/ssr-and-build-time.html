@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -168,7 +170,8 @@
         <div class="doc-content"><p>Render Birkly content on the server or at build time so visitors get HTML without waiting on client-side template discovery.</p>
 <div class="doc-summary"><p>Fetch published content from the <strong>Public API</strong> or <strong><code>page_bundle.php</code></strong>, then render with PHP, Astro, Next.js, or another SSR/SSG stack. Use this for SEO, non-JS fallbacks, and static hosting. Runnable patterns below; for in-browser templates see <a href="website-integration.html">Website integration</a>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Idea:</strong> your server (or build job) asks Birkly for JSON, builds HTML, and sends that HTML to the browser. Visitors see content even if JavaScript is off.</p>
-<p>| Stack | Typical approach | |-------|------------------| | <strong>PHP</strong> | <code>file_get_contents</code> / cURL → JSON → <code>echo</code> fields (or pass into your PHP templates) | | <strong>Astro</strong> | <code>fetch</code> in frontmatter → <code>.map</code> into components | | <strong>Next.js</strong> | <code>fetch</code> in a Server Component or <code>getStaticProps</code> → React |</p>
+<table><thead><tr><th>Stack</th><th>Typical approach</th></tr></thead>
+<tbody><tr><td><strong>PHP</strong></td><td><code>file_get_contents</code> / cURL → JSON → <code>echo</code> fields (or pass into your PHP templates)</td></tr><tr><td><strong>Astro</strong></td><td><code>fetch</code> in frontmatter → <code>.map</code> into components</td></tr><tr><td><strong>Next.js</strong></td><td><code>fetch</code> in a Server Component or <code>getStaticProps</code> → React</td></tr></tbody></table>
 <p>Decision hub: <a href="choose-your-stack.html">Choose your stack</a>.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Public API — one entry (any language)</h3>
 <pre><code>GET https://your-cms.com/api/public.php?action=get_entry&amp;collection=blog&amp;slug=my-post-slug

@@ -1,0 +1,578 @@
+<div class="doc-summary"><p>The Birkly admin is built from one internal CSS framework: a set of design tokens, a <code>u-*</code> helper layer, and a component catalog. Every admin screen — core pages and plugin pages alike — is composed from those three things and ships <strong>no page-specific CSS</strong>. The visual language is white panels on a warm tinted canvas, hairline borders instead of shadows, one mint accent per screen, 14px base type, and motion you barely notice. This page is the complete build kit: tokens, helpers, components, and the page skeleton. You should be able to build an admin screen that matches core without opening a single existing page stylesheet.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What the admin looks like, and why</h3>
+<p>Open any Birkly admin screen and you see the same shapes:</p>
+<ul>
+<li><strong>A warm off-white background</strong> (the <em>canvas</em>) — never pure white. The sidebar and the top bar sit directly on it with no box around them.</li>
+<li><strong>White panels</strong> floating on that canvas — these are <em>cards</em>. Each has a thin grey outline and slightly rounded corners. No drop shadows.</li>
+<li><strong>One mint-green button per screen</strong> — the main thing you're meant to do. Everything else is grey or plain text.</li>
+<li><strong>Small, dense text.</strong> Admin work is reading and scanning, so the base text size is 14px rather than the 16px you'd use on a marketing site.</li>
+</ul>
+<p>Those four observations <em>are</em> the design language. Six rules keep it consistent:</p>
+<ol>
+<li><strong>Panels on a canvas.</strong> Content lives in panels. App chrome (sidebar, top bar) sits on the bare canvas. Panels don't nest more than two deep — a panel inside a panel inside a panel means the page needs splitting.</li>
+<li><strong>Hairlines, not shadows.</strong> A thin border does the structural work. A shadow means &quot;this floats above the page&quot;, so only menus, modals, drawers, toasts and sticky bars get one. A shadow on a normal card is a bug.</li>
+<li><strong>One accent per screen.</strong> Mint is a spotlight, not paint. One mint-filled button; everything else neutral. Mint also shows up as small signals — the active sidebar item, focus rings, a selected row.</li>
+<li><strong>Quiet density.</strong> Table rows are 40px, not 60px. Labels are grey and light; values are dark and strong. Nothing shouts: no all-caps headings, no bold section chrome, no coloured backgrounds to mark importance.</li>
+<li><strong>Flat hierarchy.</strong> Depth comes from text size and spacing, not from boxes and coloured rules. A page has three levels at most: page title → section title → item.</li>
+<li><strong>Barely-there motion.</strong> Transitions are 120–240ms and move at most 8px. Nothing scales on hover, nothing bounces, nothing loops except a genuine loading spinner.</li>
+</ol>
+<h3>Where the page title comes from</h3>
+<p>Birkly admin pages <strong>do not have their own <code>&lt;h1&gt;</code></strong>. Instead, each page emits a breadcrumb trail, and the last segment of that trail <em>is</em> the page title. The admin then lifts the whole breadcrumb up into the top bar. So &quot;Settings › Roles&quot; appears once, at the top of the window, and the page body starts directly with content.</p>
+<p>If you add an <code>&lt;h1&gt;</code> to a page, you will see the title twice. That is the single most common mistake when building a new admin screen.</p>
+<h3>Dark mode</h3>
+<p>Users pick light, dark, or &quot;follow my system&quot; from the top bar. You don't write any dark-mode CSS. The framework swaps the <em>values</em> behind names like &quot;surface&quot; and &quot;text&quot; — so if you build with those names, your screen just works in both themes. If you find yourself needing a dark-mode rule for a component, that means a colour was hardcoded somewhere, and that's the thing to fix.</p>
+<h3>The short version for building something</h3>
+<p>Use <code>.card</code> for panels, <code>.btn btn-primary</code> for the one main action, <code>.table</code> for data, <code>.field</code> + <code>.input</code> for forms, <code>.badge</code> for status pills, <code>.empty-state</code> when there's nothing to show. Use <code>u-stack-6</code> on the page body so the gaps between sections come out right. Reach for a <code>u-*</code> helper before you write CSS. If you still need CSS, you've probably found a gap in the framework worth reporting.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>1. Source of truth and load order</h3>
+<table><thead><tr><th>Layer</th><th>File</th><th>Contents</th></tr></thead>
+<tbody><tr><td>Tokens</td><td><code>admin/css/core/variables.css</code></td><td>Every colour, size, radius, shadow, z-index and duration. The only file allowed to contain a hex literal.</td></tr><tr><td>Legacy aliases</td><td><code>admin/css/core/compat-tokens.css</code></td><td><code>--old-name: var(--new-name)</code> only. For plugin CSS. Core admin CSS may not use any name from this file.</td></tr><tr><td>Base</td><td><code>admin/css/core/reset.css</code>, <code>core/typography.css</code></td><td>Element defaults, the global focus ring, the single <code>prefers-reduced-motion</code> block.</td></tr><tr><td>Components</td><td><code>admin/css/components/*.css</code></td><td><code>.card</code>, <code>.btn</code>, <code>.table</code>, <code>.field</code>, <code>.badge</code>, <code>.callout</code>, <code>.modal</code>, <code>.tabs</code>, …</td></tr><tr><td>Layout</td><td><code>admin/css/layout/*.css</code></td><td>Sidebar, topbar and page chrome, main content, grid aliases.</td></tr><tr><td>Fieldtype API</td><td><code>admin/css/plugins/fieldtype-api.css</code></td><td>The frozen <code>.fieldtype-*</code> contract.</td></tr><tr><td>Helpers</td><td><code>admin/css/core/helpers.css</code></td><td>The <code>u-*</code> composition layer.</td></tr><tr><td>Overrides</td><td><code>admin/css/core/overrides.css</code></td><td>Only rules that must win on source order (<code>[hidden] { display: none }</code>).</td></tr></tbody></table>
+<p><code>admin/css/style.css</code> is the import hub and defines the order. <strong>Helpers are imported last, after every component.</strong> A helper has to beat a component that sets the same property at equal specificity, and source order is what decides that — loading helpers earlier silently kills them.</p>
+<p>Pages that still carry a stylesheet (<code>admin/css/pages/*.css</code>) are page-specific residue, not a pattern to copy. Nothing there is contracted.</p>
+<p>---</p>
+<h3>2. Tokens</h3>
+<p>Every value in admin CSS comes from a token. Raw hex outside <code>core/variables.css</code> is a CI failure.</p>
+<h4>2.1 Primitive ramps</h4>
+<p>These exist so the semantic tokens below have something to point at. <strong>Components never use them directly.</strong></p>
+<table><thead><tr><th>Ramp</th><th>Steps</th></tr></thead>
+<tbody><tr><td>Warm neutral</td><td><code>--neutral-0</code> <code>#FFFFFF</code> · <code>--neutral-50</code> <code>#F8F9F7</code> · <code>--neutral-75</code> <code>#F1F3EE</code> · <code>--neutral-100</code> <code>#E7EAE2</code> · <code>--neutral-200</code> <code>#DDE1D8</code> · <code>--neutral-300</code> <code>#CBD0C4</code> · <code>--neutral-400</code> <code>#B3B8AC</code> · <code>--neutral-500</code> <code>#9CA096</code> · <code>--neutral-600</code> <code>#8E9089</code> · <code>--neutral-700</code> <code>#5E605B</code> · <code>--neutral-800</code> <code>#3D403A</code> · <code>--neutral-900</code> <code>#20221D</code> · <code>--neutral-950</code> <code>#161815</code></td></tr><tr><td>Mint</td><td><code>--mint-50</code> <code>#EDFCF7</code> · <code>--mint-100</code> <code>#D4F8ED</code> · <code>--mint-200</code> <code>#AEF0DC</code> · <code>--mint-300</code> <code>#88E8C9</code> · <code>--mint-400</code> <code>#7CE3BF</code> · <code>--mint-500</code> <code>#7CE3BF</code> · <code>--mint-600</code> <code>#52C49A</code> · <code>--mint-700</code> <code>#3DA882</code> · <code>--mint-800</code> <code>#2D8C6B</code> · <code>--mint-900</code> <code>#1D6B52</code> · <code>--mint-950</code> <code>#17604A</code></td></tr></tbody></table>
+<h4>2.2 Surfaces</h4>
+<table><thead><tr><th>Token</th><th>Light</th><th>Dark</th><th>Role</th></tr></thead>
+<tbody><tr><td><code>--canvas</code></td><td><code>#F1F3EE</code></td><td><code>#131511</code></td><td>App background. Sidebar, topbar and main content sit on it with no fill of their own.</td></tr><tr><td><code>--surface</code></td><td><code>#FFFFFF</code></td><td><code>#252821</code></td><td>Panels: cards, tables, modals, nav boxes.</td></tr><tr><td><code>--surface-sunken</code></td><td><code>#E7EAE2</code></td><td><code>#0D0F0B</code></td><td>Wells: table headers, card footers, code blocks, disabled inputs, empty-state icon tiles.</td></tr><tr><td><code>--surface-raised</code></td><td><code>#FFFFFF</code></td><td><code>#2E322A</code></td><td>Floating surfaces: dropdowns, popovers, toasts. Always paired with an elevation.</td></tr><tr><td><code>--surface-hover</code></td><td><code>#F8F9F7</code></td><td><code>#2E322A</code></td><td>Hover on interactive rows and items.</td></tr><tr><td><code>--surface-active</code></td><td><code>#E7EAE2</code></td><td><code>#363A31</code></td><td>Pressed state, segmented-control track, progress track.</td></tr><tr><td><code>--surface-selected</code></td><td><code>#EDFCF7</code></td><td><code>#1E3A30</code></td><td>Selected row or item — mint-tinted, very low saturation.</td></tr><tr><td><code>--surface-inverse</code></td><td><code>#20221D</code></td><td><code>#F1F3EE</code></td><td>Inverse fills: tooltips.</td></tr><tr><td><code>--overlay</code></td><td><code>rgba(32,34,29,0.32)</code></td><td><code>rgba(0,0,0,0.56)</code></td><td>Modal, drawer and sheet backdrop.</td></tr></tbody></table>
+<p>Note that dark mode makes the canvas <strong>darker</strong> than the surface, preserving the light-mode relationship — panels still read as panels.</p>
+<h4>2.3 Text</h4>
+<table><thead><tr><th>Token</th><th>Light</th><th>Dark</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>--text-primary</code></td><td><code>#20221D</code></td><td><code>#F4F6F2</code></td><td>Headings, values, body. 16.1:1 on <code>--surface</code>.</td></tr><tr><td><code>--text-secondary</code></td><td><code>#5E605B</code></td><td><code>#B4B7B0</code></td><td>Labels, descriptions, idle nav. 6.4:1.</td></tr><tr><td><code>--text-tertiary</code></td><td><code>#8E9089</code></td><td><code>#82857E</code></td><td>Placeholders, disabled, timestamps, separators. ~3.4:1 — <strong>must never carry essential information</strong>.</td></tr><tr><td><code>--text-inverse</code></td><td><code>#F8F9F7</code></td><td><code>#161815</code></td><td>Text on an inverse or solid dark fill.</td></tr><tr><td><code>--text-link</code></td><td><code>var(--accent-text)</code></td><td>remapped</td><td>Inline links.</td></tr><tr><td><code>--text-link-hover</code></td><td><code>var(--accent-text-hover)</code></td><td>remapped</td><td>Link hover.</td></tr></tbody></table>
+<h4>2.4 Borders</h4>
+<p>All borders are <code>1px</code>. 2px+ is reserved for the active-nav rail, focus outlines and the active tab underline.</p>
+<table><thead><tr><th>Token</th><th>Light</th><th>Dark</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>--border-subtle</code></td><td><code>#DDE1D8</code></td><td><code>#363A31</code></td><td><strong>Default.</strong> Panel, table, divider and card hairlines. Decorative.</td></tr><tr><td><code>--border-default</code></td><td><code>#CBD0C4</code></td><td><code>#444840</code></td><td>Slightly stronger decorative border; hover on a card.</td></tr><tr><td><code>--border-control</code></td><td><code>#8E9089</code></td><td><code>#5F635A</code></td><td><strong>Functional</strong> boundaries — inputs, selects, outline buttons. 3.23:1, meets WCAG 1.4.11.</td></tr><tr><td><code>--border-control-hover</code></td><td><code>#5E605B</code></td><td><code>#7A7E74</code></td><td>Hover on a control boundary.</td></tr><tr><td><code>--border-strong</code></td><td><code>#5E605B</code></td><td><code>#8A8D85</code></td><td>Emphasis.</td></tr></tbody></table>
+<p>The subtle/default pair are decorative and do not need to meet a contrast minimum; the <code>control</code> pair are functional and do. Using <code>--border-subtle</code> on an input is an accessibility bug.</p>
+<h4>2.5 Accent — read this before using mint</h4>
+<p>Mint is a <strong>light</strong> colour. The accent is split into a fill ramp and a text ramp, and they are not interchangeable.</p>
+<table><thead><tr><th>Token</th><th>Light value</th><th>Contrast</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>--accent</code></td><td><code>#7CE3BF</code></td><td><strong>1.54:1 on white</strong></td><td><strong>Fills only</strong> — primary button, checked checkbox, active-tab rail, progress bar, avatar.</td></tr><tr><td><code>--accent-hover</code></td><td><code>#8CECCA</code></td><td>—</td><td>Primary button hover.</td></tr><tr><td><code>--accent-active</code></td><td><code>#79E1BD</code></td><td>—</td><td>Primary button pressed.</td></tr><tr><td><code>--accent-muted</code></td><td><code>#52C49A</code></td><td>3.7:1</td><td>Decorative borders and indicators. <strong>Never text.</strong></td></tr><tr><td><code>--accent-focus</code></td><td><code>#2D8C6B</code></td><td>4.14:1</td><td>Focus rings and outlines.</td></tr><tr><td><code>--accent-text</code></td><td><code>#1D6B52</code></td><td><strong>6.41:1</strong></td><td>Accent text and links on light surfaces.</td></tr><tr><td><code>--accent-text-hover</code></td><td><code>#17604A</code></td><td>7.48:1</td><td>Link hover.</td></tr><tr><td><code>--accent-soft</code></td><td><code>#EDFCF7</code></td><td>—</td><td>Tinted backgrounds, selected rows, bulk-action bars.</td></tr><tr><td><code>--accent-soft-hover</code></td><td><code>#D4F8ED</code></td><td>—</td><td>Hover on an accent-soft surface.</td></tr><tr><td><code>--accent-border</code></td><td><code>#AEF0DC</code></td><td>—</td><td>Border on an accent-soft surface.</td></tr><tr><td><code>--ink-on-accent</code></td><td><code>#20221D</code></td><td><strong>10.4:1 on mint</strong></td><td>Text and icons <strong>on</strong> a mint fill.</td></tr></tbody></table>
+<blockquote><p><strong>Four hard rules. Breaking any of them is an accessibility defect, and three of them are blocked in CI.</strong></p><p></p><p>1. <strong>Never <code>color: var(--accent)</code> on a light surface.</strong> Mint text on white is 1.54:1 — effectively invisible. Use <code>--accent-text</code>.</p><p>2. <strong>Never use <code>--primary-700</code> for text.</strong> It resolves to <code>#3DA882</code> and measures <strong>2.95:1</strong> — below even the 3:1 non-text threshold, and far below the 4.5:1 needed for 14px body links. Before this framework, every accent link in the admin used it and every one of them failed AA. It survives only as a legacy alias for plugin CSS. Use <code>--accent-text</code>.</p><p>3. <strong>Never white text on a mint fill.</strong> Use <code>--ink-on-accent</code>.</p><p>4. <strong>Don't hardcode either direction for dark mode.</strong> <code>--accent-text</code> remaps to <code>#8CECCA</code> (11.6:1 on the dark surface) automatically. Its light value would be unreadable on dark, and vice versa. Both directions are tokenised.</p></blockquote>
+<p>In dark mode: <code>--accent</code>, <code>--accent-hover</code>, <code>--accent-active</code> and <code>--ink-on-accent</code> keep their light values (mint fills read correctly on dark), while <code>--accent-text</code>, <code>--accent-focus</code>, <code>--accent-soft</code>, <code>--accent-soft-hover</code> and <code>--accent-border</code> are remapped.</p>
+<h4>2.6 Semantic colours</h4>
+<p>Four families — <strong>success, warning, danger, info</strong> — plus a neutral tone for draft/archived/disabled. Each exposes the same roles.</p>
+<table><thead><tr><th>Role</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>--{sem}-surface</code></td><td>Soft tinted background.</td></tr><tr><td><code>--{sem}-border</code></td><td>Border on that soft surface.</td></tr><tr><td><code>--{sem}-fg</code></td><td>Text and icon colour on a light or soft surface. AA on <code>--surface</code>.</td></tr><tr><td><code>--{sem}-solid</code></td><td>Saturated fill. <strong>Destructive and confirm buttons only.</strong></td></tr><tr><td><code>--ink-on-{sem}</code></td><td>Text colour on the solid fill.</td></tr></tbody></table>
+<table><thead><tr><th>Family</th><th>surface</th><th>border</th><th>fg</th><th>solid</th><th>ink-on</th></tr></thead>
+<tbody><tr><td>success</td><td><code>#E8F5EC</code></td><td><code>#BFE0CC</code></td><td><code>#1B6E3C</code> (6.3:1)</td><td><code>#24793F</code> (5.4:1)</td><td><code>#FFFFFF</code></td></tr><tr><td>warning</td><td><code>#FDF3E3</code></td><td><code>#F0DCAE</code></td><td><code>#7A5200</code> (6.9:1)</td><td><code>#E0A100</code></td><td><code>#20221D</code> — warning takes <strong>dark</strong> ink</td></tr><tr><td>danger</td><td><code>#FDEDED</code></td><td><code>#F2C6C6</code></td><td><code>#A32020</code> (7.5:1)</td><td><code>#D33A3A</code> (4.7:1)</td><td><code>#FFFFFF</code></td></tr><tr><td>info</td><td><code>#E9F1FA</code></td><td><code>#C3D9EF</code></td><td><code>#1F5C99</code> (6.9:1)</td><td><code>#2A6FB5</code> (5.2:1)</td><td><code>#FFFFFF</code></td></tr><tr><td>neutral</td><td><code>#E7EAE2</code></td><td><code>#CBD0C4</code></td><td><code>#5E605B</code></td><td>—</td><td>—</td></tr></tbody></table>
+<p>Dark values: <code>--dk-success-surface</code> <code>#16301F</code> / border <code>#24492F</code> / fg <code>#7BD79B</code>; warning <code>#33260C</code> / <code>#4D3A12</code> / <code>#E8BC5E</code>; danger <code>#331A1A</code> / <code>#4D2626</code> / <code>#F09393</code>; info <code>#15263A</code> / <code>#22405E</code> / <code>#8CBEEA</code>; neutral <code>#262823</code> / <code>#3A3D36</code> / <code>#B4B7B0</code>. The <code>-solid</code> values do not change between themes.</p>
+<p><strong>Design rule.</strong> Status indicators — badges, callouts, inline states, toast bodies — always use <code>--{sem}-surface</code> + <code>--{sem}-fg</code>, never <code>--{sem}-solid</code>. A saturated green pill next to a mint primary button reads muddy; a soft-tinted pill does not. Success is deliberately deeper and less saturated than mint so the two never read as the same colour.</p>
+<p><code>--info-*</code> exists so nobody reaches for an arbitrary blue. There is no other blue in the admin.</p>
+<h4>2.7 Spacing</h4>
+<p>4px grid, rem-based, one scale.</p>
+<table><thead><tr><th>Token</th><th>Value</th><th>Primary use</th></tr></thead>
+<tbody><tr><td><code>--space-0</code></td><td>0</td><td>Resets</td></tr><tr><td><code>--space-1</code></td><td>0.25rem / 4px</td><td>Icon-to-label, badge padding, row-action gaps</td></tr><tr><td><code>--space-2</code></td><td>0.5rem / 8px</td><td>Tight control padding, chip gaps, related controls</td></tr><tr><td><code>--space-3</code></td><td>0.75rem / 12px</td><td>Control padding, list row padding, unrelated controls in a row</td></tr><tr><td><code>--space-4</code></td><td>1rem / 16px</td><td>Default gap inside a panel</td></tr><tr><td><code>--space-5</code></td><td>1.25rem / 20px</td><td>Panel padding (compact), modal body</td></tr><tr><td><code>--space-6</code></td><td>1.5rem / 24px</td><td><strong>Panel padding (default), gap between panels</strong></td></tr><tr><td><code>--space-8</code></td><td>2rem / 32px</td><td>Gap between page sections</td></tr><tr><td><code>--space-10</code></td><td>2.5rem / 40px</td><td>Shell edge padding (desktop)</td></tr><tr><td><code>--space-12</code></td><td>3rem / 48px</td><td>Empty-state / hero interior</td></tr><tr><td><code>--space-16</code></td><td>4rem / 64px</td><td>Auth and onboarding heroes only</td></tr></tbody></table>
+<p><strong>Rhythm:</strong> <code>--space-6</code> between top-level page sections, never mixed within one page. Panel interior is <code>--space-6</code> by default, <code>--space-5</code> compact, <code>--space-4</code> for dense list panels.</p>
+<h4>2.8 Type scale</h4>
+<p>Root stays 16px; <strong>UI base is 14px</strong>.</p>
+<table><thead><tr><th>Token</th><th>Size</th><th>Line height</th><th>Weight</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>--text-2xs</code></td><td>0.6875rem / 11px</td><td>snug</td><td>500</td><td>Uppercase micro-labels, table headers, meta</td></tr><tr><td><code>--text-xs</code></td><td>0.75rem / 12px</td><td>normal</td><td>400</td><td>Badges, help text, timestamps</td></tr><tr><td><code>--text-sm</code></td><td>0.8125rem / 13px</td><td>normal</td><td>400</td><td>Tables, secondary text, toolbars, field labels</td></tr><tr><td><code>--text-base</code></td><td>0.875rem / 14px</td><td>normal</td><td>400</td><td><strong>Default UI text</strong>, inputs, buttons, menu items</td></tr><tr><td><code>--text-md</code></td><td>1rem / 16px</td><td>relaxed</td><td>400</td><td>Prose and help documentation only</td></tr><tr><td><code>--text-lg</code></td><td>1.125rem / 18px</td><td>snug</td><td>600</td><td>Card and section titles</td></tr><tr><td><code>--text-xl</code></td><td>1.375rem / 22px</td><td>tight</td><td>500</td><td>Page title (the breadcrumb <code>.current</code> segment)</td></tr><tr><td><code>--text-2xl</code></td><td>1.75rem / 28px</td><td>tight</td><td>600</td><td>Stat values, auth / onboarding / empty-state heroes</td></tr></tbody></table>
+<p>Supporting tokens:</p>
+<table><thead><tr><th>Group</th><th>Tokens</th></tr></thead>
+<tbody><tr><td>Line height</td><td><code>--leading-tight</code> 1.25 · <code>--leading-snug</code> 1.35 · <code>--leading-normal</code> 1.5 · <code>--leading-relaxed</code> 1.6</td></tr><tr><td>Weight</td><td><code>--weight-regular</code> 400 · <code>--weight-medium</code> 500 · <code>--weight-semibold</code> 600</td></tr><tr><td>Tracking</td><td><code>--tracking-tight</code> <code>-0.01em</code> (at <code>--text-lg</code> and above) · <code>--tracking-normal</code> 0 · <code>--tracking-label</code> <code>0.04em</code> (uppercase micro-labels only)</td></tr><tr><td>Family</td><td><code>--font-sans</code> (system UI stack) · <code>--font-mono</code> (system mono stack)</td></tr></tbody></table>
+<p><strong>Three weights only.</strong> 700 does not appear anywhere in page chrome. Uppercase is allowed <strong>only</strong> at <code>--text-2xs</code> with <code>--tracking-label</code>, via <code>.u-label</code> or a component that already does it (table headers, dropdown section labels, stat labels). Uppercase buttons or section titles are wrong.</p>
+<p>Headings carry <strong>no margins</strong>. <code>h1</code>–<code>h6</code> are styled for structure only (<code>h1</code> → <code>--text-xl</code>/500, <code>h2</code> → <code>--text-lg</code>/600, <code>h3</code>/<code>h4</code> → <code>--text-base</code>/600, <code>h5</code>/<code>h6</code> → <code>--text-sm</code>). Vertical rhythm belongs to <code>u-stack-*</code> on the parent.</p>
+<p>Tabular numerals (<code>.u-numeric</code>) go on every numeric table column, stat value and count.</p>
+<h4>2.9 Radius</h4>
+<table><thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>--radius-none</code></td><td>0</td><td>Flush edges inside a group</td></tr><tr><td><code>--radius-sm</code></td><td>6px</td><td>Controls: buttons, inputs, badges, chips, nav items, icon tiles</td></tr><tr><td><code>--radius-md</code></td><td>10px</td><td>Panels: cards, tables, sections, wells, dropdown menus</td></tr><tr><td><code>--radius-lg</code></td><td>14px</td><td>Overlays: modals, drawers, sheets</td></tr><tr><td><code>--radius-pill</code></td><td>999px</td><td>Pills, avatars, toggle tracks, progress bars</td></tr></tbody></table>
+<p>A child inside a rounded container uses the <strong>next step down</strong>, never the same or larger.</p>
+<h4>2.10 Elevation</h4>
+<table><thead><tr><th>Token</th><th>Value</th><th>Allowed on</th></tr></thead>
+<tbody><tr><td><code>--elevation-0</code></td><td><code>none</code></td><td><strong>Default.</strong> Cards, panels, tables, sections, stats.</td></tr><tr><td><code>--elevation-1</code></td><td><code>0 1px 2px rgba(32,34,29,0.06)</code></td><td>Stuck sticky bars, hover on an interactive card, the switch knob, the active segmented item.</td></tr><tr><td><code>--elevation-2</code></td><td><code>0 4px 12px rgba(32,34,29,0.10)</code></td><td>Dropdowns, popovers, tooltips, toasts, drag ghosts.</td></tr><tr><td><code>--elevation-3</code></td><td><code>0 16px 40px rgba(32,34,29,0.16)</code></td><td>Modals, drawers, sheets, the search overlay.</td></tr></tbody></table>
+<p>Dark mode swaps in heavier alphas (<code>--dk-elevation-1/2/3</code>). A shadow on a static panel is a review failure.</p>
+<h4>2.11 Layering</h4>
+<p>One scale. No raw z-index literal may appear in admin CSS; CI blocks it (<code>0</code> and <code>1</code> are allowed as intra-stacking-context values, e.g. a scrim behind its own panel).</p>
+<table><thead><tr><th>Token</th><th>Value</th><th>Layer</th></tr></thead>
+<tbody><tr><td><code>--z-base</code></td><td>0</td><td>In-flow content</td></tr><tr><td><code>--z-raised</code></td><td>10</td><td>Sticky table headers, overlapping cards, pressed button in a group</td></tr><tr><td><code>--z-dragging</code></td><td>50</td><td>Drag ghost</td></tr><tr><td><code>--z-sticky</code></td><td>100</td><td>Sticky save / action bars</td></tr><tr><td><code>--z-chrome</code></td><td>200</td><td>Topbar</td></tr><tr><td><code>--z-backdrop</code></td><td>300</td><td>Sidebar scrim</td></tr><tr><td><code>--z-drawer</code></td><td>310</td><td>Mobile sidebar, side drawers</td></tr><tr><td><code>--z-modal</code></td><td>400</td><td>Modal dialogs, sheets, search overlay</td></tr><tr><td><code>--z-popover</code></td><td>500</td><td>Dropdowns, menus, popovers — <strong>above modal</strong>, so menus inside dialogs work</td></tr><tr><td><code>--z-toast</code></td><td>600</td><td>Toasts, feedback region</td></tr><tr><td><code>--z-tooltip</code></td><td>700</td><td>Tooltips</td></tr></tbody></table>
+<h4>2.12 Motion</h4>
+<table><thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>--motion-fast</code></td><td>120ms</td><td>Hover, focus, colour changes</td></tr><tr><td><code>--motion-base</code></td><td>180ms</td><td>Enter/exit, expand/collapse</td></tr><tr><td><code>--motion-slow</code></td><td>240ms</td><td>Drawers, large panels, sticky-bar transitions</td></tr><tr><td><code>--ease-out</code></td><td><code>cubic-bezier(0.2, 0, 0, 1)</code></td><td>Entrances, expands</td></tr><tr><td><code>--ease-in-out</code></td><td><code>cubic-bezier(0.4, 0, 0.2, 1)</code></td><td>Position changes</td></tr></tbody></table>
+<p>Rules: enumerate transition properties (<code>transition: all</code> is blocked in CI); maximum travel 8px; no hover scale and no hover translate — buttons signal press through background colour only; looping animation only for indeterminate loading. <code>prefers-reduced-motion: reduce</code> is handled in <strong>one</strong> global block in <code>core/reset.css</code>; components must not ship their own.</p>
+<h4>2.13 Focus</h4>
+<table><thead><tr><th>Token</th><th>Value</th></tr></thead>
+<tbody><tr><td><code>--focus-color</code></td><td><code>var(--accent-focus)</code></td></tr><tr><td><code>--focus-outline</code></td><td><code>2px solid var(--focus-color)</code></td></tr><tr><td><code>--focus-outline-offset</code></td><td><code>2px</code></td></tr><tr><td><code>--focus-ring</code></td><td><code>0 0 0 3px color-mix(...)</code> — a box-shadow ring, available but not currently used by core</td></tr></tbody></table>
+<p><code>core/reset.css</code> applies <code>:focus-visible { outline: var(--focus-outline); outline-offset: var(--focus-outline-offset) }</code> globally. Never remove focus without an equivalent replacement. Focus must be visible on <code>--canvas</code>, <code>--surface</code> <strong>and</strong> <code>--accent</code> fills.</p>
+<h4>2.14 Control sizes</h4>
+<table><thead><tr><th>Token</th><th>Height</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>--control-xs</code></td><td>1.5rem / 24px</td><td>Inline table-cell actions, chip removes, toast close</td></tr><tr><td><code>--control-sm</code></td><td>1.75rem / 28px</td><td>Dense toolbars, filter chips, <code>.btn-sm</code>, modal close</td></tr><tr><td><code>--control-md</code></td><td>2.25rem / 36px</td><td><strong>Default for all page controls</strong>: buttons, inputs, selects, icon buttons</td></tr><tr><td><code>--control-lg</code></td><td>2.5rem / 40px</td><td><strong>Chrome row only</strong>: topbar tiles, sidebar brand, page-title row, tabs, <code>.btn-lg</code>, auth forms</td></tr></tbody></table>
+<p>If the control is in <code>.admin-topbar</code> or the page-title row, it's <code>lg</code>. Everywhere else, <code>md</code>. A 40px button in a page body is wrong.</p>
+<p>Related: <code>--chrome-row</code> (= <code>--control-lg</code>), <code>--chrome-stack-gap</code> and <code>--chrome-content-gap</code> (both <code>--space-6</code>) keep the sidebar brand row, topbar row and page-title row on one rhythm.</p>
+<h4>2.15 Measure and page width</h4>
+<table><thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>--measure-sm</code></td><td>42ch</td><td>Help text, field descriptions, empty-state copy</td></tr><tr><td><code>--measure-md</code></td><td>68ch</td><td>Prose, help docs, section descriptions</td></tr><tr><td><code>--measure-lg</code></td><td>90ch</td><td>Settings forms</td></tr><tr><td><code>--page-max</code></td><td>1440px</td><td>Page body max width</td></tr><tr><td><code>--page-max-narrow</code></td><td>880px</td><td>Single-column pages: account, auth, onboarding</td></tr><tr><td><code>--sidebar-width</code></td><td>280px</td><td>Expanded sidebar</td></tr><tr><td><code>--sidebar-width-collapsed</code></td><td>4.5rem</td><td>Icon rail</td></tr><tr><td><code>--shell-edge-padding</code></td><td><code>--space-10</code></td><td>Main content padding; steps down at each breakpoint</td></tr></tbody></table>
+<h4>2.16 Breakpoints</h4>
+<p>Five values, mobile-first, <code>min-width</code> preferred.</p>
+<table><thead><tr><th>Token</th><th>Value</th></tr></thead>
+<tbody><tr><td><code>--bp-sm</code></td><td>640px</td></tr><tr><td><code>--bp-md</code></td><td>768px</td></tr><tr><td><code>--bp-lg</code></td><td>1024px</td></tr><tr><td><code>--bp-xl</code></td><td>1280px</td></tr><tr><td><code>--bp-2xl</code></td><td>1440px</td></tr></tbody></table>
+<p>Custom properties cannot be used inside <code>@media</code> conditions, so write the literal and keep it in sync with the token. Only these five values and their <code>max-width</code> complements (639/767/1023/1279/1439) are allowed; CI rejects anything else. Prefer <code>min-width</code> — the shell and a handful of component collapses use <code>max-width</code> complements where a mobile-only rule is genuinely clearer, but new work should not add more.</p>
+<p>---</p>
+<h3>3. Helpers (<code>u-*</code>)</h3>
+<p>Helpers are the mechanism that lets a page ship zero CSS.</p>
+<p><strong>Rules:</strong></p>
+<ul>
+<li><strong>Prefix <code>u-</code>.</strong> Guarantees no collision with plugin-private CSS. There is no unprefixed helper layer.</li>
+<li><strong>No <code>!important</code> in any helper. Ever.</strong> If a helper loses a specificity fight, the component is too specific — fix the component.</li>
+<li><strong>Helpers load last</strong> (after every component in <code>style.css</code>), so at equal specificity they win on source order.</li>
+<li><strong>Single-purpose and immutable.</strong> A helper never sets component internals.</li>
+<li><strong>Rule of three.</strong> If the same combination of 3+ helpers recurs on 3+ surfaces, it stops being a composition and becomes a component. Report it rather than pasting it a fourth time.</li>
+<li><strong>Responsive variants use an explicit suffix</strong> (<code>u-hide-below-md</code>), not escaped <code>@</code> syntax.</li>
+</ul>
+<h4>3.1 Layout primitives</h4>
+<p>The highest-value family — these replace hand-rolled flex and grid.</p>
+<table><thead><tr><th>Helper</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>u-stack</code></td><td>Column flex, <code>gap: --space-4</code></td></tr><tr><td><code>u-stack-0</code> … <code>u-stack-10</code></td><td>Column flex at <code>--space-{0,1,2,3,4,5,6,8,10}</code></td></tr><tr><td><code>u-flow</code>, <code>u-flow-2</code>, <code>u-flow-3</code>, <code>u-flow-6</code></td><td>Margin-based rhythm (<code>&gt; <em> + </em></code>) for prose and rich text where flex breaks the layout</td></tr><tr><td><code>u-row</code></td><td>Row flex, centre-aligned, <code>gap: --space-3</code></td></tr><tr><td><code>u-row-1</code>, <code>-2</code>, <code>-3</code>, <code>-4</code>, <code>-6</code></td><td>Same at the named space step</td></tr><tr><td><code>u-cluster</code></td><td>Wrapping row, <code>gap: --space-2</code></td></tr><tr><td><code>u-cluster-3</code>, <code>u-cluster-4</code></td><td>Wrapping row at 12px / 16px</td></tr><tr><td><code>u-split</code></td><td>Row with <code>space-between</code> and <code>gap: --space-4</code></td></tr><tr><td><code>u-split-start</code></td><td>Top-aligns a <code>u-split</code></td></tr><tr><td><code>u-center</code></td><td>Flex centre both axes</td></tr><tr><td><code>u-center-col</code></td><td>Column, centred, <code>text-align: center</code></td></tr><tr><td><code>u-grid</code></td><td>Grid, <code>gap: --space-4</code></td></tr><tr><td><code>u-grid-2</code>, <code>u-grid-3</code>, <code>u-grid-4</code></td><td>Responsive column grids — 1 column below 768px, 2 at 768px, then 3 / 4 at 1024px</td></tr><tr><td><code>u-grid-auto</code></td><td><code>auto-fill, minmax(240px, 1fr)</code></td></tr><tr><td><code>u-grid-auto-sm</code></td><td><code>minmax(160px, 1fr)</code>, <code>gap: --space-3</code></td></tr><tr><td><code>u-grid-auto-lg</code></td><td><code>minmax(320px, 1fr)</code>, <code>gap: --space-6</code></td></tr><tr><td><code>u-sidebar-layout</code></td><td>Main + aside grid. Single column below 1024px, aside 260–300px at 1024px, 280–340px at 1440px</td></tr><tr><td><code>u-fill</code></td><td><code>flex: 1 1 auto; min-width: 0</code></td></tr><tr><td><code>u-shrink-0</code>, <code>u-grow-0</code></td><td>Flex child sizing</td></tr><tr><td><code>u-wrap</code>, <code>u-nowrap-flex</code>, <code>u-col</code></td><td><code>flex-wrap</code> / <code>flex-direction</code> overrides</td></tr><tr><td><code>u-push-right</code>, <code>u-push-bottom</code></td><td><code>margin-inline-start: auto</code> / <code>margin-block-start: auto</code></td></tr><tr><td><code>u-align-start</code>, <code>-center</code>, <code>-end</code>, <code>-baseline</code>, <code>-stretch</code></td><td><code>align-items</code></td></tr><tr><td><code>u-justify-start</code>, <code>-center</code>, <code>-end</code>, <code>-between</code></td><td><code>justify-content</code></td></tr><tr><td><code>u-self-start</code>, <code>-center</code>, <code>-end</code></td><td><code>align-self</code></td></tr><tr><td><code>u-block</code>, <code>u-inline-block</code>, <code>u-inline</code>, <code>u-flex</code>, <code>u-inline-flex</code>, <code>u-contents</code></td><td><code>display</code></td></tr></tbody></table>
+<h4>3.2 Spacing</h4>
+<p>Logical properties throughout, so they respect writing direction.</p>
+<table><thead><tr><th>Family</th><th>Members</th></tr></thead>
+<tbody><tr><td>Margin (all)</td><td><code>u-m-0</code>, <code>u-m-auto</code></td></tr><tr><td>Margin top</td><td><code>u-mt-0/1/2/3/4/5/6/8</code>, <code>u-mt-auto</code></td></tr><tr><td>Margin bottom</td><td><code>u-mb-0/1/2/3/4/5/6/8</code></td></tr><tr><td>Margin inline start</td><td><code>u-ml-0/1/2/3/4</code>, <code>u-ml-auto</code></td></tr><tr><td>Margin inline end</td><td><code>u-mr-0/1/2/3/4</code></td></tr><tr><td>Margin axis</td><td><code>u-mx-auto</code>, <code>u-my-0</code>, <code>u-my-4</code>, <code>u-my-6</code></td></tr><tr><td>Padding (all)</td><td><code>u-p-0/1/2/3/4/5/6/8</code></td></tr><tr><td>Padding block</td><td><code>u-pt-0/2/3/4/6</code>, <code>u-pb-0/2/3/4/6</code>, <code>u-py-0/2/3/4/6</code></td></tr><tr><td>Padding inline</td><td><code>u-px-0/2/3/4/6</code></td></tr><tr><td>Gap</td><td><code>u-gap-0/1/2/3/4/5/6/8</code>, <code>u-gap-x-2</code>, <code>u-gap-x-4</code>, <code>u-gap-y-2</code>, <code>u-gap-y-4</code></td></tr></tbody></table>
+<p>Prefer a stack/row/cluster gap over per-child margins. Margin helpers exist for the cases where the parent isn't yours to change.</p>
+<h4>3.3 Typography</h4>
+<table><thead><tr><th>Helper</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>u-text-2xs</code> … <code>u-text-2xl</code></td><td>Full ladder with matching line height; <code>lg</code>/<code>xl</code>/<code>2xl</code> also apply <code>--tracking-tight</code></td></tr><tr><td><code>u-weight-regular</code>, <code>-medium</code>, <code>-semibold</code></td><td>400 / 500 / 600</td></tr><tr><td><code>u-leading-tight</code>, <code>-normal</code>, <code>-relaxed</code></td><td>Line height only</td></tr><tr><td><code>u-align-text-left</code>, <code>-center</code>, <code>-right</code></td><td><code>text-align</code> (note: <code>u-align-*</code> without <code>text</code> is flex alignment)</td></tr><tr><td><code>u-truncate</code></td><td>Single-line ellipsis, includes <code>min-width: 0</code></td></tr><tr><td><code>u-clamp-2</code>, <code>u-clamp-3</code></td><td>Multi-line clamp</td></tr><tr><td><code>u-nowrap</code></td><td><code>white-space: nowrap</code></td></tr><tr><td><code>u-break-word</code></td><td><code>overflow-wrap: anywhere</code></td></tr><tr><td><code>u-numeric</code></td><td>Tabular figures. Required on numeric columns, stats and counts</td></tr><tr><td><code>u-mono</code></td><td><code>--font-mono</code></td></tr><tr><td><code>u-label</code></td><td>The only sanctioned uppercase treatment: 11px, 500, uppercase, <code>--tracking-label</code>, <code>--text-tertiary</code></td></tr></tbody></table>
+<h4>3.4 Colour and tone</h4>
+<p>Semantic only — there are no raw colour helpers.</p>
+<table><thead><tr><th>Family</th><th>Members</th></tr></thead>
+<tbody><tr><td>Foreground</td><td><code>u-fg-primary</code>, <code>-secondary</code>, <code>-tertiary</code>, <code>-inverse</code>, <code>-accent</code>, <code>-success</code>, <code>-warning</code>, <code>-danger</code>, <code>-info</code>, <code>-inherit</code></td></tr><tr><td>Background</td><td><code>u-bg-canvas</code>, <code>-surface</code>, <code>-sunken</code>, <code>-raised</code>, <code>-accent-soft</code>, <code>-success-soft</code>, <code>-warning-soft</code>, <code>-danger-soft</code>, <code>-info-soft</code>, <code>-neutral-soft</code>, <code>-transparent</code></td></tr></tbody></table>
+<p><code>u-fg-accent</code> resolves to <code>--accent-text</code>, not <code>--accent</code>. There is deliberately no helper that puts mint on a light background.</p>
+<h4>3.5 Surface and shape</h4>
+<table><thead><tr><th>Helper</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>u-surface</code></td><td><code>--surface</code> fill + 1px <code>--border-subtle</code> + <code>--radius-md</code>. A card without the card component.</td></tr><tr><td><code>u-surface-sunken</code></td><td><code>--surface-sunken</code> fill + <code>--radius-md</code></td></tr><tr><td><code>u-border</code></td><td>1px <code>--border-subtle</code> all round</td></tr><tr><td><code>u-border-top</code>, <code>-bottom</code>, <code>-left</code>, <code>-right</code></td><td>Single-side hairline (logical)</td></tr><tr><td><code>u-border-none</code></td><td>Removes the border</td></tr><tr><td><code>u-border-default</code>, <code>u-border-strong</code></td><td><code>border-color</code> only — combine with <code>u-border</code></td></tr><tr><td><code>u-radius-none</code>, <code>-sm</code>, <code>-md</code>, <code>-lg</code>, <code>-pill</code></td><td>Radius</td></tr><tr><td><code>u-elevation-0</code>, <code>-1</code>, <code>-2</code>, <code>-3</code></td><td>Shadow</td></tr></tbody></table>
+<h4>3.6 Size and measure</h4>
+<table><thead><tr><th>Helper</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>u-w-full</code>, <code>u-w-auto</code>, <code>u-w-fit</code></td><td>Width</td></tr><tr><td><code>u-h-full</code>, <code>u-h-auto</code></td><td>Height</td></tr><tr><td><code>u-min-w-0</code>, <code>u-min-h-0</code></td><td>Flex/grid overflow fixes</td></tr><tr><td><code>u-max-w-measure-sm</code>, <code>-measure-md</code>, <code>-measure-lg</code></td><td>Reading measure caps</td></tr><tr><td><code>u-max-w-page</code>, <code>u-max-w-page-narrow</code>, <code>u-max-w-full</code></td><td>Page width caps</td></tr><tr><td><code>u-h-control-sm</code>, <code>-md</code>, <code>-lg</code></td><td>Match a control row height</td></tr><tr><td><code>u-square-control-sm</code>, <code>-md</code>, <code>-lg</code></td><td>Square icon-tile sizing</td></tr><tr><td><code>u-aspect-square</code>, <code>u-aspect-video</code></td><td>Aspect ratio</td></tr><tr><td><code>u-object-cover</code>, <code>u-object-contain</code></td><td>Media fit</td></tr></tbody></table>
+<h4>3.7 State and visibility</h4>
+<table><thead><tr><th>Helper</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>u-hidden</code></td><td><code>display: none</code></td></tr><tr><td><code>u-invisible</code>, <code>u-visible</code></td><td><code>visibility</code></td></tr><tr><td><code>u-sr-only</code></td><td>Visually hidden, screen-reader accessible. <code>.sr-only</code> is the same rule under the pre-framework name and is still emitted by templates and JS.</td></tr><tr><td><code>u-disabled</code></td><td>0.55 opacity, no pointer events, <code>not-allowed</code> cursor</td></tr><tr><td><code>u-loading</code></td><td>Hides text and centres a spinner pseudo-element</td></tr><tr><td><code>u-hide-print</code></td><td>Hidden in print</td></tr><tr><td><code>u-hide-below-sm</code>, <code>-md</code>, <code>-lg</code>, <code>-xl</code></td><td>Hidden until the named breakpoint</td></tr><tr><td><code>u-hide-above-sm</code>, <code>-md</code>, <code>-lg</code>, <code>-xl</code></td><td>Hidden from the named breakpoint up</td></tr></tbody></table>
+<p>For &quot;hide this element&quot;, prefer the native <strong><code>hidden</code> attribute</strong>. <code>core/overrides.css</code> declares <code>[hidden] { display: none }</code> after every component, so it beats a component's own <code>display: flex</code> without <code>!important</code>. That makes <code>hidden</code> the correct replacement for <code>style=&quot;display:none&quot;</code>. JS toggles a class or the attribute — never <code>element.style.*</code>, except for genuinely computed values (measured positions, progress widths, drag transforms).</p>
+<h4>3.8 Interaction</h4>
+<table><thead><tr><th>Helper</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>u-focus-ring</code></td><td><code>:focus-visible</code> outline for elements that aren't natively focusable-styled</td></tr><tr><td><code>u-clickable</code></td><td><code>cursor: pointer</code></td></tr><tr><td><code>u-no-select</code></td><td><code>user-select: none</code></td></tr><tr><td><code>u-scroll-x</code>, <code>u-scroll-y</code></td><td>Scroll with <code>overscroll-behavior: contain</code></td></tr><tr><td><code>u-overflow-hidden</code>, <code>u-overflow-visible</code></td><td><code>overflow</code></td></tr><tr><td><code>u-sticky-top</code></td><td><code>position: sticky; top: 0; z-index: --z-sticky</code></td></tr></tbody></table>
+<h4>3.9 Position</h4>
+<table><thead><tr><th>Helper</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>u-relative</code>, <code>u-absolute</code>, <code>u-fixed</code>, <code>u-sticky</code>, <code>u-static</code></td><td><code>position</code></td></tr><tr><td><code>u-inset-0</code></td><td><code>inset: 0</code></td></tr><tr><td><code>u-z-raised</code>, <code>u-z-sticky</code>, <code>u-z-popover</code>, <code>u-z-modal</code>, <code>u-z-toast</code></td><td>Layer tokens</td></tr></tbody></table>
+<p>---</p>
+<h3>4. Component catalog</h3>
+<p>Everything below is copy-pasteable. Class names in this section are stable.</p>
+<h4>4.1 Card</h4>
+<p>The default panel. Border-only by design.</p>
+<pre><code>&lt;section class=&quot;card&quot;&gt;
+  &lt;header class=&quot;card-header&quot;&gt;
+    &lt;div class=&quot;card-heading&quot;&gt;
+      &lt;h2 class=&quot;card-title&quot;&gt;General&lt;/h2&gt;
+      &lt;p class=&quot;card-description&quot;&gt;Site name, language and timezone.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card-actions&quot;&gt;
+      &lt;button class=&quot;btn btn-sm&quot;&gt;Edit&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+  &lt;div class=&quot;card-body u-stack-4&quot;&gt;
+    &lt;!-- fields, tables, lists --&gt;
+  &lt;/div&gt;
+  &lt;footer class=&quot;card-footer&quot;&gt;
+    &lt;button class=&quot;btn btn-primary&quot;&gt;Save&lt;/button&gt;
+  &lt;/footer&gt;
+&lt;/section&gt;</code></pre>
+<table><thead><tr><th>Part</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>.card</code></td><td>Column flex, <code>--surface</code>, 1px <code>--border-subtle</code>, <code>--radius-md</code>, <code>--elevation-0</code></td></tr><tr><td><code>.card-header</code></td><td>Space-between row, <code>--space-4 --space-6</code> padding, bottom hairline</td></tr><tr><td><code>.card-title</code></td><td><code>--text-lg</code>/600. Bare <code>h2</code>/<code>h3</code> inside <code>.card-header</code> get the same treatment</td></tr><tr><td><code>.card-heading</code></td><td>Column wrapper when the header has a title <em>and</em> a description</td></tr><tr><td><code>.card-subtitle</code>, <code>.card-description</code></td><td><code>--text-sm</code>, secondary, capped at <code>--measure-md</code></td></tr><tr><td><code>.card-actions</code></td><td>Right-hand action group, <code>gap: --space-2</code></td></tr><tr><td><code>.card-body</code></td><td><code>--space-6</code> padding. Add <code>u-stack-4</code> for internal rhythm</td></tr><tr><td><code>.card-footer</code></td><td>Sunken band with a top hairline</td></tr></tbody></table>
+<p>Modifiers: <code>.card--compact</code> (tighter padding on all three regions) · <code>.card--flush</code> (zero body padding, for a table or list that supplies its own) · <code>.card--padded</code> (the card <em>is</em> the body — for JS-composed cards) · <code>.card--sunken</code> · <code>.card--accent</code> · <code>.card--danger</code> · <code>.card--borderless</code> · <code>.card--interactive</code> (hover border + <code>--elevation-1</code>; <code>a.card</code> gets it automatically). <code>.card--bordered</code> and <code>.card--elevated</code> remain as aliases for un-migrated markup — don't reach for them in new work.</p>
+<h4>4.2 Stat</h4>
+<p>A labelled metric. Flat, no gradient.</p>
+<pre><code>&lt;div class=&quot;stat&quot;&gt;
+  &lt;span class=&quot;stat-label&quot;&gt;Published entries&lt;/span&gt;
+  &lt;span class=&quot;stat-value&quot;&gt;1,284&lt;/span&gt;
+  &lt;span class=&quot;stat-meta&quot;&gt;+12 this week&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+<p><code>.stat-value</code> is <code>--text-2xl</code>/600 with tabular figures already applied. Put stats in a <code>u-grid-auto</code> or inside a <code>.card</code>, not in a bespoke tile.</p>
+<h4>4.3 Data list</h4>
+<p>Rows in a panel, for things that aren't tabular enough to be a table.</p>
+<pre><code>&lt;div class=&quot;card card--flush&quot;&gt;
+  &lt;div class=&quot;data-list&quot;&gt;
+    &lt;a class=&quot;data-list-item&quot; href=&quot;#&quot;&gt;
+      &lt;div class=&quot;data-list-main&quot;&gt;
+        &lt;span class=&quot;data-list-title&quot;&gt;Weekly digest&lt;/span&gt;
+        &lt;span class=&quot;data-list-meta&quot;&gt;Runs Mondays at 09:00&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;span class=&quot;badge badge-success&quot;&gt;Active&lt;/span&gt;
+      &lt;div class=&quot;data-list-actions&quot;&gt;
+        &lt;button class=&quot;btn-icon btn-icon-sm&quot; aria-label=&quot;Edit&quot;&gt;…&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>Rows are 44px (<code>.data-list--compact</code> → 36px). <code>a.data-list-item</code> and <code>.data-list-item--interactive</code> get a hover fill. <code>.data-list--flush</code> drops the horizontal padding for lists inside an already-padded container. A <code>.switch</code> placed directly in a <code>.data-list-item</code> is automatically pushed to the trailing edge.</p>
+<h4>4.4 Key/value</h4>
+<pre><code>&lt;dl class=&quot;kv&quot;&gt;
+  &lt;dt class=&quot;kv-key&quot;&gt;Handle&lt;/dt&gt;
+  &lt;dd class=&quot;kv-value&quot;&gt;blog&lt;/dd&gt;
+  &lt;dt class=&quot;kv-key&quot;&gt;Entries&lt;/dt&gt;
+  &lt;dd class=&quot;kv-value u-numeric&quot;&gt;1,284&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+<p>Two-column grid (10rem label column) that collapses to one column below 768px.</p>
+<h4>4.5 Buttons</h4>
+<p>One naming convention: single dash.</p>
+<pre><code>&lt;button class=&quot;btn btn-primary&quot;&gt;New entry&lt;/button&gt;
+&lt;button class=&quot;btn btn-secondary&quot;&gt;Cancel&lt;/button&gt;
+&lt;button class=&quot;btn&quot;&gt;Neutral outline&lt;/button&gt;
+&lt;button class=&quot;btn btn-outline&quot;&gt;Explicit outline&lt;/button&gt;
+&lt;button class=&quot;btn btn-ghost&quot;&gt;Low priority&lt;/button&gt;
+&lt;button class=&quot;btn btn-danger&quot;&gt;Delete&lt;/button&gt;
+&lt;button class=&quot;btn btn-sm&quot;&gt;Small&lt;/button&gt;
+&lt;button class=&quot;btn btn-lg&quot;&gt;Chrome row&lt;/button&gt;
+&lt;button class=&quot;btn btn-primary btn-loading&quot;&gt;Saving&lt;/button&gt;
+&lt;button class=&quot;btn-icon&quot; aria-label=&quot;Edit&quot;&gt;&lt;!-- 16px icon --&gt;&lt;/button&gt;</code></pre>
+<table><thead><tr><th>Variant</th><th>Appearance</th></tr></thead>
+<tbody><tr><td><code>.btn</code></td><td>Neutral outline — <code>--surface</code> fill, <code>--border-control</code>. Bare <code>.btn</code> is a real, complete button; there is no <code>:not()</code> chain.</td></tr><tr><td><code>.btn-primary</code></td><td>The mint fill. <strong>One per screen.</strong> <code>--ink-on-accent</code> text.</td></tr><tr><td><code>.btn-secondary</code></td><td>Filled neutral (<code>--surface-sunken</code>) — clearly a button, not a ghost.</td></tr><tr><td><code>.btn-outline</code></td><td>Explicit alias of the base look.</td></tr><tr><td><code>.btn-ghost</code></td><td>Borderless, transparent, secondary text. <code>.btn-muted</code> is an alias.</td></tr><tr><td><code>.btn-link</code></td><td>Text link styling — no height, no padding, underlined, <code>--text-link</code>.</td></tr><tr><td><code>.btn-danger</code></td><td><code>--danger-solid</code> fill. Destructive actions.</td></tr><tr><td><code>.btn-danger-quiet</code></td><td>Transparent with danger text, for menus and table rows.</td></tr><tr><td><code>.btn-success</code>, <code>.btn-warning</code></td><td>Solid semantic fills. Rare — reserve for genuine confirm affordances.</td></tr></tbody></table>
+<table><thead><tr><th>Size / modifier</th><th>Effect</th></tr></thead>
+<tbody><tr><td>default</td><td><code>--control-md</code> (36px), <code>--text-base</code></td></tr><tr><td><code>.btn-sm</code> (alias <code>.btn-small</code>)</td><td><code>--control-sm</code> (28px), <code>--text-sm</code>, 14px icons</td></tr><tr><td><code>.btn-lg</code> (alias <code>.btn-large</code>)</td><td><code>--control-lg</code> (40px) — chrome row only</td></tr><tr><td><code>.btn-full</code></td><td><code>width: 100%</code></td></tr><tr><td><code>.btn-loading</code> (alias <code>.btn.loading</code>)</td><td>Hides the label, spins a pseudo-element</td></tr><tr><td><code>.btn-icon</code></td><td>Square icon-only control at <code>--control-md</code>; <code>.btn-icon-sm</code> / <code>.btn-icon-xs</code> step down. <code>.btn-icon--danger</code> and <code>.btn-icon--edit</code> are the contracted table-row actions.</td></tr><tr><td><code>.btn-group</code></td><td>Joined row of buttons; <code>[aria-pressed=&quot;true&quot;]</code> marks the active one</td></tr></tbody></table>
+<p>Direct <code>svg</code> or <code>.birkly-icon</code> children are sized automatically (16px, 14px in <code>.btn-sm</code>).</p>
+<h4>4.6 Forms</h4>
+<pre><code>&lt;div class=&quot;field&quot;&gt;
+  &lt;label class=&quot;field-label&quot; for=&quot;site-name&quot;&gt;Site name &lt;span class=&quot;field-required&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;input&quot; id=&quot;site-name&quot; type=&quot;text&quot; required&gt;
+  &lt;p class=&quot;field-help&quot;&gt;Shown in the browser tab and in search results.&lt;/p&gt;
+  &lt;p class=&quot;field-error&quot;&gt;Site name is required.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;field&quot;&gt;
+  &lt;label class=&quot;field-label&quot; for=&quot;lang&quot;&gt;Language&lt;/label&gt;
+  &lt;select class=&quot;select&quot; id=&quot;lang&quot;&gt;
+    &lt;option&gt;English&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;field&quot;&gt;
+  &lt;label class=&quot;field-label&quot; for=&quot;bio&quot;&gt;Bio&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;bio&quot; rows=&quot;4&quot;&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;label class=&quot;checkbox-label&quot;&gt;
+  &lt;input type=&quot;checkbox&quot;&gt; Send me the weekly digest
+&lt;/label&gt;
+
+&lt;label class=&quot;switch&quot;&gt;
+  &lt;input type=&quot;checkbox&quot;&gt;
+  &lt;span class=&quot;switch__slider&quot;&gt;&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+<table><thead><tr><th>Class</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>.field</code></td><td>Column flex, <code>gap: --space-2</code>. <code>.form-group</code> and <code>.field-block</code> are structural aliases kept because plugin CSS and existing templates use them.</td></tr><tr><td><code>.field-label</code> (alias <code>.form-label</code>)</td><td><code>--text-sm</code>/500, <code>--text-secondary</code>. A bare <code>&lt;label&gt;</code> inside <code>.field</code> / <code>.form-group</code> gets the same.</td></tr><tr><td><code>.field-required</code></td><td>The red asterisk</td></tr><tr><td><code>.field-help</code> (aliases <code>.form-help</code>, <code>.field-hint</code>, <code>.form-text</code>)</td><td><code>--text-xs</code>, tertiary, capped at <code>--measure-sm</code></td></tr><tr><td><code>.field-error</code> (aliases <code>.form-error</code>, <code>.invalid-feedback</code>)</td><td><code>--text-xs</code>, <code>--danger-fg</code></td></tr><tr><td><code>.field-row</code></td><td>Label-beside-control grid (12rem label column), single column below 768px</td></tr><tr><td><code>.form-grid</code></td><td><code>auto-fit, minmax(220px, 1fr)</code></td></tr><tr><td><code>.input</code>, <code>.select</code>, <code>.textarea</code></td><td>36px, <code>--border-control</code>, <code>--radius-sm</code>. The same rules apply to bare <code>input</code>/<code>select</code>/<code>textarea</code> elements, so unclassed markup still looks right.</td></tr><tr><td><code>.input-sm</code>, <code>.input-lg</code></td><td>28px / 40px</td></tr><tr><td><code>.input-search</code></td><td>Adds the leading icon gutter</td></tr><tr><td><code>.input-icon-wrap</code></td><td>Relative wrapper that absolutely positions a leading icon</td></tr><tr><td><code>.input-group</code></td><td>Control with an attached button — radii and the 1px overlap are handled</td></tr><tr><td><code>.check</code>, <code>.checkbox-row</code>, <code>.radio-row</code></td><td>Top-aligned control + text row</td></tr><tr><td><code>.checkbox-label</code>, <code>.radio-label</code></td><td>Single-line label wrapping its own control</td></tr><tr><td><code>.switch</code> + <code>.switch__slider</code></td><td>The one toggle API. <code>.switch--sm</code> / <code>.switch--lg</code> resize it; <code>.switch--disabled</code> dims it.</td></tr></tbody></table>
+<p>Validation: put <code>.is-invalid</code> on the control, or <code>.field-error-state</code> / <code>.form-group--error</code> / <code>.field-block--error</code> on the wrapper. <code>.was-validated</code> on the form activates <code>:invalid</code> styling after a submit attempt. There is deliberately no global <code>:valid</code> green — empty optional fields would show permanent success chrome.</p>
+<p>Checkboxes, radios, range, colour and file inputs are all styled from the same tokens; <code>input[type=&quot;file&quot;]</code> gets a dashed well plus a styled <code>::file-selector-button</code>.</p>
+<h4>4.7 Table</h4>
+<pre><code>&lt;div class=&quot;table-container&quot;&gt;
+  &lt;table class=&quot;table&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Title&lt;/th&gt;
+        &lt;th&gt;Status&lt;/th&gt;
+        &lt;th class=&quot;numeric&quot;&gt;Views&lt;/th&gt;
+        &lt;th class=&quot;col-shrink&quot;&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;span class=&quot;cell-title&quot;&gt;Hello world&lt;/span&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;span class=&quot;badge badge-success&quot;&gt;Published&lt;/span&gt;&lt;/td&gt;
+        &lt;td class=&quot;numeric&quot;&gt;1,284&lt;/td&gt;
+        &lt;td class=&quot;cell-actions&quot;&gt;
+          &lt;button class=&quot;btn-icon btn-icon-sm btn-icon--edit&quot; aria-label=&quot;Edit&quot;&gt;…&lt;/button&gt;
+          &lt;button class=&quot;btn-icon btn-icon-sm btn-icon--danger&quot; aria-label=&quot;Delete&quot;&gt;…&lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+<p>Density: header row 36px on a sunken band with an 11px uppercase label; body row 40px; <code>.table--compact</code> → 32px. Inside a <code>.card</code> (or <code>.card--flush</code>) the container drops its own border, radius and fill so you don't get a double border.</p>
+<table><thead><tr><th>Class</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>.table-container</code></td><td>Horizontal scroll viewport with panel chrome</td></tr><tr><td><code>.cell-title</code></td><td>Medium-weight primary text</td></tr><tr><td><code>.cell-muted</code></td><td>Secondary text</td></tr><tr><td><code>.cell-numeric</code>, <code>td.numeric</code>, <code>th.numeric</code></td><td>End-aligned, tabular figures</td></tr><tr><td><code>.cell-actions</code> (alias <code>.row-actions</code>)</td><td>Right-aligned action group; dimmed to 55% until row hover or focus-within</td></tr><tr><td><code>.col-shrink</code>, <code>.col-checkbox</code>, <code>.col-drag</code></td><td>Column width helpers</td></tr><tr><td><code>.table--compact</code>, <code>--bordered</code>, <code>--striped</code>, <code>--hover</code>, <code>--sticky</code></td><td>Modifiers</td></tr><tr><td><code>th[aria-sort]</code> / <code>.sortable</code></td><td>Sortable header affordance</td></tr><tr><td><code>tr.is-selected</code> / <code>[aria-selected=&quot;true&quot;]</code></td><td><code>--surface-selected</code> fill</td></tr></tbody></table>
+<p><code>.entries-smart-table</code> (with <code>.smart-table</code>, <code>.table-viewport</code>, <code>.head-actions</code>) is a documented specialisation for the entry list, not a second table system. Its internals are not contracted.</p>
+<h4>4.8 Badge</h4>
+<p>One badge system. Tone is always a soft tinted surface plus semantic text — never a saturated fill.</p>
+<pre><code>&lt;span class=&quot;badge&quot;&gt;Draft&lt;/span&gt;
+&lt;span class=&quot;badge badge-success&quot;&gt;Published&lt;/span&gt;
+&lt;span class=&quot;badge badge-warning&quot;&gt;Scheduled&lt;/span&gt;
+&lt;span class=&quot;badge badge-danger&quot;&gt;Failed&lt;/span&gt;
+&lt;span class=&quot;badge badge-info&quot;&gt;Beta&lt;/span&gt;
+&lt;span class=&quot;badge badge-accent&quot;&gt;New&lt;/span&gt;
+&lt;span class=&quot;badge badge-count u-numeric&quot;&gt;12&lt;/span&gt;</code></pre>
+<p>Tones: <code>badge-neutral</code> (default), <code>-success</code>, <code>-warning</code>, <code>-danger</code> (alias <code>-error</code>), <code>-info</code>, <code>-accent</code>, <code>-muted</code>. Sizes: default 22px, <code>.badge-sm</code> 18px, <code>.badge-lg</code> 26px. <code>.badge-count</code> makes it a numeric pill.</p>
+<p><code>.status-badge</code> and <code>.status-pill</code> are aliases of <code>.badge</code>, and semantic state classes are mapped for you: <code>.status-badge.published</code>, <code>.active</code>, <code>.pending</code>, <code>.scheduled</code>, <code>.draft</code>, <code>.unpublished</code>, <code>.inactive</code>, <code>.error</code>, <code>.failed</code>.</p>
+<p>Related small components in the same file:</p>
+<ul>
+<li><code>.status-indicator</code> / <code>.status-dot</code> (+ <code>--success</code>, <code>--warning</code>, <code>--danger</code>, <code>--info</code>) — an 8px inline state dot.</li>
+<li><code>.chip</code> / <code>.tag</code> — a pill-shaped token, 28px, with <code>.chip--selected</code>, <code>.chip--interactive</code> and <code>.chip-remove</code>.</li>
+<li><code>.notification-badge</code> — the count dot on an icon button.</li>
+</ul>
+<h4>4.9 Callout</h4>
+<p>The one inline-message system.</p>
+<pre><code>&lt;div class=&quot;callout callout-warning&quot;&gt;
+  &lt;svg class=&quot;callout-icon&quot;&gt;…&lt;/svg&gt;
+  &lt;div class=&quot;callout-body&quot;&gt;
+    &lt;p class=&quot;callout-title&quot;&gt;Storage is nearly full&lt;/p&gt;
+    &lt;p&gt;Delete unused media or upgrade your plan.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;callout-actions&quot;&gt;&lt;a class=&quot;btn btn-sm&quot; href=&quot;#&quot;&gt;Manage&lt;/a&gt;&lt;/div&gt;
+  &lt;button class=&quot;callout-dismiss&quot; aria-label=&quot;Dismiss&quot;&gt;×&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+<p>Tones: <code>callout-info</code> (also the bare default), <code>-success</code>, <code>-warning</code>, <code>-danger</code> (alias <code>-error</code>), <code>-neutral</code>, <code>-accent</code>. Modifiers: <code>.callout--compact</code>, <code>.callout--block</code>, <code>.callout--banner</code> (full-bleed, for grace-period and alpha notices).</p>
+<p><code>.message</code>, <code>.alert</code>, <code>.error-message</code>, <code>.success-message</code>, <code>.warning-message</code>, <code>.info-message</code> and their <code>-info</code>/<code>-success</code>/<code>-warning</code>/<code>-error</code> variants are aliases — they render identically. Use <code>.callout</code> in new markup.</p>
+<h4>4.10 Empty, loading and error states</h4>
+<p>Every async region needs all three. A region with only a happy path is incomplete.</p>
+<pre><code>&lt;div class=&quot;empty-state&quot;&gt;
+  &lt;div class=&quot;empty-state-icon&quot;&gt;…&lt;/div&gt;
+  &lt;p class=&quot;empty-state-title&quot;&gt;No entries yet&lt;/p&gt;
+  &lt;p class=&quot;empty-state-text&quot;&gt;Create your first entry to get started.&lt;/p&gt;
+  &lt;div class=&quot;empty-state-actions&quot;&gt;
+    &lt;button class=&quot;btn btn-primary&quot;&gt;New entry&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;loading-state&quot;&gt;Loading entries…&lt;/div&gt;
+
+&lt;div class=&quot;error-state&quot;&gt;
+  &lt;div class=&quot;empty-state-icon&quot;&gt;…&lt;/div&gt;
+  &lt;p class=&quot;empty-state-title&quot;&gt;Couldn't load entries&lt;/p&gt;
+  &lt;p class=&quot;empty-state-text&quot;&gt;Check your connection and try again.&lt;/p&gt;
+  &lt;div class=&quot;empty-state-actions&quot;&gt;&lt;button class=&quot;btn&quot;&gt;Retry&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p><code>.loading-state</code> renders a spinner before its content; <code>.error-state</code> (alias <code>.empty-state--error</code>) recolours the icon tile and title to the danger tone. Modifiers: <code>.empty-state--compact</code> (inside small panels and table bodies), <code>.empty-state--inline</code> (single row, for list footers). <code>.coming-soon</code> is an alias of the base pattern. The BEM spellings <code>.empty-state__icon</code>, <code>__title</code>, <code>__description</code>, <code>__action</code> also work — templates emit both.</p>
+<h4>4.11 Skeleton, spinner, progress</h4>
+<pre><code>&lt;div class=&quot;skeleton skeleton-title&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;skeleton skeleton-text&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;skeleton skeleton-row&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;skeleton skeleton-block&quot;&gt;&lt;/div&gt;
+
+&lt;span class=&quot;spinner&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;spinner spinner-lg&quot;&gt;&lt;/span&gt;
+
+&lt;div class=&quot;progress&quot;&gt;&lt;div class=&quot;progress-bar&quot; style=&quot;width: 62%&quot;&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+<p><code>.skeleton</code> is a sunken block with a sweeping shimmer. <code>.spinner</code> borrows the shared <code>u-spin</code> keyframe. The progress bar's inline <code>width</code> is one of the few legitimate uses of an inline style — it's a computed value.</p>
+<h4>4.12 Avatar, divider</h4>
+<pre><code>&lt;span class=&quot;avatar&quot;&gt;JD&lt;/span&gt;
+&lt;img class=&quot;avatar avatar-sm&quot; src=&quot;…&quot; alt=&quot;&quot;&gt;
+&lt;span class=&quot;avatar avatar-lg&quot;&gt;JD&lt;/span&gt;
+
+&lt;hr class=&quot;divider&quot;&gt;
+&lt;div class=&quot;divider-labelled&quot;&gt;Or&lt;/div&gt;</code></pre>
+<p><code>.avatar</code> is a mint-filled circle with <code>--ink-on-accent</code> initials at <code>--control-md</code>; <code>.avatar-sm</code> is 28px, <code>.avatar-lg</code> 48px.</p>
+<h4>4.13 Tabs and segmented control</h4>
+<pre><code>&lt;div class=&quot;tabs-root&quot;&gt;
+  &lt;div class=&quot;tabs&quot; role=&quot;tablist&quot;&gt;
+    &lt;button class=&quot;tab&quot; role=&quot;tab&quot; aria-selected=&quot;true&quot;&gt;General&lt;/button&gt;
+    &lt;button class=&quot;tab&quot; role=&quot;tab&quot; aria-selected=&quot;false&quot;&gt;
+      Security &lt;span class=&quot;tab-count&quot;&gt;3&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;tab-panel active&quot; role=&quot;tabpanel&quot;&gt;
+  &lt;div class=&quot;u-stack-6&quot;&gt;&lt;!-- cards --&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>Tabs are <code>--control-lg</code> high on a hairline rail; the active tab gets a 2px mint underline. <code>.tab-panel</code> is canonical; <code>.tab-content</code> and <code>.tab-pane</code> are kept because templates and JS use both. Show a panel with <code>.active</code> or <code>aria-hidden=&quot;false&quot;</code>.</p>
+<p>The responsive overflow behaviour (desktop wrap → tablet scroll + &quot;More&quot; → mobile <code>&lt;select&gt;</code> picker) is driven by <code>admin/js/tabs-v2.js</code> and its class contract: <code>.tabs-v2-root</code>, <code>.tabs-v2--desktop</code>, <code>.tabs-v2--scroll</code>, <code>.tabs-v2--picker</code>, <code>.tabs-v2-picker-wrap</code>, <code>.tabs-v2-more-wrap</code>, <code>.tabs-v2-more-menu</code>, <code>.tabs-v2-more-item</code>. You don't write those by hand — add <code>.tabs-v2-root</code> and let the script manage the rest.</p>
+<p>For mode switches (view toggles, assist/source), use the segmented control instead of a second tab dialect:</p>
+<pre><code>&lt;div class=&quot;segmented&quot; role=&quot;group&quot;&gt;
+  &lt;button class=&quot;segmented-item active&quot; aria-pressed=&quot;true&quot;&gt;Grid&lt;/button&gt;
+  &lt;button class=&quot;segmented-item&quot; aria-pressed=&quot;false&quot;&gt;List&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+<h4>4.14 Modal</h4>
+<pre><code>&lt;div class=&quot;modal&quot; id=&quot;role-modal&quot;&gt;
+  &lt;div class=&quot;modal-content modal--md&quot;&gt;
+    &lt;header class=&quot;modal-header&quot;&gt;
+      &lt;h2 class=&quot;modal-title&quot;&gt;Add role&lt;/h2&gt;
+      &lt;button class=&quot;modal-close&quot; aria-label=&quot;Close&quot;&gt;&amp;times;&lt;/button&gt;
+    &lt;/header&gt;
+    &lt;div class=&quot;modal-body u-stack-4&quot;&gt;
+      &lt;!-- fields --&gt;
+    &lt;/div&gt;
+    &lt;footer class=&quot;modal-footer&quot;&gt;
+      &lt;button class=&quot;btn btn-secondary&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button class=&quot;btn btn-primary&quot;&gt;Save&lt;/button&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>The root <code>.modal</code> is both positioner and scrim. Open it by adding <code>.show</code>, <code>.active</code>, <code>.is-open</code> or the <code>open</code> attribute. <code>.modal-backdrop</code> works as a root too (JS-built dialogs use it) and as an optional scrim child inside a <code>.modal</code>. <code>.modal-dialog</code> is an accepted alias of <code>.modal-content</code>.</p>
+<p>Sizes on the panel: <code>.modal--sm</code> 24rem · <code>.modal--md</code> 34rem (default) · <code>.modal--lg</code> 48rem · <code>.modal--xl</code> 64rem · <code>.modal--full</code>. <code>.modal-footer--split</code> pushes a destructive action to the left. Entrance is an 8px rise plus fade; below 640px the dialog becomes a bottom sheet automatically.</p>
+<p>Keyboard requirements are yours: trap focus inside the dialog, restore it on close, and close on Escape.</p>
+<h4>4.15 Sheet and drawer</h4>
+<p>A <strong>sheet</strong> is anchored to the bottom edge — the standard pattern for filters on a list page.</p>
+<pre><code>&lt;div class=&quot;sheet&quot; id=&quot;filters&quot;&gt;
+  &lt;div class=&quot;sheet-backdrop&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;sheet-panel&quot;&gt;
+    &lt;header class=&quot;sheet-header&quot;&gt;&lt;h2 class=&quot;sheet-title&quot;&gt;Filters&lt;/h2&gt;&lt;/header&gt;
+    &lt;div class=&quot;sheet-body u-stack-4&quot;&gt;…&lt;/div&gt;
+    &lt;footer class=&quot;sheet-footer&quot;&gt;&lt;button class=&quot;btn btn-primary&quot;&gt;Apply&lt;/button&gt;&lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>Open with <code>.open</code>, <code>.show</code> or <code>.active</code>. Add <code>.sheet--mobile-only</code> when the same controls render inline at 640px and up.</p>
+<p>A <strong>drawer</strong> slides in from the trailing edge and stays open:</p>
+<pre><code>&lt;aside class=&quot;drawer open&quot;&gt;
+  &lt;header class=&quot;drawer-header&quot;&gt;…&lt;/header&gt;
+  &lt;div class=&quot;drawer-body&quot;&gt;…&lt;/div&gt;
+  &lt;footer class=&quot;drawer-footer&quot;&gt;…&lt;/footer&gt;
+&lt;/aside&gt;</code></pre>
+<h4>4.16 Dropdown, custom select, popover, tooltip</h4>
+<pre><code>&lt;div class=&quot;dropdown&quot;&gt;
+  &lt;button class=&quot;btn dropdown-trigger&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;
+    Actions &lt;span class=&quot;dropdown-chevron&quot;&gt;…&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class=&quot;dropdown-menu&quot;&gt;
+    &lt;div class=&quot;dropdown-header&quot;&gt;Manage&lt;/div&gt;
+    &lt;button class=&quot;dropdown-item&quot;&gt;
+      &lt;span class=&quot;dropdown-item-icon&quot;&gt;…&lt;/span&gt;
+      &lt;span class=&quot;dropdown-item-label&quot;&gt;Duplicate&lt;/span&gt;
+      &lt;span class=&quot;dropdown-item-meta&quot;&gt;⌘D&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;hr class=&quot;dropdown-divider&quot;&gt;
+    &lt;button class=&quot;dropdown-item dropdown-item-danger&quot;&gt;
+      &lt;span class=&quot;dropdown-item-icon&quot;&gt;…&lt;/span&gt;
+      &lt;span class=&quot;dropdown-item-label&quot;&gt;Delete&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>Open the menu with <code>.show</code>/<code>.active</code>/<code>.open</code> on the menu, or <code>.open</code>/<code>.active</code> on the <code>.dropdown</code> wrapper. Menus sit at <code>--z-popover</code>, above modals, so a menu inside a dialog works. Alignment: <code>.dropdown-menu-right</code> (alias <code>.dropdown-menu--right</code>) and <code>.dropdown-menu--up</code>. Empty result: <code>.dropdown-empty</code>. The chevron rotates automatically when the trigger is <code>aria-expanded=&quot;true&quot;</code>.</p>
+<p><code>.custom-select</code> / <code>.custom-select-trigger</code> / <code>.custom-select-menu</code> / <code>.custom-select-item</code> is the same surface shaped like a form control, for when a native <code>&lt;select&gt;</code> can't render the option content.</p>
+<p><code>.popover</code> is a generic anchored surface (raised fill, <code>--elevation-2</code>, <code>--z-popover</code>). <code>.tooltip</code> is a small inverse-fill label at <code>--z-tooltip</code> with <code>pointer-events: none</code>.</p>
+<h4>4.17 Toasts and confirm dialogs</h4>
+<p>Don't build these — call the shared module.</p>
+<pre><code>BirklyFeedback.toast('Settings saved', 'success');   // success | error | warning | info
+const ok = await BirklyFeedback.confirm('Delete this role?');
+const name = await BirklyFeedback.prompt('New collection name');</code></pre>
+<p>The toast region is fixed bottom-trailing at <code>--z-toast</code>; the confirm and prompt dialogs are ordinary <code>.modal-backdrop</code> + <code>.modal-content</code> modals, so they pick up the shared scrim, radius, elevation and entrance. Never use <code>alert()</code> or <code>confirm()</code>.</p>
+<h4>4.18 Prose and rich text</h4>
+<pre><code>&lt;article class=&quot;prose&quot;&gt;
+  &lt;h2&gt;Heading&lt;/h2&gt;
+  &lt;p&gt;Long-form documentation copy.&lt;/p&gt;
+&lt;/article&gt;
+
+&lt;div class=&quot;rich-text&quot;&gt;&lt;!-- rendered markdown inside a UI-sized container --&gt;&lt;/div&gt;</code></pre>
+<p><code>.prose</code> is the <strong>only</strong> place <code>--text-md</code> (16px) and heading margins are used; it's capped at <code>--measure-md</code> and restores list markers, blockquote rules and table styling. <code>.rich-text</code> is the same idea tuned for inline UI contexts (chat bubbles, small rendered-markdown fragments): UI-sized type, no measure cap, no heading margins.</p>
+<h4>4.19 Icons</h4>
+<p>Icons come from the registry, not from pasted SVG.</p>
+<pre><code>&lt;?= birkly_icon('pencil-simple', ['size' =&gt; 16, 'class' =&gt; 'nav-icon']) ?&gt;</code></pre>
+<pre><code>Birkly.icon('plus', { size: 16 });
+Birkly.iconImg('gear', { size: 16, alt: '' });
+Birkly.initIcons(document);          // hydrates [data-icon=&quot;name&quot;]</code></pre>
+<p>Output is inline SVG with class <code>.birkly-icon</code>, a 24×24 viewBox and <code>stroke=&quot;currentColor&quot;</code> — so an icon inherits the colour of whatever it sits in. Size modifiers: <code>.birkly-icon--sm</code> 14px · <code>--md</code> 16px · <code>--lg</code> 20px · <code>--xl</code> 24px. Icons inside <code>.btn</code>, <code>.btn-sm</code>, <code>.badge</code>, <code>.tab</code>, <code>.dropdown-item-icon</code> and the topbar are sized by those components already.</p>
+<p>---</p>
+<h3>5. Page chrome recipe</h3>
+<p>Every admin page has the same shape.</p>
+<h4>5.1 The breadcrumb-as-title pattern</h4>
+<p>This is the part people get wrong. A page emits <code>.page-header &gt; .page-header-left &gt; .breadcrumbs</code>, and:</p>
+<ul>
+<li>The <strong>last</strong> breadcrumb segment is <code>&lt;span class=&quot;current&quot;&gt;</code> and <strong>is</strong> the page title.</li>
+<li><code>moveBreadcrumbsToTopbar()</code> hoists the whole breadcrumb into <code>#admin-topbar-breadcrumbs</code> and collapses the emptied source row with <code>.page-header--hoisted-empty</code>.</li>
+<li>The title size is declared once, in the topbar slot: <code>--text-xl</code>/500.</li>
+<li><strong>Pages must not render an <code>&lt;h1&gt;</code>.</strong> Section titles are <code>&lt;h2&gt;</code> inside <code>.card-header</code> or <code>.section-header</code>.</li>
+<li>Separators are <code>&lt;span class=&quot;separator&quot;&gt;›&lt;/span&gt;</code> — always <code>›</code>, never <code>/</code>.</li>
+<li><code>.page-header-actions</code> must be present-and-empty or absent. <strong>No CTAs go in it</strong> — the hoist empties and hides that row. Page actions belong in <code>.main-actions-bar</code>; global chrome actions belong in <code>.admin-topbar-actions</code>.</li>
+<li><code>breadcrumb-truncate.js</code> adds <code>.breadcrumb-segment</code> and <code>.breadcrumb-ellipsis</code> for narrow screens. Don't emit those yourself.</li>
+</ul>
+<p>Exactly one breadcrumb source per page.</p>
+<h4>5.2 The action bar</h4>
+<pre><code>&lt;div class=&quot;main-actions-bar&quot;&gt;
+  &lt;div class=&quot;main-actions-left&quot;&gt;
+    &lt;a class=&quot;btn btn-primary&quot; href=&quot;…&quot;&gt;New entry&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;main-actions-right&quot;&gt;
+    &lt;input class=&quot;input input-search&quot; type=&quot;search&quot; placeholder=&quot;Search&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>The slot rule is fixed and consistent on every page:</p>
+<table><thead><tr><th>Slot</th><th>Contents</th></tr></thead>
+<tbody><tr><td><code>.main-actions-left</code></td><td>Primary and destructive actions</td></tr><tr><td><code>.main-actions-right</code></td><td>Search, filters, view switches, sort</td></tr></tbody></table>
+<p><code>.main-actions-bar--sticky</code> is the sticky variant — one per page, at <code>--z-sticky</code>, flat while inline and <code>--elevation-1</code> once <code>admin/js/sticky-save-bar.js</code> adds <code>.is-stuck</code>. It also supports a <code>.main-actions-tools</code> group and a <code>.main-actions-message</code> status region.</p>
+<h4>5.3 Complete page skeleton</h4>
+<pre><code>&lt;div class=&quot;page&quot; data-page=&quot;settings&quot;&gt;
+
+  &lt;!-- 1. Title source. Hoisted to the topbar. Never an &lt;h1&gt;. --&gt;
+  &lt;div class=&quot;page-header&quot;&gt;
+    &lt;div class=&quot;page-header-left&quot;&gt;
+      &lt;nav class=&quot;breadcrumbs&quot; aria-label=&quot;Breadcrumb&quot;&gt;
+        &lt;a href=&quot;?page=content&quot;&gt;Content&lt;/a&gt;
+        &lt;span class=&quot;separator&quot;&gt;›&lt;/span&gt;
+        &lt;span class=&quot;current&quot;&gt;Blog posts&lt;/span&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;page-header-actions&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 2. Optional toolbar. --&gt;
+  &lt;div class=&quot;main-actions-bar&quot;&gt;
+    &lt;div class=&quot;main-actions-left&quot;&gt;
+      &lt;button class=&quot;btn btn-primary&quot;&gt;New entry&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;main-actions-right&quot;&gt;
+      &lt;input class=&quot;input input-search&quot; type=&quot;search&quot; placeholder=&quot;Search&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 3. Body. u-stack-6 owns ALL vertical rhythm between sections. --&gt;
+  &lt;div class=&quot;page-body u-stack-6&quot;&gt;
+
+    &lt;section class=&quot;card&quot;&gt;
+      &lt;header class=&quot;card-header&quot;&gt;
+        &lt;h2 class=&quot;card-title&quot;&gt;General&lt;/h2&gt;
+        &lt;div class=&quot;card-actions&quot;&gt;&lt;button class=&quot;btn btn-sm&quot;&gt;Edit&lt;/button&gt;&lt;/div&gt;
+      &lt;/header&gt;
+      &lt;div class=&quot;card-body u-stack-4&quot;&gt;
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label class=&quot;field-label&quot; for=&quot;site-name&quot;&gt;Site name&lt;/label&gt;
+          &lt;input class=&quot;input&quot; id=&quot;site-name&quot; type=&quot;text&quot;&gt;
+          &lt;p class=&quot;field-help&quot;&gt;Shown in the browser tab.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;card card--flush&quot;&gt;
+      &lt;header class=&quot;card-header&quot;&gt;&lt;h2 class=&quot;card-title&quot;&gt;Recent entries&lt;/h2&gt;&lt;/header&gt;
+      &lt;div class=&quot;card-body&quot;&gt;
+        &lt;div class=&quot;table-container&quot;&gt;
+          &lt;table class=&quot;table&quot;&gt;…&lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>Supporting layout classes:</p>
+<table><thead><tr><th>Class</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>.page</code> (alias <code>.page-container</code>)</td><td>Page root, capped at <code>--page-max</code></td></tr><tr><td><code>.page--narrow</code></td><td>Caps at <code>--page-max-narrow</code> (880px) — account, auth, onboarding</td></tr><tr><td><code>.page-body</code></td><td>Column flex with <code>--space-6</code> gap. Equivalent to <code>u-stack-6</code>; use either.</td></tr><tr><td><code>.plugin-page</code></td><td>The plugin page root. Same chrome as a core page.</td></tr><tr><td><code>.section</code> + <code>.section__header</code> + <code>.section__body</code></td><td>A titled block that isn't a card</td></tr><tr><td><code>.section-header</code>, <code>.section-title</code>, <code>.section-description</code></td><td>Title row and description inside a page or card</td></tr><tr><td><code>.settings-stack</code></td><td>Vertical stack of panels at <code>--space-6</code></td></tr><tr><td><code>.editor-layout</code> + <code>.editor-main</code> + <code>.editor-sidebar</code></td><td>Main-plus-aside editor grid</td></tr><tr><td><code>.content-wrapper</code></td><td>Width cap at <code>--page-max</code></td></tr><tr><td><code>.back-button</code></td><td>Back affordance with a built-in arrow</td></tr><tr><td><code>.grid</code>, <code>.grid-cols-1/2/3/4</code>, <code>.grid-cols-auto-fit</code>, <code>.grid-cols-auto-fill</code></td><td>Thin aliases over the <code>u-grid*</code> helpers, kept for existing markup</td></tr></tbody></table>
+<h4>5.4 Page variants</h4>
+<table><thead><tr><th>Variant</th><th>Shape</th></tr></thead>
+<tbody><tr><td><strong>List page</strong></td><td>Toolbar + one <code>.card</code> containing a <code>.table</code> or grid. Empty, loading and error states required.</td></tr><tr><td><strong>Editor page</strong></td><td><code>.editor-layout</code> (or <code>u-sidebar-layout</code>): a stack of <code>.card</code>s plus an aside; <code>.main-actions-bar--sticky</code> for save.</td></tr><tr><td><strong>Tabbed page</strong></td><td>Toolbar + <code>.tabs</code> + one <code>.tab-panel</code> per tab, each a <code>u-stack-6</code> of <code>.card</code>s.</td></tr><tr><td><strong>Dashboard</strong></td><td><code>u-grid-auto</code> of <code>.card</code> widgets; metrics are <code>.stat</code>, not bespoke tiles.</td></tr><tr><td><strong>Single column</strong></td><td><code>.page--narrow</code> (or <code>u-max-w-page-narrow</code>) + <code>u-stack-6</code> of <code>.card</code>s.</td></tr><tr><td><strong>Plugin page</strong></td><td>Identical, with <code>.plugin-page</code> on the root and breadcrumbs from <code>{plugin_page_header}</code>.</td></tr></tbody></table>
+<h4>5.5 Composition rules</h4>
+<ol>
+<li>Vertical rhythm lives on the parent (<code>u-stack-*</code> / <code>.page-body</code>). Sections and headings never set their own margins.</li>
+<li>Panels nest at most one level. A settings tab is a <code>u-stack-6</code> of sibling <code>.card</code>s, not a card containing cards.</li>
+<li>Prose and help text are capped with <code>u-max-w-measure-md</code>; forms with <code>u-max-w-measure-lg</code>.</li>
+<li>Empty, loading and error states are mandatory for every async region.</li>
+<li>Hover, focus-visible, active, disabled and selected must all be defined for every interactive element.</li>
+<li>A page ships zero page-specific CSS by default. If you think you need some, you've probably found a framework gap worth filing.</li>
+</ol>
+<p>---</p>
+<h3>6. Dark mode</h3>
+<p>Dark mode is a <strong>token remap and nothing else</strong>.</p>
+<ul>
+<li><code>admin/js/theme.js</code> (<code>Birkly.Theme</code>) sets <code>data-theme</code> on <code>&lt;html&gt;</code> and <code>&lt;body&gt;</code>. Values: <code>light</code>, <code>dark</code>, <code>system</code>.</li>
+<li><code>core/variables.css</code> defines the dark values once as <code>--dk-*</code> custom properties, then remaps the semantic tokens under <code>[data-theme=&quot;dark&quot;]</code> and under <code>[data-theme=&quot;system&quot;]</code> inside <code>@media (prefers-color-scheme: dark)</code>.</li>
+<li><code>color-scheme: dark</code> is set so native controls and scrollbars follow.</li>
+</ul>
+<p><strong>If a component needs a <code>[data-theme=&quot;dark&quot;]</code> rule, that is a token bug, not a dark-mode requirement.</strong> Find the hardcoded value or the token that's pointing at a primitive instead of a semantic role, and fix that instead. CI fails any <code>data-theme</code> selector in admin CSS outside the token file and one documented exception: the topbar's radial shadow cast in <code>layout/header.css</code>, which is a gradient rather than a colour and genuinely needs a second definition.</p>
+<p>Test every UI change in both themes.</p>
+<p>---</p>
+<h3>7. Do and don't</h3>
+<table><thead><tr><th>Don't</th><th>Do</th><th>Why</th></tr></thead>
+<tbody><tr><td>Write a raw hex value in admin CSS</td><td>Use a token from <code>core/variables.css</code></td><td>Hardcoded colour is broken in dark mode. CI blocks hex outside the token file.</td></tr><tr><td>Use <code>--spacing-<em></code>, <code>--border-radius-</em></code>, <code>--gray-<em></code>, <code>--shadow-sm/md/lg/xl</code>, <code>--font-size-</em></code>, <code>--primary-N</code>, <code>--bg-<em></code>, <code>--border-light/medium/color</code>, <code>--transition-</em></code></td><td>Use the canonical tokens</td><td>These names are retired and CI fails admin CSS that uses one. Most survive as aliases in <code>compat-tokens.css</code> for plugin compatibility only — but <code>--spacing-<em></code> and <code>--border-radius-</em></code> are <strong>not</strong> aliased and resolve to nothing anywhere.</td></tr><tr><td><code>color: var(--accent)</code> or <code>var(--primary-700)</code></td><td><code>color: var(--accent-text)</code></td><td>1.54:1 and 2.95:1 respectively. Both fail AA. CI blocks them.</td></tr><tr><td>White text on a mint fill</td><td><code>--ink-on-accent</code></td><td>10.4:1 instead of ~1.4:1.</td></tr><tr><td>A saturated <code>--success-solid</code> status pill</td><td><code>--success-surface</code> + <code>--success-fg</code>, i.e. <code>.badge badge-success</code></td><td>Saturated green next to the mint primary reads muddy.</td></tr><tr><td>Invent a blue</td><td><code>--info-*</code></td><td>There is exactly one blue family in the admin.</td></tr><tr><td><code>transition: all</code></td><td>Enumerate the properties you animate</td><td>Blocked in CI; <code>all</code> animates layout properties by accident.</td></tr><tr><td><code>transform: scale(1.02)</code> or <code>translateY(-1px)</code> on hover</td><td>Change <code>background-color</code> or <code>border-color</code></td><td>No hover scale, no hover translate, max 8px travel anywhere.</td></tr><tr><td>A <code>box-shadow</code> on a static card</td><td><code>--elevation-0</code> (the default)</td><td>Shadow means &quot;floats above the page&quot;. Borders do the structural work.</td></tr><tr><td>A raw <code>z-index: 9999</code></td><td>A <code>--z-*</code> token</td><td>Blocked in CI. The scale already has a slot for what you're doing.</td></tr><tr><td>A new breakpoint like <code>900px</code></td><td>One of the five <code>--bp-*</code> values</td><td>Blocked in CI. Prefer <code>min-width</code>.</td></tr><tr><td><code>style=&quot;display: none&quot;</code></td><td>The <code>hidden</code> attribute, or <code>u-hidden</code></td><td><code>[hidden]</code> is declared after every component so it actually wins.</td></tr><tr><td>A page <code>&lt;h1&gt;</code></td><td>The breadcrumb <code>.current</code> segment</td><td>The title is hoisted into the topbar; an <code>&lt;h1&gt;</code> duplicates it.</td></tr><tr><td>A CTA in <code>.page-header-actions</code></td><td><code>.main-actions-bar &gt; .main-actions-left</code></td><td>That row is emptied and hidden by the hoist.</td></tr><tr><td>A 40px button in the page body</td><td><code>--control-md</code> (36px), i.e. the default <code>.btn</code></td><td>40px is the chrome row only.</td></tr><tr><td><code>!important</code> in a helper or component</td><td>Correct specificity, or load order</td><td>Helpers load last; that's the mechanism. The only allowlisted <code>!important</code> is the global reduced-motion block.</td></tr><tr><td>Margins on headings for spacing</td><td><code>u-stack-*</code> on the parent</td><td>Heading margins fight every gap-based layout.</td></tr><tr><td>A new badge / card / tab / modal / empty-state system</td><td>The contracted component</td><td>One name per concept.</td></tr><tr><td>700 weight, or uppercase above 11px</td><td>400 / 500 / 600, and <code>.u-label</code> for uppercase</td><td>Nothing in the admin shouts.</td></tr><tr><td>A <code>[data-theme=&quot;dark&quot;]</code> rule in a component</td><td>Fix the token</td><td>Dark mode is a remap. CI blocks it.</td></tr></tbody></table></div></details>
+<div class="doc-related"><ul>
+<li><a href="../06-plugin-economy/plugin-admin-styling.html">Plugin admin styling</a> — adoption tiers, the public class contract, and a complete worked plugin page</li>
+<li><a href="design-system.html">Admin design system</a> — short overview and the icon/theme entry points</li>
+<li><a href="admin-chrome-action-zones.html">Admin chrome and action zones</a> — where each kind of action belongs</li>
+<li><a href="admin-appearance.html">Admin appearance</a> — the user-facing theme switcher</li>
+<li><a href="../06-plugin-economy/plugin-navigation-icon.html">Plugin navigation icon</a></li>
+<li><a href="../06-plugin-economy/plugin-development.html">Plugin development</a></li>
+</ul></div>

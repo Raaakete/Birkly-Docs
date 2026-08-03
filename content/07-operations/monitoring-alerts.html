@@ -11,7 +11,8 @@
 <li>Click <strong>Save settings</strong> (global Save bar at the top).</li>
 </ol>
 <p><strong>What triggers an alert</strong></p>
-<p>| Health status | Typical cause | |---------------|---------------| | <code>degraded</code> | Non-critical check failed (for example marketplace slow or optional plugin warning) | | <code>error</code> | Critical check failed (for example <code>content/</code> not writable, database connection failed) |</p>
+<table><thead><tr><th>Health status</th><th>Typical cause</th></tr></thead>
+<tbody><tr><td><code>degraded</code></td><td>Non-critical check failed (for example marketplace slow or optional plugin warning)</td></tr><tr><td><code>error</code></td><td>Critical check failed (for example <code>content/</code> not writable, database connection failed)</td></tr></tbody></table>
 <p>Alerts fire when the health endpoint is evaluated and status is <code>degraded</code> or <code>error</code>. OK status does not send mail.</p>
 <p><strong>Verify it works</strong></p>
 <ol>

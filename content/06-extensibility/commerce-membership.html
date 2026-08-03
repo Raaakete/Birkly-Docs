@@ -53,7 +53,8 @@ PurchaseMappingService::applyPurchaseMappings($order)</code></pre>
 <li><code>delete_mapping</code> — <code>{ key }</code></li>
 </ul>
 <p><strong>Automation</strong></p>
-<p>| Trigger | When | |---------|------| | <code>commerce_membership_started</code> | Recurring line with <code>fulfillment: none</code> paid |</p>
+<table><thead><tr><th>Trigger</th><th>When</th></tr></thead>
+<tbody><tr><td><code>commerce_membership_started</code></td><td>Recurring line with <code>fulfillment: none</code> paid</td></tr></tbody></table>
 <p>Pair with User Management tier permissions to gate collections and features.</p>
 <p><strong>Template pattern</strong></p>
 <pre><code>{for each entry in 'memberships'}

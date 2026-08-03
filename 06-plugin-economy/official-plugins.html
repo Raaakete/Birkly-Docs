@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="for-site-owners.html" class="nav-link">For site owners</a>
         <a href="for-providers.html" class="nav-link">For providers</a>
         <a href="plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="security-and-review.html" class="nav-link">Security and review</a>
@@ -169,7 +171,8 @@
 <div class="doc-summary"><p><strong>Official Birkly plugins</strong> — Commerce, Events, Automation, and User Management — are <strong>free</strong> marketplace offers installed in one click from <strong>Plugins → Hub</strong> with no visible key. Additional official extensions (for example SEO Basics, Analytics Pro) may be <strong>paid</strong>, <strong>freemium</strong>, <strong>trial</strong>, or <strong>subscription</strong> offers where Birkly is merchant of record. <strong>Third-party</strong> plugins are published and sold by independent providers; review trust level, permissions consent, and reviews before installing. CMS downloads ship without bundled plugins — install what you need from the Hub.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Free official plugins</strong></p>
 <p>These four plugins cover common site needs and are maintained by Birkly:</p>
-<p>| Plugin | What it adds | Install | |--------|--------------|---------| | <strong>Commerce</strong> | Products, cart, checkout, orders, payments | <strong>Plugins → Hub → Install</strong> | | <strong>Events</strong> | Events, RSVP, paid tickets (uses Commerce for sales) | Same | | <strong>Automation</strong> | Workflows, triggers, conditions, actions | Same | | <strong>User Management</strong> | Registration, login, tiers, permissions | Same |</p>
+<table><thead><tr><th>Plugin</th><th>What it adds</th><th>Install</th></tr></thead>
+<tbody><tr><td><strong>Commerce</strong></td><td>Products, cart, checkout, orders, payments</td><td><strong>Plugins → Hub → Install</strong></td></tr><tr><td><strong>Events</strong></td><td>Events, RSVP, paid tickets (uses Commerce for sales)</td><td>Same</td></tr><tr><td><strong>Automation</strong></td><td>Workflows, triggers, conditions, actions</td><td>Same</td></tr><tr><td><strong>User Management</strong></td><td>Registration, login, tiers, permissions</td><td>Same</td></tr></tbody></table>
 <p>No checkout, visible license key, or marketplace buyer account is required for these four.</p>
 <p><strong>Recommended install order</strong></p>
 <ol>
@@ -190,19 +193,22 @@
 </ul>
 <p>Third-party support goes to the provider's contact email on the listing. Third-party providers are the seller and merchant of record for their paid offers; Birkly platform support covers official plugins and marketplace infrastructure.</p>
 <p><strong>Official vs third-party — quick comparison</strong></p>
-<p>| | Official (Birkly) | Third-party | |--|-------------------|-------------| | <strong>Publisher</strong> | Birkly team | Independent providers | | <strong>Core four plugins</strong> | Free, one-click | N/A | | <strong>Updates</strong> | Tied to Birkly releases | Provider publishes versions | | <strong>Support</strong> | Birkly platform | Provider | | <strong>Trust</strong> | Verified by default | Community, trusted, or verified | | <strong>Pricing</strong> | Free, paid, trial, freemium, or subscription | Provider sets pricing; Stripe Connect only in P55 |</p>
+<table><thead><tr><th></th><th>Official (Birkly)</th><th>Third-party</th></tr></thead>
+<tbody><tr><td><strong>Publisher</strong></td><td>Birkly team</td><td>Independent providers</td></tr><tr><td><strong>Core four plugins</strong></td><td>Free, one-click</td><td>N/A</td></tr><tr><td><strong>Updates</strong></td><td>Tied to Birkly releases</td><td>Provider publishes versions</td></tr><tr><td><strong>Support</strong></td><td>Birkly platform</td><td>Provider</td></tr><tr><td><strong>Trust</strong></td><td>Verified by default</td><td>Community, trusted, or verified</td></tr><tr><td><strong>Pricing</strong></td><td>Free, paid, trial, freemium, or subscription</td><td>Provider sets pricing; Stripe Connect only in P55</td></tr></tbody></table>
 <p><strong>Grandfathered installs</strong></p>
 <p>Sites upgraded from older Birkly builds that already had plugins in <code>plugins/</code> keep working. Use the Marketplace <strong>Update</strong> action to sync with registry checksums and entitlements going forward.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Source and release pipeline</strong></p>
 <p>Official plugin source is built and published to the marketplace registry on tag (<code>plugin/{name}/v*</code>). CMS release zips exclude plugin folders — production installs always pull artifacts from the registry API.</p>
 <p><strong>Source of truth (maintainers)</strong></p>
 <p>Plugin source of truth lives under the <strong>Birkly-Other-Things</strong> GitHub org — not in the public CMS repo. Maintainers should work in these SoT repos:</p>
-<p>| Plugin | SoT repository | |--------|----------------| | Commerce | <a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-Commerce">Birkly-Other-Things/Birkly-Plugin-Commerce</a> | | Events | <a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-Events">Birkly-Other-Things/Birkly-Plugin-Events</a> | | Automation | <a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-Automation">Birkly-Other-Things/Birkly-Plugin-Automation</a> | | User Management | <a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-User">Birkly-Other-Things/Birkly-Plugin-User</a> | | Studio | <a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-Studio">Birkly-Other-Things/Birkly-Plugin-Studio</a> |</p>
+<table><thead><tr><th>Plugin</th><th>SoT repository</th></tr></thead>
+<tbody><tr><td>Commerce</td><td><a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-Commerce">Birkly-Other-Things/Birkly-Plugin-Commerce</a></td></tr><tr><td>Events</td><td><a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-Events">Birkly-Other-Things/Birkly-Plugin-Events</a></td></tr><tr><td>Automation</td><td><a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-Automation">Birkly-Other-Things/Birkly-Plugin-Automation</a></td></tr><tr><td>User Management</td><td><a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-User">Birkly-Other-Things/Birkly-Plugin-User</a></td></tr><tr><td>Studio</td><td><a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-Studio">Birkly-Other-Things/Birkly-Plugin-Studio</a></td></tr></tbody></table>
 <p><code>Raaakete/Birkly</code> is the runtime host only. Install plugins under <code>plugins/{id}/</code> (marketplace zip or copy); do not symlink SoT checkouts into <code>plugins/</code>.</p>
 <p><strong>Marketplace v1 readiness (Wave 3)</strong></p>
 <p>As of Wave 3 release-readiness work, the five official plugins above are <strong>hardening toward Marketplace v1</strong>, not declared fully production-released end-to-end. In-repo P0 hardening, packaging scripts, and local test gates have advanced; residual items remain — for example clean marketplace install/update smoke, recorded visual walkthroughs, and <strong>CMS host hooks</strong> that some plugin features still depend on (such as a shared public-read filter contract for User Management list/detail visibility). Treat SoT <code>docs/WAVE3-RELEASE-EVIDENCE.md</code> (and related readiness docs in each plugin repo) as the current status notes for maintainers.</p>
 <p><strong>Marketplace slugs (official)</strong></p>
-<p>| Folder | Slug | |--------|------| | <code>commerce</code> | <code>birkly-commerce</code> | | <code>events</code> | <code>birkly-events</code> | | <code>automation</code> | <code>birkly-automation</code> | | <code>user_management</code> | <code>birkly-user-management</code> | | <code>studio</code> | <code>birkly-studio</code> |</p>
+<table><thead><tr><th>Folder</th><th>Slug</th></tr></thead>
+<tbody><tr><td><code>commerce</code></td><td><code>birkly-commerce</code></td></tr><tr><td><code>events</code></td><td><code>birkly-events</code></td></tr><tr><td><code>automation</code></td><td><code>birkly-automation</code></td></tr><tr><td><code>user_management</code></td><td><code>birkly-user-management</code></td></tr><tr><td><code>studio</code></td><td><code>birkly-studio</code></td></tr></tbody></table>
 <p><strong>Dependencies</strong></p>
 <p>Events declares a soft dependency on Commerce for paid ticket flows. User Management integrates with Commerce membership tiers when both are installed. Check <code>requires_plugins</code> in each release's <code>plugin.json</code>.</p>
 <p><strong>API gating</strong></p>

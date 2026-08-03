@@ -39,6 +39,14 @@ function mdToHtml(md) {
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, t, u) => '<a href="' + escape(u) + '">' + escape(t) + '</a>');
     return s;
   };
+  const isTableRow = (s) => /^\s*\|.*\|\s*$/.test(s);
+  const isTableDivider = (s) => /^\s*\|[\s:|-]+\|\s*$/.test(s) && /-/.test(s);
+  const splitRow = (s) => s
+    .trim()
+    .replace(/^\|/, '')
+    .replace(/\|$/, '')
+    .split(/(?<!\\)\|/)
+    .map((c) => c.trim().replace(/\\\|/g, '|'));
   const block = (s) => {
     s = s.trim();
     if (!s) return '';
@@ -75,6 +83,15 @@ function mdToHtml(md) {
       out.push('</ol>');
       continue;
     }
+    if (isTableRow(line) && i + 1 < lines.length && isTableDivider(lines[i + 1])) {
+      const head = splitRow(lines[i]);
+      i += 2;
+      const rows = [];
+      while (i < lines.length && isTableRow(lines[i])) { rows.push(splitRow(lines[i])); i++; }
+      out.push('<table><thead><tr>' + head.map((c) => '<th>' + inline(c) + '</th>').join('') + '</tr></thead>');
+      out.push('<tbody>' + rows.map((r) => '<tr>' + r.map((c) => '<td>' + inline(c) + '</td>').join('') + '</tr>').join('') + '</tbody></table>');
+      continue;
+    }
     if (/^```/.test(line)) {
       i++;
       const code = [];
@@ -85,7 +102,7 @@ function mdToHtml(md) {
     }
     if (line.trim() === '') { i++; continue; }
     const para = [];
-    while (i < lines.length && lines[i].trim() !== '' && !/^#{1,4}\s/.test(lines[i]) && !/^[-*]\s/.test(lines[i]) && !/^\d+\.\s/.test(lines[i]) && !lines[i].startsWith('>') && !lines[i].startsWith('```')) {
+    while (i < lines.length && lines[i].trim() !== '' && !/^#{1,4}\s/.test(lines[i]) && !/^[-*]\s/.test(lines[i]) && !/^\d+\.\s/.test(lines[i]) && !lines[i].startsWith('>') && !lines[i].startsWith('```') && !(isTableRow(lines[i]) && i + 1 < lines.length && isTableDivider(lines[i + 1]))) {
       para.push(lines[i]);
       i++;
     }

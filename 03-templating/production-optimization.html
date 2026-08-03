@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -182,7 +184,8 @@
 </ul>
 <p>Even then, try improving templates and the live client first. Reference projects exist to prove that path works without extra tooling.</p>
 <p><strong>What the advanced options do (plain terms)</strong></p>
-<p>| Technique | What it does | Build step? | |-----------|--------------|-------------| | <strong>Live client</strong> (default) | Browser fetches content and renders templates | No | | <strong>Hydrate</strong> | Page loads with content already in HTML; a lighter script adds forms, cart, auth | Yes — pre-render in deploy | | <strong>Snapshots</strong> | Copies of each page saved as static <code>.html</code> files for crawlers or CDN | Yes — regenerate on publish | | <strong>Bake</strong> | Marks HTML that was fully rendered at build time | Yes — used with hydrate/export |</p>
+<table><thead><tr><th>Technique</th><th>What it does</th><th>Build step?</th></tr></thead>
+<tbody><tr><td><strong>Live client</strong> (default)</td><td>Browser fetches content and renders templates</td><td>No</td></tr><tr><td><strong>Hydrate</strong></td><td>Page loads with content already in HTML; a lighter script adds forms, cart, auth</td><td>Yes — pre-render in deploy</td></tr><tr><td><strong>Snapshots</strong></td><td>Copies of each page saved as static <code>.html</code> files for crawlers or CDN</td><td>Yes — regenerate on publish</td></tr><tr><td><strong>Bake</strong></td><td>Marks HTML that was fully rendered at build time</td><td>Yes — used with hydrate/export</td></tr></tbody></table>
 <p>Interactive features (login, cart, forms) still need <code>birkly-client.js</code> or hydrate — even on snapshot sites.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Default path (recommended)</strong></p>
 <pre><code>&lt;script src=&quot;/birkly-client.js&quot; data-cms-url=&quot;https://cms.example.com&quot;&gt;&lt;/script&gt;</code></pre>
@@ -195,7 +198,8 @@
 <p>---</p>
 <h3>Optional: Hydrate (<code>birkly-hydrate.js</code>)</h3>
 <p>Secondary delivery for faster first paint while keeping editable templates.</p>
-<p>| Aspect | Live client | Hydrate | |--------|-------------|---------| | First paint | Waits for API + render | Static HTML shell, then enhancement | | Build step | None | Pre-render or bake in deploy pipeline | | Script | <code>birkly-client.js</code> | <code>birkly-hydrate.js</code> (+ optional baked meta) | | Reference projects | <strong>Yes</strong> | <strong>No</strong> |</p>
+<table><thead><tr><th>Aspect</th><th>Live client</th><th>Hydrate</th></tr></thead>
+<tbody><tr><td>First paint</td><td>Waits for API + render</td><td>Static HTML shell, then enhancement</td></tr><tr><td>Build step</td><td>None</td><td>Pre-render or bake in deploy pipeline</td></tr><tr><td>Script</td><td><code>birkly-client.js</code></td><td><code>birkly-hydrate.js</code> (+ optional baked meta)</td></tr><tr><td>Reference projects</td><td><strong>Yes</strong></td><td><strong>No</strong></td></tr></tbody></table>
 <p>Typical flow:</p>
 <ol>
 <li>Deploy pipeline renders templates server-side (PHP <code>public.php</code> or CI bake script)</li>
@@ -207,7 +211,8 @@
 <p>---</p>
 <h3>Optional: Snapshots</h3>
 <p>Pre-generated static HTML copies of slug pages (e.g. <code>/publish/post/my-slug.html</code>).</p>
-<p>| Use case | Benefit | |----------|---------| | SEO crawlability | Fully static files for search bots | | Edge CDN | No runtime CMS dependency for reads | | Archive / export | Point-in-time content freeze |</p>
+<table><thead><tr><th>Use case</th><th>Benefit</th></tr></thead>
+<tbody><tr><td>SEO crawlability</td><td>Fully static files for search bots</td></tr><tr><td>Edge CDN</td><td>No runtime CMS dependency for reads</td></tr><tr><td>Archive / export</td><td>Point-in-time content freeze</td></tr></tbody></table>
 <p>Trade-offs: regenerate on publish (webhook, cron, or manual bake); slug URL mapping must stay in sync with live routes; interactive features still need <code>birkly-client.js</code> or hydrate.</p>
 <p>Client sites such as kekaba may use snapshots for selected sections — that is an <strong>advanced</strong> pattern, not the Birkly default.</p>
 <p>---</p>
@@ -226,7 +231,8 @@ Need user auth / cart / forms?
   └─ Always ship birkly-client.js (live or hydrate mode)</code></pre>
 <p>---</p>
 <h3>Summary table</h3>
-<p>| Technique | Reference projects | Production option | |-----------|-------------------|-------------------| | Live <code>birkly-client.js</code> | <strong>Default</strong> | Always supported | | <code>birkly-hydrate.js</code> | No | Optional advanced | | <code>birkly-baked</code> meta | No | Optional advanced | | Snapshot static HTML | No | Optional advanced | | Custom <code>fetch()</code> in site JS | No | Discouraged — use <code>data-birkly-*</code> |</p>
+<table><thead><tr><th>Technique</th><th>Reference projects</th><th>Production option</th></tr></thead>
+<tbody><tr><td>Live <code>birkly-client.js</code></td><td><strong>Default</strong></td><td>Always supported</td></tr><tr><td><code>birkly-hydrate.js</code></td><td>No</td><td>Optional advanced</td></tr><tr><td><code>birkly-baked</code> meta</td><td>No</td><td>Optional advanced</td></tr><tr><td>Snapshot static HTML</td><td>No</td><td>Optional advanced</td></tr><tr><td>Custom <code>fetch()</code> in site JS</td><td>No</td><td>Discouraged — use <code>data-birkly-*</code></td></tr></tbody></table>
 <p>Start with the <a href="reference-projects.html">reference project</a> that matches your use case, install collections, and ship live client. Add hydrate or snapshots only when measurement shows it is necessary.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="reference-projects.html">Reference projects</a></li>

@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -247,7 +249,8 @@ fetch(`${base}/api/public.php?action=get_entry&amp;collection=blog&amp;slug=${sl
 <li><strong>JSON.</strong> List endpoints return an array of entry objects; single-entry returns one object. Field keys match the collection schema (title, content, slug, date, etc.). Meta (total count, pagination) may be present depending on version.</li>
 </ul>
 <p><strong>Query parameters (common)</strong></p>
-<p>| Parameter | Purpose | Example | |-----------|---------|---------| | limit | Max entries returned | <code>?limit=10</code> | | sort | Sort order | <code>?sort=date:desc</code> | | offset / page | Pagination | <code>?offset=20</code> or <code>?page=2</code> | | status | Filter by status; often only “published” by default | Version-dependent |</p>
+<table><thead><tr><th>Parameter</th><th>Purpose</th><th>Example</th></tr></thead>
+<tbody><tr><td>limit</td><td>Max entries returned</td><td><code>?limit=10</code></td></tr><tr><td>sort</td><td>Sort order</td><td><code>?sort=date:desc</code></td></tr><tr><td>offset / page</td><td>Pagination</td><td><code>?offset=20</code> or <code>?page=2</code></td></tr><tr><td>status</td><td>Filter by status; often only “published” by default</td><td>Version-dependent</td></tr></tbody></table>
 <p><strong>Authentication</strong></p>
 <ul>
 <li><strong>Read:</strong> Typically none. Public read is intended for unauthenticated callers. Restriction by domain is via CORS or server config, not HTTP auth.</li>

@@ -7,7 +7,8 @@
   admin/         ← optional admin UI pages
   api/           ← optional API endpoints</code></pre>
 <p><strong>plugin.json essentials</strong></p>
-<p>| Field | Purpose | |-------|---------| | <code>name</code> | Display name in admin | | <code>version</code> | Semver (for example <code>1.0.0</code>) | | <code>description</code> | Short summary | | <code>requires_birkly</code> | Minimum CMS version | | <code>requires_php</code> | Minimum PHP version | | <code>permissions</code> | Admin capabilities the plugin needs | | <code>hooks</code> | Event names the plugin listens to | | <code>data_access</code> | Read/write scope for entries, media, users, settings |</p>
+<table><thead><tr><th>Field</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>name</code></td><td>Display name in admin</td></tr><tr><td><code>version</code></td><td>Semver (for example <code>1.0.0</code>)</td></tr><tr><td><code>description</code></td><td>Short summary</td></tr><tr><td><code>requires_birkly</code></td><td>Minimum CMS version</td></tr><tr><td><code>requires_php</code></td><td>Minimum PHP version</td></tr><tr><td><code>permissions</code></td><td>Admin capabilities the plugin needs</td></tr><tr><td><code>hooks</code></td><td>Event names the plugin listens to</td></tr><tr><td><code>data_access</code></td><td>Read/write scope for entries, media, users, settings</td></tr></tbody></table>
 <p><strong>Permissions and data access</strong></p>
 <p>Site owners see your declarations before install. Request only what you need:</p>
 <ul>
@@ -65,9 +66,19 @@
 <li>Capability declarations present for plugins that access data</li>
 </ul>
 <p><strong>Developer tooling</strong></p>
-<p>| Tool | Purpose | |------|---------| | <code>scaffold-plugin.php</code> | Generate plugin skeleton | | <code>plugin-package.schema.json</code> | Validate local <code>plugin.json</code> | | Birkly test suite | Denylist and capability tests |</p></div></details>
+<table><thead><tr><th>Tool</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>scaffold-plugin.php</code></td><td>Generate plugin skeleton</td></tr><tr><td><code>plugin-package.schema.json</code></td><td>Validate local <code>plugin.json</code></td></tr><tr><td>Birkly test suite</td><td>Denylist and capability tests</td></tr></tbody></table>
+<p><strong>Styling your admin pages</strong></p>
+<p>Plugin admin screens should look native. The recommended path ships <strong>no CSS at all</strong>: wrap the screen in <code>.plugin-page</code>, emit breadcrumbs with <code>{plugin_page_header}</code>, and compose the rest from core classes (<code>.card</code>, <code>.btn</code>, <code>.field</code>, <code>.table</code>, <code>.badge</code>, <code>.callout</code>, <code>.tabs</code>, <code>.modal</code>, <code>.empty-state</code>) plus the <code>u-*</code> helpers. That inherits dark mode, focus rings, contrast-checked colours and reduced-motion handling for free.</p>
+<p>If you do ship a stylesheet, load it from the top of your admin template:</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;{birkly_url '/admin/css/plugin-page.css'}&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;{birkly_url '/plugins/{handle}/admin/{handle}.css'}&quot;&gt;</code></pre>
+<p>and follow four rules: never restyle a core class, use <code>var(--…)</code> tokens rather than hex (hardcoded hex is broken in dark mode), no <code>!important</code> against core, and namespace every selector as <code>.{handle}-*</code>.</p>
+<p>Full guidance — the three adoption tiers, the CI-verified public class contract, the legacy token alias table, a complete copy-pasteable Tier 0 page, and the <code>.fieldtype-*</code> API — is in <a href="plugin-admin-styling.html">Plugin admin styling</a>.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="plugin-admin-styling.html">Plugin admin styling</a></li>
 <li><a href="plugin-navigation-icon.html">Plugin navigation icon</a></li>
+<li><a href="../01-admin/admin-design-language.html">Admin design language</a></li>
 <li><a href="../01-admin/design-system.html">Admin design system</a></li>
 <li><a href="for-providers.html">For providers</a></li>
 <li><a href="security-and-review.html">Security and review</a></li>

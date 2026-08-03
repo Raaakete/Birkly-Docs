@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -218,9 +220,11 @@
 <p>Admin sidebar → <strong>Agent Guide</strong> (between Media and Marketplace).</p>
 <p><strong>URLs:</strong> <code>/admin/?page=agent-guide</code> (legacy alias: <code>?page=ai-presence</code>).</p>
 <p><strong>Permissions:</strong></p>
-<p>| Action | Permission | |--------|------------| | View Agent Guide | <code>read</code> | | Edit, publish | <code>manage_settings</code> |</p>
+<table><thead><tr><th>Action</th><th>Permission</th></tr></thead>
+<tbody><tr><td>View Agent Guide</td><td><code>read</code></td></tr><tr><td>Edit, publish</td><td><code>manage_settings</code></td></tr></tbody></table>
 <h2>Admin tabs (at a glance)</h2>
-<p>| Tab | Purpose | |-----|---------| | <strong>Overview</strong> | Completeness score, source health, CMS sync drift, link checks, public URLs | | <strong>Sources</strong> | <code>sources_of_truth[]</code> registry — CMS, websites, documents, media, marketplaces | | <strong>Context</strong> | Identity, positioning, terminology, relationships | | <strong>Products &amp; Services</strong> | Structured catalog with typed source links | | <strong>Claims &amp; Evidence</strong> | Factual statements, proof sources, review workflow | | <strong>Media</strong> | Per-asset context (what it represents, intended use, restrictions) | | <strong>Publish</strong> | Enable publishing, version history, staleness warnings, AI preview |</p>
+<table><thead><tr><th>Tab</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><strong>Overview</strong></td><td>Completeness score, source health, CMS sync drift, link checks, public URLs</td></tr><tr><td><strong>Sources</strong></td><td><code>sources_of_truth[]</code> registry — CMS, websites, documents, media, marketplaces</td></tr><tr><td><strong>Context</strong></td><td>Identity, positioning, terminology, relationships</td></tr><tr><td><strong>Products &amp; Services</strong></td><td>Structured catalog with typed source links</td></tr><tr><td><strong>Claims &amp; Evidence</strong></td><td>Factual statements, proof sources, review workflow</td></tr><tr><td><strong>Media</strong></td><td>Per-asset context (what it represents, intended use, restrictions)</td></tr><tr><td><strong>Publish</strong></td><td>Enable publishing, version history, staleness warnings, AI preview</td></tr></tbody></table>
 <h2>AI Assist sidebar</h2>
 <p>The sticky save bar and right-hand <strong>AI Assist</strong> panel help you fill gaps without auto-saving:</p>
 <ul>
@@ -231,7 +235,8 @@
 </ul>
 <p>Suggestions are <strong>never auto-saved</strong> until you accept them. AI Assist prefers declared <strong>sources of truth</strong> before inferring.</p>
 <h2>Documentation map</h2>
-<p>| Doc | Audience | Contents | |-----|----------|----------| | <a href="agent-guide-getting-started.html">Getting started</a> | Beginners | First publish in ~30 minutes | | <a href="agent-guide-workflows.html">Workflows</a> | Editors | Tab-by-tab how-to | | <a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a> | Editors + strategists | Proof, marketplace/review links, source roles | | <a href="agent-guide-ai-assist.html">AI Assist</a> | Power users | Copilot modes, Guide Studio, field AI | | <a href="agent-guide-best-practices.html">Best practices</a> | Everyone | Quality, governance, what not to do | | <a href="agent-guide-data-model.html">Data model</a> | Developers | Schema, storage, completeness scoring | | <a href="../04-integration/agent-guide-public-api.html">Public API</a> | Integrators | Endpoints, views, graph, caching | | <a href="../04-integration/agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a> | Developers | MCP tools, resources, agent patterns |</p>
+<table><thead><tr><th>Doc</th><th>Audience</th><th>Contents</th></tr></thead>
+<tbody><tr><td><a href="agent-guide-getting-started.html">Getting started</a></td><td>Beginners</td><td>First publish in ~30 minutes</td></tr><tr><td><a href="agent-guide-workflows.html">Workflows</a></td><td>Editors</td><td>Tab-by-tab how-to</td></tr><tr><td><a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a></td><td>Editors + strategists</td><td>Proof, marketplace/review links, source roles</td></tr><tr><td><a href="agent-guide-ai-assist.html">AI Assist</a></td><td>Power users</td><td>Copilot modes, Guide Studio, field AI</td></tr><tr><td><a href="agent-guide-best-practices.html">Best practices</a></td><td>Everyone</td><td>Quality, governance, what not to do</td></tr><tr><td><a href="agent-guide-data-model.html">Data model</a></td><td>Developers</td><td>Schema, storage, completeness scoring</td></tr><tr><td><a href="../04-integration/agent-guide-public-api.html">Public API</a></td><td>Integrators</td><td>Endpoints, views, graph, caching</td></tr><tr><td><a href="../04-integration/agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a></td><td>Developers</td><td>MCP tools, resources, agent patterns</td></tr></tbody></table>
 <h2>Quick start (5 steps)</h2>
 <ol>
 <li><strong>Sources</strong> — Add at least one <strong>narrative</strong> source of truth (CMS entry, website, or document).</li>

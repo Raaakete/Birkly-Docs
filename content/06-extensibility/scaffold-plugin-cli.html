@@ -28,7 +28,8 @@
 </ul>
 <p>Review <a href="plugins.html">Plugins</a> and <a href="plugin-security-denylist.html">Plugin security denylist</a> before requesting broad permissions.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Script:</strong> <code>scripts/scaffold-plugin.php</code></p>
-<p>| Flag | Purpose | |------|---------| | <code>--id=</code> | Plugin folder id (lowercase, hyphens) — required | | <code>--title=</code> | Human title for <code>plugin.json</code> — required | | <code>--privileged</code> | Echo capability/denylist checklist to stdout | | <code>--force</code> | Overwrite existing folder (use with care) |</p>
+<table><thead><tr><th>Flag</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>--id=</code></td><td>Plugin folder id (lowercase, hyphens) — required</td></tr><tr><td><code>--title=</code></td><td>Human title for <code>plugin.json</code> — required</td></tr><tr><td><code>--privileged</code></td><td>Echo capability/denylist checklist to stdout</td></tr><tr><td><code>--force</code></td><td>Overwrite existing folder (use with care)</td></tr></tbody></table>
 <p><strong>Output conforms to</strong> <code>docs/plugin-system-architecture-plan.md</code> scaffold section and <code>plugin-package.schema.json</code> (marketplace publishing).</p>
 <p><strong>Discovery:</strong> Bootstrap scans <code>plugins/{id}/plugin.php</code>; <code>register_plugin()</code> or equivalent init must run on activate.</p>
 <p><strong>Tests:</strong> <code>scaffold_plugin_test.php</code> — verifies generated tree activates without fatal errors.</p>

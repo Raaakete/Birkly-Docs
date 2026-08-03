@@ -34,7 +34,8 @@
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Manifest schema</strong></p>
 <p>Offers validate against <code>offer-manifest.schema.json</code> in the marketplace repo. Required fields include <code>slug</code>, <code>title</code>, <code>summary</code>, <code>offer_type</code>, <code>category</code>, <code>pricing</code>, <code>license</code>, <code>compatibility</code>, <code>trust_level</code>, and at least one <code>releases[]</code> entry with artifact URL, SHA-256 checksum, and size.</p>
 <p><strong>Pricing models</strong></p>
-<p>| <code>pricing.model</code> | Fields | Buyer experience | |-----------------|--------|------------------| | <code>free</code> | <code>amount_cents: 0</code> | CMS installs immediately; hidden entitlement, no visible key | | <code>freemium</code> | Free plan plus paid plans/capabilities | Hidden free entitlement with plan capabilities; paid upgrade uses Stripe | | <code>trial</code> | <code>trial_days</code>, optional paid plan | No-card trial entitlement until <code>trial_ends_at</code>; no offline extension past trial end | | <code>one_time</code> | <code>amount_cents</code> &gt; 0, <code>currency</code> | Single Stripe payment; entitlement plus fallback activation key per seat tier | | <code>subscription</code> | <code>amount_cents</code> &gt; 0, <code>currency</code>, <code>subscription_interval</code> (<code>month</code> / <code>year</code>) | Stripe Billing; entitlement active while subscription active; lapsed subscriptions lose update/install rights after grace |</p>
+<table><thead><tr><th><code>pricing.model</code></th><th>Fields</th><th>Buyer experience</th></tr></thead>
+<tbody><tr><td><code>free</code></td><td><code>amount_cents: 0</code></td><td>CMS installs immediately; hidden entitlement, no visible key</td></tr><tr><td><code>freemium</code></td><td>Free plan plus paid plans/capabilities</td><td>Hidden free entitlement with plan capabilities; paid upgrade uses Stripe</td></tr><tr><td><code>trial</code></td><td><code>trial_days</code>, optional paid plan</td><td>No-card trial entitlement until <code>trial_ends_at</code>; no offline extension past trial end</td></tr><tr><td><code>one_time</code></td><td><code>amount_cents</code> &gt; 0, <code>currency</code></td><td>Single Stripe payment; entitlement plus fallback activation key per seat tier</td></tr><tr><td><code>subscription</code></td><td><code>amount_cents</code> &gt; 0, <code>currency</code>, <code>subscription_interval</code> (<code>month</code> / <code>year</code>)</td><td>Stripe Billing; entitlement active while subscription active; lapsed subscriptions lose update/install rights after grace</td></tr></tbody></table>
 <p>Example subscription block in offer manifest:</p>
 <pre><code>&quot;pricing&quot;: {
   &quot;model&quot;: &quot;subscription&quot;,
@@ -68,7 +69,8 @@
 </ul>
 <p>The Birkly CMS Hub client consumes these endpoints; do not break slug or checksum contracts without a major version bump.</p>
 <p><strong>Trust levels</strong></p>
-<p>| Level | Meaning | |-------|---------| | <code>untrusted</code> | Community listing; automated preflight only | | <code>trusted</code> | Passed automated checks; Birkly team may spot-check | | <code>verified</code> | Manual technical review for first release and major updates |</p>
+<table><thead><tr><th>Level</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>untrusted</code></td><td>Community listing; automated preflight only</td></tr><tr><td><code>trusted</code></td><td>Passed automated checks; Birkly team may spot-check</td></tr><tr><td><code>verified</code></td><td>Manual technical review for first release and major updates</td></tr></tbody></table>
 <p><strong>QC and security</strong></p>
 <ul>
 <li>Zip must not contain path traversal (<code>..</code>).</li>
@@ -100,7 +102,8 @@
 <p>Raaakete official plugins use CI on tag <code>plugin/{name}/v*</code> → <code>build-all-official-plugin-zips.sh</code> → registry API upload. See Birkly <code>plugins/README.md</code> and <a href="../07-operations/production-deploy-checklist.html">Production deploy checklist</a>.</p>
 <p><strong>Provider webhooks (optional, Phase 12)</strong></p>
 <p>Configure a webhook URL in the provider dashboard to receive JSON events:</p>
-<p>| Event | When | |-------|------| | <code>sale</code> | Buyer completes checkout for your offer | | <code>refund</code> | Refund processed | | <code>qc_result</code> | Preflight/QC completes | | <code>payout</code> | Stripe Connect payout recorded |</p>
+<table><thead><tr><th>Event</th><th>When</th></tr></thead>
+<tbody><tr><td><code>sale</code></td><td>Buyer completes checkout for your offer</td></tr><tr><td><code>refund</code></td><td>Refund processed</td></tr><tr><td><code>qc_result</code></td><td>Preflight/QC completes</td></tr><tr><td><code>payout</code></td><td>Stripe Connect payout recorded</td></tr></tbody></table>
 <p>Verify webhook signatures using the secret shown in the dashboard. Use for internal ERP, Slack, or license fulfillment systems.</p>
 <p><strong>Stripe webhooks (platform)</strong></p>
 <p>Marketplace operators configure Stripe → <code>POST /webhooks/stripe</code> for <code>account.updated</code>, <code>payment_intent.succeeded</code>, <code>charge.refunded</code>. Provider dashboard payout charts read from Connect APIs.</p></div></details>

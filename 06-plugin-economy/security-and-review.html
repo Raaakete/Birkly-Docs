@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="for-site-owners.html" class="nav-link">For site owners</a>
         <a href="for-providers.html" class="nav-link">For providers</a>
         <a href="plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="security-and-review.html" class="nav-link active">Security and review</a>
@@ -169,7 +171,8 @@
 <div class="doc-summary"><p>Before a plugin installs, the CMS shows a <strong>consent screen</strong> listing declared permissions, hooks, and data access from <code>plugin.json</code>. Consent is recorded per offer version. The marketplace runs <strong>automated preflight</strong> (zip structure, dangerous code patterns, capability checks) and <strong>manual review</strong> for verified-tier offers. Site admins can add collections and admin spaces to the <strong>plugin security denylist</strong> to hard-block access.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Permission consent at install</strong></p>
 <p>When you click <strong>Install</strong> on a marketplace offer, the CMS reads the plugin's declared access:</p>
-<p>| Declaration | What it means | |-------------|---------------| | <strong>Permissions</strong> | Admin actions the plugin can perform | | <strong>Hooks</strong> | CMS events the plugin listens to | | <strong>Data access</strong> | Whether the plugin can read or write entries, media, users, or settings |</p>
+<table><thead><tr><th>Declaration</th><th>What it means</th></tr></thead>
+<tbody><tr><td><strong>Permissions</strong></td><td>Admin actions the plugin can perform</td></tr><tr><td><strong>Hooks</strong></td><td>CMS events the plugin listens to</td></tr><tr><td><strong>Data access</strong></td><td>Whether the plugin can read or write entries, media, users, or settings</td></tr></tbody></table>
 <p>You must <strong>Accept</strong> before the download starts. The consent is saved with your admin email and timestamp. If you install a <strong>new version</strong> that changes declarations, you see the consent screen again.</p>
 <p><strong>Review before you accept</strong></p>
 <ul>
@@ -188,9 +191,11 @@
 <p>See <a href="../06-extensibility/plugin-security-denylist.html">Plugin security denylist</a> for step-by-step instructions.</p>
 <p><strong>Marketplace quality checks</strong></p>
 <p>Before an offer reaches the catalog:</p>
-<p>| Check | What it catches | |-------|-----------------| | Zip structure | Missing files, path traversal (<code>..</code>) | | PHP scan | Dangerous functions (<code>eval</code>, <code>shell_exec</code>, etc.) | | Manifest validation | Invalid semver, missing required fields | | Capability match | Declarations vs actual plugin behavior (verified tier) |</p>
+<table><thead><tr><th>Check</th><th>What it catches</th></tr></thead>
+<tbody><tr><td>Zip structure</td><td>Missing files, path traversal (<code>..</code>)</td></tr><tr><td>PHP scan</td><td>Dangerous functions (<code>eval</code>, <code>shell_exec</code>, etc.)</td></tr><tr><td>Manifest validation</td><td>Invalid semver, missing required fields</td></tr><tr><td>Capability match</td><td>Declarations vs actual plugin behavior (verified tier)</td></tr></tbody></table>
 <p><strong>Trust levels</strong></p>
-<p>| Level | Review depth | |-------|--------------| | Community | Automated preflight only | | Trusted | Automated plus possible spot-check | | Verified | Manual technical review for first release and major updates |</p>
+<table><thead><tr><th>Level</th><th>Review depth</th></tr></thead>
+<tbody><tr><td>Community</td><td>Automated preflight only</td></tr><tr><td>Trusted</td><td>Automated plus possible spot-check</td></tr><tr><td>Verified</td><td>Manual technical review for first release and major updates</td></tr></tbody></table>
 <p><strong>Supply chain hygiene</strong></p>
 <ul>
 <li>Install only from <a href="https://marketplace.birkly.cloud">marketplace.birkly.cloud</a> or sources you trust.</li>
@@ -224,7 +229,8 @@
 <p><strong>QC pipeline (providers)</strong></p>
 <p>Preflight runs on every release upload. Verified-tier offers enqueue manual review before catalog visibility. Providers can connect GitHub for tag-triggered builds that enter the same QC queue — offers are not auto-published without passing checks.</p>
 <p><strong>Security scan tiers</strong></p>
-<p>| Tier | Scope | |------|-------| | Structural | Zip layout, <code>plugin.json</code> schema | | Pattern | PHP dangerous-function regex scan | | Manual | Code review for verified first releases | | Runtime | Capability and denylist enforcement in CMS |</p>
+<table><thead><tr><th>Tier</th><th>Scope</th></tr></thead>
+<tbody><tr><td>Structural</td><td>Zip layout, <code>plugin.json</code> schema</td></tr><tr><td>Pattern</td><td>PHP dangerous-function regex scan</td></tr><tr><td>Manual</td><td>Code review for verified first releases</td></tr><tr><td>Runtime</td><td>Capability and denylist enforcement in CMS</td></tr></tbody></table>
 <p><strong>Incident response</strong></p>
 <p>Report suspicious offers via marketplace support. Platform operators can delist offers, hold or revoke entitlements, and add slug patterns to blocklists. Site owners should disable affected plugins immediately and review audit logs — see <a href="../06-extensibility/audit-log-and-activity.html">Audit log and activity</a>.</p></div></details>
 <div class="doc-related"><ul>

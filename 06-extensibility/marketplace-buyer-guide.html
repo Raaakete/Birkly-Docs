@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -221,9 +223,11 @@
 </ol>
 <p>For site pack options (demo entries, overwrite mode, required plugins, Upload pack), see <a href="../06-plugin-economy/theme-and-template-packs.html">Hub, themes, and site packs</a>.</p>
 <p><strong>Free vs paid</strong></p>
-<p>| Offer type | Checkout on marketplace | Key visible in CMS | |------------|-------------------------|--------------------| | Official Birkly plugins (commerce, events, automation, user management) | No | No — one-click <strong>Install</strong> | | Free / freemium community offers | No paid checkout | No visible key; hidden entitlement | | Trial offers | No card for trial start | No visible key unless upgraded | | Paid official (one-time) | Yes (Stripe) | Fallback key available; entitlement is primary | | Subscription official / third-party | Yes (Stripe Billing) | Fallback key available; active subscription required | | Paid one-time third-party | Yes (Stripe) | Fallback key available; entitlement is primary |</p>
+<table><thead><tr><th>Offer type</th><th>Checkout on marketplace</th><th>Key visible in CMS</th></tr></thead>
+<tbody><tr><td>Official Birkly plugins (commerce, events, automation, user management)</td><td>No</td><td>No — one-click <strong>Install</strong></td></tr><tr><td>Free / freemium community offers</td><td>No paid checkout</td><td>No visible key; hidden entitlement</td></tr><tr><td>Trial offers</td><td>No card for trial start</td><td>No visible key unless upgraded</td></tr><tr><td>Paid official (one-time)</td><td>Yes (Stripe)</td><td>Fallback key available; entitlement is primary</td></tr><tr><td>Subscription official / third-party</td><td>Yes (Stripe Billing)</td><td>Fallback key available; active subscription required</td></tr><tr><td>Paid one-time third-party</td><td>Yes (Stripe)</td><td>Fallback key available; entitlement is primary</td></tr></tbody></table>
 <p><strong>Seat limits</strong></p>
-<p>| Tier | Typical use | |------|-------------| | Single site | One production Birkly installation plus one staging installation | | Multi-site (3 / 10) | Agency or additional production/staging installs | | Unlimited | Enterprise tier (as listed on the offer) |</p>
+<table><thead><tr><th>Tier</th><th>Typical use</th></tr></thead>
+<tbody><tr><td>Single site</td><td>One production Birkly installation plus one staging installation</td></tr><tr><td>Multi-site (3 / 10)</td><td>Agency or additional production/staging installs</td></tr><tr><td>Unlimited</td><td>Enterprise tier (as listed on the offer)</td></tr></tbody></table>
 <p>If activation fails with a seat error, deactivate the entitlement on an old installation from buyer self-service or the CMS Hub. Deactivation frees that environment seat. Full revocation, such as a full refund, is different from self-service deactivation and removes the right to use the paid offer.</p>
 <p><strong>Offline grace</strong></p>
 <p>Marketplace licensing is a practical deterrent, not perfect DRM. The CMS stores a signed local entitlement token so installed paid features can keep working during short outages:</p>

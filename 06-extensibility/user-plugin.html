@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -174,7 +176,8 @@
 <li>Under <strong>Groups</strong> and <strong>Tiers</strong>, organize members if you need shared permissions or limits.</li>
 </ol>
 <p><strong>Common tasks</strong></p>
-<p>| Task | Where | |------|-------| | See who registered | <strong>Users</strong> | | Block a user | <strong>Users</strong> → edit → suspend | | Let members post in a collection | Collection settings → permissions (plugin section) | | Show login state on website | Templates: <code>{if user_logged_in}…{endif}</code> | | Password reset | Public <code>reset-password</code> route (plugin) |</p>
+<table><thead><tr><th>Task</th><th>Where</th></tr></thead>
+<tbody><tr><td>See who registered</td><td><strong>Users</strong></td></tr><tr><td>Block a user</td><td><strong>Users</strong> → edit → suspend</td></tr><tr><td>Let members post in a collection</td><td>Collection settings → permissions (plugin section)</td></tr><tr><td>Show login state on website</td><td>Templates: <code>{if user_logged_in}…{endif}</code></td></tr><tr><td>Password reset</td><td>Public <code>reset-password</code> route (plugin)</td></tr></tbody></table>
 <p><strong>Registration flow</strong></p>
 <ol>
 <li>Visitor submits registration form (your template or plugin default).</li>
@@ -195,7 +198,8 @@
 <li>Permissions: <code>includes/EntryPermissions.php</code>, <code>includes/UserPermissions.php</code></li>
 </ul>
 <p><strong>Template functions</strong></p>
-<p>| Function | Returns | |----------|---------| | <code>{user_logged_in}</code> | Boolean | | <code>{user_current}</code> | Current user object (id, name, email, …) | | <code>{user_list}</code> | Filtered user list (admin/config dependent) | | <code>{user_profile &quot;id&quot;}</code> | Public profile entry if collection enabled |</p>
+<table><thead><tr><th>Function</th><th>Returns</th></tr></thead>
+<tbody><tr><td><code>{user_logged_in}</code></td><td>Boolean</td></tr><tr><td><code>{user_current}</code></td><td>Current user object (id, name, email, …)</td></tr><tr><td><code>{user_list}</code></td><td>Filtered user list (admin/config dependent)</td></tr><tr><td><code>{user_profile &quot;id&quot;}</code></td><td>Public profile entry if collection enabled</td></tr></tbody></table>
 <p><strong>Automation hooks</strong></p>
 <ul>
 <li><code>user_registered</code> — after successful signup</li>

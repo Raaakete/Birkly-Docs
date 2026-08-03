@@ -7,6 +7,16 @@
 <p>---</p>
 <p>---</p>
 <p>---</p>
+<h2>2026-08-03 — Admin design language</h2>
+<p>The admin is now built from one internal CSS framework — tokens, a <code>u-*</code> helper layer, and a component catalog — and admin pages ship no page-specific CSS.</p>
+<ul>
+<li><strong>New:</strong> <code>01-admin/admin-design-language.md</code> — the build kit: full token reference (surfaces, text, borders, accent, semantic, spacing, type scale, radius, elevation, z-index, motion, control sizes, widths, breakpoints), accent contrast rules, complete <code>u-*</code> helper reference, component catalog with copy-paste markup, page chrome recipe (breadcrumb-as-title, <code>.main-actions-bar</code>, <code>.page-body</code>), dark mode as a token remap, and the do/don't rules.</li>
+<li><strong>New:</strong> <code>06-plugin-economy/plugin-admin-styling.md</code> — adoption tiers (compose / extend / independent), the CI-enforced public class contract, plugin CSS rules, legacy token aliases, a complete Tier 0 worked example, and the <code>.fieldtype-*</code> contract.</li>
+<li><strong>Rewritten:</strong> <code>01-admin/design-system.md</code> — short orientation pointing at the build kit; removed the superseded token names.</li>
+<li><strong>Updated:</strong> <code>06-plugin-economy/plugin-development.md</code> — styling section and cross-links.</li>
+<li><strong>Updated:</strong> <code>CONTENTS_INDEX.md</code>, <code>manifest.json</code>, <code>help-manifest.json</code>.</li>
+</ul>
+<p>---</p>
 <h2>2026-08-03 — Hub payments and entitlements (P55)</h2>
 <ul>
 <li><strong>Updated:</strong> <code>06-extensibility/marketplace-buyer-guide.md</code>, <code>marketplace-provider-guide.md</code>, <code>marketplace-go-live.md</code> — entitlement-first Hub install flow, free/freemium no visible key, paid Stripe checkout with activation-key fallback, trials, seats, offline grace, refunds, and chargebacks.</li>

@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -204,11 +206,13 @@
 <p>Automation triggers remain the recommended path for branded emails and multi-step recovery flows.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Subscription record</strong></p>
 <p>Stored under <code>data/plugins/commerce/subscriptions/</code> as JSON. Key fields:</p>
-<p>| Field | Notes | |-------|-------| | <code>status</code> | <code>active</code>, <code>past_due</code>, <code>canceled</code> | | <code>purchase_option_id</code> | Recurring option on the catalog line | | <code>provider_subscription_id</code> | Stripe/Mollie subscription id | | <code>dunning</code> | <code>{ attempt_count, last_failed_at, last_invoice_id }</code> when past due | | <code>upgraded_at</code> | Set after successful plan change |</p>
+<table><thead><tr><th>Field</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>status</code></td><td><code>active</code>, <code>past_due</code>, <code>canceled</code></td></tr><tr><td><code>purchase_option_id</code></td><td>Recurring option on the catalog line</td></tr><tr><td><code>provider_subscription_id</code></td><td>Stripe/Mollie subscription id</td></tr><tr><td><code>dunning</code></td><td><code>{ attempt_count, last_failed_at, last_invoice_id }</code> when past due</td></tr><tr><td><code>upgraded_at</code></td><td>Set after successful plan change</td></tr></tbody></table>
 <p><strong>Upgrade service</strong></p>
 <p><code>SubscriptionUpgradeService</code> lists recurring <code>purchase_options</code> on the same catalog entry (excluding the current option) and calls the payment shelf to update the provider subscription. Same-plan requests are rejected; canceled subscriptions cannot upgrade.</p>
 <p><strong>API actions</strong> (<code>route=commerce</code>, admin session):</p>
-<p>| Action | Purpose | |--------|---------| | <code>list_subscriptions</code> | All subscriptions | | <code>get_subscription</code> | Single record by id | | <code>list_subscription_upgrade_options</code> | Eligible purchase options | | <code>upgrade_subscription</code> | <code>{ id, purchase_option_id }</code> | | <code>cancel_subscription</code> | Cancel + provider sync when available | | <code>retry_subscription_payment</code> | Manual retry on <code>past_due</code> |</p>
+<table><thead><tr><th>Action</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>list_subscriptions</code></td><td>All subscriptions</td></tr><tr><td><code>get_subscription</code></td><td>Single record by id</td></tr><tr><td><code>list_subscription_upgrade_options</code></td><td>Eligible purchase options</td></tr><tr><td><code>upgrade_subscription</code></td><td><code>{ id, purchase_option_id }</code></td></tr><tr><td><code>cancel_subscription</code></td><td>Cancel + provider sync when available</td></tr><tr><td><code>retry_subscription_payment</code></td><td>Manual retry on <code>past_due</code></td></tr></tbody></table>
 <p><strong>Dunning webhooks</strong></p>
 <p>Provider webhooks (<code>invoice.payment_failed</code>, recovery events) update subscription status via <code>CommerceSubscriptionService</code>. On failure:</p>
 <ul>
@@ -221,7 +225,8 @@
 <li>Fires <code>commerce_subscription_recovered</code>.</li>
 </ul>
 <p><strong>Automation triggers</strong></p>
-<p>| Trigger | When | |---------|------| | <code>commerce_subscription_payment_failed</code> | Invoice/payment failed; subscription <code>past_due</code> | | <code>commerce_subscription_recovered</code> | Payment succeeds after failure |</p>
+<table><thead><tr><th>Trigger</th><th>When</th></tr></thead>
+<tbody><tr><td><code>commerce_subscription_payment_failed</code></td><td>Invoice/payment failed; subscription <code>past_due</code></td></tr><tr><td><code>commerce_subscription_recovered</code></td><td>Payment succeeds after failure</td></tr></tbody></table>
 <p>Configure workflows under <strong>Automation</strong> using these trigger types for Slack, email, or internal tasks.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="plugins/commerce.html">Commerce plugin</a></li>

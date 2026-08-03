@@ -4,7 +4,7 @@ Birkly separates the **CMS core** (your self-hosted site), the **Marketplace** (
 
 ## Summary
 
-The **plugin economy** is how Birkly distributes extensions: **official and third-party offers** on the [Birkly Marketplace](https://marketplace.birkly.cloud), **one-click or licensed installs** in the CMS **Hub**, and **Ops-hosted starter packs** for onboarding. The CMS ships as a thin runtime — no bundled plugins — so you choose only what you need. Marketplace accounts are separate from CMS admin logins.
+The **plugin economy** is how Birkly distributes extensions: **official and third-party offers** on the [Birkly Marketplace](https://marketplace.birkly.cloud), **one-click or entitlement-backed installs** in the CMS **Hub**, and **Ops-hosted starter packs** for onboarding. The CMS ships as a thin runtime — no bundled plugins — so you choose only what you need. Marketplace accounts are separate from CMS admin logins. In P55, Hub checkout uses **Stripe Connect only**.
 
 ## Beginner
 
@@ -20,7 +20,7 @@ The **plugin economy** is how Birkly distributes extensions: **official and thir
 
 1. You download and run **Birkly CMS** on your server. The `plugins/` folder starts empty.
 2. You browse **Plugins → Hub** in the admin or visit [marketplace.birkly.cloud/catalog](https://marketplace.birkly.cloud/catalog).
-3. You **install** free official plugins in one click, or **purchase** paid and third-party offers and activate a license.
+3. You **install** free official plugins in one click, or **purchase** paid and third-party offers and install from an entitlement with a fallback activation key.
 4. During onboarding, you can install a **starter pack** from Ops — demo collections and a sample public site under `project/` — without using the marketplace. Hub site packs use the same zip shape.
 
 **Why unbundled plugins**
@@ -47,10 +47,21 @@ The CMS distribution manifest excludes plugin source. Production installs consum
 | Account type | Scope |
 |--------------|-------|
 | CMS admin user | Local site roles and permissions |
-| Marketplace buyer | Licenses, purchases, subscriptions |
+| Marketplace buyer | Entitlements, purchases, subscriptions, fallback activation keys |
 | Marketplace provider | Offers, Stripe Connect, payouts |
 
-License activation binds `license_key + installation_id` (local CMS UUID). Provider and buyer accounts do not grant CMS admin access.
+Entitlement activation binds access to an `installation_id` (local CMS UUID). Paid offers also keep a fallback activation key for recovery/manual activation. Provider and buyer accounts do not grant CMS admin access.
+
+**Commerce and platform roles**
+
+- Birkly is merchant of record only for official Birkly offers.
+- Third-party providers are the seller and merchant of record for their offers.
+- Birkly collects a Stripe Connect application fee on third-party paid sales (default **15%**, with Ops override).
+- Mollie, multi-PSP, and regional PSP support are outside P55 Hub payments scope.
+
+**Entitlement model**
+
+Free and freemium offers create hidden entitlements with no visible key. Paid checkout creates an entitlement, a fallback activation key, and a signed local token for offline checks. Single-site tiers allow one production activation plus one staging activation; buyer self-service deactivation frees a seat. Offline grace is limited: one-time purchases up to 30 days, subscriptions up to 14 days, and trials never extend past trial end.
 
 **Offer types on the marketplace**
 

@@ -1,10 +1,10 @@
 # For providers — publish on the marketplace
 
-Developers and agencies publish plugins, themes, and site packs on the Birkly Marketplace. Buyers install them from the CMS **Hub**. Providers manage offers through **Provider Studio**, receive payouts via Stripe Connect, and pass automated quality checks before listings go live.
+Developers and agencies publish plugins, themes, and site packs on the Birkly Marketplace. Buyers install them from the CMS **Hub**. Third-party providers are the seller and merchant of record for their offers, manage offers through **Provider Studio**, receive payouts via Stripe Connect, and pass automated quality checks before listings go live.
 
 ## Summary
 
-**Providers** sign up at [providers.birkly.cloud](https://providers.birkly.cloud), accept the Provider Agreement, complete Stripe Connect onboarding, then publish versioned offers with zip artifacts — including **site packs** (`offer_type: template_pack`). Each offer has pricing (free, one-time, or subscription), license seat tiers, and declared capabilities. Automated preflight is offer-type-aware (plugin vs pack layout); verified-tier offers also receive manual review. Payouts flow to your Connect account after buyer checkout.
+**Providers** sign up at [providers.birkly.cloud](https://providers.birkly.cloud), accept the Provider Agreement, complete Stripe Connect onboarding, then publish versioned offers with zip artifacts — including **site packs** (`offer_type: template_pack`). Each offer has pricing (free, freemium, no-card trial, one-time, or subscription), entitlement seat tiers, and declared capabilities. Automated preflight is offer-type-aware (plugin vs pack layout); verified-tier offers also receive manual review. P55 Hub payments use Stripe Connect only.
 
 ## Beginner
 
@@ -16,7 +16,7 @@ A **provider** (also called publisher or seller) is anyone who lists extensions 
 
 1. Create a **provider account** at [providers.birkly.cloud](https://providers.birkly.cloud) (email and password — separate from any CMS login).
 2. Accept the **Provider Agreement**.
-3. Complete **Stripe Connect** onboarding (identity and bank details for payouts).
+3. Complete **Stripe Connect** onboarding (identity and bank details for payouts). Paid providers must be in a Stripe-supported connected-account country.
 4. Click **New offer** and fill in title, slug, offer type, category, pricing, and compatibility.
 5. Upload a **release zip** (semver version plus changelog).
 6. **Publish** — preflight runs automatically; verified offers enter a review queue.
@@ -36,9 +36,11 @@ Site pack ZIPs need `manifest.json` + `collections/` + `project/` — not `plugi
 
 | Model | Buyer experience |
 |-------|------------------|
-| **Free** | Email capture optional; CMS one-click or license key |
-| **One-time** | Single payment; perpetual license per seat tier |
-| **Subscription** | Monthly or yearly billing; license active while subscribed |
+| **Free** | Immediate CMS install; hidden entitlement, no visible key |
+| **Freemium** | Hidden free entitlement with plan capabilities; paid upgrade through Stripe |
+| **Trial** | No-card trial entitlement until trial end |
+| **One-time** | Single Stripe payment; entitlement plus fallback activation key per seat tier |
+| **Subscription** | Monthly or yearly Stripe Billing; entitlement active while subscribed |
 
 **After publish**
 
@@ -73,7 +75,11 @@ The CMS Hub client consumes these endpoints. Do not break slug or checksum contr
 
 **Revenue split**
 
-Buyer pays gross price → Stripe fee → Birkly application fee → remainder to your Stripe Connect account. Refunds are primarily the provider's responsibility per the Provider Agreement.
+Buyer pays gross price → Stripe fee → Birkly application fee → remainder to your Stripe Connect account. The default Birkly application fee is **15%**; Ops can override it for a provider or agreement. Birkly is merchant of record only for official Birkly offers. Mollie, multi-PSP, and regional PSPs are not available for Hub provider payouts in P55.
+
+**Refunds and chargebacks**
+
+Third-party refunds are provider-primary within the default **14-day** window, with Ops escalation when needed. Full refunds revoke the entitlement and activation slots. Chargebacks put access on hold immediately and revoke access if the dispute is lost.
 
 **QC pipeline**
 

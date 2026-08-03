@@ -4,7 +4,7 @@ Birkly publishes and maintains a set of **official plugins** on the marketplace.
 
 ## Summary
 
-**Official Birkly plugins** — Commerce, Events, Automation, and User Management — are **free** marketplace offers installed in one click from **Plugins → Hub**. Additional official extensions (for example SEO Basics, Analytics Pro) may be **paid** or **subscription** offers. **Third-party** plugins are published by independent providers; review trust level, permissions consent, and reviews before installing. CMS downloads ship without bundled plugins — install what you need from the Hub.
+**Official Birkly plugins** — Commerce, Events, Automation, and User Management — are **free** marketplace offers installed in one click from **Plugins → Hub** with no visible key. Additional official extensions (for example SEO Basics, Analytics Pro) may be **paid**, **freemium**, **trial**, or **subscription** offers where Birkly is merchant of record. **Third-party** plugins are published and sold by independent providers; review trust level, permissions consent, and reviews before installing. CMS downloads ship without bundled plugins — install what you need from the Hub.
 
 ## Beginner
 
@@ -19,7 +19,7 @@ These four plugins cover common site needs and are maintained by Birkly:
 | **Automation** | Workflows, triggers, conditions, actions | Same |
 | **User Management** | Registration, login, tiers, permissions | Same |
 
-No checkout, license key, or marketplace buyer account is required for these four.
+No checkout, visible license key, or marketplace buyer account is required for these four.
 
 **Recommended install order**
 
@@ -30,7 +30,7 @@ No checkout, license key, or marketplace buyer account is required for these fou
 
 **Paid official plugins**
 
-Some Birkly-published extensions are paid one-time or subscription offers on the marketplace. They show a **price badge** and **Purchase** button in the CMS Hub tab. Complete checkout, activate your license, accept permission consent, then install.
+Some Birkly-published extensions are paid one-time, freemium, trial, or subscription offers on the marketplace. They show a **price badge** and **Purchase** / **Start trial** button in the CMS Hub tab. Complete checkout when payment is required, install from the entitlement, accept permission consent, then install. A fallback activation key is available for paid recovery/manual activation.
 
 **Third-party plugins**
 
@@ -41,7 +41,7 @@ Community and partner plugins are published by **independent providers**, not Bi
 - Review the **permission consent** screen carefully.
 - Prefer verified-tier offers for production sites.
 
-Third-party support goes to the provider's contact email on the listing. Birkly platform support covers official plugins and marketplace infrastructure.
+Third-party support goes to the provider's contact email on the listing. Third-party providers are the seller and merchant of record for their paid offers; Birkly platform support covers official plugins and marketplace infrastructure.
 
 **Official vs third-party — quick comparison**
 
@@ -52,11 +52,11 @@ Third-party support goes to the provider's contact email on the listing. Birkly 
 | **Updates** | Tied to Birkly releases | Provider publishes versions |
 | **Support** | Birkly platform | Provider |
 | **Trust** | Verified by default | Community, trusted, or verified |
-| **Pricing** | Free, paid, or subscription | Provider sets pricing |
+| **Pricing** | Free, paid, trial, freemium, or subscription | Provider sets pricing; Stripe Connect only in P55 |
 
 **Grandfathered installs**
 
-Sites upgraded from older Birkly builds that already had plugins in `plugins/` keep working. Use the Marketplace **Update** action to sync with registry checksums and licenses going forward.
+Sites upgraded from older Birkly builds that already had plugins in `plugins/` keep working. Use the Marketplace **Update** action to sync with registry checksums and entitlements going forward.
 
 ## Advanced Users
 

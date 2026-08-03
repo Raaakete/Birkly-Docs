@@ -166,75 +166,92 @@
     <main class="main">
       <div class="content doc-body">
         <div class="doc-content"><p>Purchase plugins, themes, and site packs from the <a href="https://marketplace.birkly.io">Birkly Marketplace</a> and install them in your self-hosted Birkly CMS. This guide is for <strong>buyers</strong> (site owners and admins). Developers publishing offers should see <a href="marketplace-provider-guide.html">Marketplace — provider publishing guide</a>.</p>
-<div class="doc-summary"><p><strong>Buyers</strong> browse the marketplace catalog and install extensions in the CMS admin under <strong>Plugins → Hub</strong> (admin label; APIs may still say marketplace). <strong>Official Birkly plugins</strong> (commerce, events, automation, user management) are <strong>free</strong>: click <strong>Install</strong> in the CMS — no checkout, email, or manual license key. <strong>Paid official</strong> and <strong>third-party</strong> offers require marketplace checkout (Stripe); <strong>subscription</strong> offers renew monthly/yearly until canceled. A <strong>license key</strong> (emailed or <strong>My purchases</strong> / <strong>My subscriptions</strong>) activates on your site. Licenses bind to an <strong>installation</strong> (<code>installation_id</code>); seat tiers limit how many CMS installs may use one key. Marketplace accounts are separate from CMS admin accounts.</p></div>
+<div class="doc-summary"><p><strong>Buyers</strong> browse the marketplace catalog and install extensions in the CMS admin under <strong>Plugins → Hub</strong> (admin label; APIs may still say marketplace). <strong>Free offers</strong> install immediately and do not show a license key. <strong>Paid official</strong> and <strong>third-party</strong> offers use Stripe checkout; successful checkout creates an <strong>entitlement</strong>, with an <strong>activation key</strong> available as a fallback for manual activation and a signed local token for offline checks. <strong>No-card trials</strong> and <strong>freemium</strong> plans use entitlements too; freemium plan capabilities are hidden from the normal key UI. Marketplace accounts are separate from CMS admin accounts.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Official free plugins (recommended first)</strong></p>
 <ol>
 <li>Log in to your Birkly <strong>admin</strong> (<code>/admin</code>).</li>
 <li>Go to <strong>Plugins → Hub</strong>.</li>
 <li>Find an official Birkly offer (Commerce, Events, Automation, User Management) or open <a href="https://marketplace.birkly.io/catalog">marketplace.birkly.io/catalog</a>.</li>
-<li>Click <strong>Install</strong> in the CMS. The marketplace auto-issues a free license — you do <strong>not</strong> need to copy a license key.</li>
+<li>Click <strong>Install</strong> in the CMS. The marketplace creates a hidden entitlement — you do <strong>not</strong> need to copy or see a license key.</li>
 <li><strong>Enable</strong> the plugin from the Plugins list if needed.</li>
 </ol>
 <p>See <a href="marketplace-go-live.html">Marketplace go-live — installing plugins</a> for the full official-plugins table and fresh-install notes.</p>
 <p><strong>Buying a paid or third-party extension</strong></p>
 <ol>
 <li>Visit <a href="https://marketplace.birkly.io/catalog">marketplace.birkly.io/catalog</a>.</li>
-<li>Open an offer and click <strong>Buy</strong> (or <strong>Get</strong> for free community offers that still use checkout).</li>
+<li>Open an offer and click <strong>Buy</strong>, <strong>Subscribe</strong>, <strong>Start trial</strong>, or <strong>Get</strong> depending on the listing.</li>
 <li>Enter your <strong>email</strong> at checkout. You may optionally create a marketplace login later to see <strong>My purchases</strong> or <strong>My subscriptions</strong>.</li>
-<li>Complete payment (Stripe) for paid offers, or confirm for free checkout offers.</li>
-<li>Check your email for the <strong>license key</strong> and receipt.</li>
+<li>Complete payment with <strong>Stripe</strong> for paid offers. Trial and free/freemium offers do not require a card unless the listing says you are upgrading to a paid plan.</li>
+<li>Return to the CMS Hub. Paid checkout grants an entitlement automatically; keep the emailed activation key or <strong>My purchases</strong> key as a recovery fallback.</li>
 </ol>
 <p><strong>Paid official plugins</strong></p>
 <p>Some official Birkly extensions (for example SEO Basics) are <strong>paid one-time</strong> offers on the marketplace. They show a <strong>price badge</strong> and <strong>Purchase</strong> CTA in <strong>Plugins → Hub</strong>.</p>
 <ol>
 <li>Click <strong>Purchase</strong> — opens marketplace checkout for that offer.</li>
 <li>Complete Stripe payment with your email.</li>
-<li>Return to CMS → <strong>Plugins → Hub</strong> → <strong>Activate license</strong> (or install with emailed key).</li>
-<li>Paid official plugins <strong>cannot</strong> install without a valid license — free official plugins still use one-click <strong>Install</strong>.</li>
+<li>Return to CMS → <strong>Plugins → Hub</strong> → install from your entitlement, or use <strong>Activate license</strong> with the fallback key if the linked install cannot see the purchase.</li>
+<li>Paid official plugins <strong>cannot</strong> install without an active entitlement — free official plugins still use one-click <strong>Install</strong>.</li>
 </ol>
-<p><strong>Subscription licenses</strong></p>
+<p><strong>Subscription entitlements</strong></p>
 <p>Offers with <strong>subscription</strong> pricing (for example Analytics Pro) bill through Stripe Billing on a monthly or yearly interval.</p>
 <ol>
 <li>Buy from the marketplace checkout (subscription mode).</li>
-<li>Install in CMS with the issued license key.</li>
+<li>Install in CMS from the issued entitlement, or paste the fallback activation key.</li>
 <li>While the subscription is <strong>active</strong>, updates install normally.</li>
 <li>If the subscription is <strong>canceled</strong> or lapses, the CMS <strong>blocks plugin updates</strong> and shows an admin warning until you renew.</li>
 <li>View status at marketplace <strong>My subscriptions</strong> (email magic link or marketplace login).</li>
 </ol>
-<p><strong>Installing in Birkly CMS (paid / license key)</strong></p>
+<p><strong>Trials and freemium</strong></p>
+<ul>
+<li><strong>No-card trials</strong> start without payment details. The entitlement works only until <code>trial_ends_at</code>; offline checks never extend a trial past its trial end.</li>
+<li><strong>Freemium</strong> installs create a hidden entitlement with plan capabilities. The CMS and plugin use those capabilities to decide which features are available, but buyers do not need to copy a key for the free plan.</li>
+<li>Upgrading from trial or freemium to a paid plan goes through Stripe checkout.</li>
+</ul>
+<p><strong>Partner / complimentary keys</strong></p>
+<p>A provider may send you a <strong>partner key</strong> for a paid offer (friends, agencies, press). Activate it in Hub the same way as a purchased fallback key. Seat limits still apply, and the provider can revoke the key later.</p>
+<p><strong>Installing in Birkly CMS (paid / entitlement or activation key)</strong></p>
 <ol>
 <li>Log in to your Birkly <strong>admin</strong> (<code>/admin</code>).</li>
 <li>Go to <strong>Plugins</strong> (or <strong>Settings → Plugins</strong>).</li>
 <li>Open the <strong>Hub</strong> tab.</li>
 <li>Browse or search the catalog (read-only view of marketplace listings).</li>
-<li>Click <strong>Install</strong> on an offer you own, or use <strong>Activate license</strong> and paste your license key.</li>
+<li>Click <strong>Install</strong> on an offer you own, or use <strong>Activate license</strong> and paste your fallback activation key.</li>
 <li>The CMS downloads the artifact, verifies the SHA-256 checksum, runs preflight checks, and extracts by offer type: plugins → <code>plugins/</code>, themes → <code>themes/</code>, site packs (<code>template_pack</code>) → <code>content/collections/</code> + <code>project/</code>.</li>
 <li><strong>Enable</strong> the plugin from the Plugins list if it is not enabled automatically.</li>
 </ol>
 <p>For site pack options (demo entries, overwrite mode, required plugins, Upload pack), see <a href="../06-plugin-economy/theme-and-template-packs.html">Hub, themes, and site packs</a>.</p>
 <p><strong>Free vs paid</strong></p>
-<p>| Offer type | Checkout on marketplace | License key in CMS | |------------|-------------------------|------------------| | Official Birkly plugins (commerce, events, automation, user management) | No | No — one-click <strong>Install</strong> | | Paid official (one-time) | Yes (Stripe) | Yes — required before install | | Subscription official / third-party | Yes (Stripe Billing) | Yes — active subscription required for updates | | Free community offers | Often yes (email capture) | Yes — emailed or <strong>My purchases</strong> | | Paid one-time third-party | Yes (Stripe) | Yes — required before install |</p>
+<p>| Offer type | Checkout on marketplace | Key visible in CMS | |------------|-------------------------|--------------------| | Official Birkly plugins (commerce, events, automation, user management) | No | No — one-click <strong>Install</strong> | | Free / freemium community offers | No paid checkout | No visible key; hidden entitlement | | Trial offers | No card for trial start | No visible key unless upgraded | | Paid official (one-time) | Yes (Stripe) | Fallback key available; entitlement is primary | | Subscription official / third-party | Yes (Stripe Billing) | Fallback key available; active subscription required | | Paid one-time third-party | Yes (Stripe) | Fallback key available; entitlement is primary |</p>
 <p><strong>Seat limits</strong></p>
-<p>| Tier | Typical use | |------|-------------| | Single site | One Birkly installation | | Multi-site (3 / 10) | Agency or staging + production | | Unlimited | Enterprise tier (as listed on the offer) |</p>
-<p>If activation fails with a seat error, deactivate the license on an old installation or purchase a higher tier.</p>
+<p>| Tier | Typical use | |------|-------------| | Single site | One production Birkly installation plus one staging installation | | Multi-site (3 / 10) | Agency or additional production/staging installs | | Unlimited | Enterprise tier (as listed on the offer) |</p>
+<p>If activation fails with a seat error, deactivate the entitlement on an old installation from buyer self-service or the CMS Hub. Deactivation frees that environment seat. Full revocation, such as a full refund, is different from self-service deactivation and removes the right to use the paid offer.</p>
+<p><strong>Offline grace</strong></p>
+<p>Marketplace licensing is a practical deterrent, not perfect DRM. The CMS stores a signed local entitlement token so installed paid features can keep working during short outages:</p>
+<ul>
+<li>One-time purchases: one offline grace window of up to <strong>30 days</strong> from the last successful refresh.</li>
+<li>Subscriptions: up to <strong>14 days</strong> from the last known active status.</li>
+<li>Trials: no extension past the trial end date.</li>
+</ul>
+<p>Reconnect the CMS to refresh status before the grace window ends.</p>
 <p><strong>Refunds</strong></p>
 <ul>
 <li>Request a refund from your <strong>My purchases</strong> page within the policy window (default <strong>14 days</strong> from purchase).</li>
-<li><strong>Third-party providers</strong> approve or deny refund requests; Birkly may auto-approve for official free offers.</li>
-<li>On <strong>full refund approval</strong>, payment is reversed via Stripe and the license is <strong>revoked</strong> — the plugin may stop receiving updates and paid features may be disabled.</li>
-<li>For disputes, contact the provider’s support email on the offer page; platform admin can escalate.</li>
+<li><strong>Third-party providers</strong> are the seller/merchant of record for their offers and make the primary refund decision. Birkly handles official Birkly offers and marketplace infrastructure.</li>
+<li>Birkly Ops can escalate when a provider is unresponsive or policy requires intervention.</li>
+<li>On <strong>full refund approval</strong>, payment is reversed through Stripe and the entitlement plus activation slots are <strong>revoked</strong> — paid updates and paid features may stop.</li>
+<li>Chargebacks place the entitlement on <strong>hold</strong> immediately; if the dispute is lost, the entitlement is revoked.</li>
 </ul>
 <p>Marketplace refund and buyer terms: <a href="https://marketplace.birkly.io/legal/refund">marketplace.birkly.io/legal/refund</a> · <a href="https://marketplace.birkly.io/legal/terms">Terms of service</a>.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Installation identity</strong></p>
-<p>Each CMS install stores a local <code>installation_id</code>. License activation sends <code>license_key + installation_id</code> to the marketplace API. The same key on a second install counts toward your seat limit. Official free installs use the same activation API internally; the CMS handles it when you click <strong>Install</strong>.</p>
+<p>Each CMS install stores a local <code>installation_id</code> and sends it during entitlement activation. A single-site entitlement allows one active production activation plus one active staging activation; staging is detected from local/staging hostnames or an explicit environment value. Paid activation can still use <code>license_key + installation_id</code> as a fallback, but the entitlement and signed local token are the main runtime proof.</p>
 <p><strong>Settings</strong></p>
 <p>Default marketplace URL: <code>https://marketplace.birkly.io</code>. Override via environment variable <code>BIRKLY_MARKETPLACE_URL</code> or <code>settings/marketplace.json</code> (<code>marketplace_url</code>) for staging or self-hosted marketplace instances.</p>
 <p><strong>Updates</strong></p>
-<p>Installed marketplace plugins store <code>marketplace_slug</code> and version metadata. The Hub tab checks the registry API for newer semver releases. When an update is available, use <strong>Update</strong> to download, verify checksum, and replace files (backup first — see <a href="updates.html">Updates</a>). Site pack updates skip user-edited <code>project/</code> files and entry content. <strong>Subscription</strong> licenses: update is blocked when marketplace reports <code>license_inactive</code> or lapsed subscription — renew at <strong>My subscriptions</strong> first.</p>
+<p>Installed marketplace plugins store <code>marketplace_slug</code> and version metadata. The Hub tab checks the registry API for newer semver releases. When an update is available, use <strong>Update</strong> to download, verify checksum, and replace files (backup first — see <a href="updates.html">Updates</a>). Site pack updates skip user-edited <code>project/</code> files and entry content. <strong>Subscription</strong> entitlements: update is blocked when marketplace reports an inactive, held, revoked, or lapsed subscription — renew at <strong>My subscriptions</strong> first.</p>
 <p><strong>Offline / air-gapped installs</strong></p>
-<p>Browse and install require network access to the marketplace registry. Already-installed plugins continue to work offline; update checks fail gracefully until connectivity returns.</p>
+<p>Browse and install require network access to the marketplace registry. Already-installed paid plugins rely on the signed local token while offline and must reconnect before the grace rules above expire; update checks fail gracefully until connectivity returns.</p>
 <p><strong>Manual install (fallback)</strong></p>
-<p>If you cannot use the Hub tab for a plugin, download the release zip from your purchase email or <strong>My purchases</strong>, verify the published SHA-256 from the offer page, and extract manually into <code>plugins/</code>. For site packs, prefer <strong>Upload pack</strong> on the Installed tab (same engine as Hub) rather than hand-extracting into <code>themes/</code>. You still need a valid license for paid offers if the plugin enforces marketplace licensing.</p>
+<p>If you cannot use the Hub tab for a plugin, download the release zip from your purchase email or <strong>My purchases</strong>, verify the published SHA-256 from the offer page, and extract manually into <code>plugins/</code>. For site packs, prefer <strong>Upload pack</strong> on the Installed tab (same engine as Hub) rather than hand-extracting into <code>themes/</code>. You still need a valid entitlement or fallback activation key for paid offers if the plugin enforces marketplace licensing.</p>
 <p><strong>Security</strong></p>
 <ul>
 <li>Install only from the official marketplace or sources you trust.</li>

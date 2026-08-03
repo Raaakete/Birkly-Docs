@@ -113,7 +113,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Plugins | `06-extensibility/plugins.md` | Installing and managing plugins |
 | Marketplace go-live | `06-extensibility/marketplace-go-live.md` | Fresh install, paid/free official plugins |
 | Marketplace — provider guide | `06-extensibility/marketplace-provider-guide.md` | Publishing offers, subscription pricing |
-| Marketplace — buyer guide | `06-extensibility/marketplace-buyer-guide.md` | Paid official, subscription licenses, install |
+| Marketplace — buyer guide | `06-extensibility/marketplace-buyer-guide.md` | Paid official, entitlements, subscriptions, install |
 | Commerce plugin | `06-extensibility/plugins/commerce.md` | Commerce v2 0→1 complete (1.0.29 / P54 P3) |
 | Commerce hybrid cart | `06-extensibility/commerce-hybrid-cart.md` | Mixed ship+deliver+register+subscribe / split checkout |
 | Commerce store kit | `06-extensibility/commerce-store-kit.md` | MCP/Agent store kit (`commerce-store-kit`) |

@@ -69,8 +69,10 @@ These exist so the semantic tokens below have something to point at. **Component
 
 | Ramp | Steps |
 |------|-------|
-| Warm neutral | `--neutral-0` `#FFFFFF` · `--neutral-50` `#F8F9F7` · `--neutral-75` `#F1F3EE` · `--neutral-100` `#E7EAE2` · `--neutral-200` `#DDE1D8` · `--neutral-300` `#CBD0C4` · `--neutral-400` `#B3B8AC` · `--neutral-500` `#9CA096` · `--neutral-600` `#8E9089` · `--neutral-700` `#5E605B` · `--neutral-800` `#3D403A` · `--neutral-900` `#20221D` · `--neutral-950` `#161815` |
+| Warm neutral | `--neutral-0` `#FFFFFF` · `--neutral-50` `#F8F9F7` · `--neutral-75` `#F1F3EE` · `--neutral-90` `#EEF0E9` · `--neutral-100` `#E7EAE2` · `--neutral-200` `#DDE1D8` · `--neutral-300` `#CBD0C4` · `--neutral-400` `#B3B8AC` · `--neutral-500` `#9CA096` · `--neutral-600` `#8E9089` · `--neutral-700` `#5E605B` · `--neutral-800` `#3D403A` · `--neutral-900` `#20221D` · `--neutral-950` `#161815` |
 | Mint | `--mint-50` `#EDFCF7` · `--mint-100` `#D4F8ED` · `--mint-200` `#AEF0DC` · `--mint-300` `#88E8C9` · `--mint-400` `#7CE3BF` · `--mint-500` `#7CE3BF` · `--mint-600` `#52C49A` · `--mint-700` `#3DA882` · `--mint-800` `#2D8C6B` · `--mint-900` `#1D6B52` · `--mint-950` `#17604A` |
+
+`--neutral-90` sits between `--neutral-75` (the canvas) and `--neutral-100` — see why in Surfaces below.
 
 #### 2.2 Surfaces
 
@@ -78,7 +80,7 @@ These exist so the semantic tokens below have something to point at. **Component
 |-------|-------|------|------|
 | `--canvas` | `#F1F3EE` | `#131511` | App background. Sidebar, topbar and main content sit on it with no fill of their own. |
 | `--surface` | `#FFFFFF` | `#252821` | Panels: cards, tables, modals, nav boxes. |
-| `--surface-sunken` | `#E7EAE2` | `#0D0F0B` | Wells: table headers, card footers, code blocks, disabled inputs, empty-state icon tiles. |
+| `--surface-sunken` | `#EEF0E9` (`--neutral-90`) | `#0D0F0B` | Wells: table headers, card footers, code blocks, disabled inputs, empty-state icon tiles. |
 | `--surface-raised` | `#FFFFFF` | `#2E322A` | Floating surfaces: dropdowns, popovers, toasts. Always paired with an elevation. |
 | `--surface-hover` | `#F8F9F7` | `#2E322A` | Hover on interactive rows and items. |
 | `--surface-active` | `#E7EAE2` | `#363A31` | Pressed state, segmented-control track, progress track. |
@@ -87,6 +89,8 @@ These exist so the semantic tokens below have something to point at. **Component
 | `--overlay` | `rgba(32,34,29,0.32)` | `rgba(0,0,0,0.56)` | Modal, drawer and sheet backdrop. |
 
 Note that dark mode makes the canvas **darker** than the surface, preserving the light-mode relationship — panels still read as panels.
+
+**Why `--surface-sunken` uses `--neutral-90`, not `--neutral-100`.** A "recessed" fill (a card footer, a table header band, an options well) sits *inside* a white `.card`, one level further from the page than the canvas itself. If that fill is darker than `--canvas`, it reads as heavier than the entire page background behind it — a well inside a card looks more prominent than the page it's on. `--neutral-90` is a half-step between `--canvas` and the old `--neutral-100`, close enough to the canvas tone that a sunken fill reads as a quiet recess rather than a second, heavier layer. `--surface-active` (hover/press feedback — a different job, where a touch more presence is correct) still uses `--neutral-100`.
 
 #### 2.3 Text
 
@@ -101,7 +105,7 @@ Note that dark mode makes the canvas **darker** than the surface, preserving the
 
 #### 2.4 Borders
 
-All borders are `1px`. 2px+ is reserved for the active-nav rail, focus outlines and the active tab underline.
+All borders are `1px`. 2px+ is reserved for the active-nav rail and focus outlines. The active tab/side-nav item is a filled pill (`--surface-selected`), not an underline or a border — see §4.13.
 
 | Token | Light | Dark | Use |
 |-------|-------|------|-----|
@@ -112,6 +116,18 @@ All borders are `1px`. 2px+ is reserved for the active-nav rail, focus outlines 
 | `--border-strong` | `#5E605B` | `#8A8D85` | Emphasis. |
 
 The subtle/default pair are decorative and do not need to meet a contrast minimum; the `control` pair are functional and do. Using `--border-subtle` on an input is an accessibility bug.
+
+**Text fields use a separate family — never `--border-control`.**
+
+| Token | Light | Dark | Use |
+|-------|-------|------|-----|
+| `--field-border` | `#9CA096` (`--neutral-500`) | `#525649` | **Resting.** Deliberately quieter than `--border-control` — 2.66:1. |
+| `--field-border-hover` | `#8E9089` (`--neutral-600`) | `#5F635A` | Hover. 3.23:1. |
+| `--field-border-focus` | `#5E605B` (`--neutral-700`) | `#B4B7B0` | **Focus.** A dark neutral, 6.36:1 — never accent. |
+
+`.input`, `.select` and `.textarea` (`components/forms.css`) use `--field-border` / `-hover` / `-focus` for their border, and the focus **outline** is repointed to `--field-border-focus` too — not the global `--focus-color` (mint). `--border-control` stays reserved for buttons, custom-selects and icon buttons, which have no border colour anywhere near it.
+
+The reason for the split: `--accent-focus` (mint) sits in the same visual family as `--success-fg`/`--success-solid` (also green). A focused text field with a mint border or a mint focus ring reads as "this field is valid" the instant you tab into it — indistinguishable from the state a field gets *after* it actually passes validation (`.input.is-valid`). Every other interactive control (buttons, tabs, checkboxes, the sidebar) keeps the brand-coloured focus ring; only text fields sit close enough to the success/danger border vocabulary for the confusion to matter, so only text fields get the neutral, dark `--field-border-focus` instead.
 
 #### 2.5 Accent — read this before using mint
 
@@ -267,7 +283,14 @@ One scale. No raw z-index literal may appear in admin CSS; CI blocks it (`0` and
 | `--ease-out` | `cubic-bezier(0.2, 0, 0, 1)` | Entrances, expands |
 | `--ease-in-out` | `cubic-bezier(0.4, 0, 0.2, 1)` | Position changes |
 
-Rules: enumerate transition properties (`transition: all` is blocked in CI); maximum travel 8px; no hover scale and no hover translate — buttons signal press through background colour only; looping animation only for indeterminate loading. `prefers-reduced-motion: reduce` is handled in **one** global block in `core/reset.css`; components must not ship their own.
+Rules: enumerate transition properties (`transition: all` is blocked in CI); maximum travel 8px; looping animation only for indeterminate loading. `prefers-reduced-motion: reduce` is handled in **one** global block in `core/reset.css`; components must not ship their own.
+
+Two scoped exceptions to "no hover translate / no hover scale", both deliberate and both narrow:
+
+- **Buttons get a 1px `translateY` on `:active` only** — never on hover. It's gated on an actual press, not the pointer passing over the element, so it reads as physical feedback rather than motion.
+- **Icon-button glyphs** (the `svg`/`.birkly-icon` *inside* a `.btn-icon`, not the button box itself) scale slightly on hover (`1.08`) and active (`0.96`). The hit target never moves or resizes — only the glyph does — so it doesn't read as a card-style hover violation.
+
+**Show/hide panels use a state class, never a raw `display` swap.** Anything that should animate open and closed — drawers, floating windows, FAB menus — stays `display: flex` (or whatever its layout display is) at all times in CSS. A class like `.is-open` toggles `opacity`, `visibility`, `transform` and `pointer-events` instead, so the transition actually runs in both directions. JS calls `classList.add/remove('is-open')` (or reads `classList.contains(...)`) and never reads or writes `element.style.display` for anything that should animate. `.modal`, `.sheet` and `.ai-chat-window` are the reference implementations: always laid out, always transitioning, with `.is-open` (or `.show`/`.active`, depending on the component) as the only thing JS touches. Toggling `style.display` directly makes the open/close instant and jarring — there is nothing left for CSS to transition.
 
 #### 2.13 Focus
 
@@ -303,7 +326,7 @@ Related: `--chrome-row` (= `--control-lg`), `--chrome-stack-gap` and `--chrome-c
 | `--page-max` | 1440px | Page body max width |
 | `--page-max-narrow` | 880px | Single-column pages: account, auth, onboarding |
 | `--sidebar-width` | 280px | Expanded sidebar |
-| `--sidebar-width-collapsed` | 4.5rem | Icon rail |
+| `--sidebar-width-collapsed` | `var(--chrome-row)` (40px) | Icon rail — matches the logo tile's own width, so the collapsed column is one consistent width top to bottom |
 | `--shell-edge-padding` | `--space-10` | Main content padding; steps down at each breakpoint |
 
 #### 2.16 Breakpoints
@@ -517,6 +540,27 @@ The default panel. Border-only by design.
 
 Modifiers: `.card--compact` (tighter padding on all three regions) · `.card--flush` (zero body padding, for a table or list that supplies its own) · `.card--padded` (the card *is* the body — for JS-composed cards) · `.card--sunken` · `.card--accent` · `.card--danger` · `.card--borderless` · `.card--interactive` (hover border + `--elevation-1`; `a.card` gets it automatically). `.card--bordered` and `.card--elevated` remain as aliases for un-migrated markup — don't reach for them in new work.
 
+##### Card section — stop nesting a card inside a card
+
+Once content already lives inside a `.card`, its children compose with spacing and a divider, not a second box. `.card-section` is a divider-separated sub-block with **no border, background or radius of its own** — it exists specifically so a settings sidebar, a fieldtype's options block, or any other group of fields *inside* a card body doesn't reach for a nested `.card`:
+
+```html
+<div class="card-body u-stack-0">
+  <div class="card-section">
+    <p class="card-section-title">Display</p>
+    <!-- fields -->
+  </div>
+  <div class="card-section">
+    <p class="card-section-title">Access</p>
+    <!-- fields -->
+  </div>
+</div>
+```
+
+Each `.card-section` after the first grows a top hairline (`.card-section + .card-section`); the first and last sections drop their outer padding so the group still sits flush with the card's own edges. Use `.card-section--compact` for tighter option rows, and `.card-section-title` for a small heading inside one section. See the **box-in-box** rule in §7 (Do and don't) — this is what to reach for instead.
+
+If the nested content is a single explanatory note rather than a group of fields, don't box it at all: plain stacked text (`u-stack-*`) reads better than a bordered aside for one sentence.
+
 #### 4.2 Stat
 
 A labelled metric. Flat, no gradient.
@@ -607,6 +651,20 @@ One naming convention: single dash.
 | `.btn-group` | Joined row of buttons; `[aria-pressed="true"]` marks the active one |
 
 Direct `svg` or `.birkly-icon` children are sized automatically (16px, 14px in `.btn-sm`).
+
+**Hover model — each variant darkens toward itself, never toward a shared grey.** Every filled variant's hover and active state is derived from its *own* resting colour with `color-mix()`, not a single grey wash applied to every button. A shared hover treatment across variants is what made primary, secondary and outline feel interchangeable the instant you moved the pointer over them:
+
+- `.btn-primary` hover darkens the mint fill toward black (`color-mix(in srgb, var(--accent) 92%, black 8%)`, ~16% at `:active`) and adds a soft ring in `--accent-soft`. It never *lightens* on hover — brightening an already-light mint fill reads as a flash.
+- `.btn-secondary` hover darkens its own fill toward `--text-primary` (`color-mix(in srgb, var(--surface-sunken) 80%, var(--text-primary) 20%)`, deeper again at `:active`), so it stays visually distinct from `.btn-outline`'s plain neutral wash instead of converging on the same hover colour.
+- `.btn-danger` / `.btn-success` / `.btn-warning` darken toward their own `-fg` tone with a matching soft-surface ring, on a three-step rest/hover/active ladder.
+- `.btn-outline` and `.btn-ghost` have no fill of their own to darken, so they keep the plain `--surface-hover` neutral wash.
+
+A new variant needs its own darken/tint step derived from its own resting colour — do not add a second shared/generic hover rule across variants.
+
+**Press and micro-motion — two narrow, deliberate exceptions to "no hover translate/scale":**
+
+- Every `.btn` gets a **1px `translateY` on `:active` only**, never on hover — a small physical-press cue gated on the actual click.
+- `.btn-icon` glyphs (the `svg`/`.birkly-icon` child, not the button box) nudge with `scale(1.08)` on hover and `scale(0.96)` on active. The hit target itself never scales or moves; only the icon glyph does, so it reads as icon feedback rather than a card-style hover violation.
 
 #### 4.6 Forms
 
@@ -805,7 +863,11 @@ Every async region needs all three. A region with only a happy path is incomplet
 
 `.avatar` is a mint-filled circle with `--ink-on-accent` initials at `--control-md`; `.avatar-sm` is 28px, `.avatar-lg` 48px.
 
-#### 4.13 Tabs and segmented control
+#### 4.13 Secondary navigation — tabs and side nav
+
+There is **one** secondary-navigation concept, in two orientations: a padded, `--radius-sm` item that fills with `--surface-selected` when active — the same active-state fill the main sidebar uses for itself. `.tabs`/`.tab` is the horizontal orientation; `.side-nav`/`.side-nav-item` is the vertical one. They share one selector list for hover, active and focus, so they cannot drift apart the way two independently maintained nav dialects would. This is distinct from the main sidebar (§5, and the note at the end of this section), which is its own locked, unique pattern — don't reach for `.side-nav` there.
+
+**Horizontal — `.tabs` / `.tab`.** The active tab is a **filled pill**, not an underline:
 
 ```html
 <div class="tabs-root">
@@ -822,11 +884,47 @@ Every async region needs all three. A region with only a happy path is incomplet
 </div>
 ```
 
-Tabs are `--control-lg` high on a hairline rail; the active tab gets a 2px mint underline. `.tab-panel` is canonical; `.tab-content` and `.tab-pane` are kept because templates and JS use both. Show a panel with `.active` or `aria-hidden="false"`.
+Tabs sit `--control-lg` high on a hairline rail (`border-block-end: 1px solid var(--border-subtle)`). The active tab gets `--surface-selected` fill and `--text-primary`; its icon (if any) takes `--accent-text`. `.tab-panel` is canonical; `.tab-content` and `.tab-pane` are kept because templates and JS use both. Show a panel with `.active` or `aria-hidden="false"`.
 
 The responsive overflow behaviour (desktop wrap → tablet scroll + "More" → mobile `<select>` picker) is driven by `admin/js/tabs-v2.js` and its class contract: `.tabs-v2-root`, `.tabs-v2--desktop`, `.tabs-v2--scroll`, `.tabs-v2--picker`, `.tabs-v2-picker-wrap`, `.tabs-v2-more-wrap`, `.tabs-v2-more-menu`, `.tabs-v2-more-item`. You don't write those by hand — add `.tabs-v2-root` and let the script manage the rest.
 
-For mode switches (view toggles, assist/source), use the segmented control instead of a second tab dialect:
+**Vertical — `.side-nav` / `.side-nav-item`, with optional sub-nav.** For doc- or tree-style vertical navigation (a topic list, a folder tree):
+
+```html
+<nav class="side-nav">
+  <div class="side-nav-group">
+    <p class="side-nav-group-title">Getting started</p>
+    <a class="side-nav-item active" href="…">Overview</a>
+    <a class="side-nav-item" href="…">Installation</a>
+  </div>
+  <div class="side-nav-group">
+    <a class="side-nav-item" aria-expanded="true">
+      Content
+      <span class="side-nav-chevron">…</span>
+    </a>
+    <div class="side-nav-sub">
+      <a class="side-nav-sub-item active" href="…">Collections</a>
+      <a class="side-nav-sub-item" href="…">Entries</a>
+    </div>
+  </div>
+</nav>
+```
+
+| Part | Notes |
+|------|-------|
+| `.side-nav` | Column of groups, `gap: --space-4` |
+| `.side-nav-group` | One labelled (or unlabelled) cluster of items |
+| `.side-nav-group-title` | `.u-label`-style uppercase micro-label above a group |
+| `.side-nav-item` | Full-width item, `--control-md` high, left-aligned. Same active/hover/focus rule as `.tab` |
+| `.side-nav-sub` | Indented nested list under a parent item, with a leading rule |
+| `.side-nav-sub-item` | `--control-sm` high, `--text-sm` — a step down from its parent |
+| `.side-nav-chevron` | Rotates 90° when the parent carries `aria-expanded="true"` |
+
+Wrap the item's own text in `.side-nav-label` if it needs to truncate (`overflow: hidden; text-overflow: ellipsis`) rather than wrap or overflow the item.
+
+**Not the same thing as the sidebar.** The main app sidebar (`.nav-links` / `.nav-link`, layout/sidebar.css) is a separate, deliberately unique, locked pattern — flush full-width rows inside their own rounded box, with a leading accent rail on the active item. Don't migrate the sidebar to `.side-nav`, and don't invent a third vertical-nav pattern for a new secondary surface — reach for `.side-nav`.
+
+For mode switches (view toggles, assist/source), use the segmented control instead of a third tab dialect:
 
 ```html
 <div class="segmented" role="group">
@@ -1105,6 +1203,8 @@ Dark mode is a **token remap and nothing else**.
 
 **If a component needs a `[data-theme="dark"]` rule, that is a token bug, not a dark-mode requirement.** Find the hardcoded value or the token that's pointing at a primitive instead of a semantic role, and fix that instead. CI fails any `data-theme` selector in admin CSS outside the token file and one documented exception: the topbar's radial shadow cast in `layout/header.css`, which is a gradient rather than a colour and genuinely needs a second definition.
 
+> **Never put a literal `data-theme="light"`, `data-theme="dark"` or `data-theme="system"` attribute on any element other than the real theme root (`<html>`/`<body>`).** Dark mode's CSS is scoped entirely by the attribute selector `[data-theme="dark"]` — and a CSS attribute selector matches **any** element carrying that attribute, not just the theme root. A theme-switcher option button, a preview swatch, or any other per-element "which theme is this for" marker that happens to be named `data-theme="dark"` will locally and silently inherit dark-surface tokens, regardless of what theme the page is actually in — a light-grey-on-white-looking control in the middle of a light page, with no CSS rule anywhere that looks wrong. If you need a similar per-element data attribute for your own purposes, name it something else entirely — `data-theme-option`, `data-theme-preview`, anything that isn't the bare `data-theme` the dark-mode system watches. `theme.js`'s two `setAttribute('data-theme', …)` calls on `documentElement`/`body` should be the only places that literal attribute is ever set.
+
 Test every UI change in both themes.
 
 ---
@@ -1120,8 +1220,10 @@ Test every UI change in both themes.
 | A saturated `--success-solid` status pill | `--success-surface` + `--success-fg`, i.e. `.badge badge-success` | Saturated green next to the mint primary reads muddy. |
 | Invent a blue | `--info-*` | There is exactly one blue family in the admin. |
 | `transition: all` | Enumerate the properties you animate | Blocked in CI; `all` animates layout properties by accident. |
-| `transform: scale(1.02)` or `translateY(-1px)` on hover | Change `background-color` or `border-color` | No hover scale, no hover translate, max 8px travel anywhere. |
+| `transform: scale(1.02)` or `translateY(-1px)` on **hover** | Change `background-color` or `border-color` | No hover scale, no hover translate, max 8px travel anywhere. The only exceptions are the button `:active` press and the `.btn-icon` glyph nudge — both scoped, both documented in §4.5, neither is a hover-on-the-box effect. |
 | A `box-shadow` on a static card | `--elevation-0` (the default) | Shadow means "floats above the page". Borders do the structural work. |
+| A second `.card` nested inside a `.card-body` | `.card-section`, more `u-stack-*` spacing, or a plain `.divider` | Box-in-box. Once content is already inside a panel, its children compose with spacing and a divider — not more boxes. See §4.1. |
+| A literal `data-theme="light"` / `"dark"` / `"system"` attribute on anything but the real theme root | A differently-named attribute, e.g. `data-theme-option`, `data-theme-preview` | Dark mode is scoped by the exact selector `[data-theme="dark"]` on `<html>`/`<body>`. Any *other* element carrying that attribute silently inherits dark-surface tokens regardless of the page's actual theme. See §6. |
 | A raw `z-index: 9999` | A `--z-*` token | Blocked in CI. The scale already has a slot for what you're doing. |
 | A new breakpoint like `900px` | One of the five `--bp-*` values | Blocked in CI. Prefer `min-width`. |
 | `style="display: none"` | The `hidden` attribute, or `u-hidden` | `[hidden]` is declared after every component so it actually wins. |

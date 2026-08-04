@@ -9,7 +9,8 @@
 </ol>
 <p>Draft content is <strong>never</strong> exposed via MCP.</p>
 <h2>MCP resource</h2>
-<p>| URI | Content | |-----|---------| | <code>birkly://brand-context</code> | Published Agent Guide, <strong>summary</strong> view JSON (legacy URI name) |</p>
+<table><thead><tr><th>URI</th><th>Content</th></tr></thead>
+<tbody><tr><td><code>birkly://brand-context</code></td><td>Published Agent Guide, <strong>summary</strong> view JSON (legacy URI name)</td></tr></tbody></table>
 <p>Use for lightweight agent system prompts or context injection. Summary includes <code>sources_of_truth</code> and <code>usage_hints.follow_sources_of_truth</code>.</p>
 <h2>MCP / AI read tools</h2>
 <p>Registered in Birkly’s AI tool registry (<code>core/ai_tool_registry.php</code>):</p>
@@ -18,7 +19,8 @@
 <pre><code>{
   &quot;view&quot;: &quot;summary | full | products&quot;
 }</code></pre>
-<p>| view | Returns | |------|---------| | summary | Identity, positioning highlights, supported claim statements, sources_of_truth, usage_hints | | full | Complete enriched export | | products | <code>products_services</code> array with resolved sources |</p>
+<table><thead><tr><th>view</th><th>Returns</th></tr></thead>
+<tbody><tr><td>summary</td><td>Identity, positioning highlights, supported claim statements, sources_of_truth, usage_hints</td></tr><tr><td>full</td><td>Complete enriched export</td></tr><tr><td>products</td><td><code>products_services</code> array with resolved sources</td></tr></tbody></table>
 <p>Returns error if not published or disabled.</p>
 <h3>list_agent_guide_products</h3>
 <p>No arguments. Legacy alias: <strong><code>list_brand_products</code></strong>.</p>
@@ -48,7 +50,8 @@
 <li><code>/api/public/ai_presence.php</code></li>
 </ul>
 <p>Graph equivalents:</p>
-<p>| MCP | HTTP | |-----|------| | get_agent_guide_product | <code>?action=product&amp;id=x&amp;graph=1</code> | | get_agent_guide_claim | <code>?action=claim&amp;id=x&amp;graph=1</code> |</p>
+<table><thead><tr><th>MCP</th><th>HTTP</th></tr></thead>
+<tbody><tr><td>get_agent_guide_product</td><td><code>?action=product&amp;id=x&amp;graph=1</code></td></tr><tr><td>get_agent_guide_claim</td><td><code>?action=claim&amp;id=x&amp;graph=1</code></td></tr></tbody></table>
 <p>See <a href="agent-guide-public-api.html">Public API</a>.</p>
 <h2>Agent integration patterns</h2>
 <h3>Pattern 1 — Summary + sources in system prompt</h3>
@@ -106,7 +109,8 @@ read_entry(collection, slug)
 <li>Published JSON is already public via HTTP — MCP adds authenticated convenience for connected agents, not secret data</li>
 </ul>
 <h2>Error handling</h2>
-<p>| Condition | Tool result | |-----------|-------------| | Never published | Error: Agent Guide not published | | Publishing disabled | Error / null | | Unknown claim/product id | Error: Not found | | Unsupported claim id | Error (supported only) |</p>
+<table><thead><tr><th>Condition</th><th>Tool result</th></tr></thead>
+<tbody><tr><td>Never published</td><td>Error: Agent Guide not published</td></tr><tr><td>Publishing disabled</td><td>Error / null</td></tr><tr><td>Unknown claim/product id</td><td>Error: Not found</td></tr><tr><td>Unsupported claim id</td><td>Error (supported only)</td></tr></tbody></table>
 <h2>Related docs</h2>
 <ul>
 <li><a href="../02-content/agent-guide.html">Agent Guide overview</a></li>

@@ -35,7 +35,8 @@
 </ul>
 <p>That would give you a URL to a version that fits those dimensions (or is cropped). If your Birkly version doesn’t support this, use the plain URL and size the image with CSS, or use a separate image service.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Reference types</strong></p>
-<p>| Use case | Typical syntax | Notes | |----------|----------------|--------| | Global media by filename | <code>{ media 'filename.jpg' }</code> | File from Media Library; name must match. | | Entry media field | <code>{ media field_key }</code> | URL of the selected media for current entry. | | In loop | <code>{ media featured_image }</code> | Current entry’s media field. |</p>
+<table><thead><tr><th>Use case</th><th>Typical syntax</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Global media by filename</td><td><code>{ media 'filename.jpg' }</code></td><td>File from Media Library; name must match.</td></tr><tr><td>Entry media field</td><td><code>{ media field_key }</code></td><td>URL of the selected media for current entry.</td></tr><tr><td>In loop</td><td><code>{ media featured_image }</code></td><td>Current entry’s media field.</td></tr></tbody></table>
 <p><strong>Optional parameters (when supported)</strong></p>
 <ul>
 <li><strong>width / height:</strong> Request a version with max width/height (aspect ratio may be preserved).</li>

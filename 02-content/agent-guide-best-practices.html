@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -232,7 +234,8 @@
 <li>State restrictions (logo clear space, no AI training, etc.)</li>
 </ul>
 <h2>Cross-links &amp; evidence</h2>
-<p>| Do | Don’t | |----|-------| | Link marketplace <strong>listing URL</strong> | Paste review text | | Store rating + count as metadata | Scrape competitor reviews | | Use <code>user_verified</code> after checking | Mark supported without opening URL | | Run <strong>Check all links</strong> before publish | Ignore broken link warnings | | Register key docs in <strong>sources of truth</strong> | Hide proof only in free-text fields |</p>
+<table><thead><tr><th>Do</th><th>Don’t</th></tr></thead>
+<tbody><tr><td>Link marketplace <strong>listing URL</strong></td><td>Paste review text</td></tr><tr><td>Store rating + count as metadata</td><td>Scrape competitor reviews</td></tr><tr><td>Use <code>user_verified</code> after checking</td><td>Mark supported without opening URL</td></tr><tr><td>Run <strong>Check all links</strong> before publish</td><td>Ignore broken link warnings</td></tr><tr><td>Register key docs in <strong>sources of truth</strong></td><td>Hide proof only in free-text fields</td></tr></tbody></table>
 <h2>AI Assist governance</h2>
 <ul>
 <li>Review every suggestion before Accept — especially Fill 100% inferred fields</li>
@@ -241,7 +244,8 @@
 <li>Document who may publish (operational RACI)</li>
 </ul>
 <h2>Operational cadence</h2>
-<p>| Trigger | Action | |---------|--------| | CMS About page updated | Check CMS sync → refresh or edit → republish | | New product launched | Add product + sources → publish | | Certification renewed | Update evidence URL/date → republish | | Quarterly | Check all links + review supported claims + verify registry | | Rebrand / rename | Full Sources + Context pass + media context + republish |</p>
+<table><thead><tr><th>Trigger</th><th>Action</th></tr></thead>
+<tbody><tr><td>CMS About page updated</td><td>Check CMS sync → refresh or edit → republish</td></tr><tr><td>New product launched</td><td>Add product + sources → publish</td></tr><tr><td>Certification renewed</td><td>Update evidence URL/date → republish</td></tr><tr><td>Quarterly</td><td>Check all links + review supported claims + verify registry</td></tr><tr><td>Rebrand / rename</td><td>Full Sources + Context pass + media context + republish</td></tr></tbody></table>
 <h2>Security &amp; privacy</h2>
 <ul>
 <li>Public export is <strong>unauthenticated read</strong> — never put secrets, unreleased products (set <code>public: false</code> on products), or PII in Agent Guide</li>

@@ -3,7 +3,8 @@
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Public forms</strong> mean: a visitor fills out a form on your website (contact, newsletter, job application), and that data is saved as an <strong>entry</strong> in a Birkly collection. You can then see and manage it in the admin, and optionally trigger automations (e.g. email or Slack).</p>
 <p><strong>Step 1: Create a collection</strong></p>
 <p>Create a collection that matches what you want to collect. For a contact form, for example:</p>
-<p>| Field label | Type   | Required? | Key (example) | |-------------|--------|-----------|----------------| | Name        | Text   | Yes       | name          | | Email       | Email  | Yes       | email         | | Message     | Textarea | Yes     | message       |</p>
+<table><thead><tr><th>Field label</th><th>Type</th><th>Required?</th><th>Key (example)</th></tr></thead>
+<tbody><tr><td>Name</td><td>Text</td><td>Yes</td><td>name</td></tr><tr><td>Email</td><td>Email</td><td>Yes</td><td>email</td></tr><tr><td>Message</td><td>Textarea</td><td>Yes</td><td>message</td></tr></tbody></table>
 <p>Give the collection a name (e.g. “Contact submissions”) and a <strong>handle</strong> (e.g. <code>contact</code>). The handle is used in the submit URL.</p>
 <p><strong>Step 2: Allow public submissions</strong></p>
 <p>In the collection’s <strong>Settings</strong> (or Edit collection):</p>
@@ -75,7 +76,8 @@
 <li><strong>Publish behavior:</strong> Draft (review first) or Published (immediately visible if you ever list them; often still draft for contact-type collections).</li>
 </ol>
 <p><strong>Submitting from the website</strong></p>
-<p>| Option | Description | |--------|-------------| | <strong>Form POST</strong> | <code>action</code> = submit URL, <code>method=&quot;POST&quot;</code>, <code>name</code> attributes = field keys. May require CSRF/token field; check docs. | | <strong>JavaScript fetch</strong> | POST JSON (or form-encoded) to the submit endpoint. Include required headers (e.g. API key, Content-Type). | | <strong>Secure form flow</strong> | Request a one-time token from a dedicated endpoint, then POST form + token. Reduces CSRF and abuse; see “secure integration” or “public forms” in your docs. |</p>
+<table><thead><tr><th>Option</th><th>Description</th></tr></thead>
+<tbody><tr><td><strong>Form POST</strong></td><td><code>action</code> = submit URL, <code>method=&quot;POST&quot;</code>, <code>name</code> attributes = field keys. May require CSRF/token field; check docs.</td></tr><tr><td><strong>JavaScript fetch</strong></td><td>POST JSON (or form-encoded) to the submit endpoint. Include required headers (e.g. API key, Content-Type).</td></tr><tr><td><strong>Secure form flow</strong></td><td>Request a one-time token from a dedicated endpoint, then POST form + token. Reduces CSRF and abuse; see “secure integration” or “public forms” in your docs.</td></tr></tbody></table>
 <p><strong>Endpoint and body format</strong></p>
 <ul>
 <li>URL: Often <code>POST /api/public/collections/{handle}/entries</code> or <code>POST /api/public_submit.php?collection={handle}</code>. Confirm in API docs.</li>

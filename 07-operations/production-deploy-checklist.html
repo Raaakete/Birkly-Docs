@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -168,7 +170,8 @@
         <div class="doc-content"><p>Pre-flight and post-deploy verification for Birkly CMS, Marketplace, and client sites (Phase 12 closure).</p>
 <div class="doc-summary"><p>Use this checklist when promoting <strong>staging → production</strong> for the Birkly platform, marketplace, and reference client sites (for example kekaba). Automated smoke scripts cover health endpoints and admin login; human steps cover DNS, Stripe live mode, and legal copy.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Before deploy</h3>
-<p>| Step | Owner | Action | |------|-------|--------| | 1 | Agent/CI | <code>php tests/run.php</code> green on Birkly <code>main</code> | | 2 | Agent/CI | Marketplace test suite green | | 3 | Human | Back up production <code>content/</code>, <code>settings/</code>, <code>media/</code>, marketplace <code>data/</code> | | 4 | Human | Note current git commit SHA for rollback |</p>
+<table><thead><tr><th>Step</th><th>Owner</th><th>Action</th></tr></thead>
+<tbody><tr><td>1</td><td>Agent/CI</td><td><code>php tests/run.php</code> green on Birkly <code>main</code></td></tr><tr><td>2</td><td>Agent/CI</td><td>Marketplace test suite green</td></tr><tr><td>3</td><td>Human</td><td>Back up production <code>content/</code>, <code>settings/</code>, <code>media/</code>, marketplace <code>data/</code></td></tr><tr><td>4</td><td>Human</td><td>Note current git commit SHA for rollback</td></tr></tbody></table>
 <h3>Birkly CMS deploy</h3>
 <ol>
 <li>Pull latest <code>main</code> on the server (or run <code>./scripts/deploy-pull.sh</code>).</li>
@@ -204,7 +207,8 @@
 <li>[ ] Monitoring alerts configured</li>
 </ul>
 <h3>Post-deploy smoke (manual)</h3>
-<p>| Check | Expected | |-------|----------| | Admin login | <code>/admin</code> loads | | Commerce catalog | Products indexed | | Hub tab | Official plugins install | | Health endpoint | HTTP 200, checks pass | | Checkout (test) | Test mode order or small live transaction | | Subscriptions | List loads; upgrade UI on detail | | Plugin denylist | Add/remove test entry in Settings → Security |</p>
+<table><thead><tr><th>Check</th><th>Expected</th></tr></thead>
+<tbody><tr><td>Admin login</td><td><code>/admin</code> loads</td></tr><tr><td>Commerce catalog</td><td>Products indexed</td></tr><tr><td>Hub tab</td><td>Official plugins install</td></tr><tr><td>Health endpoint</td><td>HTTP 200, checks pass</td></tr><tr><td>Checkout (test)</td><td>Test mode order or small live transaction</td></tr><tr><td>Subscriptions</td><td>List loads; upgrade UI on detail</td></tr><tr><td>Plugin denylist</td><td>Add/remove test entry in Settings → Security</td></tr></tbody></table>
 <h3>Rollback</h3>
 <ol>
 <li>Revert server git to previous SHA.</li>
@@ -212,7 +216,8 @@
 <li>Re-run smoke script.</li>
 </ol></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Smoke script locations</strong></p>
-<p>| Repo | Script | |------|--------| | Birkly | <code>scripts/production-smoke.sh</code> | | kekaba | <code>scripts/check-production.sh</code> (when present) |</p>
+<table><thead><tr><th>Repo</th><th>Script</th></tr></thead>
+<tbody><tr><td>Birkly</td><td><code>scripts/production-smoke.sh</code></td></tr><tr><td>kekaba</td><td><code>scripts/check-production.sh</code> (when present)</td></tr></tbody></table>
 <p><strong>Health extensions (P12-M5)</strong></p>
 <p><code>/api/health.php</code> may include:</p>
 <ul>

@@ -38,9 +38,11 @@
 {endif}</code></pre>
 <h3>Admin-only helpers</h3>
 <p>Used in <code>admin/templates/</code> only:</p>
-<p>| Syntax | Purpose | |--------|---------| | <code>{admin_url 'page'}</code> | Admin page URL | | <code>{admin_url 'entry-editor' collection='collection.slug'}</code> | URL with query params | | <code>{translate 'admin.key'}</code> | i18n string | | <code>{count entries}</code> | Array length | | <code>{json variable}</code> | JSON for <code>&lt;script&gt;</code> data | | <code>{include_script 'file.js'}</code> | Load <code>/admin/js/file.js</code> |</p></div></details>
+<table><thead><tr><th>Syntax</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>{admin_url 'page'}</code></td><td>Admin page URL</td></tr><tr><td><code>{admin_url 'entry-editor' collection='collection.slug'}</code></td><td>URL with query params</td></tr><tr><td><code>{translate 'admin.key'}</code></td><td>i18n string</td></tr><tr><td><code>{count entries}</code></td><td>Array length</td></tr><tr><td><code>{json variable}</code></td><td>JSON for <code>&lt;script&gt;</code> data</td></tr><tr><td><code>{include_script 'file.js'}</code></td><td>Load <code>/admin/js/file.js</code></td></tr></tbody></table></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Engines (do not mix)</h3>
-<p>| Context | Engine | Location | |---------|--------|----------| | <strong>Public site</strong> | Client renderer | <code>birkly-client.js</code> | | <strong>Admin UI</strong> | PHP template parser | <code>admin/template_parser.php</code> | | ~~Legacy~~ | ~~TemplateEngine~~ | <strong>Archived</strong> — <code>archive/legacy-templating/</code> |</p>
+<table><thead><tr><th>Context</th><th>Engine</th><th>Location</th></tr></thead>
+<tbody><tr><td><strong>Public site</strong></td><td>Client renderer</td><td><code>birkly-client.js</code></td></tr><tr><td><strong>Admin UI</strong></td><td>PHP template parser</td><td><code>admin/template_parser.php</code></td></tr><tr><td>~~Legacy~~</td><td>~~TemplateEngine~~</td><td><strong>Archived</strong> — <code>archive/legacy-templating/</code></td></tr></tbody></table>
 <p>There is no third active engine. <code>render_page.php</code> and <code>templates/template_engine.php</code> are archived (M3).</p>
 <h3>Syntax rules</h3>
 <ol>

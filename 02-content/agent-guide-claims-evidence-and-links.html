@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -167,10 +169,12 @@
       <div class="content doc-body">
         <div class="doc-content"><div class="doc-summary"><p>Claims, evidence, and cross-links are how Agent Guide stays <strong>honest</strong>: summaries tell agents the headline; links and the <strong>sources of truth</strong> registry tell them where to verify. This doc covers strategy, types, and worked examples — especially marketplace and review URLs.</p>
 <h2>Four layers of truth</h2>
-<p>| Layer | What it is | Agent should… | |-------|------------|---------------| | <strong>Sources of truth</strong> | Declared registry (<code>sources_of_truth[]</code>) | Read these first for narrative and proof | | <strong>Summary</strong> | Short description, positioning bullets | Paraphrase carefully; follow registry | | <strong>Claim</strong> | Asserted fact with status | Repeat only if supported | | <strong>Evidence / source link</strong> | URL or CMS ref with proof | Follow link to verify |</p>
+<table><thead><tr><th>Layer</th><th>What it is</th><th>Agent should…</th></tr></thead>
+<tbody><tr><td><strong>Sources of truth</strong></td><td>Declared registry (<code>sources_of_truth[]</code>)</td><td>Read these first for narrative and proof</td></tr><tr><td><strong>Summary</strong></td><td>Short description, positioning bullets</td><td>Paraphrase carefully; follow registry</td></tr><tr><td><strong>Claim</strong></td><td>Asserted fact with status</td><td>Repeat only if supported</td></tr><tr><td><strong>Evidence / source link</strong></td><td>URL or CMS ref with proof</td><td>Follow link to verify</td></tr></tbody></table>
 <p><strong>Rule:</strong> Don’t paste marketplace review text into Agent Guide. Store the <strong>claim</strong> (“Highly rated on Amazon”) + <strong>link</strong> to the listing + optional rating/count metadata.</p>
 <h2>Sources of truth vs product cross-links</h2>
-<p>| Registry | Scope | When to use | |----------|-------|-------------| | <strong><code>sources_of_truth[]</code></strong> | Site-wide canonical reading list | About pages, primary website, key docs, proof archives | | <strong>Product <code>sources[]</code></strong> | Per-offering detail links | Product page, marketplace listing, docs, purchase URL |</p>
+<table><thead><tr><th>Registry</th><th>Scope</th><th>When to use</th></tr></thead>
+<tbody><tr><td><strong><code>sources_of_truth[]</code></strong></td><td>Site-wide canonical reading list</td><td>About pages, primary website, key docs, proof archives</td></tr><tr><td><strong>Product <code>sources[]</code></strong></td><td>Per-offering detail links</td><td>Product page, marketplace listing, docs, purchase URL</td></tr></tbody></table>
 <p>Both export resolved URLs. The registry sets <strong>global</strong> reading order; product sources set <strong>offering-specific</strong> depth.</p>
 <h3>Registry entry example</h3>
 <pre><code>{
@@ -209,12 +213,14 @@
               unsupported / expired / conflicting</code></pre>
 <p>Public export and <code>view=summary</code> only include <strong>supported</strong> claims.</p>
 <h3>Claim sources vs evidence</h3>
-<p>| Mechanism | When to use | |-----------|-------------| | <strong>evidence[]</strong> + <code>evidence_ids</code> | Reusable proof documents shared across claims | | <strong>claim.sources[]</strong> | Direct URLs tied only to this claim |</p>
+<table><thead><tr><th>Mechanism</th><th>When to use</th></tr></thead>
+<tbody><tr><td><strong>evidence[]</strong> + <code>evidence_ids</code></td><td>Reusable proof documents shared across claims</td></tr><tr><td><strong>claim.sources[]</strong></td><td>Direct URLs tied only to this claim</td></tr></tbody></table>
 <p>Example: Claim “Featured in TechCrunch 2025” → one evidence row with publication URL. Claim “4.8★ on Amazon” → evidence type <code>marketplace_listing</code> + URL; optional rating 4.8, review_count 1200.</p>
 <p>Consider adding a <strong><code>proof</code></strong> role source in the registry when the same certification page supports multiple claims.</p>
 <h2>Evidence</h2>
 <h3>Evidence types (reference)</h3>
-<p>| Type | Typical URL | |------|-------------| | <code>cms_content</code> | Resolved public CMS entry URL | | <code>external_url</code> | Any allowed HTTPS page | | <code>marketplace_listing</code> | <code>amazon.com/dp/…</code>, App Store, Etsy | | <code>review_platform</code> | G2, Trustpilot, Capterra | | <code>certification</code> | Issuer badge or certificate page | | <code>publication</code> | News article, paper | | <code>upload</code> | Internal — prefer public URL when possible |</p>
+<table><thead><tr><th>Type</th><th>Typical URL</th></tr></thead>
+<tbody><tr><td><code>cms_content</code></td><td>Resolved public CMS entry URL</td></tr><tr><td><code>external_url</code></td><td>Any allowed HTTPS page</td></tr><tr><td><code>marketplace_listing</code></td><td><code>amazon.com/dp/…</code>, App Store, Etsy</td></tr><tr><td><code>review_platform</code></td><td>G2, Trustpilot, Capterra</td></tr><tr><td><code>certification</code></td><td>Issuer badge or certificate page</td></tr><tr><td><code>publication</code></td><td>News article, paper</td></tr><tr><td><code>upload</code></td><td>Internal — prefer public URL when possible</td></tr></tbody></table>
 <h3>Verification</h3>
 <ul>
 <li><strong>user_verified</strong> — Editor confirmed link matches claim</li>
@@ -223,7 +229,8 @@
 <p>Use <strong>Verify</strong> in admin after checking the page live.</p>
 <h3>Link health</h3>
 <p><strong>Check all links</strong> (Overview) performs safe external HEAD requests:</p>
-<p>| link_status | Meaning | |-------------|---------| | ok | 2xx/3xx response | | redirect | Final URL differs — may update on check | | broken | 4xx/5xx or network failure | | unknown | Not checked yet | | blocked | SSRF-safe filter rejected URL |</p>
+<table><thead><tr><th>link_status</th><th>Meaning</th></tr></thead>
+<tbody><tr><td>ok</td><td>2xx/3xx response</td></tr><tr><td>redirect</td><td>Final URL differs — may update on check</td></tr><tr><td>broken</td><td>4xx/5xx or network failure</td></tr><tr><td>unknown</td><td>Not checked yet</td></tr><tr><td>blocked</td><td>SSRF-safe filter rejected URL</td></tr></tbody></table>
 <p><strong>Staleness:</strong> Evidence URLs not verified in 180 days trigger publish warnings.</p>
 <h3>SSRF safety</h3>
 <p>Admin URL fetch and link check block localhost, private IPs, non-HTTP schemes. Only public HTTPS/HTTP URLs.</p>
@@ -247,7 +254,8 @@
 }</code></pre>
 <p>CMS entries without stored URL get <strong>resolved on publish</strong> from collection + slug + public site base.</p>
 <h3>Product source roles</h3>
-<p>| Role | Purpose | |------|---------| | canonical_detail | Authoritative full detail | | reference | General background | | marketplace | Where to buy / listing | | review | Reviews and ratings | | docs | Specs, API docs, manuals | | proof | Supports a specific assertion | | purchase | Checkout/pricing | | social | Social profile |</p>
+<table><thead><tr><th>Role</th><th>Purpose</th></tr></thead>
+<tbody><tr><td>canonical_detail</td><td>Authoritative full detail</td></tr><tr><td>reference</td><td>General background</td></tr><tr><td>marketplace</td><td>Where to buy / listing</td></tr><tr><td>review</td><td>Reviews and ratings</td></tr><tr><td>docs</td><td>Specs, API docs, manuals</td></tr><tr><td>proof</td><td>Supports a specific assertion</td></tr><tr><td>purchase</td><td>Checkout/pricing</td></tr><tr><td>social</td><td>Social profile</td></tr></tbody></table>
 <h2>Worked example — Amazon reviews</h2>
 <p><strong>Goal:</strong> Agents can say you’re well-reviewed without hallucinating review text.</p>
 <ol>

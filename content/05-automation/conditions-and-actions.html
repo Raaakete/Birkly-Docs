@@ -51,7 +51,8 @@
 <li><strong>Payload:</strong> For webhook triggers, “payload” is the parsed request body (JSON or form). Use for filtering (e.g. <code>payload.type == 'contact'</code>).</li>
 </ul>
 <p><strong>Actions</strong></p>
-<p>| Type | Config | Use | |------|--------|-----| | <strong>Slack</strong> | Webhook URL or app, channel, message text (with variables) | Notify a channel. | | <strong>HTTP</strong> | Method, URL, headers, body (with variables) | Call your API, Zapier, CRM. | | <strong>Email</strong> | Recipient(s), subject, body (with variables) | Send mail (if mail is configured). | | <strong>Internal</strong> | Entry update/create, log | Modify content or log for debugging. |</p>
+<table><thead><tr><th>Type</th><th>Config</th><th>Use</th></tr></thead>
+<tbody><tr><td><strong>Slack</strong></td><td>Webhook URL or app, channel, message text (with variables)</td><td>Notify a channel.</td></tr><tr><td><strong>HTTP</strong></td><td>Method, URL, headers, body (with variables)</td><td>Call your API, Zapier, CRM.</td></tr><tr><td><strong>Email</strong></td><td>Recipient(s), subject, body (with variables)</td><td>Send mail (if mail is configured).</td></tr><tr><td><strong>Internal</strong></td><td>Entry update/create, log</td><td>Modify content or log for debugging.</td></tr></tbody></table>
 <p>Order of execution is sequential. Failure handling (stop vs continue, retries) is version-dependent.</p>
 <p><strong>Variables in actions</strong></p>
 <ul>

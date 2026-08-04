@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -175,7 +177,8 @@
 <li><strong>Inside a loop</strong>, <code>{ date &quot;F j, Y&quot; }</code> uses the <strong>current entry’s</strong> date.</li>
 </ul>
 <p><strong>Common formats (examples)</strong></p>
-<p>| What you want | Format string | Example output | |---------------|---------------|----------------| | Full date, readable | <code>F j, Y</code> | January 5, 2025 | | Short month | <code>M j, Y</code> | Jan 5, 2025 | | Numbers only (ISO-style) | <code>Y-m-d</code> | 2025-01-05 | | European style | <code>d.m.Y</code> | 05.01.2025 | | With weekday | <code>l, F j, Y</code> | Sunday, January 5, 2025 |</p>
+<table><thead><tr><th>What you want</th><th>Format string</th><th>Example output</th></tr></thead>
+<tbody><tr><td>Full date, readable</td><td><code>F j, Y</code></td><td>January 5, 2025</td></tr><tr><td>Short month</td><td><code>M j, Y</code></td><td>Jan 5, 2025</td></tr><tr><td>Numbers only (ISO-style)</td><td><code>Y-m-d</code></td><td>2025-01-05</td></tr><tr><td>European style</td><td><code>d.m.Y</code></td><td>05.01.2025</td></tr><tr><td>With weekday</td><td><code>l, F j, Y</code></td><td>Sunday, January 5, 2025</td></tr></tbody></table>
 <p><strong>Example: blog post date</strong></p>
 <pre><code>&lt;time datetime=&quot;{ date &quot;Y-m-d&quot; }&quot;&gt;{ date &quot;F j, Y&quot; }&lt;/time&gt;</code></pre>
 <ul>
@@ -204,9 +207,11 @@
 <li><strong>DateTime fields:</strong> Same pattern; add time tokens (H, i, s, g, A, etc.) to include time in the output.</li>
 </ul>
 <p><strong>Common format characters (PHP-style)</strong></p>
-<p>| Character | Meaning | Example | |-----------|----------|--------| | Y | 4-digit year | 2025 | | y | 2-digit year | 25 | | F | Full month name | January | | M | Short month name | Jan | | m | Month number, leading zero | 01 | | n | Month number, no leading zero | 1 | | d | Day of month, leading zero | 05 | | j | Day of month, no leading zero | 5 | | l | Full weekday name | Sunday | | D | Short weekday name | Sun | | H | Hour 24h, leading zero | 14 | | i | Minutes | 30 | | s | Seconds | 00 | | g | Hour 12h, no leading zero | 2 | | A | AM/PM | PM |</p>
+<table><thead><tr><th>Character</th><th>Meaning</th><th>Example</th></tr></thead>
+<tbody><tr><td>Y</td><td>4-digit year</td><td>2025</td></tr><tr><td>y</td><td>2-digit year</td><td>25</td></tr><tr><td>F</td><td>Full month name</td><td>January</td></tr><tr><td>M</td><td>Short month name</td><td>Jan</td></tr><tr><td>m</td><td>Month number, leading zero</td><td>01</td></tr><tr><td>n</td><td>Month number, no leading zero</td><td>1</td></tr><tr><td>d</td><td>Day of month, leading zero</td><td>05</td></tr><tr><td>j</td><td>Day of month, no leading zero</td><td>5</td></tr><tr><td>l</td><td>Full weekday name</td><td>Sunday</td></tr><tr><td>D</td><td>Short weekday name</td><td>Sun</td></tr><tr><td>H</td><td>Hour 24h, leading zero</td><td>14</td></tr><tr><td>i</td><td>Minutes</td><td>30</td></tr><tr><td>s</td><td>Seconds</td><td>00</td></tr><tr><td>g</td><td>Hour 12h, no leading zero</td><td>2</td></tr><tr><td>A</td><td>AM/PM</td><td>PM</td></tr></tbody></table>
 <p><strong>Examples</strong></p>
-<p>| Format | Output | |--------|--------| | <code>F j, Y</code> | January 5, 2025 | | <code>M j, Y</code> | Jan 5, 2025 | | <code>Y-m-d</code> | 2025-01-05 (ISO date) | | <code>d.m.Y</code> | 05.01.2025 | | <code>m/d/Y</code> | 01/05/2025 | | <code>l, F j, Y</code> | Sunday, January 5, 2025 | | <code>H:i</code> | 14:30 | | <code>g:i A</code> | 2:30 PM | | <code>F j, Y \a\t g:i A</code> | January 5, 2025 at 2:30 PM |</p>
+<table><thead><tr><th>Format</th><th>Output</th></tr></thead>
+<tbody><tr><td><code>F j, Y</code></td><td>January 5, 2025</td></tr><tr><td><code>M j, Y</code></td><td>Jan 5, 2025</td></tr><tr><td><code>Y-m-d</code></td><td>2025-01-05 (ISO date)</td></tr><tr><td><code>d.m.Y</code></td><td>05.01.2025</td></tr><tr><td><code>m/d/Y</code></td><td>01/05/2025</td></tr><tr><td><code>l, F j, Y</code></td><td>Sunday, January 5, 2025</td></tr><tr><td><code>H:i</code></td><td>14:30</td></tr><tr><td><code>g:i A</code></td><td>2:30 PM</td></tr><tr><td><code>F j, Y \a\t g:i A</code></td><td>January 5, 2025 at 2:30 PM</td></tr></tbody></table>
 <p><strong>Escaping literal text</strong></p>
 <p>In some engines, characters that are not format tokens must be escaped (e.g. <code>\a\t</code> for “at”). Check the engine docs.</p>
 <p><strong>Time zones</strong></p>

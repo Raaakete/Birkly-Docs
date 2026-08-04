@@ -23,11 +23,13 @@
 <p>Point EasyPost tracker events at the Commerce webhook URL with <code>platform=easypost</code>. Updates write tracking status onto the shipment and can fire Automation <code>commerce_tracking_updated</code>. Use the configured webhook secret when verifying signatures.</p>
 <h3>Automation notify</h3>
 <p>When <strong>notify customer</strong> is set on a shipment (and on tracking updates):</p>
-<p>| Trigger | When | |---------|------| | <code>commerce_shipment_created</code> | Each new shipment record | | <code>commerce_order_shipped</code> | Customer-facing shipped notify (when notify is enabled) | | <code>commerce_tracking_updated</code> | EasyPost tracker webhook updates shipment status |</p>
+<table><thead><tr><th>Trigger</th><th>When</th></tr></thead>
+<tbody><tr><td><code>commerce_shipment_created</code></td><td>Each new shipment record</td></tr><tr><td><code>commerce_order_shipped</code></td><td>Customer-facing shipped notify (when notify is enabled)</td></tr><tr><td><code>commerce_tracking_updated</code></td><td>EasyPost tracker webhook updates shipment status</td></tr></tbody></table>
 <p>Wire email/SMS workflows in Automation against these triggers. See <a href="../05-automation/triggers.html">Triggers</a>.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Resolver:</strong> <code>FulfillmentAdapterResolver</code> — merchant list is <code>manual</code> | <code>easypost</code> only (<code>listAvailableAdapters</code> omits ShipStation).</p>
 <p><strong>Admin API:</strong></p>
-<p>| Action | Purpose | |--------|---------| | <code>create_shipment</code> | Partial/full ship; EasyPost adapter runs <code>pushOrder</code> when active | | <code>packing_slips</code> | HTML packing slip for order ids / shipment | | <code>update_order_shipment</code> / <code>bulk_mark_shipped</code> | Legacy/simple ship helpers |</p>
+<table><thead><tr><th>Action</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>create_shipment</code></td><td>Partial/full ship; EasyPost adapter runs <code>pushOrder</code> when active</td></tr><tr><td><code>packing_slips</code></td><td>HTML packing slip for order ids / shipment</td></tr><tr><td><code>update_order_shipment</code> / <code>bulk_mark_shipped</code></td><td>Legacy/simple ship helpers</td></tr></tbody></table>
 <p><strong>Order shape:</strong> <code>shipments[]</code> with <code>id</code>, <code>items</code>, <code>package_count</code>, tracking/carrier, <code>notify_customer</code>; EasyPost may add <code>source: easypost</code>, <code>easypost_tracker_id</code>. Lines track <code>quantity_shipped</code> and <code>fulfillment_status</code>.</p>
 <p>Only lines with <code>fulfillment: ship</code> are shippable. Digital, register, gift_card, and none lines use PostPurchaseRouter instead.</p>
 <p><strong>Webhook:</strong> <code>api/commerce_webhooks.php</code> with <code>platform=easypost</code> → <code>EasyPostTrackingWebhookService</code>.</p></div></details>

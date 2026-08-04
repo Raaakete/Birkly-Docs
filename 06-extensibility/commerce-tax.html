@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -197,7 +199,8 @@
 <p><strong>Order snapshot:</strong> Paid orders freeze <code>tax_cents</code> and <code>tax_lines[]</code> (<code>tax_class</code>, title, rate, <code>tax_cents</code>, <code>source</code> / <code>provider</code>). Mixed carts emit <strong>one tax line per class</strong>. Recalculating from current catalog settings must not mutate paid-order lines.</p>
 <p><strong>Stripe Tax:</strong> Uses Connections Stripe secret when present; otherwise mock / soft-fallback shaped results so checkout does not break. Reverse-charge eligibility is evaluated before (or inherited into) Stripe Tax mock paths; live Stripe Tax still accepts <code>vat_id</code> in context.</p>
 <p><strong>B2B rules shape</strong> (<code>tax_rules.b2b_reverse_charge</code>):</p>
-<p>| Key | Meaning | |-----|---------| | <code>enabled</code> | Toggle reverse charge | | <code>merchant_country</code> | Merchant ISO country | | <code>eligible_countries</code> | List of ISO codes (default EU set) | | <code>require_different_country</code> | Default <code>true</code> |</p>
+<table><thead><tr><th>Key</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>enabled</code></td><td>Toggle reverse charge</td></tr><tr><td><code>merchant_country</code></td><td>Merchant ISO country</td></tr><tr><td><code>eligible_countries</code></td><td>List of ISO codes (default EU set)</td></tr><tr><td><code>require_different_country</code></td><td>Default <code>true</code></td></tr></tbody></table>
 <blockquote><p><strong>Note:</strong> OSS/IOSS automation and live VIES are out of scope for this release.</p></blockquote></div></details>
 <div class="doc-related"><ul>
 <li><a href="commerce-fieldtype.html">Commerce fieldtype</a></li>

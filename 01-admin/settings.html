@@ -38,6 +38,7 @@
         <a href="account.html" class="nav-link">Account</a>
         <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="design-system.html" class="nav-link">Admin design system</a>
+        <a href="admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="ai-overview.html" class="nav-link">AI overview</a>
         <a href="ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -217,7 +219,8 @@
 <p>Usually only users with the <strong>Administrator</strong> role or <strong>manage settings</strong> permission. Editors and viewers often don’t see Settings, or see it read-only.</p>
 <h2>Security settings (enforcement)</h2>
 <p>Security values are stored in <code>settings/security.json</code> and <strong>enforced at runtime</strong> when you save via global Save—not display-only toggles.</p>
-<p>| Setting | What it does | |---------|----------------| | <strong>Session timeout (minutes)</strong> | Maximum idle time before the admin session expires. Checked on each authenticated request (<code>api/auth.php</code>). | | <strong>Max login attempts</strong> | Failed logins allowed before lockout for that account/IP (<code>api/users.php</code>). Default range in UI: 3–20. | | <strong>Lockout time (minutes)</strong> | How long login stays blocked after max attempts is exceeded. Stored in seconds internally. | | <strong>Password min length</strong> | Minimum characters required when creating or resetting passwords (<code>api/validate.php</code>). | | <strong>Require strong password</strong> | When enabled, passwords must meet complexity rules (upper, lower, number, symbol). When disabled, only min length applies. | | <strong>Enable CSRF protection</strong> | When enabled, mutating API requests must include a valid CSRF token. When disabled, token checks are skipped (use only in controlled environments). |</p>
+<table><thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+<tbody><tr><td><strong>Session timeout (minutes)</strong></td><td>Maximum idle time before the admin session expires. Checked on each authenticated request (<code>api/auth.php</code>).</td></tr><tr><td><strong>Max login attempts</strong></td><td>Failed logins allowed before lockout for that account/IP (<code>api/users.php</code>). Default range in UI: 3–20.</td></tr><tr><td><strong>Lockout time (minutes)</strong></td><td>How long login stays blocked after max attempts is exceeded. Stored in seconds internally.</td></tr><tr><td><strong>Password min length</strong></td><td>Minimum characters required when creating or resetting passwords (<code>api/validate.php</code>).</td></tr><tr><td><strong>Require strong password</strong></td><td>When enabled, passwords must meet complexity rules (upper, lower, number, symbol). When disabled, only min length applies.</td></tr><tr><td><strong>Enable CSRF protection</strong></td><td>When enabled, mutating API requests must include a valid CSRF token. When disabled, token checks are skipped (use only in controlled environments).</td></tr></tbody></table>
 <p><strong>Plugin security denylist</strong> — Paths, collections, or <strong>admin spaces</strong> blocked from all plugins regardless of granted capabilities. Managed in the Security tab; changes apply immediately. Supports collection slugs, entry ids, wildcard patterns (for example <code>payroll/*</code>), and space ids (for example <code>commerce</code>). See <a href="../06-extensibility/plugin-security-denylist.html">Plugin security denylist</a>.</p>
 <p><strong>Two-factor authentication</strong> — Per-user feature under <strong>Account</strong>, not global Settings.</p>
 <h2>Storage backends</h2>

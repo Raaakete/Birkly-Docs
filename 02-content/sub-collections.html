@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -240,7 +242,8 @@
 <pre><code>/admin?page=entries&amp;collection=blog_posts&amp;entry_id=&lt;id&gt;&amp;sub_collection=comments</code></pre>
 <p>The admin renders the Sub-Entries tab automatically when these params are present.</p>
 <p><strong>Authenticated API (admin)</strong></p>
-<p>| Action | Endpoint | |--------|----------| | List | <code>GET /api/sub_entries.php?action=list&amp;collection=blog_posts&amp;entry_id=&lt;id&gt;&amp;sub_collection=comments</code> | | Get | <code>GET /api/sub_entries.php?action=get&amp;collection=blog_posts&amp;entry_id=&lt;id&gt;&amp;sub_collection=comments&amp;sub_entry_id=&lt;sub_id&gt;</code> | | Create | <code>POST /api/sub_entries.php</code> with <code>action=create</code> in body | | Update | <code>POST /api/sub_entries.php</code> with <code>action=update</code> in body | | Delete | <code>POST /api/sub_entries.php</code> with <code>action=delete</code> in body | | Count | <code>GET /api/sub_entries.php?action=count&amp;collection=blog_posts&amp;entry_id=&lt;id&gt;&amp;sub_collection=comments</code> |</p>
+<table><thead><tr><th>Action</th><th>Endpoint</th></tr></thead>
+<tbody><tr><td>List</td><td><code>GET /api/sub_entries.php?action=list&amp;collection=blog_posts&amp;entry_id=&lt;id&gt;&amp;sub_collection=comments</code></td></tr><tr><td>Get</td><td><code>GET /api/sub_entries.php?action=get&amp;collection=blog_posts&amp;entry_id=&lt;id&gt;&amp;sub_collection=comments&amp;sub_entry_id=&lt;sub_id&gt;</code></td></tr><tr><td>Create</td><td><code>POST /api/sub_entries.php</code> with <code>action=create</code> in body</td></tr><tr><td>Update</td><td><code>POST /api/sub_entries.php</code> with <code>action=update</code> in body</td></tr><tr><td>Delete</td><td><code>POST /api/sub_entries.php</code> with <code>action=delete</code> in body</td></tr><tr><td>Count</td><td><code>GET /api/sub_entries.php?action=count&amp;collection=blog_posts&amp;entry_id=&lt;id&gt;&amp;sub_collection=comments</code></td></tr></tbody></table>
 <p><strong>Public submission API</strong> (requires <code>entry_method: &quot;public&quot;</code>)</p>
 <pre><code>POST /api/public_sub_entry.php
 {
@@ -275,7 +278,8 @@
 <p>The AI (via admin chat or MCP) can read sub-entries using the <code>list_sub_entries</code> and <code>read_sub_entry</code> tools. Write tools require approval (<code>require_approval: true</code> by default). The AI context pack includes sub-collection schema and admin URL patterns; the <code>read_birkly_docs</code> MCP tool exposes this guide at the <code>birkly://docs/sub-collections</code> topic.</p>
 <p><strong>Automation triggers</strong></p>
 <p>Sub-entry events fire standard automation triggers with extra context:</p>
-<p>| Key | Value | |-----|-------| | <code>is_sub_entry</code> | <code>true</code> | | <code>parent_collection</code> | handle of the parent collection | | <code>parent_entry_id</code> | ID of the parent entry | | <code>sub_collection</code> | handle of the sub-collection |</p>
+<table><thead><tr><th>Key</th><th>Value</th></tr></thead>
+<tbody><tr><td><code>is_sub_entry</code></td><td><code>true</code></td></tr><tr><td><code>parent_collection</code></td><td>handle of the parent collection</td></tr><tr><td><code>parent_entry_id</code></td><td>ID of the parent entry</td></tr><tr><td><code>sub_collection</code></td><td>handle of the sub-collection</td></tr></tbody></table>
 <p>Use the <strong>collection</strong> and <strong>sub-collection pickers</strong> in the automation builder to filter triggers to a specific sub-collection. See <a href="../05-automation/triggers.html">Triggers</a> for the entry trigger type and picker configuration.</p>
 <p><strong>Hooks</strong></p>
 <ul>

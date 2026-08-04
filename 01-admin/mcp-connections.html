@@ -38,6 +38,7 @@
         <a href="account.html" class="nav-link">Account</a>
         <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="design-system.html" class="nav-link">Admin design system</a>
+        <a href="admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="ai-overview.html" class="nav-link">AI overview</a>
         <a href="ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -200,7 +202,8 @@
 </ol>
 <p>Non-admins only see service agents assigned to them — see <a href="#who-can-use-a-service-agent">Who can use a service agent</a>.</p>
 <h2>Personal vs service agents</h2>
-<p>| | Personal connector | Service agent | |---|-------------------|---------------| | <strong>Purpose</strong> | Connect Claude with <strong>your</strong> Birkly access | Shared bot with a <strong>fixed</strong> role | | <strong>Count</strong> | One per site (auto-created) | Zero or more (admin-created) | | <strong>Connector URL</strong> | One URL for the whole team | One URL per service agent | | <strong>Permissions</strong> | Authorizing user’s real CMS role and permissions | Fixed role set at create time | | <strong>Who can connect</strong> | Anyone with admin-panel access | Admins see all; others only if assigned | | <strong>Who manages it</strong> | Admins can disable/enable; cannot delete | Admins create, edit visibility, remove |</p>
+<table><thead><tr><th></th><th>Personal connector</th><th>Service agent</th></tr></thead>
+<tbody><tr><td><strong>Purpose</strong></td><td>Connect Claude with <strong>your</strong> Birkly access</td><td>Shared bot with a <strong>fixed</strong> role</td></tr><tr><td><strong>Count</strong></td><td>One per site (auto-created)</td><td>Zero or more (admin-created)</td></tr><tr><td><strong>Connector URL</strong></td><td>One URL for the whole team</td><td>One URL per service agent</td></tr><tr><td><strong>Permissions</strong></td><td>Authorizing user’s real CMS role and permissions</td><td>Fixed role set at create time</td></tr><tr><td><strong>Who can connect</strong></td><td>Anyone with admin-panel access</td><td>Admins see all; others only if assigned</td></tr><tr><td><strong>Who manages it</strong></td><td>Admins can disable/enable; cannot delete</td><td>Admins create, edit visibility, remove</td></tr></tbody></table>
 <p><strong>When to use which</strong></p>
 <ul>
 <li><strong>Personal connector</strong> — default for most people. An editor’s Claude gets editor access; a viewer’s gets viewer access.</li>
@@ -213,14 +216,16 @@
 <li><strong>Allowed users</strong> — explicit user assignments (in addition to or instead of role-based visibility).</li>
 </ul>
 <p><strong>Listing rules</strong></p>
-<p>| User | What they see | |------|----------------| | <strong>Admin</strong> | All service agents | | <strong>Editor / Viewer / other</strong> | Only service agents where their role is in <strong>Visible to roles</strong> or their user is in <strong>Allowed users</strong> | | <strong>No admin-panel access</strong> | Nothing (personal connector and service agents are hidden) |</p>
+<table><thead><tr><th>User</th><th>What they see</th></tr></thead>
+<tbody><tr><td><strong>Admin</strong></td><td>All service agents</td></tr><tr><td><strong>Editor / Viewer / other</strong></td><td>Only service agents where their role is in <strong>Visible to roles</strong> or their user is in <strong>Allowed users</strong></td></tr><tr><td><strong>No admin-panel access</strong></td><td>Nothing (personal connector and service agents are hidden)</td></tr></tbody></table>
 <p>If you need a service agent but do not see it, ask an admin to add your role or user under <strong>Who can use this agent</strong>.</p>
 <h2>Roles and approvals</h2>
 <h3>Personal connector</h3>
 <p>Access matches the <strong>authorizing user’s</strong> CMS role at sign-in time (Viewer, Author, Editor, Admin, or custom roles). There is no separate agent role — the AI cannot do more than you can in the admin.</p>
 <h3>Service agent</h3>
 <p>Each service agent has a <strong>fixed role</strong> chosen by an admin:</p>
-<p>| Role | Access | |------|--------| | Viewer | Read collections and entries | | Author | Read and create own content (where role allows) | | Editor | Read and suggest changes |</p>
+<table><thead><tr><th>Role</th><th>Access</th></tr></thead>
+<tbody><tr><td>Viewer</td><td>Read collections and entries</td></tr><tr><td>Author</td><td>Read and create own content (where role allows)</td></tr><tr><td>Editor</td><td>Read and suggest changes</td></tr></tbody></table>
 <p><strong>Write approval:</strong> MCP write tools are confirmed <strong>in your AI app</strong> (e.g. Claude’s tool permission prompt). Birkly does not queue MCP writes in the built-in Approvals tab. For the <strong>built-in assistant</strong> (API key chat), use <a href="ai-connections.html">Built-in assistant</a> and its Approvals tab when <strong>Require approval</strong> is enabled.</p>
 <h2>OAuth consent</h2>
 <p>When your AI app opens Birkly to connect, you sign in (if needed) and see a consent screen. The message reflects the agent type and effective access:</p>
@@ -254,7 +259,8 @@ php scripts/migrate-ai-agents-hybrid.php</code></pre>
 <h2>Developer / debug</h2>
 <p>For local Claude Desktop development only, <code>mcp-bridge.js</code> is available under the collapsed <strong>Developer / debug</strong> section on the AI settings tab. Normal users do not need this file.</p>
 <h2>Troubleshooting</h2>
-<p>| Issue | Check | |-------|-------| | Connector won't connect | Site is public HTTPS; URL copied exactly; ends with <code>/mcp</code> | | OAuth fails | You are assigned to the service agent (or use the personal connector); retry sign-in; leave Client ID/Secret empty | | OAuth denied for service agent | Admin must add your role or user under <strong>Who can use this agent</strong> | | No tools after connect | Your role (personal) or the agent’s fixed role (service); restart your AI app | | Writes blocked | Tool permission in your AI app; check role (personal) or agent fixed role (service) | | Personal connector missing/disabled | Admins can re-enable it in Settings; disabled connectors are hidden from non-admins | | Old agents not visible to team | After upgrade, service agents are admin-only until visibility is reassigned |</p></div>
+<table><thead><tr><th>Issue</th><th>Check</th></tr></thead>
+<tbody><tr><td>Connector won't connect</td><td>Site is public HTTPS; URL copied exactly; ends with <code>/mcp</code></td></tr><tr><td>OAuth fails</td><td>You are assigned to the service agent (or use the personal connector); retry sign-in; leave Client ID/Secret empty</td></tr><tr><td>OAuth denied for service agent</td><td>Admin must add your role or user under <strong>Who can use this agent</strong></td></tr><tr><td>No tools after connect</td><td>Your role (personal) or the agent’s fixed role (service); restart your AI app</td></tr><tr><td>Writes blocked</td><td>Tool permission in your AI app; check role (personal) or agent fixed role (service)</td></tr><tr><td>Personal connector missing/disabled</td><td>Admins can re-enable it in Settings; disabled connectors are hidden from non-admins</td></tr><tr><td>Old agents not visible to team</td><td>After upgrade, service agents are admin-only until visibility is reassigned</td></tr></tbody></table></div>
 <div class="doc-related"><ul>
 <li><a href="ai-overview.html">AI overview</a></li>
 <li><a href="ai-connections.html">Built-in assistant</a></li>

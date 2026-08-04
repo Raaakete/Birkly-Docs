@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -171,10 +173,12 @@
 <p>All URLs are on your <strong>public site</strong> (Settings → Site delivery), not the admin host:</p>
 <pre><code>https://YOUR-PUBLIC-SITE/</code></pre>
 <h2>Discovery channels</h2>
-<p>| Channel | URL | Format | |---------|-----|--------| | Well-known file (default) | <code>GET /.well-known/agent-guide.json</code> | Raw JSON export | | Well-known file (legacy) | <code>GET /.well-known/brand-context.json</code> | Same snapshot (legacy path) | | Public API | <code>GET /api/public/ai_presence.php</code> | JSON envelope <code>{ status, data }</code> |</p>
+<table><thead><tr><th>Channel</th><th>URL</th><th>Format</th></tr></thead>
+<tbody><tr><td>Well-known file (default)</td><td><code>GET /.well-known/agent-guide.json</code></td><td>Raw JSON export</td></tr><tr><td>Well-known file (legacy)</td><td><code>GET /.well-known/brand-context.json</code></td><td>Same snapshot (legacy path)</td></tr><tr><td>Public API</td><td><code>GET /api/public/ai_presence.php</code></td><td>JSON envelope <code>{ status, data }</code></td></tr></tbody></table>
 <p>Both well-known paths and the API serve the same canonical export for <code>action=brand</code> (full view) unless a <code>view</code> filter is applied on the API.</p>
 <h2>Endpoints</h2>
-<p>| Action | URL | Returns | |--------|-----|---------| | Full guide | <code>?action=brand</code> or <code>?action=brand&amp;view=full</code> | Complete enriched export | | Summary | <code>?action=brand&amp;view=summary</code> | Identity, positioning, supported claims, usage_hints | | Products | <code>?action=brand&amp;view=products</code> | <code>products_services[]</code> only | | Claims | <code>?action=brand&amp;view=claims</code> | Supported claims with sources | | Single product | <code>?action=product&amp;id={id}</code> | One product (id or name match) | | Product graph | <code>?action=product&amp;id={id}&amp;graph=1</code> | Product + sources + linked claims | | Single claim | <code>?action=claim&amp;id={id}</code> | One supported claim | | Claim graph | <code>?action=claim&amp;id={id}&amp;graph=1</code> | Claim + evidence + sources | | Source lookup | <code>?action=source&amp;url={encoded_url}</code> | Entities referencing URL |</p>
+<table><thead><tr><th>Action</th><th>URL</th><th>Returns</th></tr></thead>
+<tbody><tr><td>Full guide</td><td><code>?action=brand</code> or <code>?action=brand&amp;view=full</code></td><td>Complete enriched export</td></tr><tr><td>Summary</td><td><code>?action=brand&amp;view=summary</code></td><td>Identity, positioning, supported claims, usage_hints</td></tr><tr><td>Products</td><td><code>?action=brand&amp;view=products</code></td><td><code>products_services[]</code> only</td></tr><tr><td>Claims</td><td><code>?action=brand&amp;view=claims</code></td><td>Supported claims with sources</td></tr><tr><td>Single product</td><td><code>?action=product&amp;id={id}</code></td><td>One product (id or name match)</td></tr><tr><td>Product graph</td><td><code>?action=product&amp;id={id}&amp;graph=1</code></td><td>Product + sources + linked claims</td></tr><tr><td>Single claim</td><td><code>?action=claim&amp;id={id}</code></td><td>One supported claim</td></tr><tr><td>Claim graph</td><td><code>?action=claim&amp;id={id}&amp;graph=1</code></td><td>Claim + evidence + sources</td></tr><tr><td>Source lookup</td><td><code>?action=source&amp;url={encoded_url}</code></td><td>Entities referencing URL</td></tr></tbody></table>
 <h3>Parameters</h3>
 <ul>
 <li><strong>id</strong> — Product or claim <code>id</code> field, or product <code>name</code> (product action only)</li>
@@ -194,7 +198,8 @@
 }</code></pre>
 <p>HTTP status: <strong>404</strong> when publishing disabled or entity not found; <strong>400</strong> for unknown action or missing params.</p>
 <h2>Export metadata (all full/summary views)</h2>
-<p>| Field | Description | |-------|-------------| | schema_version | <code>agent_guide.v1</code> (legacy exports may show <code>ai_presence.v1</code>) | | published_version | Integer, increments on each publish | | generated_at | ISO 8601 publish timestamp | | guide_meta | Product marker, summary_layer flag | | sources_of_truth | Resolved registry of canonical sources | | usage_hints | AI consumer guidance (full export) | | json_ld | Optional schema.org graph when enabled in settings |</p>
+<table><thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody><tr><td>schema_version</td><td><code>agent_guide.v1</code> (legacy exports may show <code>ai_presence.v1</code>)</td></tr><tr><td>published_version</td><td>Integer, increments on each publish</td></tr><tr><td>generated_at</td><td>ISO 8601 publish timestamp</td></tr><tr><td>guide_meta</td><td>Product marker, summary_layer flag</td></tr><tr><td>sources_of_truth</td><td>Resolved registry of canonical sources</td></tr><tr><td>usage_hints</td><td>AI consumer guidance (full export)</td></tr><tr><td>json_ld</td><td>Optional schema.org graph when enabled in settings</td></tr></tbody></table>
 <h2>Example — summary view</h2>
 <pre><code>GET /api/public/ai_presence.php?action=brand&amp;view=summary</code></pre>
 <pre><code>{
@@ -310,7 +315,8 @@
 }</code></pre>
 <p>Validate with <a href="https://search.google.com/test/rich-results">Google Rich Results Test</a> if using for SEO.</p>
 <h2>Caching</h2>
-<p>| Header | Value | |--------|-------| | Cache-Control | <code>public, max-age=300</code> (5 minutes) | | X-Agent-Guide-Version | Published version integer |</p>
+<table><thead><tr><th>Header</th><th>Value</th></tr></thead>
+<tbody><tr><td>Cache-Control</td><td><code>public, max-age=300</code> (5 minutes)</td></tr><tr><td>X-Agent-Guide-Version</td><td>Published version integer</td></tr></tbody></table>
 <p>Clients should re-fetch after known republish or when version header changes.</p>
 <h2>CORS</h2>
 <p>Same origin whitelist as other Birkly public APIs: registered domains + same-host dev origins. Browser fetch from allowed origins only.</p>
@@ -327,7 +333,8 @@
 <pre><code>project/.well-known/agent-guide.json</code></pre>
 <p>(Legacy filename <code>brand-context.json</code> when that path is configured.)</p>
 <h2>Security</h2>
-<p>| Topic | Behavior | |-------|----------| | Authentication | None required (public read) | | Draft exposure | Never — separate admin API | | Admin API | <code>/api/ai_presence.php</code> — session auth + CSRF | | URL fetch (admin) | SSRF-safe validation for evidence metadata | | Rate limiting | Follows public API limits where configured |</p>
+<table><thead><tr><th>Topic</th><th>Behavior</th></tr></thead>
+<tbody><tr><td>Authentication</td><td>None required (public read)</td></tr><tr><td>Draft exposure</td><td>Never — separate admin API</td></tr><tr><td>Admin API</td><td><code>/api/ai_presence.php</code> — session auth + CSRF</td></tr><tr><td>URL fetch (admin)</td><td>SSRF-safe validation for evidence metadata</td></tr><tr><td>Rate limiting</td><td>Follows public API limits where configured</td></tr></tbody></table>
 <h2>Admin API (not public)</h2>
 <p>Authenticated endpoints for draft edit, publish, AI suggest, link validate — see <a href="../02-content/agent-guide-data-model.html#admin-api-authenticated">Data model</a>.</p>
 <p>Do not expose admin API to the public internet without normal Birkly auth.</p>

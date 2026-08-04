@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -226,7 +228,8 @@
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Integration options</strong></p>
 <p>See <a href="choose-your-stack.html">Choose your stack</a> for the decision table. Short version:</p>
-<p>| Option | How it works | Best for | |--------|--------------|----------| | <strong>Birkly client</strong> | Script in HTML; fetches from public API; replaces template syntax in Light DOM | Static sites, marketing pages, simple blogs | | <strong>Web components</strong> | <code>&lt;birkly-region&gt;</code> / <code>data-birkly-region</code> + client | Shared regions, less repeated template boilerplate | | <strong>Public API / SPA</strong> | Your app calls REST/JSON; you render (no <code>{for}</code> in JSX) | React, Vue, custom UIs | | <strong>SSR / build-time</strong> | Server or CI fetches API / <code>page_bundle.php</code> | SEO, PHP hosts, static generators | | <strong>Hybrid</strong> | Client on some pages, API on others | Mixed stacks |</p>
+<table><thead><tr><th>Option</th><th>How it works</th><th>Best for</th></tr></thead>
+<tbody><tr><td><strong>Birkly client</strong></td><td>Script in HTML; fetches from public API; replaces template syntax in Light DOM</td><td>Static sites, marketing pages, simple blogs</td></tr><tr><td><strong>Web components</strong></td><td><code>&lt;birkly-region&gt;</code> / <code>data-birkly-region</code> + client</td><td>Shared regions, less repeated template boilerplate</td></tr><tr><td><strong>Public API / SPA</strong></td><td>Your app calls REST/JSON; you render (no <code>{for}</code> in JSX)</td><td>React, Vue, custom UIs</td></tr><tr><td><strong>SSR / build-time</strong></td><td>Server or CI fetches API / <code>page_bundle.php</code></td><td>SEO, PHP hosts, static generators</td></tr><tr><td><strong>Hybrid</strong></td><td>Client on some pages, API on others</td><td>Mixed stacks</td></tr></tbody></table>
 <p><strong>Client flow (concise)</strong></p>
 <ol>
 <li>Page loads; script runs when DOM is ready.</li>

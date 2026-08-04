@@ -34,7 +34,8 @@
 <li><strong>Approvals</strong> — Pending actions from <strong>outbound built-in chat</strong> are stored in <code>data/ai_approvals/</code>. Admin UI calls <code>api/ai_approvals.php</code> to list, approve, or reject. MCP tool writes are not queued here.</li>
 </ul>
 <p><strong>Outbound providers</strong></p>
-<p>| Provider   | Type       | API key | Notes | |-----------|------------|--------|-------| | OpenAI    | openai     | Required | gpt-4, gpt-3.5-turbo, etc. | | Anthropic | anthropic  | Required | Claude models | | Google    | google     | Required | Gemini models | | OpenRouter| openrouter| Required | Multi-model, OpenAI-compatible endpoint | | Ollama    | ollama     | Not used | Local; default <code>http://localhost:11434/api/chat</code> | | Custom    | custom     | Optional | User-supplied URL; OpenAI-compatible format |</p>
+<table><thead><tr><th>Provider</th><th>Type</th><th>API key</th><th>Notes</th></tr></thead>
+<tbody><tr><td>OpenAI</td><td>openai</td><td>Required</td><td>gpt-4, gpt-3.5-turbo, etc.</td></tr><tr><td>Anthropic</td><td>anthropic</td><td>Required</td><td>Claude models</td></tr><tr><td>Google</td><td>google</td><td>Required</td><td>Gemini models</td></tr><tr><td>OpenRouter</td><td>openrouter</td><td>Required</td><td>Multi-model, OpenAI-compatible endpoint</td></tr><tr><td>Ollama</td><td>ollama</td><td>Not used</td><td>Local; default <code>http://localhost:11434/api/chat</code></td></tr><tr><td>Custom</td><td>custom</td><td>Optional</td><td>User-supplied URL; OpenAI-compatible format</td></tr></tbody></table>
 <p>Inbound MCP is configured via MCP endpoints, not outbound provider rows. See <a href="mcp-connections.html">MCP connections</a>.</p>
 <p><strong>Permissions</strong></p>
 <ul>

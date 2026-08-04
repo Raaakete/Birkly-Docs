@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="for-site-owners.html" class="nav-link">For site owners</a>
         <a href="for-providers.html" class="nav-link">For providers</a>
         <a href="plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="security-and-review.html" class="nav-link">Security and review</a>
@@ -168,7 +170,8 @@
         <div class="doc-content"><p>Integrators and developers consume Birkly marketplace and Ops APIs to browse offers, install artifacts, and fetch starter packs. The CMS marketplace client wraps these endpoints; custom tooling can call them directly.</p>
 <div class="doc-summary"><p>The <strong>marketplace registry API</strong> exposes catalog, offer detail, release downloads, checkout, entitlement/license activation, and status at <code>marketplace.birkly.cloud/api/v1/</code>. The <strong>Ops starter API</strong> lists and downloads onboarding template packs at <code>ops.birkly.cloud/api/ops/v1/starters</code>. CMS installs use <code>installation_id</code> for entitlement seats; paid offers keep license-key activation as a fallback. Override base URLs via environment variables or settings files for staging.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Who needs these APIs</strong></p>
-<p>| Audience | Typical use | |----------|-------------| | <strong>CMS admin</strong> | Built-in Hub tab — no direct API calls | | <strong>Site owner</strong> | Use the admin UI; APIs run in the background | | <strong>Integrator / DevOps</strong> | Custom install scripts, air-gapped workflows | | <strong>Provider</strong> | Publish via Provider Studio; registry exposes your offers |</p>
+<table><thead><tr><th>Audience</th><th>Typical use</th></tr></thead>
+<tbody><tr><td><strong>CMS admin</strong></td><td>Built-in Hub tab — no direct API calls</td></tr><tr><td><strong>Site owner</strong></td><td>Use the admin UI; APIs run in the background</td></tr><tr><td><strong>Integrator / DevOps</strong></td><td>Custom install scripts, air-gapped workflows</td></tr><tr><td><strong>Provider</strong></td><td>Publish via Provider Studio; registry exposes your offers</td></tr></tbody></table>
 <p><strong>Marketplace base URL</strong></p>
 <p>Production: <code>https://marketplace.birkly.cloud</code></p>
 <p>Override in CMS:</p>
@@ -177,11 +180,13 @@
 <li>Settings file: <code>settings/marketplace.json</code> → <code>marketplace_url</code></li>
 </ul>
 <p><strong>Common marketplace endpoints</strong></p>
-<p>| Method | Path | Purpose | |--------|------|---------| | GET | <code>/api/v1/registry</code> | Catalog index (slugs, titles, latest versions) | | GET | <code>/api/v1/offer?slug={slug}</code> | Offer detail, releases, permissions manifest | | GET | <code>/api/v1/release?slug={slug}&amp;version={version}</code> | Release metadata and download URL | | POST | <code>/api/v1/checkout</code> | Create an order and entitlement after free/trial/paid checkout | | POST | <code>/api/v1/licenses/activate</code> | Fallback: bind activation key to <code>installation_id</code> | | GET | <code>/api/v1/licenses/status</code> | Check entitlement/license/subscription state |</p>
+<table><thead><tr><th>Method</th><th>Path</th><th>Purpose</th></tr></thead>
+<tbody><tr><td>GET</td><td><code>/api/v1/registry</code></td><td>Catalog index (slugs, titles, latest versions)</td></tr><tr><td>GET</td><td><code>/api/v1/offer?slug={slug}</code></td><td>Offer detail, releases, permissions manifest</td></tr><tr><td>GET</td><td><code>/api/v1/release?slug={slug}&amp;version={version}</code></td><td>Release metadata and download URL</td></tr><tr><td>POST</td><td><code>/api/v1/checkout</code></td><td>Create an order and entitlement after free/trial/paid checkout</td></tr><tr><td>POST</td><td><code>/api/v1/licenses/activate</code></td><td>Fallback: bind activation key to <code>installation_id</code></td></tr><tr><td>GET</td><td><code>/api/v1/licenses/status</code></td><td>Check entitlement/license/subscription state</td></tr></tbody></table>
 <p>Buyer checkout and provider publishing normally use the marketplace web UI at <a href="https://marketplace.birkly.cloud">marketplace.birkly.cloud</a> and <a href="https://providers.birkly.cloud">providers.birkly.cloud</a> — not raw API forms. P55 Hub checkout uses Stripe Connect only for paid flows.</p>
 <p><strong>Ops starter API</strong></p>
 <p>Production: <code>https://ops.birkly.cloud/api/ops/v1/starters</code></p>
-<p>| Method | Path | Purpose | |--------|------|---------| | GET | <code>/api/ops/v1/starters?channel={channel}</code> | List starters with versions and onboarding flags | | GET | <code>/api/ops/v1/starters/{id}/download</code> | Download starter pack zip |</p>
+<table><thead><tr><th>Method</th><th>Path</th><th>Purpose</th></tr></thead>
+<tbody><tr><td>GET</td><td><code>/api/ops/v1/starters?channel={channel}</code></td><td>List starters with versions and onboarding flags</td></tr><tr><td>GET</td><td><code>/api/ops/v1/starters/{id}/download</code></td><td>Download starter pack zip</td></tr></tbody></table>
 <p>CMS override: <code>BIRKLY_OPS_STARTERS_URL</code> or <code>starters_catalog_url</code> in platform config.</p>
 <p><strong>Embed and catalog links</strong></p>
 <p>Link to public offer pages:</p>
@@ -248,7 +253,8 @@ Accept: application/json</code></pre>
 <pre><code>GET /api/ops/v1/starters/blog/download</code></pre>
 <p>Returns zip with collections and <code>project/</code> site files. CMS extracts via <code>birkly_ops_extract_starter_zip()</code>.</p>
 <p><strong>Error handling</strong></p>
-<p>| HTTP code | Meaning | |-----------|---------| | 404 | Unknown slug or starter id | | 403 | License seat exhausted or revoked | | 409 | Consent required (<code>consent_required</code>) | | 503 | Registry unreachable — CMS shows retry; installed plugins keep working |</p>
+<table><thead><tr><th>HTTP code</th><th>Meaning</th></tr></thead>
+<tbody><tr><td>404</td><td>Unknown slug or starter id</td></tr><tr><td>403</td><td>License seat exhausted or revoked</td></tr><tr><td>409</td><td>Consent required (<code>consent_required</code>)</td></tr><tr><td>503</td><td>Registry unreachable — CMS shows retry; installed plugins keep working</td></tr></tbody></table>
 <p><strong>Staging</strong></p>
 <p>Point CMS at staging marketplace or Ops by setting override URLs. Do not mix production entitlements or activation keys with staging registry unless test keys are issued.</p></div></details>
 <div class="doc-related"><ul>

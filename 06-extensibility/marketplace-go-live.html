@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -185,7 +187,8 @@
 <p>If you upgraded from an older build that already had plugins in <code>plugins/</code>, those copies continue to work. You are not required to reinstall them. When you want updates, use the <strong>Hub</strong> tab <strong>Update</strong> action (or reinstall from the marketplace) so checksums and entitlements stay in sync.</p>
 <h2>Official plugins</h2>
 <p>These four plugins are maintained by Birkly and listed on the marketplace as <strong>free</strong> offers:</p>
-<p>| Plugin folder | Marketplace slug | What it does | Docs | |---------------|------------------|--------------|------| | <code>commerce</code> | <a href="https://marketplace.birkly.cloud/offers/birkly-commerce">birkly-commerce</a> | Payments, catalog, cart, checkout, orders | <a href="plugins/commerce.html">Commerce plugin</a> | | <code>events</code> | <a href="https://marketplace.birkly.cloud/offers/birkly-events">birkly-events</a> | Events, RSVP, paid tickets (uses Commerce) | <a href="../03-templating/events-functions.html">Events functions</a> | | <code>automation</code> | <a href="https://marketplace.birkly.cloud/offers/birkly-automation">birkly-automation</a> | Workflows, triggers, conditions, actions | <a href="../05-automation/automation-overview.html">Automation overview</a> | | <code>user_management</code> | <a href="https://marketplace.birkly.cloud/offers/birkly-user-management">birkly-user-management</a> | Registration, auth, tiers, permissions | <a href="user-plugin.html">User plugin</a> |</p>
+<table><thead><tr><th>Plugin folder</th><th>Marketplace slug</th><th>What it does</th><th>Docs</th></tr></thead>
+<tbody><tr><td><code>commerce</code></td><td><a href="https://marketplace.birkly.cloud/offers/birkly-commerce">birkly-commerce</a></td><td>Payments, catalog, cart, checkout, orders</td><td><a href="plugins/commerce.html">Commerce plugin</a></td></tr><tr><td><code>events</code></td><td><a href="https://marketplace.birkly.cloud/offers/birkly-events">birkly-events</a></td><td>Events, RSVP, paid tickets (uses Commerce)</td><td><a href="../03-templating/events-functions.html">Events functions</a></td></tr><tr><td><code>automation</code></td><td><a href="https://marketplace.birkly.cloud/offers/birkly-automation">birkly-automation</a></td><td>Workflows, triggers, conditions, actions</td><td><a href="../05-automation/automation-overview.html">Automation overview</a></td></tr><tr><td><code>user_management</code></td><td><a href="https://marketplace.birkly.cloud/offers/birkly-user-management">birkly-user-management</a></td><td>Registration, auth, tiers, permissions</td><td><a href="user-plugin.html">User plugin</a></td></tr></tbody></table>
 <p><strong>Paid, trial, freemium, and subscription official offers</strong> (for example SEO Basics, Analytics Pro) also appear in the catalog with their pricing model. Paid checkout uses Stripe; no-card trials and freemium plans use entitlements without visible keys. See <a href="marketplace-buyer-guide.html">Marketplace — buyer entitlement and install</a>.</p>
 <p>Community plugins, themes, and template packs from other providers may be free or paid — see <a href="marketplace-buyer-guide.html">Marketplace — buyer entitlement and install</a>.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Release layout</strong></p>
@@ -195,7 +198,8 @@
 <p><strong>Registry and checksums</strong></p>
 <p>Each marketplace release includes a semver version, artifact URL, and SHA-256 checksum. The CMS verifies the checksum before extracting into <code>plugins/</code>. Paid installs also verify entitlement status and store a signed local token for offline grace. Override the marketplace base URL with <code>BIRKLY_MARKETPLACE_URL</code> or <code>settings/marketplace.json</code> for staging.</p>
 <p><strong>Production platform (Birkly Cloud)</strong></p>
-<p>| Surface | URL | Purpose | |---------|-----|---------| | Public marketplace | <code>https://marketplace.birkly.cloud</code> | Catalog, registry API, buyer checkout | | Provider Studio | <code>https://providers.birkly.cloud</code> | Seller signup, offers, Stripe Connect | | Birkly Ops | <code>https://ops.birkly.cloud</code> | Staff admin, feedback inbox, install registry |</p>
+<table><thead><tr><th>Surface</th><th>URL</th><th>Purpose</th></tr></thead>
+<tbody><tr><td>Public marketplace</td><td><code>https://marketplace.birkly.cloud</code></td><td>Catalog, registry API, buyer checkout</td></tr><tr><td>Provider Studio</td><td><code>https://providers.birkly.cloud</code></td><td>Seller signup, offers, Stripe Connect</td></tr><tr><td>Birkly Ops</td><td><code>https://ops.birkly.cloud</code></td><td>Staff admin, feedback inbox, install registry</td></tr></tbody></table>
 <p>CMS installs use <code>marketplace.birkly.cloud</code> by default. Customer feedback relays to Ops when <code>settings/platform.json</code> includes <code>feedback_relay_url</code> (see <code>docs/reviews/platform.json.example</code> in the Birkly repo).</p>
 <p><strong>API gating</strong></p>
 <p>Core routes that depend on a plugin (e.g. automation webhooks, commerce APIs) return 404 or 503 when the plugin is not installed, instead of fatal errors.</p></div></details>

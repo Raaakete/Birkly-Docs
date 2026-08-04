@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -181,7 +183,8 @@
 <pre><code>&lt;p&gt;From {commerce_price_from slug my_products}&lt;/p&gt;</code></pre>
 <p><strong>Add to cart vs buy</strong></p>
 <p><code>{commerce_add_to_cart …}</code> builds the same URL as <code>{commerce_buy_url …}</code> — use whichever label fits your UX.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>| Function | Signature | Returns | |----------|-----------|---------| | <code>commerce_cart_count</code> | none | Item count in session cart (string) | | <code>commerce_cart_url</code> | none | Cart API URL | | <code>commerce_buy_url</code> | <code>entry_id</code>, <code>collection_slug?</code>, <code>qty?</code> | Checkout/add URL for sellable unit | | <code>commerce_add_to_cart</code> | same as buy_url | Alias | | <code>commerce_price_from</code> | <code>entry_id</code>, <code>collection_slug?</code> | Lowest <code>purchase_option</code> price for display |</p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><table><thead><tr><th>Function</th><th>Signature</th><th>Returns</th></tr></thead>
+<tbody><tr><td><code>commerce_cart_count</code></td><td>none</td><td>Item count in session cart (string)</td></tr><tr><td><code>commerce_cart_url</code></td><td>none</td><td>Cart API URL</td></tr><tr><td><code>commerce_buy_url</code></td><td><code>entry_id</code>, <code>collection_slug?</code>, <code>qty?</code></td><td>Checkout/add URL for sellable unit</td></tr><tr><td><code>commerce_add_to_cart</code></td><td>same as buy_url</td><td>Alias</td></tr><tr><td><code>commerce_price_from</code></td><td><code>entry_id</code>, <code>collection_slug?</code></td><td>Lowest <code>purchase_option</code> price for display</td></tr></tbody></table>
 <p><strong>Variants:</strong> Catalog indexes one row per sellable unit. Templates must target the <strong>variant sub-entry</strong> id/slug, not the parent marketing entry.</p>
 <p><strong>Example — variant loop</strong></p>
 <pre><code>{for each variant in sub_entries variants}

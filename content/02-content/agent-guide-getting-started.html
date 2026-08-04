@@ -13,12 +13,14 @@
 </ol>
 <p>   - <strong>Guided setup</strong> — step-by-step flow, best for first publish (~15 min), or    - <strong>Advanced editing</strong> — skip the wizard and land in Essentials or full tabs.</p>
 <p>The wizard has <strong>7 steps</strong>:</p>
-<p>| Step | What you do | |------|-------------| | <strong>Welcome</strong> | Choose guided setup or advanced editing | | <strong>Identity</strong> | Official name, short description, website | | <strong>Sources</strong> | At least one narrative source (CMS entry/collection or external URL) | | <strong>Enrich</strong> | Optional positioning — best known for, differentiators | | <strong>Claims</strong> | 1–3 factual claims with proof URL | | <strong>Publish</strong> | Enable publishing and publish | | <strong>Success</strong> | Live URL, version, copy/open public JSON |</p>
+<table><thead><tr><th>Step</th><th>What you do</th></tr></thead>
+<tbody><tr><td><strong>Welcome</strong></td><td>Choose guided setup or advanced editing</td></tr><tr><td><strong>Identity</strong></td><td>Official name, short description, website</td></tr><tr><td><strong>Sources</strong></td><td>At least one narrative source (CMS entry/collection or external URL)</td></tr><tr><td><strong>Enrich</strong></td><td>Optional positioning — best known for, differentiators</td></tr><tr><td><strong>Claims</strong></td><td>1–3 factual claims with proof URL</td></tr><tr><td><strong>Publish</strong></td><td>Enable publishing and publish</td></tr><tr><td><strong>Success</strong></td><td>Live URL, version, copy/open public JSON</td></tr></tbody></table>
 <p>Each step explains <strong>what</strong> you are filling in, <strong>why</strong> it matters, and <strong>what appears in public JSON</strong> after publish. You can <strong>skip individual steps</strong> or close the wizard — it is not blocking. Closing with unsaved changes prompts for confirmation.</p>
 <p>After wizard completion (or skip), the page defaults to <strong>Essentials</strong> view.</p>
 <h2>Essentials vs Advanced view</h2>
 <p>Use the <strong>Essentials / Advanced</strong> toggle at the top of the page:</p>
-<p>| View | Best for | |------|----------| | <strong>Essentials</strong> (default) | Day-to-day edits — identity, source/claim previews, key messages, publish controls | | <strong>Advanced</strong> | Full tab set — Overview, Sources, Context, Products, Claims, Media, Publish |</p>
+<table><thead><tr><th>View</th><th>Best for</th></tr></thead>
+<tbody><tr><td><strong>Essentials</strong> (default)</td><td>Day-to-day edits — identity, source/claim previews, key messages, publish controls</td></tr><tr><td><strong>Advanced</strong></td><td>Full tab set — Overview, Sources, Context, Products, Claims, Media, Publish</td></tr></tbody></table>
 <p><strong>Essentials</strong> sections:</p>
 <ul>
 <li><strong>Who we are</strong> — official name, short description, website</li>
@@ -31,7 +33,8 @@
 <p>For first publish, you do <strong>not</strong> need Advanced tabs — the wizard and Essentials cover identity, sources, positioning, claims, and publish.</p>
 <h2>Status strip and publish feedback</h2>
 <p>A <strong>status strip</strong> at the top of the page shows live state at a glance:</p>
-<p>| Badge | Meaning | |-------|---------| | <strong>Not live</strong> | Publishing enabled but never published | | <strong>Live · vN</strong> | Published version N is on your public URL | | <strong>Unpublished changes</strong> | Draft differs from the live snapshot | | <strong>Publishing off</strong> | Public endpoints return 404 until enabled |</p>
+<table><thead><tr><th>Badge</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><strong>Not live</strong></td><td>Publishing enabled but never published</td></tr><tr><td><strong>Live · vN</strong></td><td>Published version N is on your public URL</td></tr><tr><td><strong>Unpublished changes</strong></td><td>Draft differs from the live snapshot</td></tr><tr><td><strong>Publishing off</strong></td><td>Public endpoints return 404 until enabled</td></tr></tbody></table>
 <p>The strip also shows <strong>last published</strong> time and the well-known URL when configured. <strong>Set up guide</strong> re-opens the wizard; <strong>Publish updates</strong> appears when live with draft changes.</p>
 <h3>Unmissable publish success</h3>
 <p>Publish feedback is designed to be obvious — not only a small toast:</p>
@@ -42,12 +45,14 @@
 <p>The sticky save bar message also updates: warnings when not live or when draft has unpublished changes; success when draft matches the published snapshot.</p>
 <h2>Wizard walkthrough (technical detail)</h2>
 <h3>Identity</h3>
-<p>| Field | Example | |-------|---------| | Official name | Acme Co | | Short description | One sentence: what you are and who you serve | | Website | <code>https://example.com</code> |</p>
+<table><thead><tr><th>Field</th><th>Example</th></tr></thead>
+<tbody><tr><td>Official name</td><td>Acme Co</td></tr><tr><td>Short description</td><td>One sentence: what you are and who you serve</td></tr><tr><td>Website</td><td><code>https://example.com</code></td></tr></tbody></table>
 <p>Required for the wizard to continue. These fields appear in public JSON under <code>identity</code>.</p>
 <h3>Sources of truth</h3>
 <p>Before writing summaries elsewhere, declare where agents should read the truth.</p>
 <p>Pick at least one <strong>narrative</strong> source in the wizard (CMS collection + optional entry, or external URL):</p>
-<p>| Type | Example | Role | |------|---------|------| | <code>cms_entry</code> | Your About page entry | <code>narrative</code> | | <code>cms_collection</code> | All blog posts collection | <code>reference</code> | | <code>website</code> | <code>https://example.com</code> | <code>narrative</code> | | <code>document</code> | PDF spec in Media library | <code>reference</code> |</p>
+<table><thead><tr><th>Type</th><th>Example</th><th>Role</th></tr></thead>
+<tbody><tr><td><code>cms_entry</code></td><td>Your About page entry</td><td><code>narrative</code></td></tr><tr><td><code>cms_collection</code></td><td>All blog posts collection</td><td><code>reference</code></td></tr><tr><td><code>website</code></td><td><code>https://example.com</code></td><td><code>narrative</code></td></tr><tr><td><code>document</code></td><td>PDF spec in Media library</td><td><code>reference</code></td></tr></tbody></table>
 <p><strong>Source types:</strong> <code>cms_entry</code>, <code>cms_collection</code>, <code>website</code>, <code>document</code>, <code>media_asset</code>, <code>marketplace</code>, <code>review_platform</code>, <code>other</code></p>
 <p><strong>Source roles:</strong> <code>narrative</code> (who you are), <code>proof</code> (evidence), <code>reference</code> (background), <code>archive</code> (historical)</p>
 <p>Completeness awards full credit when you have at least one <strong>narrative</strong> source.</p>
@@ -113,4 +118,5 @@ curl -s &quot;https://YOUR-PUBLIC-SITE/api/public/ai_presence.php?action=brand&a
 </ul>
 <p>Without an AI connection, preview uses keyword matching on published fields. With a connection, preview can use full published JSON retrieval.</p>
 <h2>What’s next?</h2>
-<p>| Goal | Read | |------|------| | Deeper tab workflows | <a href="agent-guide-workflows.html">Workflows</a> | | Evidence &amp; marketplace strategy | <a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a> | | Fill profile faster with AI | <a href="agent-guide-ai-assist.html">AI Assist</a> | | Governance &amp; quality | <a href="agent-guide-best-practices.html">Best practices</a> | | Build an integration | <a href="../04-integration/agent-guide-public-api.html">Public API</a> | | Connect Claude Desktop / MCP | <a href="../04-integration/agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a> |</p></div>
+<table><thead><tr><th>Goal</th><th>Read</th></tr></thead>
+<tbody><tr><td>Deeper tab workflows</td><td><a href="agent-guide-workflows.html">Workflows</a></td></tr><tr><td>Evidence &amp; marketplace strategy</td><td><a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a></td></tr><tr><td>Fill profile faster with AI</td><td><a href="agent-guide-ai-assist.html">AI Assist</a></td></tr><tr><td>Governance &amp; quality</td><td><a href="agent-guide-best-practices.html">Best practices</a></td></tr><tr><td>Build an integration</td><td><a href="../04-integration/agent-guide-public-api.html">Public API</a></td></tr><tr><td>Connect Claude Desktop / MCP</td><td><a href="../04-integration/agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a></td></tr></tbody></table></div>

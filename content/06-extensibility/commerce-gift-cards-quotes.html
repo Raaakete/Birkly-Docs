@@ -53,7 +53,8 @@
 <p><strong>Cancel a quote</strong></p>
 <p>Click <strong>Cancel</strong> on an open quote to invalidate the token.</p>
 <p><strong>Quote states</strong></p>
-<p>| Status | Meaning | |--------|---------| | <code>quote</code> | Created, awaiting customer accept | | <code>pending_payment</code> | Accepted, checkout in progress | | <code>paid</code> | Order completed | | <code>expired</code> / <code>canceled</code> | No longer valid |</p>
+<table><thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>quote</code></td><td>Created, awaiting customer accept</td></tr><tr><td><code>pending_payment</code></td><td>Accepted, checkout in progress</td></tr><tr><td><code>paid</code></td><td>Order completed</td></tr><tr><td><code>expired</code> / <code>canceled</code></td><td>No longer valid</td></tr></tbody></table>
 <p>Default expiry is 30 days from creation. Backing store marks editor drafts with <code>draft_order: true</code>.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Gift card storage</strong></p>
 <p><code>GiftCardStore</code> — flat files under <code>data/plugins/commerce/gift_cards/</code>. Fields: <code>code</code>, <code>balance_cents</code>, <code>initial_balance_cents</code>, <code>currency</code>, <code>status</code>, <code>expires_at</code>, <code>redemptions[]</code>.</p>
@@ -78,7 +79,8 @@
 <p><code>CommerceQuoteStore</code> — <code>data/plugins/commerce/quotes/</code>. Tokenized accept URLs:</p>
 <pre><code>/api/index.php?route=commerce&amp;action=get_quote&amp;token={token}</code></pre>
 <p>Public/customer actions:</p>
-<p>| Action | Purpose | |--------|---------| | <code>get_quote</code> | Read quote by token | | <code>accept_quote</code> | Accept → <code>pending_payment</code> | | <code>quote_checkout</code> | Start payment for accepted quote |</p>
+<table><thead><tr><th>Action</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>get_quote</code></td><td>Read quote by token</td></tr><tr><td><code>accept_quote</code></td><td>Accept → <code>pending_payment</code></td></tr><tr><td><code>quote_checkout</code></td><td>Start payment for accepted quote</td></tr></tbody></table>
 <p>Admin:</p>
 <ul>
 <li><code>create_quote</code> — from current built cart + <code>customer_email</code></li>

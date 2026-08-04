@@ -9,7 +9,8 @@
 <li>Drag-and-drop reorders groups, subgroups, and collection membership. Changes are saved to <code>groups.json</code>.</li>
 </ul>
 <p><strong>Example structure</strong></p>
-<p>| Group | Contains | |-------|----------| | Marketing | Blog, News | | Shop | Products (subgroup: Sale items → <code>sale-products</code>) | | Ungrouped | Contact |</p>
+<table><thead><tr><th>Group</th><th>Contains</th></tr></thead>
+<tbody><tr><td>Marketing</td><td>Blog, News</td></tr><tr><td>Shop</td><td>Products (subgroup: Sale items → <code>sale-products</code>)</td></tr><tr><td>Ungrouped</td><td>Contact</td></tr></tbody></table>
 <p><strong>On your website</strong></p>
 <p>Groups are not only an admin convenience. When you use the Birkly client or public API, the same tree is available so you can render a sitemap, footer links, or sectioned index pages that match how content is organized in the CMS. See <a href="../03-templating/loops-and-lists.html#collection-groups">Loops and lists — collection groups</a> and <a href="../04-integration/public-api.html#list-collection-groups">Public API — list collection groups</a>.</p>
 <p><strong>Good practices</strong></p>
@@ -20,7 +21,8 @@
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Collection groups are persisted in <strong><code>content/collections/groups.json</code></strong> as a JSON array of tree nodes. The CMS normalizes legacy flat group files on load (P39-M7).</p>
 <p><strong>Node shape (normalized)</strong></p>
-<p>| Field | Type | Description | |-------|------|-------------| | <code>id</code> | string | Stable group identifier (auto-generated if missing). Special value: <code>ungrouped</code>. | | <code>name</code> | string | Display label (legacy <code>label</code> is migrated to <code>name</code>). | | <code>icon</code> | string | Optional emoji shown in admin and available in templates. | | <code>collections</code> | string[] | Collection handles (slugs) directly in this group, in display order. | | <code>children</code> | object[] | Optional nested subgroups (same shape, without ungrouped). |</p>
+<table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+<tbody><tr><td><code>id</code></td><td>string</td><td>Stable group identifier (auto-generated if missing). Special value: <code>ungrouped</code>.</td></tr><tr><td><code>name</code></td><td>string</td><td>Display label (legacy <code>label</code> is migrated to <code>name</code>).</td></tr><tr><td><code>icon</code></td><td>string</td><td>Optional emoji shown in admin and available in templates.</td></tr><tr><td><code>collections</code></td><td>string[]</td><td>Collection handles (slugs) directly in this group, in display order.</td></tr><tr><td><code>children</code></td><td>object[]</td><td>Optional nested subgroups (same shape, without ungrouped).</td></tr></tbody></table>
 <p><strong>Constraints</strong></p>
 <ul>
 <li>Maximum nesting depth: <strong>3</strong> levels (root group → child → grandchild).</li>
@@ -56,7 +58,8 @@
 ]</code></pre>
 <p><strong>Admin API (authenticated)</strong></p>
 <p>Used by the Content overview UI — not for public sites.</p>
-<p>| Action | Endpoint | Auth | |--------|----------|------| | <code>list_groups</code> | <code>POST /api/content.php</code> with <code>{ &quot;action&quot;: &quot;list_groups&quot; }</code> | <code>manage_content</code> | | <code>save_groups</code> | <code>POST /api/content.php</code> with <code>{ &quot;action&quot;: &quot;save_groups&quot;, &quot;groups&quot;: [...] }</code> | <code>manage_content</code> + CSRF |</p>
+<table><thead><tr><th>Action</th><th>Endpoint</th><th>Auth</th></tr></thead>
+<tbody><tr><td><code>list_groups</code></td><td><code>POST /api/content.php</code> with <code>{ &quot;action&quot;: &quot;list_groups&quot; }</code></td><td><code>manage_content</code></td></tr><tr><td><code>save_groups</code></td><td><code>POST /api/content.php</code> with <code>{ &quot;action&quot;: &quot;save_groups&quot;, &quot;groups&quot;: [...] }</code></td><td><code>manage_content</code> + CSRF</td></tr></tbody></table>
 <p><strong>Public read</strong></p>
 <ul>
 <li><code>list_collection_groups</code> on <code>api/public.php</code> — see <a href="../04-integration/public-api.html#list-collection-groups">Public API</a>.</li>

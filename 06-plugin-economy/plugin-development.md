@@ -114,9 +114,26 @@ Marketplace preflight checks:
 | `plugin-package.schema.json` | Validate local `plugin.json` |
 | Birkly test suite | Denylist and capability tests |
 
+**Styling your admin pages**
+
+Plugin admin screens should look native. The recommended path ships **no CSS at all**: wrap the screen in `.plugin-page`, emit breadcrumbs with `{plugin_page_header}`, and compose the rest from core classes (`.card`, `.btn`, `.field`, `.table`, `.badge`, `.callout`, `.tabs`, `.modal`, `.empty-state`) plus the `u-*` helpers. That inherits dark mode, focus rings, contrast-checked colours and reduced-motion handling for free.
+
+If you do ship a stylesheet, load it from the top of your admin template:
+
+```html
+<link rel="stylesheet" href="{birkly_url '/admin/css/plugin-page.css'}">
+<link rel="stylesheet" href="{birkly_url '/plugins/{handle}/admin/{handle}.css'}">
+```
+
+and follow four rules: never restyle a core class, use `var(--…)` tokens rather than hex (hardcoded hex is broken in dark mode), no `!important` against core, and namespace every selector as `.{handle}-*`.
+
+Full guidance — the three adoption tiers, the CI-verified public class contract, the legacy token alias table, a complete copy-pasteable Tier 0 page, and the `.fieldtype-*` API — is in [Plugin admin styling](plugin-admin-styling.md).
+
 ## Related
 
+- [Plugin admin styling](plugin-admin-styling.md)
 - [Plugin navigation icon](plugin-navigation-icon.md)
+- [Admin design language](../01-admin/admin-design-language.md)
 - [Admin design system](../01-admin/design-system.md)
 - [For providers](for-providers.md)
 - [Security and review](security-and-review.md)

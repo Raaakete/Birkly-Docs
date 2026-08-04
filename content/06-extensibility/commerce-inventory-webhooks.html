@@ -38,7 +38,8 @@
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Endpoint:</strong> <code>POST /api/commerce_webhooks.php?platform=shopify|woocommerce</code></p>
 <p><strong>Verification:</strong></p>
-<p>| Platform | Header | Algorithm | |----------|--------|-----------| | Shopify | <code>X-Shopify-Hmac-Sha256</code> | HMAC-SHA256 of raw body, base64 | | WooCommerce | <code>X-WC-Webhook-Signature</code> | HMAC-SHA256 of raw body, base64 |</p>
+<table><thead><tr><th>Platform</th><th>Header</th><th>Algorithm</th></tr></thead>
+<tbody><tr><td>Shopify</td><td><code>X-Shopify-Hmac-Sha256</code></td><td>HMAC-SHA256 of raw body, base64</td></tr><tr><td>WooCommerce</td><td><code>X-WC-Webhook-Signature</code></td><td>HMAC-SHA256 of raw body, base64</td></tr></tbody></table>
 <p><strong>Service:</strong> <code>CommerceInventoryWebhookService</code></p>
 <ul>
 <li><code>handleShopifyInventoryUpdate($payload)</code> — reads <code>sku</code>, <code>available</code> / <code>quantity</code></li>

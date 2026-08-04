@@ -32,7 +32,8 @@
 </ul>
 <p>So: templates = structure and placeholders; CMS = data; routing = mapping URL → template + data.</p>
 <p><strong>Client-side vs server-side</strong></p>
-<p>| Mode | How routing works | Typical use | |------|-------------------|-------------| | <strong>Client (birkly-client.js)</strong> | Static HTML files (e.g. <code>blog.html</code>, <code>post.html</code>). Client infers collection/entry from URL or <code>data-collection</code>; fetches from API; fills placeholders. | Static hosting, no server language. | | <strong>Server (e.g. PHP)</strong> | Router (e.g. <code>render_page.php</code>) matches path to template + collection/entry; loads content (API or files); renders server-side; returns HTML. | SSR, SEO, single entry point. |</p>
+<table><thead><tr><th>Mode</th><th>How routing works</th><th>Typical use</th></tr></thead>
+<tbody><tr><td><strong>Client (birkly-client.js)</strong></td><td>Static HTML files (e.g. <code>blog.html</code>, <code>post.html</code>). Client infers collection/entry from URL or <code>data-collection</code>; fetches from API; fills placeholders.</td><td>Static hosting, no server language.</td></tr><tr><td><strong>Server (e.g. PHP)</strong></td><td>Router (e.g. <code>render_page.php</code>) matches path to template + collection/entry; loads content (API or files); renders server-side; returns HTML.</td><td>SSR, SEO, single entry point.</td></tr></tbody></table>
 <p><strong>Defining routes</strong></p>
 <ul>
 <li>Some setups have a <strong>routes</strong> or <strong>pages</strong> config (file or admin) mapping path patterns to template + collection. Others use convention (e.g. <code>/blog</code> → <code>templates/blog.html</code> + collection <code>blog</code>).</li>

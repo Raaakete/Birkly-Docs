@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -184,7 +186,8 @@
 <p><strong>Subscribe to all events (iCal / webcal)</strong></p>
 <pre><code>&lt;a href=&quot;{events_calendar_feed_url}&quot;&gt;Subscribe (iCal)&lt;/a&gt;</code></pre>
 <p>Swap the scheme to <code>webcal://</code> so Apple/Google Calendar subscribe instead of downloading.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>| Function | Signature | Returns | |----------|-----------|---------| | <code>upcoming_events</code> | <code>limit?</code> | List of upcoming occurrences (id, collection, title, slug, start, end, venue, virtual_url, ics_url) | | <code>event_ics_url</code> | <code>collection</code>, <code>entry_id</code>, <code>occurrence_index?</code> | Per-event/occurrence <code>.ics</code> download URL | | <code>events_calendar_feed_url</code> | none | Whole-calendar iCal feed URL (works with <code>webcal://</code>) | | <code>event_register_url</code> | <code>event_id</code> | Free RSVP endpoint URL | | <code>event_ticket_checkout_url</code> | <code>event_id</code>, <code>ticket_type</code> | Paid-ticket checkout URL (routes through Commerce) |</p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><table><thead><tr><th>Function</th><th>Signature</th><th>Returns</th></tr></thead>
+<tbody><tr><td><code>upcoming_events</code></td><td><code>limit?</code></td><td>List of upcoming occurrences (id, collection, title, slug, start, end, venue, virtual_url, ics_url)</td></tr><tr><td><code>event_ics_url</code></td><td><code>collection</code>, <code>entry_id</code>, <code>occurrence_index?</code></td><td>Per-event/occurrence <code>.ics</code> download URL</td></tr><tr><td><code>events_calendar_feed_url</code></td><td>none</td><td>Whole-calendar iCal feed URL (works with <code>webcal://</code>)</td></tr><tr><td><code>event_register_url</code></td><td><code>event_id</code></td><td>Free RSVP endpoint URL</td></tr><tr><td><code>event_ticket_checkout_url</code></td><td><code>event_id</code>, <code>ticket_type</code></td><td>Paid-ticket checkout URL (routes through Commerce)</td></tr></tbody></table>
 <p><strong>Recurring series:</strong> One entry with a <code>recurrence</code> block (frequency, interval, <code>until</code> <strong>or</strong> <code>count</code>, optional <code>skip_dates</code>) expands into occurrences in <code>events_index.json</code>. Link each occurrence with its <code>series_index</code>; use <code>events_calendar_feed_url</code> for the whole series.</p>
 <p><strong>Capacity &amp; tickets:</strong> Free RSVP uses <code>quantity_available</code>; paid tickets use a Commerce field with <code>fulfillment: register</code>. See the <a href="../06-extensibility/commerce-fieldtype.html">Commerce fieldtype</a>.</p>
 <p><strong>API equivalents:</strong></p>

@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -220,7 +222,8 @@
 <li>Make sure the Birkly <strong>public API</strong> is enabled and that <strong>CORS</strong> allows your website’s domain. Otherwise the browser will block the requests.</li>
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Script attributes</strong></p>
-<p>| Attribute | Purpose | |-----------|---------| | <code>src</code> | URL of <code>birkly-client.js</code> (same origin as CMS or CMS domain). | | <code>data-cms-url</code> | Base URL for API requests. Required. | | <code>data-collection</code> | Default collection for the page (when not inferred from template or URL). | | (others) | Version-dependent: e.g. language, preview mode, API key for protected content. |</p>
+<table><thead><tr><th>Attribute</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>src</code></td><td>URL of <code>birkly-client.js</code> (same origin as CMS or CMS domain).</td></tr><tr><td><code>data-cms-url</code></td><td>Base URL for API requests. Required.</td></tr><tr><td><code>data-collection</code></td><td>Default collection for the page (when not inferred from template or URL).</td></tr><tr><td>(others)</td><td>Version-dependent: e.g. language, preview mode, API key for protected content.</td></tr></tbody></table>
 <p><strong>Template syntax</strong></p>
 <p>The client uses the same syntax as the rest of the templating docs: <code>{ variable }</code>, <code>{for each entry in 'collection'} … {endfor}</code>, <code>{if} … {endif}</code>, <code>{ date &quot;format&quot; }</code>, <code>{ media … }</code>. See <a href="../03-templating/templating-overview.html">Templating overview</a> and related docs.</p>
 <p><strong>API calls</strong></p>
@@ -248,14 +251,16 @@
 <li>For debugging: check Console for script errors and Network for status codes and response bodies.</li>
 </ul>
 <p><strong>Programmatic API (<code>window.Birkly</code>)</strong></p>
-<p>| API | Purpose | |-----|---------| | <code>Birkly.processTemplates({ root?, silent?, force? })</code> | Discover and render Light DOM regions. Omit args for full document. <code>root</code> scopes to a subtree (the root itself is included if it is a region). <code>force</code> re-processes nodes marked <code>data-birkly-processed=&quot;1&quot;</code>. | | <code>Birkly.processRegion(host, options?)</code> | Prepare + process a <code>&lt;birkly-region&gt;</code> / attributed host. | | <code>Birkly.getEntryBySlug(collection, slug)</code> | Resolve one published entry (async). | | <code>Birkly.fetch(action, params?)</code> | Low-level public API helper (e.g. <code>'list_entries'</code>, <code>{ collection: 'blog' }</code>). | | <code>Birkly.render(html, data)</code> | Run the string template engine once; returns HTML string (does not discover DOM regions). | | <code>Birkly.renderEngine</code> | Full engine object (<code>discoverPageRegions</code>, <code>buildRegionTemplate</code>, <code>render</code>, …). | | <code>Birkly.submit(…)</code> | Public form submit helper. |</p>
+<table><thead><tr><th>API</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>Birkly.processTemplates({ root?, silent?, force? })</code></td><td>Discover and render Light DOM regions. Omit args for full document. <code>root</code> scopes to a subtree (the root itself is included if it is a region). <code>force</code> re-processes nodes marked <code>data-birkly-processed=&quot;1&quot;</code>.</td></tr><tr><td><code>Birkly.processRegion(host, options?)</code></td><td>Prepare + process a <code>&lt;birkly-region&gt;</code> / attributed host.</td></tr><tr><td><code>Birkly.getEntryBySlug(collection, slug)</code></td><td>Resolve one published entry (async).</td></tr><tr><td><code>Birkly.fetch(action, params?)</code></td><td>Low-level public API helper (e.g. <code>'list_entries'</code>, <code>{ collection: 'blog' }</code>).</td></tr><tr><td><code>Birkly.render(html, data)</code></td><td>Run the string template engine once; returns HTML string (does not discover DOM regions).</td></tr><tr><td><code>Birkly.renderEngine</code></td><td>Full engine object (<code>discoverPageRegions</code>, <code>buildRegionTemplate</code>, <code>render</code>, …).</td></tr><tr><td><code>Birkly.submit(…)</code></td><td>Public form submit helper.</td></tr></tbody></table>
 <pre><code>// Scoped re-render after a dynamic mount
 await Birkly.processTemplates({ root: document.querySelector('#island'), silent: true });
 
 const post = await Birkly.getEntryBySlug('blog', 'welcome');
 const html = Birkly.render('&lt;h1&gt;{title}&lt;/h1&gt;', post);</code></pre>
 <p><strong>Events</strong></p>
-<p>| Event | Where | When | |-------|-------|------| | <code>birkly:region-processed</code> | Region element (bubbles) | After that region’s HTML/text is written | | <code>birkly:templates-processed</code> | <code>document</code> | After a <strong>full-document</strong> <code>processTemplates()</code> finishes (<code>detail.regions</code> = count) |</p>
+<table><thead><tr><th>Event</th><th>Where</th><th>When</th></tr></thead>
+<tbody><tr><td><code>birkly:region-processed</code></td><td>Region element (bubbles)</td><td>After that region’s HTML/text is written</td></tr><tr><td><code>birkly:templates-processed</code></td><td><code>document</code></td><td>After a <strong>full-document</strong> <code>processTemplates()</code> finishes (<code>detail.regions</code> = count)</td></tr></tbody></table>
 <pre><code>document.addEventListener('birkly:templates-processed', () =&gt; {
   console.log('All page regions ready');
 });

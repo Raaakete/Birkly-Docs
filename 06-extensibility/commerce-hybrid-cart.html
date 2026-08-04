@@ -38,6 +38,7 @@
         <a href="../01-admin/account.html" class="nav-link">Account</a>
         <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
@@ -135,6 +136,7 @@
         <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
         <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
         <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
         <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
         <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
         <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
@@ -168,7 +170,8 @@
         <div class="doc-content"><p>One session cart can mix <strong>ship</strong>, <strong>deliver</strong>, <strong>register</strong>, and <strong>subscribe</strong> lines. Checkout splits <strong>billing groups</strong> (one-time vs recurring) and reuses email / address from a checkout draft. Plugin help shelf: <strong>Hybrid cart</strong> (<code>help-hybrid-cart</code>).</p>
 <div class="doc-summary"><p>Commerce <strong>1.0.29</strong> (P54 P3) certifies mixed-fulfillment carts with <strong>split checkout</strong>. One-time lines (ship + deliver + register) settle together; recurring / subscribe lines pay in a later group. Prefer <code>/plugins/commerce/assets/commerce-storefront.js</code> over a custom cart engine.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What shoppers can mix</h3>
-<p>| Line type | Fulfillment | Billing | Checkout group | |-----------|-------------|---------|----------------| | Physical product | <code>ship</code> | one-time | One-time | | Digital download | <code>deliver</code> | one-time | One-time | | Event / class | <code>register</code> | one-time | One-time | | Membership / club | <code>none</code> (or product) | recurring | <strong>Separate</strong> subscription group |</p>
+<table><thead><tr><th>Line type</th><th>Fulfillment</th><th>Billing</th><th>Checkout group</th></tr></thead>
+<tbody><tr><td>Physical product</td><td><code>ship</code></td><td>one-time</td><td>One-time</td></tr><tr><td>Digital download</td><td><code>deliver</code></td><td>one-time</td><td>One-time</td></tr><tr><td>Event / class</td><td><code>register</code></td><td>one-time</td><td>One-time</td></tr><tr><td>Membership / club</td><td><code>none</code> (or product)</td><td>recurring</td><td><strong>Separate</strong> subscription group</td></tr></tbody></table>
 <p>Example: coffee bag (ship) + PDF (deliver) + workshop seat (register) + monthly club (subscribe).</p>
 <h3>What buyers enter once</h3>
 <p>Collect <strong>email</strong>, <strong>shipping address</strong> (only when the cart has <code>ship</code> lines), and <strong>attendee name</strong> (when it has <code>register</code> lines) on the first step. Commerce stores a checkout draft and reuses those details for later groups.</p>

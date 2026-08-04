@@ -2,14 +2,17 @@
 <p>Technical reference: <a href="https://github.com/Raaakete/Birkly/blob/main/docs/deployment/docker.html">Birkly &lt;code&gt;docs/deployment/docker.md&lt;/code&gt;</a>.</p>
 <div class="doc-summary"><p><strong>CMS URL</strong> and <strong>public site URL</strong> are explicit settings (admin <strong>Settings → Hosting</strong>), stored in <code>settings/hosting.json</code>. You do <strong>not</strong> need a <code>cms.</code> subdomain — any hostname works. On Dokploy, add every domain to the same app with Path <strong><code>/</code></strong> and Internal Path <strong><code>/</code></strong> (never <code>/project</code>). Mount one volume at <strong><code>/app/data</code></strong> before first admin login.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Concepts</h3>
-<p>| Setting | Meaning | |---------|---------| | <strong>CMS URL</strong> | Where admin, API, and <code>birkly-client.js</code> live (e.g. <code>https://cms.birkly.cloud</code>) | | <strong>Public site URL</strong> | Where visitors see your marketing site (optional; e.g. <code>https://birkly.cloud</code>) | | <strong>Public website mode</strong> | <strong>None</strong> (CMS only) · <strong>Hosted elsewhere</strong> · <strong>In Birkly</strong> (<code>project/</code> folder) |</p>
+<table><thead><tr><th>Setting</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><strong>CMS URL</strong></td><td>Where admin, API, and <code>birkly-client.js</code> live (e.g. <code>https://cms.birkly.cloud</code>)</td></tr><tr><td><strong>Public site URL</strong></td><td>Where visitors see your marketing site (optional; e.g. <code>https://birkly.cloud</code>)</td></tr><tr><td><strong>Public website mode</strong></td><td><strong>None</strong> (CMS only) · <strong>Hosted elsewhere</strong> · <strong>In Birkly</strong> (<code>project/</code> folder)</td></tr></tbody></table>
 <p>Birkly routes by hostname using these settings. A <code>cms.</code> prefix is <strong>not</strong> required — <code>admin.example.com</code> and <code>www.example.com</code> work the same way.</p>
 <h3>Dokploy setup</h3>
-<p>| Step | Action | |------|--------| | 1 | Create app from GitHub → Birkly → Dockerfile, port <strong>80</strong>. | | 2 | <strong>Volume Mount</strong> (not Bind Mount): e.g. <code>birkly-cms-data</code> → <strong><code>/app/data</code></strong>. | | 3 | Add domains — CMS host and public host (if used) on the <strong>same app</strong>. | | 4 | For <strong>each</strong> domain: Path <strong><code>/</code></strong>, Internal Path <strong><code>/</code></strong>, HTTPS on. | | 5 | Deploy → <strong>Logs</strong> shows <strong>Containers (1)</strong>. | | 6 | Open <strong><code>https://your-cms-host/admin</code></strong> → create admin <strong>once</strong>. | | 7 | <strong>Settings → Hosting</strong> → set CMS URL and public site URL → Save. |</p>
+<table><thead><tr><th>Step</th><th>Action</th></tr></thead>
+<tbody><tr><td>1</td><td>Create app from GitHub → Birkly → Dockerfile, port <strong>80</strong>.</td></tr><tr><td>2</td><td><strong>Volume Mount</strong> (not Bind Mount): e.g. <code>birkly-cms-data</code> → <strong><code>/app/data</code></strong>.</td></tr><tr><td>3</td><td>Add domains — CMS host and public host (if used) on the <strong>same app</strong>.</td></tr><tr><td>4</td><td>For <strong>each</strong> domain: Path <strong><code>/</code></strong>, Internal Path <strong><code>/</code></strong>, HTTPS on.</td></tr><tr><td>5</td><td>Deploy → <strong>Logs</strong> shows <strong>Containers (1)</strong>.</td></tr><tr><td>6</td><td>Open <strong><code>https://your-cms-host/admin</code></strong> → create admin <strong>once</strong>.</td></tr><tr><td>7</td><td><strong>Settings → Hosting</strong> → set CMS URL and public site URL → Save.</td></tr></tbody></table>
 <p><strong>Do not</strong> set Internal Path to <code>/project</code>. That double-prefixes URLs and breaks clean public paths.</p>
 <h3>Two domains (example)</h3>
 <p>Production layout used by Birkly:</p>
-<p>| Host | Role | Root <code>/</code> serves | |------|------|-----------------| | <code>cms.birkly.cloud</code> | CMS URL | Admin dashboard | | <code>birkly.cloud</code> | Public site URL | Marketing site from <code>project/</code> (no <code>/project/</code> in the browser) |</p>
+<table><thead><tr><th>Host</th><th>Role</th><th>Root <code>/</code> serves</th></tr></thead>
+<tbody><tr><td><code>cms.birkly.cloud</code></td><td>CMS URL</td><td>Admin dashboard</td></tr><tr><td><code>birkly.cloud</code></td><td>Public site URL</td><td>Marketing site from <code>project/</code> (no <code>/project/</code> in the browser)</td></tr></tbody></table>
 <p>Both domains point to the same Dokploy app. Internal Path <strong><code>/</code></strong> on both.</p>
 <p>In <strong>Settings → Hosting</strong>:</p>
 <ul>
@@ -20,7 +23,8 @@
 <p>Saving auto-registers hosts in <strong>Settings → Domains</strong>. Use the generated integration snippet on public pages — <code>data-cms-url</code> must be the <strong>CMS URL</strong>, not the public host.</p>
 <h3>First install order</h3>
 <p>Attach the volume <strong>before</strong> first admin login. If you created an admin without a volume, then added a new empty volume and redeployed, you must create the admin again once (the first account lived in the temporary container).</p>
-<p>| Situation | Create admin again? | |-----------|---------------------| | Volume at <code>/app/data</code> from the start | No | | No volume first, then new empty volume | Yes (once) | | Every redeploy with volume attached | No |</p></div></details>
+<table><thead><tr><th>Situation</th><th>Create admin again?</th></tr></thead>
+<tbody><tr><td>Volume at <code>/app/data</code> from the start</td><td>No</td></tr><tr><td>No volume first, then new empty volume</td><td>Yes (once)</td></tr><tr><td>Every redeploy with volume attached</td><td>No</td></tr></tbody></table></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3><code>settings/hosting.json</code></h3>
 <pre><code>{
   &quot;cms_base_url&quot;: &quot;https://cms.birkly.cloud&quot;,
@@ -29,10 +33,12 @@
   &quot;same_host_landing&quot;: &quot;admin&quot;,
   &quot;strict_admin_host&quot;: true
 }</code></pre>
-<p>| Field | Values | Notes | |-------|--------|-------| | <code>cms_base_url</code> | HTTPS URL | Canonical admin + API base (required after onboarding) | | <code>public_site_mode</code> | <code>none</code> \| <code>external</code> \| <code>project</code> | <code>external</code> = site hosted outside Birkly | | <code>public_site_url</code> | HTTPS URL or empty | Required when mode ≠ <code>none</code> | | <code>same_host_landing</code> | <code>admin</code> \| <code>public</code> | When CMS and public share one host | | <code>strict_admin_host</code> | boolean | Redirect <code>/admin</code> on public host to CMS URL (default <code>true</code>) |</p>
+<table><thead><tr><th>Field</th><th>Values</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>cms_base_url</code></td><td>HTTPS URL</td><td>Canonical admin + API base (required after onboarding)</td></tr><tr><td><code>public_site_mode</code></td><td><code>none</code> | <code>external</code> | <code>project</code></td><td><code>external</code> = site hosted outside Birkly</td></tr><tr><td><code>public_site_url</code></td><td>HTTPS URL or empty</td><td>Required when mode ≠ <code>none</code></td></tr><tr><td><code>same_host_landing</code></td><td><code>admin</code> | <code>public</code></td><td>When CMS and public share one host</td></tr><tr><td><code>strict_admin_host</code></td><td>boolean</td><td>Redirect <code>/admin</code> on public host to CMS URL (default <code>true</code>)</td></tr></tbody></table>
 <p>Editable in admin or on disk under <code>/app/data/settings/hosting.json</code> (Docker). Legacy installs with empty <code>hosting.json</code> may infer CMS URL from a <code>cms.*</code> request host on first access.</p>
 <h3>Routing</h3>
-<p>| Request | CMS host | Public host | |---------|----------|-------------| | <code>/</code> | Admin (or <code>same_host_landing</code>) | Public site root | | <code>/admin</code> | Admin | Redirect to CMS <code>/admin</code> | | <code>/api/*</code> | API | API (CORS per Domains allowlist) |</p>
+<table><thead><tr><th>Request</th><th>CMS host</th><th>Public host</th></tr></thead>
+<tbody><tr><td><code>/</code></td><td>Admin (or <code>same_host_landing</code>)</td><td>Public site root</td></tr><tr><td><code>/admin</code></td><td>Admin</td><td>Redirect to CMS <code>/admin</code></td></tr><tr><td><code>/api/*</code></td><td>API</td><td>API (CORS per Domains allowlist)</td></tr></tbody></table>
 <p>Public host with <code>public_site_mode: project</code> serves files from <code>project/</code> at clean URLs (e.g. <code>/about</code>, not <code>/project/about</code>).</p>
 <h3>Dokploy domains checklist</h3>
 <ul>
@@ -41,12 +47,14 @@
 <li>Test: CMS root → admin · public root → site · <code>/api/deploy_revision.php</code> returns JSON</li>
 </ul>
 <h3>Troubleshooting</h3>
-<p>| Symptom | Check | |---------|-------| | Public site shows <code>/project/</code> in URL | Internal Path must be <code>/</code>; confirm Hosting mode = <code>project</code> | | <code>/admin</code> on public host stays on public host | Enable <strong>Redirect <code>/admin</code> on public host</strong> in Hosting settings | | 502 / <strong>Containers (0)</strong> | Bad mount type; switch to Volume Mount | | Wrong host serves admin | <strong>Settings → Hosting</strong> — CMS URL and public site URL must match Dokploy domains | | <code>test.example.com</code> redirects to production CMS | Test app uses prod volume or prod <code>hosting.json</code> — see <strong>Test and production</strong> below |</p>
+<table><thead><tr><th>Symptom</th><th>Check</th></tr></thead>
+<tbody><tr><td>Public site shows <code>/project/</code> in URL</td><td>Internal Path must be <code>/</code>; confirm Hosting mode = <code>project</code></td></tr><tr><td><code>/admin</code> on public host stays on public host</td><td>Enable <strong>Redirect <code>/admin</code> on public host</strong> in Hosting settings</td></tr><tr><td>502 / <strong>Containers (0)</strong></td><td>Bad mount type; switch to Volume Mount</td></tr><tr><td>Wrong host serves admin</td><td><strong>Settings → Hosting</strong> — CMS URL and public site URL must match Dokploy domains</td></tr><tr><td><code>test.example.com</code> redirects to production CMS</td><td>Test app uses prod volume or prod <code>hosting.json</code> — see <strong>Test and production</strong> below</td></tr></tbody></table>
 <h2>Test and production (two separate installs)</h2>
 <p>Use this when you run <strong>two</strong> Birkly apps (e.g. <code>cms.birkly.cloud</code> for real work and <code>test.birkly.cloud</code> for experiments).</p>
 <h3>The one rule</h3>
 <p><strong>Each app gets its own volume.</strong> Never mount the same volume name on both apps.</p>
-<p>| | Production app | Test app | |--|----------------|----------| | Dokploy app name | e.g. <code>Birkly CMS</code> | e.g. <code>Birkly Test</code> | | Domain | <code>cms.birkly.cloud</code> | <code>test.birkly.cloud</code> | | Volume name | e.g. <code>birkly-cms-data</code> | e.g. <code>birkly-cms-test-data</code> | | Mount path | <code>/app/data</code> | <code>/app/data</code> |</p>
+<table><thead><tr><th></th><th>Production app</th><th>Test app</th></tr></thead>
+<tbody><tr><td>Dokploy app name</td><td>e.g. <code>Birkly CMS</code></td><td>e.g. <code>Birkly Test</code></td></tr><tr><td>Domain</td><td><code>cms.birkly.cloud</code></td><td><code>test.birkly.cloud</code></td></tr><tr><td>Volume name</td><td>e.g. <code>birkly-cms-data</code></td><td>e.g. <code>birkly-cms-test-data</code></td></tr><tr><td>Mount path</td><td><code>/app/data</code></td><td><code>/app/data</code></td></tr></tbody></table>
 <p>If test uses prod’s volume (or a copy of prod’s data), opening <code>test.birkly.cloud</code> redirects to <code>cms.birkly.cloud</code>. That is expected — the saved CMS URL still says production.</p>
 <h3>Fix test redirecting to production</h3>
 <p>Pick <strong>one</strong> method. You only need one.</p>
@@ -66,7 +74,8 @@
 <ol>
 <li>Click <strong>Add variable</strong> (or the <strong>+</strong> button) three times and enter:</li>
 </ol>
-<p>   | Name | Value |    |------|--------|    | <code>BIRKLY_CMS_BASE_URL</code> | <code>https://test.birkly.cloud</code> |    | <code>BIRKLY_TRUST_REQUEST_HOST</code> | <code>true</code> |    | <code>BIRKLY_PUBLIC_SITE_MODE</code> | <code>none</code> |</p>
+<table><thead><tr><th>Name</th><th>Value</th></tr></thead>
+<tbody><tr><td><code>BIRKLY_CMS_BASE_URL</code></td><td><code>https://test.birkly.cloud</code></td></tr><tr><td><code>BIRKLY_TRUST_REQUEST_HOST</code></td><td><code>true</code></td></tr><tr><td><code>BIRKLY_PUBLIC_SITE_MODE</code></td><td><code>none</code></td></tr></tbody></table>
 <ol>
 <li>Click <strong>Save</strong>.</li>
 <li>Click <strong>Deploy</strong> or <strong>Rebuild</strong> (not only Restart) so the container starts with the new variables.</li>
@@ -119,7 +128,8 @@ EOF</code></pre>
 <p>Open in your browser:</p>
 <p><code>https://test.birkly.cloud/api/deploy_revision.php</code></p>
 <p>Look at the <code>hosting</code> section (after latest deploy):</p>
-<p>| Field | Good value for test | |-------|---------------------| | <code>cms_base_url</code> | <code>https://test.birkly.cloud</code> | | <code>request_host</code> | <code>test.birkly.cloud</code> | | <code>request_host_role</code> | <code>cms</code> |</p>
+<table><thead><tr><th>Field</th><th>Good value for test</th></tr></thead>
+<tbody><tr><td><code>cms_base_url</code></td><td><code>https://test.birkly.cloud</code></td></tr><tr><td><code>request_host</code></td><td><code>test.birkly.cloud</code></td></tr><tr><td><code>request_host_role</code></td><td><code>cms</code></td></tr></tbody></table>
 <p>If <code>request_host_role</code> is <code>unknown</code> and <code>cms_base_url</code> is still <code>https://cms.birkly.cloud</code>, the fix is not applied yet — retry Method 1 or 2.</p>
 <p>Then you can test Marsk onboarding on test without affecting production.</p>
 <h3>Cannot log in on test after fixing hosting</h3>
@@ -134,7 +144,8 @@ EOF</code></pre>
 <h3>⚠️ Test and production share the same data (most common mistake)</h3>
 <p>If <strong>both</strong> Dokploy apps mount the <strong>same volume name</strong> (e.g. both use <code>birkly-cms-data</code>), they are <strong>not</strong> two separate websites — they are <strong>one</strong> Birkly install with two domain names.</p>
 <p>Anything you do on test affects production immediately:</p>
-<p>| Action on test | Effect on production | |----------------|----------------------| | Delete users / fresh reset | Production logins stop working | | Create new admin (same email) | Production password changes to the new one | | Install Marsk starter | Production content changes | | Repair hosting URL | Can break which domain is “home” |</p>
+<table><thead><tr><th>Action on test</th><th>Effect on production</th></tr></thead>
+<tbody><tr><td>Delete users / fresh reset</td><td>Production logins stop working</td></tr><tr><td>Create new admin (same email)</td><td>Production password changes to the new one</td></tr><tr><td>Install Marsk starter</td><td>Production content changes</td></tr><tr><td>Repair hosting URL</td><td>Can break which domain is “home”</td></tr></tbody></table>
 <p><strong>Check in Dokploy:</strong> production app → <strong>Volumes</strong> → note the volume name. Test app → <strong>Volumes</strong>. If the name is <strong>identical</strong>, they share data. Test must use a <strong>different</strong> name (e.g. <code>birkly-cms-test-data</code>).</p>
 <p><strong>Recover production login:</strong> try <code>https://cms.birkly.cloud/admin</code> with the <strong>same email and password you created on test</strong>. Or reset:</p>
 <pre><code>php /app/scripts/reset-admin-password.php --email=YOUR@EMAIL.com --password='YourNewProdPassword123!'</code></pre></div></details>

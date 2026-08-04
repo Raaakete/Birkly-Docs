@@ -10,7 +10,8 @@
 <blockquote><p><strong>Note:</strong> The public storefront and registry may still be called the Birkly Marketplace. In the CMS UI, use <strong>Hub</strong>. Internal API actions stay under <code>/api/marketplace.php</code> for this phase.</p></blockquote>
 <p><strong>Ops starters (onboarding)</strong></p>
 <p>When you first set up Birkly, the onboarding wizard offers starter templates:</p>
-<p>| Starter | What you get | |---------|--------------| | <strong>Marsk</strong> | Flagship slow-living journal — blog, gallery, about pages, and editorial demo site | | <strong>Start blank</strong> | Empty content and project folder |</p>
+<table><thead><tr><th>Starter</th><th>What you get</th></tr></thead>
+<tbody><tr><td><strong>Marsk</strong></td><td>Flagship slow-living journal — blog, gallery, about pages, and editorial demo site</td></tr><tr><td><strong>Start blank</strong></td><td>Empty content and project folder</td></tr></tbody></table>
 <p>Legacy starters (blog, shop, business, docs) remain available via Ops for staff but are not shown in the default onboarding picker.</p>
 <p><strong>Marsk example</strong></p>
 <ol>
@@ -35,11 +36,13 @@ curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.sta
 <p>On <strong>Plugins → Installed</strong>, use <strong>Upload pack</strong> to install a site pack ZIP without going through the catalog. The ZIP must use the Ops starter / site pack layout (<code>manifest.json</code> + <code>collections/</code> + <code>project/</code>). Invalid ZIPs and path traversal are rejected. Upload uses the <strong>same install engine</strong> as Hub <code>template_pack</code> installs.</p>
 <blockquote><p><strong>Note:</strong> Fuller Hub information architecture (Discover · Installed · Updates · Licenses · Upload pack as first-class Hub sections) may still be rolling out. <strong>Upload pack</strong> is available from the Installed plugins area today.</p></blockquote>
 <p><strong>Install options</strong></p>
-<p>| Option | Behavior | |--------|----------| | <strong>Merge</strong> (default) | Overlay pack files onto the existing site; backup first when content already exists | | <strong>Replace</strong> | Remove pack-targeted collections and <code>project/</code> overlay, then install; backup first | | <strong>Fresh-only</strong> | Refuse install if the site already has collections or project files | | <strong>Include demo / sample entries</strong> | Opt-in; schemas and <code>project/</code> files always install |</p>
+<table><thead><tr><th>Option</th><th>Behavior</th></tr></thead>
+<tbody><tr><td><strong>Merge</strong> (default)</td><td>Overlay pack files onto the existing site; backup first when content already exists</td></tr><tr><td><strong>Replace</strong></td><td>Remove pack-targeted collections and <code>project/</code> overlay, then install; backup first</td></tr><tr><td><strong>Fresh-only</strong></td><td>Refuse install if the site already has collections or project files</td></tr><tr><td><strong>Include demo / sample entries</strong></td><td>Opt-in; schemas and <code>project/</code> files always install</td></tr></tbody></table>
 <p><strong>Required plugins</strong></p>
 <p>If the pack declares <code>required_plugins</code> that are not installed, install <strong>blocks</strong> until you confirm. Confirming installs the missing required plugins (with entitlement/activation and consent when needed), then continues the pack. Cancel writes nothing. <strong>Recommended</strong> plugins warn only and never block.</p>
 <p><strong>Themes vs site packs</strong></p>
-<p>| Type | <code>offer_type</code> | Installs to | What changes | |------|--------------|-------------|--------------| | <strong>Theme</strong> | <code>theme</code> | <code>themes/{id}/</code> | Visual styling package | | <strong>Site pack</strong> | <code>template_pack</code> | <code>content/collections/</code> + <code>project/</code> | Content structure plus public site files | | <strong>Plugin</strong> | <code>plugin</code> | <code>plugins/{folder}/</code> | Admin features, APIs, field types |</p>
+<table><thead><tr><th>Type</th><th><code>offer_type</code></th><th>Installs to</th><th>What changes</th></tr></thead>
+<tbody><tr><td><strong>Theme</strong></td><td><code>theme</code></td><td><code>themes/{id}/</code></td><td>Visual styling package</td></tr><tr><td><strong>Site pack</strong></td><td><code>template_pack</code></td><td><code>content/collections/</code> + <code>project/</code></td><td>Content structure plus public site files</td></tr><tr><td><strong>Plugin</strong></td><td><code>plugin</code></td><td><code>plugins/{folder}/</code></td><td>Admin features, APIs, field types</td></tr></tbody></table>
 <p>A site pack may ship CSS inside <code>project/</code>; that is not the same as a theme offer. Theme activation / apply-to-site is a separate track and not required for pack installs.</p>
 <p><strong>After install</strong></p>
 <ul>
@@ -65,9 +68,11 @@ curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.sta
 <p>Optional media may be included. Manifest must pass starter/site-pack validation (<code>manifest.id</code>, <code>manifest.version</code>, non-empty <code>collections</code>).</p>
 <p><strong>Shared install engine</strong></p>
 <p>Hub catalog install (<code>template_pack</code>) and <strong>Upload pack</strong> (<code>install_template_pack_zip</code> / preflight) call the same engine (<code>birkly_marketplace_install_template_pack_from_zip</code>). Registry metadata is stored in <code>installed_template_packs.json</code> (slug, version, collections, file hashes, source).</p>
-<p>| Source | Typical <code>source</code> value | |--------|------------------------| | Hub offer | <code>marketplace</code> | | Manual ZIP | <code>upload</code> | | Onboarding starter | Ops path (separate download; same extract layout) |</p>
+<table><thead><tr><th>Source</th><th>Typical <code>source</code> value</th></tr></thead>
+<tbody><tr><td>Hub offer</td><td><code>marketplace</code></td></tr><tr><td>Manual ZIP</td><td><code>upload</code></td></tr><tr><td>Onboarding starter</td><td>Ops path (separate download; same extract layout)</td></tr></tbody></table>
 <p><strong>Overwrite modes (detail)</strong></p>
-<p>| Mode | When site is dirty | |------|--------------------| | <code>merge</code> | Backup if needed, then overlay pack files | | <code>replace</code> | Backup, remove pack-targeted collections + project overlay, then extract | | <code>fresh-only</code> | Error <code>site_not_fresh</code> — no write |</p>
+<table><thead><tr><th>Mode</th><th>When site is dirty</th></tr></thead>
+<tbody><tr><td><code>merge</code></td><td>Backup if needed, then overlay pack files</td></tr><tr><td><code>replace</code></td><td>Backup, remove pack-targeted collections + project overlay, then extract</td></tr><tr><td><code>fresh-only</code></td><td>Error <code>site_not_fresh</code> — no write</td></tr></tbody></table>
 <p><strong>Demo entries (detail)</strong></p>
 <ul>
 <li>Default for Hub/ZIP: <code>include_demo_entries: false</code></li>
@@ -83,7 +88,8 @@ curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.sta
 </ul>
 <p>Collection schema files are not treated as protected user content the same way.</p>
 <p><strong>Ops starter API</strong></p>
-<p>| Endpoint | Purpose | |----------|---------| | <code>GET /api/ops/v1/starters?channel={channel}</code> | Catalog with <code>onboarding_enabled</code> flags | | <code>GET /api/ops/v1/starters/{id}/download</code> | Signed zip download |</p>
+<table><thead><tr><th>Endpoint</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>GET /api/ops/v1/starters?channel={channel}</code></td><td>Catalog with <code>onboarding_enabled</code> flags</td></tr><tr><td><code>GET /api/ops/v1/starters/{id}/download</code></td><td>Signed zip download</td></tr></tbody></table>
 <p>CMS resolves catalog URL from <code>starters_catalog_url</code> in platform config, <code>BIRKLY_OPS_STARTERS_URL</code>, or derived from the Ops feedback relay URL. Default: <code>https://ops.birkly.cloud/api/ops/v1/starters</code>.</p>
 <p><strong>Hub / registry install flow (<code>template_pack</code>)</strong></p>
 <ol>

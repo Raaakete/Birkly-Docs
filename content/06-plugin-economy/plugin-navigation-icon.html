@@ -13,7 +13,8 @@
 <p><strong>Custom inline SVG (fallback)</strong> — If you need a unique mark, set <code>icon</code> to a full <code>&lt;svg&gt;...&lt;/svg&gt;</code> string. Keep it <strong>16×16</strong>, use <code>stroke=&quot;currentColor&quot;</code>, and add <code>class=&quot;nav-icon&quot;</code> so it aligns with core nav icons.</p>
 <p><strong>If you omit <code>icon</code></strong> — The sidebar falls back to the <code>gear</code> registry icon.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3><code>navigation</code> block</h3>
-<p>| Field | Purpose | |-------|---------| | <code>name</code> | Sidebar label | | <code>page</code> | Admin page slug (matches your registered admin route) | | <code>icon</code> | Registry name <strong>or</strong> inline SVG string |</p>
+<table><thead><tr><th>Field</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>name</code></td><td>Sidebar label</td></tr><tr><td><code>page</code></td><td>Admin page slug (matches your registered admin route)</td></tr><tr><td><code>icon</code></td><td>Registry name <strong>or</strong> inline SVG string</td></tr></tbody></table>
 <p>Example with registry name:</p>
 <pre><code>&quot;navigation&quot;: {
   &quot;name&quot;: &quot;Commerce&quot;,
@@ -27,7 +28,8 @@
   &quot;icon&quot;: &quot;&lt;svg class=\&quot;nav-icon\&quot; width=\&quot;16\&quot; height=\&quot;16\&quot; viewBox=\&quot;0 0 24 24\&quot; fill=\&quot;none\&quot; stroke=\&quot;currentColor\&quot; stroke-width=\&quot;2\&quot; aria-hidden=\&quot;true\&quot;&gt;&lt;circle cx=\&quot;12\&quot; cy=\&quot;12\&quot; r=\&quot;10\&quot;/&gt;&lt;/svg&gt;&quot;
 }</code></pre>
 <h3>Icon registry sources</h3>
-<p>| Location | Role | |----------|------| | <code>core/icons.php</code> | PHP helper <code>birkly_icon($name, $attrs)</code> — registry keys and inline SVG paths | | <code>admin/js/icon.js</code> | <code>Birkly.icon(name, opts)</code> — same names for admin JavaScript | | <code>admin/assets/icons/{name}.svg</code> | Standalone SVG assets; used by <code>Birkly.iconImg()</code> and reference |</p>
+<table><thead><tr><th>Location</th><th>Role</th></tr></thead>
+<tbody><tr><td><code>core/icons.php</code></td><td>PHP helper <code>birkly_icon($name, $attrs)</code> — registry keys and inline SVG paths</td></tr><tr><td><code>admin/js/icon.js</code></td><td><code>Birkly.icon(name, opts)</code> — same names for admin JavaScript</td></tr><tr><td><code>admin/assets/icons/{name}.svg</code></td><td>Standalone SVG assets; used by <code>Birkly.iconImg()</code> and reference</td></tr></tbody></table>
 <p>Registry names use <strong>kebab-case</strong> (for example <code>magnifying-glass</code>, <code>pencil-simple</code>, <code>dots-six-vertical</code>). Aliases exist where useful (<code>gauge</code> / <code>speedometer</code>).</p>
 <p><strong>Listing names in PHP:</strong> <code>array_keys(birkly_icon_paths())</code></p>
 <p><strong>Listing names in JS:</strong> <code>Birkly.iconNames</code></p>

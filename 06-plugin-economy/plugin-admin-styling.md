@@ -77,6 +77,8 @@ These class names and their visual meaning are guaranteed across minor versions.
 
 `.card` · `.card-header` · `.card-title` · `.card-body` · `.card-footer`
 
+Once content is already inside a `.card`, don't nest a second one — use `.card-section` to divide the body into divider-separated sub-blocks instead (a settings group, a fieldtype's options block). See [Admin design language § Card section](../01-admin/admin-design-language.md#card-section--stop-nesting-a-card-inside-a-card) for the markup. `.card-section` is documented and stable, but — unlike the classes listed above — its presence is **not yet** checked by CI (see the note at the end of this section).
+
 **Controls**
 
 `.btn` · `.btn-primary` · `.btn-secondary` · `.btn-outline` · `.btn-danger` · `.btn-sm` · `.btn-lg` · `.btn-icon`
@@ -97,11 +99,13 @@ These class names and their visual meaning are guaranteed across minor versions.
 
 `.tabs` · `.tab` · `.tab-panel` · `.modal` · `.modal-header` · `.modal-body` · `.modal-footer` · `.dropdown` · `.dropdown-item`
 
+`.tab`'s active state is a filled pill (`--surface-selected`), not an underline. For vertical secondary navigation, the equivalent component is `.side-nav` / `.side-nav-item` — same active/hover/focus rule as `.tab`, oriented vertically, with an optional `.side-nav-sub` for nested items. Like `.card-section`, `.side-nav` and `.side-nav-item` are documented in [Admin design language](../01-admin/admin-design-language.md) but not yet in the CI presence check below.
+
 **Misc**
 
 `.avatar` · `.divider` · `.birkly-icon`
 
-Also contracted, though not in the CI presence check: every `u-*` helper, every documented token, the `.fieldtype-*` API, and the action-zone classes `.main-actions-left` / `.main-actions-right` / `.main-actions-bar--sticky` / `.cell-actions` / `.btn-icon--edit` / `.btn-icon--danger`.
+Also contracted, though not in the CI presence check: every `u-*` helper, every documented token, the `.fieldtype-*` API, the action-zone classes `.main-actions-left` / `.main-actions-right` / `.main-actions-bar--sticky` / `.cell-actions` / `.btn-icon--edit` / `.btn-icon--danger`, and the newer `.card-section` / `.side-nav` / `.side-nav-item` (documented in [Admin design language](../01-admin/admin-design-language.md) but added after the current CI contract list was written, so don't rely on CI to flag a regression in these specifically — treat them as stable by documentation, not yet by automated enforcement).
 
 **Not contracted:** internal element parts not listed above (for example `.card-heading`, `.data-list-main`, `.tabs-v2-*` internals), page-level classes in `admin/css/pages/*.css`, and `.entries-smart-table` internals. Modifier suffixes documented in [Admin design language](../01-admin/admin-design-language.md) — `.card--compact`, `.badge-success`, `.modal--lg`, `.table--compact` and so on — are stable in practice but the list above is what CI guarantees.
 
@@ -118,6 +122,9 @@ Also contracted, though not in the CI presence check: every `u-*` helper, every 
 7. **Don't re-implement a contracted component.** If `.card` doesn't fit your case, that's a core gap — file it rather than shipping a ninth card family.
 8. **Respect the accent rules.** `--accent` is a fill and is 1.54:1 on white; `--accent-text` is the text ramp; `--ink-on-accent` is what goes on a mint fill. One mint-filled element per screen.
 9. **One page title.** Your page gets its title from the breadcrumb `.current` segment via `{plugin_page_header}`. Don't render an `<h1>`.
+10. **No box-in-box.** If a `.card` is already on the page and you're about to wrap a group of fields or options in another bordered, rounded, filled container *inside* that card's body, stop — use `.card-section` (a divider-separated sub-block with no border/background/radius of its own), more spacing (`u-stack-*`), or a plain `.divider` instead. This applies to plugin admin pages exactly as much as core: a fieldtype's options block or a plugin settings group nested inside `.card-body` is the same violation either way.
+11. **Text fields use `--field-border`, not `--border-control`.** If you're building your own input-like control in a Tier 1/2 stylesheet, border it with `--field-border` / `--field-border-hover` / `--field-border-focus` (the same family `.input`/`.select`/`.textarea` use), not `--border-control` — and never colour a text field's focus state with `--accent-focus` or any other green/mint token. A green-ish focus border on a field reads as "already validated", which is confusing right next to the platform's own `.input.is-valid` success state. `--border-control` is for buttons, custom-selects and other non-text-field controls.
+12. **Never reuse the literal `data-theme` attribute for anything of your own.** Dark mode is scoped by the exact selector `[data-theme="dark"]` on `<html>`/`<body>`; a CSS attribute selector matches *any* element carrying that attribute, not only the real theme root. If your plugin renders anything theme-related — a theme preview swatch, an appearance-option button, a per-item "which mode is this" marker — name that attribute something else (`data-theme-option`, `data-my-plugin-theme`, anything but the bare `data-theme`), or it will silently and locally inherit dark-surface tokens regardless of the page's actual theme.
 
 A Tier 1 stylesheet that follows these rules looks like this:
 
@@ -500,6 +507,9 @@ Fieldtypes that ship their own CSS follow the same rules as Tier 1 plugin CSS: t
 - [ ] Text contrast meets AA (4.5:1 body, 3:1 for ≥18px text and UI boundaries)
 - [ ] `--accent` and `--primary-700` never used as a text colour; `--ink-on-accent` on every mint fill
 - [ ] Checked at 640 / 768 / 1024 / 1280 / 1440+ with no unintended horizontal scroll
+- [ ] No `.card` nested inside another `.card`'s body — `.card-section`, spacing or a `.divider` instead
+- [ ] Any custom text-like input uses `--field-border` / `-hover` / `-focus`, and its focus state is never accent/green
+- [ ] No literal `data-theme="light"` / `"dark"` / `"system"` attribute anywhere in plugin markup or JS other than the real theme root
 
 ## Related
 

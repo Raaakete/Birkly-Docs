@@ -288,6 +288,9 @@ Birkly.webmcp.setConfirm(fn);  // replace the default window.confirm() with your
 <p>On <strong><code>external</code></strong> pages, <code>birkly-client.js</code> also quietly adds a discovery <code>&lt;link rel=&quot;alternate&quot; type=&quot;application/json&quot; href=&quot;{cms}/.well-known/agent-guide.json&quot;&gt;</code> to the page <code>&lt;head&gt;</code> whenever it's loaded with <code>data-cms-url</code>. This gives agents a way to find your canonical Guide on the Birkly host straight away, even before you've set up a download or reverse-proxy on your own domain. It's automatic, non-visual, and added at most once per page.</p>
 <h3>Verifying it works (technical)</h3>
 <p>On a supported Chromium build (146+), enable the <code>#enable-webmcp-testing</code> flag and open a page with website tools on. Registered tools appear in the browser's model-context inspector. This is a technical, opt-in check — Birkly does not ask non-technical owners to flip browser flags as a normal step.</p>
+<h3>About PageSpeed Insights</h3>
+<p>Lighthouse 13.3 only treats WebMCP as supported when the lab browser exposes <code>navigator.modelContext</code>. PageSpeed Insights often lacks that API, so the three WebMCP audits show as <strong>Not evaluated</strong> — that is a lab-browser limit, not a Birkly failure. Birkly still injects the tools runtime, stamps <code>toolname</code> / <code>tooldescription</code> on allowlisted public forms, and registers tools in browsers that do support WebMCP. Use local Chrome (above) to verify. Separately, a published Agent Guide also serves <code>/llms.txt</code> so the llms.txt Agentic Browsing audit can score.</p>
+
 <h3>Safety summary</h3>
 <ul>
 <li><strong>Public-site actuation only.</strong> No admin/CMS write tool is ever exposed — website tools can only do what a visitor could already do on the page.</li>

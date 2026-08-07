@@ -22,7 +22,7 @@ Agent Guide answers three different questions about AI and your site, plus a fou
 A compact **status strip** at the top of the page (Guide / Website tools / AI app connections / Where it's hosted) links straight into each tab.
 
 - **Tools (WebMCP)** — see [Website tools (WebMCP)](../04-integration/webmcp-tools.md) for the full catalog, safety model, and how to enable it.
-- **Connections** — the same personal connector / service agent controls as **Settings → AI**, mounted here for convenience. Both surfaces are currently live at once (Birkly is A/B-testing which one owners prefer); see [MCP connections](../01-admin/mcp-connections.md) — nothing here forks that backend or its permissions.
+- **Connections** — the same personal connector / service agent controls as **Agent Guide → Connections**, mounted here for convenience. Both surfaces are currently live at once (Birkly is A/B-testing which one owners prefer); see [MCP connections](../01-admin/mcp-connections.md) — nothing here forks that backend or its permissions.
 - **Publish** — see [What gets published](#what-gets-published) and [Related Birkly features](#related-birkly-features) below; the tab is **hosting-mode aware** ("On Birkly" `project/` vs. "External" vs. "None") and never shows a public URL Birkly can't actually serve for your site's hosting mode.
 
 ## What problem does it solve?
@@ -139,7 +139,7 @@ Suggestions are **never auto-saved** until you accept them. AI Assist prefers de
 | [Public API](../04-integration/agent-guide-public-api.md) | Integrators | Endpoints, views, graph, caching |
 | [MCP & agents](../04-integration/agent-guide-mcp-and-agents.md) | Developers | MCP tools, resources, agent patterns |
 | [Website tools (WebMCP)](../04-integration/webmcp-tools.md) | Everyone | The **Tools** hub tab — what visitor AI helpers can do, tool catalog, safety, hosting |
-| [MCP connections](../01-admin/mcp-connections.md) | Everyone | The **Connections** hub tab (= Settings → AI) — how AI apps connect to Birkly |
+| [MCP connections](../01-admin/mcp-connections.md) | Everyone | The **Connections** hub tab (= Agent Guide → Connections) — how AI apps connect to Birkly |
 
 ## Quick start (5 steps)
 
@@ -170,9 +170,9 @@ Legacy field **`connected_content[]`** is migrated into `sources_of_truth[]` on 
 ## Related Birkly features
 
 - **Agent Guide → Tools** — Website tools (WebMCP); what visitor-facing AI helpers can *do* on your live site. See [Website tools (WebMCP)](../04-integration/webmcp-tools.md).
-- **Agent Guide → Connections / Settings → AI** — How AI apps connect to your Birkly CMS. See [MCP connections](../01-admin/mcp-connections.md).
+- **Agent Guide → Connections / Agent Guide → Connections** — How AI apps connect to your Birkly CMS. See [MCP connections](../01-admin/mcp-connections.md).
 - **Settings → Site delivery** — Public site URL where well-known and API are served
-- **Settings → AI connections** — Optional BYOAI for Assist (rules-only mode works without AI)
+- **Agent Guide → Connections** — Optional BYOAI for Assist (rules-only mode works without AI)
 - **MCP connections** — Inbound agents can read published guide context via MCP tools
 - **Admin AI chat** — Complementary; Agent Guide is structured publish, not conversational UI
 
@@ -199,7 +199,7 @@ No. Agent Guide is **curated truth + evidence + source links** — the right mod
 **Does publishing my Guide turn on website tools?**  
 No. Publishing the Guide only makes your fact-sheet JSON public. **Website tools** (the Tools tab / WebMCP) is a separate, off-by-default switch — see [Website tools (WebMCP)](../04-integration/webmcp-tools.md).
 
-**Why do I see Connections both here and in Settings → AI?**  
+**Why do I see Connections both here and in Agent Guide → Connections?**  
 Birkly currently shows the same AI-connection controls in both places while it evaluates which location owners prefer. They share the same backend and settings — changes in one show up in the other. Nothing is duplicated or out of sync.
 
 **Legacy paths and tools?**  

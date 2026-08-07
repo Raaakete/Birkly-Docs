@@ -119,7 +119,6 @@ Birkly.webmcp.setConfirm(fn);  // replace the default window.confirm() with your
 <p>On a supported Chromium build (146+), enable the <code>#enable-webmcp-testing</code> flag and open a page with website tools on. Registered tools appear in the browser's model-context inspector. This is a technical, opt-in check — Birkly does not ask non-technical owners to flip browser flags as a normal step.</p>
 <h3>About PageSpeed Insights</h3>
 <p>Lighthouse 13.3 only treats WebMCP as supported when the lab browser exposes <code>navigator.modelContext</code>. PageSpeed Insights often lacks that API, so the three WebMCP audits show as <strong>Not evaluated</strong> — that is a lab-browser limit, not a Birkly failure. Birkly still injects the tools runtime, stamps <code>toolname</code> / <code>tooldescription</code> on allowlisted public forms, and registers tools in browsers that do support WebMCP. Use local Chrome (above) to verify. Separately, a published Agent Guide also serves <code>/llms.txt</code> so the llms.txt Agentic Browsing audit can score.</p>
-
 <h3>Safety summary</h3>
 <ul>
 <li><strong>Public-site actuation only.</strong> No admin/CMS write tool is ever exposed — website tools can only do what a visitor could already do on the page.</li>
@@ -132,7 +131,7 @@ Birkly.webmcp.setConfirm(fn);  // replace the default window.confirm() with your
 </ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="../02-content/agent-guide.html">Agent Guide</a> — the Guide tab (public fact sheet) and the wider hub</li>
-<li><a href="../01-admin/mcp-connections.html">MCP connections</a> — Connections tab / Settings → AI (Birkly MCP for AI apps)</li>
+<li><a href="../01-admin/mcp-connections.html">MCP connections</a> — Connections tab / Agent Guide → Connections (Birkly MCP for AI apps)</li>
 <li><a href="public-forms.html">Public forms</a> — how <code>public_api</code> collections and <code>{entry for}</code> work under the hood</li>
 <li><a href="client-library.html">Client library</a> — <code>birkly-client.js</code>, which website tools load after</li>
 <li><a href="agent-guide-public-api.html">Agent Guide public API</a> — the Guide JSON website tools never duplicate</li>

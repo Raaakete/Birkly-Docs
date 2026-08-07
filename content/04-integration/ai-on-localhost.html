@@ -1,0 +1,53 @@
+<div class="doc-summary"><p>Running Birkly on <code>http://localhost</code> works for day-to-day admin and the <strong>built-in assistant</strong>, but <strong>remote AI connectors</strong> (Claude, ChatGPT, and similar) usually <strong>cannot</strong> call <code>http://localhost/mcp</code> — they need a <strong>public HTTPS</strong> URL. For local development, use the <strong>mcp-bridge</strong> (stdio) or a <strong>tunnel</strong> (<code>cloudflared</code> / ngrok) to expose HTTPS to <code>/mcp</code>. Open <strong>Agent Guide → Connections</strong> for the same connector controls and local-project guidance.</p>
+<blockquote><p><strong>Warning:</strong> Do <strong>not</strong> expose your admin panel to the open internet as a “quick fix.” Prefer mcp-bridge for local tools, or a short-lived tunnel only for the MCP endpoint, with your usual auth in place.</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What works on localhost</h3>
+<table><thead><tr><th>Path</th><th>Works?</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Admin + <strong>built-in assistant</strong> on localhost</td><td><strong>Yes</strong></td><td>Outbound BYOAI (API keys) works from your machine. <strong>Ollama</strong> on <code>http://localhost:11434</code> is fine.</td></tr><tr><td>Remote <strong>connectors</strong> (Claude / ChatGPT / similar) → <code>http://localhost/mcp</code></td><td><strong>Usually no</strong></td><td>Those apps need a <strong>public HTTPS</strong> Connector URL ending in <code>/mcp</code>.</td></tr><tr><td>Local AI tools via <strong>mcp-bridge</strong> (stdio → local Birkly)</td><td><strong>Yes</strong></td><td>Recommended for Claude Desktop and similar local MCP hosts.</td></tr><tr><td><strong>Tunnel</strong> (<code>cloudflared</code> / ngrok) → HTTPS → <code>/mcp</code></td><td><strong>Yes</strong></td><td>Supported pattern so remote connectors can reach your local CMS.</td></tr></tbody></table>
+<p>Where to configure connectors: <strong>Agent Guide → Connections</strong> (Connections is the single home for connectors). See <a href="../01-admin/mcp-connections.html">Connect your AI app</a>.</p>
+<h3>Option A — mcp-bridge (recommended for local tools)</h3>
+<p>Use when your AI app runs on the same machine and supports <strong>stdio</strong> MCP servers (for example Claude Desktop).</p>
+<ol>
+<li>Open <strong>Agent Guide → Connections</strong>.</li>
+<li>Expand <strong>Developer / debug</strong> (or the <strong>Local project</strong> card when shown).</li>
+<li>Follow the download / copy instructions for <code>mcp-bridge.js</code>.</li>
+<li>Point your AI app’s MCP config at that bridge so it talks to your local Birkly over stdio — not over a public URL.</li>
+</ol>
+<p>Normal site owners using only cloud Claude/ChatGPT connectors do not need the bridge.</p>
+<h3>Option B — Tunnel to public HTTPS</h3>
+<p>Use when the connector <strong>must</strong> be a public HTTPS URL (most browser or cloud Claude/ChatGPT connector UIs).</p>
+<ol>
+<li>Run Birkly locally (for example <code>http://localhost:8080</code>).</li>
+<li>Start a tunnel that terminates <strong>HTTPS</strong> and forwards to your local CMS port:</li>
+</ol>
+<p><strong>cloudflared (example):</strong></p>
+<pre><code>cloudflared tunnel --url http://localhost:8080</code></pre>
+<p><strong>ngrok (example):</strong></p>
+<pre><code>ngrok http 8080</code></pre>
+<ol>
+<li>Copy the HTTPS origin the tunnel prints (for example <code>https://abc123.trycloudflare.com</code>).</li>
+<li>In <strong>Agent Guide → Connections</strong>, use a Connector URL of the form:</li>
+</ol>
+<pre><code>https://YOUR-TUNNEL-HOST/mcp</code></pre>
+<ol>
+<li>Paste that URL into Claude, ChatGPT, or Cursor. Leave Client ID / Client Secret empty. Sign in when prompted.</li>
+</ol>
+<p>Keep the tunnel process running while you work. Treat the temporary URL like a secret — anyone who reaches <code>/mcp</code> still goes through Birkly auth, but you should not leave unused tunnels running.</p>
+<h3>Security reminders</h3>
+<ul>
+<li>Prefer <strong>mcp-bridge</strong> for purely local workflows — no public URL.</li>
+<li>Tunnels are for development; shut them down when finished.</li>
+<li>Never set Birkly to “open admin with no auth” to make AI connect.</li>
+<li>Production sites should already be on public HTTPS — use the normal Connector URL from Connections; no tunnel needed.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Why remote connectors fail on localhost:</strong> Cloud AI apps open OAuth and then call your MCP HTTP endpoint from their servers. Those servers cannot reach your laptop’s <code>127.0.0.1</code>. A tunnel provides a reachable HTTPS hostname; mcp-bridge avoids HTTP entirely by using stdio on the local machine.</p>
+<p><strong>Ollama:</strong> Built-in assistant provider <code>ollama</code> defaults to <code>http://localhost:11434/api/chat</code>. That path does not require a public URL because the request is <strong>outbound from PHP</strong> on the same host.</p>
+<p><strong>Connector URL shape:</strong> Always HTTPS in production and for tunneled local use; path ends with <code>/mcp</code>. See <a href="../01-admin/mcp-connections.html#requirements">Connect your AI app</a>.</p>
+<p><strong>Related surfaces:</strong> Website tools (<a href="webmcp-tools.html">WebMCP</a>) are a different layer — browser agents on your <strong>public site</strong>, not the CMS MCP connector. Localhost WebMCP still needs a secure context (HTTPS or localhost).</p>
+<h2>Further reading</h2>
+<ul>
+<li><a href="../01-admin/mcp-connections.html">Connect your AI app</a> — personal connector, service agents, OAuth</li>
+<li><a href="../01-admin/ai-connections.html">Built-in assistant</a> — outbound API keys / Ollama</li>
+<li><a href="../02-content/agent-guide.html">Agent Guide</a> — hub; open <strong>Connections</strong></li>
+<li><a href="webmcp-tools.html">Website tools (WebMCP)</a></li>
+<li><a href="../01-admin/developer-mode.html">Developer mode</a> — system info and MCP smoke helpers</li>
+</ul></div></details>

@@ -34,6 +34,8 @@
         <a href="collection-editor.html" class="nav-link">Collection editor</a>
         <a href="media-library.html" class="nav-link">Media library</a>
         <a href="settings.html" class="nav-link">Settings</a>
+        <a href="analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="developer-mode.html" class="nav-link">Developer mode</a>
         <a href="project-git-sync.html" class="nav-link">Project Git sync</a>
         <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
         <a href="account.html" class="nav-link">Account</a>
@@ -94,6 +96,7 @@
         <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
         <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
         <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -195,13 +198,13 @@
 <ul>
 <li>The AI may reply with text only, or run <strong>actions</strong>.</li>
 <li>If <strong>Require approval</strong> is <strong>off</strong>, actions run immediately and the AI confirms.</li>
-<li>If <strong>Require approval</strong> is <strong>on</strong>, writes are queued; open the <strong>approval queue</strong> (linked from chat or <strong>Settings → AI &amp; Integrations</strong>).</li>
+<li>If <strong>Require approval</strong> is <strong>on</strong>, writes are queued; open the <strong>approval queue</strong> (linked from chat or <strong>Agent Guide → Connections &amp; Integrations</strong>).</li>
 </ul>
 <p><strong>Connection picker tips</strong></p>
 <ul>
 <li>The picker shows <strong>outbound</strong> connections only (OpenAI, Anthropic, Ollama, etc.).</li>
 <li>Switching connections mid-conversation starts using the new provider and role for subsequent messages; prefer <strong>New chat</strong> when changing providers for a clean context.</li>
-<li>If the picker is empty, add a connection under <strong>Settings → AI &amp; Integrations → Outbound</strong>.</li>
+<li>If the picker is empty, add a connection under <strong>Agent Guide → Connections &amp; Integrations → Outbound</strong>.</li>
 </ul>
 <p><strong>Conversation history</strong></p>
 <ul>
@@ -210,7 +213,7 @@
 <p><strong>Tips</strong></p>
 <ul>
 <li>Name the <strong>collection</strong> when creating or editing entries.</li>
-<li>Permission errors → check the connection <strong>role</strong> in <strong>Settings → AI &amp; Integrations → Outbound</strong>.</li>
+<li>Permission errors → check the connection <strong>role</strong> in <strong>Agent Guide → Connections &amp; Integrations → Outbound</strong>.</li>
 <li>Stale connection after delete → picker should no longer list it; refresh if needed.</li>
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Chat API</strong></p>

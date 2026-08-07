@@ -12,7 +12,16 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
----
+## 2026-08-07 — Insights, activity & developer mode (P61)
+
+Owner-facing docs for analytics presets, AI on localhost, and developer mode (plan locks D2–D4, D7–D9).
+
+- **New:** `01-admin/analytics-presets.md` — Off / Minimal / Standard / Advanced; what each collects; upsides/downsides; consent for Standard+; not-legal-advice disclaimer; Settings → Analytics.
+- **New:** `04-integration/ai-on-localhost.md` — built-in/Ollama vs remote connectors; mcp-bridge and cloudflared/ngrok recipes; Agent Guide → Connections.
+- **New:** `01-admin/developer-mode.md` — off by default; template/site-pack export (`project/` always, content optional, never users/secrets); system info / DX tools.
+- **Updated:** `01-admin/settings.md`, `01-admin/mcp-connections.md` — Analytics, System/Developer mode, localhost connector table and cross-links.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`, `meta/glossary.md`.
+- **Note:** CMS admin Help offline snapshots (`Birkly/admin/docs/snapshots/`) are **not** mirrored in this repo — sync them separately in Birkly with `./scripts/sync-birkly-docs.sh` after this docs branch merges.
 
 ---
 
@@ -281,7 +290,7 @@ Commerce **0→1 foundation** docs for **1.0.29**: hybrid cart, MCP/Agent store 
 
 ## 2026-06-29 — Phase 4.1 unified AI & Integrations (P4.1-M2-T6 / M6)
 
-- **Updated:** `01-admin/ai-connections.md` — Outbound BYOAI under **Settings → AI & Integrations**; removed MCP provider type; legacy `#ai-connections` deep link.
+- **Updated:** `01-admin/ai-connections.md` — Outbound BYOAI under **Agent Guide → Connections**; removed MCP provider type; legacy `#ai-connections` deep link.
 - **Updated:** `01-admin/mcp-connections.md` — Inbound MCP in unified tab; stdio bridge recommended; remote connector OAuth path; auth modes; shared approval queue.
 - **Updated:** `01-admin/ai-overview.md`, `01-admin/settings.md`, `01-admin/ai-approvals.md`, `01-admin/ai-chat-and-actions.md` — unified tab paths and cross-links.
 - **Updated:** `meta/glossary.md` — AI connection vs MCP connection terms.

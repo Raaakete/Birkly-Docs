@@ -24,6 +24,8 @@
         { "path": "01-admin/collection-editor.md", "label": "Collection editor" },
         { "path": "01-admin/media-library.md", "label": "Media library" },
         { "path": "01-admin/settings.md", "label": "Settings" },
+        { "path": "01-admin/analytics-presets.md", "label": "Analytics presets" },
+        { "path": "01-admin/developer-mode.md", "label": "Developer mode" },
         { "path": "01-admin/project-git-sync.md", "label": "Project Git sync" },
         { "path": "01-admin/roles-and-permissions.md", "label": "Roles and permissions" },
         { "path": "01-admin/account.md", "label": "Account" },
@@ -95,7 +97,8 @@
         { "path": "04-integration/public-forms.md", "label": "Public forms" },
         { "path": "04-integration/agent-guide-public-api.md", "label": "Agent Guide public API" },
         { "path": "04-integration/agent-guide-mcp-and-agents.md", "label": "Agent Guide MCP & agents" },
-        { "path": "04-integration/webmcp-tools.md", "label": "Website tools (WebMCP)" }
+        { "path": "04-integration/webmcp-tools.md", "label": "Website tools (WebMCP)" },
+        { "path": "04-integration/ai-on-localhost.md", "label": "AI on localhost" }
       ]
     },
     {

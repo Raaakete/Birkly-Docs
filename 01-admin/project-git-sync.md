@@ -1,6 +1,6 @@
 # Project Git sync
 
-Connect **Settings → Project → Git** to a GitHub, GitLab, or other git remote to push and pull the files under `project/` — your site's HTML, CSS, JS, and static assets. It works on any Birkly install with the system `git` binary available; there is no Birkly Cloud dependency.
+Connect **Settings → Project → Git** to GitHub, GitLab, Bitbucket, Codeberg, Gitea/Forgejo, SourceHut, Buzz, or any other git remote to push and pull the files under `project/` — your site's HTML, CSS, JS, and static assets. It works on any Birkly install with the system `git` binary available; there is no Birkly Cloud dependency.
 
 **Project Git sync only ever touches `project/`.** It does not sync CMS content, media, users, plugins, or settings. If you want to package or move **content and media** between installs, use [Hub site packs](../06-plugin-economy/theme-and-template-packs.md) instead — see [Project git sync vs. site packs](#project-git-sync-vs-site-packs) below.
 
@@ -71,15 +71,27 @@ No Birkly Cloud account or connectivity is required — this works the same way 
 ## Connect
 
 1. Go to **Settings → Project → Git**.
-2. Choose a **Provider** — **GitHub**, **GitLab**, or **Other git remote** (generic). This is a label only; the same engine drives all three over plain HTTPS or SSH.
-3. Enter the **Repository URL** (HTTPS or SSH — e.g. `https://github.com/your-org/your-site.git` or `git@github.com:your-org/your-site.git`) and the **Branch** (defaults to `main`).
-4. Choose **Authentication** (see table below).
+2. Choose a **Provider**. The same engine drives every option over plain HTTPS or SSH (Buzz uses standard git Smart HTTP on the relay):
+
+| Group | Providers |
+|---|---|
+| **Popular** | GitHub · GitLab · Bitbucket |
+| **Open source & European** | Codeberg · Gitea · Forgejo · SourceHut |
+| **AI-native** | **Buzz** (Block’s open Slack/GitHub alternative) |
+| **Other** | Any generic git remote |
+
+3. Enter the **Repository URL** and the **Branch** (defaults to `main`). Examples:
+   - GitHub: `https://github.com/your-org/your-site.git`
+   - Codeberg: `https://codeberg.org/your-org/your-site.git`
+   - Buzz: `https://your-relay.example/git/<owner-pubkey>/<repo>`
+4. Choose **Authentication** (see table below). Provider-specific username hints (e.g. Bitbucket `x-token-auth`, GitLab `oauth2`) are filled in for you and can be edited.
 5. Click **Connect**. Birkly initializes a local repository in `project/`, writes a `.gitignore` (only if one doesn't already exist), sets the remote, and tests connectivity.
 
 | Authentication | Use it for |
 |---|---|
-| **Access token (HTTPS)** | A personal access token or deploy token with read/write access to the repository. Optionally set a **Username** if your host requires one alongside the token. |
+| **Access token (HTTPS)** | A personal access token, app password, or deploy token with read/write access. Optionally set a **Username** if your host requires one alongside the token. |
 | **SSH private key** | A deploy key with write access. Birkly writes it to a private temporary file only while a git command runs, then deletes it. |
+| **Nostr key (Buzz / NIP-98)** | Buzz relay auth. Requires `git-credential-nostr` on the server’s PATH. Store an `nsec` (or hex) key — encrypted at rest, never written into `project/`. |
 | **None** | A public read-only remote, or a local/mounted bare repository — you won't be able to push without write access some other way. |
 
 On first connect, Birkly writes a `.gitignore` template into `project/` that excludes server code, secrets, and CMS data paths (`content/`, `media/`, `users/`, `settings/`, `logs/`, `cache/`, `data/`, `backups/`) — this keeps the repository clean even if it is later used outside Birkly.

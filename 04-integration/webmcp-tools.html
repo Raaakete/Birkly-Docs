@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>webmcp tools — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/project-git-sync.html" class="nav-link">Project Git sync</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="website-integration.html" class="nav-link">Website integration</a>
+        <a href="web-components.html" class="nav-link">Web components</a>
+        <a href="spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="client-library.html" class="nav-link">Client library</a>
+        <a href="public-api.html" class="nav-link">Public API</a>
+        <a href="public-forms.html" class="nav-link">Public forms</a>
+        <a href="agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        <a href="webmcp-tools.html" class="nav-link active">Website tools (WebMCP)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
+        <a href="../06-extensibility/commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="../06-extensibility/commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="../06-extensibility/commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="../06-extensibility/commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="../06-extensibility/commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p><strong>Website tools</strong> (built on the emerging browser standard <strong>WebMCP</strong>) let an AI helper running in a <em>visitor's</em> browser use clear, safe actions on your live public site — submit a contact form, add a product to the cart, RSVP to an event — instead of guessing from the page's HTML. They are <strong>off by default</strong>. Turn them on in <strong>Agent Guide → Tools</strong>.</p>
+<div class="doc-summary"><p>Open <strong>Agent Guide → Tools</strong> and switch on <strong>Website tools</strong>. Choose which built-in actions to allow (page info, listing content, submitting a form, plus shop/event actions if you use those plugins), and which public forms may be submitted. Any action that changes something — submitting a form, adding to cart, checking out, signing in — always asks the <strong>visitor</strong> to confirm first. Nothing is exposed until you enable it; on a browser that doesn't support the feature yet, or when it's off, your site behaves exactly as it does today.</p>
+<p>This is different from <strong>Agent Guide</strong> (the public fact sheet AI reads about your business) and from <strong>Birkly MCP</strong> (how AI apps like Claude or Cursor connect to your Birkly admin to help you manage content). See <a href="#three-layers-one-hub">Three layers, one hub</a> below.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What is a &quot;website tool&quot;?</strong></p>
+<p>Normally, an AI assistant helping a visitor on your site has to guess what a form does or scrape your page for information. A <strong>tool</strong> is a clearly named, described action your site publishes — &quot;submit the contact form&quot;, &quot;list our blog posts&quot;, &quot;add this product to the cart&quot; — that a supporting AI browser can call directly and safely, the same way it would call any other function.</p>
+<p><strong>Why is it off by default?</strong></p>
+<p>Because it lets an AI helper <strong>do things</strong> on your live site. Birkly ships it off so nothing changes until you decide to turn it on. When you do, you choose exactly which actions are allowed, and you can turn it off again at any time. The riskiest actions — paying, signing in, submitting a form — always show the visitor a confirmation before anything happens.</p>
+<p><strong>How do I turn it on?</strong></p>
+<ol>
+<li>Open <strong>Agent Guide</strong> in the admin sidebar.</li>
+<li>Go to the <strong>Tools</strong> tab.</li>
+<li>Switch on <strong>Website tools</strong>.</li>
+<li>Leave the built-in read-only actions on (page info, listing published content) — they're safe by default.</li>
+<li>Turn on <strong>form submitting</strong> when you're ready, and pick which forms (from your Public API collections, e.g. &quot;contact&quot;) may be used.</li>
+<li>Only turn on shop or event actions if you actually use Commerce or Events on your site.</li>
+</ol>
+<p>That's it — no code required for the built-in actions. If your site is hosted on Birkly (<code>project/</code>), tools start working automatically. If it's hosted elsewhere, add two script tags shown in <strong>Agent Guide → Publish</strong> (see <a href="#hosting-project-vs-external">Hosting: project vs external</a>).</p>
+<p><strong>What can visitors' AI helpers actually do?</strong></p>
+<p>Only what you've enabled, and only public, visitor-level actions:</p>
+<ul>
+<li>Look up the current page's info, list or read your <strong>published</strong> content.</li>
+<li>Describe a public form so it can be filled in correctly.</li>
+<li>Submit a form you've explicitly allowed — after the visitor confirms.</li>
+<li>If you use Commerce: see the cart, add an item, start checkout (payment always needs confirmation).</li>
+<li>If you use Events: list events, RSVP (with confirmation).</li>
+<li>If you use user accounts and opt in: check sign-in status, or sign in (always with confirmation).</li>
+</ul>
+<p>Website tools <strong>never</strong> touch your admin or CMS settings — they can only do what any visitor could already do on the public page.</p>
+<p><strong>See it in action</strong></p>
+<p>Birkly ships a small demo page (<code>project/webmcp-demo.html</code>) with a contact form, a button, and a custom tool — it shows the on/off states and the exact tools a supporting browser would see once website tools are enabled.</p>
+<h2>Three layers, one hub</h2>
+<p>Agent Guide is the single admin home for &quot;how AI works with this site,&quot; organized as four tabs. Each of the first three answers a different question and lives in a different place — they are never the same thing, even though they're all reached from Agent Guide:</p>
+<table><thead><tr><th>Tab</th><th>Question it answers</th><th>Where it actually lives</th></tr></thead>
+<tbody><tr><td><strong>Guide</strong></td><td>&quot;What should AI say about us?&quot;</td><td>Public JSON on your site domain (<code>/.well-known/agent-guide.json</code>)</td></tr><tr><td><strong>Tools</strong></td><td>&quot;What can an AI helper <em>do</em> on our website while someone is visiting?&quot;</td><td><strong>This page's</strong> WebMCP runtime — runs in the visitor's browser</td></tr><tr><td><strong>Connections</strong></td><td>&quot;How do ChatGPT / Claude / our built-in assistant connect to <em>this Birkly CMS</em>?&quot;</td><td>Always your Birkly address (<code>{your-birkly-url}/mcp</code>) — never your website host</td></tr><tr><td><strong>Publish</strong></td><td>&quot;Where do all of the above actually work, given how my site is hosted?&quot;</td><td>Mode-aware summary of the three above</td></tr></tbody></table>
+<p>Plain-language versions of the first three, matching what you'll see in the product:</p>
+<blockquote><p><strong>Agent Guide</strong> is the public fact sheet about your business for AI. You edit it here; visitors' AIs can read it from your website.</p></blockquote>
+<blockquote><p><strong>Birkly MCP</strong> is how AI apps (Claude, Cursor, ChatGPT, …) connect to your Birkly admin/CMS to help you build and manage content. It always lives on your Birkly address — not on an external website host.</p></blockquote>
+<blockquote><p><strong>WebMCP</strong> lets AI helpers in the visitor's browser use clear actions on your live website (like submitting a contact form or adding to cart) instead of guessing from the page. It's off until you turn it on. Your site still works the same for everyone else.</p></blockquote>
+<p>Do not confuse these: publishing your Agent Guide does not turn on website tools, and turning on website tools does not change what AI apps can do in your CMS. See <a href="../02-content/agent-guide.html">Agent Guide</a> for the Guide tab and <a href="../01-admin/mcp-connections.html">MCP connections</a> for Connections.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>How it works (browser API)</h3>
+<p>The runtime (<code>birkly-webmcp.js</code>) targets <code>document.modelContext</code> (falling back to the older, deprecated <code>navigator.modelContext</code>) — the in-browser surface a page uses to publish tools an AI agent running alongside the visitor can call. Rules:</p>
+<ul>
+<li><strong>Feature-detected.</strong> If the browser doesn't expose <code>modelContext</code>, or website tools are off, the script registers nothing — no console errors, no layout shift, no behavior change. An unsupported browser sees your site exactly as it is today.</li>
+<li><strong>Secure context required.</strong> The API needs HTTPS (localhost counts as secure for development).</li>
+<li><strong>Lifecycle via <code>AbortSignal</code>.</strong> There is no &quot;unregister&quot; call — tools are removed by aborting the controller Birkly registered them with, which happens automatically on page navigation.</li>
+<li><strong>Public-site actuation only.</strong> Website tools call the same public APIs and public form-submit path your site already uses — never an admin/CMS write endpoint.</li>
+</ul>
+<p>Registration happens two ways, and Birkly uses both:</p>
+<ul>
+<li><strong>Declarative</strong> — a <code>&lt;form&gt;</code> can carry <code>toolname</code> / <code>tooldescription</code> attributes; the browser derives the tool's inputs from the form's own fields. Birkly's <code>{entry for}</code> public forms already work this way once their collection is on the allowlist.</li>
+<li><strong>Imperative</strong> — <code>modelContext.registerTool({ name, description, inputSchema, execute, annotations })</code>. Birkly's core tools, plugin-pack tools, and author tools all register this way under the hood.</li>
+</ul>
+<h3>Built-in tool catalog</h3>
+<p>Only enabled tools are visible to a visitor's AI helper — a disabled tool is <strong>absent</strong>, not present-but-erroring.</p>
+<p><strong>Core tools</strong> (default on once the master switch is on; browser support required):</p>
+<table><thead><tr><th>Tool</th><th>Type</th><th>Confirmation</th><th>What it does</th></tr></thead>
+<tbody><tr><td><code>birkly_get_page_context</code></td><td>Read-only</td><td>None</td><td>Page title, URL, current language, and (on an entry page) its collection/slug.</td></tr><tr><td><code>birkly_list_published_entries</code></td><td>Read-only</td><td>None</td><td>Lists <strong>published</strong> entries for a collection relevant to the page. Public data only.</td></tr><tr><td><code>birkly_get_published_entry</code></td><td>Read-only</td><td>None</td><td>Returns one <strong>published</strong> entry by collection + slug/id. Public fields only.</td></tr><tr><td><code>birkly_describe_form</code></td><td>Read-only</td><td>None</td><td>Describes a public form on the page — collection, fields, labels, required flags.</td></tr><tr><td><code>birkly_submit_public_form</code></td><td>Mutating</td><td><strong>Visitor confirms</strong></td><td>Submits a <code>public_api</code> form. Only works for collections on the form allowlist.</td></tr><tr><td><code>birkly_set_language</code></td><td>Mutating</td><td>None</td><td>Changes the site language, only when the page has a language selector.</td></tr></tbody></table>
+<p><strong>Commerce pack</strong> (off by default; registers only when a Commerce storefront is present on the page):</p>
+<table><thead><tr><th>Tool</th><th>Type</th><th>Confirmation</th></tr></thead>
+<tbody><tr><td><code>birkly_commerce_get_cart</code></td><td>Read-only</td><td>None</td></tr><tr><td><code>birkly_commerce_add_to_cart</code></td><td>Mutating</td><td>Visitor confirms</td></tr><tr><td><code>birkly_commerce_checkout</code></td><td>Mutating</td><td><strong>Visitor confirms before paying</strong> (highest consent level)</td></tr></tbody></table>
+<p><strong>Events pack</strong> (off by default; registers only when an Events storefront is present):</p>
+<table><thead><tr><th>Tool</th><th>Type</th><th>Confirmation</th></tr></thead>
+<tbody><tr><td><code>birkly_events_list</code></td><td>Read-only</td><td>None</td></tr><tr><td><code>birkly_events_rsvp</code></td><td>Mutating</td><td>Visitor confirms</td></tr></tbody></table>
+<p><strong>User pack</strong> (off by default; opt-in; registers only when a sign-in surface is present):</p>
+<table><thead><tr><th>Tool</th><th>Type</th><th>Confirmation</th></tr></thead>
+<tbody><tr><td><code>birkly_user_session</code></td><td>Read-only</td><td>None</td></tr><tr><td><code>birkly_user_login</code></td><td>Mutating</td><td><strong>Visitor confirms before signing in</strong> (highest consent level)</td></tr></tbody></table>
+<h3>Author tools (project-specific)</h3>
+<p>You can add your own tools without touching the core runtime:</p>
+<p><strong>Declarative</strong> — mark any element:</p>
+<pre><code>&lt;button type=&quot;button&quot;
+        data-birkly-webmcp=&quot;show_opening_hours&quot;
+        data-birkly-webmcp-description=&quot;Show this shop's opening hours to the visitor.&quot;&gt;
+  Show opening hours
+&lt;/button&gt;</code></pre>
+<p>Invoking the tool clicks the element (and fires a <code>birkly:webmcp-invoke</code> event you can listen for).</p>
+<p><strong>Imperative</strong> — register from your own script:</p>
+<pre><code>if (window.Birkly &amp;&amp; window.Birkly.webmcp) {
+  window.Birkly.webmcp.register({
+    name: 'get_todays_special',
+    description: &quot;Return today's special offer for this shop.&quot;,
+    execute: function () {
+      return { special: '10% off all pastries before noon.' };
+    }
+  });
+}</code></pre>
+<p><code>Birkly.webmcp.register()</code> is a thin, safe wrapper: it inherits Birkly's lifecycle handling and only actually registers once website tools are enabled and the browser supports the API. Mutating author tools should follow the same confirm-before-acting pattern as the built-in tools.</p>
+<p>Useful checks in your own scripts:</p>
+<pre><code>Birkly.webmcp.isSupported();   // true if this browser exposes modelContext
+Birkly.webmcp.isEnabled();     // true if the site owner turned website tools on
+Birkly.webmcp.listRegistered(); // names of tools currently live
+Birkly.webmcp.setConfirm(fn);  // replace the default window.confirm() with your own dialog</code></pre>
+<h3>Enablement storage (what &quot;off by default&quot; means)</h3>
+<p>Configuration lives in <code>settings/webmcp.json</code>:</p>
+<pre><code>{
+  &quot;enabled&quot;: false,
+  &quot;tools&quot;: {
+    &quot;birkly_get_page_context&quot;: true,
+    &quot;birkly_submit_public_form&quot;: true,
+    &quot;birkly_commerce_checkout&quot;: false
+  },
+  &quot;form_allowlist&quot;: [&quot;contact&quot;]
+}</code></pre>
+<ul>
+<li><code>enabled</code> — the master switch. When <code>false</code>, the public config endpoint reports <code>{ &quot;enabled&quot;: false }</code> and nothing registers — an off site is indistinguishable from a site that has never heard of WebMCP.</li>
+<li><code>tools</code> — per-tool on/off. Core tools default on once the master switch is on; plugin-pack tools default off until you enable them.</li>
+<li><code>form_allowlist</code> — which <code>public_api</code> collections <code>birkly_submit_public_form</code> (and the matching declarative form tool) may submit. An empty allowlist means no form can be submitted even if the tool itself is on.</li>
+</ul>
+<p>The admin <strong>Tools</strong> tab reads/writes this through an authenticated API. The runtime reads a small public, secret-free projection — only <code>enabled</code>, the enabled tool ids, and <code>form_allowlist</code> — never draft content or admin keys.</p>
+<h3>Hosting: project vs external</h3>
+<p>Website tools always run on the <strong>page origin</strong> — wherever your HTML is actually served — and call the CMS's public APIs for data. <strong>Agent Guide → Publish</strong> shows the exact script tags for your hosting mode:</p>
+<table><thead><tr><th>Hosting mode</th><th>What happens</th></tr></thead>
+<tbody><tr><td><strong><code>project</code></strong> (Birkly serves your site)</td><td><code>birkly-webmcp.js</code> loads automatically on public pages once website tools are on — no snippet to copy.</td></tr><tr><td><strong><code>external</code></strong> (your site is hosted elsewhere)</td><td>Add two script tags to every page, shown in Publish once website tools are on:</td></tr></tbody></table>
+<pre><code>&lt;script src=&quot;https://YOUR-CMS-HOST/birkly-client.js&quot; data-cms-url=&quot;https://YOUR-CMS-HOST&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://YOUR-CMS-HOST/birkly-webmcp.js&quot; data-cms-url=&quot;https://YOUR-CMS-HOST&quot;&gt;&lt;/script&gt;</code></pre>
+<p><code>birkly-client.js</code> must load first — it owns page context and the public API connection that <code>birkly-webmcp.js</code> then registers tools against. Both scripts silently do nothing when website tools are off or the browser doesn't support the API.</p>
+<p>This mirrors how your <strong>Agent Guide JSON</strong> reaches an external site: Birkly's canonical URL always works (<code>{cms}/api/public/ai_presence.php</code> / <code>{cms}/.well-known/agent-guide.json</code>); Publish additionally offers a <strong>download</strong> of <code>agent-guide.json</code> for your own <code>/.well-known/</code> folder, and a <strong>reverse-proxy</strong> snippet if you'd rather serve it from your own domain. <strong>Birkly MCP</strong> (Connections) never changes with hosting mode — AI apps always connect to your Birkly address, never your website host.</p>
+<h3>Verifying it works (technical)</h3>
+<p>On a supported Chromium build (146+), enable the <code>#enable-webmcp-testing</code> flag and open a page with website tools on. Registered tools appear in the browser's model-context inspector. This is a technical, opt-in check — Birkly does not ask non-technical owners to flip browser flags as a normal step.</p>
+<h3>Safety summary</h3>
+<ul>
+<li><strong>Public-site actuation only.</strong> No admin/CMS write tool is ever exposed — website tools can only do what a visitor could already do on the page.</li>
+<li><strong>Default off</strong>, per site, until an owner explicitly enables it.</li>
+<li><strong>Per-tool control.</strong> Disabled tools are absent from the agent's list, not erroring.</li>
+<li><strong>Confirmation gates.</strong> Every mutating tool asks the visitor to confirm; payment and sign-in use the highest consent level.</li>
+<li><strong>Allowlisted forms only.</strong> <code>birkly_submit_public_form</code> only works for collections you've explicitly listed.</li>
+<li><strong>Untrusted content.</strong> Tools that accept or echo visitor-entered data are annotated <code>untrustedContentHint</code> so a well-behaved agent treats the payload as untrusted.</li>
+<li><strong>Silent no-op.</strong> Unsupported browsers, or an off site, behave exactly as today — nothing breaks, nothing is logged loudly.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="../02-content/agent-guide.html">Agent Guide</a> — the Guide tab (public fact sheet) and the wider hub</li>
+<li><a href="../01-admin/mcp-connections.html">MCP connections</a> — Connections tab / Settings → AI (Birkly MCP for AI apps)</li>
+<li><a href="public-forms.html">Public forms</a> — how <code>public_api</code> collections and <code>{entry for}</code> work under the hood</li>
+<li><a href="client-library.html">Client library</a> — <code>birkly-client.js</code>, which website tools load after</li>
+<li><a href="agent-guide-public-api.html">Agent Guide public API</a> — the Guide JSON website tools never duplicate</li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

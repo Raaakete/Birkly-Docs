@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>project git sync — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="media-library.html" class="nav-link">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="project-git-sync.html" class="nav-link active">Project Git sync</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="design-system.html" class="nav-link">Admin design system</a>
+        <a href="admin-design-language.html" class="nav-link">Admin design language</a>
+        <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="ai-overview.html" class="nav-link">AI overview</a>
+        <a href="ai-connections.html" class="nav-link">AI connections</a>
+        <a href="mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
+        <a href="../06-extensibility/commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="../06-extensibility/commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="../06-extensibility/commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="../06-extensibility/commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="../06-extensibility/commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Connect <strong>Settings → Project → Git</strong> to a GitHub, GitLab, or other git remote to push and pull the files under <code>project/</code> — your site's HTML, CSS, JS, and static assets. It works on any Birkly install with the system <code>git</code> binary available; there is no Birkly Cloud dependency.</p>
+<p><strong>Project Git sync only ever touches <code>project/</code>.</strong> It does not sync CMS content, media, users, plugins, or settings. If you want to package or move <strong>content and media</strong> between installs, use <a href="../06-plugin-economy/theme-and-template-packs.html">Hub site packs</a> instead — see <a href="#project-git-sync-vs-site-packs">Project git sync vs. site packs</a> below.</p>
+<div class="doc-summary"><ul>
+<li><strong>What it is:</strong> a directional push/pull sync between the <code>project/</code> folder and a git remote, driven by the system <code>git</code> binary.</li>
+<li><strong>What syncs:</strong> only allowlisted files under <code>project/</code> (HTML, CSS, JS, JSON, Markdown, SVG, images, etc.) — the same set the Project <strong>Files</strong> browser and <strong>Download project</strong> ZIP use.</li>
+<li><strong>What never syncs:</strong> <code>content/</code>, <code>media/</code>, <code>users/</code>, <code>settings/</code> (including the encrypted git credentials themselves), plugins, cache, logs, and <code>config.php</code>.</li>
+<li><strong>Direction:</strong> <strong>Push</strong> = Birkly's <code>project/</code> wins and overwrites the remote branch. <strong>Pull</strong> = the remote branch wins and overwrites <code>project/</code>.</li>
+<li><strong>Conflicts:</strong> if both sides changed, nothing is overwritten automatically — you choose <strong>Keep Birkly</strong> or <strong>Keep remote</strong>.</li>
+<li><strong>Where:</strong> Settings → <strong>Project</strong> → <strong>Git</strong> tab.</li>
+<li><strong>Requires:</strong> <code>manage_settings</code> permission (Admin role by default) to connect, push, pull, or disconnect. Viewing status only needs <code>read_settings</code>.</li>
+</ul>
+<h2>Where to find it</h2>
+<p>Settings has its own dedicated <strong>Project</strong> tab (<code>?tab=project</code>), separate from <strong>Site delivery</strong>:</p>
+<table><thead><tr><th>Settings tab</th><th>Sections</th></tr></thead>
+<tbody><tr><td><strong>General</strong></td><td>Site identity (project name, description, logo), timezone, language, media defaults</td></tr><tr><td><strong>Site delivery</strong></td><td>Domains, Hosting URLs wizard, Redirects</td></tr><tr><td><strong>Project</strong></td><td><strong>Overview</strong>, <strong>Files</strong>, <strong>Rendering</strong>, <strong>Git</strong>, <strong>Activity</strong></td></tr></tbody></table>
+<p>The Project tab's <strong>Files</strong> section is the same file browser used for uploading, editing, downloading, and deleting project files — Git sync is an additional way to get files in and out, alongside manual upload/download. See <a href="settings.html">Settings</a> for the rest of the Settings tabs.</p>
+<h2>What syncs (and what doesn't)</h2>
+<table><thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody><tr><td>Files under <code>project/</code> with an allowed extension: <code>html</code>, <code>css</code>, <code>js</code>, <code>json</code>, <code>md</code>, <code>svg</code>, <code>webp</code>, <code>txt</code>, <code>jpg</code>, <code>jpeg</code>, <code>png</code>, <code>gif</code>, <code>ico</code></td><td><code>content/</code> (collections and entries)</td></tr><tr><td>The <code>.gitignore</code> Birkly writes into <code>project/</code> on connect</td><td><code>media/</code> (uploaded assets in the media library)</td></tr><tr><td></td><td><code>users/</code>, <code>settings/</code> (including this feature's own stored credentials)</td></tr><tr><td></td><td>Installed plugins and their data</td></tr><tr><td></td><td>Any dotfile or dot-folder path segment (e.g. <code>.env</code>, <code>.well-known/</code>)</td></tr><tr><td></td><td><code>.php</code> / <code>.phtml</code> / <code>.phar</code> files — server-side code is never served from <code>project/</code> and is never staged</td></tr></tbody></table>
+<p>This is the <strong>same allowlist</strong> used by the Project Files browser and the <strong>Download project</strong> ZIP, so what you see in the file browser is what git will stage.</p>
+<h3>Project Git sync vs. site packs</h3>
+<p>These are two unrelated features that both touch <code>project/</code> — do not confuse them:</p>
+<table><thead><tr><th></th><th>Project Git sync (this page)</th><th><a href="../06-plugin-economy/theme-and-template-packs.html">Hub site packs</a></th></tr></thead>
+<tbody><tr><td><strong>Moves</strong></td><td>Only <code>project/</code> files, to/from a git remote</td><td>Collections (<code>content/collections/</code>) <strong>and</strong> <code>project/</code> files, as a versioned package</td></tr><tr><td><strong>Use case</strong></td><td>Version-control your site's code, deploy via git, edit <code>project/</code> in an external editor/CI</td><td>Bootstrap or update a site's <strong>content model and starter content</strong> across installs</td></tr><tr><td><strong>Content/media</strong></td><td>Never touched</td><td>Schemas always install; demo <strong>entries</strong> are opt-in</td></tr><tr><td><strong>Where</strong></td><td>Settings → Project → Git</td><td>Plugins → Hub (catalog, upload pack, updates)</td></tr></tbody></table>
+<p>If you need to move your content model, sample entries, or a reusable site structure to another Birkly install, package it as a <strong>site pack</strong> — Git sync will not carry your collections or media along.</p>
+<h2>Requirements</h2>
+<ul>
+<li>The <strong><code>git</code></strong> command must be installed and on the web server's <code>PATH</code>.</li>
+<li>PHP must be able to spawn processes (<code>proc_open</code> not disabled) — Birkly orchestrates git as a subprocess and never accepts raw flags from the browser.</li>
+<li><code>project/</code> must be writable by the web server.</li>
+</ul>
+<p>The Git section runs a capability check before showing the connect form and explains which requirement is missing:</p>
+<table><thead><tr><th>Message</th><th>Meaning</th></tr></thead>
+<tbody><tr><td>&quot;The <code>git</code> command is not installed on this server.&quot;</td><td>Install git on the host and reload the page.</td></tr><tr><td>&quot;This server blocks PHP from running external programs (<code>proc_open</code> is disabled)...&quot;</td><td>Ask your host to allow <code>proc_open</code>, or manage <code>project/</code> another way (manual upload/download, or your own deploy pipeline).</td></tr><tr><td>&quot;The <code>project/</code> folder is not writable by the web server.&quot;</td><td>Fix folder permissions.</td></tr></tbody></table>
+<p>No Birkly Cloud account or connectivity is required — this works the same way on a local PHP install, Docker, or any self-hosted deployment, using your own instance credentials.</p>
+<h2>Connect</h2>
+<ol>
+<li>Go to <strong>Settings → Project → Git</strong>.</li>
+<li>Choose a <strong>Provider</strong> — <strong>GitHub</strong>, <strong>GitLab</strong>, or <strong>Other git remote</strong> (generic). This is a label only; the same engine drives all three over plain HTTPS or SSH.</li>
+<li>Enter the <strong>Repository URL</strong> (HTTPS or SSH — e.g. <code>https://github.com/your-org/your-site.git</code> or <code>git@github.com:your-org/your-site.git</code>) and the <strong>Branch</strong> (defaults to <code>main</code>).</li>
+<li>Choose <strong>Authentication</strong> (see table below).</li>
+<li>Click <strong>Connect</strong>. Birkly initializes a local repository in <code>project/</code>, writes a <code>.gitignore</code> (only if one doesn't already exist), sets the remote, and tests connectivity.</li>
+</ol>
+<table><thead><tr><th>Authentication</th><th>Use it for</th></tr></thead>
+<tbody><tr><td><strong>Access token (HTTPS)</strong></td><td>A personal access token or deploy token with read/write access to the repository. Optionally set a <strong>Username</strong> if your host requires one alongside the token.</td></tr><tr><td><strong>SSH private key</strong></td><td>A deploy key with write access. Birkly writes it to a private temporary file only while a git command runs, then deletes it.</td></tr><tr><td><strong>None</strong></td><td>A public read-only remote, or a local/mounted bare repository — you won't be able to push without write access some other way.</td></tr></tbody></table>
+<p>On first connect, Birkly writes a <code>.gitignore</code> template into <code>project/</code> that excludes server code, secrets, and CMS data paths (<code>content/</code>, <code>media/</code>, <code>users/</code>, <code>settings/</code>, <code>logs/</code>, <code>cache/</code>, <code>data/</code>, <code>backups/</code>) — this keeps the repository clean even if it is later used outside Birkly.</p>
+<p>Re-opening the Git section after connecting shows <strong>Edit connection</strong> instead of the connect form. Leaving the token or SSH key field blank when editing keeps the currently stored secret.</p>
+<h2>Status</h2>
+<p>Once connected, the Git section shows:</p>
+<table><thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><strong>Remote</strong></td><td>The configured URL, with any embedded credentials redacted</td></tr><tr><td><strong>Branch</strong></td><td>The tracked branch</td></tr><tr><td><strong>Authentication</strong></td><td>Access token (with a masked hint) or SSH key, or None</td></tr><tr><td><strong>Local changes</strong></td><td>Files in <code>project/</code> that differ from the last commit and are not yet pushed</td></tr><tr><td><strong>To push</strong></td><td>Commits ahead of the remote branch</td></tr><tr><td><strong>To pull</strong></td><td>Commits behind the remote branch</td></tr><tr><td><strong>Last commit</strong></td><td>Message and short SHA of the most recent local commit</td></tr><tr><td><strong>Last push</strong> / <strong>Last pull</strong></td><td>When this install last pushed or pulled, and who triggered it</td></tr></tbody></table>
+<p>Use <strong>Refresh status</strong> or <strong>Test connection</strong> to re-check without pushing or pulling.</p>
+<h2>Push</h2>
+<p><strong>Push = Birkly wins.</strong> Pushing stages every allowlisted file currently in <code>project/</code>, commits any changes (with an optional commit message), and updates the remote branch to match.</p>
+<ol>
+<li>Click <strong>Push to remote</strong>.</li>
+<li>Optionally enter a commit message (defaults to &quot;Update project files from Birkly&quot;).</li>
+<li>If the remote has commits Birkly doesn't have yet, you'll see a conflict instead of a silent overwrite — see <a href="#conflicts">Conflicts</a>.</li>
+<li>On success, the remote branch now matches <code>project/</code> exactly (for the allowlisted files).</li>
+</ol>
+<p>If there is nothing new to commit and the remote already matches, push reports &quot;Nothing to push.&quot;</p>
+<h2>Pull</h2>
+<p><strong>Pull = git wins.</strong> Pulling replaces the matching files in <code>project/</code> with the remote branch's version.</p>
+<ol>
+<li>Click <strong>Pull from remote</strong> — this fetches and shows an <strong>incoming changes</strong> preview (added/modified/deleted files) without touching <code>project/</code> yet.</li>
+<li>Review the file list.</li>
+<li>Click <strong>Apply changes</strong> to fast-forward <code>project/</code> onto the remote branch, or <strong>Cancel</strong> to back out.</li>
+<li>After applying, Birkly invalidates the server-rendering (SSR) cache automatically so visitors see the updated pages.</li>
+</ol>
+<p>If Birkly has local changes that would be overwritten and the remote has also moved, pull surfaces a conflict instead of applying — see below.</p>
+<h2>Conflicts</h2>
+<p>A conflict means <strong>both</strong> Birkly's <code>project/</code> and the remote branch changed since they last agreed, so applying either side blindly would silently discard changes. Birkly detects this on push and pull and blocks with a <strong>Keep Birkly / Keep remote / Cancel</strong> choice — nothing is changed until you pick a side.</p>
+<p>The conflict panel shows:</p>
+<ul>
+<li>Files changed <strong>in Birkly</strong> (local, not yet pushed)</li>
+<li>Files changed <strong>on the remote</strong></li>
+<li>Files changed <strong>on both sides</strong> (the ones that would actually be affected)</li>
+<li>Any unfinished merge from a previous conflict</li>
+</ul>
+<table><thead><tr><th>Choice</th><th>Effect</th></tr></thead>
+<tbody><tr><td><strong>Keep Birkly</strong></td><td>The current <code>project/</code> files win. Birkly commits them (merging over the remote's history) and pushes, so the remote ends up matching Birkly.</td></tr><tr><td><strong>Keep remote</strong></td><td><code>project/</code> is reset to match the remote branch exactly. Local-only files under <code>project/</code> and any uncommitted local edits to the conflicting files are discarded.</td></tr><tr><td><strong>Cancel</strong></td><td>Nothing changes. Resolve manually (e.g. edit files, then push or pull again) or try the other direction.</td></tr></tbody></table>
+<p>Files that can't be merged line-by-line (images, or any file where both sides changed the same bytes) always take the <strong>whole side</strong> you choose — there is no partial/manual merge UI for individual files.</p>
+<h2>Disconnect</h2>
+<p><strong>Disconnect</strong> clears the stored remote URL and encrypted credentials (token or SSH key) and removes the git remote. It does <strong>not</strong> delete the local <code>project/.git</code> history — the repository stays in place in case you want to reconnect to the same or a different remote later.</p>
+<h2>Security</h2>
+<ul>
+<li>Credentials (access token or SSH private key) are <strong>encrypted at rest</strong> on the instance, in <code>settings/project_git.json</code> — never inside <code>project/</code>, so they can never be committed, pulled by someone else, or served publicly.</li>
+<li>An SSH key is written to a private (<code>0600</code>) temporary file only for the duration of a git command, then deleted.</li>
+<li>The remote URL, when shown in the UI or written to logs, has any embedded username/password redacted.</li>
+<li><code>project/.git/</code> (and any <code>.git/</code> path) is denied at the HTTP layer by the server router, in addition to the admin file browser already refusing to open dot-segment paths — the repository's internal git objects are never publicly servable.</li>
+<li>Only HTTPS and SSH git URLs are accepted (plus local/mounted paths for testing); no other git transport can be driven from the UI.</li>
+<li>Connect, push, pull, and disconnect require the <strong><code>manage_settings</code></strong> permission (Admin role by default) and a valid CSRF token; every action is recorded in the security/audit log and in the Project <strong>Activity</strong> section.</li>
+</ul>
+<h2>Troubleshooting</h2>
+<table><thead><tr><th>Symptom</th><th>Likely cause / fix</th></tr></thead>
+<tbody><tr><td>Git section shows &quot;Git sync unavailable&quot;</td><td>See <a href="#requirements">Requirements</a> — install <code>git</code>, enable <code>proc_open</code>, or fix <code>project/</code> permissions</td></tr><tr><td>&quot;Authentication failed&quot; on push/pull/test</td><td>Token or SSH key is wrong, expired, or lacks write access to the repository</td></tr><tr><td>&quot;Could not reach the remote&quot;</td><td>Check the repository URL and that this server has outbound network access to the git host</td></tr><tr><td>&quot;Repository not found&quot;</td><td>Check the URL, and that the token/key has access to that specific repository</td></tr><tr><td>&quot;The remote has newer commits — pull before pushing&quot;</td><td>Pull first (or resolve the conflict prompt if one appears)</td></tr><tr><td>Push/pull reports a conflict every time</td><td>A previous merge may be unfinished — check <strong>Unfinished merge</strong> in the conflict panel and choose a side to clear it</td></tr><tr><td>Content or media didn't come across after pull</td><td>Expected — Git sync never touches <code>content/</code> or <code>media/</code>. Use a <a href="../06-plugin-economy/theme-and-template-packs.html">site pack</a> to move content/media</td></tr></tbody></table></div>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>API:</strong> <code>api/project_git.php</code> — actions <code>capability</code>, <code>status</code> (read-only, <code>read_settings</code>), and <code>connect</code>, <code>test</code>, <code>disconnect</code>, <code>push</code>, <code>pull_preview</code>, <code>pull_apply</code>, <code>resolve_conflict</code> (mutating, <code>manage_settings</code> + CSRF).</p>
+<p><strong>Engine:</strong> <code>core/project_git.php</code> (<code>ProjectGit</code> class) wraps the system <code>git</code> binary with a fixed argument list per operation — the UI never sends arbitrary flags. It stages only paths that pass the same allowlist as <code>core/project_site_filesystem.php</code>, runs network operations (<code>fetch</code>, <code>push</code>, <code>ls-remote</code>) with <code>GIT_TERMINAL_PROMPT=0</code> so a bad credential fails fast instead of hanging on a prompt, and scopes HTTPS token auth to the remote's exact host via a git <code>http.&lt;url&gt;.extraheader</code> config so a redirect to another host can't see the token.</p>
+<p><strong>Settings storage:</strong> <code>core/project_git_settings.php</code> reads/writes <code>settings/project_git.json</code>. Tokens and SSH keys are encrypted with the same secret-box helper used elsewhere in Birkly; the public config (<code>birkly_project_git_public_config()</code>) sent to the browser never includes the decrypted secret, only a <code>has_token</code> / <code>has_ssh_key</code> flag and a short masked hint.</p>
+<p><strong>Conflict detection:</strong> a conflict is raised when <code>git status</code> shows unmerged paths, or when the branch is both <strong>ahead</strong> (local commits) and <strong>behind</strong> (remote commits) at the same time, or when the remote moved while <code>project/</code> has uncommitted allowlisted changes. See <code>birkly_project_git_conflict()</code>.</p>
+<p><strong><code>.git</code> HTTP deny:</strong> <code>server-router.php</code> calls <code>birkly_deny_git_metadata_request()</code> before serving any request, blocking <code>project/.git/**</code> (and any other <code>.git/</code> path) regardless of hosting setup.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="settings.html">Settings</a> — full Settings tab reference</li>
+<li><a href="../06-plugin-economy/theme-and-template-packs.html">Hub, themes, and site packs</a> — the path for content/media across installs</li>
+<li><a href="ai-site-builder.html">AI site builder</a> — MCP tools that also read/write <code>project/</code></li>
+<li><a href="../07-operations/security.html">Security</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

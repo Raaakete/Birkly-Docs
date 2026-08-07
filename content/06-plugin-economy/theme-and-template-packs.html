@@ -50,6 +50,7 @@ curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.sta
 <li>Customize public site files in <code>project/</code> (or via your deployment workflow).</li>
 <li>Remove demo entries you do not need; sample content is a starting point, not permanent.</li>
 </ul>
+<blockquote><p><strong>Not the same as Git sync:</strong> Settings → Project → Git can push/pull the <code>project/</code> <strong>files</strong> to a git remote, but it never touches collections, entries, or media. If you need to move your <strong>content model and starter content</strong> (not just code) to another install, use a site pack, not Git sync. See <a href="../01-admin/project-git-sync.html">Project Git sync</a>.</p></blockquote>
 <p><strong>Pack updates</strong></p>
 <p>When a newer pack version is available, Hub <strong>Update</strong> (or an equivalent pack update action) re-downloads and applies changes with <strong>safe update</strong> behavior:</p>
 <ul>
@@ -110,6 +111,7 @@ curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.sta
 <p><strong>Custom starters (platform)</strong></p>
 <p>Birkly Ops staff manage starter pack versions, featured flags, and onboarding visibility. Starters are platform-curated; provider-published site packs are separate Hub offers that use the same zip shape.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="../01-admin/project-git-sync.html">Project Git sync</a> — code-only sync for <code>project/</code>, not a substitute for site packs</li>
 <li><a href="overview.html">Plugin economy overview</a></li>
 <li><a href="for-site-owners.html">For site owners</a></li>
 <li><a href="for-providers.html">For providers</a></li>

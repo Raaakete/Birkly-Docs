@@ -87,6 +87,8 @@ A site pack may ship CSS inside `project/`; that is not the same as a theme offe
 - Customize public site files in `project/` (or via your deployment workflow).
 - Remove demo entries you do not need; sample content is a starting point, not permanent.
 
+> **Not the same as Git sync:** Settings → Project → Git can push/pull the `project/` **files** to a git remote, but it never touches collections, entries, or media. If you need to move your **content model and starter content** (not just code) to another install, use a site pack, not Git sync. See [Project Git sync](../01-admin/project-git-sync.md).
+
 **Pack updates**
 
 When a newer pack version is available, Hub **Update** (or an equivalent pack update action) re-downloads and applies changes with **safe update** behavior:
@@ -183,6 +185,7 @@ Birkly Ops staff manage starter pack versions, featured flags, and onboarding vi
 
 ## Related
 
+- [Project Git sync](../01-admin/project-git-sync.md) — code-only sync for `project/`, not a substitute for site packs
 - [Plugin economy overview](overview.md)
 - [For site owners](for-site-owners.md)
 - [For providers](for-providers.md)

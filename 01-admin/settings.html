@@ -181,10 +181,13 @@
 <p>If something fails (for example invalid CSRF or missing permission), the message explains the problem. Fix the issue and click <strong>Save settings</strong> again.</p>
 <h3>What you can change (typical sections)</h3>
 <ul>
-<li><strong>General</strong> — Project name, site URL, timezone, language, and media defaults (max upload size, image quality, thumbnail size, create thumbnails).</li>
+<li><strong>General</strong> — <strong>Site identity</strong> (project name, description, logo), timezone, language, and media defaults (max upload size, image quality, thumbnail size, create thumbnails). Site identity replaced the older &quot;Project information&quot; naming so it isn't confused with the <code>project/</code> website workspace.</li>
 </ul>
 <ul>
-<li><strong>Branding</strong> — Upload a <strong>logo</strong> and/or <strong>favicon</strong> so the admin panel shows your company or site branding.</li>
+<li><strong>Site delivery</strong> — <strong>Domains</strong> (registered domains, local development), the <strong>Hosting URLs</strong> wizard (CMS URL vs. public site), and <strong>Redirects</strong>. This tab does <em>not</em> include the <code>project/</code> file browser — that moved to its own <strong>Project</strong> tab (below).</li>
+</ul>
+<ul>
+<li><strong>Project</strong> — The <code>project/</code> website workspace has its own dedicated tab: <strong>Overview</strong> (path, public URL, Visit link), <strong>Files</strong> (browse/edit/upload, download ZIP, delete), <strong>Rendering</strong> (server-side rendering / cache), <strong>Git</strong> (push/pull <code>project/</code> to GitHub, GitLab, or a generic remote), and <strong>Activity</strong>. See <a href="project-git-sync.html">Project Git sync</a> for the Git section in detail.</li>
 </ul>
 <ul>
 <li><strong>Users and roles</strong> — See who has an account, invite new users, and assign <strong>roles</strong>. Birkly seeds four default CMS roles: <strong>Admin</strong>, <strong>Editor</strong>, <strong>Author</strong>, and <strong>Viewer</strong>. The Settings tab shows a summary; use <strong>Manage all users</strong> for the full account page. Role lists in AI connections and user modals load from the same source.</li>
@@ -265,6 +268,7 @@
 <p><strong>Standalone pages (D7):</strong> Full management for plugins, activity, webhooks, and users remains on dedicated admin pages; Settings tabs show summaries and deep links.</p>
 <p><strong>Access control:</strong> Settings UI and API require <strong>manage settings</strong> permission. CSRF applies to mutating actions when enabled.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="project-git-sync.html">Project Git sync</a></li>
 <li><a href="roles-and-permissions.html">Roles and permissions</a></li>
 <li><a href="account.html">Account</a></li>
 <li><a href="ai-overview.html">AI overview</a></li>

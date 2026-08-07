@@ -21,9 +21,11 @@ If something fails (for example invalid CSRF or missing permission), the message
 
 ### What you can change (typical sections)
 
-- **General** — Project name, site URL, timezone, language, and media defaults (max upload size, image quality, thumbnail size, create thumbnails).
+- **General** — **Site identity** (project name, description, logo), timezone, language, and media defaults (max upload size, image quality, thumbnail size, create thumbnails). Site identity replaced the older "Project information" naming so it isn't confused with the `project/` website workspace.
 
-- **Branding** — Upload a **logo** and/or **favicon** so the admin panel shows your company or site branding.
+- **Site delivery** — **Domains** (registered domains, local development), the **Hosting URLs** wizard (CMS URL vs. public site), and **Redirects**. This tab does *not* include the `project/` file browser — that moved to its own **Project** tab (below).
+
+- **Project** — The `project/` website workspace has its own dedicated tab: **Overview** (path, public URL, Visit link), **Files** (browse/edit/upload, download ZIP, delete), **Rendering** (server-side rendering / cache), **Git** (push/pull `project/` to GitHub, GitLab, or a generic remote), and **Activity**. See [Project Git sync](project-git-sync.md) for the Git section in detail.
 
 - **Users and roles** — See who has an account, invite new users, and assign **roles**. Birkly seeds four default CMS roles: **Admin**, **Editor**, **Author**, and **Viewer**. The Settings tab shows a summary; use **Manage all users** for the full account page. Role lists in AI connections and user modals load from the same source.
 
@@ -123,6 +125,7 @@ Shown in the UI as **coming soon** and is not selectable. Use flat file or MySQL
 
 ## Related
 
+- [Project Git sync](project-git-sync.md)
 - [Roles and permissions](roles-and-permissions.md)
 - [Account](account.md)
 - [AI overview](ai-overview.md)

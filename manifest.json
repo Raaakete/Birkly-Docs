@@ -94,7 +94,8 @@
         { "path": "04-integration/public-api.md", "label": "Public API" },
         { "path": "04-integration/public-forms.md", "label": "Public forms" },
         { "path": "04-integration/agent-guide-public-api.md", "label": "Agent Guide public API" },
-        { "path": "04-integration/agent-guide-mcp-and-agents.md", "label": "Agent Guide MCP & agents" }
+        { "path": "04-integration/agent-guide-mcp-and-agents.md", "label": "Agent Guide MCP & agents" },
+        { "path": "04-integration/webmcp-tools.md", "label": "Website tools (WebMCP)" }
       ]
     },
     {

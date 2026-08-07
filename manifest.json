@@ -24,6 +24,7 @@
         { "path": "01-admin/collection-editor.md", "label": "Collection editor" },
         { "path": "01-admin/media-library.md", "label": "Media library" },
         { "path": "01-admin/settings.md", "label": "Settings" },
+        { "path": "01-admin/project-git-sync.md", "label": "Project Git sync" },
         { "path": "01-admin/roles-and-permissions.md", "label": "Roles and permissions" },
         { "path": "01-admin/account.md", "label": "Account" },
         { "path": "01-admin/admin-appearance.md", "label": "Admin appearance" },

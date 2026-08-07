@@ -207,6 +207,11 @@ On **`external`** pages, `birkly-client.js` also quietly adds a discovery `<link
 
 On a supported Chromium build (146+), enable the `#enable-webmcp-testing` flag and open a page with website tools on. Registered tools appear in the browser's model-context inspector. This is a technical, opt-in check — Birkly does not ask non-technical owners to flip browser flags as a normal step.
 
+### About PageSpeed Insights
+
+Lighthouse 13.3 only treats WebMCP as supported when the lab browser exposes `navigator.modelContext`. PageSpeed Insights often lacks that API, so the three WebMCP audits show as **Not evaluated** — that is a lab-browser limit, not a Birkly failure. Birkly still injects the tools runtime, stamps `toolname` / `tooldescription` on allowlisted public forms, and registers tools in browsers that do support WebMCP. Use local Chrome (above) to verify. Separately, a published Agent Guide also serves `/llms.txt` so the llms.txt Agentic Browsing audit can score.
+
+
 ### Safety summary
 
 - **Public-site actuation only.** No admin/CMS write tool is ever exposed — website tools can only do what a visitor could already do on the page.

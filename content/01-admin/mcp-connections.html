@@ -1,12 +1,12 @@
 <p>Let <strong>Claude</strong>, <strong>ChatGPT</strong>, or <strong>Cursor</strong> work with your Birkly content. Birkly provides two kinds of <strong>AI agent</strong>:</p>
-<blockquote><p>The same controls on this page are also mounted at <strong>Agent Guide → Connections</strong> (<code>?page=agent-guide&amp;zone=connections</code>) — Birkly is currently showing both while it compares which location owners prefer. It's the same backend and settings either way; nothing here is forked or out of sync. See <a href="../02-content/agent-guide.html#the-agent-guide-hub-four-tabs">Agent Guide</a>. This is different from <strong>website tools (WebMCP)</strong> — Agent Guide → Tools — which controls what an AI helper can do on your <em>public site</em>, not what connects to your CMS. See <a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a>.</p></blockquote>
+<blockquote><p>Open <strong>Agent Guide → Connections</strong> (<code>?page=agent-guide&amp;zone=connections</code>) — This is the home for AI app connections (Birkly MCP). The Settings → AI duplicate was removed in P60.1. See <a href="../02-content/agent-guide.html#the-agent-guide-hub-four-tabs">Agent Guide</a>. This is different from <strong>website tools (WebMCP)</strong> — Agent Guide → Tools — which controls what an AI helper can do on your <em>public site</em>, not what connects to your CMS. See <a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a>.</p></blockquote>
 <ul>
 <li><strong>Personal connector</strong> — one per site; every team member uses the same URL but signs in with their own account and gets <strong>their</strong> permissions.</li>
 <li><strong>Service agent</strong> — optional shared bots with a <strong>fixed role</strong> (e.g. always editor); admins control who can see and connect.</li>
 </ul>
 <p>Copy a <strong>Connector URL</strong> (ends with <code>/mcp</code>), paste it in your AI app, and sign in when prompted. <strong>Leave Client ID and Client Secret empty</strong> — OAuth happens automatically.</p>
 <p>Built-in admin chat (API key) is separate — see <a href="ai-connections.html">Built-in assistant</a>.</p>
-<div class="doc-summary"><p>Open <strong>Settings → AI</strong> → <strong>Connect your AI app</strong>.</p>
+<div class="doc-summary"><p>Open <strong>Agent Guide → Connections</strong>.</p>
 <ol>
 <li><strong>Most users:</strong> copy the <strong>personal connector URL</strong>, paste it in your AI app, and sign in with your Birkly account.</li>
 <li><strong>Admins:</strong> you can also create <strong>service agents</strong> with a fixed role and choose who may use them.</li>
@@ -14,7 +14,7 @@
 </ol>
 <h2>Quick start (personal connector)</h2>
 <ol>
-<li><strong>Settings → AI</strong> tab → <strong>Connect your AI app</strong>.</li>
+<li><strong>Agent Guide → Connections</strong>.</li>
 <li>Under <strong>Your personal connector</strong>, click <strong>Show Connector URL</strong> and copy the URL (HTTPS, ends with <code>/mcp</code>).</li>
 <li>In your AI app:</li>
 </ol>
@@ -27,7 +27,7 @@
 <h2>Quick start (service agent)</h2>
 <p>For admins who need a shared automation identity (e.g. “content bot always acts as editor”):</p>
 <ol>
-<li><strong>Settings → AI</strong> → <strong>Connect your AI app</strong> → <strong>Add service agent</strong>.</li>
+<li><strong>Agent Guide → Connections</strong> → <strong>Add service agent</strong>.</li>
 <li>Name the agent, optionally add a description, choose a <strong>fixed role</strong>, and set <strong>Who can use this agent</strong> (roles and/or specific users).</li>
 <li>Copy that agent’s <strong>Connector URL</strong> and paste it in your AI app (same steps as above).</li>
 <li>Sign in and approve the connection. The consent screen shows the agent name and its fixed role.</li>

@@ -225,7 +225,7 @@ Lighthouse 13.3 only treats WebMCP as supported when the lab browser exposes `na
 ## Related
 
 - [Agent Guide](../02-content/agent-guide.md) — the Guide tab (public fact sheet) and the wider hub
-- [MCP connections](../01-admin/mcp-connections.md) — Connections tab / Settings → AI (Birkly MCP for AI apps)
+- [MCP connections](../01-admin/mcp-connections.md) — Connections tab / Agent Guide → Connections (Birkly MCP for AI apps)
 - [Public forms](public-forms.md) — how `public_api` collections and `{entry for}` work under the hood
 - [Client library](client-library.md) — `birkly-client.js`, which website tools load after
 - [Agent Guide public API](agent-guide-public-api.md) — the Guide JSON website tools never duplicate

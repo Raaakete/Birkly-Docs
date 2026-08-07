@@ -290,7 +290,7 @@ Commerce **0→1 foundation** docs for **1.0.29**: hybrid cart, MCP/Agent store 
 
 ## 2026-06-29 — Phase 4.1 unified AI & Integrations (P4.1-M2-T6 / M6)
 
-- **Updated:** `01-admin/ai-connections.md` — Outbound BYOAI under **Settings → AI & Integrations**; removed MCP provider type; legacy `#ai-connections` deep link.
+- **Updated:** `01-admin/ai-connections.md` — Outbound BYOAI under **Agent Guide → Connections**; removed MCP provider type; legacy `#ai-connections` deep link.
 - **Updated:** `01-admin/mcp-connections.md` — Inbound MCP in unified tab; stdio bridge recommended; remote connector OAuth path; auth modes; shared approval queue.
 - **Updated:** `01-admin/ai-overview.md`, `01-admin/settings.md`, `01-admin/ai-approvals.md`, `01-admin/ai-chat-and-actions.md` — unified tab paths and cross-links.
 - **Updated:** `meta/glossary.md` — AI connection vs MCP connection terms.

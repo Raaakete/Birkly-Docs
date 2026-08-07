@@ -35,13 +35,13 @@ Open the **AI chat** via the **floating button** (bottom-right of the admin). Us
 
 - The AI may reply with text only, or run **actions**.
 - If **Require approval** is **off**, actions run immediately and the AI confirms.
-- If **Require approval** is **on**, writes are queued; open the **approval queue** (linked from chat or **Settings → AI & Integrations**).
+- If **Require approval** is **on**, writes are queued; open the **approval queue** (linked from chat or **Agent Guide → Connections**).
 
 **Connection picker tips**
 
 - The picker shows **outbound** connections only (OpenAI, Anthropic, Ollama, etc.).
 - Switching connections mid-conversation starts using the new provider and role for subsequent messages; prefer **New chat** when changing providers for a clean context.
-- If the picker is empty, add a connection under **Settings → AI & Integrations → Outbound**.
+- If the picker is empty, add a connection under **Agent Guide → Connections → Outbound**.
 
 **Conversation history**
 
@@ -50,7 +50,7 @@ Open the **AI chat** via the **floating button** (bottom-right of the admin). Us
 **Tips**
 
 - Name the **collection** when creating or editing entries.
-- Permission errors → check the connection **role** in **Settings → AI & Integrations → Outbound**.
+- Permission errors → check the connection **role** in **Agent Guide → Connections → Outbound**.
 - Stale connection after delete → picker should no longer list it; refresh if needed.
 
 ## Advanced Users

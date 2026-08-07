@@ -17,13 +17,13 @@ Running Birkly on `http://localhost` works for day-to-day admin and the **built-
 | Local AI tools via **mcp-bridge** (stdio → local Birkly) | **Yes** | Recommended for Claude Desktop and similar local MCP hosts. |
 | **Tunnel** (`cloudflared` / ngrok) → HTTPS → `/mcp` | **Yes** | Supported pattern so remote connectors can reach your local CMS. |
 
-Where to configure connectors: **Agent Guide → Connections** (and, while both surfaces still exist, **Settings → AI** — same backend). See [Connect your AI app](../01-admin/mcp-connections.md).
+Where to configure connectors: **Agent Guide → Connections** (Connections is the single home for connectors). See [Connect your AI app](../01-admin/mcp-connections.md).
 
 ### Option A — mcp-bridge (recommended for local tools)
 
 Use when your AI app runs on the same machine and supports **stdio** MCP servers (for example Claude Desktop).
 
-1. Open **Agent Guide → Connections** (or **Settings → AI**).
+1. Open **Agent Guide → Connections**.
 2. Expand **Developer / debug** (or the **Local project** card when shown).
 3. Follow the download / copy instructions for `mcp-bridge.js`.
 4. Point your AI app’s MCP config at that bridge so it talks to your local Birkly over stdio — not over a public URL.

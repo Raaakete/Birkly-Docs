@@ -39,7 +39,11 @@ If something fails (for example invalid CSRF or missing permission), the message
 
 - **Activity & audit log** — Summary with a link to the full activity page.
 
-- **AI & Integrations** — Outbound AI providers (in-admin chat) and inbound MCP endpoints. See [AI overview](ai-overview.md), [AI connections](ai-connections.md), and [MCP connections](mcp-connections.md).
+- **Analytics** — Site-wide visitor analytics presets (**Off** / **Minimal** / **Standard** / **Advanced**), reports, and consent hooks for Standard+. See [Analytics presets](analytics-presets.md).
+
+- **AI & Integrations** — Outbound AI providers (in-admin chat) and inbound MCP endpoints. The same connector controls also appear under **Agent Guide → Connections**. See [AI overview](ai-overview.md), [AI connections](ai-connections.md), [MCP connections](mcp-connections.md), and [AI on localhost](../04-integration/ai-on-localhost.md).
+
+- **System** — Installation/system options, including **Developer mode** (off by default) for template/site-pack export and DX tools. See [Developer mode](developer-mode.md).
 
 - **Monitoring** — Health alert email and webhook URL when `/api/health.php` reports degraded or error. See [Monitoring and health alerts](../07-operations/monitoring-alerts.md).
 
@@ -126,11 +130,14 @@ Shown in the UI as **coming soon** and is not selectable. Use flat file or MySQL
 ## Related
 
 - [Project Git sync](project-git-sync.md)
+- [Analytics presets](analytics-presets.md)
+- [Developer mode](developer-mode.md)
 - [Roles and permissions](roles-and-permissions.md)
 - [Account](account.md)
 - [AI overview](ai-overview.md)
 - [AI connections](ai-connections.md)
 - [MCP connections](mcp-connections.md)
+- [AI on localhost](../04-integration/ai-on-localhost.md)
 - [Plugins](../06-extensibility/plugins.md)
 - [Updates](../06-extensibility/updates.md)
 - [Security](../07-operations/security.md)

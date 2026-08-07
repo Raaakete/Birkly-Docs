@@ -23,7 +23,9 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Entry editor | `01-admin/entry-editor.md` | Sidebar tabs, slug auto-generate, reserved fields |
 | Collection editor | `01-admin/collection-editor.md` | Field schema, Settings tab slug parity |
 | Media library | `01-admin/media-library.md` | Upload, organize, use media in content |
-| Settings | `01-admin/settings.md` | General, branding, security, monitoring tab |
+| Settings | `01-admin/settings.md` | General, branding, security, monitoring, Analytics, System tabs |
+| Analytics presets | `01-admin/analytics-presets.md` | Off / Minimal / Standard / Advanced visitor analytics; consent for Standard+ |
+| Developer mode | `01-admin/developer-mode.md` | Off by default; template/site-pack export; system info and DX tools |
 | Project Git sync | `01-admin/project-git-sync.md` | Settings → Project → Git: push/pull `project/` to GitHub/GitLab/generic; project git vs. site packs |
 | Roles and permissions | `01-admin/roles-and-permissions.md` | User roles and what they can do |
 | Account | `01-admin/account.md` | Profile, password, 2FA, cloud account link |
@@ -97,6 +99,8 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Public forms | `04-integration/public-forms.md` | Public submission and secure forms |
 | Agent Guide public API | `04-integration/agent-guide-public-api.md` | Published guide HTTP endpoints, views, graph |
 | Agent Guide MCP & agents | `04-integration/agent-guide-mcp-and-agents.md` | MCP tools, resources, agent patterns |
+| Website tools (WebMCP) | `04-integration/webmcp-tools.md` | Public-site WebMCP tool catalog (off by default) |
+| AI on localhost | `04-integration/ai-on-localhost.md` | Built-in/Ollama vs remote connectors; mcp-bridge and tunnel recipes |
 
 ## 05 — Automation
 

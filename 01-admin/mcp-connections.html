@@ -34,6 +34,8 @@
         <a href="collection-editor.html" class="nav-link">Collection editor</a>
         <a href="media-library.html" class="nav-link">Media library</a>
         <a href="settings.html" class="nav-link">Settings</a>
+        <a href="analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="developer-mode.html" class="nav-link">Developer mode</a>
         <a href="project-git-sync.html" class="nav-link">Project Git sync</a>
         <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
         <a href="account.html" class="nav-link">Account</a>
@@ -94,6 +96,7 @@
         <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
         <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
         <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -250,8 +253,12 @@
 php scripts/migrate-ai-agents-hybrid.php</code></pre>
 <h2>Requirements</h2>
 <ul>
-<li>Your Birkly site must use a <strong>public HTTPS</strong> address for external AI apps. Local or HTTP-only installs show a warning in Settings and will not work with remote connectors.</li>
+<li>Your Birkly site must use a <strong>public HTTPS</strong> address for external AI apps. Local or HTTP-only installs show a warning in Settings / Connections and will not work with remote connectors that call <code>http://localhost/mcp</code>.</li>
 </ul>
+<h3>Localhost and local development</h3>
+<table><thead><tr><th>Path</th><th>Works?</th></tr></thead>
+<tbody><tr><td>Built-in assistant + Ollama on localhost</td><td>Yes</td></tr><tr><td>Remote Claude/ChatGPT connector → <code>http://localhost/mcp</code></td><td>Usually <strong>no</strong> — needs public HTTPS</td></tr><tr><td><strong>mcp-bridge</strong> (stdio)</td><td>Yes — for local AI tools</td></tr><tr><td>Tunnel (<code>cloudflared</code> / ngrok) → HTTPS → <code>/mcp</code></td><td>Yes</td></tr></tbody></table>
+<p>Full recipes and security notes: <a href="../04-integration/ai-on-localhost.html">AI on localhost</a>. Prefer <strong>Agent Guide → Connections</strong> for the Local project / Developer debug card while you work on a laptop install.</p>
 <h2>Security</h2>
 <p><strong>Personal connector — no privilege escalation</strong></p>
 <p>The AI uses your real CMS permissions. An editor cannot gain admin access through the personal connector, because there is no stored “agent role” to exploit — only your account’s role and permission set apply at tool time.</p>
@@ -260,18 +267,20 @@ php scripts/migrate-ai-agents-hybrid.php</code></pre>
 <p><strong>Visibility enforcement</strong></p>
 <p>Users who cannot see a service agent in Settings cannot complete OAuth for it. Assignment fields (<code>visible_to_roles</code>, <code>allowed_users</code>) are enforced in the admin list and at authorization time.</p>
 <h2>Developer / debug</h2>
-<p>For local Claude Desktop development only, <code>mcp-bridge.js</code> is available under the collapsed <strong>Developer / debug</strong> section on the AI settings tab. Normal users do not need this file.</p>
+<p>For local Claude Desktop development only, <code>mcp-bridge.js</code> is available under the collapsed <strong>Developer / debug</strong> (or <strong>Local project</strong>) section on <strong>Agent Guide → Connections</strong> / the AI settings tab. Normal users do not need this file. Step-by-step bridge and tunnel recipes: <a href="../04-integration/ai-on-localhost.html">AI on localhost</a>.</p>
 <h2>Troubleshooting</h2>
 <table><thead><tr><th>Issue</th><th>Check</th></tr></thead>
 <tbody><tr><td>Connector won't connect</td><td>Site is public HTTPS; URL copied exactly; ends with <code>/mcp</code></td></tr><tr><td>OAuth fails</td><td>You are assigned to the service agent (or use the personal connector); retry sign-in; leave Client ID/Secret empty</td></tr><tr><td>OAuth denied for service agent</td><td>Admin must add your role or user under <strong>Who can use this agent</strong></td></tr><tr><td>No tools after connect</td><td>Your role (personal) or the agent’s fixed role (service); restart your AI app</td></tr><tr><td>Writes blocked</td><td>Tool permission in your AI app; check role (personal) or agent fixed role (service)</td></tr><tr><td>Personal connector missing/disabled</td><td>Admins can re-enable it in Settings; disabled connectors are hidden from non-admins</td></tr><tr><td>Old agents not visible to team</td><td>After upgrade, service agents are admin-only until visibility is reassigned</td></tr></tbody></table></div>
 <div class="doc-related"><ul>
 <li><a href="ai-overview.html">AI overview</a></li>
 <li><a href="ai-connections.html">Built-in assistant</a></li>
+<li><a href="../04-integration/ai-on-localhost.html">AI on localhost</a></li>
 <li><a href="ai-approvals.html">AI approvals</a></li>
 <li><a href="roles-and-permissions.html">Roles and permissions</a></li>
 <li><a href="../02-content/agent-guide.html">Agent Guide</a> — the hub that also mounts these Connections controls</li>
 <li><a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a> — a different layer: actions on your public site, not CMS connections</li>
 <li><a href="settings.html">Settings</a></li>
+<li><a href="developer-mode.html">Developer mode</a></li>
 </ul></div></div>
       </div>
     </main>

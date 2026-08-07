@@ -34,6 +34,8 @@
         <a href="collection-editor.html" class="nav-link">Collection editor</a>
         <a href="media-library.html" class="nav-link">Media library</a>
         <a href="settings.html" class="nav-link active">Settings</a>
+        <a href="analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="developer-mode.html" class="nav-link">Developer mode</a>
         <a href="project-git-sync.html" class="nav-link">Project Git sync</a>
         <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
         <a href="account.html" class="nav-link">Account</a>
@@ -94,6 +96,7 @@
         <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
         <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
         <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -209,7 +212,13 @@
 <li><strong>Activity &amp; audit log</strong> — Summary with a link to the full activity page.</li>
 </ul>
 <ul>
-<li><strong>AI &amp; Integrations</strong> — Outbound AI providers (in-admin chat) and inbound MCP endpoints. See <a href="ai-overview.html">AI overview</a>, <a href="ai-connections.html">AI connections</a>, and <a href="mcp-connections.html">MCP connections</a>.</li>
+<li><strong>Analytics</strong> — Site-wide visitor analytics presets (<strong>Off</strong> / <strong>Minimal</strong> / <strong>Standard</strong> / <strong>Advanced</strong>), reports, and consent hooks for Standard+. See <a href="analytics-presets.html">Analytics presets</a>.</li>
+</ul>
+<ul>
+<li><strong>AI &amp; Integrations</strong> — Outbound AI providers (in-admin chat) and inbound MCP endpoints. The same connector controls also appear under <strong>Agent Guide → Connections</strong>. See <a href="ai-overview.html">AI overview</a>, <a href="ai-connections.html">AI connections</a>, <a href="mcp-connections.html">MCP connections</a>, and <a href="../04-integration/ai-on-localhost.html">AI on localhost</a>.</li>
+</ul>
+<ul>
+<li><strong>System</strong> — Installation/system options, including <strong>Developer mode</strong> (off by default) for template/site-pack export and DX tools. See <a href="developer-mode.html">Developer mode</a>.</li>
 </ul>
 <ul>
 <li><strong>Monitoring</strong> — Health alert email and webhook URL when <code>/api/health.php</code> reports degraded or error. See <a href="../07-operations/monitoring-alerts.html">Monitoring and health alerts</a>.</li>
@@ -270,11 +279,14 @@
 <p><strong>Access control:</strong> Settings UI and API require <strong>manage settings</strong> permission. CSRF applies to mutating actions when enabled.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="project-git-sync.html">Project Git sync</a></li>
+<li><a href="analytics-presets.html">Analytics presets</a></li>
+<li><a href="developer-mode.html">Developer mode</a></li>
 <li><a href="roles-and-permissions.html">Roles and permissions</a></li>
 <li><a href="account.html">Account</a></li>
 <li><a href="ai-overview.html">AI overview</a></li>
 <li><a href="ai-connections.html">AI connections</a></li>
 <li><a href="mcp-connections.html">MCP connections</a></li>
+<li><a href="../04-integration/ai-on-localhost.html">AI on localhost</a></li>
 <li><a href="../06-extensibility/plugins.html">Plugins</a></li>
 <li><a href="../06-extensibility/updates.html">Updates</a></li>
 <li><a href="../07-operations/security.html">Security</a></li>

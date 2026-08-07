@@ -34,6 +34,8 @@
         <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
         <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
         <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="../01-admin/developer-mode.html" class="nav-link">Developer mode</a>
         <a href="../01-admin/project-git-sync.html" class="nav-link">Project Git sync</a>
         <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
         <a href="../01-admin/account.html" class="nav-link">Account</a>
@@ -94,6 +96,7 @@
         <a href="agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
         <a href="agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
         <a href="webmcp-tools.html" class="nav-link active">Website tools (WebMCP)</a>
+        <a href="ai-on-localhost.html" class="nav-link">AI on localhost</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -290,7 +293,6 @@ Birkly.webmcp.setConfirm(fn);  // replace the default window.confirm() with your
 <p>On a supported Chromium build (146+), enable the <code>#enable-webmcp-testing</code> flag and open a page with website tools on. Registered tools appear in the browser's model-context inspector. This is a technical, opt-in check — Birkly does not ask non-technical owners to flip browser flags as a normal step.</p>
 <h3>About PageSpeed Insights</h3>
 <p>Lighthouse 13.3 only treats WebMCP as supported when the lab browser exposes <code>navigator.modelContext</code>. PageSpeed Insights often lacks that API, so the three WebMCP audits show as <strong>Not evaluated</strong> — that is a lab-browser limit, not a Birkly failure. Birkly still injects the tools runtime, stamps <code>toolname</code> / <code>tooldescription</code> on allowlisted public forms, and registers tools in browsers that do support WebMCP. Use local Chrome (above) to verify. Separately, a published Agent Guide also serves <code>/llms.txt</code> so the llms.txt Agentic Browsing audit can score.</p>
-
 <h3>Safety summary</h3>
 <ul>
 <li><strong>Public-site actuation only.</strong> No admin/CMS write tool is ever exposed — website tools can only do what a visitor could already do on the page.</li>

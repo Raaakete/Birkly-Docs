@@ -34,6 +34,8 @@
         <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
         <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
         <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="../01-admin/developer-mode.html" class="nav-link">Developer mode</a>
         <a href="../01-admin/project-git-sync.html" class="nav-link">Project Git sync</a>
         <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
         <a href="../01-admin/account.html" class="nav-link">Account</a>
@@ -94,6 +96,7 @@
         <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
         <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
         <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -176,7 +179,16 @@
 <li><strong>YYYY-MM-DD</strong> — Short description. (Optional: file or section.)</li>
 </ul>
 <p>---</p>
-<p>---</p>
+<h2>2026-08-07 — Insights, activity &amp; developer mode (P61)</h2>
+<p>Owner-facing docs for analytics presets, AI on localhost, and developer mode (plan locks D2–D4, D7–D9).</p>
+<ul>
+<li><strong>New:</strong> <code>01-admin/analytics-presets.md</code> — Off / Minimal / Standard / Advanced; what each collects; upsides/downsides; consent for Standard+; not-legal-advice disclaimer; Settings → Analytics.</li>
+<li><strong>New:</strong> <code>04-integration/ai-on-localhost.md</code> — built-in/Ollama vs remote connectors; mcp-bridge and cloudflared/ngrok recipes; Agent Guide → Connections.</li>
+<li><strong>New:</strong> <code>01-admin/developer-mode.md</code> — off by default; template/site-pack export (<code>project/</code> always, content optional, never users/secrets); system info / DX tools.</li>
+<li><strong>Updated:</strong> <code>01-admin/settings.md</code>, <code>01-admin/mcp-connections.md</code> — Analytics, System/Developer mode, localhost connector table and cross-links.</li>
+<li><strong>Updated:</strong> <code>CONTENTS_INDEX.md</code>, <code>manifest.json</code>, <code>help-manifest.json</code>, <code>meta/glossary.md</code>.</li>
+<li><strong>Note:</strong> CMS admin Help offline snapshots (<code>Birkly/admin/docs/snapshots/</code>) are <strong>not</strong> mirrored in this repo — sync them separately in Birkly with <code>./scripts/sync-birkly-docs.sh</code> after this docs branch merges.</li>
+</ul>
 <p>---</p>
 <h2>2026-08-03 — Admin design language</h2>
 <p>The admin is now built from one internal CSS framework — tokens, a <code>u-*</code> helper layer, and a component catalog — and admin pages ship no page-specific CSS.</p>

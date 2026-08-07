@@ -1,0 +1,33 @@
+<div class="doc-summary"><p><strong>Developer mode</strong> is an admin setting that is <strong>off by default</strong>. When you turn it on, Birkly unlocks advanced DX tools — including <strong>export as template / site pack</strong>, system info, and debug helpers. Only high-privilege users (<code>manage_settings</code> / Admin) should enable it. Template export always includes <code>project/</code>; content is optional; users and secrets are never included.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Turn developer mode on</h3>
+<ol>
+<li>Sign in as an Admin (or another role with <strong>manage settings</strong>).</li>
+<li>Open <strong>Settings → System</strong> (or the <strong>Developer</strong> subsection on System, depending on your build).</li>
+<li>Enable <strong>Developer mode</strong>.</li>
+<li>Click <strong>Save settings</strong>.</li>
+</ol>
+<p>When it is on, the admin chrome shows a subtle <strong>Developer mode</strong> cue so you know advanced tools are unlocked. Turn it off again when you finish so day-to-day editors do not see DX surfaces by accident.</p>
+<h3>Export as template / site pack</h3>
+<p>Use this when you want a reusable zip shaped like a Hub site/template pack.</p>
+<table><thead><tr><th>Included</th><th>Rule</th></tr></thead>
+<tbody><tr><td><strong><code>project/</code></strong></td><td><strong>Always</strong> — HTML, CSS, JS, and other allowlisted site files</td></tr><tr><td><strong>Content</strong> (<code>content/</code> collections / schemas; demo entries as offered)</td><td><strong>Optional</strong> — checkbox at export time</td></tr><tr><td><strong>Users, secrets, API keys, credentials</strong></td><td><strong>Never</strong></td></tr><tr><td>Media library</td><td>Not part of the default export unless the UI offers an explicit opt-in (do not assume media is included)</td></tr></tbody></table>
+<p>Typical uses: hand a starter layout to another install, publish a pack via Hub workflows, or archive a site shell without copying accounts.</p>
+<blockquote><p><strong>Note:</strong> This is different from <a href="project-git-sync.html">Project Git sync</a> (push/pull only <code>project/</code> to a git remote) and from downloading the project ZIP in <strong>Settings → Project → Files</strong>. Dev-mode export is pack-shaped and can optionally include content schemas/entries.</p></blockquote>
+<h3>Other DX tools (when unlocked)</h3>
+<p>Exact labels vary by build; v1 tools include:</p>
+<table><thead><tr><th>Tool</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><strong>System info</strong></td><td>PHP version, whether <code>git</code> is available, paths, <code>BIRKLY_DATA</code>, render/hosting mode, active plugins</td></tr><tr><td><strong>Debug helpers</strong></td><td>Client <code>?__dbg=1</code>, SSR cache header hints, copy MCP URL</td></tr><tr><td><strong>Raw settings viewer</strong></td><td>Read-only view of selected <strong>safe</strong> settings files</td></tr><tr><td><strong>Log viewer</strong></td><td>Tail application/security logs with scrubbing</td></tr><tr><td><strong>API / MCP smoke</strong></td><td>One-click health: <code>/mcp</code> initialize and public API ping</td></tr><tr><td><strong>Seed / reset demo content</strong></td><td>Optional destructive action with confirm</td></tr><tr><td><strong>Feature flags</strong></td><td>Show experimental toggles already present in the install</td></tr></tbody></table></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Default:</strong> Off. No DX panels until enabled and saved.</p>
+<p><strong>Permission:</strong> Mutating developer-mode settings and running export/smoke tools requires <strong>manage settings</strong> (or equivalent super-admin). Read-only system info may still be gated the same way — treat the whole surface as admin-only.</p>
+<p><strong>Export scrub:</strong> Pack builders must strip <code>users/</code>, credential stores under <code>settings/</code> (tokens, git credentials, AI keys), <code>config.php</code>, and other secrets. Prefer the same <code>project/</code> allowlist used by Project Files / Git sync for the site shell.</p>
+<p><strong>vs Hub packs:</strong> Installing packs happens under <strong>Plugins → Hub</strong>. Developer-mode export is the reverse direction — produce a pack from this install. See <a href="../06-plugin-economy/theme-and-template-packs.html">Hub, themes, and site packs</a>.</p>
+<p><strong>vs Analytics CSV:</strong> Visitor analytics export is separate; see <a href="analytics-presets.html">Analytics presets</a>.</p>
+<h2>Further reading</h2>
+<ul>
+<li><a href="settings.html">Settings</a></li>
+<li><a href="project-git-sync.html">Project Git sync</a></li>
+<li><a href="../06-plugin-economy/theme-and-template-packs.html">Hub, themes, and site packs</a></li>
+<li><a href="../04-integration/ai-on-localhost.html">AI on localhost</a></li>
+<li><a href="mcp-connections.html">Connect your AI app</a></li>
+<li><a href="analytics-presets.html">Analytics presets</a></li>
+</ul></div></details>

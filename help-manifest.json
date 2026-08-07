@@ -236,10 +236,45 @@
                 "security",
                 "monitoring",
                 "api",
-                "domains"
+                "domains",
+                "analytics",
+                "developer mode"
             ],
             "docs_path": "01-admin/settings.html",
             "ai_topic": "settings-roles"
+        },
+        {
+            "id": "analytics-presets",
+            "title": "Analytics presets",
+            "keywords": [
+                "analytics",
+                "presets",
+                "off",
+                "minimal",
+                "standard",
+                "advanced",
+                "consent",
+                "privacy",
+                "gdpr",
+                "tracking",
+                "visitor"
+            ],
+            "docs_path": "01-admin/analytics-presets.html"
+        },
+        {
+            "id": "developer-mode",
+            "title": "Developer mode",
+            "keywords": [
+                "developer mode",
+                "dx",
+                "export",
+                "template pack",
+                "site pack",
+                "system info",
+                "debug",
+                "mcp smoke"
+            ],
+            "docs_path": "01-admin/developer-mode.html"
         },
         {
             "id": "monitoring-alerts",
@@ -292,7 +327,10 @@
                 "claude desktop",
                 "model context protocol",
                 "inbound",
-                "endpoint"
+                "endpoint",
+                "localhost",
+                "mcp-bridge",
+                "tunnel"
             ],
             "docs_path": "01-admin/mcp-connections.html",
             "ai_topic": "mcp-setup"
@@ -825,6 +863,23 @@
                 "off by default"
             ],
             "docs_path": "04-integration/webmcp-tools.html"
+        },
+        {
+            "id": "ai-on-localhost",
+            "title": "AI on localhost",
+            "keywords": [
+                "localhost",
+                "mcp-bridge",
+                "tunnel",
+                "cloudflared",
+                "ngrok",
+                "ollama",
+                "local development",
+                "connector",
+                "https"
+            ],
+            "docs_path": "04-integration/ai-on-localhost.html",
+            "ai_topic": "mcp-setup"
         },
         {
             "id": "choose-your-stack",

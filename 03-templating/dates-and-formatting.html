@@ -183,7 +183,7 @@
       <div class="content doc-body">
         <div class="doc-content"><p>Format system date fields (<code>created_at</code>, <code>updated_at</code>, <code>published_at</code>, and date-typed custom fields when exposed) with the <strong><code>format</code></strong> filter — PHP-style tokens inside double quotes.</p>
 <div class="doc-summary"><p><strong>In short:</strong> Write <code>{created_at format &quot;F j, Y&quot;}</code> for “January 5, 2025”, or <code>{created_at format &quot;Y-m-d&quot;}</code> for <code>2025-01-05</code>. Bare <code>{created_at}</code> defaults to <code>Y-m-d</code>. There is <strong>no</strong> <code>{ date &quot;…&quot; }</code> helper — that form is a phantom and will not work.</p>
-<blockquote><p><strong>Media (M4):</strong> Same timestamp with three <code>format</code> strings — <code>media/03-templating/dates-and-formatting/screenshots/</code>.</p></blockquote></div>
+<p>!<a href="../media/03-templating/dates-and-formatting/screenshots/format-filter-examples.svg">Same timestamp with three &lt;code&gt;format&lt;/code&gt; strings</a></p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Correct syntax</h3>
 <pre><code>&lt;time datetime=&quot;{created_at}&quot;&gt;{created_at format &quot;F j, Y&quot;}&lt;/time&gt;</code></pre>
 <p>Inside a loop:</p>

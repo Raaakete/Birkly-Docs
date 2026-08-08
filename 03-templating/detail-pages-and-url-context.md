@@ -6,7 +6,9 @@ How a single-entry page (blog post, product, event) reads the **current** entry 
 
 **In short:** List pages link with `?collection=YOUR_COLL&slug={slug}`. The detail page prints `{title}`, `{'content'}`, etc. for **that** entry — it must **not** wrap the body in `{for each entry in 'YOUR_COLL'}`. Sub-collections use `of 'blog'.current`.
 
-> **Media (M4):** Video list → detail URL → back; screenshot anti-pattern vs correct — `media/03-templating/detail-pages-and-url-context/`.
+![Correct list→detail vs anti-pattern looping the collection](../media/03-templating/detail-pages-and-url-context/screenshots/list-detail-correct-vs-antipattern.svg)
+
+> **Video (follow-along):** multi-step list → detail → back — `media/03-templating/detail-pages-and-url-context/videos/`
 
 ## Beginner
 

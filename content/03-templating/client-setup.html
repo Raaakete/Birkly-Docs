@@ -1,6 +1,7 @@
 <p>How to load <code>birkly-client.js</code> so template tags render — same host as the CMS, external websites, and when to consider SSR instead.</p>
 <div class="doc-summary"><p><strong>In short:</strong> Every templated HTML page needs <code>&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code>. If the site is <strong>not</strong> on the same origin as Birkly, add <code>data-cms-url=&quot;https://your-cms.example&quot;</code>. Without the script, visitors see raw <code>{for each…}</code> text. The default is client-side rendering; SSR is optional for SEO/performance budgets.</p>
-<blockquote><p><strong>Media (M4):</strong> Video — add script → page renders; screenshot of script tag + Network <code>page_bundle</code> — <code>media/03-templating/client-setup/</code>.</p></blockquote></div>
+<p>!<a href="../media/03-templating/client-setup/screenshots/client-pipeline.svg">HTML → birkly-client.js → CMS → rendered page</a></p>
+<blockquote><p><strong>Video (follow-along):</strong> add script → content appears — <code>media/03-templating/client-setup/videos/</code></p></blockquote></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Same host (project preview / CMS-served site)</h3>
 <p>When HTML is served from the CMS (e.g. <code>/project/index.html</code>):</p>
 <pre><code>&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>

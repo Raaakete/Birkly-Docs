@@ -6,7 +6,7 @@ Patterns for Birkly template tags inside `<birkly-region>`, `[data-birkly-region
 
 **In short:** Put template syntax in the **Light DOM**. Use `<birkly-region collection="…" entry="…">` for shared header/footer, or `list` + `ordered="newest"` / `ordered="order"` for lists. After render, **enhance** (classes, listeners) — never wipe `innerHTML`. Closed Shadow DOM is fetch + `Birkly.render` only.
 
-> **Media (M4):** `<birkly-region>` header/footer screenshot (+ optional mount video) — `media/03-templating/web-components/`.
+![`<birkly-region>` header and list patterns](../media/03-templating/web-components/screenshots/birkly-region-header.svg)
 
 ## Beginner
 

@@ -1,6 +1,7 @@
 <p>Loops repeat a block of HTML for each entry in a collection (or each item in an array field). Use them for blog indexes, product grids, nav links, tags, and galleries.</p>
 <div class="doc-summary"><p><strong>In short:</strong> <code>{for each entry in 'blog'}…{endfor}</code> prints one block per entry. Filter with <strong><code>with</code></strong> (e.g. <code>with status = published</code>). Sort with <strong><code>ordered by newest</code></strong>, <code>oldest</code>, <code>last-updated</code>, or <code>order</code>. Optionally end with <strong><code>limit 5</code></strong>. Do <strong>not</strong> use <code>sort=</code>, <code>limit=</code>, or <code>{from 'blog' get entries}</code> — those are not the public language.</p>
-<blockquote><p><strong>Media (M4):</strong> Screenshot of CMS entries + list HTML; short video adding <code>ordered by newest</code> / <code>with status = published</code> — <code>media/03-templating/loops-and-lists/</code>.</p></blockquote></div>
+<p>!<a href="../media/03-templating/loops-and-lists/screenshots/ordered-by-with-status.svg">Loop with &lt;code&gt;with status = published&lt;/code&gt; and &lt;code&gt;ordered by newest&lt;/code&gt;</a></p>
+<blockquote><p><strong>Video (follow-along):</strong> add ordering/filter → refresh — <code>media/03-templating/loops-and-lists/videos/</code></p></blockquote></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Basic collection loop</h3>
 <pre><code>&lt;h1&gt;Blog&lt;/h1&gt;
 

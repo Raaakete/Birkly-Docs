@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420" role="img" aria-labelledby="title desc">
+  <title id="title">Public form with entry for directive</title>
+  <desc id="desc">Copy-paste pattern for a contact form using entry for and matching field names.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f6f3; }
+      .card { fill: #fff; stroke: #d8d4cc; stroke-width: 1.5; }
+      .label { font: 700 15px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #1c1b19; }
+      .sub { font: 600 12px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #5c574e; }
+      .code { font: 12px "IBM Plex Mono", ui-monospace, monospace; fill: #1c1b19; }
+      .muted { font: 11px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #6e695f; }
+      .warn { fill: #fceeed; stroke: #a33b3b; }
+      .ok { fill: #e8f5ee; stroke: #2f6f4e; }
+    </style>
+  </defs>
+  <rect class="bg" width="880" height="420"/>
+  <text x="28" y="34" class="label">Public forms  {entry for} (not custom fetch)</text>
+  <text x="28" y="54" class="muted">Collection must use entry_method: public_api · field name="{slug}" must match schema</text>
+
+  <rect class="card ok" x="24" y="74" width="520" height="320" rx="10"/>
+  <text x="44" y="102" class="sub">Canonical markup</text>
+  <text x="44" y="130" class="code">{entry for 'contact'}</text>
+  <text x="44" y="152" class="code">  &lt;input name="{name}" required&gt;</text>
+  <text x="44" y="174" class="code">  &lt;input type="email" name="{email}" required&gt;</text>
+  <text x="44" y="196" class="code">  &lt;textarea name="{message}" required&gt;&lt;/textarea&gt;</text>
+  <text x="44" y="218" class="code">  &lt;button type="submit"&gt;Send&lt;/button&gt;</text>
+  <text x="44" y="240" class="code">{endentry}</text>
+  <text x="44" y="272" class="code">&lt;script src="/birkly-client.js"&gt;&lt;/script&gt;</text>
+  <text x="44" y="310" class="muted">Submit ’ CMS creates an entry ’ visible in admin</text>
+  <text x="44" y="332" class="muted">{entry for} is the forms directive  not the banned load form</text>
+  <text x="44" y="354" class="muted">{entry 'blog'.'slug'}&{endentry}</text>
+
+  <rect class="card warn" x="560" y="74" width="296" height="320" rx="10"/>
+  <text x="580" y="102" class="sub">Known bad</text>
+  <text x="580" y="134" class="code">fetch('/api/&')</text>
+  <text x="580" y="156" class="code">  .then(&)</text>
+  <text x="580" y="188" class="muted">Hand-written submit JS</text>
+  <text x="580" y="208" class="muted">often breaks CSRF,</text>
+  <text x="580" y="228" class="muted">payload shape, and</text>
+  <text x="580" y="248" class="muted">public_api rules.</text>
+  <text x="580" y="290" class="muted">Replace with</text>
+  <text x="580" y="310" class="code">{entry for '&'}</text>
+</svg>

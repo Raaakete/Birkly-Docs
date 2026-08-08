@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360" role="img" aria-labelledby="title desc">
+  <title id="title">birkly-client.js setup pipeline</title>
+  <desc id="desc">HTML with template tags loads birkly-client.js, which fetches the CMS API and replaces placeholders in the page.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f6f3; }
+      .box { fill: #fff; stroke: #d8d4cc; stroke-width: 1.5; }
+      .accent { fill: #1f4d3a; }
+      .label { font: 700 15px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #1c1b19; }
+      .box-title { font: 700 13px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #1c1b19; }
+      .code { font: 12px "IBM Plex Mono", ui-monospace, monospace; fill: #1c1b19; }
+      .muted { font: 11px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #6e695f; }
+      .arrow { stroke: #1f4d3a; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1f4d3a"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="920" height="360"/>
+  <text x="32" y="36" class="label">Client setup  from HTML to rendered content</text>
+  <text x="32" y="56" class="muted">Same-origin: &lt;script src="/birkly-client.js"&gt; · External site: add data-cms-url</text>
+
+  <rect class="box" x="32" y="90" width="240" height="180" rx="10"/>
+  <text x="48" y="118" class="box-title">1. Project HTML</text>
+  <text x="48" y="148" class="code">{for each entry in 'blog'}</text>
+  <text x="48" y="168" class="code">  &lt;h2&gt;{title}&lt;/h2&gt;</text>
+  <text x="48" y="188" class="code">{endfor}</text>
+  <text x="48" y="220" class="code">&lt;script src="/birkly-client.js"&gt;</text>
+  <text x="48" y="240" class="code">  data-cms-url="&"&gt;</text>
+
+  <path class="arrow" d="M284 180 H336"/>
+
+  <rect class="box" x="344" y="90" width="240" height="180" rx="10"/>
+  <text x="360" y="118" class="box-title">2. Birkly client</text>
+  <text x="360" y="148" class="code">processTemplates()</text>
+  <text x="360" y="168" class="code">page_bundle / API</text>
+  <text x="360" y="188" class="code">Light DOM regions</text>
+  <text x="360" y="220" class="muted">No raw {&} left after</text>
+  <text x="360" y="240" class="muted">successful render</text>
+
+  <path class="arrow" d="M596 180 H648"/>
+
+  <rect class="box" x="656" y="90" width="232" height="180" rx="10"/>
+  <rect class="accent" x="656" y="90" width="232" height="36" rx="10"/>
+  <rect class="accent" x="656" y="110" width="232" height="16"/>
+  <text x="672" y="114" style="font:700 13px 'IBM Plex Sans',sans-serif;fill:#fff">3. Live page</text>
+  <text x="672" y="160" class="code">Hello world</text>
+  <text x="672" y="180" class="code">Second post</text>
+  <text x="672" y="200" class="code">Third post</text>
+  <text x="672" y="240" class="muted">Visitors see content</text>
+
+  <text x="32" y="310" class="muted">SSR/hydrate is optional and advanced  default public sites use the live client.</text>
+  <text x="32" y="332" class="muted">See client-setup.md · TEMPLATE_LANGUAGE_SPEC · production-optimization.md</text>
+</svg>

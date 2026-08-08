@@ -6,7 +6,7 @@ Format system date fields (`created_at`, `updated_at`, `published_at`, and date-
 
 **In short:** Write `{created_at format "F j, Y"}` for “January 5, 2025”, or `{created_at format "Y-m-d"}` for `2025-01-05`. Bare `{created_at}` defaults to `Y-m-d`. There is **no** `{ date "…" }` helper — that form is a phantom and will not work.
 
-> **Media (M4):** Same timestamp with three `format` strings — `media/03-templating/dates-and-formatting/screenshots/`.
+![Same timestamp with three `format` strings](../media/03-templating/dates-and-formatting/screenshots/format-filter-examples.svg)
 
 ## Beginner
 

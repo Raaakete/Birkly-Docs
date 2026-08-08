@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="380" viewBox="0 0 880 380" role="img" aria-labelledby="title desc">
+  <title id="title">Valid Birkly braces vs invalid template syntax</title>
+  <desc id="desc">Single braces for Birkly; Jinja and double braces are invalid.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f6f3; }
+      .ok { fill: #e8f5ee; stroke: #2f6f4e; stroke-width: 1.5; }
+      .bad { fill: #fceeed; stroke: #a33b3b; stroke-width: 1.5; }
+      .label { font: 700 15px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #1c1b19; }
+      .code { font: 13px "IBM Plex Mono", ui-monospace, monospace; fill: #1c1b19; }
+      .sub { font: 600 12px "IBM Plex Sans", sans-serif; fill: #5c574e; }
+      .muted { font: 11px "IBM Plex Sans", sans-serif; fill: #6e695f; }
+    </style>
+  </defs>
+  <rect class="bg" width="880" height="380"/>
+  <text x="28" y="34" class="label">Canonical syntax  single braces</text>
+
+  <rect class="ok" x="24" y="60" width="400" height="280" rx="10"/>
+  <text x="44" y="90" class="sub">Valid (Birkly)</text>
+  <text x="44" y="126" class="code">{title}</text>
+  <text x="44" y="152" class="code">{'excerpt'}</text>
+  <text x="44" y="178" class="code">{for each entry in 'blog'}</text>
+  <text x="44" y="204" class="code">{created_at format "Y-m-d"}</text>
+  <text x="44" y="230" class="code">{from 'site_elements' get entry 'header'}</text>
+  <text x="44" y="270" class="muted">Collections in single quotes</text>
+  <text x="44" y="290" class="muted">User fields quoted: {'field'}</text>
+
+  <rect class="bad" x="456" y="60" width="400" height="280" rx="10"/>
+  <text x="476" y="90" class="sub">Invalid / phantom</text>
+  <text x="476" y="126" class="code">{{ title }}</text>
+  <text x="476" y="152" class="code">{% for item in items %}</text>
+  <text x="476" y="178" class="code">{ date "F j, Y" }</text>
+  <text x="476" y="204" class="code">{title truncate 80}</text>
+  <text x="476" y="230" class="code">{from 'blog' get entries limit=5}</text>
+  <text x="476" y="270" class="muted">Not the public Light DOM language</text>
+  <text x="476" y="290" class="muted">See cheat-sheet phantoms table</text>
+</svg>

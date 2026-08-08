@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="300" viewBox="0 0 820 300" role="img" aria-labelledby="title desc">
+  <title id="title">Date format filter examples</title>
+  <desc id="desc">Same created_at timestamp formatted three ways with the format filter.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f6f3; }
+      .card { fill: #fff; stroke: #d8d4cc; stroke-width: 1.5; }
+      .label { font: 700 15px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #1c1b19; }
+      .code { font: 12.5px "IBM Plex Mono", ui-monospace, monospace; fill: #1c1b19; }
+      .out { font: 700 13px "IBM Plex Sans", sans-serif; fill: #1f4d3a; }
+      .muted { font: 11px "IBM Plex Sans", sans-serif; fill: #6e695f; }
+    </style>
+  </defs>
+  <rect class="bg" width="820" height="300"/>
+  <text x="28" y="34" class="label">Dates  format filter (not { date "&" })</text>
+  <text x="28" y="54" class="muted">Example timestamp: 2025-01-05 16:45:00 UTC</text>
+
+  <rect class="card" x="24" y="74" width="772" height="56" rx="8"/>
+  <text x="40" y="98" class="code">{created_at}</text>
+  <text x="420" y="98" class="out">’ 2025-01-05</text>
+  <text x="40" y="118" class="muted">Default = Y-m-d</text>
+
+  <rect class="card" x="24" y="142" width="772" height="48" rx="8"/>
+  <text x="40" y="172" class="code">{created_at format "F j, Y"}</text>
+  <text x="420" y="172" class="out">’ January 5, 2025</text>
+
+  <rect class="card" x="24" y="202" width="772" height="48" rx="8"/>
+  <text x="40" y="232" class="code">{created_at format "Y-m-d H:i"}</text>
+  <text x="420" y="232" class="out">’ 2025-01-05 16:45</text>
+
+  <text x="28" y="280" class="muted">truncate / strip_tags / relative 2 days ago are not implemented.</text>
+</svg>

@@ -6,7 +6,9 @@ Loops repeat a block of HTML for each entry in a collection (or each item in an 
 
 **In short:** `{for each entry in 'blog'}…{endfor}` prints one block per entry. Filter with **`with`** (e.g. `with status = published`). Sort with **`ordered by newest`**, `oldest`, `last-updated`, or `order`. Optionally end with **`limit 5`**. Do **not** use `sort=`, `limit=`, or `{from 'blog' get entries}` — those are not the public language.
 
-> **Media (M4):** Screenshot of CMS entries + list HTML; short video adding `ordered by newest` / `with status = published` — `media/03-templating/loops-and-lists/`.
+![Loop with `with status = published` and `ordered by newest`](../media/03-templating/loops-and-lists/screenshots/ordered-by-with-status.svg)
+
+> **Video (follow-along):** add ordering/filter → refresh — `media/03-templating/loops-and-lists/videos/`
 
 ## Beginner
 

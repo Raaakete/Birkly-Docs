@@ -8,7 +8,7 @@ Birkly fills your HTML with CMS content using a plain-English template language:
 
 **Canonical engine reference:** Birkly repo `docs/TEMPLATE_LANGUAGE_SPEC.md` (Template Language Spec v1.0). Human SSOT pointer: [Canonical template syntax](canonical-syntax.md).
 
-> **Media (M4):** Architecture diagram (HTML → client → API → DOM) planned — `media/03-templating/templating-overview/screenshots/`. See P62 media plan.
+![Templating mental model: HTML + client + CMS = live site](../media/03-templating/templating-overview/screenshots/templating-mental-model.svg)
 
 ## Beginner
 

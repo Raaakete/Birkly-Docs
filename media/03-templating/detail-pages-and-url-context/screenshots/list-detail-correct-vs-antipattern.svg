@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520" role="img" aria-labelledby="title desc">
+  <title id="title">Detail pages: correct URL context vs anti-pattern</title>
+  <desc id="desc">Left: list links with collection and slug; detail page uses title and content without a collection loop. Right: wrong detail page that loops the whole collection.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f6f3; }
+      .card { fill: #ffffff; stroke: #d8d4cc; stroke-width: 1.5; }
+      .ok { fill: #e8f5ee; stroke: #2f6f4e; }
+      .bad { fill: #fceeed; stroke: #a33b3b; }
+      .label { font: 700 15px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #1c1b19; }
+      .sub { font: 600 12px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #5c574e; }
+      .code { font: 12px "IBM Plex Mono", ui-monospace, monospace; fill: #1c1b19; }
+      .muted { font: 11px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #6e695f; }
+      .chip-ok { fill: #2f6f4e; }
+      .chip-bad { fill: #a33b3b; }
+      .chip-text { font: 700 11px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #fff; }
+    </style>
+  </defs>
+  <rect class="bg" width="920" height="520" rx="0"/>
+  <text x="32" y="36" class="label">List ’ detail: correct vs anti-pattern</text>
+  <text x="32" y="56" class="muted">Birkly templating  URL context on detail pages</text>
+
+  <!-- Correct -->
+  <rect class="card ok" x="28" y="78" width="420" height="410" rx="10"/>
+  <rect class="chip-ok" x="48" y="96" width="72" height="22" rx="4"/>
+  <text x="62" y="111" class="chip-text">CORRECT</text>
+  <text x="132" y="112" class="sub">Detail uses URL context</text>
+
+  <text x="48" y="150" class="sub">List link</text>
+  <rect x="48" y="160" width="380" height="70" rx="6" fill="#f3f1ec" stroke="#cfc9bd"/>
+  <text x="60" y="182" class="code">{for each entry in 'blog' &}</text>
+  <text x="60" y="202" class="code">  &lt;a href="post.html?collection=blog&amp;slug={slug}"&gt;</text>
+  <text x="60" y="222" class="code">{endfor}</text>
+
+  <text x="48" y="262" class="sub">Detail page body</text>
+  <rect x="48" y="272" width="380" height="120" rx="6" fill="#f3f1ec" stroke="#cfc9bd"/>
+  <text x="60" y="294" class="code">&lt;meta name="birkly-collection" content="blog"&gt;</text>
+  <text x="60" y="314" class="code">&lt;h1&gt;{title}&lt;/h1&gt;</text>
+  <text x="60" y="334" class="code">&lt;div&gt;{'content'}&lt;/div&gt;</text>
+  <text x="60" y="354" class="code">&lt;!-- no {for each entry in 'blog'} --&gt;</text>
+  <text x="60" y="374" class="code">&lt;script src="/birkly-client.js"&gt;&lt;/script&gt;</text>
+
+  <text x="48" y="430" class="muted">Result: one entry matching ?slug=&</text>
+  <text x="48" y="452" class="muted">Sub-collections: of 'blog'.current</text>
+
+  <!-- Wrong -->
+  <rect class="card bad" x="472" y="78" width="420" height="410" rx="10"/>
+  <rect class="chip-bad" x="492" y="96" width="88" height="22" rx="4"/>
+  <text x="508" y="111" class="chip-text">ANTI-PATTERN</text>
+  <text x="592" y="112" class="sub">Detail loops whole collection</text>
+
+  <text x="492" y="150" class="sub">Wrong detail page</text>
+  <rect x="492" y="160" width="380" height="130" rx="6" fill="#f3f1ec" stroke="#cfc9bd"/>
+  <text x="504" y="182" class="code">{for each entry in 'blog'}</text>
+  <text x="504" y="202" class="code">  &lt;h1&gt;{title}&lt;/h1&gt;</text>
+  <text x="504" y="222" class="code">  &lt;div&gt;{'content'}&lt;/div&gt;</text>
+  <text x="504" y="242" class="code">{endfor}</text>
+  <text x="504" y="272" class="code">&lt;!-- always a list / wrong item --&gt;</text>
+
+  <text x="492" y="330" class="muted">Symptom: detail URL still shows every post,</text>
+  <text x="492" y="350" class="muted">or the wrong post  never a single entry.</text>
+  <text x="492" y="390" class="muted">Fix: remove the collection loop; read fields</text>
+  <text x="492" y="410" class="muted">from URL context (?collection=&amp;slug=).</text>
+</svg>

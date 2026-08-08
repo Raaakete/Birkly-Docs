@@ -1,6 +1,6 @@
 <p>Patterns for Birkly template tags inside <code>&lt;birkly-region&gt;</code>, <code>[data-birkly-region]</code>, and enhance-only custom elements.</p>
 <div class="doc-summary"><p><strong>In short:</strong> Put template syntax in the <strong>Light DOM</strong>. Use <code>&lt;birkly-region collection=&quot;…&quot; entry=&quot;…&quot;&gt;</code> for shared header/footer, or <code>list</code> + <code>ordered=&quot;newest&quot;</code> / <code>ordered=&quot;order&quot;</code> for lists. After render, <strong>enhance</strong> (classes, listeners) — never wipe <code>innerHTML</code>. Closed Shadow DOM is fetch + <code>Birkly.render</code> only.</p>
-<blockquote><p><strong>Media (M4):</strong> <code>&lt;birkly-region&gt;</code> header/footer screenshot (+ optional mount video) — <code>media/03-templating/web-components/</code>.</p></blockquote></div>
+<p>!<a href="../media/03-templating/web-components/screenshots/birkly-region-header.svg">&lt;code&gt;&amp;lt;birkly-region&amp;gt;&lt;/code&gt; header and list patterns</a></p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Shared header / footer</h3>
 <pre><code>&lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;header&quot;&gt;&lt;/birkly-region&gt;
 

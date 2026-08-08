@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="360" viewBox="0 0 880 360" role="img" aria-labelledby="title desc">
+  <title id="title">Loops with with filters and ordered by</title>
+  <desc id="desc">Canonical loop sentence using with status equals published and ordered by newest.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f6f3; }
+      .card { fill: #fff; stroke: #d8d4cc; stroke-width: 1.5; }
+      .label { font: 700 15px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #1c1b19; }
+      .sub { font: 600 12px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #5c574e; }
+      .code { font: 12.5px "IBM Plex Mono", ui-monospace, monospace; fill: #1c1b19; }
+      .hl { fill: #e8f5ee; }
+      .muted { font: 11px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #6e695f; }
+      .pill { fill: #1f4d3a; }
+      .pill-t { font: 700 10px "IBM Plex Sans", sans-serif; fill: #fff; }
+    </style>
+  </defs>
+  <rect class="bg" width="880" height="360"/>
+  <text x="28" y="34" class="label">Loops  with filters + ordered by</text>
+  <text x="28" y="54" class="muted">Canonical public language (not sort= / limit= / get entries)</text>
+
+  <rect class="card" x="24" y="74" width="832" height="160" rx="10"/>
+  <rect class="hl" x="40" y="96" width="800" height="36" rx="4"/>
+  <text x="52" y="120" class="code">{for each entry in 'blog' with status = published ordered by newest limit 5}</text>
+  <text x="52" y="160" class="code">  &lt;article&gt;&lt;a href="post.html?collection=blog&amp;slug={slug}"&gt;{title}&lt;/a&gt;&lt;/article&gt;</text>
+  <text x="52" y="190" class="code">{endfor}</text>
+
+  <rect class="pill" x="40" y="214" width="52" height="18" rx="3"/><text x="50" y="227" class="pill-t">with</text>
+  <text x="100" y="227" class="muted">filter (status or 'field' = 'value')</text>
+  <rect class="pill" x="320" y="214" width="78" height="18" rx="3"/><text x="328" y="227" class="pill-t">ordered by</text>
+  <text x="408" y="227" class="muted">newest · oldest · last-updated · order</text>
+  <rect class="pill" x="640" y="214" width="52" height="18" rx="3"/><text x="650" y="227" class="pill-t">limit</text>
+  <text x="700" y="227" class="muted">space + N (not limit=)</text>
+
+  <text x="28" y="280" class="sub">Menus / nav</text>
+  <text x="28" y="304" class="code">{for each entry in 'nav-links' ordered by order}</text>
+  <text x="28" y="332" class="muted">newest/oldest always use created_at  use ordered by order for hand-sorted lists</text>
+</svg>

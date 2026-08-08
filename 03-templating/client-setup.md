@@ -6,7 +6,9 @@ How to load `birkly-client.js` so template tags render — same host as the CMS,
 
 **In short:** Every templated HTML page needs `<script src="/birkly-client.js"></script>`. If the site is **not** on the same origin as Birkly, add `data-cms-url="https://your-cms.example"`. Without the script, visitors see raw `{for each…}` text. The default is client-side rendering; SSR is optional for SEO/performance budgets.
 
-> **Media (M4):** Video — add script → page renders; screenshot of script tag + Network `page_bundle` — `media/03-templating/client-setup/`.
+![HTML → birkly-client.js → CMS → rendered page](../media/03-templating/client-setup/screenshots/client-pipeline.svg)
+
+> **Video (follow-along):** add script → content appears — `media/03-templating/client-setup/videos/`
 
 ## Beginner
 

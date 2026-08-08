@@ -6,7 +6,7 @@ Birkly has **one** public templating language for site HTML. This page is the hu
 
 **In short:** Use **single braces** `{…}` and plain-English sentences. Loops: `{for each entry in 'blog'}…{endfor}`. Fields: `{title}` (system) and `{'my_field'}` (user). Public sites render with `birkly-client.js`. Admin UI uses a separate PHP parser — do not mix admin-only helpers into public HTML.
 
-> **Media (M4):** Valid `{for each}` vs invalid `{{ }}` / Jinja side-by-side screenshot planned — `media/03-templating/canonical-syntax/screenshots/`.
+![Valid Birkly single-brace syntax vs invalid/phantom forms](../media/03-templating/canonical-syntax/screenshots/valid-vs-invalid-syntax.svg)
 
 ## Beginner
 

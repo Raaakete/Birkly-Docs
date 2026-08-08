@@ -183,7 +183,7 @@
       <div class="content doc-body">
         <div class="doc-content"><p>Birkly has <strong>one</strong> public templating language for site HTML. This page is the human SSOT pointer into that language. The engine source of truth is Birkly <code>docs/TEMPLATE_LANGUAGE_SPEC.md</code> (v1.0). Do not invent filters, Jinja syntax, or archived helpers.</p>
 <div class="doc-summary"><p><strong>In short:</strong> Use <strong>single braces</strong> <code>{…}</code> and plain-English sentences. Loops: <code>{for each entry in 'blog'}…{endfor}</code>. Fields: <code>{title}</code> (system) and <code>{'my_field'}</code> (user). Public sites render with <code>birkly-client.js</code>. Admin UI uses a separate PHP parser — do not mix admin-only helpers into public HTML.</p>
-<blockquote><p><strong>Media (M4):</strong> Valid <code>{for each}</code> vs invalid <code>{{ }}</code> / Jinja side-by-side screenshot planned — <code>media/03-templating/canonical-syntax/screenshots/</code>.</p></blockquote></div>
+<p>!<a href="../media/03-templating/canonical-syntax/screenshots/valid-vs-invalid-syntax.svg">Valid Birkly single-brace syntax vs invalid/phantom forms</a></p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Variables</h3>
 <pre><code>{title}
 {slug}

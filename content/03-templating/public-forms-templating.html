@@ -1,6 +1,7 @@
 <p>Build contact, newsletter, and feedback forms with <code>{entry for 'collection'}…{endentry}</code> so <code>birkly-client.js</code> wires the form to Birkly’s public submit API.</p>
 <div class="doc-summary"><p><strong>In short:</strong> Set the collection <strong>Entry method</strong> to <strong>Public API</strong>, match <code>name=&quot;{field_slug}&quot;</code> to the schema, wrap markup in <code>{entry for 'contact'}…{endentry}</code>, and load the client script. Prefer this over hand-rolled <code>fetch</code> JSON posts. Full admin/API notes: <a href="../04-integration/public-forms.html">Public forms</a>.</p>
-<blockquote><p><strong>Media (M4):</strong> Video submit → entry in admin; screenshot of <code>{entry for}</code> markup — <code>media/03-templating/public-forms-templating/</code>.</p></blockquote></div>
+<p>!<a href="../media/03-templating/public-forms-templating/screenshots/entry-for-form.svg">&lt;code&gt;{entry for}&lt;/code&gt; contact form pattern vs custom fetch</a></p>
+<blockquote><p><strong>Video (follow-along):</strong> submit form → entry in admin — <code>media/03-templating/public-forms-templating/videos/</code></p></blockquote></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>1. Collection setup</h3>
 <ol>
 <li>Create a collection (e.g. <code>contact</code>) with fields <code>name</code>, <code>email</code>, <code>message</code> (or your slugs).</li>

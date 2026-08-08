@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">Templating mental model</title>
+  <desc id="desc">HTML templates plus birkly-client.js plus CMS content equals rendered pages.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f6f3; }
+      .box { fill: #fff; stroke: #d8d4cc; stroke-width: 1.5; }
+      .t { font: 700 14px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #1c1b19; }
+      .d { font: 12px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #5c574e; }
+      .label { font: 700 15px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #1c1b19; }
+      .plus { font: 700 22px "IBM Plex Sans", sans-serif; fill: #1f4d3a; }
+    </style>
+  </defs>
+  <rect class="bg" width="900" height="300"/>
+  <text x="28" y="36" class="label">Templating mental model</text>
+  <rect class="box" x="28" y="70" width="200" height="140" rx="10"/>
+  <text x="48" y="110" class="t">Your HTML</text>
+  <text x="48" y="138" class="d">Loops, fields,</text>
+  <text x="48" y="158" class="d">regions, forms</text>
+  <text x="240" y="150" class="plus">+</text>
+  <rect class="box" x="270" y="70" width="200" height="140" rx="10"/>
+  <text x="290" y="110" class="t">birkly-client.js</text>
+  <text x="290" y="138" class="d">Reads Light DOM,</text>
+  <text x="290" y="158" class="d">loads CMS data</text>
+  <text x="482" y="150" class="plus">+</text>
+  <rect class="box" x="512" y="70" width="170" height="140" rx="10"/>
+  <text x="532" y="110" class="t">CMS content</text>
+  <text x="532" y="138" class="d">Collections,</text>
+  <text x="532" y="158" class="d">published entries</text>
+  <text x="694" y="150" class="plus">=</text>
+  <rect class="box" x="722" y="70" width="150" height="140" rx="10"/>
+  <text x="742" y="110" class="t">Live site</text>
+  <text x="742" y="138" class="d">Filled pages</text>
+  <text x="742" y="158" class="d">visitors see</text>
+  <text x="28" y="250" class="d">Light DOM = template language. Shadow DOM = fetch API + Birkly.render only.</text>
+  <text x="28" y="274" class="d">Start with list ’ detail ’ form. Spec: TEMPLATE_LANGUAGE_SPEC in the CMS repo.</text>
+</svg>

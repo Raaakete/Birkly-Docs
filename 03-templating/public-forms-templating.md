@@ -6,7 +6,9 @@ Build contact, newsletter, and feedback forms with `{entry for 'collection'}…{
 
 **In short:** Set the collection **Entry method** to **Public API**, match `name="{field_slug}"` to the schema, wrap markup in `{entry for 'contact'}…{endentry}`, and load the client script. Prefer this over hand-rolled `fetch` JSON posts. Full admin/API notes: [Public forms](../04-integration/public-forms.md).
 
-> **Media (M4):** Video submit → entry in admin; screenshot of `{entry for}` markup — `media/03-templating/public-forms-templating/`.
+![`{entry for}` contact form pattern vs custom fetch](../media/03-templating/public-forms-templating/screenshots/entry-for-form.svg)
+
+> **Video (follow-along):** submit form → entry in admin — `media/03-templating/public-forms-templating/videos/`
 
 ## Beginner
 

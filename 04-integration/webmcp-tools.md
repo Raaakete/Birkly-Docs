@@ -65,7 +65,7 @@ Plain-language versions of the first three, matching what you'll see in the prod
 
 > **WebMCP** lets AI helpers in the visitor's browser use clear actions on your live website (like submitting a contact form or adding to cart) instead of guessing from the page. It's off until you turn it on. Your site still works the same for everyone else.
 
-Do not confuse these: publishing your Agent Guide does not turn on website tools, and turning on website tools does not change what AI apps can do in your CMS. See [Agent Guide](../02-content/agent-guide.md) for the Guide tab and [MCP connections](../01-admin/mcp-connections.md) for Connections.
+Do not confuse these: publishing your Agent Guide does not turn on website tools, and turning on website tools does not change what AI apps can do in your CMS. See [Agent Guide](../02-content/agent-guide.md) for Guide · Tools · Publish, and [MCP connections](../01-admin/mcp-connections.md) under **Settings → AI** for Birkly MCP.
 
 ## Advanced Users
 
@@ -199,7 +199,7 @@ Website tools always run on the **page origin** — wherever your HTML is actual
 
 `birkly-client.js` must load first — it owns page context and the public API connection that `birkly-webmcp.js` then registers tools against. Both scripts silently do nothing when website tools are off or the browser doesn't support the API.
 
-This mirrors how your **Agent Guide JSON** reaches an external site: Birkly's canonical URL always works (`{cms}/api/public/ai_presence.php` / `{cms}/.well-known/agent-guide.json`); Publish additionally offers a **download** of `agent-guide.json` for your own `/.well-known/` folder, and a **reverse-proxy** snippet if you'd rather serve it from your own domain. **Birkly MCP** (Connections) never changes with hosting mode — AI apps always connect to your Birkly address, never your website host.
+This mirrors how your **Agent Guide JSON** reaches an external site: Birkly's canonical URL always works (`{cms}/api/public/ai_presence.php` / `{cms}/.well-known/agent-guide.json`); Publish additionally offers a **download** of `agent-guide.json` for your own `/.well-known/` folder, and a **reverse-proxy** snippet if you'd rather serve it from your own domain. **Birkly MCP** (Settings → AI) never changes with hosting mode — AI apps always connect to your Birkly address, never your website host.
 
 On **`external`** pages, `birkly-client.js` also quietly adds a discovery `<link rel="alternate" type="application/json" href="{cms}/.well-known/agent-guide.json">` to the page `<head>` whenever it's loaded with `data-cms-url`. This gives agents a way to find your canonical Guide on the Birkly host straight away, even before you've set up a download or reverse-proxy on your own domain. It's automatic, non-visual, and added at most once per page.
 

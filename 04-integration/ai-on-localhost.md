@@ -81,6 +81,6 @@ Keep the tunnel process running while you work. Treat the temporary URL like a s
 
 - [Connect your AI app](../01-admin/mcp-connections.md) — personal connector, service agents, OAuth
 - [Built-in assistant](../01-admin/ai-connections.md) — outbound API keys / Ollama
-- [Agent Guide](../02-content/agent-guide.md) — hub; open **Connections**
+- [Agent Guide](../02-content/agent-guide.md) — Guide · Tools · Publish (connectors under **Settings → AI**)
 - [Website tools (WebMCP)](webmcp-tools.md)
 - [Developer mode](../01-admin/developer-mode.md) — system info and MCP smoke helpers

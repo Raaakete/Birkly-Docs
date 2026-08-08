@@ -363,6 +363,7 @@ body {
 }
 
 .doc-body img.doc-figure,
+.doc-body video.doc-figure,
 .doc-body .doc-figure {
   display: block;
   max-width: 100%;

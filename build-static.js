@@ -101,9 +101,16 @@ function mdToHtml(md) {
       out.push('<pre><code>' + code.join('\n') + '</code></pre>');
       continue;
     }
+    // Pass through safe media HTML (P62 short videos) without escaping.
+    const videoLine = line.trim();
+    if (/^<video\b[^>]*>[\s\S]*<\/video>$/i.test(videoLine)) {
+      out.push(videoLine.replace(/<video\b/i, '<video class="doc-figure"'));
+      i++;
+      continue;
+    }
     if (line.trim() === '') { i++; continue; }
     const para = [];
-    while (i < lines.length && lines[i].trim() !== '' && !/^#{1,4}\s/.test(lines[i]) && !/^[-*]\s/.test(lines[i]) && !/^\d+\.\s/.test(lines[i]) && !lines[i].startsWith('>') && !lines[i].startsWith('```') && !(isTableRow(lines[i]) && i + 1 < lines.length && isTableDivider(lines[i + 1]))) {
+    while (i < lines.length && lines[i].trim() !== '' && !/^#{1,4}\s/.test(lines[i]) && !/^[-*]\s/.test(lines[i]) && !/^\d+\.\s/.test(lines[i]) && !lines[i].startsWith('>') && !lines[i].startsWith('```') && !/^<video\b/i.test(lines[i].trim()) && !(isTableRow(lines[i]) && i + 1 < lines.length && isTableDivider(lines[i + 1]))) {
       para.push(lines[i]);
       i++;
     }

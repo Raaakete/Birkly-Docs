@@ -12,12 +12,6 @@ How to load `birkly-client.js` so template tags render — same host as the CMS,
 
 <video controls width="720" src="../media/03-templating/client-setup/videos/client-renders-content.mp4">Client renders content</video>
 
-
-
-![HTML → birkly-client.js → CMS page_bundle → rendered DOM](../media/03-templating/client-setup/screenshots/client-pipeline.svg)
-
-> **Video (follow-along):** coming — multi-step recording (add script → page renders)
-
 ## Beginner
 
 ### Same host (project preview / CMS-served site)

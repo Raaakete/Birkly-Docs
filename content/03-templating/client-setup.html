@@ -2,9 +2,7 @@
 <div class="doc-summary"><p><strong>In short:</strong> Every templated HTML page needs <code>&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code>. If the site is <strong>not</strong> on the same origin as Birkly, add <code>data-cms-url=&quot;https://your-cms.example&quot;</code>. Without the script, visitors see raw <code>{for each…}</code> text. The default is client-side rendering; SSR is optional for SEO/performance budgets.</p>
 <p><img class="doc-figure" src="../media/03-templating/client-setup/screenshots/client-pipeline.svg" alt="HTML → birkly-client.js → CMS → rendered page"></p>
 <p><img class="doc-figure" src="../media/03-templating/client-setup/screenshots/project-index-live.png" alt="Live project homepage after client render"></p>
-<p>&lt;video controls width=&quot;720&quot; src=&quot;../media/03-templating/client-setup/videos/client-renders-content.mp4&quot;&gt;Client renders content&lt;/video&gt;</p>
-<p><img class="doc-figure" src="../media/03-templating/client-setup/screenshots/client-pipeline.svg" alt="HTML → birkly-client.js → CMS page_bundle → rendered DOM"></p>
-<blockquote><p><strong>Video (follow-along):</strong> coming — multi-step recording (add script → page renders)</p></blockquote></div>
+<video class="doc-figure" controls width="720" src="../media/03-templating/client-setup/videos/client-renders-content.mp4">Client renders content</video></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Same host (project preview / CMS-served site)</h3>
 <p>When HTML is served from the CMS (e.g. <code>/project/index.html</code>):</p>
 <pre><code>&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>

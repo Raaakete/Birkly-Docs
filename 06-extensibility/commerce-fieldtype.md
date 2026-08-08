@@ -4,7 +4,7 @@ The **Commerce** fieldtype is registered by the Commerce plugin on the fieldtype
 
 ## Summary
 
-Commerce v2 stores **fulfillment** (`ship`, `deliver`, `register`, `gift_card`, `none`), optional **`tax_class`**, ship **`weight_grams`** / dims, and one or more **purchase_options** (one-time and/or recurring prices) on each sellable entry. Optional `quantity_available` and `sku` support capacity and fulfillment. Variants use a `variants` sub-collection with a Commerce field on each sub-entry.
+Commerce v2 stores **fulfillment** (`ship`, `deliver`, `register`, `gift_card`, `none`), optional **`tax_class`** / **`tax_included`**, ship **`weight_grams`** / dims, and one or more **purchase_options** (one-time and/or recurring prices) on each sellable entry. Optional `quantity_available` and `sku` support capacity and fulfillment. Variants use a `variants` sub-collection with a Commerce field on each sub-entry.
 
 ## Schema (v2 stored value)
 
@@ -12,6 +12,7 @@ Commerce v2 stores **fulfillment** (`ship`, `deliver`, `register`, `gift_card`, 
 |-------|------|-------|
 | `fulfillment` | enum | `ship`, `deliver`, `register`, `gift_card`, `none` |
 | `tax_class` | string | `standard`, `reduced`, `zero`, or custom. Default `standard`. Rates from **Settings → Tax** |
+| `tax_included` | bool | Default `true` (EU): shelf price includes tax. `false` = tax excluded and added at checkout |
 | `weight_grams` | int \| null | Required on `ship` when EasyPost live rates are enabled |
 | `length_mm` / `width_mm` / `height_mm` | int \| null | Optional parcel dims for live rates |
 | `purchase_options[]` | array | `id`, `label`, `billing`, `price_cents`, `currency`, `interval?` |
@@ -24,6 +25,7 @@ Example:
 {
   "fulfillment": "register",
   "tax_class": "standard",
+  "tax_included": true,
   "purchase_options": [
     { "id": "ticket", "label": "Workshop ticket", "billing": "one_time", "price_cents": 2500, "currency": "eur" }
   ],
@@ -49,7 +51,7 @@ Collection schema may include `commerce_settings` to preset enabled fulfillments
 - Affiliate codes — `?ref=` + rule engine
 - Tier grants — **Settings → Mappings**
 - Stock ledger rows — **Inventory** (modes: Unlimited · Simple · Locations)
-- Tax rates / providers — **Settings → Tax** (field only picks `tax_class`)
+- Tax rates / providers — **Settings → Tax** (field picks `tax_class` + included/excluded mode)
 - Shipping rate provider — **Settings → Shipping** (field supplies weight/dims for quotes)
 
 ## Catalog index

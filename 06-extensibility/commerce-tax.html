@@ -70,17 +70,26 @@
         <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
-        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
         <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
         <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
         <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
@@ -172,8 +181,8 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Tax for Commerce <strong>1.0.23+</strong> / current <strong>1.0.27</strong>: selectable <strong>tax providers</strong> (Manual or Stripe Tax), product <strong>tax classes</strong>, class×country rates, optional <strong>B2B reverse charge</strong>, and frozen <strong><code>tax_lines</code></strong> on each paid order.</p>
-<div class="doc-summary"><p>Choose a tax provider under <strong>Commerce → Settings → Tax</strong>. <strong>Manual</strong> uses your rate table. <strong>Stripe Tax</strong> calls Stripe’s Tax Calculations API for quotes — orthogonal to the payment PSP (you can charge with Mollie/PayPal/etc.). Paid orders freeze <code>tax_cents</code> / <code>tax_lines</code> and never re-call the provider. Optional B2B reverse charge zeroes tax when a VAT ID and country rules match (format normalize only — no live VIES).</p></div>
+        <div class="doc-content"><p>Tax for Commerce <strong>1.0.54+</strong>: selectable <strong>tax providers</strong> (Manual or Stripe Tax), product <strong>tax classes</strong>, <strong>tax included vs excluded</strong> prices (default <strong>included</strong>), class×country rates, optional <strong>B2B reverse charge</strong>, and frozen <strong><code>tax_lines</code></strong> on each paid order.</p>
+<div class="doc-summary"><p>Choose a tax provider under <strong>Commerce → Settings → Tax</strong>. <strong>Manual</strong> uses your rate table. <strong>Stripe Tax</strong> calls Stripe’s Tax Calculations API for quotes — orthogonal to the payment PSP (you can charge with Mollie/PayPal/etc.). On each Commerce field, set whether the shelf price <strong>includes tax</strong> (EU default) or <strong>excludes tax</strong> (added at checkout). Paid orders freeze <code>tax_cents</code> / <code>tax_lines</code> and never re-call the provider. Optional B2B reverse charge zeroes tax when a VAT ID and country rules match (format normalize only — no live VIES); when prices include tax, reverse charge also <strong>strips</strong> the embedded VAT so the buyer pays net.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Choose a provider</h3>
 <ol>
 <li>Open <strong>Commerce → Settings → Tax</strong>.</li>
@@ -187,9 +196,10 @@
 <li>Set a <strong>default rate</strong> (%) and optional <strong>country overrides</strong>.</li>
 <li>Under <strong>Tax classes</strong>, add classes (<code>standard</code>, <code>reduced</code>, <code>zero</code>, plus custom). Leave a class default blank to inherit; use <code>0</code> for explicit zero-rated.</li>
 <li>Under <strong>Class × country rates</strong>, add overrides (e.g. reduced × DE = 7%).</li>
-<li>On each sellable Commerce field, set <strong>Tax class</strong> (default <code>standard</code>).</li>
+<li>On each sellable Commerce field, set <strong>Tax class</strong> (default <code>standard</code>) and <strong>Price tax mode</strong>:</li>
 </ol>
-<p><strong>Resolution order (Manual, per line):</strong> class×country → class default → country override → site default. Tax applies to the goods subtotal (after line discounts).</p>
+<p>   - <strong>Tax included in price</strong> (default) — shelf <code>price_cents</code> is gross; VAT is extracted for display/invoices and <strong>not</strong> added again at checkout.    - <strong>Tax excluded</strong> — shelf price is net; VAT is added on top (<code>tax_add_cents</code>).</p>
+<p><strong>Resolution order (Manual, per line):</strong> class×country → class default → country override → site default. Tax base is the post-discount line total. Inclusive: <code>tax = round(gross × r / (100 + r))</code>. Exclusive: <code>tax = round(net × r / 100)</code>.</p>
 <h3>B2B reverse charge (VAT ID)</h3>
 <ol>
 <li>In <strong>Settings → Tax</strong>, enable <strong>B2B reverse charge</strong>.</li>
@@ -200,8 +210,10 @@
 <p>When enabled + both countries are eligible + VAT ID present (+ different-country rule if on) → <code>tax_cents</code> is <code>0</code> and <code>tax_lines</code> use <code>reason: reverse_charge</code>. The order stores <code>vat_id</code>. IDs are normalized for format only — <strong>live VIES validation is not included</strong>.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Setting:</strong> <code>commerce_tax_provider</code> — <code>manual</code> | <code>stripe_tax</code> (default <code>manual</code>).</p>
 <p><strong>Interfaces:</strong> <code>TaxProviderInterface</code> → <code>ManualTaxProvider</code> | <code>StripeTaxProvider</code> via <code>TaxProviderResolver</code>. Catalog <code>calculateTax</code> delegates to the resolved provider.</p>
-<p><strong>Field:</strong> <code>tax_class</code> on the Commerce fieldtype (string; default <code>standard</code>).</p>
-<p><strong>Order snapshot:</strong> Paid orders freeze <code>tax_cents</code> and <code>tax_lines[]</code> (<code>tax_class</code>, title, rate, <code>tax_cents</code>, <code>source</code> / <code>provider</code>). Mixed carts emit <strong>one tax line per class</strong>. Recalculating from current catalog settings must not mutate paid-order lines.</p>
+<p><strong>Field:</strong> <code>tax_class</code> (string; default <code>standard</code>) and <code>tax_included</code> (bool; default <code>true</code>) on the Commerce fieldtype.</p>
+<p><strong>Money fields:</strong> <code>tax_cents</code> is always the VAT amount for display. <code>tax_add_cents</code> is what to add to goods+shipping for the charge (<code>0</code> when prices include tax; may be negative under inclusive reverse charge). Cart/checkout <code>total_cents</code> uses <code>tax_add_cents</code>.</p>
+<p><strong>Public API:</strong> Cart payload exposes <code>tax_cents</code>, <code>tax_add_cents</code>, <code>tax_lines</code>, <code>prices_include_tax</code>. <code>catalog_item</code> returns <code>tax_class</code>, <code>tax_included</code>, and a <code>tax</code> estimate (<code>net_cents</code> / <code>tax_cents</code> / <code>gross_cents</code>, optional <code>?country=</code>).</p>
+<p><strong>Order snapshot:</strong> Paid orders freeze <code>tax_cents</code> and <code>tax_lines[]</code> (<code>tax_class</code>, <code>tax_included</code>, title, rate, <code>tax_cents</code>, <code>source</code> / <code>provider</code>). Mixed carts emit <strong>one tax line per class×mode</strong>. Recalculating from current catalog settings must not mutate paid-order lines.</p>
 <p><strong>Stripe Tax:</strong> Uses Connections Stripe secret when present; otherwise mock / soft-fallback shaped results so checkout does not break. Reverse-charge eligibility is evaluated before (or inherited into) Stripe Tax mock paths; live Stripe Tax still accepts <code>vat_id</code> in context.</p>
 <p><strong>B2B rules shape</strong> (<code>tax_rules.b2b_reverse_charge</code>):</p>
 <table><thead><tr><th>Key</th><th>Meaning</th></tr></thead>

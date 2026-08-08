@@ -1,5 +1,6 @@
 <p>Six copy-paste starter sites ship with the Birkly CMS. Each demonstrates real templating patterns with <strong>live <code>birkly-client.js</code> only</strong> — no hydrate, snapshots, or custom <code>fetch()</code> in site JavaScript.</p>
-<div class="doc-summary"><p><strong>Reference projects</strong> are ready-made HTML sites (blog, portfolio, yoga studio, coffee shop, social network, influencer hub) bundled in the Birkly repo under <code>reference-projects/</code>. Run <code>scripts/install-reference-project.sh &lt;name&gt;</code> from the Birkly root to copy collections into your CMS, then open the site at <code>/reference-projects/&lt;name&gt;/website/</code>. Every project uses the default live client script; they are the recommended starting point before you build your own templates.</p></div>
+<div class="doc-summary"><p><strong>In short:</strong> Six starter sites (blog, portfolio, yoga, coffee, social, influencer) ship under Birkly <code>reference-projects/</code>. Install with <code>scripts/install-reference-project.sh &lt;name&gt;</code>, then open <code>/reference-projects/&lt;name&gt;/website/</code>. All use live <code>birkly-client.js</code> only — list/detail/forms match the <a href="canonical-syntax.html">canonical syntax</a>. Prefer these before inventing your own patterns. Step-by-step build: <a href="worked-site-walkthrough.html">Worked site walkthrough</a>.</p>
+<blockquote><p><strong>Video (follow-along):</strong> coming — multi-step recording (install blog starter → list/detail)</p></blockquote></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What are they?</strong></p>
 <p>Think of reference projects as <strong>starter kits</strong>: each one is a small website with sample content and HTML templates already wired to Birkly. You can browse them to see how loops, conditionals, commerce forms, and login pages work — then copy ideas into your own site.</p>
 <p><strong>The six projects</strong></p>
@@ -64,7 +65,10 @@
 <p>Prefer <code>&lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;header&quot;&gt;</code> when chrome is CMS-authored; use the enhance-only pattern when chrome is intentionally static (logo + hardcoded nav), as on Birkly-Website.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="client-setup.html">Client setup</a></li>
+<li><a href="worked-site-walkthrough.html">Worked site walkthrough</a></li>
+<li><a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a></li>
 <li><a href="../04-integration/client-library.html">Client library</a></li>
 <li><a href="storefront-patterns.html">Storefront and events patterns</a></li>
-<li><a href="production-optimization.html">Production optimization</a> — optional hydrate/snapshot/bake (not used in reference projects)</li>
+<li><a href="production-optimization.html">Production optimization</a></li>
 </ul></div>

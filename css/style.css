@@ -362,6 +362,18 @@ body {
   color: var(--text-muted);
 }
 
+.doc-body img.doc-figure,
+.doc-body video.doc-figure,
+.doc-body .doc-figure {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-sidebar, #f7f6f3);
+}
+
 .doc-body table {
   width: 100%;
   border-collapse: collapse;

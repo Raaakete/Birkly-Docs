@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="560" viewBox="0 0 920 560" role="img" aria-labelledby="title desc">
+<title id="title">Birkly templating syntax sheet</title>
+<desc id="desc">Printable overview of valid syntax and phantoms to avoid</desc>
+
+<defs>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#2f5d4a"/>
+  </marker>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f7f5ef"/>
+    <stop offset="100%" stop-color="#efebe2"/>
+  </linearGradient>
+</defs>
+<rect width="920" height="560" fill="url(#bg)"/>
+<text x="36" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#1f2a24">Birkly template syntax sheet</text>
+<text x="36" y="56" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Single braces · quote collections &amp; user fields · TEMPLATE_LANGUAGE_SPEC v1.0</text>
+
+  <rect x="36" y="78" width="280" height="220" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="36" y="78" width="280" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="36" y="98" width="280" height="12" fill="#ebe6db"/>
+  <text x="50" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Output</text>
+<text x="50" y="128" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{title}  {slug}</text>
+<text x="50" y="150" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{'excerpt'}</text>
+<text x="50" y="172" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{created_at}</text>
+<text x="50" y="194" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{created_at format &quot;F j, Y&quot;}</text>
+<text x="50" y="216" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{current.language}</text>
+<text x="50" y="238" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{query.'slug'}</text>
+
+  <rect x="332" y="78" width="280" height="220" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="332" y="78" width="280" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="332" y="98" width="280" height="12" fill="#ebe6db"/>
+  <text x="346" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Loops</text>
+<text x="346" y="128" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{for each entry in 'blog'}</text>
+<text x="346" y="150" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  with status = published</text>
+<text x="346" y="172" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  ordered by newest</text>
+<text x="346" y="194" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  limit 5</text>
+<text x="346" y="216" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{for each entry in 'comments'</text>
+<text x="346" y="238" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  of 'blog'.current}</text>
+<text x="346" y="260" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{endfor}</text>
+
+  <rect x="628" y="78" width="256" height="220" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="628" y="78" width="256" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="628" y="98" width="256" height="12" fill="#ebe6db"/>
+  <text x="642" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">From / if / forms</text>
+<text x="642" y="128" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{from 'site_elements'</text>
+<text x="642" y="150" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  get entry 'header'}</text>
+<text x="642" y="172" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{endget}</text>
+<text x="642" y="194" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{if entry has 'price'}</text>
+<text x="642" y="216" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{entry for 'contact'}</text>
+<text x="642" y="238" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{endentry}</text>
+
+  <rect x="36" y="318" width="576" height="200" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="36" y="318" width="576" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="36" y="338" width="576" height="12" fill="#ebe6db"/>
+  <text x="50" y="339" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Detail + regions</text>
+<text x="50" y="368" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">post.html?collection=blog&amp;slug={slug}</text>
+<text x="50" y="396" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">Detail body: {title} / {'content'} — no collection loop</text>
+<text x="50" y="424" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;header&quot;&gt;&lt;/birkly-region&gt;</text>
+<text x="50" y="452" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</text>
+
+  <rect x="628" y="318" width="256" height="200" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="628" y="318" width="256" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="628" y="338" width="256" height="12" fill="#ebe6db"/>
+  <text x="642" y="339" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Phantoms — avoid</text>
+
+  <rect x="642" y="362" width="78" height="22" rx="4" fill="#f3e8e6" stroke="#8a4538" stroke-width="1.5"/>
+  <text x="681" y="377" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#6b3228">Invalid</text>
+<text x="642" y="404" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{{ title }}</text>
+<text x="642" y="426" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{% for %}</text>
+<text x="642" y="448" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{title truncate 80}</text>
+<text x="642" y="470" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{entry 'x'.'y'}…{endentry}</text>
+</svg>

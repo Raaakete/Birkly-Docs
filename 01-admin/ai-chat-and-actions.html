@@ -70,17 +70,26 @@
         <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
-        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
         <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
         <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
         <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
@@ -198,13 +207,13 @@
 <ul>
 <li>The AI may reply with text only, or run <strong>actions</strong>.</li>
 <li>If <strong>Require approval</strong> is <strong>off</strong>, actions run immediately and the AI confirms.</li>
-<li>If <strong>Require approval</strong> is <strong>on</strong>, writes are queued; open the <strong>approval queue</strong> (linked from chat or <strong>Agent Guide → Connections &amp; Integrations</strong>).</li>
+<li>If <strong>Require approval</strong> is <strong>on</strong>, writes are queued; open the <strong>approval queue</strong> (linked from chat or <strong>Settings → AI</strong>).</li>
 </ul>
 <p><strong>Connection picker tips</strong></p>
 <ul>
 <li>The picker shows <strong>outbound</strong> connections only (OpenAI, Anthropic, Ollama, etc.).</li>
 <li>Switching connections mid-conversation starts using the new provider and role for subsequent messages; prefer <strong>New chat</strong> when changing providers for a clean context.</li>
-<li>If the picker is empty, add a connection under <strong>Agent Guide → Connections &amp; Integrations → Outbound</strong>.</li>
+<li>If the picker is empty, add a connection under <strong>Settings → AI → Built-in assistant</strong>.</li>
 </ul>
 <p><strong>Conversation history</strong></p>
 <ul>
@@ -213,7 +222,7 @@
 <p><strong>Tips</strong></p>
 <ul>
 <li>Name the <strong>collection</strong> when creating or editing entries.</li>
-<li>Permission errors → check the connection <strong>role</strong> in <strong>Agent Guide → Connections &amp; Integrations → Outbound</strong>.</li>
+<li>Permission errors → check the connection <strong>role</strong> in <strong>Settings → AI → Built-in assistant</strong>.</li>
 <li>Stale connection after delete → picker should no longer list it; refresh if needed.</li>
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Chat API</strong></p>

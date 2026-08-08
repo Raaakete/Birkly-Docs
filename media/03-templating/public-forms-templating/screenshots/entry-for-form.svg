@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420" role="img" aria-labelledby="title desc">
+<title id="title">Public form with entry for markup</title>
+<desc id="desc">Example contact form using entry for and matching field slugs</desc>
+
+<defs>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#2f5d4a"/>
+  </marker>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f7f5ef"/>
+    <stop offset="100%" stop-color="#efebe2"/>
+  </linearGradient>
+</defs>
+<rect width="860" height="420" fill="url(#bg)"/>
+<text x="36" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1f2a24">Public forms: {entry for} markup</text>
+<text x="36" y="56" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Collection Entry method = Public API. Field name="{slug}" must match the schema.</text>
+
+  <rect x="36" y="78" width="520" height="310" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="36" y="78" width="520" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="36" y="98" width="520" height="12" fill="#ebe6db"/>
+  <text x="50" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Template</text>
+<rect x="50" y="128" width="492" height="240" rx="6" fill="#f7f4ed" stroke="#c5c0b4"/>
+<text x="64" y="156" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{entry for 'contact'}</text>
+<text x="64" y="172" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;input type=&quot;text&quot; name=&quot;{name}&quot; required&gt;</text>
+<text x="64" y="188" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;input type=&quot;email&quot; name=&quot;{email}&quot; required&gt;</text>
+<text x="64" y="204" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;textarea name=&quot;{message}&quot; required&gt;&lt;/textarea&gt;</text>
+<text x="64" y="220" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;div data-birkly-form-status hidden&gt;&lt;/div&gt;</text>
+<text x="64" y="236" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;</text>
+<text x="64" y="252" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{endentry}</text>
+<text x="64" y="268" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</text>
+
+  <rect x="580" y="78" width="244" height="310" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="580" y="78" width="244" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="580" y="98" width="244" height="12" fill="#ebe6db"/>
+  <text x="594" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Checklist</text>
+
+  <circle cx="608" cy="148" r="12" fill="#e8f0ea" stroke="#3d6b4f"/>
+  <text x="608" y="152" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#2a4f38">1</text>
+  <text x="630" y="153" font-family="system-ui, sans-serif" font-size="12" fill="#1f2a24">Public API entry method</text>
+  <circle cx="608" cy="190" r="12" fill="#e8f0ea" stroke="#3d6b4f"/>
+  <text x="608" y="194" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#2a4f38">2</text>
+  <text x="630" y="195" font-family="system-ui, sans-serif" font-size="12" fill="#1f2a24">Fields: name, email, message</text>
+  <circle cx="608" cy="232" r="12" fill="#e8f0ea" stroke="#3d6b4f"/>
+  <text x="608" y="236" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#2a4f38">3</text>
+  <text x="630" y="237" font-family="system-ui, sans-serif" font-size="12" fill="#1f2a24">name=&quot;{slug}&quot; matches schema</text>
+  <circle cx="608" cy="274" r="12" fill="#e8f0ea" stroke="#3d6b4f"/>
+  <text x="608" y="278" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#2a4f38">4</text>
+  <text x="630" y="279" font-family="system-ui, sans-serif" font-size="12" fill="#1f2a24">Load birkly-client.js</text>
+  <circle cx="608" cy="316" r="12" fill="#e8f0ea" stroke="#3d6b4f"/>
+  <text x="608" y="320" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#2a4f38">5</text>
+  <text x="630" y="321" font-family="system-ui, sans-serif" font-size="12" fill="#1f2a24">Prefer over custom fetch</text>
+</svg>

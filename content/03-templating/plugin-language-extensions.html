@@ -1,0 +1,42 @@
+<p>How plugins add template sentences and functions without overriding the core Birkly language.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Plugins can register extra helpers (Commerce cart URLs, Events <code>.ics</code>, user “logged in” checks, etc.). At runtime the engine loads <strong>plugin language first</strong>, then <strong>core last</strong> — core keywords win on conflicts (CSS-like cascade). Extend; don’t override <code>{for each}</code>, <code>{from}</code>, or <code>format</code>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What you might see</h3>
+<p>When a plugin is <strong>active</strong>, new placeholders appear in docs for that plugin:</p>
+<table><thead><tr><th>Plugin</th><th>Examples</th></tr></thead>
+<tbody><tr><td>Commerce</td><td><code>{commerce_cart_count}</code>, <code>{commerce_buy_url …}</code> — <a href="commerce-functions.html">Commerce functions</a></td></tr><tr><td>Events</td><td><code>{upcoming_events}</code>, <code>{event_ics_url …}</code> — <a href="events-functions.html">Events functions</a></td></tr><tr><td>User Management</td><td>Phrases like <code>user_logged_in</code>, <code>user_current</code> (when registered)</td></tr></tbody></table>
+<p>If the plugin is inactive, those helpers are omitted — the rest of your templates still run.</p>
+<h3>Owner tip</h3>
+<p>Install/activate plugins from <strong>Admin → Plugins / Hub</strong>. Template extras appear only after activation. See <a href="../06-extensibility/plugins.html">Plugins</a>.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Load order</strong></p>
+<ol>
+<li>Plugin language definitions</li>
+<li>Core / template language definitions (<strong>win on conflict</strong>)</li>
+</ol>
+<p><strong>Registration</strong></p>
+<p>Plugins typically call <code>register_template_function()</code> (or the language-module equivalent) from <code>plugin.php</code>. Gate on “plugin active” so inactive plugins leave no global names.</p>
+<p><strong>Design rules</strong></p>
+<ul>
+<li>Prefer distinctive prefixes (<code>commerce_</code>, <code>event_</code>, <code>user_</code>).</li>
+<li>Do not redefine <code>for each</code>, <code>from</code>, <code>if</code>, <code>format</code>, <code>ordered by</code>.</li>
+<li>Document public helpers in Birkly-Docs under <code>03-templating/</code> and link from the plugin’s extensibility page.</li>
+<li>Keep Shadow DOM policy: helpers still run through the string engine; discovery remains Light DOM.</li>
+</ul>
+<p><strong>Testing</strong></p>
+<ul>
+<li>Activate plugin → reference project or minimal HTML → confirm helper output.</li>
+<li>Deactivate → page must not throw; helper should be absent.</li>
+<li>Validator: do not teach phantoms alongside real plugin APIs.</li>
+</ul>
+<p><strong>Related platform surfaces</strong></p>
+<ul>
+<li>Website tools (WebMCP) are <strong>not</strong> template language — <a href="../04-integration/webmcp-tools.html">Website tools</a>.</li>
+<li>AI app connections: <strong>Settings → AI</strong> — <a href="../01-admin/mcp-connections.html">MCP connections</a>.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="canonical-syntax.html">Canonical syntax</a></li>
+<li><a href="commerce-functions.html">Commerce functions</a></li>
+<li><a href="events-functions.html">Events functions</a></li>
+<li><a href="../06-plugin-economy/plugin-development.html">Plugin development</a></li>
+<li><a href="storefront-patterns.html">Storefront patterns</a></li>
+</ul></div>

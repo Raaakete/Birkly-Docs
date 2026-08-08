@@ -1,0 +1,60 @@
+<p>Loop child entries (comments, variants, line items) that belong to a parent entry using <code>of 'parent'.current</code> or <code>of 'parent'.'slug'</code>.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Sub-collections are configured on the parent collection in admin. On a detail page, list children with <code>{for each entry in 'comments' of 'blog'.current ordered by newest}</code>. Do not invent <code>sub_entries</code> helpers. Content model guide: <a href="../02-content/sub-collections.html">Sub-Collections</a>.</p>
+<blockquote><p><strong>Video (follow-along):</strong> optional — comments loop on detail (<code>of 'blog'.current</code>)</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Comments on a blog post</h3>
+<p>Detail page already resolves the post from the URL:</p>
+<pre><code>&lt;h1&gt;{title}&lt;/h1&gt;
+&lt;div&gt;{'content'}&lt;/div&gt;
+
+&lt;section class=&quot;comments&quot;&gt;
+  &lt;h2&gt;Comments&lt;/h2&gt;
+  {for each entry in 'comments' of 'blog'.current ordered by newest}
+    &lt;article&gt;
+      &lt;strong&gt;{'author'}&lt;/strong&gt;
+      &lt;p&gt;{'content'}&lt;/p&gt;
+    &lt;/article&gt;
+  {endfor}
+&lt;/section&gt;</code></pre>
+<h3>Explicit parent slug</h3>
+<pre><code>{for each entry in 'comments' of 'blog'.'hello-world' ordered by newest}
+  …
+{endfor}</code></pre>
+<p>Use <strong>slug or id</strong>, not the human title.</p>
+<h3>Nested under a list (less common)</h3>
+<pre><code>{for each entry in 'blog' with status = published ordered by newest}
+  &lt;h2&gt;{title}&lt;/h2&gt;
+  {for each entry in 'comments'}
+    &lt;p&gt;{'author'}: {'content'}&lt;/p&gt;
+  {endfor}
+{endfor}</code></pre>
+<p>Prefer <code>.current</code> on detail pages for clarity and correct parent scope.</p>
+<h3>Product variants</h3>
+<pre><code>{for each entry in 'variants' of 'products'.current ordered by order}
+  &lt;h3&gt;{title}&lt;/h3&gt;
+{endfor}</code></pre>
+<p>See <a href="storefront-patterns.html">Storefront patterns</a>.</p>
+<h3>Public comment forms</h3>
+<p>Visitor-submitted sub-entries use <code>/api/public_sub_entry.php</code> (not <code>{entry for}</code> on the parent). See <a href="public-forms-templating.html">Public forms templating</a> and the integration <a href="../04-integration/public-forms.html">Public forms</a> page.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Grammar</strong></p>
+<pre><code>{for each entry in '&lt;sub&gt;' of '&lt;parent&gt;'.&lt;slug|id|current|newest&gt; [with …] [ordered by …] [limit N]}</code></pre>
+<p><strong>Newest parent</strong></p>
+<pre><code>{for newest entry in 'comments' of 'blog'.newest}
+{for each entry in 'comments' of 'blog'.newest ordered by newest}</code></pre>
+<p><strong>Model checklist</strong></p>
+<ol>
+<li>Sub-collection defined on parent (<code>read_collection</code>).</li>
+<li>Field slugs match template <code>{'author'}</code> etc.</li>
+<li><code>entry_method</code> / <code>auto_publish</code> set if public submission.</li>
+<li>Detail page has URL context before <code>.current</code> is meaningful.</li>
+</ol>
+<p><strong>Phantoms</strong></p>
+<table><thead><tr><th>Wrong</th><th>Right</th></tr></thead>
+<tbody><tr><td><code>{for each variant in sub_entries variants}</code></td><td><code>of 'products'.current</code></td></tr><tr><td>Parent title as identifier</td><td>slug or id</td></tr></tbody></table></div></details>
+<div class="doc-related"><ul>
+<li><a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+<li><a href="../02-content/sub-collections.html">Sub-Collections (content)</a></li>
+<li><a href="commerce-functions.html">Commerce functions</a></li>
+<li><a href="public-forms-templating.html">Public forms templating</a></li>
+</ul></div>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>public forms templating — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="../01-admin/developer-mode.html" class="nav-link">Developer mode</a>
+        <a href="../01-admin/project-git-sync.html" class="nav-link">Project Git sync</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="client-setup.html" class="nav-link">Client setup</a>
+        <a href="variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
+        <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
+        <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="public-forms-templating.html" class="nav-link active">Public forms templating</a>
+        <a href="multilingual-templating.html" class="nav-link">Multilingual templating</a>
+        <a href="web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
+        <a href="commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="events-functions.html" class="nav-link">Events functions</a>
+        <a href="storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="cheat-sheet.html" class="nav-link">Cheat sheet</a>
+        <a href="reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
+        <a href="../06-extensibility/commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="../06-extensibility/commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="../06-extensibility/commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="../06-extensibility/commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="../06-extensibility/commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Build contact, newsletter, and feedback forms with <code>{entry for 'collection'}…{endentry}</code> so <code>birkly-client.js</code> wires the form to Birkly’s public submit API.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Set the collection <strong>Entry method</strong> to <strong>Public API</strong>, match <code>name=&quot;{field_slug}&quot;</code> to the schema, wrap markup in <code>{entry for 'contact'}…{endentry}</code>, and load the client script. Prefer this over hand-rolled <code>fetch</code> JSON posts. Full admin/API notes: <a href="../04-integration/public-forms.html">Public forms</a>.</p>
+<p><img class="doc-figure" src="../media/03-templating/public-forms-templating/screenshots/entry-for-form.svg" alt="&lt;code&gt;{entry for}&lt;/code&gt; contact form pattern vs custom fetch"></p>
+<p><img class="doc-figure" src="../media/03-templating/public-forms-templating/screenshots/contact-form-live.png" alt="Live contact form page"></p>
+<video class="doc-figure" controls width="720" src="../media/03-templating/public-forms-templating/videos/contact-form.mp4">Contact form page</video></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>1. Collection setup</h3>
+<ol>
+<li>Create a collection (e.g. <code>contact</code>) with fields <code>name</code>, <code>email</code>, <code>message</code> (or your slugs).</li>
+<li>Settings → <strong>Entry method</strong> → <strong>Public API</strong>.</li>
+<li>Configure rate limit, notification email, CAPTCHA as needed.</li>
+<li>Usually keep <strong>auto-publish</strong> off so submissions land as drafts.</li>
+</ol>
+<h3>2. Template-first form (recommended)</h3>
+<pre><code>&lt;div class=&quot;contact-form-wrapper&quot;&gt;
+{entry for 'contact'}
+  &lt;label&gt;Name
+    &lt;input type=&quot;text&quot; name=&quot;{name}&quot; required&gt;
+  &lt;/label&gt;
+  &lt;label&gt;Email
+    &lt;input type=&quot;email&quot; name=&quot;{email}&quot; required&gt;
+  &lt;/label&gt;
+  &lt;label&gt;Message
+    &lt;textarea name=&quot;{message}&quot; required&gt;&lt;/textarea&gt;
+  &lt;/label&gt;
+  &lt;div class=&quot;birkly-form-status&quot; data-birkly-form-status hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+  &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+{endentry}
+&lt;/div&gt;
+
+&lt;script src=&quot;/birkly-client.js&quot; data-cms-url=&quot;https://your-cms.example&quot;&gt;&lt;/script&gt;</code></pre>
+<p>The client wraps your markup in a real <code>&lt;form&gt;</code>, posts to <code>/api/public_submit.php</code>, and can show status in <code>[data-birkly-form-status]</code>.</p>
+<h3>3. Auto-generated form</h3>
+<pre><code>{public_form 'contact'}
+&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h3>Known-bad patterns</h3>
+<table><thead><tr><th>Bad</th><th>Why</th><th>Do this instead</th></tr></thead>
+<tbody><tr><td>Custom <code>fetch</code> to invented REST paths</td><td>Wrong payload / missing server key handling</td><td><code>{entry for}</code></td></tr><tr><td><code>name=&quot;Name&quot;</code> that doesn’t match field slug</td><td>Submit drops or rejects fields</td><td><code>name=&quot;{email}&quot;</code> matching schema</td></tr><tr><td><code>{entry 'contact'.'x'}…{endentry}</code></td><td>Phantom single-entry syntax</td><td><code>{entry for 'contact'}</code> for forms; <code>{from …}</code> for read</td></tr><tr><td>No <code>birkly-client.js</code></td><td>Placeholder never hydrates</td><td>Load the client</td></tr></tbody></table></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Engine behaviour</strong></p>
+<ul>
+<li><code>{entry for}</code> → placeholder <code>div.birkly-entry-block</code> with encoded inner HTML.</li>
+<li>Client hydrates schema + submit URL; API key stays server-side.</li>
+<li><code>{public_form 'slug'}</code> → schema-generated fields.</li>
+</ul>
+<p><strong>Sub-entry comments</strong> (not <code>{entry for}</code> on parent):</p>
+<pre><code>&lt;form data-birkly-url=&quot;/api/public_sub_entry.php&quot; data-birkly-success=&quot;reload&quot;&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;parent_collection&quot; value=&quot;blog&quot;&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;parent_entry_id&quot; value=&quot;{id}&quot;&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;sub_collection&quot; value=&quot;comments&quot;&gt;
+  &lt;input type=&quot;text&quot; name=&quot;author&quot; required&gt;
+  &lt;textarea name=&quot;content&quot; required&gt;&lt;/textarea&gt;
+  &lt;button type=&quot;submit&quot;&gt;Post comment&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<p><strong>WebMCP:</strong> Declarative forms can expose tools when website tools allowlist includes the collection — <a href="../04-integration/webmcp-tools.html">Website tools</a>.</p>
+<p><strong>Clarify vs phantoms table:</strong> Spec “Not implemented” lists <code>{entry 'x'.'y'}…{endentry}</code> as phantom. <strong><code>{entry for}</code> is implemented</strong> and allowed by the project template validator.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="../04-integration/public-forms.html">Public forms (integration)</a></li>
+<li><a href="client-setup.html">Client setup</a></li>
+<li><a href="sub-collections-in-templates.html">Sub-collections in templates</a></li>
+<li><a href="../02-content/collections.html">Collections</a></li>
+<li><a href="canonical-syntax.html">Canonical syntax</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

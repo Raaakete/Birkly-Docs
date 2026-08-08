@@ -1,135 +1,100 @@
-<p>Loops in Birkly templates let you repeat a block of HTML for each entry in a collection or for each item in a list (e.g. tags, gallery images). You use them to build listing pages (all blog posts, all products) or to output multiple items (tags, gallery).</p>
-<div class="doc-summary"><p>To <strong>list all entries</strong> of a collection, use a loop. Typical syntax: <code>{for each entry in 'blog'}</code> … <code>{endfor}</code>. Between the tags you write the layout for one item using variables like <code>{ title }</code>, <code>{ slug }</code>, <code>{ date }</code>, <code>{ excerpt }</code>—they refer to the current entry. You can often add a <strong>limit</strong> (e.g. latest 5) and <strong>sort</strong> (e.g. by date descending). To loop over tags or a gallery, use the syntax for list/gallery fields (e.g. <code>{for each tag in tags}</code>). When there are no entries, the loop renders nothing unless you wrap it in a conditional and show an “empty” message.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>A <strong>loop</strong> means “do this once for every item.” For a blog index, you want “for every blog post, show a title, excerpt, and link.” That’s exactly what a loop does.</p>
-<p><strong>Listing all blog posts</strong></p>
-<p>Example:</p>
+<p>Loops repeat a block of HTML for each entry in a collection (or each item in an array field). Use them for blog indexes, product grids, nav links, tags, and galleries.</p>
+<div class="doc-summary"><p><strong>In short:</strong> <code>{for each entry in 'blog'}…{endfor}</code> prints one block per entry. Filter with <strong><code>with</code></strong> (e.g. <code>with status = published</code>). Sort with <strong><code>ordered by newest</code></strong>, <code>oldest</code>, <code>last-updated</code>, or <code>order</code>. Optionally end with <strong><code>limit 5</code></strong>. Do <strong>not</strong> use <code>sort=</code>, <code>limit=</code>, or <code>{from 'blog' get entries}</code> — those are not the public language.</p>
+<p><img class="doc-figure" src="../media/03-templating/loops-and-lists/screenshots/ordered-by-with-status.svg" alt="Loop with &lt;code&gt;with status = published&lt;/code&gt; and &lt;code&gt;ordered by newest&lt;/code&gt;"></p>
+<p><img class="doc-figure" src="../media/03-templating/loops-and-lists/screenshots/blog-list-live.png" alt="Live blog list from a published collection loop"></p>
+<video class="doc-figure" controls width="720" src="../media/03-templating/loops-and-lists/videos/published-list.mp4">Published list</video></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Basic collection loop</h3>
 <pre><code>&lt;h1&gt;Blog&lt;/h1&gt;
 
-{for each entry in 'blog'}
+{for each entry in 'blog' with status = published ordered by newest}
   &lt;article&gt;
-    &lt;h2&gt;&lt;a href=&quot;/blog/{ slug }&quot;&gt;{ title }&lt;/a&gt;&lt;/h2&gt;
-    &lt;time&gt;{ date &quot;F j, Y&quot; }&lt;/time&gt;
-    {if entry has excerpt}&lt;p&gt;{ excerpt }&lt;/p&gt;{endif}
-    &lt;a href=&quot;/blog/{ slug }&quot;&gt;Read more&lt;/a&gt;
+    &lt;h2&gt;
+      &lt;a href=&quot;post.html?collection=blog&amp;slug={slug}&quot;&gt;{title}&lt;/a&gt;
+    &lt;/h2&gt;
+    {if entry has 'excerpt'}
+      &lt;p&gt;{'excerpt'}&lt;/p&gt;
+    {endif}
+    &lt;time&gt;{created_at format &quot;F j, Y&quot;}&lt;/time&gt;
   &lt;/article&gt;
 {endfor}</code></pre>
 <ul>
-<li><code>'blog'</code> is the collection <strong>handle</strong> (the same one you see in the admin). Use your own, e.g. <code>'products'</code>, <code>'team'</code>, <code>'pages'</code>.</li>
-<li>Everything between <code>{for each …}</code> and <code>{endfor}</code> is repeated <strong>once per entry</strong>.</li>
-<li>Inside the loop, <code>{ title }</code>, <code>{ slug }</code>, <code>{ date }</code>, <code>{ excerpt }</code> are the <strong>current</strong> entry’s values.</li>
-<li>The link <code>href=&quot;/blog/{ slug }&quot;</code> builds a URL like <code>/blog/my-post-slug</code> so each post links to its detail page.</li>
+<li><code>'blog'</code> is the collection <strong>slug</strong> from admin.</li>
+<li>Inside the loop, <code>{title}</code>, <code>{slug}</code>, <code>{'excerpt'}</code> are the <strong>current</strong> entry.</li>
+<li>Link to a <strong>detail</strong> page with <code>?collection=…&amp;slug={slug}</code> — see <a href="detail-pages-and-url-context.html">Detail pages</a>.</li>
 </ul>
-<p><strong>Listing with a limit (e.g. “latest 5”)</strong></p>
-<p>Some setups let you limit how many entries and how they’re sorted. For example:</p>
-<pre><code>{from 'blog' get entries limit=5 sort=&quot;date:desc&quot;}
-{for each entry in entries}
-  &lt;article&gt;
-    &lt;h2&gt;&lt;a href=&quot;/blog/{ slug }&quot;&gt;{ title }&lt;/a&gt;&lt;/h2&gt;
-    &lt;time&gt;{ date &quot;F j, Y&quot; }&lt;/time&gt;
-  &lt;/article&gt;
+<h3>Filters (<code>with</code>)</h3>
+<pre><code>{for each entry in 'blog' with status = published}
+{for each entry in 'blog' with 'category' = 'news'}
+{for each entry in 'products' with 'price' &lt;= 15}</code></pre>
+<ul>
+<li><code>status</code> is a system field (common values: <code>published</code>, <code>unpublished</code>, <code>scheduled</code>, <code>pending</code>).</li>
+<li>Quoted names are user fields.</li>
+</ul>
+<h3>Ordering (<code>ordered by</code>)</h3>
+<table><thead><tr><th>Phrase</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>ordered by newest</code></td><td>Newest <code>created_at</code> first</td></tr><tr><td><code>ordered by oldest</code></td><td>Oldest <code>created_at</code> first</td></tr><tr><td><code>ordered by last-updated</code></td><td>Most recently <code>updated_at</code> first</td></tr><tr><td><code>ordered by order</code></td><td>Numeric <code>order</code> or <code>sort_order</code> ascending (menus / nav)</td></tr></tbody></table>
+<pre><code>{for each entry in 'blog' with status = published ordered by newest}
+{for each entry in 'nav-links' ordered by order}</code></pre>
+<p><strong>Important:</strong> <code>newest</code> / <code>oldest</code> always use <strong><code>created_at</code></strong>. For a hand-ordered menu, use <code>ordered by order</code> and set an <code>order</code> (or <code>sort_order</code>) field on each entry.</p>
+<h3>Limit (latest N)</h3>
+<p>Trailing <strong><code>limit N</code></strong> (space, not <code>=</code>):</p>
+<pre><code>{for each entry in 'blog' with status = published ordered by newest limit 5}
+  &lt;h2&gt;{title}&lt;/h2&gt;
 {endfor}</code></pre>
-<p>Or the loop might accept parameters directly, e.g. <code>{for each entry in 'blog' limit=5 sort=&quot;date:desc&quot;}</code>. Check your admin Help or templating docs for the exact syntax.</p>
-<p><strong>When there are no entries</strong></p>
-<p>If the collection is empty, the loop block usually doesn’t run, so you see nothing. To show a friendly message:</p>
-<pre><code>{if 'blog' has entries}
-  {for each entry in 'blog'}
-    …
+<h3>Empty state</h3>
+<p>Loops over empty collections render nothing. Show a message with a surrounding conditional when you need one (see <a href="conditionals.html">Conditionals</a> and <a href="from-get-and-existence.html">From…get / existence</a>).</p>
+<h3>Array fields (tags)</h3>
+<pre><code>{if entry has 'tags'}
+  {for each item in 'tags'}
+    &lt;span class=&quot;tag&quot;&gt;{item}&lt;/span&gt;
   {endfor}
-{else}
-  &lt;p&gt;No posts yet. Check back soon!&lt;/p&gt;
 {endif}</code></pre>
-<p>See <a href="conditionals.html">Conditionals</a> for more.</p>
-<p><strong>Looping over tags</strong></p>
-<p>If an entry has a Tags field and you want to show each tag:</p>
-<pre><code>{for each tag in tags}
-  &lt;span class=&quot;tag&quot;&gt;{ tag }&lt;/span&gt;
-{endfor}</code></pre>
-<p>Exact syntax may vary (e.g. <code>{for each tag}</code>). Use the same idea: loop over the list, output one element per item.</p>
-<p><strong>Looping over a gallery</strong></p>
-<p>For a field that holds multiple images (Gallery type):</p>
-<pre><code>{for each image in gallery_field}
-  &lt;img src=&quot;{ image }&quot; alt=&quot;&quot;&gt;
-{endfor}</code></pre>
-<p>Again, the exact variable names depend on your version; see <a href="media-in-templates.html">Media in templates</a>.</p>
-<p><strong>Important</strong></p>
-<p>Loops typically show only <strong>published</strong> entries. Drafts are usually hidden on the public site (and may appear only in preview mode if your setup supports it).</p>
-<h3>Collection groups</h3>
-<p>Use the <strong><code>collection_groups</code></strong> tree to build navigation, sitemaps, or sectioned index pages that match the admin Content overview. The client loads the tree from the public API when your template references <code>collection_groups</code>.</p>
-<p><strong>Top-level groups</strong></p>
-<pre><code>&lt;nav aria-label=&quot;Content sections&quot;&gt;
-  {for each group in collection_groups}
-    &lt;section&gt;
-      &lt;h2&gt;{if group has icon}&lt;span&gt;{ icon }&lt;/span&gt; {endif}{ name }&lt;/h2&gt;
-      {for each slug in group.collections}
-        &lt;a href=&quot;/{ slug }/&quot;&gt;{ slug }&lt;/a&gt;
-      {endfor}
-    &lt;/section&gt;
+<h3>Gallery / multi-image</h3>
+<p>If the field is an array of image refs:</p>
+<pre><code>{if entry has 'gallery'}
+  {for each item in 'gallery'}
+    &lt;img src=&quot;{item}&quot; alt=&quot;&quot;&gt;
   {endfor}
-&lt;/nav&gt;</code></pre>
-<ul>
-<li><code>collection_groups</code> is the root array from <code>groups.json</code> (max depth 3).</li>
-<li>Inside the loop, <code>{ name }</code>, <code>{ id }</code>, and <code>{ icon }</code> refer to the <strong>current group</strong>.</li>
-<li><code>group.collections</code> is an array of collection <strong>handles</strong> (strings). Loop with <code>{for each slug in group.collections}</code>; <code>{ slug }</code> is the handle for link paths and <code>{for each entry in '…'}</code> loops.</li>
-</ul>
-<p><strong>Nested subgroups</strong></p>
+{endif}</code></pre>
+<p>Exact item shape depends on the fieldtype; always guard with <code>{if entry has '…'}</code>. See <a href="media-in-templates.html">Media in templates</a>.</p>
+<h3>Sub-collections</h3>
+<pre><code>{for each entry in 'comments' of 'blog'.current ordered by newest}
+  &lt;p&gt;&lt;strong&gt;{'author'}&lt;/strong&gt; {'content'}&lt;/p&gt;
+{endfor}</code></pre>
+<p>Full guide: <a href="sub-collections-in-templates.html">Sub-collections in templates</a>.</p>
+<h3>Collection groups (nav tree)</h3>
 <pre><code>{for each group in collection_groups}
-  &lt;h2&gt;{ name }&lt;/h2&gt;
-  {for each child in group.children}
-    &lt;h3&gt;{ child.name }&lt;/h3&gt;
-    {for each slug in child.collections}
-      &lt;a href=&quot;/{ slug }/&quot;&gt;{ slug }&lt;/a&gt;
-    {endfor}
+  &lt;h2&gt;{name}&lt;/h2&gt;
+  {for each slug in group.collections}
+    &lt;a href=&quot;/{slug}/&quot;&gt;{slug}&lt;/a&gt;
   {endfor}
 {endfor}</code></pre>
-<p>Use <strong>dot paths</strong> (<code>group.children</code>, <code>child.name</code>) when you need a parent field inside a nested loop. The special <code>ungrouped</code> group has no <code>children</code>; skip it in public nav with <code>{if group.id != 'ungrouped'}</code> if you only want named sections.</p>
-<p><strong>Combining groups with entry loops</strong></p>
-<p>List entries under each collection in a group:</p>
-<pre><code>{for each group in collection_groups}
-  {if group.id != 'ungrouped'}
-    &lt;h2&gt;{ name }&lt;/h2&gt;
-    {for each slug in group.collections}
-      &lt;h3&gt;{ slug }&lt;/h3&gt;
-      {for each entry in slug}
-        &lt;a href=&quot;/{ slug }/{ entry.slug }&quot;&gt;{ entry.title }&lt;/a&gt;
-      {endfor}
-    {endfor}
-  {endif}
+<p>See <a href="../02-content/collection-groups.html">Collection groups</a>.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Canonical loop grammar</strong></p>
+<pre><code>{for each &lt;var&gt; in '&lt;collection&gt;' [of '&lt;parent&gt;'.&lt;id|slug|current|newest&gt;] [with &lt;filters&gt;] [ordered by &lt;phrase&gt;] [limit N]}
+  …
 {endfor}</code></pre>
-<p>Exact syntax for looping entries by a variable handle may vary by client version; when supported, <code>{for each entry in slug}</code> uses the current <code>slug</code> value. Otherwise fetch entries per collection via <code>{from 'blog' get entries}</code> style helpers or the public API.</p>
-<p>See <a href="../02-content/collection-groups.html">Collection groups</a> for the data model and API.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Loop constructs</strong></p>
-<ul>
-<li><strong>Collection entries:</strong> <code>{for each entry in 'handle'}</code> … <code>{endfor}</code>. Iterator name (<code>entry</code>) and handle (<code>'blog'</code>) are engine-defined. Alternative: fetch first with <code>{from 'blog' get entries}</code> (optionally with <code>limit</code>, <code>sort</code>, <code>offset</code>) then <code>{for each entry in entries}</code>.</li>
-<li><strong>Sort:</strong> Common options: <code>sort=&quot;date:desc&quot;</code>, <code>sort=&quot;title:asc&quot;</code>. Keys usually match field keys or <code>created</code>, <code>updated</code>.</li>
-<li><strong>Limit / offset:</strong> <code>limit=5</code>, <code>offset=10</code> for pagination or “latest N”.</li>
-<li><strong>List fields (tags, multi-select):</strong> Loop over the field value, e.g. <code>{for each tag in tags}</code>; inside loop, <code>{ tag }</code> or equivalent.</li>
-<li><strong>Gallery / multi-item media:</strong> Loop over the field; each item may expose <code>url</code>, <code>alt</code>, or a single value; use in <code>&lt;img src=&quot;…&quot;&gt;</code>.</li>
-<li><strong>Collection groups:</strong> <code>{for each group in collection_groups}</code> … <code>{endfor}</code>. Nested: <code>{for each child in group.children}</code>. Collection handles: <code>{for each slug in group.collections}</code>. Data from <code>list_collection_groups</code> / page bundle; tree max depth 3. See <a href="../02-content/collection-groups.html">Collection groups</a>.</li>
-</ul>
-<p><strong>Single entry by slug</strong></p>
-<p>To render one entry (e.g. blog post detail):</p>
-<pre><code>{from 'blog' get entry 'my-post-slug'}
-  &lt;h1&gt;{title}&lt;/h1&gt;
-  &lt;article&gt;{'content'}&lt;/article&gt;
-{endget}</code></pre>
-<p>Close with <code>{endget}</code>. Inside the block, variables refer to that entry. Slug can be literal or a variable (e.g. from the URL).</p>
-<p><strong>Pagination</strong></p>
-<p>If the API supports <code>page</code> and <code>per_page</code> (or <code>offset</code>/<code>limit</code>), you can request a page of entries and render them in a loop. “Next/Previous” links then point to the same template with different <code>page</code> (or slug range). Implementation is environment-specific (client vs server, URL scheme).</p>
-<p><strong>Empty state</strong></p>
-<p>Always consider wrapping list loops in a conditional so the UI can show “No items” instead of an empty block. Example: <code>{if 'blog' has entries} … loop … {else} … empty message … {endif}</code>.</p>
-<p><strong>Performance</strong></p>
-<ul>
-<li>Client-side: one API call per collection (or per page) when using “get entries”; limit and sort reduce payload.</li>
-<li>Server-side: same idea; cache responses where appropriate.</li>
-</ul>
-<p><strong>Technical note</strong></p>
-<p>Only <strong>published</strong> entries are included in loops by default. Draft/archived visibility depends on API params and environment (e.g. preview token).</p></div></details>
+<p><strong>Single-item selection</strong></p>
+<pre><code>{for newest entry in 'blog'}
+  &lt;h2&gt;{title}&lt;/h2&gt;
+{endfor}</code></pre>
+<p>Also: <code>{from 'blog' get newest entry.title}</code> (inline).</p>
+<p><strong>Phantoms to reject</strong></p>
+<table><thead><tr><th>Do not write</th><th>Write instead</th></tr></thead>
+<tbody><tr><td><code>{from 'blog' get entries limit=5 sort=&quot;date:desc&quot;}</code></td><td><code>{for each entry in 'blog' ordered by newest limit 5}</code></td></tr><tr><td><code>{for each entry in 'blog' limit=5 sort=&quot;date:desc&quot;}</code></td><td><code>… ordered by newest limit 5</code></td></tr><tr><td><code>ordered=&quot;date:desc&quot;</code> on <code>&lt;birkly-region&gt;</code></td><td><code>ordered=&quot;newest&quot;</code></td></tr></tbody></table>
+<p><strong>Regions</strong></p>
+<pre><code>&lt;birkly-region collection=&quot;blog&quot; list ordered=&quot;newest&quot;&gt;
+  &lt;article&gt;&lt;h2&gt;{title}&lt;/h2&gt;&lt;/article&gt;
+&lt;/birkly-region&gt;</code></pre>
+<p><strong>Detail anti-pattern:</strong> Never put a full-collection <code>{for each entry in 'blog'}</code> on the post detail page. Use URL context — <a href="detail-pages-and-url-context.html">Detail pages</a>.</p>
+<p><strong>Published-only:</strong> Live public loops return published entries. Drafts stay in admin until published.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="templating-overview.html">Templating overview</a></li>
-<li><a href="variables-and-output.html">Variables and output</a></li>
+<li><a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a></li>
+<li><a href="sub-collections-in-templates.html">Sub-collections in templates</a></li>
 <li><a href="conditionals.html">Conditionals</a></li>
-<li><a href="media-in-templates.html">Media in templates</a></li>
-<li><a href="../02-content/collection-groups.html">Collection groups</a></li>
-<li><a href="../02-content/entries.html">Entries</a></li>
-<li><a href="../02-content/collections.html">Collections</a></li>
+<li><a href="variables-and-output.html">Variables and output</a></li>
+<li><a href="web-components.html">Web components</a></li>
+<li><a href="cheat-sheet.html">Cheat sheet</a></li>
 </ul></div>

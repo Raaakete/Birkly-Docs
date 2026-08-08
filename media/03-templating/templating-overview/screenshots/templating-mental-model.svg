@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="320" viewBox="0 0 920 320" role="img" aria-labelledby="title desc">
+<title id="title">Templating architecture overview</title>
+<desc id="desc">Your HTML, client script, CMS API, and rendered DOM</desc>
+
+<defs>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#2f5d4a"/>
+  </marker>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f7f5ef"/>
+    <stop offset="100%" stop-color="#efebe2"/>
+  </linearGradient>
+</defs>
+<rect width="920" height="320" fill="url(#bg)"/>
+<text x="36" y="36" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1f2a24">How templating fits together</text>
+<text x="36" y="58" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Light DOM HTML holds plain-English tags; the client fills them from published CMS data.</text>
+
+  <rect x="48" y="90" width="190" height="150" rx="10" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="48" y="90" width="190" height="36" rx="10" fill="#ebe6db"/>
+  <rect x="48" y="114" width="190" height="12" fill="#ebe6db"/>
+  <text x="64" y="114" font-family="Georgia, serif" font-size="14" fill="#1f2a24">Your HTML</text>
+  <text x="64" y="160" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Layout + {for each…}</text>
+  <text x="64" y="182" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">{title} · {'excerpt'}</text>
+  <path d="M246 165 L298 165" stroke="#2f5d4a" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="258" y="90" width="190" height="150" rx="10" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="258" y="90" width="190" height="36" rx="10" fill="#ebe6db"/>
+  <rect x="258" y="114" width="190" height="12" fill="#ebe6db"/>
+  <text x="274" y="114" font-family="Georgia, serif" font-size="14" fill="#1f2a24">birkly-client.js</text>
+  <text x="274" y="160" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Discover regions</text>
+  <text x="274" y="182" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Fetch + processTemplates</text>
+  <path d="M456 165 L508 165" stroke="#2f5d4a" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="468" y="90" width="190" height="150" rx="10" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="468" y="90" width="190" height="36" rx="10" fill="#ebe6db"/>
+  <rect x="468" y="114" width="190" height="12" fill="#ebe6db"/>
+  <text x="484" y="114" font-family="Georgia, serif" font-size="14" fill="#1f2a24">Public API</text>
+  <text x="484" y="160" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">page_bundle /</text>
+  <text x="484" y="182" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">entries by collection</text>
+  <path d="M666 165 L718 165" stroke="#2f5d4a" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="678" y="90" width="190" height="150" rx="10" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="678" y="90" width="190" height="36" rx="10" fill="#ebe6db"/>
+  <rect x="678" y="114" width="190" height="12" fill="#ebe6db"/>
+  <text x="694" y="114" font-family="Georgia, serif" font-size="14" fill="#1f2a24">Live DOM</text>
+  <text x="694" y="160" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Tags replaced</text>
+  <text x="694" y="182" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Events fire</text>
+  
+<text x="48" y="280" font-family="system-ui, sans-serif" font-size="12" fill="#5c665f">List pages loop a collection. Detail pages read one entry from ?collection=&amp;slug=. Shared chrome uses &lt;birkly-region&gt;.</text>
+</svg>

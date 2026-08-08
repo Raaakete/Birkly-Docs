@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="360" viewBox="0 0 860 360" role="img" aria-labelledby="title desc">
+<title id="title">Date format filter examples</title>
+<desc id="desc">Same timestamp rendered with three format strings</desc>
+
+<defs>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#2f5d4a"/>
+  </marker>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f7f5ef"/>
+    <stop offset="100%" stop-color="#efebe2"/>
+  </linearGradient>
+</defs>
+<rect width="860" height="360" fill="url(#bg)"/>
+<text x="36" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1f2a24">Dates: one timestamp, three formats</text>
+<text x="36" y="56" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Source value: created_at = 2025-01-05 16:45:00 — format filter only (no truncate / strip_tags).</text>
+
+  <rect x="36" y="78" width="788" height="240" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="36" y="78" width="788" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="36" y="98" width="788" height="12" fill="#ebe6db"/>
+  <text x="50" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Examples</text>
+
+  <rect x="54" y="122" width="752" height="50" rx="6" fill="#f7f4ed" stroke="#c5c0b4"/>
+  <text x="70" y="142" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#1f2a24">{created_at}</text>
+  <text x="70" y="162" font-family="system-ui, sans-serif" font-size="12" fill="#5c665f">Default Y-m-d</text>
+  <text x="780" y="152" text-anchor="end" font-family="Georgia, serif" font-size="15" fill="#2f5d4a">2025-01-05</text>
+  <rect x="54" y="180" width="752" height="50" rx="6" fill="#f7f4ed" stroke="#c5c0b4"/>
+  <text x="70" y="200" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#1f2a24">{created_at format &quot;F j, Y&quot;}</text>
+  <text x="70" y="220" font-family="system-ui, sans-serif" font-size="12" fill="#5c665f">Readable</text>
+  <text x="780" y="210" text-anchor="end" font-family="Georgia, serif" font-size="15" fill="#2f5d4a">January 5, 2025</text>
+  <rect x="54" y="238" width="752" height="50" rx="6" fill="#f7f4ed" stroke="#c5c0b4"/>
+  <text x="70" y="258" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#1f2a24">{created_at format &quot;Y-m-d H:i&quot;}</text>
+  <text x="70" y="278" font-family="system-ui, sans-serif" font-size="12" fill="#5c665f">Date + time</text>
+  <text x="780" y="268" text-anchor="end" font-family="Georgia, serif" font-size="15" fill="#2f5d4a">2025-01-05 16:45</text>
+</svg>

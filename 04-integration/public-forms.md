@@ -1,140 +1,98 @@
 # Public Forms
 
-Public forms let visitors submit data (e.g. contact form, newsletter, application) that is stored as entries in a Birkly collection. The collection must allow “Public API” (or “Public submit”), and you send the data to the Birkly API from your website, often with security measures like rate limiting or CAPTCHA.
+Public forms let visitors submit data (contact, newsletter, applications) that become entries in a Birkly collection. Prefer the **`{entry for}`** template directive with `birkly-client.js` over hand-rolled `fetch` calls.
 
 ## Summary
 
-To **accept form submissions** from your website into Birkly: (1) Create a collection with the fields you need (name, email, message, etc.). (2) In the collection’s Settings, set **Entry method** to **Public API** (or “Public submit”) and configure security (rate limit, CAPTCHA if available). (3) On your site, use a form that POSTs to the Birkly submit endpoint (e.g. `/api/public/collections/contact/entries` or the documented form endpoint). Don’t expose admin credentials; use the public submit API and optional tokens/keys as described in your docs.
+**In short:** (1) Create a collection with the fields you need. (2) Set **Entry method** to **Public API**. (3) On your site, wrap form markup in `{entry for 'contact'}…{endentry}` and load the client script. Field `name="{slug}"` values must match the collection schema. Deep templating guide: [Public forms templating](../03-templating/public-forms-templating.md).
 
 ## Beginner
 
-**Public forms** mean: a visitor fills out a form on your website (contact, newsletter, job application), and that data is saved as an **entry** in a Birkly collection. You can then see and manage it in the admin, and optionally trigger automations (e.g. email or Slack).
+**Public forms** mean: a visitor fills out a form on your website, and that data is saved as an **entry** you manage in admin (and optionally trigger automations).
 
-**Step 1: Create a collection**
+### Step 1: Create a collection
 
-Create a collection that matches what you want to collect. For a contact form, for example:
+| Field label | Type | Required? | Key (example) |
+|-------------|------|-----------|----------------|
+| Name | Text | Yes | name |
+| Email | Email | Yes | email |
+| Message | Textarea | Yes | message |
 
-| Field label | Type   | Required? | Key (example) |
-|-------------|--------|-----------|----------------|
-| Name        | Text   | Yes       | name          |
-| Email       | Email  | Yes       | email         |
-| Message     | Textarea | Yes     | message       |
+Give the collection a **slug** (e.g. `contact`) — used in `{entry for 'contact'}`.
 
-Give the collection a name (e.g. “Contact submissions”) and a **handle** (e.g. `contact`). The handle is used in the submit URL.
+### Step 2: Allow public submissions
 
-**Step 2: Allow public submissions**
+In the collection **Settings**:
 
-In the collection’s **Settings** (or Edit collection):
+- **Entry method** → **Public API** (runtime value `public_api`).
+- Enable **rate limiting** and optional **CAPTCHA**.
+- Prefer **draft / not auto-published** for contact-type collections so you moderate first.
 
-- Find **Entry method** (or “Who can create entries”).
-- Set it to **Public API** (or “Public submit” / “Allow public submissions”).
-- Enable **rate limiting** if available (e.g. 5 submissions per IP per hour) to reduce spam.
-- If your Birkly has **CAPTCHA** or **honeypot**, turn them on for extra protection.
-- Choose whether new submissions are saved as **Draft** (you review and publish) or **Published**. For contact forms, Draft is usually better so you don’t list them publicly.
-
-**Step 3: Add a form on your website**
-
-Your form must send a POST request to Birkly’s submit endpoint. Exact URL and format depend on your version; typical pattern:
-
-- **Endpoint:** Something like `https://your-cms.com/api/public_submit.php?collection=contact` or `https://your-cms.com/api/public/collections/contact/entries`
-- **Method:** POST
-- **Body:** Field names should match the collection’s field keys (`name`, `email`, `message`). Format may be form-encoded or JSON—check your API docs.
-
-**Example: simple HTML form**
+### Step 3: Template form (recommended)
 
 ```html
-<form action="https://your-cms.com/api/public_submit.php?collection=contact"
-      method="post">
-  <label>Name <input type="text" name="name" required></label>
-  <label>Email <input type="email" name="email" required></label>
-  <label>Message <textarea name="message" required></textarea></label>
+<div class="contact-form-wrapper">
+{entry for 'contact'}
+  <label>Name <input type="text" name="{name}" required></label>
+  <label>Email <input type="email" name="{email}" required></label>
+  <label>Message <textarea name="{message}" required></textarea></label>
+  <div data-birkly-form-status hidden aria-live="polite"></div>
   <button type="submit">Send</button>
-</form>
+{endentry}
+</div>
+
+<script src="/birkly-client.js"
+        data-cms-url="https://your-cms.example"></script>
 ```
 
-If your Birkly uses a different URL or requires a token/CSRF field, the admin or “Public forms” / “Secure integration” docs will say how to add it.
+The client wraps your markup in a `<form>`, posts to `/api/public_submit.php`, and keeps API keys server-side. Same-host project pages can omit `data-cms-url`. See [Client setup](../03-templating/client-setup.md).
 
-**Example: submit with JavaScript (fetch)**
+### Auto-generated form
 
-```javascript
-document.querySelector('form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const data = {
-    name: form.name.value,
-    email: form.email.value,
-    message: form.message.value
-  };
-
-  const res = await fetch('https://your-cms.com/api/public/collections/contact/entries', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-
-  if (res.ok) {
-    alert('Thank you! We’ll get back to you.');
-    form.reset();
-  } else {
-    alert('Something went wrong. Please try again.');
-  }
-});
+```html
+{public_form 'contact'}
+<script src="/birkly-client.js"></script>
 ```
 
-Replace the URL and field names with what your API expects. Some setups require an API key in a header or a one-time token from a “secure form” endpoint—see your docs.
+### After submission
 
-**After submission**
+- New entries appear under that collection in admin.
+- Add **Automation** (entry created → email/Slack) if needed — [Automation overview](../05-automation/automation-overview.md).
 
-- New entries appear in the admin under that collection. You can reply, export, or delete them.
-- You can add **Automation** (e.g. “When an entry is created in Contact, send a Slack message or email”) so your team is notified. See [Automation overview](../05-automation/automation-overview.md) and [Webhooks](../05-automation/webhooks.md).
+### Security checklist
 
-**Security checklist**
+- Never put admin credentials in the browser.
+- Use **HTTPS**.
+- Enable rate limiting / CAPTCHA when available.
+- Rely on server-side validation in Birkly.
 
-- **Never** put admin login or API keys that have admin rights in the browser.
-- Use **HTTPS** for your site and the submit URL.
-- Enable **rate limiting** and **CAPTCHA** (or honeypot) if available.
-- Rely on **server-side validation** in Birkly for required fields and formats (e.g. email).
+### Known-bad patterns
+
+| Bad | Do instead |
+|-----|------------|
+| Custom `fetch` to guessed REST URLs | `{entry for}` |
+| Field names that don’t match schema | `read_collection` / admin field keys |
+| Phantom `{entry 'x'.'y'}…{endentry}` | `{entry for}` for forms; `{from …}` for reading |
 
 ## Advanced Users
 
-**When to use public forms**
+### Sub-entry public submission (comments)
 
-Contact forms, newsletter signups, job applications, feedback, event registration—any flow where you want form data to become entries in a collection for viewing in the admin, export, or downstream automation.
+Use `/api/public_sub_entry.php` with parent refs — not `{entry for}` on the parent. Example and flags: [Public forms templating](../03-templating/public-forms-templating.md), [Sub-collections in templates](../03-templating/sub-collections-in-templates.md).
 
-**Setup in the admin**
+### Manual POST (escape hatch)
 
-1. **Collection:** Create with fields matching the form (keys = name, email, message, etc.).
-2. **Entry method:** Set to **Public API** / **Public submit**. Configure rate limit, CAPTCHA, honeypot.
-3. **Publish behavior:** Draft (review first) or Published (immediately visible if you ever list them; often still draft for contact-type collections).
+Only when you cannot use the client: `POST /api/public_submit.php?collection={slug}` with field keys matching the schema. Prefer `{entry for}` so keys and UX stay consistent.
 
-**Submitting from the website**
+### WebMCP
 
-| Option | Description |
-|--------|-------------|
-| **Form POST** | `action` = submit URL, `method="POST"`, `name` attributes = field keys. May require CSRF/token field; check docs. |
-| **JavaScript fetch** | POST JSON (or form-encoded) to the submit endpoint. Include required headers (e.g. API key, Content-Type). |
-| **Secure form flow** | Request a one-time token from a dedicated endpoint, then POST form + token. Reduces CSRF and abuse; see “secure integration” or “public forms” in your docs. |
-
-**Endpoint and body format**
-
-- URL: Often `POST /api/public/collections/{handle}/entries` or `POST /api/public_submit.php?collection={handle}`. Confirm in API docs.
-- Body: JSON `{ "name": "...", "email": "...", "message": "..." }` or `application/x-www-form-urlencoded` with same keys. Field keys must match the collection schema.
-
-**Security**
-
-- No admin credentials on the frontend. Use public submit endpoint only.
-- Rate limiting (per IP or per key) on the server.
-- CAPTCHA/honeypot where appropriate.
-- Server-side validation (required, format, length). Optional: sanitize or strip HTML from text fields.
-- HTTPS only.
-
-**After submission**
-
-- Entries appear in the collection. Use **Automation** (trigger: entry created; actions: Slack, email, HTTP) to notify or sync. See [Triggers](../05-automation/triggers.md), [Conditions and actions](../05-automation/conditions-and-actions.md), [Webhooks](../05-automation/webhooks.md).
+Declarative forms can become website tools when allowlisted — [Website tools](webmcp-tools.md). AI app connections live under **Settings → AI** — [MCP connections](../01-admin/mcp-connections.md).
 
 ## Related
 
+- [Public forms templating](../03-templating/public-forms-templating.md)
+- [Client setup](../03-templating/client-setup.md)
 - [Collections](../02-content/collections.md)
 - [Public API](public-api.md)
+- [Website integration](website-integration.md)
 - [Automation overview](../05-automation/automation-overview.md)
-- [Webhooks](../05-automation/webhooks.md)

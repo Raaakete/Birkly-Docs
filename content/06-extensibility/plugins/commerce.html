@@ -1,7 +1,7 @@
 <p>The <strong>Commerce</strong> plugin (<code>plugins/commerce/</code>) is Birkly’s content-first store: payment providers, the <strong>Commerce fieldtype</strong>, catalog, cart, checkout, orders, customers, inventory, promotions, gift cards, tax providers, shipping rate providers, and <strong>PostPurchaseRouter</strong> fulfillment — all driven by CMS entries.</p>
 <p><strong>Commerce 0→1 complete (P54 P3 / 1.0.29):</strong> hybrid cart + split checkout, MCP/Agent store kit, Automation commerce recipes, and ops intelligence (cohorts, fulfillment SLA, low-stock trigger). This closes the foundation path from empty site → sellable catalog → checkout → ops. Do not expect P4 features here.</p>
-<p>Plugin help in admin (when Commerce is active) mirrors this overview: Help → Plugin extensions → Commerce (including <strong>Hybrid cart</strong> → <code>help-hybrid-cart</code>).</p>
-<div class="doc-summary"><p>Activate <strong>Commerce</strong> under Settings → Plugins, configure a payment provider under <strong>Settings → Connections</strong>, add the Commerce fieldtype to collections, and model products with <strong>fulfillment</strong> (ship, deliver, register, gift_card, none) plus one or more <strong>purchase_options</strong> (one-time and/or recurring on the same entry). Use variant <strong>sub-entries</strong> for SKUs. Template functions expose cart count and buy URLs on client sites.</p></div>
+<p><strong>In-admin docs (Commerce 1.0.57+):</strong> open <strong>Commerce → Docs</strong> for the full merchant + developer guide (grouped topics: getting started, fieldtype, catalog, tax, shipping, storefront, API, troubleshooting, and more). The same topics also appear under Help → Plugin extensions → Commerce.</p>
+<div class="doc-summary"><p>Activate <strong>Commerce</strong> under Settings → Plugins, configure a payment provider under <strong>Commerce → Settings → Connections</strong>, add the Commerce fieldtype to collections, and model products with <strong>fulfillment</strong> (ship, deliver, register, gift_card, none) plus one or more <strong>purchase_options</strong> (one-time and/or recurring on the same entry). Use variant <strong>sub-entries</strong> for SKUs. Template functions expose cart count and buy URLs on client sites.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What Commerce does</strong></p>
 <p>Commerce turns Birkly entries into things you can sell: physical products, digital downloads, class tickets, memberships, and sellable gift cards — without a separate e-commerce product database. Edit content in the CMS; Commerce indexes sellable units for checkout.</p>
 <p><strong>Two settings on each sellable item</strong></p>
@@ -17,7 +17,8 @@
 <li>Open <strong>Commerce</strong> in the sidebar → <strong>Settings → Connections</strong> → add Stripe, Mollie, or another provider.</li>
 <li>Edit a collection schema → add field type <strong>Commerce</strong>.</li>
 <li>Create an entry with price, fulfillment, and purchase options.</li>
-<li>On your website, add a buy button using <code>{commerce_buy_url entry_id collection}</code>.</li>
+<li>On your website, add a buy button using <code>{commerce_buy_url entry_id collection}</code> (or <code>commerce-storefront.js</code> — see <strong>Commerce → Docs → Storefront &amp; cart</strong>).</li>
+<li>Read <strong>Commerce → Docs</strong> for tax modes, shipping, hybrid cart, and project integration checklists.</li>
 </ol>
 <p><strong>Variants (sizes, options)</strong></p>
 <p>For products with multiple SKUs (size, grind, color):</p>

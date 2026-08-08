@@ -70,17 +70,26 @@
         <a href="agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
-        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
         <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
         <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
         <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
@@ -186,7 +195,7 @@
 │      • Detail page: fetch one entry by slug
 │
 ├─ Shared site chrome (header, footer, nav, global CTAs)?
-│  └─► site-elements collection + named entries + &lt;birkly-region&gt;
+│  └─► site_elements collection + named entries + &lt;birkly-region&gt;
 │      See [Site elements pattern](site-elements-pattern.md)
 │
 ├─ Rows that belong to one parent entry (comments, reviews, lessons)?
@@ -211,9 +220,9 @@
 </ol>
 <p><strong>Site header / footer (site elements)</strong></p>
 <ol>
-<li>Collection <strong>Site elements</strong> (handle: <code>site-elements</code>) with Title + <strong>Dynamic items</strong> field for flexible blocks.</li>
+<li>Collection <strong>Site elements</strong> (handle: <code>site_elements</code>) with Title + <strong>Dynamic items</strong> field for flexible blocks.</li>
 <li>One entry per region: <code>header</code>, <code>footer</code>, <code>announcement-bar</code>.</li>
-<li>Front-end: <code>&lt;birkly-region collection=&quot;site-elements&quot; entry=&quot;header&quot; field=&quot;blocks&quot;&gt;</code> injects live content.</li>
+<li>Front-end: <code>&lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;header&quot; field=&quot;blocks&quot;&gt;</code> injects live content.</li>
 </ol>
 <p><strong>Contact form submissions</strong></p>
 <ol>
@@ -230,7 +239,7 @@
 <li><strong>One-off pages</strong> — use a collection such as “Pages” with one entry per page (title + body or dynamic items), not a separate document type.</li>
 </ol>
 <h3>What we intentionally do not have</h3>
-<p>Birkly does <strong>not</strong> ship a singleton/document content primitive. A “single about page” is <strong>one entry</strong> in a Pages or Site elements collection. Shared layout chrome uses <strong>named entries</strong> in a site-elements collection plus <code>&lt;birkly-region&gt;</code> on your site.</p></div></details>
+<p>Birkly does <strong>not</strong> ship a singleton/document content primitive. A “single about page” is <strong>one entry</strong> in a Pages or Site elements collection. Shared layout chrome uses <strong>named entries</strong> in a <code>site_elements</code> collection plus <code>&lt;birkly-region&gt;</code> on your site.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Storage layout (typical file-based install):</strong></p>
 <pre><code>content/collections/{handle}/
   collection.json    # name, handle, entry_method, sub_collections, multilanguage

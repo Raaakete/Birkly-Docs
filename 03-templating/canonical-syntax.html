@@ -70,17 +70,26 @@
         <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
-        <a href="canonical-syntax.html" class="nav-link active">Canonical syntax</a>
         <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="canonical-syntax.html" class="nav-link active">Canonical syntax</a>
+        <a href="client-setup.html" class="nav-link">Client setup</a>
         <a href="variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
         <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
         <a href="commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="events-functions.html" class="nav-link">Events functions</a>
         <a href="storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="reference-projects.html" class="nav-link">Reference projects</a>
         <a href="production-optimization.html" class="nav-link">Production optimization</a>
         </div>
@@ -172,81 +181,71 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Birkly has <strong>one canonical templating language</strong> for site HTML and (with admin extensions) for the CMS admin panel. Use this document as the single source of truth — not legacy <code>{{ }}</code> examples or archived engines.</p>
-<div class="doc-summary"><p>Use <strong>single braces</strong> <code>{ }</code> and plain-English directives. The canonical loop form is <strong><code>{for each item in source}</code></strong> … <strong><code>{endfor}</code></strong>. Public sites render via <code>birkly-client.js</code> + <code>api/public.php</code>; the admin panel renders via <code>admin/template_parser.php</code> + <code>admin/templates/*.html</code>.</p></div>
+        <div class="doc-content"><p>Birkly has <strong>one</strong> public templating language for site HTML. This page is the human SSOT pointer into that language. The engine source of truth is Birkly <code>docs/TEMPLATE_LANGUAGE_SPEC.md</code> (v1.0). Do not invent filters, Jinja syntax, or archived helpers.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Use <strong>single braces</strong> <code>{…}</code> and plain-English sentences. Loops: <code>{for each entry in 'blog'}…{endfor}</code>. Fields: <code>{title}</code> (system) and <code>{'my_field'}</code> (user). Public sites render with <code>birkly-client.js</code>. Admin UI uses a separate PHP parser — do not mix admin-only helpers into public HTML.</p>
+<p><img class="doc-figure" src="../media/03-templating/canonical-syntax/screenshots/valid-vs-invalid-syntax.svg" alt="Valid Birkly single-brace syntax vs invalid/phantom forms"></p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Variables</h3>
-<pre><code>{ title }
-{collection.slug}
-{entry.author}</code></pre>
-<p>Inside a loop, names refer to the <strong>current</strong> item (e.g. <code>{ title }</code> inside <code>{for each entry in 'blog'}</code>).</p>
+<pre><code>{title}
+{slug}
+{'excerpt'}
+{'price'}</code></pre>
+<ul>
+<li><strong>System fields</strong> (every entry): <code>title</code>, <code>slug</code>, <code>id</code>, <code>status</code>, <code>created_at</code>, <code>updated_at</code>, … — bare.</li>
+<li><strong>User-defined fields</strong> — always quoted: <code>{'content'}</code>, <code>{'featured_image'}</code>.</li>
+</ul>
 <h3>Loops (canonical)</h3>
-<pre><code>{for each entry in 'blog'}
+<pre><code>{for each entry in 'blog' with status = published ordered by newest}
   &lt;article&gt;
-    &lt;h2&gt;&lt;a href=&quot;/blog/{ slug }&quot;&gt;{ title }&lt;/a&gt;&lt;/h2&gt;
+    &lt;h2&gt;&lt;a href=&quot;post.html?collection=blog&amp;slug={slug}&quot;&gt;{title}&lt;/a&gt;&lt;/h2&gt;
+    &lt;p&gt;{'excerpt'}&lt;/p&gt;
   &lt;/article&gt;
 {endfor}</code></pre>
 <ul>
-<li><code>{for each … in …}</code> — preferred form (also accepted: <code>{for item in items}</code> without <code>each</code>)</li>
-<li>Collection handle is usually quoted: <code>'blog'</code>, <code>'pages'</code></li>
-<li>Close with <code>{endfor}</code></li>
+<li>Collection handle in <strong>single quotes</strong>.</li>
+<li>Close with <code>{endfor}</code>.</li>
+<li>Filters: <code>with …</code>. Sort: <code>ordered by …</code>. Optional trailing <code>limit 5</code> (space + number — not <code>limit=</code>).</li>
 </ul>
-<h3>Collection groups (public site)</h3>
-<pre><code>{for each group in collection_groups}
-  &lt;h2&gt;{ name }&lt;/h2&gt;
-  {for each slug in group.collections}
-    &lt;a href=&quot;/{ slug }/&quot;&gt;{ slug }&lt;/a&gt;
-  {endfor}
-  {for each child in group.children}
-    &lt;h3&gt;{ child.name }&lt;/h3&gt;
-  {endfor}
-{endfor}</code></pre>
-<p>Loaded from <code>list_collection_groups</code> / page bundle into <code>collection_groups</code>. Max tree depth: 3. See <a href="../02-content/collection-groups.html">Collection groups</a>.</p>
-<h3>Conditionals</h3>
-<pre><code>{if 'blog' has entries}
-  … loop …
-{else}
-  &lt;p&gt;No posts yet.&lt;/p&gt;
-{endif}</code></pre>
-<pre><code>{if entry has excerpt}
-  &lt;p&gt;{ excerpt }&lt;/p&gt;
-{endif}</code></pre>
-<h3>Admin-only helpers</h3>
-<p>Used in <code>admin/templates/</code> only:</p>
-<table><thead><tr><th>Syntax</th><th>Purpose</th></tr></thead>
-<tbody><tr><td><code>{admin_url 'page'}</code></td><td>Admin page URL</td></tr><tr><td><code>{admin_url 'entry-editor' collection='collection.slug'}</code></td><td>URL with query params</td></tr><tr><td><code>{translate 'admin.key'}</code></td><td>i18n string</td></tr><tr><td><code>{count entries}</code></td><td>Array length</td></tr><tr><td><code>{json variable}</code></td><td>JSON for <code>&lt;script&gt;</code> data</td></tr><tr><td><code>{include_script 'file.js'}</code></td><td>Load <code>/admin/js/file.js</code></td></tr></tbody></table></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Engines (do not mix)</h3>
-<table><thead><tr><th>Context</th><th>Engine</th><th>Location</th></tr></thead>
-<tbody><tr><td><strong>Public site</strong></td><td>Client renderer</td><td><code>birkly-client.js</code></td></tr><tr><td><strong>Admin UI</strong></td><td>PHP template parser</td><td><code>admin/template_parser.php</code></td></tr><tr><td>~~Legacy~~</td><td>~~TemplateEngine~~</td><td><strong>Archived</strong> — <code>archive/legacy-templating/</code></td></tr></tbody></table>
-<p>There is no third active engine. <code>render_page.php</code> and <code>templates/template_engine.php</code> are archived (M3).</p>
-<h3>Syntax rules</h3>
-<ol>
-<li><strong>Single braces</strong> <code>{directive}</code> — not <code>{{ }}</code> (deprecated in admin).</li>
-<li><strong>Loops:</strong> <code>{for each &lt;var&gt; in &lt;source&gt;}</code> … <code>{endfor}</code>.</li>
-<li><strong>Existence:</strong> <code>{if &lt;path&gt; exist}</code> or <code>{if 'collection' has entries}</code>.</li>
-<li><strong>Comparison:</strong> <code>{if entry.status == 'published'}</code>.</li>
-<li><strong>Published-only on public API:</strong> loops via <code>api/public.php</code> and <code>page_bundle.php</code> return <strong>published</strong> entries only. Draft entries exist in the CMS but render as empty on the live site until published.</li>
-</ol>
-<h3>Single entry by slug</h3>
-<pre><code>{from 'blog' get entry 'my-post-slug'}
-  &lt;h1&gt;{title}&lt;/h1&gt;
-  &lt;article&gt;{'content'}&lt;/article&gt;
+<h3>Single entry</h3>
+<pre><code>{from 'site_elements' get entry 'header'}
+  &lt;header&gt;{'content'}&lt;/header&gt;
 {endget}</code></pre>
-<p>Close with <code>{endget}</code> (or <code>{end}</code>). Do <strong>not</strong> use <code>{entry 'collection'.'slug'}…{endentry}</code> — that form is not valid for single-entry load.</p>
-<h3>Where the client renders templates</h3>
-<p><code>birkly-client.js</code> scans <code>&lt;body&gt;</code> for the <strong>outermost</strong> HTML elements whose content includes Birkly template tags (<code>{for</code>, <code>{from</code>, <code>{if</code>, field placeholders, etc.) and renders each region in place. You do <strong>not</strong> need <code>&lt;main&gt;</code>, <code>&lt;header&gt;</code>, or <code>&lt;nav&gt;</code> specifically — any wrapper (<code>&lt;div class=&quot;overlay-menu&quot;&gt;</code>, <code>&lt;section&gt;</code>, etc.) works.</p>
-<p><strong>Explicit region roots (supported):</strong> add <code>data-birkly-region</code> on an element, or use <code>&lt;birkly-region collection entry|list …&gt;</code>. The client discovers attributed roots, prepares default/wrapped Light DOM templates when needed, and runs <code>Birkly.processTemplates({ root })</code> for late mounts. See <a href="../04-integration/web-components.html">Web components</a>.</p>
-<p><strong><code>&lt;title&gt;</code></strong> is handled separately when it contains template syntax.</p>
-<p><strong>Not rendered:</strong> tags inside <code>&lt;script&gt;</code> / <code>&lt;style&gt;</code>, nested inside another template region (the parent / explicit root wins), or template tags sealed inside a <strong>closed Shadow DOM</strong> (fetch + <code>Birkly.render</code> there instead).</p>
-<h3>UI decoupling (admin)</h3>
-<p>Admin templates contain <strong>markup only</strong>. API calls and DOM logic live in <code>admin/js/*.js</code>. Reference: <code>admin/templates/activity.html</code> + <code>admin/js/activity.js</code>. See Birkly repo <code>docs/admin-templating.md</code>.</p>
-<h3>eval() note</h3>
-<p>Admin parser currently compiles to PHP via <code>eval()</code> — a known security debt. Replacement plan: Birkly repo <code>docs/admin-template-eval-replacement-plan.md</code> (interpreter, no new dependencies).</p></div></details>
+<h3>Conditionals</h3>
+<pre><code>{if 'site_elements'.'hero' exist}
+  …
+{endif}
+
+{if entry has 'excerpt'}
+  &lt;p&gt;{'excerpt'}&lt;/p&gt;
+{endif}</code></pre>
+<h3>Forms (special)</h3>
+<p>Public contact-style forms use <strong><code>{entry for 'contact'}…{endentry}</code></strong> — that is a <strong>form scaffold</strong>, not the phantom single-entry block. See <a href="public-forms-templating.html">Public forms templating</a>.</p>
+<h3>Phantoms — do not use</h3>
+<table><thead><tr><th>Phantom</th><th>Use instead</th></tr></thead>
+<tbody><tr><td><code>{{ title }}</code> / <code>{% for %}</code></td><td><code>{title}</code> / <code>{for each …}</code></td></tr><tr><td><code>{entry 'blog'.'slug'}…{endentry}</code></td><td><code>{from 'blog' get entry 'slug'}…{endget}</code></td></tr><tr><td><code>{ date &quot;F j, Y&quot; }</code></td><td><code>{created_at format &quot;F j, Y&quot;}</code></td></tr><tr><td><code>{title truncate 80}</code></td><td>Dedicated excerpt field</td></tr><tr><td><code>{'content' strip_tags}</code></td><td>Plain field or strip in CMS</td></tr><tr><td><code>{from 'blog' get entries limit=5 sort=&quot;date:desc&quot;}</code></td><td><code>{for each entry in 'blog' ordered by newest limit 5}</code></td></tr><tr><td><code>{ media featured_image }</code></td><td><code>{'featured_image'}</code> inside <code>&lt;img src=&quot;…&quot;&gt;</code> (see <a href="media-in-templates.html">Media in templates</a>)</td></tr><tr><td><code>ordered=&quot;date:desc&quot;</code> on regions</td><td><code>ordered=&quot;newest&quot;</code> / <code>ordered=&quot;order&quot;</code></td></tr></tbody></table></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Engines (do not mix)</strong></p>
+<table><thead><tr><th>Context</th><th>Engine</th><th>Location</th></tr></thead>
+<tbody><tr><td><strong>Public site</strong></td><td>Client / shared string engine</td><td><code>birkly-client.js</code>, <code>birkly-template-engine.js</code></td></tr><tr><td><strong>Admin UI</strong></td><td>PHP template parser</td><td><code>admin/template_parser.php</code></td></tr><tr><td>Legacy</td><td>Archived</td><td>Must not be documented as live</td></tr></tbody></table>
+<p><strong>Syntax rules aligned to TEMPLATE_LANGUAGE_SPEC</strong></p>
+<ol>
+<li>Single braces only.</li>
+<li>Collections quoted; user fields quoted.</li>
+<li>Existence: <code>{if 'collection'.'entry' exist}</code>.</li>
+<li>Comparisons: prefer <code>=</code> (also <code>==</code>); <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>.</li>
+<li>Ordering phrases: <code>newest</code>, <code>oldest</code>, <code>last-updated</code>, <code>order</code>.</li>
+<li>Date filter keyword is <strong><code>format</code></strong> on date fields.</li>
+<li>Public API returns <strong>published</strong> entries for live loops.</li>
+</ol>
+<p><strong>Where the client renders</strong></p>
+<p><code>birkly-client.js</code> scans Light DOM for outermost template-bearing elements, plus explicit <code>data-birkly-region</code> / <code>&lt;birkly-region&gt;</code>. Explicit children <strong>demote</strong> ancestors. Tags inside <code>&lt;script&gt;</code> / <code>&lt;style&gt;</code> or closed Shadow DOM are not discovered.</p>
+<p><strong>Admin-only helpers</strong> (never on public sites): <code>{admin_url …}</code>, <code>{translate …}</code>, <code>{include_script …}</code>, etc.</p>
+<p><strong>Validator:</strong> Birkly <code>scripts/validate-project-templates.php</code> flags phantom <code>{entry 'x'.'y'}</code> while allowing <code>{entry for 'contact'}</code>.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="templating-overview.html">Templating overview</a></li>
-<li><a href="web-components.html">Web components (templating)</a></li>
+<li><a href="cheat-sheet.html">Cheat sheet</a></li>
 <li><a href="loops-and-lists.html">Loops and lists</a></li>
-<li><a href="conditionals.html">Conditionals</a></li>
 <li><a href="variables-and-output.html">Variables and output</a></li>
+<li><a href="client-setup.html">Client setup</a></li>
 <li><a href="../04-integration/choose-your-stack.html">Choose your stack</a></li>
 </ul></div></div>
       </div>

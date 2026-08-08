@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400" role="img" aria-labelledby="title desc">
+<title id="title">Loop with status filter and ordered by</title>
+<desc id="desc">Published entries listed with ordered by newest</desc>
+
+<defs>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#2f5d4a"/>
+  </marker>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f7f5ef"/>
+    <stop offset="100%" stop-color="#efebe2"/>
+  </linearGradient>
+</defs>
+<rect width="900" height="400" fill="url(#bg)"/>
+<text x="36" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1f2a24">Loops: with status + ordered by</text>
+<text x="36" y="56" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Filter published entries, then sort — newest uses created_at.</text>
+
+  <rect x="36" y="78" width="500" height="280" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="36" y="78" width="500" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="36" y="98" width="500" height="12" fill="#ebe6db"/>
+  <text x="50" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">List template</text>
+<rect x="50" y="128" width="472" height="204" rx="6" fill="#f7f4ed" stroke="#c5c0b4"/>
+<text x="64" y="154" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{for each entry in 'blog'</text>
+<text x="64" y="170" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  with status = published</text>
+<text x="64" y="186" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  ordered by newest}</text>
+<text x="64" y="202" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;article&gt;</text>
+<text x="64" y="218" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">    &lt;h2&gt;&lt;a href=&quot;post.html?collection=blog&amp;slug={slug}&quot;&gt;{title}&lt;/a&gt;&lt;/h2&gt;</text>
+<text x="64" y="234" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">    &lt;p&gt;{'excerpt'}&lt;/p&gt;</text>
+<text x="64" y="250" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;/article&gt;</text>
+<text x="64" y="266" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{endfor}</text>
+
+  <rect x="560" y="78" width="304" height="280" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="560" y="78" width="304" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="560" y="98" width="304" height="12" fill="#ebe6db"/>
+  <text x="574" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Example entries</text>
+
+  <rect x="574" y="128" width="276" height="58" rx="6" fill="#e8f0ea" stroke="#3d6b4f"/>
+  <text x="590" y="152" font-family="Georgia, serif" font-size="14" fill="#1f2a24">Welcome post</text>
+  <text x="590" y="172" font-family="system-ui, sans-serif" font-size="12" fill="#5c665f">published · 2025-03-12</text>
+  <rect x="574" y="198" width="276" height="58" rx="6" fill="#e8f0ea" stroke="#3d6b4f"/>
+  <text x="590" y="222" font-family="Georgia, serif" font-size="14" fill="#1f2a24">Studio notes</text>
+  <text x="590" y="242" font-family="system-ui, sans-serif" font-size="12" fill="#5c665f">published · 2025-02-01</text>
+  <rect x="574" y="268" width="276" height="58" rx="6" fill="#f3e8e6" stroke="#8a4538"/>
+  <text x="590" y="292" font-family="Georgia, serif" font-size="14" fill="#1f2a24">Draft ideas</text>
+  <text x="590" y="312" font-family="system-ui, sans-serif" font-size="12" fill="#5c665f">draft · — hidden —</text>
+</svg>

@@ -70,17 +70,26 @@
         <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
-        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
         <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
         <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
         <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
@@ -173,7 +182,7 @@
     <main class="main">
       <div class="content doc-body">
         <div class="doc-content"><p>The Birkly client library is a JavaScript file (<code>birkly-client.js</code>) that you add to your website. It connects to your Birkly CMS, fetches content, and renders the templating syntax in your HTML so you don’t need to write API calls or rendering logic yourself.</p>
-<div class="doc-summary"><p><strong>Add one script tag</strong> to your page: <code>src</code> = your Birkly base URL + <code>/birkly-client.js</code>, and <code>data-cms-url</code> = the same base URL. The script then loads your content and replaces placeholders like <code>{ title }</code> and <code>{for each entry in 'blog'}</code> with real data. You can optionally set <code>data-collection</code> to a default collection. No build step is required—include the script and use the template language in your HTML.</p></div>
+<div class="doc-summary"><p><strong>Add one script tag</strong> to your page: <code>src</code> = your Birkly base URL + <code>/birkly-client.js</code>, and <code>data-cms-url</code> when the page is not on the CMS host. The script replaces <code>{title}</code>, <code>{'excerpt'}</code>, and <code>{for each entry in 'blog'}</code> with published data. How-to: <a href="../03-templating/client-setup.html">Client setup</a>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>The <strong>client library</strong> is a small script that does the “fetch content and fill in the page” work for you. You don’t need to learn the API or write <code>fetch()</code> calls—just include the script and use the template tags.</p>
 <p><strong>Including the script</strong></p>
 <p>Put this before the closing <code>&lt;/body&gt;</code> tag. Use your real Birkly URL instead of <code>your-cms-domain.com</code>:</p>
@@ -195,11 +204,11 @@
 <p><strong>What happens when the page loads</strong></p>
 <ol>
 <li>The script runs after the page (DOM) is ready.</li>
-<li>It finds the <strong>outermost</strong> elements in <code>&lt;body&gt;</code> that contain Birkly template syntax (<code>{ title }</code>, <code>{for each entry in 'blog'}</code>, <code>{if}</code>, etc.).</li>
+<li>It finds the <strong>outermost</strong> Light DOM elements that contain Birkly template syntax (<code>{title}</code>, <code>{for each entry in 'blog'}</code>, <code>{if}</code>, etc.), plus <code>data-birkly-region</code> / <code>&lt;birkly-region&gt;</code>.</li>
 <li>It figures out which collection(s) to request (from those tags, the URL, or <code>data-collection</code>).</li>
-<li>It calls the Birkly public API (e.g. “give me all blog entries” or “give me the entry with this slug”). <strong>Only published entries</strong> are returned for public pages.</li>
-<li>It replaces the placeholders with the real content: titles, links, dates, images. Loops and conditionals are evaluated.</li>
-<li>The visitor sees the updated page. No extra click or reload is needed for content to appear.</li>
+<li>It calls the Birkly public API / <strong>page bundle</strong>. <strong>Only published entries</strong> are returned for public pages.</li>
+<li>It replaces the placeholders with real content. Loops, <code>ordered by</code>, conditionals, and <code>{entry for}</code> forms are handled.</li>
+<li>The visitor sees the updated page.</li>
 </ol>
 <p><strong>Template regions</strong></p>
 <p>You can put template tags in any HTML element — not only <code>&lt;main&gt;</code>. The client renders each <strong>outermost</strong> element that contains template syntax, and any element marked with <strong><code>data-birkly-region</code></strong> or <strong><code>&lt;birkly-region&gt;</code></strong>. Example: Marsk’s fullscreen menu is a <code>&lt;div class=&quot;overlay-menu&quot;&gt;</code> with a <code>&lt;nav&gt;</code> loop inside; the parent div is rendered as one region.</p>
@@ -210,17 +219,17 @@
 <p><strong>Example: blog index</strong></p>
 <pre><code>&lt;main&gt;
   &lt;h1&gt;Blog&lt;/h1&gt;
-  {for each entry in 'blog'}
+  {for each entry in 'blog' with status = published ordered by newest}
     &lt;article&gt;
-      &lt;h2&gt;&lt;a href=&quot;/blog/{ slug }&quot;&gt;{ title }&lt;/a&gt;&lt;/h2&gt;
-      &lt;time&gt;{ date &quot;F j, Y&quot; }&lt;/time&gt;
-      &lt;p&gt;{ excerpt }&lt;/p&gt;
+      &lt;h2&gt;&lt;a href=&quot;post.html?collection=blog&amp;slug={slug}&quot;&gt;{title}&lt;/a&gt;&lt;/h2&gt;
+      &lt;time&gt;{created_at format &quot;F j, Y&quot;}&lt;/time&gt;
+      {if entry has 'excerpt'}&lt;p&gt;{'excerpt'}&lt;/p&gt;{endif}
     &lt;/article&gt;
   {endfor}
 &lt;/main&gt;
 &lt;script src=&quot;https://cms.example.com/birkly-client.js&quot;
         data-cms-url=&quot;https://cms.example.com&quot;&gt;&lt;/script&gt;</code></pre>
-<p>The client sees <code>{for each entry in 'blog'}</code>, fetches blog entries from the API, then repeats the block for each entry and fills in <code>{ title }</code>, <code>{ slug }</code>, <code>{ date }</code>, <code>{ excerpt }</code>.</p>
+<p>See <a href="../03-templating/loops-and-lists.html">Loops and lists</a> and <a href="../03-templating/detail-pages-and-url-context.html">Detail pages</a>.</p>
 <p><strong>If something goes wrong</strong></p>
 <ul>
 <li>If the CMS is down or returns an error, placeholders might stay as-is or show nothing. Open the browser’s Developer Tools (Console and Network tabs) to see errors or failed requests.</li>
@@ -230,7 +239,7 @@
 <table><thead><tr><th>Attribute</th><th>Purpose</th></tr></thead>
 <tbody><tr><td><code>src</code></td><td>URL of <code>birkly-client.js</code> (same origin as CMS or CMS domain).</td></tr><tr><td><code>data-cms-url</code></td><td>Base URL for API requests. Required.</td></tr><tr><td><code>data-collection</code></td><td>Default collection for the page (when not inferred from template or URL).</td></tr><tr><td>(others)</td><td>Version-dependent: e.g. language, preview mode, API key for protected content.</td></tr></tbody></table>
 <p><strong>Template syntax</strong></p>
-<p>The client uses the same syntax as the rest of the templating docs: <code>{ variable }</code>, <code>{for each entry in 'collection'} … {endfor}</code>, <code>{if} … {endif}</code>, <code>{ date &quot;format&quot; }</code>, <code>{ media … }</code>. See <a href="../03-templating/templating-overview.html">Templating overview</a> and related docs.</p>
+<p>The client uses the canonical public language: <code>{title}</code> / <code>{'field'}</code>, <code>{for each}…{endfor}</code> with <code>with</code> / <code>ordered by</code> / <code>limit N</code>, <code>{if}…{endif}</code>, <code>{created_at format &quot;…&quot;}</code>. There is no <code>{ date &quot;…&quot; }</code> or <code>{ media … }</code> helper. See <a href="../03-templating/canonical-syntax.html">Canonical syntax</a> and <a href="../03-templating/cheat-sheet.html">Cheat sheet</a>.</p>
 <p><strong>API calls</strong></p>
 <ul>
 <li>Typically: <code>GET {data-cms-url}/api/public.php?action=list_entries&amp;collection=blog</code> for lists, and <code>action=get_entry</code> with <code>slug</code> for one item.</li>
@@ -287,12 +296,14 @@ el.addEventListener('birkly:region-processed', (e) =&gt; {
 </ul>
 <p>For SPA frameworks, prefer JSON + components over DOM template discovery — <a href="spa-react-vue.html">SPA (React / Vue)</a>.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="../03-templating/client-setup.html">Client setup</a></li>
 <li><a href="choose-your-stack.html">Choose your stack</a></li>
 <li><a href="website-integration.html">Website integration</a></li>
 <li><a href="web-components.html">Web components</a></li>
 <li><a href="spa-react-vue.html">SPA (React / Vue)</a></li>
 <li><a href="ssr-and-build-time.html">SSR and build-time</a></li>
 <li><a href="public-api.html">Public API</a></li>
+<li><a href="public-forms.html">Public forms</a></li>
 <li><a href="../03-templating/templating-overview.html">Templating overview</a></li>
 </ul></div></div>
       </div>

@@ -1,136 +1,114 @@
 # Canonical template syntax
 
-Birkly has **one canonical templating language** for site HTML and (with admin extensions) for the CMS admin panel. Use this document as the single source of truth — not legacy `{{ }}` examples or archived engines.
+Birkly has **one** public templating language for site HTML. This page is the human SSOT pointer into that language. The engine source of truth is Birkly `docs/TEMPLATE_LANGUAGE_SPEC.md` (v1.0). Do not invent filters, Jinja syntax, or archived helpers.
 
 ## Summary
 
-Use **single braces** `{ }` and plain-English directives. The canonical loop form is **`{for each item in source}`** … **`{endfor}`**. Public sites render via `birkly-client.js` + `api/public.php`; the admin panel renders via `admin/template_parser.php` + `admin/templates/*.html`.
+**In short:** Use **single braces** `{…}` and plain-English sentences. Loops: `{for each entry in 'blog'}…{endfor}`. Fields: `{title}` (system) and `{'my_field'}` (user). Public sites render with `birkly-client.js`. Admin UI uses a separate PHP parser — do not mix admin-only helpers into public HTML.
+
+![Valid Birkly single-brace syntax vs invalid/phantom forms](../media/03-templating/canonical-syntax/screenshots/valid-vs-invalid-syntax.svg)
 
 ## Beginner
 
 ### Variables
 
 ```html
-{ title }
-{collection.slug}
-{entry.author}
+{title}
+{slug}
+{'excerpt'}
+{'price'}
 ```
 
-Inside a loop, names refer to the **current** item (e.g. `{ title }` inside `{for each entry in 'blog'}`).
+- **System fields** (every entry): `title`, `slug`, `id`, `status`, `created_at`, `updated_at`, … — bare.  
+- **User-defined fields** — always quoted: `{'content'}`, `{'featured_image'}`.
 
 ### Loops (canonical)
 
 ```html
-{for each entry in 'blog'}
+{for each entry in 'blog' with status = published ordered by newest}
   <article>
-    <h2><a href="/blog/{ slug }">{ title }</a></h2>
+    <h2><a href="post.html?collection=blog&slug={slug}">{title}</a></h2>
+    <p>{'excerpt'}</p>
   </article>
 {endfor}
 ```
 
-- `{for each … in …}` — preferred form (also accepted: `{for item in items}` without `each`)
-- Collection handle is usually quoted: `'blog'`, `'pages'`
-- Close with `{endfor}`
+- Collection handle in **single quotes**.  
+- Close with `{endfor}`.  
+- Filters: `with …`. Sort: `ordered by …`. Optional trailing `limit 5` (space + number — not `limit=`).
 
-### Collection groups (public site)
+### Single entry
 
 ```html
-{for each group in collection_groups}
-  <h2>{ name }</h2>
-  {for each slug in group.collections}
-    <a href="/{ slug }/">{ slug }</a>
-  {endfor}
-  {for each child in group.children}
-    <h3>{ child.name }</h3>
-  {endfor}
-{endfor}
+{from 'site_elements' get entry 'header'}
+  <header>{'content'}</header>
+{endget}
 ```
-
-Loaded from `list_collection_groups` / page bundle into `collection_groups`. Max tree depth: 3. See [Collection groups](../02-content/collection-groups.md).
 
 ### Conditionals
 
 ```html
-{if 'blog' has entries}
-  … loop …
-{else}
-  <p>No posts yet.</p>
+{if 'site_elements'.'hero' exist}
+  …
+{endif}
+
+{if entry has 'excerpt'}
+  <p>{'excerpt'}</p>
 {endif}
 ```
 
-```html
-{if entry has excerpt}
-  <p>{ excerpt }</p>
-{endif}
-```
+### Forms (special)
 
-### Admin-only helpers
+Public contact-style forms use **`{entry for 'contact'}…{endentry}`** — that is a **form scaffold**, not the phantom single-entry block. See [Public forms templating](public-forms-templating.md).
 
-Used in `admin/templates/` only:
+### Phantoms — do not use
 
-| Syntax | Purpose |
-|--------|---------|
-| `{admin_url 'page'}` | Admin page URL |
-| `{admin_url 'entry-editor' collection='collection.slug'}` | URL with query params |
-| `{translate 'admin.key'}` | i18n string |
-| `{count entries}` | Array length |
-| `{json variable}` | JSON for `<script>` data |
-| `{include_script 'file.js'}` | Load `/admin/js/file.js` |
+| Phantom | Use instead |
+|---------|-------------|
+| `{{ title }}` / `{% for %}` | `{title}` / `{for each …}` |
+| `{entry 'blog'.'slug'}…{endentry}` | `{from 'blog' get entry 'slug'}…{endget}` |
+| `{ date "F j, Y" }` | `{created_at format "F j, Y"}` |
+| `{title truncate 80}` | Dedicated excerpt field |
+| `{'content' strip_tags}` | Plain field or strip in CMS |
+| `{from 'blog' get entries limit=5 sort="date:desc"}` | `{for each entry in 'blog' ordered by newest limit 5}` |
+| `{ media featured_image }` | `{'featured_image'}` inside `<img src="…">` (see [Media in templates](media-in-templates.md)) |
+| `ordered="date:desc"` on regions | `ordered="newest"` / `ordered="order"` |
 
 ## Advanced Users
 
-### Engines (do not mix)
+### For developers & AI
+
+**Engines (do not mix)**
 
 | Context | Engine | Location |
 |---------|--------|----------|
-| **Public site** | Client renderer | `birkly-client.js` |
+| **Public site** | Client / shared string engine | `birkly-client.js`, `birkly-template-engine.js` |
 | **Admin UI** | PHP template parser | `admin/template_parser.php` |
-| ~~Legacy~~ | ~~TemplateEngine~~ | **Archived** — `archive/legacy-templating/` |
+| Legacy | Archived | Must not be documented as live |
 
-There is no third active engine. `render_page.php` and `templates/template_engine.php` are archived (M3).
+**Syntax rules aligned to TEMPLATE_LANGUAGE_SPEC**
 
-### Syntax rules
+1. Single braces only.  
+2. Collections quoted; user fields quoted.  
+3. Existence: `{if 'collection'.'entry' exist}`.  
+4. Comparisons: prefer `=` (also `==`); `!=`, `<`, `>`, `<=`, `>=`.  
+5. Ordering phrases: `newest`, `oldest`, `last-updated`, `order`.  
+6. Date filter keyword is **`format`** on date fields.  
+7. Public API returns **published** entries for live loops.
 
-1. **Single braces** `{directive}` — not `{{ }}` (deprecated in admin).
-2. **Loops:** `{for each <var> in <source>}` … `{endfor}`.
-3. **Existence:** `{if <path> exist}` or `{if 'collection' has entries}`.
-4. **Comparison:** `{if entry.status == 'published'}`.
-5. **Published-only on public API:** loops via `api/public.php` and `page_bundle.php` return **published** entries only. Draft entries exist in the CMS but render as empty on the live site until published.
+**Where the client renders**
 
-### Single entry by slug
+`birkly-client.js` scans Light DOM for outermost template-bearing elements, plus explicit `data-birkly-region` / `<birkly-region>`. Explicit children **demote** ancestors. Tags inside `<script>` / `<style>` or closed Shadow DOM are not discovered.
 
-```html
-{from 'blog' get entry 'my-post-slug'}
-  <h1>{title}</h1>
-  <article>{'content'}</article>
-{endget}
-```
+**Admin-only helpers** (never on public sites): `{admin_url …}`, `{translate …}`, `{include_script …}`, etc.
 
-Close with `{endget}` (or `{end}`). Do **not** use `{entry 'collection'.'slug'}…{endentry}` — that form is not valid for single-entry load.
-
-### Where the client renders templates
-
-`birkly-client.js` scans `<body>` for the **outermost** HTML elements whose content includes Birkly template tags (`{for`, `{from`, `{if`, field placeholders, etc.) and renders each region in place. You do **not** need `<main>`, `<header>`, or `<nav>` specifically — any wrapper (`<div class="overlay-menu">`, `<section>`, etc.) works.
-
-**Explicit region roots (supported):** add `data-birkly-region` on an element, or use `<birkly-region collection entry|list …>`. The client discovers attributed roots, prepares default/wrapped Light DOM templates when needed, and runs `Birkly.processTemplates({ root })` for late mounts. See [Web components](../04-integration/web-components.md).
-
-**`<title>`** is handled separately when it contains template syntax.
-
-**Not rendered:** tags inside `<script>` / `<style>`, nested inside another template region (the parent / explicit root wins), or template tags sealed inside a **closed Shadow DOM** (fetch + `Birkly.render` there instead).
-
-### UI decoupling (admin)
-
-Admin templates contain **markup only**. API calls and DOM logic live in `admin/js/*.js`. Reference: `admin/templates/activity.html` + `admin/js/activity.js`. See Birkly repo `docs/admin-templating.md`.
-
-### eval() note
-
-Admin parser currently compiles to PHP via `eval()` — a known security debt. Replacement plan: Birkly repo `docs/admin-template-eval-replacement-plan.md` (interpreter, no new dependencies).
+**Validator:** Birkly `scripts/validate-project-templates.php` flags phantom `{entry 'x'.'y'}` while allowing `{entry for 'contact'}`.
 
 ## Related
 
 - [Templating overview](templating-overview.md)
-- [Web components (templating)](web-components.md)
+- [Cheat sheet](cheat-sheet.md)
 - [Loops and lists](loops-and-lists.md)
-- [Conditionals](conditionals.md)
 - [Variables and output](variables-and-output.md)
+- [Client setup](client-setup.md)
 - [Choose your stack](../04-integration/choose-your-stack.md)

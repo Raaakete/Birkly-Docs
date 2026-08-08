@@ -1,61 +1,55 @@
-<p>Copy-paste page patterns that combine the <a href="commerce-functions.html">Commerce</a> and <a href="events-functions.html">Events</a> template functions into full client-site pages. These mirror the reference implementation on the kekaba demo site (<code>shop.html</code>, <code>product.html</code>, <code>cart.html</code>, <code>events.html</code>, <code>event.html</code>).</p>
-<div class="doc-summary"><p>A storefront is three pages: a <strong>listing</strong> that loops the catalog, a <strong>product detail</strong> that renders a variant / purchase-option picker and a buy button, and a <strong>cart</strong> that reads cart state and links to checkout. Events add a <strong>calendar/list</strong> page and a <strong>single-event</strong> page with <code>.ics</code> download and an iCal subscribe link. All pages use standard loops plus the plugin template functions — no custom endpoints required.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Shop listing</strong></p>
-<pre><code>{for each product in 'kekaba_products'}
-  &lt;a class=&quot;box hover&quot; href=&quot;product.html?slug={product.slug}&quot;&gt;
-    &lt;img src=&quot;{product.image}&quot; alt=&quot;{product.title}&quot;&gt;
-    &lt;h2&gt;{product.title}&lt;/h2&gt;
-    &lt;p&gt;From {commerce_price_from product.pricing}&lt;/p&gt;
+<p>Copy-paste page patterns that combine <a href="commerce-functions.html">Commerce</a> and <a href="events-functions.html">Events</a> functions with core loops, detail URL context, and sub-collections.</p>
+<div class="doc-summary"><p><strong>In short:</strong> A shop needs a <strong>listing</strong> loop, a <strong>product detail</strong> page (URL context + optional variant sub-collection), and a <strong>cart</strong> link using <code>{commerce_cart_count}</code>. Events need a <strong>list</strong> and a <strong>single-event</strong> page with <code>.ics</code> / subscribe links. Use the same canonical syntax as the rest of templating — no phantom <code>sub_entries</code> loops.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Shop listing</h3>
+<pre><code>{for each entry in 'products' with status = published ordered by newest}
+  &lt;a href=&quot;product.html?collection=products&amp;slug={slug}&quot;&gt;
+    {if entry has 'image'}
+      &lt;img src=&quot;{'image'}&quot; alt=&quot;{title}&quot;&gt;
+    {endif}
+    &lt;h2&gt;{title}&lt;/h2&gt;
+    &lt;p&gt;From {commerce_price_from slug products}&lt;/p&gt;
   &lt;/a&gt;
 {endfor}</code></pre>
-<p><strong>Product detail with a variant picker</strong></p>
-<pre><code>&lt;h1&gt;{title}&lt;/h1&gt;
-{content}
+<h3>Product detail + variants</h3>
+<pre><code>&lt;meta name=&quot;birkly-collection&quot; content=&quot;products&quot;&gt;
+&lt;h1&gt;{title}&lt;/h1&gt;
+&lt;div&gt;{'content'}&lt;/div&gt;
 
-{for each variant in sub_entries variants}
-  &lt;label class=&quot;variant&quot;&gt;
-    &lt;input type=&quot;radio&quot; name=&quot;variant&quot; value=&quot;{variant.id}&quot;&gt;
-    {variant.title} — {commerce_price_from variant.pricing}
-  &lt;/label&gt;
+{for each entry in 'variants' of 'products'.current ordered by order}
+  &lt;div class=&quot;variant&quot;&gt;
+    &lt;h3&gt;{title}&lt;/h3&gt;
+    &lt;a class=&quot;button&quot; href=&quot;{commerce_buy_url slug products 1}&quot;&gt;Add to cart&lt;/a&gt;
+  &lt;/div&gt;
 {endfor}
 
-&lt;a class=&quot;button&quot; href=&quot;{commerce_buy_url variant.id kekaba_products 1}&quot;&gt;Add to cart&lt;/a&gt;</code></pre>
-<p>Simple products (no variants) put the Commerce field on the parent and link <code>{commerce_buy_url slug kekaba_products 1}</code> directly.</p>
-<p><strong>Cart badge in the header</strong></p>
+&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>Simple products (no variants): put Commerce on the parent and link <code>{commerce_buy_url slug products 1}</code> once.</p>
+<h3>Cart badge</h3>
 <pre><code>&lt;a href=&quot;cart.html&quot;&gt;Cart ({commerce_cart_count})&lt;/a&gt;</code></pre>
-<p><strong>Events calendar / list</strong></p>
-<pre><code>{for each event in upcoming_events 20}
-  &lt;a class=&quot;events-card&quot; href=&quot;event.html?slug={event.slug}&quot;&gt;
-    &lt;span class=&quot;date&quot;&gt;{event.start}&lt;/span&gt;
-    &lt;h3&gt;{event.title}&lt;/h3&gt;
-  &lt;/a&gt;
-{endfor}
-
-&lt;a class=&quot;button&quot; href=&quot;{events_calendar_feed_url}&quot;&gt;Subscribe (iCal)&lt;/a&gt;</code></pre>
-<p><strong>Single event with calendar export</strong></p>
-<pre><code>&lt;h1&gt;{title}&lt;/h1&gt;
-&lt;p&gt;{schedule.starts_at} – {schedule.ends_at} · {schedule.venue}&lt;/p&gt;
-{content}
-
-&lt;a href=&quot;{event_ics_url kekaba_events id 0}&quot;&gt;Add this date (.ics)&lt;/a&gt;</code></pre></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Fulfillment types on one catalog.</strong> A single products collection can mix <code>ship</code> (physical), <code>deliver</code> (digital download), <code>register</code> (workshop seat), and <code>none</code> (subscription / access grant). The CTA and post-purchase flow follow the entry's <code>fulfillment</code>; the template only needs the buy URL. See the <a href="../06-extensibility/commerce-fieldtype.html">Commerce fieldtype</a>.</p>
-<p><strong>Multiple purchase options.</strong> Subscriptions expose several <code>purchase_options</code> (e.g. monthly + annual). Render one control per option and pass its id as the fourth <code>commerce_buy_url</code> argument:</p>
-<pre><code>{for each option in pricing.purchase_options}
-  &lt;a href=&quot;{commerce_buy_url id kekaba_products 1 option.id}&quot;&gt;
-    {option.label} — {option.price_cents}
+<h3>Events list + detail</h3>
+<pre><code>{for each entry in 'events' with status = published ordered by newest}
+  &lt;a href=&quot;event.html?collection=events&amp;slug={slug}&quot;&gt;
+    &lt;h3&gt;{title}&lt;/h3&gt;
   &lt;/a&gt;
 {endfor}</code></pre>
-<p><strong>Recurring events.</strong> A <code>recurrence</code> block expands one entry into occurrences in <code>events_index.json</code>. List each date with its <code>series_index</code> and offer a per-occurrence <code>.ics</code> plus a whole-series subscribe:</p>
-<pre><code>{for each occ in occurrences}
-  &lt;li&gt;
-    {occ.starts_at}
-    &lt;a href=&quot;{event_ics_url kekaba_events id occ.series_index}&quot;&gt;Add to calendar&lt;/a&gt;
-  &lt;/li&gt;
-{endfor}</code></pre>
-<p><strong>Hydrate vs bake.</strong> Client sites can render these patterns server-side (baked HTML) or hydrate them in the browser with <code>birkly-client.js</code>. The kekaba demo bakes the page shell and hydrates catalog/event data from JSON, then links buy/cart/checkout and <code>.ics</code>/webcal URLs to the live plugin endpoints — so the same markup works offline as a static demo and online against a running CMS.</p></div></details>
+<pre><code>&lt;!-- event.html — no collection loop --&gt;
+&lt;h1&gt;{title}&lt;/h1&gt;
+&lt;a href=&quot;{event_ics_url events id 0}&quot;&gt;Add this date (.ics)&lt;/a&gt;
+&lt;a href=&quot;{events_calendar_feed_url}&quot;&gt;Subscribe (iCal)&lt;/a&gt;</code></pre></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<ul>
+<li>Detail pages: <a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a> — never loop the whole catalog on <code>product.html</code>.</li>
+<li>Variants: <a href="sub-collections-in-templates.html">Sub-collections in templates</a>.</li>
+<li>Plugin helpers: <a href="plugin-language-extensions.html">Plugin language extensions</a>.</li>
+<li>Delivery modes: default is live client; optional bake/hydrate — <a href="production-optimization.html">Production optimization</a>.</li>
+</ul>
+<p><strong>Rejected phantoms</strong></p>
+<table><thead><tr><th>Wrong</th><th>Right</th></tr></thead>
+<tbody><tr><td><code>{for each variant in sub_entries variants}</code></td><td><code>{for each entry in 'variants' of 'products'.current …}</code></td></tr><tr><td><code>product.html?slug=</code> without collection when router needs it</td><td><code>?collection=products&amp;slug={slug}</code></td></tr></tbody></table></div></details>
 <div class="doc-related"><ul>
 <li><a href="commerce-functions.html">Commerce functions</a></li>
 <li><a href="events-functions.html">Events functions</a></li>
 <li><a href="loops-and-lists.html">Loops and lists</a></li>
-<li><a href="conditionals.html">Conditionals</a></li>
+<li><a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a></li>
+<li><a href="reference-projects.html">Reference projects</a></li>
 </ul></div>

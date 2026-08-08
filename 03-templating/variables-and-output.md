@@ -1,109 +1,99 @@
-# Variables and Output
+# Variables and output
 
-In Birkly templates, **variables** are placeholders that get replaced with real values from your content. You write `{ field_name }` and the engine outputs the value of that field for the current entry or context.
+Variables are placeholders that become real values from the current entry or context. Write `{title}` for system fields and `{'field_name'}` for fields you defined on the collection.
 
 ## Summary
 
-Use **single braces** with the field name inside: `{ title }`, `{ content }`, `{ date }`. These print the value of that field. Text is usually shown safely (special characters escaped). Rich editor content is often output as HTML so formatting (bold, links, images) appears. For dates you can add a format, e.g. `{ date "F j, Y" }` for “January 5, 2025”. What you can use depends on the current context—e.g. inside a blog loop, `{ title }` is that blog entry’s title.
+**In short:** `{title}` and `{slug}` need no quotes. Your own fields — excerpt, price, body, image — use **quoted** form: `{'excerpt'}`, `{'price'}`, `{'content'}`. Dates use `{created_at format "Y-m-d"}` (see [Dates and formatting](dates-and-formatting.md)). Empty fields: wrap with `{if entry has '…'}` so you don’t print blanks.
 
 ## Beginner
 
-Variables are the main way to **show one value** from the CMS: a title, a paragraph, a date, or a link to an image or file.
-
-**Basic pattern**
-
-- Write the field name between single braces, with spaces: `{ title }`, `{ content }`, `{ excerpt }`.
-- The “current” entry depends on where the variable appears:
-  - **Inside a loop** (e.g. “for each blog entry”): `{ title }` is that entry’s title, `{ slug }` that entry’s slug.
-  - **On a single-entry page** (e.g. one blog post loaded by slug): `{ title }` is that post’s title.
-
-**Example: single blog post page**
-
-After loading one post (e.g. by slug), your template might look like:
+### Basic pattern
 
 ```html
 <article>
-  <h1>{ title }</h1>
-  <time>{ date "F j, Y" }</time>
-  <div class="content">
-    { content }
-  </div>
+  <h1>{title}</h1>
+  <time>{created_at format "F j, Y"}</time>
+  <div class="body">{'content'}</div>
 </article>
 ```
 
-- `{ title }` → e.g. “Getting started with Birkly”
-- `{ date "F j, Y" }` → e.g. “January 5, 2025”
-- `{ content }` → the full post body (with HTML: paragraphs, headings, links, images)
+- On a **detail page**, these refer to the entry from the URL (`?collection=&slug=`).  
+- **Inside a loop**, they refer to the current loop entry.
 
-**Example: inside a loop**
-
-On a page that lists all blog posts:
+### Inside a list loop
 
 ```html
-{for each entry in 'blog'}
-  <h2>{ title }</h2>
-  <p>{ excerpt }</p>
-  <a href="/blog/{ slug }">Read more</a>
+{for each entry in 'blog' with status = published ordered by newest}
+  <h2><a href="post.html?collection=blog&slug={slug}">{title}</a></h2>
+  {if entry has 'excerpt'}
+    <p>{'excerpt'}</p>
+  {endif}
 {endfor}
 ```
 
-Here, each time through the loop, `{ title }`, `{ excerpt }`, and `{ slug }` refer to the **current** post.
+### Text vs rich HTML
 
-**Text vs HTML**
+| Field type | Typical output |
+|------------|----------------|
+| Text, Textarea | Escaped plain text |
+| Editor (rich text) | HTML (headings, links, lists) |
+| Number, URL, Email | String value |
+| Image / media | Filename or URL string — use in `<img src="…">` (see [Media](media-in-templates.md)) |
+| Checkbox | Truthy/empty for `{if entry has '…'}` |
 
-- **Text and Textarea fields:** Shown as plain text. Characters like `<` and `"` are escaped so they don’t break the page or run scripts. Safe by default.
-- **Editor (rich text) field:** Output as **HTML** so headings, lists, bold, and links render correctly. Only use editor output in your own templates, not in unfiltered user input.
+### System vs user fields
 
-**When a field is empty**
+| Kind | Examples | Syntax |
+|------|----------|--------|
+| System | `title`, `slug`, `id`, `status`, `created_at`, `updated_at`, `published_at` | `{title}`, `{created_at}` |
+| User-defined | `excerpt`, `content`, `price`, `hero` | `{'excerpt'}`, `{'price'}` |
 
-If you output `{ excerpt }` and the entry has no excerpt, you might get nothing or a blank. To show a fallback, use a conditional: “if this entry has an excerpt, show it; else show something else.” See [Conditionals](conditionals.md).
+### Query and language
 
-**Dates**
+```html
+{query.'slug'}
+{current.language}
+{current_year}
+```
 
-Use a format string in quotes after the field name: `{ date "F j, Y" }` for “January 5, 2025”, or `{ date "Y-m-d" }` for “2025-01-05”. More options in [Dates and formatting](dates-and-formatting.md).
-
-**Images and files**
-
-- One image from a Media field: `{ media featured_image }` gives you the image URL; put it in `<img src="…">`.
-- A file (e.g. PDF): often `{ media document }` or the field name in an `<a href="…">`. See [Media in templates](media-in-templates.md).
+See [Multilingual templating](multilingual-templating.md).
 
 ## Advanced Users
 
-**Syntax and context**
+### For developers & AI
 
-- **Pattern:** `{ variable_name }` — spaces inside braces; name = field key (or system key like `slug`, `id`, `status`).
-- **Context resolution:** Variables resolve against the current scope. In `{for each entry in 'blog'} … { title } … {endfor}`, `title` is resolved on the loop’s current entry. Inside `{from 'blog' get entry 'my-slug'}…{endget}`, variables refer to that entry. Global or page-level variables (e.g. `site_title`) depend on the engine and bootstrap data.
+**Resolution order**
 
-**Output behaviour by field type**
+1. Current loop / `{from … get entry}` block scope  
+2. URL-resolved current entry (detail pages)  
+3. Page / system data (`site_elements`, `query.*`, `current.language`)
 
-| Field type | Typical output | Notes |
-|------------|----------------|--------|
-| Text, Textarea | Escaped text | HTML special chars encoded. |
-| Editor (rich text) | Raw HTML | Stored HTML inserted as-is. |
-| Number | String representation | Format may be configurable. |
-| Date / DateTime | Formatted string | Via `{ field "format" }`; see dates doc. |
-| Media / File | URL string | Use in `src` or `href`. |
-| Select, Radio | Selected option value (or label) | Engine-dependent. |
-| Tags | Often a list; may need loop | e.g. `{for each tag in tags}`. |
-| Relation | Entry ref(s); may need loop or single entry load | Depends on API shape. |
+**Quoted fields are required** for user-defined API names. Bare `{excerpt}` is unreliable; prefer `{'excerpt'}`.
 
-**Defaults and “if empty”**
+**No speculative filters**
 
-Some engines support inline defaults, e.g. `{ title default="Untitled" }` or `{ title or "Untitled" }`. If not, use conditionals: `{if entry has title}{ title }{else}Untitled{endif}`.
+Not implemented: `truncate`, `strip_tags`, `default=`, `{ media … }`. Use CMS fields, conditionals, or CSS.
 
-**Nested / dotted access**
+**Array fields**
 
-If the API exposes nested objects (e.g. `author.name`), the engine may support `{ author.name }`. Check the templating reference for your version.
+```html
+{if entry has 'tags'}
+  {for each item in 'tags'}
+    <span>{item}</span>
+  {endfor}
+{endif}
+```
 
-**Technical note**
+Inline picks: `{from 'tags' get item.1}`, `item.newest`, `item.oldest`, `item.'cms'`.
 
-Variable names align with **field keys** in the collection schema and any system fields the API exposes. The exact set is defined by the content source (API response or content files) and the template engine.
+**Nested paths** (when API shape provides them): `{'content'.0.'value'}` inside site_elements blocks.
 
 ## Related
 
 - [Templating overview](templating-overview.md)
-- [Loops and lists](loops-and-lists.md)
-- [Conditionals](conditionals.md)
 - [Dates and formatting](dates-and-formatting.md)
+- [Conditionals](conditionals.md)
 - [Media in templates](media-in-templates.md)
+- [Detail pages & URL context](detail-pages-and-url-context.md)
 - [Field types](../02-content/field-types.md)

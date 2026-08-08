@@ -2,7 +2,7 @@
 
 ## Summary
 
-AI Assist helps you build and maintain Agent Guide faster. It **suggests** — it never writes to your draft until you **Accept**. You can use rule-based suggestions without any AI provider; connecting Agent Guide → Connections unlocks Copilot, Fill 100%, field Generate, and smarter source/link suggestions.
+AI Assist helps you build and maintain Agent Guide faster. It **suggests** — it never writes to your draft until you **Accept**. You can use rule-based suggestions without any AI provider; connecting Settings → AI unlocks Copilot, Fill 100%, field Generate, and smarter source/link suggestions.
 
 **Grounding rule:** AI Assist prefers declared **sources of truth** before inferring. When sources are missing, it may suggest `sources_of_truth.new` entries first.
 

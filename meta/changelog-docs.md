@@ -12,6 +12,24 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-08 — Templating media + install clarity (P62-M4)
+
+- **Media:** Hand-authored SVG diagrams under `media/03-templating/{slug}/screenshots/` for P0/P1 pages (detail anti-pattern, client script + pipeline, `{entry for}`, loops, overview, canonical syntax, dates, regions, cheat sheet). Video slots reserved under `…/videos/` for computerUse follow-alongs.
+- **Build:** `build-static.js` renders `![alt](…)` as `<img class="doc-figure">`; `css/style.css` styles figures.
+- **Adjacent:** Getting started = zip + Docker only (no Composer/npm); Connections IA confirmed as **Settings → AI** (Agent Guide = Guide · Tools · Publish).
+
+## 2026-08-08 — Templating docs overhaul (P62-M2)
+
+Major templating chapter rewrite aligned to TEMPLATE_LANGUAGE_SPEC v1.0 (dual audience: Summary / Beginner / Advanced).
+
+- **Rewritten:** overview, canonical-syntax, variables, loops (`ordered by` / `with` / `limit N`; phantoms removed), conditionals, dates (`format` not `{ date }`), media-in-templates (no `{ media }` helper), web-components (`ordered="newest"`), commerce/events/storefront, reference-projects, production-optimization links.
+- **New:** `client-setup`, `detail-pages-and-url-context`, `from-get-and-existence`, `sub-collections-in-templates`, `public-forms-templating`, `multilingual-templating`, `plugin-language-extensions`, `worked-site-walkthrough`, `cheat-sheet`.
+- **Updated:** `CONTENTS_INDEX.md`, `manifest.json`; light refresh of `04-integration/website-integration`, `client-library`, `public-forms` (`{entry for}` first).
+- **Connections IA:** Agent Guide = Guide · Tools · Publish; AI connectors documented under **Settings → AI** (not an Agent Guide Connections tab).
+- **Deferred then:** screenshots/videos → completed in M4; help-manifest / CMS snapshots (M6).
+
+---
+
 ## 2026-08-07 — Insights, activity & developer mode (P61)
 
 Owner-facing docs for analytics presets, AI on localhost, and developer mode (plan locks D2–D4, D7–D9).

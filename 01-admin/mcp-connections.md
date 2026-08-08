@@ -15,6 +15,8 @@ Built-in admin chat (API key) is separate — see [Built-in assistant](ai-connec
 
 Open **Settings → AI**.
 
+![Settings → AI — connector home (not an Agent Guide tab)](../media/01-admin/mcp-connections/screenshots/settings-ai-connections.png)
+
 1. **Most users:** copy the **personal connector URL**, paste it in your AI app, and sign in with your Birkly account.
 2. **Admins:** you can also create **service agents** with a fixed role and choose who may use them.
 3. **Write actions** are approved **in your AI app** — not in the Birkly Approvals tab (that tab is for the built-in assistant only).

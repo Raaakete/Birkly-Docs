@@ -6,7 +6,7 @@ Template functions registered by the **Commerce** plugin when active. Use them i
 
 **In short:** With Commerce active you can use `{commerce_cart_count}`, `{commerce_cart_url}`, `{commerce_buy_url}`, `{commerce_add_to_cart}`, and `{commerce_price_from}`. For multi-SKU products, pass the **variant sub-entry** id/slug. Combine with normal loops and [sub-collection](sub-collections-in-templates.md) syntax (`of 'products'.current`).
 
-> **Media (M4):** Optional add-to-cart video — `media/03-templating/commerce-functions/` (P3 priority).
+> **Video (follow-along):** optional (P3) — add-to-cart flow
 
 ## Beginner
 

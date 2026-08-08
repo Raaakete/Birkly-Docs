@@ -46,16 +46,16 @@ Website tools **never** touch your admin or CMS settings — they can only do wh
 
 Birkly ships a small demo page (`project/webmcp-demo.html`) with a contact form, a button, and a custom tool — it shows the on/off states and the exact tools a supporting browser would see once website tools are enabled.
 
-## Three layers, one hub
+## Three layers (Guide · Tools · Publish + Settings → AI)
 
-Agent Guide is the single admin home for "how AI works with this site," organized as four tabs. Each of the first three answers a different question and lives in a different place — they are never the same thing, even though they're all reached from Agent Guide:
+Agent Guide is the admin home for Guide · Tools · Publish. **CMS AI connections** live under **Settings → AI** — not as an Agent Guide tab. Each layer answers a different question:
 
-| Tab | Question it answers | Where it actually lives |
-|-----|---------------------|--------------------------|
-| **Guide** | "What should AI say about us?" | Public JSON on your site domain (`/.well-known/agent-guide.json`) |
-| **Tools** | "What can an AI helper *do* on our website while someone is visiting?" | **This page's** WebMCP runtime — runs in the visitor's browser |
-| **Connections** | "How do ChatGPT / Claude / our built-in assistant connect to *this Birkly CMS*?" | Always your Birkly address (`{your-birkly-url}/mcp`) — never your website host |
-| **Publish** | "Where do all of the above actually work, given how my site is hosted?" | Mode-aware summary of the three above |
+| Surface | Question it answers | Where it actually lives |
+|---------|---------------------|--------------------------|
+| **Guide** (Agent Guide) | "What should AI say about us?" | Public JSON on your site domain (`/.well-known/agent-guide.json`) |
+| **Tools** (Agent Guide) | "What can an AI helper *do* on our website while someone is visiting?" | **This page's** WebMCP runtime — runs in the visitor's browser |
+| **Settings → AI** | "How do ChatGPT / Claude / our built-in assistant connect to *this Birkly CMS*?" | Always your Birkly address (`{your-birkly-url}/mcp`) — never your website host |
+| **Publish** (Agent Guide) | "Where do Guide and Tools actually work, given how my site is hosted?" | Mode-aware summary + hosting checklist |
 
 Plain-language versions of the first three, matching what you'll see in the product:
 

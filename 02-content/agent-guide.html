@@ -241,10 +241,10 @@
 <li><strong>Publish</strong> — Enable endpoints, preview, go live (hub <strong>Publish</strong> tab).</li>
 </ol>
 <p>Summaries in Context and Products should <strong>reflect</strong> your declared sources — not invent parallel truth.</p>
-<p>Once your Guide is published, consider the other two hub tabs: turn on <strong>Tools</strong> if you want visitor-facing AI helpers to use your public forms (or Commerce/Events actions), and check <strong>Connections</strong> if you haven't already connected an AI app to your Birkly CMS.</p>
+<p>Once your Guide is published, consider the other hub tabs: turn on <strong>Tools</strong> if you want visitor-facing AI helpers to use your public forms (or Commerce/Events actions), and open <strong>Settings → AI</strong> if you haven't already connected an AI app to your Birkly CMS.</p>
 <h2>Where to find it</h2>
 <p>Admin sidebar → <strong>Agent Guide</strong> (between Media and Marketplace).</p>
-<p><strong>URLs:</strong> <code>/admin/?page=agent-guide</code> (legacy alias: <code>?page=ai-presence</code>). Deep-link a specific hub tab with <code>&amp;zone=guide|tools|connections|publish</code> (e.g. <code>?page=agent-guide&amp;zone=tools</code>); the default is <code>guide</code>.</p>
+<p><strong>URLs:</strong> <code>/admin/?page=agent-guide</code> (legacy alias: <code>?page=ai-presence</code>). Deep-link a specific hub tab with <code>&amp;zone=guide|tools|publish</code> (e.g. <code>?page=agent-guide&amp;zone=tools</code>); the default is <code>guide</code>. AI app connections are <strong>Settings → AI</strong> (<code>?page=settings&amp;tab=ai</code>), not an Agent Guide zone.</p>
 <p><strong>Permissions:</strong></p>
 <table><thead><tr><th>Action</th><th>Permission</th></tr></thead>
 <tbody><tr><td>View Agent Guide</td><td><code>read</code></td></tr><tr><td>Edit, publish</td><td><code>manage_settings</code></td></tr></tbody></table>
@@ -306,7 +306,7 @@
 <p><strong>Why sources of truth first?</strong>   Agents need a declared reading order. Summaries without sources invite hallucination; the registry tells consumers where to verify.</p>
 <p><strong>Will ChatGPT automatically use my guide?</strong>   Not guaranteed. You make discovery easier via well-known JSON, public API, and JSON-LD. Adoption depends on crawlers, integrations, and MCP-connected tools.</p>
 <p><strong>Can I hide draft work from the public?</strong>   Yes. Only <strong>published</strong> snapshots are public. Disable publishing or don’t publish until ready.</p>
-<p><strong>Do I need AI connections configured?</strong>   No. Rule-based suggestions and manual editing work without AI. Connections unlock Copilot, Fill 100%, and smarter suggestions.</p>
+<p><strong>Do I need AI connections configured?</strong>   No. Rule-based suggestions and manual editing work without AI. Connecting a provider under <strong>Settings → AI</strong> unlocks Copilot, Fill 100%, and smarter suggestions.</p>
 <p><strong>Do I need a vector database?</strong>   No. Agent Guide is <strong>curated truth + evidence + source links</strong> — the right model for “what is officially true about our brand?” Vector search helps <strong>fuzzy search over huge unstructured archives</strong> (e.g. support tickets). That is a different product problem; optional semantic search could be a <strong>future plugin</strong>, not core CMS.</p>
 <p><strong>Does publishing my Guide turn on website tools?</strong>   No. Publishing the Guide only makes your fact-sheet JSON public. <strong>Website tools</strong> (the Tools tab / WebMCP) is a separate, off-by-default switch — see <a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a>.</p>
 <p><strong>Where do I connect Claude / ChatGPT / Cursor?</strong>   <strong>Settings → AI</strong> — not an Agent Guide tab. Agent Guide is Guide · Tools · Publish only.</p>

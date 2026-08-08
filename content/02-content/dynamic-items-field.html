@@ -1,4 +1,4 @@
-<div class="doc-summary"><p>The <strong>Dynamic items</strong> field type (<code>dynamicitems</code>) lets editors build repeating <strong>blocks</strong> inside a single entry. Each block has its own field type (text, textarea, number, media, etc.). Use it for flexible page sections, FAQ lists, feature grids, and the <strong>site-elements</strong> pattern where one entry holds many named blocks.</p></div>
+<div class="doc-summary"><p>The <strong>Dynamic items</strong> field type (<code>dynamicitems</code>) lets editors build repeating <strong>blocks</strong> inside a single entry. Each block has its own field type (text, textarea, number, media, etc.). Use it for flexible page sections, FAQ lists, feature grids, and the <strong><code>site_elements</code></strong> pattern where one entry holds many named blocks.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>When to use Dynamic items</h3>
 <table><thead><tr><th>Use case</th><th>Example</th></tr></thead>
 <tbody><tr><td>Flexible page body</td><td>Homepage sections: hero, features, testimonial</td></tr><tr><td>FAQ</td><td>Each block: question (text) + answer (textarea)</td></tr><tr><td>Site chrome</td><td>Header entry: logo block, nav links block, CTA block</td></tr><tr><td>Repeating specs</td><td>Product entry: multiple “spec row” blocks</td></tr></tbody></table>
@@ -23,7 +23,7 @@
 <h3>Site elements pattern</h3>
 <p>For shared header/footer content:</p>
 <ol>
-<li>Create collection <strong>Site elements</strong> (handle: <code>site-elements</code>).</li>
+<li>Create collection <strong>Site elements</strong> (handle: <code>site_elements</code>).</li>
 <li>Add fields: <strong>Title</strong> (text) + <strong>Blocks</strong> (Dynamic items).</li>
 <li>Create entries: <code>header</code>, <code>footer</code>, etc.</li>
 <li>Bind on your site with <code>&lt;birkly-region&gt;</code> — see <a href="site-elements-pattern.html">Site elements pattern</a>.</li>

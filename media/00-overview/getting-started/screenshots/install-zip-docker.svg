@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="320" viewBox="0 0 860 320" role="img" aria-labelledby="title desc">
+<title id="title">Supported install paths: zip and Docker</title>
+<desc id="desc">Product install is release zip or Docker only</desc>
+
+<defs>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#2f5d4a"/>
+  </marker>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f7f5ef"/>
+    <stop offset="100%" stop-color="#efebe2"/>
+  </linearGradient>
+</defs>
+<rect width="860" height="320" fill="url(#bg)"/>
+<text x="36" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1f2a24">Install Birkly: zip or Docker</text>
+<text x="36" y="56" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Supported product paths. Composer, npm, and cPanel installers are not documented channels.</text>
+
+  <rect x="36" y="78" width="380" height="200" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="36" y="78" width="380" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="36" y="98" width="380" height="12" fill="#ebe6db"/>
+  <text x="50" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Release zip</text>
+<text x="50" y="128" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">1. Download Birkly-*.zip</text>
+<text x="50" y="152" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">2. Extract next to admin/, api/, core/</text>
+<text x="50" y="176" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">3. Open START_HERE.html</text>
+<text x="50" y="200" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">4. Local: ./start-server.sh</text>
+<text x="50" y="224" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">   or upload to your host</text>
+
+  <rect x="444" y="78" width="380" height="200" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="444" y="78" width="380" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="444" y="98" width="380" height="12" fill="#ebe6db"/>
+  <text x="458" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Docker</text>
+<text x="458" y="128" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">1. Run the Birkly image / Dockerfile</text>
+<text x="458" y="152" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">2. Mount persistent /app/data</text>
+<text x="458" y="176" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">3. Open /admin → first user</text>
+<text x="458" y="200" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">4. Settings → Hosting URLs</text>
+<text x="458" y="224" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">See Dokploy hosting guide</text>
+</svg>

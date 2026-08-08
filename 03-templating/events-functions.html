@@ -183,7 +183,7 @@
       <div class="content doc-body">
         <div class="doc-content"><p>Template functions registered by the <strong>Events</strong> plugin when active — upcoming lists, <code>.ics</code> links, calendar subscribe, RSVP / ticket checkout.</p>
 <div class="doc-summary"><p><strong>In short:</strong> Use <code>{upcoming_events}</code>, <code>{event_ics_url}</code>, <code>{events_calendar_feed_url}</code>, <code>{event_register_url}</code>, and <code>{event_ticket_checkout_url}</code> when Events is installed. List pages can also use normal <code>{for each entry in 'events' …}</code> loops. Detail pages resolve one event from the URL — see <a href="detail-pages-and-url-context.html">Detail pages</a>.</p>
-<blockquote><p><strong>Media (M4):</strong> Optional events flow video — P3 in media plan.</p></blockquote></div>
+<blockquote><p><strong>Video (follow-along):</strong> optional (P3) — events registration flow</p></blockquote></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Upcoming events helper</h3>
 <pre><code>{for each event in upcoming_events 10}
   &lt;a href=&quot;event.html?collection=events&amp;slug={event.slug}&quot;&gt;

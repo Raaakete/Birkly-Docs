@@ -1,12 +1,13 @@
-<div class="doc-summary"><p><strong>Site elements</strong> is a content-model pattern for shared site chrome: headers, footers, announcement bars, and other blocks that appear on many pages. You store them as <strong>entries</strong> in a dedicated collection (typically handle <code>site-elements</code>) and inject them on your site with <strong><code>&lt;birkly-region&gt;</code></strong> — not as a separate CMS content type.</p></div>
+<div class="doc-summary"><p><strong>Site elements</strong> is a content-model pattern for shared site chrome: headers, footers, announcement bars, and other blocks that appear on many pages. You store them as <strong>entries</strong> in a dedicated collection (canonical handle <strong><code>site_elements</code></strong>) and inject them on your site with <strong><code>&lt;birkly-region&gt;</code></strong> — not as a separate CMS content type.</p>
+<p>The client always prefetches the collection slug <code>site_elements</code> for page bundles. Prefer that handle so defaults and regions match the engine.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Why a collection, not a “global settings” doc?</h3>
 <p>Birkly uses <strong>collections + entries only</strong>. Shared layout content is still entries — usually one entry per region (<code>header</code>, <code>footer</code>). That keeps versioning, drafts, multilanguage, and the Public API consistent with the rest of your content.</p>
 <h3>Setup steps</h3>
 <ol>
-<li><strong>Create collection</strong> — Name: “Site elements”, handle: <code>site-elements</code>.</li>
+<li><strong>Create collection</strong> — Name: “Site elements”, handle: <strong><code>site_elements</code></strong> (underscore).</li>
 <li><strong>Fields (example):</strong></li>
 </ol>
-<p>   - <strong>Title</strong> (text) — admin label, e.g. “Header”.    - <strong>Blocks</strong> (Dynamic items) — logo, nav links, CTA buttons, legal links.</p>
+<p>   - <strong>Title</strong> (text) — admin label, e.g. “Header”.    - <strong>Blocks</strong> (Dynamic items) — logo, nav links, CTA buttons, legal links — <em>or</em> a simple content field for HTML chrome.</p>
 <ol>
 <li><strong>Create entries</strong> — one per region:</li>
 </ol>
@@ -15,21 +16,24 @@
 <li><strong>Publish</strong> entries when ready (status <strong>Published</strong>).</li>
 <li><strong>On your site</strong>, bind regions:</li>
 </ol>
-<pre><code>&lt;birkly-region collection=&quot;site-elements&quot; entry=&quot;header&quot; field=&quot;blocks&quot;&gt;&lt;/birkly-region&gt;
+<pre><code>&lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;header&quot;&gt;&lt;/birkly-region&gt;
 
 &lt;main&gt;&lt;!-- page-specific content --&gt;&lt;/main&gt;
 
-&lt;birkly-region collection=&quot;site-elements&quot; entry=&quot;footer&quot; field=&quot;blocks&quot;&gt;&lt;/birkly-region&gt;</code></pre>
-<p>The Birkly client fetches live content and hydrates the region. See <a href="../04-integration/web-components.html">Web components</a> and <a href="../04-integration/choose-your-stack.html">Choose your stack</a>.</p>
+&lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;footer&quot;&gt;&lt;/birkly-region&gt;</code></pre>
+<p>Or with a Dynamic items field named <code>blocks</code>:</p>
+<pre><code>&lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;header&quot; field=&quot;blocks&quot;&gt;&lt;/birkly-region&gt;</code></pre>
+<p>The Birkly client fetches live content and hydrates the region. See <a href="../03-templating/web-components.html">Web components (templating)</a> and <a href="../04-integration/choose-your-stack.html">Choose your stack</a>.</p>
 <h3>Multilingual sites</h3>
-<p>Enable <strong>multilanguage</strong> on the site-elements collection. Edit <strong>Blocks</strong> per language tab so header/footer copy matches each locale. Regions respect the active site language when configured.</p>
+<p>Enable <strong>multilanguage</strong> on the <code>site_elements</code> collection. Edit <strong>Blocks</strong> (or content) per language tab so header/footer copy matches each locale. Regions respect the active site language when configured.</p>
 <h3>When not to use site elements</h3>
 <table><thead><tr><th>Scenario</th><th>Better pattern</th></tr></thead>
 <tbody><tr><td>Many similar items (blog posts, products)</td><td>Regular collection + list/detail templates</td></tr><tr><td>Child rows on one page (comments)</td><td><a href="sub-collections.html">Sub-collections</a></td></tr><tr><td>One long article</td><td>Single entry with Content editor field</td></tr><tr><td>Visitor-submitted data</td><td>Public API collection — <a href="../04-integration/public-forms.html">Public forms</a></td></tr></tbody></table></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Handles in templates and API:</strong></p>
 <ul>
-<li>Collection: <code>{from 'site-elements' get entries}</code> or Public API <code>GET /api/public/collections/site-elements/entries/header</code></li>
+<li>Prefer <code>{from 'site_elements' get entry 'header'}…{endget}</code> or Public API <code>GET /api/public/collections/site_elements/entries/header</code></li>
 <li>Prefer stable entry slugs (<code>header</code>, <code>footer</code>) — referenced in HTML and build scripts.</li>
+<li>If you create a different handle (e.g. <code>site-elements</code>), templates and <code>&lt;birkly-region collection=&quot;…&quot;&gt;</code> must use <strong>that</strong> handle — engine defaults and prefetch still special-case <code>site_elements</code>.</li>
 </ul>
 <p><strong>Dynamic items inside regions:</strong> The <code>field</code> attribute points to your Dynamic items field API name (e.g. <code>blocks</code>). Block structure is defined in <a href="dynamic-items-field.html">Dynamic items field</a>.</p>
 <p><strong>Draft workflow:</strong> Keep region entries as <strong>Draft</strong> while redesigning; published site keeps the last published version until you publish updates.</p></div></details>
@@ -38,6 +42,6 @@
 <li><a href="dynamic-items-field.html">Dynamic items field</a></li>
 <li><a href="collections.html">Collections</a></li>
 <li><a href="entries.html">Entries</a></li>
-<li><a href="../04-integration/web-components.html">Web components</a></li>
+<li><a href="../03-templating/web-components.html">Web components (templating)</a></li>
 <li><a href="../03-templating/reference-projects.html">Reference projects</a></li>
 </ul></div>

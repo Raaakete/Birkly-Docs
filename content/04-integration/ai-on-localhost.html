@@ -37,7 +37,7 @@
 <li>Prefer <strong>mcp-bridge</strong> for purely local workflows — no public URL.</li>
 <li>Tunnels are for development; shut them down when finished.</li>
 <li>Never set Birkly to “open admin with no auth” to make AI connect.</li>
-<li>Production sites should already be on public HTTPS — use the normal Connector URL from Connections; no tunnel needed.</li>
+<li>Production sites should already be on public HTTPS — use the normal Connector URL from <strong>Settings → AI</strong>; no tunnel needed.</li>
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Why remote connectors fail on localhost:</strong> Cloud AI apps open OAuth and then call your MCP HTTP endpoint from their servers. Those servers cannot reach your laptop’s <code>127.0.0.1</code>. A tunnel provides a reachable HTTPS hostname; mcp-bridge avoids HTTP entirely by using stdio on the local machine.</p>
 <p><strong>Ollama:</strong> Built-in assistant provider <code>ollama</code> defaults to <code>http://localhost:11434/api/chat</code>. That path does not require a public URL because the request is <strong>outbound from PHP</strong> on the same host.</p>

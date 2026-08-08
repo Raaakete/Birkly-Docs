@@ -1,6 +1,6 @@
 <p>Conditionals show or hide parts of the page: existence of an entry, presence of a field, comparisons, and <code>or</code> / <code>else</code> branches.</p>
 <div class="doc-summary"><p><strong>In short:</strong> Wrap optional UI in <code>{if}…{endif}</code>. Check that an entry exists with <code>{if 'site_elements'.'hero' exist}</code>. Check a field with <code>{if entry has 'excerpt'}</code>. Compare values with <code>=</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>. Use <code>{else}</code> for fallbacks (placeholder image, empty-state copy).</p>
-<blockquote><p><strong>Media (M4):</strong> Empty-field branch vs placeholder screenshot — <code>media/03-templating/conditionals/screenshots/</code>.</p></blockquote></div>
+<blockquote><p><strong>Media (P2):</strong> screenshot deferred — empty-field branch vs placeholder.</p></blockquote></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Field presence</h3>
 <pre><code>{if entry has 'excerpt'}
   &lt;p class=&quot;excerpt&quot;&gt;{'excerpt'}&lt;/p&gt;

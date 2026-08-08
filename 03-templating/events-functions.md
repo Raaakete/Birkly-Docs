@@ -6,7 +6,7 @@ Template functions registered by the **Events** plugin when active — upcoming 
 
 **In short:** Use `{upcoming_events}`, `{event_ics_url}`, `{events_calendar_feed_url}`, `{event_register_url}`, and `{event_ticket_checkout_url}` when Events is installed. List pages can also use normal `{for each entry in 'events' …}` loops. Detail pages resolve one event from the URL — see [Detail pages](detail-pages-and-url-context.md).
 
-> **Media (M4):** Optional events flow video — P3 in media plan.
+> **Video (follow-along):** optional (P3) — events registration flow
 
 ## Beginner
 

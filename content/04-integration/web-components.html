@@ -9,12 +9,13 @@
 &lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;footer&quot;&gt;&lt;/birkly-region&gt;</code></pre>
 <p>Empty entry regions get a small default template (title + content, or site_elements header/footer/nav markup).</p>
 <h3>List region</h3>
-<pre><code>&lt;birkly-region collection=&quot;blog&quot; list ordered=&quot;date:desc&quot;&gt;&lt;/birkly-region&gt;</code></pre>
+<pre><code>&lt;birkly-region collection=&quot;blog&quot; list ordered=&quot;newest&quot;&gt;&lt;/birkly-region&gt;</code></pre>
+<p>Ordering words match loops: <code>newest</code>, <code>oldest</code>, <code>last-updated</code>, <code>order</code>. Do <strong>not</strong> use <code>ordered=&quot;date:desc&quot;</code>.</p>
 <p>Or supply the card markup as children (Light DOM):</p>
-<pre><code>&lt;birkly-region collection=&quot;blog&quot; list&gt;
+<pre><code>&lt;birkly-region collection=&quot;blog&quot; list ordered=&quot;newest&quot;&gt;
   &lt;article&gt;
     &lt;h2&gt;&lt;a href=&quot;/blog/{slug}&quot;&gt;{title}&lt;/a&gt;&lt;/h2&gt;
-    &lt;p&gt;{excerpt}&lt;/p&gt;
+    &lt;p&gt;{'excerpt'}&lt;/p&gt;
   &lt;/article&gt;
 &lt;/birkly-region&gt;</code></pre>
 <p>The client wraps children in <code>{for each entry in 'blog'}…{endfor}</code> when needed.</p>
@@ -38,7 +39,7 @@
 this.innerHTML = '&lt;nav&gt;…&lt;/nav&gt;';</code></pre></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Attributes</h3>
 <table><thead><tr><th>Attribute</th><th>Role</th></tr></thead>
-<tbody><tr><td><code>collection</code></td><td>Collection handle (<code>blog</code>, <code>site_elements</code>, …)</td></tr><tr><td><code>entry</code></td><td>Entry slug (entry mode)</td></tr><tr><td><code>list</code></td><td>Presence flag — list/loop mode</td></tr><tr><td><code>ordered</code></td><td>Optional sort clause for list mode (e.g. <code>date:desc</code>)</td></tr><tr><td><code>data-birkly-region</code></td><td>Explicit region root (also set automatically on <code>&lt;birkly-region&gt;</code>)</td></tr><tr><td><code>data-birkly-processed=&quot;1&quot;</code></td><td>Set after a successful render; skip unless <code>force: true</code></td></tr></tbody></table>
+<tbody><tr><td><code>collection</code></td><td>Collection handle (<code>blog</code>, <code>site_elements</code>, …)</td></tr><tr><td><code>entry</code></td><td>Entry slug (entry mode)</td></tr><tr><td><code>list</code></td><td>Presence flag — list/loop mode</td></tr><tr><td><code>ordered</code></td><td>Optional sort for list mode: <code>newest</code>, <code>oldest</code>, <code>last-updated</code>, <code>order</code></td></tr><tr><td><code>data-birkly-region</code></td><td>Explicit region root (also set automatically on <code>&lt;birkly-region&gt;</code>)</td></tr><tr><td><code>data-birkly-processed=&quot;1&quot;</code></td><td>Set after a successful render; skip unless <code>force: true</code></td></tr></tbody></table>
 <h3>Lifecycle</h3>
 <ol>
 <li>Page load → <code>Birkly.processTemplates()</code> discovers outermost regions (syntax <strong>or</strong> explicit <code>data-birkly-region</code> / <code>&lt;birkly-region&gt;</code>).</li>

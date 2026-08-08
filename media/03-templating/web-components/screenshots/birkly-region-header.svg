@@ -1,28 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="840" height="320" viewBox="0 0 840 320" role="img" aria-labelledby="title desc">
-  <title id="title">birkly-region header pattern</title>
-  <desc id="desc">One-line birkly-region for site_elements header and child HTML override.</desc>
-  <defs>
-    <style>
-      .bg { fill: #f7f6f3; }
-      .card { fill: #fff; stroke: #d8d4cc; stroke-width: 1.5; }
-      .label { font: 700 15px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #1c1b19; }
-      .code { font: 12.5px "IBM Plex Mono", ui-monospace, monospace; fill: #1c1b19; }
-      .muted { font: 11px "IBM Plex Sans", sans-serif; fill: #6e695f; }
-      .sub { font: 600 12px "IBM Plex Sans", sans-serif; fill: #5c574e; }
-    </style>
-  </defs>
-  <rect class="bg" width="840" height="320"/>
-  <text x="28" y="34" class="label">Regions  &lt;birkly-region&gt;</text>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="400" viewBox="0 0 880 400" role="img" aria-labelledby="title desc">
+<title id="title">birkly-region header and list markup</title>
+<desc id="desc">Shared chrome and list regions using birkly-region</desc>
 
-  <rect class="card" x="24" y="60" width="792" height="90" rx="10"/>
-  <text x="44" y="88" class="sub">One-line entry region</text>
-  <text x="44" y="118" class="code">&lt;birkly-region collection="site_elements" entry="header"&gt;&lt;/birkly-region&gt;</text>
+<defs>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#2f5d4a"/>
+  </marker>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f7f5ef"/>
+    <stop offset="100%" stop-color="#efebe2"/>
+  </linearGradient>
+</defs>
+<rect width="880" height="400" fill="url(#bg)"/>
+<text x="36" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1f2a24">Regions: &lt;birkly-region&gt;</text>
+<text x="36" y="56" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Shared header/footer on every page; list regions accept ordered="newest" or ordered="order".</text>
 
-  <rect class="card" x="24" y="168" width="792" height="110" rx="10"/>
-  <text x="44" y="196" class="sub">Child HTML override + list ordering</text>
-  <text x="44" y="226" class="code">&lt;birkly-region collection="blog" list ordered="newest"&gt;</text>
-  <text x="44" y="248" class="code">  &lt;article&gt;&lt;h2&gt;{title}&lt;/h2&gt;&lt;/article&gt;</text>
-  <text x="44" y="270" class="code">&lt;/birkly-region&gt;</text>
+  <rect x="36" y="78" width="400" height="280" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="36" y="78" width="400" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="36" y="98" width="400" height="12" fill="#ebe6db"/>
+  <text x="50" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Entry region (chrome)</text>
+<rect x="50" y="128" width="372" height="204" rx="6" fill="#f7f4ed" stroke="#c5c0b4"/>
+<text x="64" y="156" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;birkly-region</text>
+<text x="64" y="172" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  collection=&quot;site_elements&quot;</text>
+<text x="64" y="188" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  entry=&quot;header&quot;&gt;</text>
+<text x="64" y="204" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;header class=&quot;site-header&quot;&gt;</text>
+<text x="64" y="220" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">    {'content'}</text>
+<text x="64" y="236" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;/header&gt;</text>
+<text x="64" y="252" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;/birkly-region&gt;</text>
 
-  <text x="28" y="305" class="muted">ordered="newest|oldest|last-updated|order"  not date:desc. Enhance-only: never wipe innerHTML of CMS regions.</text>
+  <rect x="460" y="78" width="384" height="280" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="460" y="78" width="384" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="460" y="98" width="384" height="12" fill="#ebe6db"/>
+  <text x="474" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">List region</text>
+<rect x="474" y="128" width="356" height="204" rx="6" fill="#f7f4ed" stroke="#c5c0b4"/>
+<text x="488" y="156" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;birkly-region</text>
+<text x="488" y="172" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  collection=&quot;blog&quot;</text>
+<text x="488" y="188" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  list</text>
+<text x="488" y="204" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  ordered=&quot;newest&quot;&gt;</text>
+<text x="488" y="220" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;article&gt;&lt;h2&gt;{title}&lt;/h2&gt;&lt;/article&gt;</text>
+<text x="488" y="236" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;/birkly-region&gt;</text>
+<text x="488" y="252" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</text>
 </svg>

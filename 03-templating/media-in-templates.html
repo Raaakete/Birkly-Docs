@@ -183,7 +183,7 @@
       <div class="content doc-body">
         <div class="doc-content"><p>Show images and files by outputting the <strong>field value</strong> (filename or URL) into normal HTML — there is no <code>{ media … }</code> helper in the public template language.</p>
 <div class="doc-summary"><p><strong>In short:</strong> Store a filename or media ref on an <code>image</code> / <code>media</code> / <code>gallery</code> field, then print it with <code>{'featured_image'}</code> (quoted user field). Put that value in <code>&lt;img src=&quot;…&quot;&gt;</code> or <code>&lt;a href=&quot;…&quot;&gt;</code>. Always guard empty fields with <code>{if entry has 'featured_image'}</code>. Build public URLs from your CMS media path (often <code>/media/…</code> — confirm with the Media library).</p>
-<blockquote><p><strong>Media (M4):</strong> Media pick + <code>&lt;img&gt;</code> in template screenshot — <code>media/03-templating/media-in-templates/screenshots/</code>.</p></blockquote></div>
+<blockquote><p><strong>Media (P2):</strong> screenshot deferred — media pick + <code>&lt;img&gt;</code> in template.</p></blockquote></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Single image field</h3>
 <p>Collection field e.g. <code>featured_image</code> (type <code>image</code>). Entry stores a filename such as <code>hero-bread.jpg</code>.</p>
 <pre><code>{if entry has 'featured_image'}

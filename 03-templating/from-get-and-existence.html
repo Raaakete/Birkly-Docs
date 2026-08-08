@@ -183,7 +183,7 @@
       <div class="content doc-body">
         <div class="doc-content"><p>Load one named entry with <code>{from … get …}</code>, and guard optional chrome with <code>{if 'collection'.'entry' exist}</code>.</p>
 <div class="doc-summary"><p><strong>In short:</strong> Use <code>{from 'site_elements' get entry 'header'}…{endget}</code> for a single known entry (header, footer, one-off page block). If that entry is missing, the whole block disappears. Use <code>{if 'site_elements'.'hero' exist}</code> when you need an explicit branch. This is <strong>not</strong> the same as <code>{entry for}</code> (forms) or the phantom <code>{entry 'x'.'y'}…{endentry}</code>.</p>
-<blockquote><p><strong>Media (M4):</strong> Before/after missing entry block — <code>media/03-templating/from-get-and-existence/screenshots/</code>.</p></blockquote></div>
+<blockquote><p><strong>Media (P2):</strong> screenshot deferred — before/after missing <code>{from … get …}</code> block.</p></blockquote></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Block form (multiple fields)</h3>
 <pre><code>{from 'site_elements' get entry 'blog_headline'}
   &lt;h1&gt;{'content'.0.'value'}&lt;/h1&gt;

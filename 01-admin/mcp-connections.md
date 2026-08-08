@@ -122,7 +122,7 @@ php scripts/migrate-ai-agents-hybrid.php
 
 ## Requirements
 
-- Your Birkly site must use a **public HTTPS** address for external AI apps. Local or HTTP-only installs show a warning in Settings / Connections and will not work with remote connectors that call `http://localhost/mcp`.
+- Your Birkly site must use a **public HTTPS** address for external AI apps. Local or HTTP-only installs show a warning under **Settings → AI** and will not work with remote connectors that call `http://localhost/mcp`.
 
 ### Localhost and local development
 

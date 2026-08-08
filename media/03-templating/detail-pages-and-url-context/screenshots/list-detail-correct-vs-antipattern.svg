@@ -1,64 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520" role="img" aria-labelledby="title desc">
-  <title id="title">Detail pages: correct URL context vs anti-pattern</title>
-  <desc id="desc">Left: list links with collection and slug; detail page uses title and content without a collection loop. Right: wrong detail page that loops the whole collection.</desc>
-  <defs>
-    <style>
-      .bg { fill: #f7f6f3; }
-      .card { fill: #ffffff; stroke: #d8d4cc; stroke-width: 1.5; }
-      .ok { fill: #e8f5ee; stroke: #2f6f4e; }
-      .bad { fill: #fceeed; stroke: #a33b3b; }
-      .label { font: 700 15px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #1c1b19; }
-      .sub { font: 600 12px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #5c574e; }
-      .code { font: 12px "IBM Plex Mono", ui-monospace, monospace; fill: #1c1b19; }
-      .muted { font: 11px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #6e695f; }
-      .chip-ok { fill: #2f6f4e; }
-      .chip-bad { fill: #a33b3b; }
-      .chip-text { font: 700 11px "IBM Plex Sans", "Segoe UI", sans-serif; fill: #fff; }
-    </style>
-  </defs>
-  <rect class="bg" width="920" height="520" rx="0"/>
-  <text x="32" y="36" class="label">List � detail: correct vs anti-pattern</text>
-  <text x="32" y="56" class="muted">Birkly templating  URL context on detail pages</text>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420" role="img" aria-labelledby="title desc">
+<title id="title">Detail page: correct URL context vs looping the collection</title>
+<desc id="desc">Side-by-side comparison of wrong detail loop and correct single-entry markup</desc>
 
-  <!-- Correct -->
-  <rect class="card ok" x="28" y="78" width="420" height="410" rx="10"/>
-  <rect class="chip-ok" x="48" y="96" width="72" height="22" rx="4"/>
-  <text x="62" y="111" class="chip-text">CORRECT</text>
-  <text x="132" y="112" class="sub">Detail uses URL context</text>
+<defs>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#2f5d4a"/>
+  </marker>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f7f5ef"/>
+    <stop offset="100%" stop-color="#efebe2"/>
+  </linearGradient>
+</defs>
+<rect width="920" height="420" fill="url(#bg)"/>
+<text x="40" y="36" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1f2a24">Detail pages: list loop vs URL context</text>
+<text x="40" y="58" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">List links use ?collection=&amp;slug= — the detail page must not wrap the body in a collection loop.</text>
 
-  <text x="48" y="150" class="sub">List link</text>
-  <rect x="48" y="160" width="380" height="70" rx="6" fill="#f3f1ec" stroke="#cfc9bd"/>
-  <text x="60" y="182" class="code">{for each entry in 'blog' &}</text>
-  <text x="60" y="202" class="code">  &lt;a href="post.html?collection=blog&amp;slug={slug}"&gt;</text>
-  <text x="60" y="222" class="code">{endfor}</text>
+  <rect x="40" y="80" width="400" height="300" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="40" y="80" width="400" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="40" y="100" width="400" height="12" fill="#ebe6db"/>
+  <text x="54" y="101" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Anti-pattern (wrong)</text>
 
-  <text x="48" y="262" class="sub">Detail page body</text>
-  <rect x="48" y="272" width="380" height="120" rx="6" fill="#f3f1ec" stroke="#cfc9bd"/>
-  <text x="60" y="294" class="code">&lt;meta name="birkly-collection" content="blog"&gt;</text>
-  <text x="60" y="314" class="code">&lt;h1&gt;{title}&lt;/h1&gt;</text>
-  <text x="60" y="334" class="code">&lt;div&gt;{'content'}&lt;/div&gt;</text>
-  <text x="60" y="354" class="code">&lt;!-- no {for each entry in 'blog'} --&gt;</text>
-  <text x="60" y="374" class="code">&lt;script src="/birkly-client.js"&gt;&lt;/script&gt;</text>
+  <rect x="54" y="122" width="72" height="24" rx="4" fill="#f3e8e6" stroke="#8a4538" stroke-width="1.5"/>
+  <text x="90" y="138" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#6b3228">Avoid</text>
+<rect x="54" y="160" width="372" height="190" rx="6" fill="#f7f4ed" stroke="#c5c0b4"/>
+<text x="68" y="186" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;!-- detail.html — WRONG --&gt;</text>
+<text x="68" y="202" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{for each entry in 'blog'}</text>
+<text x="68" y="218" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;h1&gt;{title}&lt;/h1&gt;</text>
+<text x="68" y="234" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  &lt;div&gt;{'content'}&lt;/div&gt;</text>
+<text x="68" y="250" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">{endfor}</text>
+<text x="68" y="266" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24"></text>
+<text x="68" y="282" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">Always shows a list / wrong item</text>
 
-  <text x="48" y="430" class="muted">Result: one entry matching ?slug=&</text>
-  <text x="48" y="452" class="muted">Sub-collections: of 'blog'.current</text>
+  <rect x="480" y="80" width="400" height="300" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="480" y="80" width="400" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="480" y="100" width="400" height="12" fill="#ebe6db"/>
+  <text x="494" y="101" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Correct pattern</text>
 
-  <!-- Wrong -->
-  <rect class="card bad" x="472" y="78" width="420" height="410" rx="10"/>
-  <rect class="chip-bad" x="492" y="96" width="88" height="22" rx="4"/>
-  <text x="508" y="111" class="chip-text">ANTI-PATTERN</text>
-  <text x="592" y="112" class="sub">Detail loops whole collection</text>
-
-  <text x="492" y="150" class="sub">Wrong detail page</text>
-  <rect x="492" y="160" width="380" height="130" rx="6" fill="#f3f1ec" stroke="#cfc9bd"/>
-  <text x="504" y="182" class="code">{for each entry in 'blog'}</text>
-  <text x="504" y="202" class="code">  &lt;h1&gt;{title}&lt;/h1&gt;</text>
-  <text x="504" y="222" class="code">  &lt;div&gt;{'content'}&lt;/div&gt;</text>
-  <text x="504" y="242" class="code">{endfor}</text>
-  <text x="504" y="272" class="code">&lt;!-- always a list / wrong item --&gt;</text>
-
-  <text x="492" y="330" class="muted">Symptom: detail URL still shows every post,</text>
-  <text x="492" y="350" class="muted">or the wrong post  never a single entry.</text>
-  <text x="492" y="390" class="muted">Fix: remove the collection loop; read fields</text>
-  <text x="492" y="410" class="muted">from URL context (?collection=&amp;slug=).</text>
+  <rect x="494" y="122" width="78" height="24" rx="4" fill="#e8f0ea" stroke="#3d6b4f" stroke-width="1.5"/>
+  <text x="533" y="138" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#2a4f38">Correct</text>
+<rect x="494" y="160" width="372" height="190" rx="6" fill="#f7f4ed" stroke="#c5c0b4"/>
+<text x="508" y="186" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;!-- post.html?collection=blog&amp;slug=… --&gt;</text>
+<text x="508" y="202" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;meta name=&quot;birkly-collection&quot; content=&quot;blog&quot;&gt;</text>
+<text x="508" y="218" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;h1&gt;{title}&lt;/h1&gt;</text>
+<text x="508" y="234" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;div&gt;{'content'}&lt;/div&gt;</text>
+<text x="508" y="250" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</text>
+<text x="508" y="266" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24"></text>
+<text x="508" y="282" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">Reads the current entry from the URL</text>
 </svg>

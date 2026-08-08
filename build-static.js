@@ -36,6 +36,7 @@ function mdToHtml(md) {
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.+?)\*/g, '<em>$1</em>')
       .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, u) => '<img class="doc-figure" src="' + escape(u) + '" alt="' + escape(alt) + '">')
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, t, u) => '<a href="' + escape(u) + '">' + escape(t) + '</a>');
     return s;
   };

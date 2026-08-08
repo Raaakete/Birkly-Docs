@@ -183,8 +183,8 @@
       <div class="content doc-body">
         <div class="doc-content"><p>How a single-entry page (blog post, product, event) reads the <strong>current</strong> entry from the URL — and the #1 anti-pattern: looping the whole collection on the detail page.</p>
 <div class="doc-summary"><p><strong>In short:</strong> List pages link with <code>?collection=YOUR_COLL&amp;slug={slug}</code>. The detail page prints <code>{title}</code>, <code>{'content'}</code>, etc. for <strong>that</strong> entry — it must <strong>not</strong> wrap the body in <code>{for each entry in 'YOUR_COLL'}</code>. Sub-collections use <code>of 'blog'.current</code>.</p>
-<p>!<a href="../media/03-templating/detail-pages-and-url-context/screenshots/list-detail-correct-vs-antipattern.svg">Correct list→detail vs anti-pattern looping the collection</a></p>
-<blockquote><p><strong>Video (follow-along):</strong> multi-step list → detail → back — <code>media/03-templating/detail-pages-and-url-context/videos/</code></p></blockquote></div>
+<p><img class="doc-figure" src="../media/03-templating/detail-pages-and-url-context/screenshots/list-detail-correct-vs-antipattern.svg" alt="Correct list→detail vs anti-pattern looping the collection"></p>
+<blockquote><p><strong>Video (follow-along):</strong> coming — multi-step recording (list → detail URL → back)</p></blockquote></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>List → detail link</h3>
 <p>On the list page, inside a loop:</p>
 <pre><code>{for each entry in 'blog' with status = published ordered by newest}

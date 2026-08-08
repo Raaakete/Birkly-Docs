@@ -81,13 +81,13 @@ Follow the admin workflow strip on the Overview tab:
 
 Summaries in Context and Products should **reflect** your declared sources — not invent parallel truth.
 
-Once your Guide is published, consider the other two hub tabs: turn on **Tools** if you want visitor-facing AI helpers to use your public forms (or Commerce/Events actions), and check **Connections** if you haven't already connected an AI app to your Birkly CMS.
+Once your Guide is published, consider the other hub tabs: turn on **Tools** if you want visitor-facing AI helpers to use your public forms (or Commerce/Events actions), and open **Settings → AI** if you haven't already connected an AI app to your Birkly CMS.
 
 ## Where to find it
 
 Admin sidebar → **Agent Guide** (between Media and Marketplace).
 
-**URLs:** `/admin/?page=agent-guide` (legacy alias: `?page=ai-presence`). Deep-link a specific hub tab with `&zone=guide|tools|connections|publish` (e.g. `?page=agent-guide&zone=tools`); the default is `guide`.
+**URLs:** `/admin/?page=agent-guide` (legacy alias: `?page=ai-presence`). Deep-link a specific hub tab with `&zone=guide|tools|publish` (e.g. `?page=agent-guide&zone=tools`); the default is `guide`. AI app connections are **Settings → AI** (`?page=settings&tab=ai`), not an Agent Guide zone.
 
 **Permissions:**
 
@@ -191,7 +191,7 @@ Not guaranteed. You make discovery easier via well-known JSON, public API, and J
 Yes. Only **published** snapshots are public. Disable publishing or don’t publish until ready.
 
 **Do I need AI connections configured?**  
-No. Rule-based suggestions and manual editing work without AI. Connections unlock Copilot, Fill 100%, and smarter suggestions.
+No. Rule-based suggestions and manual editing work without AI. Connecting a provider under **Settings → AI** unlocks Copilot, Fill 100%, and smarter suggestions.
 
 **Do I need a vector database?**  
 No. Agent Guide is **curated truth + evidence + source links** — the right model for “what is officially true about our brand?” Vector search helps **fuzzy search over huge unstructured archives** (e.g. support tickets). That is a different product problem; optional semantic search could be a **future plugin**, not core CMS.

@@ -8,7 +8,7 @@ How a single-entry page (blog post, product, event) reads the **current** entry 
 
 ![Correct list→detail vs anti-pattern looping the collection](../media/03-templating/detail-pages-and-url-context/screenshots/list-detail-correct-vs-antipattern.svg)
 
-> **Video (follow-along):** multi-step list → detail → back — `media/03-templating/detail-pages-and-url-context/videos/`
+> **Video (follow-along):** coming — multi-step recording (list → detail URL → back)
 
 ## Beginner
 

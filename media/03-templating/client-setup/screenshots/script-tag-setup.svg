@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="360" viewBox="0 0 880 360" role="img" aria-labelledby="title desc">
+<title id="title">birkly-client.js script tag setup</title>
+<desc id="desc">Same-host and external-site script tag examples</desc>
+
+<defs>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#2f5d4a"/>
+  </marker>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f7f5ef"/>
+    <stop offset="100%" stop-color="#efebe2"/>
+  </linearGradient>
+</defs>
+<rect width="880" height="360" fill="url(#bg)"/>
+<text x="36" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1f2a24">Load birkly-client.js on every templated page</text>
+<text x="36" y="56" font-family="system-ui, sans-serif" font-size="13" fill="#5c665f">Without the script, visitors see raw {for each…} text.</text>
+
+  <rect x="36" y="78" width="390" height="240" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="36" y="78" width="390" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="36" y="98" width="390" height="12" fill="#ebe6db"/>
+  <text x="50" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">Same host (project / CMS)</text>
+<rect x="50" y="128" width="362" height="160" rx="6" fill="#f7f4ed" stroke="#c5c0b4"/>
+<text x="64" y="158" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</text>
+<text x="64" y="174" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24"></text>
+<text x="64" y="190" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">Optional helpers:</text>
+<text x="64" y="206" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;script src=&quot;/birkly-components.js&quot;&gt;&lt;/script&gt;</text>
+
+  <rect x="454" y="78" width="390" height="240" rx="8" fill="#fbfaf7" stroke="#c5c0b4" stroke-width="1.5"/>
+  <rect x="454" y="78" width="390" height="32" rx="8" fill="#ebe6db"/>
+  <rect x="454" y="98" width="390" height="12" fill="#ebe6db"/>
+  <text x="468" y="99" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" fill="#1f2a24">External website</text>
+<rect x="468" y="128" width="362" height="160" rx="6" fill="#f7f4ed" stroke="#c5c0b4"/>
+<text x="482" y="158" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;script</text>
+<text x="482" y="174" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  src=&quot;https://cms.example.com/birkly-client.js&quot;</text>
+<text x="482" y="190" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">  data-cms-url=&quot;https://cms.example.com&quot;&gt;</text>
+<text x="482" y="206" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">&lt;/script&gt;</text>
+<text x="482" y="222" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24"></text>
+<text x="482" y="238" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#1f2a24">data-cms-url must point at the CMS</text>
+</svg>

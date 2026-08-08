@@ -67,15 +67,27 @@ This index lists every documentation topic and its file path. Use it for navigat
 
 | Topic | File | Description |
 |-------|------|-------------|
-| Templating overview | `03-templating/templating-overview.md` | How templates and the client work |
-| Variables and output | `03-templating/variables-and-output.md` | `{ variable }`, safe output |
-| Loops and lists | `03-templating/loops-and-lists.md` | `{for each entry in 'collection'}` |
-| Conditionals | `03-templating/conditionals.md` | `{if}`, `{endif}`, “has” checks |
-| Dates and formatting | `03-templating/dates-and-formatting.md` | Date formats in templates |
-| Media in templates | `03-templating/media-in-templates.md` | `{ media }` and image options |
-| Web components (templating) | `03-templating/web-components.md` | Region patterns, Light DOM, enhance-only anti-patterns |
-| Commerce functions | `03-templating/commerce-functions.md` | Commerce plugin template functions (cart, buy URL) |
-| Reference projects | `03-templating/reference-projects.md` | Six starter sites; live client only; install script |
+| Templating overview | `03-templating/templating-overview.md` | Mental model, learning path, Light/Shadow |
+| Canonical syntax | `03-templating/canonical-syntax.md` | SSOT pointer + phantoms (aligns to TEMPLATE_LANGUAGE_SPEC) |
+| Client setup | `03-templating/client-setup.md` | `birkly-client.js`, `data-cms-url`, SSR vs client |
+| Variables and output | `03-templating/variables-and-output.md` | `{title}` vs `{'field'}`, system variables |
+| Loops and lists | `03-templating/loops-and-lists.md` | `with`, `ordered by`, `limit N`; no phantom sort= |
+| Detail pages & URL context | `03-templating/detail-pages-and-url-context.md` | `.current`, list→detail, anti-patterns |
+| Conditionals | `03-templating/conditionals.md` | Existence, has, comparisons, or/else |
+| From…get / existence | `03-templating/from-get-and-existence.md` | `{from … get …}`, exist checks |
+| Sub-collections in templates | `03-templating/sub-collections-in-templates.md` | `of 'blog'.current` |
+| Dates and formatting | `03-templating/dates-and-formatting.md` | `{created_at format "…"}` |
+| Media in templates | `03-templating/media-in-templates.md` | Image fields, empty guards (no `{ media }` helper) |
+| Public forms templating | `03-templating/public-forms-templating.md` | `{entry for}`, known-bad fetch patterns |
+| Multilingual templating | `03-templating/multilingual-templating.md` | Language switcher, `{current.language}` |
+| Web components (templating) | `03-templating/web-components.md` | Regions, `ordered="newest"`, enhance-only |
+| Plugin language extensions | `03-templating/plugin-language-extensions.md` | Plugin helpers vs core cascade |
+| Commerce functions | `03-templating/commerce-functions.md` | Commerce plugin template functions |
+| Events functions | `03-templating/events-functions.md` | Events plugin template functions |
+| Storefront and events patterns | `03-templating/storefront-patterns.md` | Shop + events page recipes |
+| Worked site walkthrough | `03-templating/worked-site-walkthrough.md` | End-to-end tutorial |
+| Cheat sheet | `03-templating/cheat-sheet.md` | Quick reference + phantoms |
+| Reference projects | `03-templating/reference-projects.md` | Six starter sites; live client only |
 | Production optimization | `03-templating/production-optimization.md` | Optional hydrate/snapshot/bake (advanced) |
 
 ## 04 — Studio

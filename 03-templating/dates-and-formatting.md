@@ -1,118 +1,92 @@
-# Dates and Formatting
+# Dates and formatting
 
-Birkly templates let you output date (and optionally time) fields in a chosen format—e.g. “January 5, 2025” or “2025-01-05”—using format strings.
+Format system date fields (`created_at`, `updated_at`, `published_at`, and date-typed custom fields when exposed) with the **`format`** filter — PHP-style tokens inside double quotes.
 
 ## Summary
 
-To **format a date** in a template, use the date field with a format string: e.g. `{ date "F j, Y" }` for “January 5, 2025” or `{ published_date "Y-m-d" }` for “2025-01-05”. The format uses placeholders: **F** = full month name, **j** = day without leading zero, **Y** = 4-digit year, **m** = month number, **d** = day with leading zero. The same idea applies to DateTime fields for time (e.g. **H** hour, **i** minute). Check your Birkly version for the exact syntax (e.g. `{ date_field "format" }`).
+**In short:** Write `{created_at format "F j, Y"}` for “January 5, 2025”, or `{created_at format "Y-m-d"}` for `2025-01-05`. Bare `{created_at}` defaults to `Y-m-d`. There is **no** `{ date "…" }` helper — that form is a phantom and will not work.
+
+> **Media (M4):** Same timestamp with three `format` strings — `media/03-templating/dates-and-formatting/screenshots/`.
 
 ## Beginner
 
-Dates in the CMS are stored in a standard way (e.g. 2025-01-05). On the website you often want them to look different: “January 5, 2025” or “5 Jan 2025” or “05.01.2025”. You control this with a **format string** in the template.
-
-**Basic syntax**
-
-- Write the date field name, then a space and a format string in quotes: `{ date "F j, Y" }`.
-- Replace `date` with your field key if it’s different (e.g. `published_date`, `event_date`).
-- **Inside a loop**, `{ date "F j, Y" }` uses the **current entry’s** date.
-
-**Common formats (examples)**
-
-| What you want | Format string | Example output |
-|---------------|---------------|----------------|
-| Full date, readable | `F j, Y` | January 5, 2025 |
-| Short month | `M j, Y` | Jan 5, 2025 |
-| Numbers only (ISO-style) | `Y-m-d` | 2025-01-05 |
-| European style | `d.m.Y` | 05.01.2025 |
-| With weekday | `l, F j, Y` | Sunday, January 5, 2025 |
-
-**Example: blog post date**
+### Correct syntax
 
 ```html
-<time datetime="{ date "Y-m-d" }">{ date "F j, Y" }</time>
+<time datetime="{created_at}">{created_at format "F j, Y"}</time>
 ```
 
-- `datetime="2025-01-05"` is good for accessibility and SEO (machine-readable).
-- The visible text can be “January 5, 2025”.
-
-**Example: event with time**
-
-If the field is a DateTime (date + time), you can include time placeholders:
+Inside a loop:
 
 ```html
-<span>{ event_date "F j, Y \a\t g:i A" }</span>
+{for each entry in 'blog' with status = published ordered by newest}
+  <h2>{title}</h2>
+  <time>{created_at format "F j, Y"}</time>
+{endfor}
 ```
 
-That might output “January 5, 2025 at 2:30 PM”. Exact support depends on your engine; see Advanced for placeholders.
+### Common formats
 
-**What the letters mean (quick reference)**
+| Goal | Template | Example |
+|------|----------|---------|
+| Default / ISO date | `{created_at}` or `{created_at format "Y-m-d"}` | 2025-01-05 |
+| Readable | `{created_at format "F j, Y"}` | January 5, 2025 |
+| Date + time | `{created_at format "Y-m-d H:i"}` | 2025-01-05 16:45 |
+| US style | `{created_at format "m/d/Y"}` | 01/05/2025 |
+| Full datetime | `{created_at format "Y-m-d H:i:s"}` | 2025-01-05 16:45:00 |
 
-- **Y** — 4-digit year (2025)
-- **F** — Full month name (January)
-- **M** — Short month (Jan)
-- **j** — Day of month, no leading zero (5)
-- **d** — Day of month, with leading zero (05)
-- **l** — Full weekday name (Sunday) — if supported
-- **H** / **i** / **s** — Hour (24h), minute, second — for time
-- **g** / **i** / **A** — Hour (12h), minute, AM/PM — if supported
+### Format letters (supported set)
 
-Your engine may follow PHP-style date format; see the table in Advanced for a fuller list.
+| Code | Meaning |
+|------|---------|
+| `Y` | 4-digit year |
+| `m` | Month 01–12 |
+| `d` | Day 01–31 |
+| `H` | Hour 00–23 |
+| `i` | Minutes |
+| `s` | Seconds |
+| `F` | Full month name |
+| `j` | Day without leading zero |
+
+Stick to this table — extra PHP tokens may not be implemented in the client.
+
+### Guard empty dates
+
+```html
+{if entry has created_at}
+  <time>{created_at format "F j, Y"}</time>
+{endif}
+```
 
 ## Advanced Users
 
-**Syntax**
+### For developers & AI
 
-- **Pattern:** `{ date_field_name "format_string" }`. The format string is usually PHP-style (`date()` / `strftime()`-like tokens).
-- **DateTime fields:** Same pattern; add time tokens (H, i, s, g, A, etc.) to include time in the output.
+**Canonical form (TEMPLATE_LANGUAGE_SPEC)**
 
-**Common format characters (PHP-style)**
+```text
+{created_at format "Y-m-d H:i"}
+```
 
-| Character | Meaning | Example |
-|-----------|----------|--------|
-| Y | 4-digit year | 2025 |
-| y | 2-digit year | 25 |
-| F | Full month name | January |
-| M | Short month name | Jan |
-| m | Month number, leading zero | 01 |
-| n | Month number, no leading zero | 1 |
-| d | Day of month, leading zero | 05 |
-| j | Day of month, no leading zero | 5 |
-| l | Full weekday name | Sunday |
-| D | Short weekday name | Sun |
-| H | Hour 24h, leading zero | 14 |
-| i | Minutes | 30 |
-| s | Seconds | 00 |
-| g | Hour 12h, no leading zero | 2 |
-| A | AM/PM | PM |
+- Filter name is **`format`** (only date filter today).  
+- Applies to system date fields such as `created_at`, `updated_at`, `published_at`.  
+- **Not implemented:** `truncate`, `strip_tags`, relative “2 days ago”, `{ date "…" }`.
 
-**Examples**
+**Phantoms**
 
-| Format | Output |
-|--------|--------|
-| `F j, Y` | January 5, 2025 |
-| `M j, Y` | Jan 5, 2025 |
-| `Y-m-d` | 2025-01-05 (ISO date) |
-| `d.m.Y` | 05.01.2025 |
-| `m/d/Y` | 01/05/2025 |
-| `l, F j, Y` | Sunday, January 5, 2025 |
-| `H:i` | 14:30 |
-| `g:i A` | 2:30 PM |
-| `F j, Y \a\t g:i A` | January 5, 2025 at 2:30 PM |
+| Wrong | Right |
+|-------|-------|
+| `{ date "F j, Y" }` | `{created_at format "F j, Y"}` |
+| `{ published_date "Y-m-d" }` | `{published_at format "Y-m-d"}` (or your real field + `format`) |
+| `{created_at "Y-m-d"}` (missing `format`) | `{created_at format "Y-m-d"}` |
 
-**Escaping literal text**
+**Ordering vs display**
 
-In some engines, characters that are not format tokens must be escaped (e.g. `\a\t` for “at”). Check the engine docs.
-
-**Time zones**
-
-Stored dates may be in UTC or server time. Output is typically in the same; time zone conversion (e.g. to user’s local time) may require client-side JavaScript or server-side time zone handling depending on your setup.
-
-**Relative dates**
-
-“2 days ago” or “next week” are usually not built into the template language. Implement via a custom helper or client-side script if needed.
+Sorting uses `ordered by newest` / `oldest` (`created_at`), not format strings. See [Loops and lists](loops-and-lists.md).
 
 ## Related
 
 - [Variables and output](variables-and-output.md)
-- [Templating overview](templating-overview.md)
-- [Field types](../02-content/field-types.md)
+- [Loops and lists](loops-and-lists.md)
+- [Canonical syntax](canonical-syntax.md)
+- [Cheat sheet](cheat-sheet.md)

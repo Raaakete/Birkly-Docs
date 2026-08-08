@@ -1,0 +1,49 @@
+<p>Load one named entry with <code>{from … get …}</code>, and guard optional chrome with <code>{if 'collection'.'entry' exist}</code>.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Use <code>{from 'site_elements' get entry 'header'}…{endget}</code> for a single known entry (header, footer, one-off page block). If that entry is missing, the whole block disappears. Use <code>{if 'site_elements'.'hero' exist}</code> when you need an explicit branch. This is <strong>not</strong> the same as <code>{entry for}</code> (forms) or the phantom <code>{entry 'x'.'y'}…{endentry}</code>.</p>
+<blockquote><p><strong>Media (M4):</strong> Before/after missing entry block — <code>media/03-templating/from-get-and-existence/screenshots/</code>.</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Block form (multiple fields)</h3>
+<pre><code>{from 'site_elements' get entry 'blog_headline'}
+  &lt;h1&gt;{'content'.0.'value'}&lt;/h1&gt;
+  &lt;p class=&quot;page-subtitle&quot;&gt;{'content'.1.'value'}&lt;/p&gt;
+{endget}</code></pre>
+<ul>
+<li>First quoted name: <strong>collection</strong>.</li>
+<li>After <code>entry</code>: <strong>slug or id</strong> (not the title).</li>
+<li>Inside the block, fields refer to that entry.</li>
+</ul>
+<h3>Inline form (one value)</h3>
+<pre><code>{from 'site_elements'.'blog_headline' get 'content'.0.'value'}</code></pre>
+<h3>Existence check</h3>
+<pre><code>{if 'site_elements'.'hero' exist}
+  {from 'site_elements' get entry 'hero'}
+    &lt;section class=&quot;hero&quot;&gt;{'content'}&lt;/section&gt;
+  {endget}
+{else}
+  &lt;!-- optional fallback --&gt;
+{endif}</code></pre>
+<h3>Array field picks on the current entry</h3>
+<pre><code>{from 'tags' get item.1}
+{from 'tags' get item.newest}
+{from 'tags' get item.oldest}
+{from 'tags' get item.'cms'}</code></pre></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Canonical rules (TEMPLATE_LANGUAGE_SPEC)</strong></p>
+<ul>
+<li>Block close tag is <code>{endget}</code> (not <code>{endentry}</code>).</li>
+<li>Phantom rejected by validator: <code>{entry 'blog'.'slug'}…{endentry}</code>.</li>
+<li>Forms use <code>{entry for 'contact'}…{endentry}</code> — different directive.</li>
+<li>Missing entry → entire <code>{from}…{endget}</code> block removed.</li>
+<li><code>site_elements</code> is always prefetched on <code>processTemplates</code>; other collections add <code>get_entry</code> / <code>list_entries</code> via the page bundle.</li>
+</ul>
+<p><strong>Newest shorthand</strong></p>
+<pre><code>{from 'blog' get newest entry.title}</code></pre>
+<p><strong>Vs URL detail pages</strong></p>
+<table><thead><tr><th>Need</th><th>Use</th></tr></thead>
+<tbody><tr><td>Entry from link / query</td><td><a href="detail-pages-and-url-context.html">Detail pages</a> — <code>{title}</code> at top level</td></tr><tr><td>Named chrome / singleton</td><td><code>{from 'coll' get entry 'slug'}</code></td></tr><tr><td>Visitor form</td><td><code>{entry for 'coll'}</code></td></tr></tbody></table></div></details>
+<div class="doc-related"><ul>
+<li><a href="conditionals.html">Conditionals</a></li>
+<li><a href="variables-and-output.html">Variables and output</a></li>
+<li><a href="../02-content/site-elements-pattern.html">Site elements pattern</a></li>
+<li><a href="web-components.html">Web components</a></li>
+<li><a href="canonical-syntax.html">Canonical syntax</a></li>
+</ul></div>

@@ -70,17 +70,26 @@
         <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
-        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="client-setup.html" class="nav-link">Client setup</a>
         <a href="variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
         <a href="conditionals.html" class="nav-link active">Conditionals</a>
+        <a href="from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
         <a href="commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="events-functions.html" class="nav-link">Events functions</a>
         <a href="storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="reference-projects.html" class="nav-link">Reference projects</a>
         <a href="production-optimization.html" class="nav-link">Production optimization</a>
         </div>
@@ -172,81 +181,82 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Conditionals in Birkly templates let you show or hide parts of the page based on conditions: “if this collection has entries”, “if this entry has a value in this field”, “if not …”. You use <code>{if}</code> … <code>{endif}</code> (and optionally <code>{else}</code>) to control what gets rendered.</p>
-<div class="doc-summary"><p>Use <strong>conditionals</strong> to show something only when a condition is true. Typical form: <code>{if condition}</code> … content … <code>{endif}</code>. Examples: <code>{if 'blog' has entries}</code> (show block only if there are blog posts), <code>{if entry has excerpt}</code> (only if the current entry has an excerpt), <code>{if not entry has image}</code> (only when there’s no image). This avoids empty or broken-looking sections (e.g. “Tags:” with no tags). Exact syntax may vary slightly; check the Help in your admin.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Conditionals answer “should this part of the page be shown?” You use them so you don’t show empty headings, broken images, or “Tags:” when there are no tags.</p>
-<p><strong>Basic shape</strong></p>
-<ul>
-<li><strong>If something is true:</strong> <code>{if condition}</code> … show this … <code>{endif}</code></li>
-<li><strong>If not, show something else:</strong> <code>{if condition}</code> … show this … <code>{else}</code> … show that … <code>{endif}</code></li>
-</ul>
-<p><strong>Example 1: Only show the list when there are posts</strong></p>
-<pre><code>{if 'blog' has entries}
-  &lt;h2&gt;Latest posts&lt;/h2&gt;
-  {for each entry in 'blog'}
-    &lt;article&gt;…&lt;/article&gt;
-  {endfor}
-{else}
-  &lt;p&gt;No posts yet.&lt;/p&gt;
+        <div class="doc-content"><p>Conditionals show or hide parts of the page: existence of an entry, presence of a field, comparisons, and <code>or</code> / <code>else</code> branches.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Wrap optional UI in <code>{if}…{endif}</code>. Check that an entry exists with <code>{if 'site_elements'.'hero' exist}</code>. Check a field with <code>{if entry has 'excerpt'}</code>. Compare values with <code>=</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>. Use <code>{else}</code> for fallbacks (placeholder image, empty-state copy).</p>
+<blockquote><p><strong>Media (M4):</strong> Empty-field branch vs placeholder screenshot — <code>media/03-templating/conditionals/screenshots/</code>.</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Field presence</h3>
+<pre><code>{if entry has 'excerpt'}
+  &lt;p class=&quot;excerpt&quot;&gt;{'excerpt'}&lt;/p&gt;
 {endif}</code></pre>
-<p>So: if the blog has at least one (published) entry, show the heading and the loop; otherwise show “No posts yet.”</p>
-<p><strong>Example 2: Only show a section when the entry has a value</strong></p>
-<pre><code>{if entry has excerpt}
-  &lt;p class=&quot;excerpt&quot;&gt;{ excerpt }&lt;/p&gt;
+<p>Multiple fields:</p>
+<pre><code>{if entry has 'price' and 'value' and 'size'}
+  …
 {endif}</code></pre>
-<p>If the current entry has no excerpt, the whole <code>&lt;p&gt;</code> block is not output. No empty “Excerpt:” line.</p>
-<p><strong>Example 3: Fallback when there’s no image</strong></p>
-<pre><code>{if entry has featured_image}
-  &lt;img src=&quot;{ media featured_image }&quot; alt=&quot;{ title }&quot;&gt;
+<h3>Existence of a named entry</h3>
+<pre><code>{if 'site_elements'.'hero' exist}
+  {from 'site_elements' get entry 'hero'}
+    &lt;section class=&quot;hero&quot;&gt;{'content'}&lt;/section&gt;
+  {endget}
+{endif}</code></pre>
+<p>Both collection and entry are <strong>quoted</strong>. Prefer this over the older unquoted <code>site_elements.hero</code> form.</p>
+<h3>Fallback image</h3>
+<pre><code>{if entry has 'featured_image'}
+  &lt;img src=&quot;{'featured_image'}&quot; alt=&quot;{title}&quot;&gt;
 {else}
   &lt;img src=&quot;/images/placeholder.jpg&quot; alt=&quot;&quot;&gt;
 {endif}</code></pre>
-<p>So: if the entry has a featured image, use it; otherwise use a placeholder so the layout doesn’t break.</p>
-<p><strong>Example 4: “If not” — show only when something is missing</strong></p>
-<pre><code>{if not entry has tags}
-  &lt;p&gt;No tags for this post.&lt;/p&gt;
+<h3>Comparisons</h3>
+<pre><code>{if entry has 'price' &lt;= 15}
+  &lt;span class=&quot;badge&quot;&gt;Deal&lt;/span&gt;
+{endif}
+
+{if entry 'price' &lt;= 15}
+  …
+{endif}
+
+{if current.language = 'de'}
+  &lt;p&gt;Willkommen!&lt;/p&gt;
+{else}
+  &lt;p&gt;Welcome!&lt;/p&gt;
 {endif}</code></pre>
-<p><strong>Example 5: Hide “Tags:” when there are no tags</strong></p>
-<pre><code>{if entry has tags}
-  &lt;p&gt;Tags: {for each tag in tags}&lt;span class=&quot;tag&quot;&gt;{ tag }&lt;/span&gt;{endfor}&lt;/p&gt;
+<p>Prefer single <code>=</code> for equality.</p>
+<h3>if … or … else</h3>
+<pre><code>{if entry has 'price' &lt;= 15 or entry has 'discount'}
+  &lt;p&gt;On sale&lt;/p&gt;
+{else}
+  &lt;p&gt;Standard price&lt;/p&gt;
 {endif}</code></pre>
-<p><strong>Combining with loops</strong></p>
-<p>You can use conditionals <strong>inside</strong> a loop (e.g. “if this entry has an excerpt, show it”) or <strong>around</strong> a loop (“if the collection has entries, show the loop; else show a message”). You can also nest conditionals (one <code>{if}</code> inside another) when you need more complex rules.</p>
-<p><strong>Why use them</strong></p>
+<h3>Inside loops</h3>
+<pre><code>{for each entry in 'blog' with status = published ordered by newest}
+  &lt;h2&gt;{title}&lt;/h2&gt;
+  {if entry has 'excerpt'}
+    &lt;p&gt;{'excerpt'}&lt;/p&gt;
+  {endif}
+{endfor}</code></pre></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Operators</strong></p>
+<table><thead><tr><th>Operator</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>=</code> / <code>==</code></td><td>Equals (prefer <code>=</code>)</td></tr><tr><td><code>!=</code></td><td>Not equals</td></tr><tr><td><code>&lt;</code> <code>&gt;</code></td><td>Less / greater</td></tr><tr><td><code>&lt;=</code> / <code>=&lt;</code></td><td>Less or equal</td></tr><tr><td><code>&gt;=</code> / <code>=&gt;</code></td><td>Greater or equal</td></tr></tbody></table>
+<p><strong>Existence vs has</strong></p>
+<table><thead><tr><th>Form</th><th>Checks</th></tr></thead>
+<tbody><tr><td><code>{if 'coll'.'entry' exist}</code></td><td>Named entry present in data</td></tr><tr><td><code>{if entry has 'field'}</code></td><td>Current entry has non-empty field</td></tr></tbody></table>
+<p><strong>Related patterns</strong></p>
 <ul>
-<li>Avoid empty or meaningless blocks (e.g. “Related:” with no related items).</li>
-<li>Avoid broken images when a Media field is empty.</li>
-<li>Show different content for “has value” vs “no value” (e.g. placeholder image).</li>
-<li>Show a friendly empty state for lists (“No posts yet”) instead of blank space.</li>
-</ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Condition types (typical)</strong></p>
-<table><thead><tr><th>Condition</th><th>Example</th><th>Meaning</th></tr></thead>
-<tbody><tr><td>Collection has entries</td><td><code>{if 'blog' has entries}</code></td><td>At least one published entry in that collection.</td></tr><tr><td>Entry has field</td><td><code>{if entry has excerpt}</code></td><td>Current entry has a non-empty value for that field.</td></tr><tr><td>Not</td><td><code>{if not entry has image}</code></td><td>Negation of the following condition.</td></tr><tr><td>Equals / comparison</td><td>If supported: <code>{if status eq 'published'}</code></td><td>Value comparison; syntax is engine-dependent.</td></tr></tbody></table>
-<p><strong>Scoping</strong></p>
-<ul>
-<li><strong>Inside a loop:</strong> “entry” is the current loop entry; “entry has excerpt” checks that entry’s excerpt.</li>
-<li><strong>After single-entry load:</strong> “entry” is the loaded entry.</li>
-<li><strong>Collection-level:</strong> “'blog' has entries” checks the collection as a whole (no current entry).</li>
+<li>Missing <code>{from … get entry}</code> blocks are removed entirely when the entry is missing (no need for existence check if the whole block can vanish).</li>
+<li>Language: <code>{if current.language = 'de'}</code> — <a href="multilingual-templating.html">Multilingual</a>.</li>
+<li>Deeper reference: <a href="from-get-and-existence.html">From…get / existence</a>.</li>
 </ul>
-<p><strong>Nested conditionals</strong></p>
-<pre><code>{if 'blog' has entries}
-  {for each entry in 'blog'}
-    {if entry has excerpt}
-      &lt;p&gt;{ excerpt }&lt;/p&gt;
-    {else}
-      &lt;p&gt;{ title }&lt;/p&gt;
-    {endif}
-  {endfor}
-{endif}</code></pre>
-<p><strong>Performance</strong></p>
-<p>Conditions are evaluated at render time. “Collection has entries” may trigger a count or a fetch depending on the engine; prefer reusing the same data for the loop when possible (e.g. “get entries” once, then “if entries length &gt; 0” and “for each entry in entries” if the engine supports it).</p>
-<p><strong>Technical note</strong></p>
-<p>The exact set of conditions (has entries, has field, not, eq, gt, etc.) depends on the template engine. Check the admin Help or templating reference for your Birkly version.</p></div></details>
+<p><strong>Avoid</strong></p>
+<ul>
+<li>Invented words like <code>{if 'blog' has entries}</code> unless verified in your engine build — prefer looping + empty UI, or existence of a known entry.</li>
+<li>Jinja <code>{% if %}</code>.</li>
+</ul></div></details>
 <div class="doc-related"><ul>
-<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="from-get-and-existence.html">From…get / existence</a></li>
 <li><a href="variables-and-output.html">Variables and output</a></li>
 <li><a href="loops-and-lists.html">Loops and lists</a></li>
 <li><a href="media-in-templates.html">Media in templates</a></li>
+<li><a href="canonical-syntax.html">Canonical syntax</a></li>
 </ul></div></div>
       </div>
     </main>

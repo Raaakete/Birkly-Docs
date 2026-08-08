@@ -1,56 +1,40 @@
-<p>Birkly templates let you output date (and optionally time) fields in a chosen format—e.g. “January 5, 2025” or “2025-01-05”—using format strings.</p>
-<div class="doc-summary"><p>To <strong>format a date</strong> in a template, use the date field with a format string: e.g. <code>{ date &quot;F j, Y&quot; }</code> for “January 5, 2025” or <code>{ published_date &quot;Y-m-d&quot; }</code> for “2025-01-05”. The format uses placeholders: <strong>F</strong> = full month name, <strong>j</strong> = day without leading zero, <strong>Y</strong> = 4-digit year, <strong>m</strong> = month number, <strong>d</strong> = day with leading zero. The same idea applies to DateTime fields for time (e.g. <strong>H</strong> hour, <strong>i</strong> minute). Check your Birkly version for the exact syntax (e.g. <code>{ date_field &quot;format&quot; }</code>).</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Dates in the CMS are stored in a standard way (e.g. 2025-01-05). On the website you often want them to look different: “January 5, 2025” or “5 Jan 2025” or “05.01.2025”. You control this with a <strong>format string</strong> in the template.</p>
-<p><strong>Basic syntax</strong></p>
+<p>Format system date fields (<code>created_at</code>, <code>updated_at</code>, <code>published_at</code>, and date-typed custom fields when exposed) with the <strong><code>format</code></strong> filter — PHP-style tokens inside double quotes.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Write <code>{created_at format &quot;F j, Y&quot;}</code> for “January 5, 2025”, or <code>{created_at format &quot;Y-m-d&quot;}</code> for <code>2025-01-05</code>. Bare <code>{created_at}</code> defaults to <code>Y-m-d</code>. There is <strong>no</strong> <code>{ date &quot;…&quot; }</code> helper — that form is a phantom and will not work.</p>
+<blockquote><p><strong>Media (M4):</strong> Same timestamp with three <code>format</code> strings — <code>media/03-templating/dates-and-formatting/screenshots/</code>.</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Correct syntax</h3>
+<pre><code>&lt;time datetime=&quot;{created_at}&quot;&gt;{created_at format &quot;F j, Y&quot;}&lt;/time&gt;</code></pre>
+<p>Inside a loop:</p>
+<pre><code>{for each entry in 'blog' with status = published ordered by newest}
+  &lt;h2&gt;{title}&lt;/h2&gt;
+  &lt;time&gt;{created_at format &quot;F j, Y&quot;}&lt;/time&gt;
+{endfor}</code></pre>
+<h3>Common formats</h3>
+<table><thead><tr><th>Goal</th><th>Template</th><th>Example</th></tr></thead>
+<tbody><tr><td>Default / ISO date</td><td><code>{created_at}</code> or <code>{created_at format &quot;Y-m-d&quot;}</code></td><td>2025-01-05</td></tr><tr><td>Readable</td><td><code>{created_at format &quot;F j, Y&quot;}</code></td><td>January 5, 2025</td></tr><tr><td>Date + time</td><td><code>{created_at format &quot;Y-m-d H:i&quot;}</code></td><td>2025-01-05 16:45</td></tr><tr><td>US style</td><td><code>{created_at format &quot;m/d/Y&quot;}</code></td><td>01/05/2025</td></tr><tr><td>Full datetime</td><td><code>{created_at format &quot;Y-m-d H:i:s&quot;}</code></td><td>2025-01-05 16:45:00</td></tr></tbody></table>
+<h3>Format letters (supported set)</h3>
+<table><thead><tr><th>Code</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>Y</code></td><td>4-digit year</td></tr><tr><td><code>m</code></td><td>Month 01–12</td></tr><tr><td><code>d</code></td><td>Day 01–31</td></tr><tr><td><code>H</code></td><td>Hour 00–23</td></tr><tr><td><code>i</code></td><td>Minutes</td></tr><tr><td><code>s</code></td><td>Seconds</td></tr><tr><td><code>F</code></td><td>Full month name</td></tr><tr><td><code>j</code></td><td>Day without leading zero</td></tr></tbody></table>
+<p>Stick to this table — extra PHP tokens may not be implemented in the client.</p>
+<h3>Guard empty dates</h3>
+<pre><code>{if entry has created_at}
+  &lt;time&gt;{created_at format &quot;F j, Y&quot;}&lt;/time&gt;
+{endif}</code></pre></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Canonical form (TEMPLATE_LANGUAGE_SPEC)</strong></p>
+<pre><code>{created_at format &quot;Y-m-d H:i&quot;}</code></pre>
 <ul>
-<li>Write the date field name, then a space and a format string in quotes: <code>{ date &quot;F j, Y&quot; }</code>.</li>
-<li>Replace <code>date</code> with your field key if it’s different (e.g. <code>published_date</code>, <code>event_date</code>).</li>
-<li><strong>Inside a loop</strong>, <code>{ date &quot;F j, Y&quot; }</code> uses the <strong>current entry’s</strong> date.</li>
+<li>Filter name is <strong><code>format</code></strong> (only date filter today).</li>
+<li>Applies to system date fields such as <code>created_at</code>, <code>updated_at</code>, <code>published_at</code>.</li>
+<li><strong>Not implemented:</strong> <code>truncate</code>, <code>strip_tags</code>, relative “2 days ago”, <code>{ date &quot;…&quot; }</code>.</li>
 </ul>
-<p><strong>Common formats (examples)</strong></p>
-<table><thead><tr><th>What you want</th><th>Format string</th><th>Example output</th></tr></thead>
-<tbody><tr><td>Full date, readable</td><td><code>F j, Y</code></td><td>January 5, 2025</td></tr><tr><td>Short month</td><td><code>M j, Y</code></td><td>Jan 5, 2025</td></tr><tr><td>Numbers only (ISO-style)</td><td><code>Y-m-d</code></td><td>2025-01-05</td></tr><tr><td>European style</td><td><code>d.m.Y</code></td><td>05.01.2025</td></tr><tr><td>With weekday</td><td><code>l, F j, Y</code></td><td>Sunday, January 5, 2025</td></tr></tbody></table>
-<p><strong>Example: blog post date</strong></p>
-<pre><code>&lt;time datetime=&quot;{ date &quot;Y-m-d&quot; }&quot;&gt;{ date &quot;F j, Y&quot; }&lt;/time&gt;</code></pre>
-<ul>
-<li><code>datetime=&quot;2025-01-05&quot;</code> is good for accessibility and SEO (machine-readable).</li>
-<li>The visible text can be “January 5, 2025”.</li>
-</ul>
-<p><strong>Example: event with time</strong></p>
-<p>If the field is a DateTime (date + time), you can include time placeholders:</p>
-<pre><code>&lt;span&gt;{ event_date &quot;F j, Y \a\t g:i A&quot; }&lt;/span&gt;</code></pre>
-<p>That might output “January 5, 2025 at 2:30 PM”. Exact support depends on your engine; see Advanced for placeholders.</p>
-<p><strong>What the letters mean (quick reference)</strong></p>
-<ul>
-<li><strong>Y</strong> — 4-digit year (2025)</li>
-<li><strong>F</strong> — Full month name (January)</li>
-<li><strong>M</strong> — Short month (Jan)</li>
-<li><strong>j</strong> — Day of month, no leading zero (5)</li>
-<li><strong>d</strong> — Day of month, with leading zero (05)</li>
-<li><strong>l</strong> — Full weekday name (Sunday) — if supported</li>
-<li><strong>H</strong> / <strong>i</strong> / <strong>s</strong> — Hour (24h), minute, second — for time</li>
-<li><strong>g</strong> / <strong>i</strong> / <strong>A</strong> — Hour (12h), minute, AM/PM — if supported</li>
-</ul>
-<p>Your engine may follow PHP-style date format; see the table in Advanced for a fuller list.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Syntax</strong></p>
-<ul>
-<li><strong>Pattern:</strong> <code>{ date_field_name &quot;format_string&quot; }</code>. The format string is usually PHP-style (<code>date()</code> / <code>strftime()</code>-like tokens).</li>
-<li><strong>DateTime fields:</strong> Same pattern; add time tokens (H, i, s, g, A, etc.) to include time in the output.</li>
-</ul>
-<p><strong>Common format characters (PHP-style)</strong></p>
-<table><thead><tr><th>Character</th><th>Meaning</th><th>Example</th></tr></thead>
-<tbody><tr><td>Y</td><td>4-digit year</td><td>2025</td></tr><tr><td>y</td><td>2-digit year</td><td>25</td></tr><tr><td>F</td><td>Full month name</td><td>January</td></tr><tr><td>M</td><td>Short month name</td><td>Jan</td></tr><tr><td>m</td><td>Month number, leading zero</td><td>01</td></tr><tr><td>n</td><td>Month number, no leading zero</td><td>1</td></tr><tr><td>d</td><td>Day of month, leading zero</td><td>05</td></tr><tr><td>j</td><td>Day of month, no leading zero</td><td>5</td></tr><tr><td>l</td><td>Full weekday name</td><td>Sunday</td></tr><tr><td>D</td><td>Short weekday name</td><td>Sun</td></tr><tr><td>H</td><td>Hour 24h, leading zero</td><td>14</td></tr><tr><td>i</td><td>Minutes</td><td>30</td></tr><tr><td>s</td><td>Seconds</td><td>00</td></tr><tr><td>g</td><td>Hour 12h, no leading zero</td><td>2</td></tr><tr><td>A</td><td>AM/PM</td><td>PM</td></tr></tbody></table>
-<p><strong>Examples</strong></p>
-<table><thead><tr><th>Format</th><th>Output</th></tr></thead>
-<tbody><tr><td><code>F j, Y</code></td><td>January 5, 2025</td></tr><tr><td><code>M j, Y</code></td><td>Jan 5, 2025</td></tr><tr><td><code>Y-m-d</code></td><td>2025-01-05 (ISO date)</td></tr><tr><td><code>d.m.Y</code></td><td>05.01.2025</td></tr><tr><td><code>m/d/Y</code></td><td>01/05/2025</td></tr><tr><td><code>l, F j, Y</code></td><td>Sunday, January 5, 2025</td></tr><tr><td><code>H:i</code></td><td>14:30</td></tr><tr><td><code>g:i A</code></td><td>2:30 PM</td></tr><tr><td><code>F j, Y \a\t g:i A</code></td><td>January 5, 2025 at 2:30 PM</td></tr></tbody></table>
-<p><strong>Escaping literal text</strong></p>
-<p>In some engines, characters that are not format tokens must be escaped (e.g. <code>\a\t</code> for “at”). Check the engine docs.</p>
-<p><strong>Time zones</strong></p>
-<p>Stored dates may be in UTC or server time. Output is typically in the same; time zone conversion (e.g. to user’s local time) may require client-side JavaScript or server-side time zone handling depending on your setup.</p>
-<p><strong>Relative dates</strong></p>
-<p>“2 days ago” or “next week” are usually not built into the template language. Implement via a custom helper or client-side script if needed.</p></div></details>
+<p><strong>Phantoms</strong></p>
+<table><thead><tr><th>Wrong</th><th>Right</th></tr></thead>
+<tbody><tr><td><code>{ date &quot;F j, Y&quot; }</code></td><td><code>{created_at format &quot;F j, Y&quot;}</code></td></tr><tr><td><code>{ published_date &quot;Y-m-d&quot; }</code></td><td><code>{published_at format &quot;Y-m-d&quot;}</code> (or your real field + <code>format</code>)</td></tr><tr><td><code>{created_at &quot;Y-m-d&quot;}</code> (missing <code>format</code>)</td><td><code>{created_at format &quot;Y-m-d&quot;}</code></td></tr></tbody></table>
+<p><strong>Ordering vs display</strong></p>
+<p>Sorting uses <code>ordered by newest</code> / <code>oldest</code> (<code>created_at</code>), not format strings. See <a href="loops-and-lists.html">Loops and lists</a>.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="variables-and-output.html">Variables and output</a></li>
-<li><a href="templating-overview.html">Templating overview</a></li>
-<li><a href="../02-content/field-types.html">Field types</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+<li><a href="canonical-syntax.html">Canonical syntax</a></li>
+<li><a href="cheat-sheet.html">Cheat sheet</a></li>
 </ul></div>

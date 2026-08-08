@@ -70,17 +70,26 @@
         <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
-        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
         <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
         <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
         <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
@@ -177,6 +186,16 @@
 <h2>Format</h2>
 <ul>
 <li><strong>YYYY-MM-DD</strong> — Short description. (Optional: file or section.)</li>
+</ul>
+<p>---</p>
+<h2>2026-08-08 — Templating docs overhaul (P62-M2)</h2>
+<p>Major templating chapter rewrite aligned to TEMPLATE_LANGUAGE_SPEC v1.0 (dual audience: Summary / Beginner / Advanced). Media assets deferred to M4 (placeholder callouts only).</p>
+<ul>
+<li><strong>Rewritten:</strong> overview, canonical-syntax, variables, loops (<code>ordered by</code> / <code>with</code> / <code>limit N</code>; phantoms removed), conditionals, dates (<code>format</code> not <code>{ date }</code>), media-in-templates (no <code>{ media }</code> helper), web-components (<code>ordered=&quot;newest&quot;</code>), commerce/events/storefront, reference-projects, production-optimization links.</li>
+<li><strong>New:</strong> <code>client-setup</code>, <code>detail-pages-and-url-context</code>, <code>from-get-and-existence</code>, <code>sub-collections-in-templates</code>, <code>public-forms-templating</code>, <code>multilingual-templating</code>, <code>plugin-language-extensions</code>, <code>worked-site-walkthrough</code>, <code>cheat-sheet</code>.</li>
+<li><strong>Updated:</strong> <code>CONTENTS_INDEX.md</code>, <code>manifest.json</code>; light refresh of <code>04-integration/website-integration</code>, <code>client-library</code>, <code>public-forms</code> (<code>{entry for}</code> first).</li>
+<li><strong>Connections IA:</strong> Agent Guide = Guide · Tools · Publish; AI connectors documented under <strong>Settings → AI</strong> (not an Agent Guide Connections tab).</li>
+<li><strong>Deferred:</strong> screenshots/videos (M4); help-manifest / CMS snapshots (M6).</li>
 </ul>
 <p>---</p>
 <h2>2026-08-07 — Insights, activity &amp; developer mode (P61)</h2>
@@ -436,7 +455,7 @@
 </ul>
 <h2>2026-06-29 — Phase 4.1 unified AI &amp; Integrations (P4.1-M2-T6 / M6)</h2>
 <ul>
-<li><strong>Updated:</strong> <code>01-admin/ai-connections.md</code> — Outbound BYOAI under <strong>Agent Guide → Connections &amp; Integrations</strong>; removed MCP provider type; legacy <code>#ai-connections</code> deep link.</li>
+<li><strong>Updated:</strong> <code>01-admin/ai-connections.md</code> — Outbound BYOAI under <strong>Agent Guide → Connections</strong>; removed MCP provider type; legacy <code>#ai-connections</code> deep link.</li>
 <li><strong>Updated:</strong> <code>01-admin/mcp-connections.md</code> — Inbound MCP in unified tab; stdio bridge recommended; remote connector OAuth path; auth modes; shared approval queue.</li>
 <li><strong>Updated:</strong> <code>01-admin/ai-overview.md</code>, <code>01-admin/settings.md</code>, <code>01-admin/ai-approvals.md</code>, <code>01-admin/ai-chat-and-actions.md</code> — unified tab paths and cross-links.</li>
 <li><strong>Updated:</strong> <code>meta/glossary.md</code> — AI connection vs MCP connection terms.</li>

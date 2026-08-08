@@ -70,17 +70,26 @@
         <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
-        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="client-setup.html" class="nav-link">Client setup</a>
         <a href="variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
         <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
         <a href="commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="events-functions.html" class="nav-link">Events functions</a>
         <a href="storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="reference-projects.html" class="nav-link">Reference projects</a>
         <a href="production-optimization.html" class="nav-link active">Production optimization</a>
         </div>
@@ -177,7 +186,7 @@
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Start with the live client</strong></p>
 <pre><code>&lt;script src=&quot;https://cms.example.com/birkly-client.js&quot;
         data-cms-url=&quot;https://cms.example.com&quot;&gt;&lt;/script&gt;</code></pre>
-<p>When someone opens your page, the script asks Birkly for content and fills in placeholders like <code>{ title }</code> and <code>{for each entry in 'blog'}</code>. Your HTML files are the source of truth; you do not need a separate build or deploy bake step.</p>
+<p>When someone opens your page, the script asks Birkly for content and fills in placeholders like <code>{title}</code> and <code>{for each entry in 'blog'}</code>. Your HTML files are the source of truth; you do not need a separate build or deploy bake step. Start with <a href="client-setup.html">Client setup</a>.</p>
 <p><strong>When is that enough?</strong></p>
 <p>For blogs, portfolios, small shops, and community sites, the live client is usually sufficient — especially if you follow the <a href="reference-projects.html">reference projects</a> patterns. Birkly targets a small number of API round-trips per page (often bundled into one request).</p>
 <p><strong>When might you need more?</strong></p>

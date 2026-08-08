@@ -70,17 +70,26 @@
         <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
-        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="client-setup.html" class="nav-link">Client setup</a>
         <a href="variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
         <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
         <a href="commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="events-functions.html" class="nav-link active">Events functions</a>
         <a href="storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="reference-projects.html" class="nav-link">Reference projects</a>
         <a href="production-optimization.html" class="nav-link">Production optimization</a>
         </div>
@@ -172,39 +181,34 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Template functions registered by the <strong>Events</strong> plugin when active. Use them in client-site HTML (kekaba, Birkly-Website, etc.) to list events, build registration links, and expose calendar files.</p>
-<div class="doc-summary"><p>Events exposes <code>{upcoming_events}</code>, <code>{event_ics_url}</code>, <code>{events_calendar_feed_url}</code>, <code>{event_register_url}</code>, and <code>{event_ticket_checkout_url}</code> for calendar/list views, per-event <code>.ics</code> downloads, an iCal subscribe feed, and RSVP / paid-ticket links. Recurring entries expand into occurrences via the indexer, so pass an <strong>occurrence index</strong> when linking a single date. Functions register via <code>register_template_function()</code> in <code>plugins/events/plugin.php</code> and are omitted when Events is inactive.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>List upcoming events</strong></p>
+        <div class="doc-content"><p>Template functions registered by the <strong>Events</strong> plugin when active — upcoming lists, <code>.ics</code> links, calendar subscribe, RSVP / ticket checkout.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Use <code>{upcoming_events}</code>, <code>{event_ics_url}</code>, <code>{events_calendar_feed_url}</code>, <code>{event_register_url}</code>, and <code>{event_ticket_checkout_url}</code> when Events is installed. List pages can also use normal <code>{for each entry in 'events' …}</code> loops. Detail pages resolve one event from the URL — see <a href="detail-pages-and-url-context.html">Detail pages</a>.</p>
+<blockquote><p><strong>Media (M4):</strong> Optional events flow video — P3 in media plan.</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Upcoming events helper</h3>
 <pre><code>{for each event in upcoming_events 10}
-  &lt;a href=&quot;event.html?slug={event.slug}&quot;&gt;
+  &lt;a href=&quot;event.html?collection=events&amp;slug={event.slug}&quot;&gt;
     &lt;h3&gt;{event.title}&lt;/h3&gt;
     &lt;p&gt;{event.start} · {event.venue}&lt;/p&gt;
   &lt;/a&gt;
 {endfor}</code></pre>
-<p><strong>Add a single date to a calendar (.ics)</strong></p>
-<pre><code>&lt;a href=&quot;{event_ics_url kekaba_events entry_id 0}&quot;&gt;Add to calendar&lt;/a&gt;</code></pre>
-<ul>
-<li>First argument: <strong>collection slug</strong></li>
-<li>Second argument: entry <strong>id</strong></li>
-<li>Third argument: <strong>occurrence index</strong> (0 for single events, 0..N for a recurring series)</li>
-</ul>
-<p><strong>Subscribe to all events (iCal / webcal)</strong></p>
-<pre><code>&lt;a href=&quot;{events_calendar_feed_url}&quot;&gt;Subscribe (iCal)&lt;/a&gt;</code></pre>
-<p>Swap the scheme to <code>webcal://</code> so Apple/Google Calendar subscribe instead of downloading.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><table><thead><tr><th>Function</th><th>Signature</th><th>Returns</th></tr></thead>
-<tbody><tr><td><code>upcoming_events</code></td><td><code>limit?</code></td><td>List of upcoming occurrences (id, collection, title, slug, start, end, venue, virtual_url, ics_url)</td></tr><tr><td><code>event_ics_url</code></td><td><code>collection</code>, <code>entry_id</code>, <code>occurrence_index?</code></td><td>Per-event/occurrence <code>.ics</code> download URL</td></tr><tr><td><code>events_calendar_feed_url</code></td><td>none</td><td>Whole-calendar iCal feed URL (works with <code>webcal://</code>)</td></tr><tr><td><code>event_register_url</code></td><td><code>event_id</code></td><td>Free RSVP endpoint URL</td></tr><tr><td><code>event_ticket_checkout_url</code></td><td><code>event_id</code>, <code>ticket_type</code></td><td>Paid-ticket checkout URL (routes through Commerce)</td></tr></tbody></table>
-<p><strong>Recurring series:</strong> One entry with a <code>recurrence</code> block (frequency, interval, <code>until</code> <strong>or</strong> <code>count</code>, optional <code>skip_dates</code>) expands into occurrences in <code>events_index.json</code>. Link each occurrence with its <code>series_index</code>; use <code>events_calendar_feed_url</code> for the whole series.</p>
-<p><strong>Capacity &amp; tickets:</strong> Free RSVP uses <code>quantity_available</code>; paid tickets use a Commerce field with <code>fulfillment: register</code>. See the <a href="../06-extensibility/commerce-fieldtype.html">Commerce fieldtype</a>.</p>
-<p><strong>API equivalents:</strong></p>
-<ul>
-<li>Per-event ICS — <code>/api/index.php?route=events&amp;action=ics&amp;collection=…&amp;entry_id=…&amp;occurrence=…</code></li>
-<li>Subscribe feed — <code>/api/index.php?route=events&amp;action=webcal</code></li>
-<li>RSVP — <code>/api/index.php?route=events&amp;action=rsvp</code></li>
-</ul></div></details>
+<p>Or a standard collection loop:</p>
+<pre><code>{for each entry in 'events' with status = published ordered by newest}
+  &lt;a href=&quot;event.html?collection=events&amp;slug={slug}&quot;&gt;{title}&lt;/a&gt;
+{endfor}</code></pre>
+<h3>Add one date to a calendar (.ics)</h3>
+<pre><code>&lt;a href=&quot;{event_ics_url events id 0}&quot;&gt;Add to calendar&lt;/a&gt;</code></pre>
+<p>Arguments: <strong>collection slug</strong>, entry <strong>id</strong>, <strong>occurrence index</strong> (<code>0</code> for single dates).</p>
+<h3>Subscribe (iCal)</h3>
+<pre><code>&lt;a href=&quot;{events_calendar_feed_url}&quot;&gt;Subscribe (iCal)&lt;/a&gt;</code></pre></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<table><thead><tr><th>Function</th><th>Signature</th><th>Returns</th></tr></thead>
+<tbody><tr><td><code>upcoming_events</code></td><td><code>limit?</code></td><td>Upcoming occurrence list</td></tr><tr><td><code>event_ics_url</code></td><td><code>collection</code>, <code>entry_id</code>, <code>occurrence_index?</code></td><td><code>.ics</code> URL</td></tr><tr><td><code>events_calendar_feed_url</code></td><td>none</td><td>Whole-calendar feed</td></tr><tr><td><code>event_register_url</code></td><td><code>event_id</code></td><td>Free RSVP URL</td></tr><tr><td><code>event_ticket_checkout_url</code></td><td><code>event_id</code>, <code>ticket_type</code></td><td>Paid ticket (via Commerce)</td></tr></tbody></table>
+<p>Recurring series expand in <code>events_index.json</code>. Pass the correct occurrence / <code>series_index</code> for per-date <code>.ics</code>.</p>
+<p>Page patterns: <a href="storefront-patterns.html">Storefront and events patterns</a>. Extensions model: <a href="plugin-language-extensions.html">Plugin language extensions</a>.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="commerce-functions.html">Commerce functions</a></li>
 <li><a href="storefront-patterns.html">Storefront and events patterns</a></li>
-<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a></li>
 <li><a href="loops-and-lists.html">Loops and lists</a></li>
 </ul></div></div>
       </div>

@@ -1,73 +1,76 @@
 # Commerce template functions
 
-Template functions registered by the **Commerce** plugin when active. Use them in client-site HTML (kekaba, Birkly-Website, etc.) to show cart state and build checkout links.
+Template functions registered by the **Commerce** plugin when active. Use them in client-site HTML for cart badges, buy links, and “from €X” pricing.
 
 ## Summary
 
-Commerce exposes `{commerce_cart_count}`, `{commerce_cart_url}`, `{commerce_buy_url}`, `{commerce_add_to_cart}`, and `{commerce_price_from}` for cart badges, buy buttons, and “from €X” pricing. Pass **variant sub-entry** ids for multi-SKU products. Functions register via `register_template_function()` in `plugins/commerce/plugin.php`.
+**In short:** With Commerce active you can use `{commerce_cart_count}`, `{commerce_cart_url}`, `{commerce_buy_url}`, `{commerce_add_to_cart}`, and `{commerce_price_from}`. For multi-SKU products, pass the **variant sub-entry** id/slug. Combine with normal loops and [sub-collection](sub-collections-in-templates.md) syntax (`of 'products'.current`).
+
+> **Media (M4):** Optional add-to-cart video — `media/03-templating/commerce-functions/` (P3 priority).
 
 ## Beginner
 
-**Cart badge in header**
+### Cart badge
 
 ```html
-<a href="/cart">Cart ({commerce_cart_count})</a>
+<a href="/cart.html">Cart ({commerce_cart_count})</a>
 ```
 
-**Buy button on a product page**
+### Buy button on a product detail page
 
 ```html
 <a href="{commerce_buy_url slug my_products 1}">Buy now</a>
 ```
 
-- First argument: entry **id or slug** (use variant sub-entry for options)
-- Second argument: **collection slug**
-- Third argument: quantity (optional, default 1)
+- First argument: entry **id or slug** (variant sub-entry for options)  
+- Second: **collection slug**  
+- Third: quantity (optional, default 1)
 
-**Show lowest price on a parent product**
-
-When variants have different prices:
+### Lowest price on a parent product
 
 ```html
 <p>From {commerce_price_from slug my_products}</p>
 ```
 
-**Add to cart vs buy**
+### Variants (sub-collection)
 
-`{commerce_add_to_cart …}` builds the same URL as `{commerce_buy_url …}` — use whichever label fits your UX.
-
-## Advanced Users
-
-| Function | Signature | Returns |
-|----------|-----------|---------|
-| `commerce_cart_count` | none | Item count in session cart (string) |
-| `commerce_cart_url` | none | Cart API URL |
-| `commerce_buy_url` | `entry_id`, `collection_slug?`, `qty?` | Checkout/add URL for sellable unit |
-| `commerce_add_to_cart` | same as buy_url | Alias |
-| `commerce_price_from` | `entry_id`, `collection_slug?` | Lowest `purchase_option` price for display |
-
-**Variants:** Catalog indexes one row per sellable unit. Templates must target the **variant sub-entry** id/slug, not the parent marketing entry.
-
-**Example — variant loop**
+On a product detail page (URL has `?collection=products&slug=…`):
 
 ```html
-{for each variant in sub_entries variants}
+{for each entry in 'variants' of 'products'.current ordered by order}
   <div>
-    <h3>{variant.title}</h3>
-    <a href="{commerce_buy_url variant.id products 1}">Buy</a>
+    <h3>{title}</h3>
+    <a href="{commerce_buy_url slug products 1}">Buy</a>
   </div>
 {endfor}
 ```
 
-**Affiliate:** Append `?ref=partner_id` on site URLs; Commerce stores ref in session for discount rules at checkout.
+Use the variant’s own slug/id in `commerce_buy_url` when that row is the sellable unit.
 
-**API equivalent:** `/api/index.php?route=commerce&action=checkout&entry_id=…&collection=…&purchase_option_id=…`
+## Advanced Users
 
-**Registration:** Functions are omitted when Commerce is inactive (`commerce_plugin_active()` gate in `plugin.php`).
+### For developers & AI
+
+| Function | Signature | Returns |
+|----------|-----------|---------|
+| `commerce_cart_count` | none | Session cart item count |
+| `commerce_cart_url` | none | Cart URL |
+| `commerce_buy_url` | `entry_id`, `collection_slug?`, `qty?` | Checkout / add URL |
+| `commerce_add_to_cart` | same as buy_url | Alias |
+| `commerce_price_from` | `entry_id`, `collection_slug?` | Lowest purchase-option price |
+
+**Registration:** `register_template_function()` in Commerce `plugin.php`; omitted when inactive. See [Plugin language extensions](plugin-language-extensions.md).
+
+**Do not** invent `{for each variant in sub_entries variants}` — use `of 'collection'.current` / explicit slug.
+
+**Affiliate:** Append `?ref=partner_id` on site URLs when using affiliate rules.
+
+Full page recipes: [Storefront patterns](storefront-patterns.md).
 
 ## Related
 
+- [Storefront and events patterns](storefront-patterns.md)
+- [Sub-collections in templates](sub-collections-in-templates.md)
 - [Commerce plugin](../06-extensibility/plugins/commerce.md)
-- [Commerce fieldtype](../06-extensibility/commerce-fieldtype.md)
-- [Templating overview](templating-overview.md)
 - [Loops and lists](loops-and-lists.md)
+- [Plugin language extensions](plugin-language-extensions.md)

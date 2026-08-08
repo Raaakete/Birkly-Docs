@@ -1,0 +1,54 @@
+<p>How to load <code>birkly-client.js</code> so template tags render — same host as the CMS, external websites, and when to consider SSR instead.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Every templated HTML page needs <code>&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code>. If the site is <strong>not</strong> on the same origin as Birkly, add <code>data-cms-url=&quot;https://your-cms.example&quot;</code>. Without the script, visitors see raw <code>{for each…}</code> text. The default is client-side rendering; SSR is optional for SEO/performance budgets.</p>
+<blockquote><p><strong>Media (M4):</strong> Video — add script → page renders; screenshot of script tag + Network <code>page_bundle</code> — <code>media/03-templating/client-setup/</code>.</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Same host (project preview / CMS-served site)</h3>
+<p>When HTML is served from the CMS (e.g. <code>/project/index.html</code>):</p>
+<pre><code>&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>Optional enhance helpers (active nav, etc.):</p>
+<pre><code>&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/birkly-components.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h3>External website (different domain)</h3>
+<pre><code>&lt;script src=&quot;https://cms.example.com/birkly-client.js&quot;
+        data-cms-url=&quot;https://cms.example.com&quot;&gt;&lt;/script&gt;</code></pre>
+<ul>
+<li><code>src</code> can be absolute to the CMS host or a local copy of the script.</li>
+<li><strong><code>data-cms-url</code> must</strong> point at the CMS base URL so API calls succeed (and CORS must allow your site).</li>
+</ul>
+<h3>Checklist</h3>
+<ol>
+<li>Script is on <strong>every</strong> templated page (list, detail, contact).</li>
+<li>Collection fields exist before you write loops (see <a href="../02-content/content-model-overview.html">Content model</a>).</li>
+<li>Entries are <strong>published</strong>.</li>
+<li>Links use your site URL prefix (<code>/project/…</code> when that is your prefix — ask <code>get_project_info</code> / admin Project settings).</li>
+<li>Open DevTools → Network and confirm a page bundle / public API call succeeds.</li>
+</ol>
+<h3>Client vs SSR (plain language)</h3>
+<table><thead><tr><th>Mode</th><th>What happens</th><th>Choose when</th></tr></thead>
+<tbody><tr><td><strong>Client (default)</strong></td><td>Browser loads HTML, script fills tags</td><td>Most sites, reference projects, local preview</td></tr><tr><td><strong>SSR / bake</strong></td><td>Server (or build) fills tags before send</td><td>Strict SEO/first-paint budgets — <a href="../04-integration/ssr-and-build-time.html">SSR</a>, <a href="production-optimization.html">Production optimization</a></td></tr></tbody></table>
+<p>Start with the client. Add SSR only when you have measured a need.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Boot sequence</strong></p>
+<ol>
+<li>Parse <code>data-cms-url</code> (else same origin).</li>
+<li>Discover regions (syntax / <code>data-birkly-region</code> / <code>&lt;birkly-region&gt;</code>).</li>
+<li>Prefetch <code>site_elements</code>; build page_bundle requests for collections seen in markup.</li>
+<li><code>Birkly.processTemplates()</code> → replace tags → emit events.</li>
+</ol>
+<p><strong>Programmatic</strong></p>
+<pre><code>await Birkly.processTemplates();
+await Birkly.processTemplates({ root: el, silent: true, force: false });</code></pre>
+<p><strong>Language switcher</strong> — <code>data-birkly-language-select</code> on a <code>&lt;select&gt;</code> (<a href="multilingual-templating.html">Multilingual</a>).</p>
+<p><strong>Forms</strong> — <code>{entry for}</code> hydrates after the engine emits placeholders (<a href="public-forms-templating.html">Public forms templating</a>).</p>
+<p><strong>CORS:</strong> External sites need the CMS to allow the site origin for public API / submit.</p>
+<p><strong>AI / WebMCP:</strong> Website tools are separate from CMS MCP. Connect AI apps under <strong>Settings → AI</strong>. See <a href="../04-integration/webmcp-tools.html">Website tools</a> and <a href="../01-admin/mcp-connections.html">MCP connections</a>.</p>
+<p><strong>Common failures</strong></p>
+<table><thead><tr><th>Symptom</th><th>Fix</th></tr></thead>
+<tbody><tr><td>Raw <code>{for each…}</code> visible</td><td>Missing script or wrong path</td></tr><tr><td>Empty page</td><td>Unpublished entries / wrong collection slug</td></tr><tr><td>CORS errors</td><td>Set <code>data-cms-url</code>; allow origin on CMS</td></tr><tr><td>Unstyled assets</td><td>Wrong site URL prefix</td></tr></tbody></table></div></details>
+<div class="doc-related"><ul>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="../04-integration/client-library.html">Client library</a></li>
+<li><a href="../04-integration/website-integration.html">Website integration</a></li>
+<li><a href="../04-integration/ssr-and-build-time.html">SSR and build-time</a></li>
+<li><a href="web-components.html">Web components</a></li>
+<li><a href="cheat-sheet.html">Cheat sheet</a></li>
+</ul></div>

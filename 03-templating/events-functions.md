@@ -1,65 +1,67 @@
 # Events template functions
 
-Template functions registered by the **Events** plugin when active. Use them in client-site HTML (kekaba, Birkly-Website, etc.) to list events, build registration links, and expose calendar files.
+Template functions registered by the **Events** plugin when active — upcoming lists, `.ics` links, calendar subscribe, RSVP / ticket checkout.
 
 ## Summary
 
-Events exposes `{upcoming_events}`, `{event_ics_url}`, `{events_calendar_feed_url}`, `{event_register_url}`, and `{event_ticket_checkout_url}` for calendar/list views, per-event `.ics` downloads, an iCal subscribe feed, and RSVP / paid-ticket links. Recurring entries expand into occurrences via the indexer, so pass an **occurrence index** when linking a single date. Functions register via `register_template_function()` in `plugins/events/plugin.php` and are omitted when Events is inactive.
+**In short:** Use `{upcoming_events}`, `{event_ics_url}`, `{events_calendar_feed_url}`, `{event_register_url}`, and `{event_ticket_checkout_url}` when Events is installed. List pages can also use normal `{for each entry in 'events' …}` loops. Detail pages resolve one event from the URL — see [Detail pages](detail-pages-and-url-context.md).
+
+> **Media (M4):** Optional events flow video — P3 in media plan.
 
 ## Beginner
 
-**List upcoming events**
+### Upcoming events helper
 
 ```html
 {for each event in upcoming_events 10}
-  <a href="event.html?slug={event.slug}">
+  <a href="event.html?collection=events&slug={event.slug}">
     <h3>{event.title}</h3>
     <p>{event.start} · {event.venue}</p>
   </a>
 {endfor}
 ```
 
-**Add a single date to a calendar (.ics)**
+Or a standard collection loop:
 
 ```html
-<a href="{event_ics_url kekaba_events entry_id 0}">Add to calendar</a>
+{for each entry in 'events' with status = published ordered by newest}
+  <a href="event.html?collection=events&slug={slug}">{title}</a>
+{endfor}
 ```
 
-- First argument: **collection slug**
-- Second argument: entry **id**
-- Third argument: **occurrence index** (0 for single events, 0..N for a recurring series)
+### Add one date to a calendar (.ics)
 
-**Subscribe to all events (iCal / webcal)**
+```html
+<a href="{event_ics_url events id 0}">Add to calendar</a>
+```
+
+Arguments: **collection slug**, entry **id**, **occurrence index** (`0` for single dates).
+
+### Subscribe (iCal)
 
 ```html
 <a href="{events_calendar_feed_url}">Subscribe (iCal)</a>
 ```
 
-Swap the scheme to `webcal://` so Apple/Google Calendar subscribe instead of downloading.
-
 ## Advanced Users
+
+### For developers & AI
 
 | Function | Signature | Returns |
 |----------|-----------|---------|
-| `upcoming_events` | `limit?` | List of upcoming occurrences (id, collection, title, slug, start, end, venue, virtual_url, ics_url) |
-| `event_ics_url` | `collection`, `entry_id`, `occurrence_index?` | Per-event/occurrence `.ics` download URL |
-| `events_calendar_feed_url` | none | Whole-calendar iCal feed URL (works with `webcal://`) |
-| `event_register_url` | `event_id` | Free RSVP endpoint URL |
-| `event_ticket_checkout_url` | `event_id`, `ticket_type` | Paid-ticket checkout URL (routes through Commerce) |
+| `upcoming_events` | `limit?` | Upcoming occurrence list |
+| `event_ics_url` | `collection`, `entry_id`, `occurrence_index?` | `.ics` URL |
+| `events_calendar_feed_url` | none | Whole-calendar feed |
+| `event_register_url` | `event_id` | Free RSVP URL |
+| `event_ticket_checkout_url` | `event_id`, `ticket_type` | Paid ticket (via Commerce) |
 
-**Recurring series:** One entry with a `recurrence` block (frequency, interval, `until` **or** `count`, optional `skip_dates`) expands into occurrences in `events_index.json`. Link each occurrence with its `series_index`; use `events_calendar_feed_url` for the whole series.
+Recurring series expand in `events_index.json`. Pass the correct occurrence / `series_index` for per-date `.ics`.
 
-**Capacity & tickets:** Free RSVP uses `quantity_available`; paid tickets use a Commerce field with `fulfillment: register`. See the [Commerce fieldtype](../06-extensibility/commerce-fieldtype.md).
-
-**API equivalents:**
-
-- Per-event ICS — `/api/index.php?route=events&action=ics&collection=…&entry_id=…&occurrence=…`
-- Subscribe feed — `/api/index.php?route=events&action=webcal`
-- RSVP — `/api/index.php?route=events&action=rsvp`
+Page patterns: [Storefront and events patterns](storefront-patterns.md). Extensions model: [Plugin language extensions](plugin-language-extensions.md).
 
 ## Related
 
 - [Commerce functions](commerce-functions.md)
 - [Storefront and events patterns](storefront-patterns.md)
-- [Templating overview](templating-overview.md)
+- [Detail pages & URL context](detail-pages-and-url-context.md)
 - [Loops and lists](loops-and-lists.md)

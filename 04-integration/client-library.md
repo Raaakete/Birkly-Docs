@@ -4,7 +4,7 @@ The Birkly client library is a JavaScript file (`birkly-client.js`) that you add
 
 ## Summary
 
-**Add one script tag** to your page: `src` = your Birkly base URL + `/birkly-client.js`, and `data-cms-url` = the same base URL. The script then loads your content and replaces placeholders like `{ title }` and `{for each entry in 'blog'}` with real data. You can optionally set `data-collection` to a default collection. No build step is required—include the script and use the template language in your HTML.
+**Add one script tag** to your page: `src` = your Birkly base URL + `/birkly-client.js`, and `data-cms-url` when the page is not on the CMS host. The script replaces `{title}`, `{'excerpt'}`, and `{for each entry in 'blog'}` with published data. How-to: [Client setup](../03-templating/client-setup.md).
 
 ## Beginner
 
@@ -44,11 +44,11 @@ Some versions support `data-collection` so the page “belongs” to one collect
 **What happens when the page loads**
 
 1. The script runs after the page (DOM) is ready.
-2. It finds the **outermost** elements in `<body>` that contain Birkly template syntax (`{ title }`, `{for each entry in 'blog'}`, `{if}`, etc.).
+2. It finds the **outermost** Light DOM elements that contain Birkly template syntax (`{title}`, `{for each entry in 'blog'}`, `{if}`, etc.), plus `data-birkly-region` / `<birkly-region>`.
 3. It figures out which collection(s) to request (from those tags, the URL, or `data-collection`).
-4. It calls the Birkly public API (e.g. “give me all blog entries” or “give me the entry with this slug”). **Only published entries** are returned for public pages.
-5. It replaces the placeholders with the real content: titles, links, dates, images. Loops and conditionals are evaluated.
-6. The visitor sees the updated page. No extra click or reload is needed for content to appear.
+4. It calls the Birkly public API / **page bundle**. **Only published entries** are returned for public pages.
+5. It replaces the placeholders with real content. Loops, `ordered by`, conditionals, and `{entry for}` forms are handled.
+6. The visitor sees the updated page.
 
 **Template regions**
 
@@ -69,11 +69,11 @@ See [Web components](web-components.md) and [Choose your stack](choose-your-stac
 ```html
 <main>
   <h1>Blog</h1>
-  {for each entry in 'blog'}
+  {for each entry in 'blog' with status = published ordered by newest}
     <article>
-      <h2><a href="/blog/{ slug }">{ title }</a></h2>
-      <time>{ date "F j, Y" }</time>
-      <p>{ excerpt }</p>
+      <h2><a href="post.html?collection=blog&slug={slug}">{title}</a></h2>
+      <time>{created_at format "F j, Y"}</time>
+      {if entry has 'excerpt'}<p>{'excerpt'}</p>{endif}
     </article>
   {endfor}
 </main>
@@ -81,7 +81,7 @@ See [Web components](web-components.md) and [Choose your stack](choose-your-stac
         data-cms-url="https://cms.example.com"></script>
 ```
 
-The client sees `{for each entry in 'blog'}`, fetches blog entries from the API, then repeats the block for each entry and fills in `{ title }`, `{ slug }`, `{ date }`, `{ excerpt }`.
+See [Loops and lists](../03-templating/loops-and-lists.md) and [Detail pages](../03-templating/detail-pages-and-url-context.md).
 
 **If something goes wrong**
 
@@ -101,7 +101,7 @@ The client sees `{for each entry in 'blog'}`, fetches blog entries from the API,
 
 **Template syntax**
 
-The client uses the same syntax as the rest of the templating docs: `{ variable }`, `{for each entry in 'collection'} … {endfor}`, `{if} … {endif}`, `{ date "format" }`, `{ media … }`. See [Templating overview](../03-templating/templating-overview.md) and related docs.
+The client uses the canonical public language: `{title}` / `{'field'}`, `{for each}…{endfor}` with `with` / `ordered by` / `limit N`, `{if}…{endif}`, `{created_at format "…"}`. There is no `{ date "…" }` or `{ media … }` helper. See [Canonical syntax](../03-templating/canonical-syntax.md) and [Cheat sheet](../03-templating/cheat-sheet.md).
 
 **API calls**
 
@@ -190,11 +190,13 @@ For SPA frameworks, prefer JSON + components over DOM template discovery — [SP
 
 ## Related
 
+- [Client setup](../03-templating/client-setup.md)
 - [Choose your stack](choose-your-stack.md)
 - [Website integration](website-integration.md)
 - [Web components](web-components.md)
 - [SPA (React / Vue)](spa-react-vue.md)
 - [SSR and build-time](ssr-and-build-time.md)
 - [Public API](public-api.md)
+- [Public forms](public-forms.md)
 - [Templating overview](../03-templating/templating-overview.md)
 

@@ -1,116 +1,93 @@
-# Media in Templates
+# Media in templates
 
-In Birkly templates you output images and other media by referencing a media file (by filename or by field name). You can get a plain URL or, in some setups, request a resized or cropped version.
+Show images and files by outputting the **field value** (filename or URL) into normal HTML — there is no `{ media … }` helper in the public template language.
 
 ## Summary
 
-To **show an image** (or file link) from the CMS, use the media helper. Typical: `{ media 'filename.jpg' }` for a file from the Media Library, or `{ media featured_image }` when the current entry has a Media field named `featured_image`. Put the result in `<img src="…">` or `<a href="…">`. Some systems support extra options like **width**, **height**, **crop** for responsive or thumbnail images. For **galleries**, you often loop over the field and output one `<img>` per item. See below for syntax and examples.
+**In short:** Store a filename or media ref on an `image` / `media` / `gallery` field, then print it with `{'featured_image'}` (quoted user field). Put that value in `<img src="…">` or `<a href="…">`. Always guard empty fields with `{if entry has 'featured_image'}`. Build public URLs from your CMS media path (often `/media/…` — confirm with the Media library).
+
+> **Media (M4):** Media pick + `<img>` in template screenshot — `media/03-templating/media-in-templates/screenshots/`.
 
 ## Beginner
 
-Media in templates means **getting the URL** of an image or file so you can use it in `<img src="…">` or `<a href="…">Download</a>`.
+### Single image field
 
-**Single image from the Media Library (by name)**
-
-If you uploaded a file (e.g. `logo.svg`) to the Media Library and want to use it anywhere:
+Collection field e.g. `featured_image` (type `image`). Entry stores a filename such as `hero-bread.jpg`.
 
 ```html
-<img src="{ media 'logo.svg' }" alt="Company logo">
-```
-
-Use the exact filename. The template outputs the full URL to that file.
-
-**Single image from the current entry (by field name)**
-
-If the entry has a Media field, e.g. “Featured image” with key `featured_image`:
-
-```html
-<img src="{ media featured_image }" alt="{ title }">
-```
-
-Inside a loop, this is the **current** entry’s featured image. On a single-entry page, it’s that entry’s image.
-
-**Always provide an alt text**
-
-Use `alt="{ title }"` or a short description. If the image might be empty, use a conditional so you don’t output a broken image:
-
-```html
-{if entry has featured_image}
-  <img src="{ media featured_image }" alt="{ title }">
+{if entry has 'featured_image'}
+  <img src="/media/{'featured_image'}" alt="{title}">
 {else}
   <img src="/images/placeholder.jpg" alt="">
 {endif}
 ```
 
-See [Conditionals](conditionals.md).
-
-**Link to a file (e.g. PDF)**
-
-If the entry has a File or Media field pointing to a document:
+If your API already returns a full URL in the field, use:
 
 ```html
-<a href="{ media document }" download>Download PDF</a>
+<img src="{'featured_image'}" alt="{title}">
 ```
 
-Or: `<a href="{ document }">` — exact syntax depends on the field type; see your templating docs.
+Check one published entry in the public API or preview before hard-coding a prefix.
 
-**Multiple images (gallery)**
-
-For a Gallery field with several images, you loop and output one `<img>` per item:
+### Inside a list loop
 
 ```html
-{for each image in gallery_field}
-  <img src="{ image }" alt="">
+{for each entry in 'gallery' with status = published ordered by order}
+  {if entry has 'image'}
+    <figure>
+      <img src="{'image'}" alt="{title}">
+      <figcaption>{title}</figcaption>
+    </figure>
+  {endif}
 {endfor}
 ```
 
-Variable names may vary (e.g. `image.url` or just the URL in `{ image }`). See [Loops and lists](loops-and-lists.md) and your engine’s docs.
+### Gallery (array) field
 
-**Thumbnails or resized images**
+```html
+{if entry has 'gallery'}
+  {for each item in 'gallery'}
+    <img src="{item}" alt="">
+  {endfor}
+{endif}
+```
 
-Some setups let you ask for a resized version, e.g.:
+If items are objects, your build may expose a path such as a URL property — inspect API JSON; do not invent `{ media }` helpers.
 
-- `{ media featured_image width=400 height=300 }`  
-- or `{ media 'hero.jpg' width=1200 crop="center" }`
+### Files / downloads
 
-That would give you a URL to a version that fits those dimensions (or is cropped). If your Birkly version doesn’t support this, use the plain URL and size the image with CSS, or use a separate image service.
+```html
+{if entry has 'document'}
+  <a href="{'document'}" download>Download</a>
+{endif}
+```
+
+### Rich text images
+
+Editor fields already contain `<img>` HTML. Output with `{'content'}` (HTML). Upload those assets via the Media library / editor UI — see [Content editor](../02-content/content-editor.md).
 
 ## Advanced Users
 
-**Reference types**
+### For developers & AI
 
-| Use case | Typical syntax | Notes |
-|----------|----------------|--------|
-| Global media by filename | `{ media 'filename.jpg' }` | File from Media Library; name must match. |
-| Entry media field | `{ media field_key }` | URL of the selected media for current entry. |
-| In loop | `{ media featured_image }` | Current entry’s media field. |
+**Aligned with media playbook**
 
-**Optional parameters (when supported)**
+1. `list_media` / Media library — note exact filename.  
+2. Set the image field on `create_entry` / `update_entry`.  
+3. Template: `{'featured_image'}` — **not** `{ media featured_image }`.
 
-- **width / height:** Request a version with max width/height (aspect ratio may be preserved).
-- **crop:** e.g. `crop="center"`, `crop="top"` — which part to keep when cropping.
-- **fit:** e.g. `fit="cover"` or `fit="contain"` — behaviour when aspect ratio differs.
+**Phantoms**
 
-Exact parameter names and behaviour depend on the engine and any image pipeline (e.g. on-the-fly resizing vs pre-generated sizes). Check admin Help or API docs.
+| Wrong | Right |
+|-------|-------|
+| `{ media 'logo.svg' }` | Static path or a CMS field that holds the file |
+| `{ media featured_image width=400 }` | `{'featured_image'}` + CSS / native `width` / your CDN |
+| `{ image.url }` without verifying shape | Inspect API; use `{item}` or documented path |
 
-**Gallery / multi-image fields**
+**Empty guards** — required for clean DOM (`src=""` breaks layout and a11y).
 
-- Loop over the field; each item may be a URL string or an object with `url`, `alt`, `width`, `height`.
-- Example (conceptual): `{for each image in gallery}` then `src="{ image.url }"` or `src="{ image }"`, `alt="{ image.alt }"` if available.
-
-**File fields (documents)**
-
-- File field often outputs the URL directly: `{ document_field }` or `{ media document_field }`. Use in `<a href="…">` with optional `download` attribute.
-
-**Fallback and accessibility**
-
-- Always guard empty media with a conditional so the DOM doesn’t get an empty `src`.
-- Prefer meaningful `alt` (e.g. entry title or short description). Use `alt=""` only for purely decorative images.
-
-**Performance**
-
-- Resized/cropped URLs may point to a generated asset; cache headers and CDN depend on your deployment.
-- For galleries, avoid loading many full-size images; use width/height params or thumbnails if the engine supports them.
+**Performance** — prefer appropriately sized uploads; the core language does not resize on the fly.
 
 ## Related
 

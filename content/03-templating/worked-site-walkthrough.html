@@ -1,0 +1,74 @@
+<p>End-to-end tutorial: content model → list page → detail page → contact form → shared chrome, using only canonical template syntax.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Infer what repeats (collections), what is shared (site elements), and what visitors submit (public API collection). Define fields, publish sample entries, wire HTML with <code>birkly-client.js</code>, then verify list → detail → form. For a ready-made kit, install a <a href="reference-projects.html">reference project</a> first.</p>
+<blockquote><p><strong>Media (M4):</strong> Follow-along video — <code>media/03-templating/worked-site-walkthrough/videos/</code> (also pairs with reference-projects media).</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Scenario</h3>
+<p>Small bakery site: menu items, a few news posts, contact form, shared header.</p>
+<h3>Step 1 — Content model</h3>
+<table><thead><tr><th>Collection</th><th>Purpose</th><th>Key fields</th></tr></thead>
+<tbody><tr><td><code>site_elements</code></td><td>Header / footer chrome</td><td>title, content</td></tr><tr><td><code>menu</code></td><td>Repeatable items</td><td>title, description, price, image, order</td></tr><tr><td><code>blog</code></td><td>News</td><td>title, excerpt, content</td></tr><tr><td><code>contact</code></td><td>Inbound messages</td><td>name, email, message — <strong>Public API</strong></td></tr></tbody></table>
+<p>See <a href="../02-content/content-model-overview.html">Content model overview</a> and <a href="../02-content/field-types.html">Field types</a>.</p>
+<h3>Step 2 — Publish sample entries</h3>
+<p>Create 2–3 menu items and 1 blog post with <strong>status published</strong>. Add <code>site_elements</code> entries <code>header</code> and <code>footer</code>.</p>
+<h3>Step 3 — Shared chrome</h3>
+<pre><code>&lt;birkly-region collection=&quot;site_elements&quot; entry=&quot;header&quot;&gt;&lt;/birkly-region&gt;</code></pre>
+<h3>Step 4 — Menu list (<code>menu.html</code>)</h3>
+<pre><code>&lt;h1&gt;Menu&lt;/h1&gt;
+{for each entry in 'menu' with status = published ordered by order}
+  &lt;article&gt;
+    &lt;h2&gt;{title}&lt;/h2&gt;
+    {if entry has 'description'}&lt;p&gt;{'description'}&lt;/p&gt;{endif}
+    {if entry has 'price'}&lt;p&gt;{'price'}&lt;/p&gt;{endif}
+  &lt;/article&gt;
+{endfor}
+&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h3>Step 5 — Blog list + detail</h3>
+<p>List (<code>blog.html</code>):</p>
+<pre><code>{for each entry in 'blog' with status = published ordered by newest}
+  &lt;a href=&quot;post.html?collection=blog&amp;slug={slug}&quot;&gt;{title}&lt;/a&gt;
+{endfor}</code></pre>
+<p>Detail (<code>post.html</code>) — <strong>no collection loop</strong>:</p>
+<pre><code>&lt;meta name=&quot;birkly-collection&quot; content=&quot;blog&quot;&gt;
+&lt;h1&gt;{title}&lt;/h1&gt;
+&lt;div&gt;{'content'}&lt;/div&gt;
+&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h3>Step 6 — Contact form</h3>
+<pre><code>{entry for 'contact'}
+  &lt;input name=&quot;{name}&quot; required&gt;
+  &lt;input type=&quot;email&quot; name=&quot;{email}&quot; required&gt;
+  &lt;textarea name=&quot;{message}&quot; required&gt;&lt;/textarea&gt;
+  &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+{endentry}
+&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>Details: <a href="public-forms-templating.html">Public forms templating</a>.</p>
+<h3>Step 7 — Verify</h3>
+<ol>
+<li>Menu shows CMS items (not hard-coded cards).</li>
+<li>Blog link opens one post (not the full list again).</li>
+<li>No raw <code>{…}</code> on the page.</li>
+<li>Form submit creates an entry in admin.</li>
+<li>Styles load under the correct site URL prefix.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Tooling order (MCP / Agent Guide workflows)</strong></p>
+<ol>
+<li><code>get_project_info</code> → <code>site_url_prefix</code></li>
+<li><code>list_collections</code> / <code>create_collection</code> with full <code>fields</code></li>
+<li><code>create_entry</code> with <code>status: published</code></li>
+<li><code>write_project_file</code> for HTML/CSS (paths without <code>project/</code> prefix in tools)</li>
+<li>Never leave <code>fields: []</code> then reference custom fields</li>
+</ol>
+<p><strong>Anti-patterns checklist</strong> — same as <a href="cheat-sheet.html">Cheat sheet</a> phantoms + detail-page loop ban.</p>
+<p><strong>Next depth</strong></p>
+<ul>
+<li><a href="sub-collections-in-templates.html">Sub-collections</a> for comments</li>
+<li><a href="multilingual-templating.html">Multilingual</a></li>
+<li><a href="storefront-patterns.html">Storefront patterns</a> if Commerce/Events</li>
+<li>Connect AI under <strong>Settings → AI</strong> for agent builds — <a href="../01-admin/mcp-connections.html">MCP connections</a></li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="templating-overview.html">Templating overview</a></li>
+<li><a href="client-setup.html">Client setup</a></li>
+<li><a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a></li>
+<li><a href="reference-projects.html">Reference projects</a></li>
+<li><a href="../04-integration/website-integration.html">Website integration</a></li>
+</ul></div>

@@ -1,0 +1,41 @@
+<p>Show language-specific content and let visitors switch language with a simple <code>&lt;select&gt;</code> wired to the Birkly client.</p>
+<div class="doc-summary"><p><strong>In short:</strong> The client resolves <code>{current.language}</code> from <code>?lang=</code>, then <code>localStorage</code> (<code>birkly_language</code>), then default <code>en</code>. Add <code>data-birkly-language-select</code> on a <code>&lt;select&gt;</code> to switch language (updates the query string, reloads, and remembers the choice). Use <code>{if current.language = 'de'}…{else}…{endif}</code> for small copy branches; store translated entry fields in the CMS for real content.</p>
+<blockquote><p><strong>Media (M4):</strong> Language select → <code>?lang=</code> reload video — <code>media/03-templating/multilingual-templating/videos/</code>.</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Language switcher</h3>
+<pre><code>&lt;select data-birkly-language-select&gt;
+  &lt;option value=&quot;en&quot;&gt;English&lt;/option&gt;
+  &lt;option value=&quot;de&quot;&gt;Deutsch&lt;/option&gt;
+  &lt;option value=&quot;fr&quot;&gt;Français&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h3>Branch on language</h3>
+<pre><code>{if current.language = 'de'}
+  &lt;p&gt;Willkommen!&lt;/p&gt;
+{else}
+  &lt;p&gt;Welcome!&lt;/p&gt;
+{endif}</code></pre>
+<h3>Read the query</h3>
+<pre><code>&lt;p&gt;Lang param: {query.'lang'}&lt;/p&gt;
+&lt;p&gt;Active: {current.language}&lt;/p&gt;</code></pre>
+<h3>Content strategy</h3>
+<ul>
+<li>Prefer <strong>translated fields / language-aware entries</strong> in the CMS (admin languages) so loops return the right locale.</li>
+<li>Use <code>{if current.language = …}</code> only for short chrome strings when you are not storing translations in entries.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Resolution order (TEMPLATE_LANGUAGE_SPEC)</strong></p>
+<ol>
+<li><code>lang</code> URL query (<code>?lang=de</code>)</li>
+<li><code>birkly_language</code> in <code>localStorage</code></li>
+<li>Default <code>en</code></li>
+</ol>
+<p><strong>Switcher behaviour:</strong> sets selected option, writes <code>?lang=…</code>, reloads, persists preference.</p>
+<p><strong>Page bundle:</strong> <code>site_elements</code> prefetch is language-aware (list for current language).</p>
+<p><strong>Do not</strong> invent <code>{t 'key'}</code> / Gettext-style helpers in public templates unless a plugin registers them — see <a href="plugin-language-extensions.html">Plugin language extensions</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="conditionals.html">Conditionals</a></li>
+<li><a href="variables-and-output.html">Variables and output</a></li>
+<li><a href="client-setup.html">Client setup</a></li>
+<li><a href="../01-admin/settings.html">Settings</a></li>
+</ul></div>

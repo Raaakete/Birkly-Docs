@@ -1,126 +1,130 @@
 # Conditionals
 
-Conditionals in Birkly templates let you show or hide parts of the page based on conditions: “if this collection has entries”, “if this entry has a value in this field”, “if not …”. You use `{if}` … `{endif}` (and optionally `{else}`) to control what gets rendered.
+Conditionals show or hide parts of the page: existence of an entry, presence of a field, comparisons, and `or` / `else` branches.
 
 ## Summary
 
-Use **conditionals** to show something only when a condition is true. Typical form: `{if condition}` … content … `{endif}`. Examples: `{if 'blog' has entries}` (show block only if there are blog posts), `{if entry has excerpt}` (only if the current entry has an excerpt), `{if not entry has image}` (only when there’s no image). This avoids empty or broken-looking sections (e.g. “Tags:” with no tags). Exact syntax may vary slightly; check the Help in your admin.
+**In short:** Wrap optional UI in `{if}…{endif}`. Check that an entry exists with `{if 'site_elements'.'hero' exist}`. Check a field with `{if entry has 'excerpt'}`. Compare values with `=`, `!=`, `<`, `>`, `<=`, `>=`. Use `{else}` for fallbacks (placeholder image, empty-state copy).
+
+> **Media (M4):** Empty-field branch vs placeholder screenshot — `media/03-templating/conditionals/screenshots/`.
 
 ## Beginner
 
-Conditionals answer “should this part of the page be shown?” You use them so you don’t show empty headings, broken images, or “Tags:” when there are no tags.
-
-**Basic shape**
-
-- **If something is true:** `{if condition}` … show this … `{endif}`
-- **If not, show something else:** `{if condition}` … show this … `{else}` … show that … `{endif}`
-
-**Example 1: Only show the list when there are posts**
+### Field presence
 
 ```html
-{if 'blog' has entries}
-  <h2>Latest posts</h2>
-  {for each entry in 'blog'}
-    <article>…</article>
-  {endfor}
-{else}
-  <p>No posts yet.</p>
+{if entry has 'excerpt'}
+  <p class="excerpt">{'excerpt'}</p>
 {endif}
 ```
 
-So: if the blog has at least one (published) entry, show the heading and the loop; otherwise show “No posts yet.”
-
-**Example 2: Only show a section when the entry has a value**
+Multiple fields:
 
 ```html
-{if entry has excerpt}
-  <p class="excerpt">{ excerpt }</p>
+{if entry has 'price' and 'value' and 'size'}
+  …
 {endif}
 ```
 
-If the current entry has no excerpt, the whole `<p>` block is not output. No empty “Excerpt:” line.
-
-**Example 3: Fallback when there’s no image**
+### Existence of a named entry
 
 ```html
-{if entry has featured_image}
-  <img src="{ media featured_image }" alt="{ title }">
+{if 'site_elements'.'hero' exist}
+  {from 'site_elements' get entry 'hero'}
+    <section class="hero">{'content'}</section>
+  {endget}
+{endif}
+```
+
+Both collection and entry are **quoted**. Prefer this over the older unquoted `site_elements.hero` form.
+
+### Fallback image
+
+```html
+{if entry has 'featured_image'}
+  <img src="{'featured_image'}" alt="{title}">
 {else}
   <img src="/images/placeholder.jpg" alt="">
 {endif}
 ```
 
-So: if the entry has a featured image, use it; otherwise use a placeholder so the layout doesn’t break.
-
-**Example 4: “If not” — show only when something is missing**
+### Comparisons
 
 ```html
-{if not entry has tags}
-  <p>No tags for this post.</p>
+{if entry has 'price' <= 15}
+  <span class="badge">Deal</span>
+{endif}
+
+{if entry 'price' <= 15}
+  …
+{endif}
+
+{if current.language = 'de'}
+  <p>Willkommen!</p>
+{else}
+  <p>Welcome!</p>
 {endif}
 ```
 
-**Example 5: Hide “Tags:” when there are no tags**
+Prefer single `=` for equality.
+
+### if … or … else
 
 ```html
-{if entry has tags}
-  <p>Tags: {for each tag in tags}<span class="tag">{ tag }</span>{endfor}</p>
+{if entry has 'price' <= 15 or entry has 'discount'}
+  <p>On sale</p>
+{else}
+  <p>Standard price</p>
 {endif}
 ```
 
-**Combining with loops**
+### Inside loops
 
-You can use conditionals **inside** a loop (e.g. “if this entry has an excerpt, show it”) or **around** a loop (“if the collection has entries, show the loop; else show a message”). You can also nest conditionals (one `{if}` inside another) when you need more complex rules.
-
-**Why use them**
-
-- Avoid empty or meaningless blocks (e.g. “Related:” with no related items).
-- Avoid broken images when a Media field is empty.
-- Show different content for “has value” vs “no value” (e.g. placeholder image).
-- Show a friendly empty state for lists (“No posts yet”) instead of blank space.
+```html
+{for each entry in 'blog' with status = published ordered by newest}
+  <h2>{title}</h2>
+  {if entry has 'excerpt'}
+    <p>{'excerpt'}</p>
+  {endif}
+{endfor}
+```
 
 ## Advanced Users
 
-**Condition types (typical)**
+### For developers & AI
 
-| Condition | Example | Meaning |
-|-----------|---------|--------|
-| Collection has entries | `{if 'blog' has entries}` | At least one published entry in that collection. |
-| Entry has field | `{if entry has excerpt}` | Current entry has a non-empty value for that field. |
-| Not | `{if not entry has image}` | Negation of the following condition. |
-| Equals / comparison | If supported: `{if status eq 'published'}` | Value comparison; syntax is engine-dependent. |
+**Operators**
 
-**Scoping**
+| Operator | Meaning |
+|----------|---------|
+| `=` / `==` | Equals (prefer `=`) |
+| `!=` | Not equals |
+| `<` `>` | Less / greater |
+| `<=` / `=<` | Less or equal |
+| `>=` / `=>` | Greater or equal |
 
-- **Inside a loop:** “entry” is the current loop entry; “entry has excerpt” checks that entry’s excerpt.
-- **After single-entry load:** “entry” is the loaded entry.
-- **Collection-level:** “'blog' has entries” checks the collection as a whole (no current entry).
+**Existence vs has**
 
-**Nested conditionals**
+| Form | Checks |
+|------|--------|
+| `{if 'coll'.'entry' exist}` | Named entry present in data |
+| `{if entry has 'field'}` | Current entry has non-empty field |
 
-```html
-{if 'blog' has entries}
-  {for each entry in 'blog'}
-    {if entry has excerpt}
-      <p>{ excerpt }</p>
-    {else}
-      <p>{ title }</p>
-    {endif}
-  {endfor}
-{endif}
-```
+**Related patterns**
 
-**Performance**
+- Missing `{from … get entry}` blocks are removed entirely when the entry is missing (no need for existence check if the whole block can vanish).  
+- Language: `{if current.language = 'de'}` — [Multilingual](multilingual-templating.md).  
+- Deeper reference: [From…get / existence](from-get-and-existence.md).
 
-Conditions are evaluated at render time. “Collection has entries” may trigger a count or a fetch depending on the engine; prefer reusing the same data for the loop when possible (e.g. “get entries” once, then “if entries length > 0” and “for each entry in entries” if the engine supports it).
+**Avoid**
 
-**Technical note**
-
-The exact set of conditions (has entries, has field, not, eq, gt, etc.) depends on the template engine. Check the admin Help or templating reference for your Birkly version.
+- Invented words like `{if 'blog' has entries}` unless verified in your engine build — prefer looping + empty UI, or existence of a known entry.  
+- Jinja `{% if %}`.
 
 ## Related
 
-- [Templating overview](templating-overview.md)
+- [From…get / existence](from-get-and-existence.md)
 - [Variables and output](variables-and-output.md)
 - [Loops and lists](loops-and-lists.md)
 - [Media in templates](media-in-templates.md)
+- [Canonical syntax](canonical-syntax.md)

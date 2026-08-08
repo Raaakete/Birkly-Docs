@@ -1,102 +1,89 @@
 # Storefront and events patterns
 
-Copy-paste page patterns that combine the [Commerce](commerce-functions.md) and [Events](events-functions.md) template functions into full client-site pages. These mirror the reference implementation on the kekaba demo site (`shop.html`, `product.html`, `cart.html`, `events.html`, `event.html`).
+Copy-paste page patterns that combine [Commerce](commerce-functions.md) and [Events](events-functions.md) functions with core loops, detail URL context, and sub-collections.
 
 ## Summary
 
-A storefront is three pages: a **listing** that loops the catalog, a **product detail** that renders a variant / purchase-option picker and a buy button, and a **cart** that reads cart state and links to checkout. Events add a **calendar/list** page and a **single-event** page with `.ics` download and an iCal subscribe link. All pages use standard loops plus the plugin template functions — no custom endpoints required.
+**In short:** A shop needs a **listing** loop, a **product detail** page (URL context + optional variant sub-collection), and a **cart** link using `{commerce_cart_count}`. Events need a **list** and a **single-event** page with `.ics` / subscribe links. Use the same canonical syntax as the rest of templating — no phantom `sub_entries` loops.
 
 ## Beginner
 
-**Shop listing**
+### Shop listing
 
 ```html
-{for each product in 'kekaba_products'}
-  <a class="box hover" href="product.html?slug={product.slug}">
-    <img src="{product.image}" alt="{product.title}">
-    <h2>{product.title}</h2>
-    <p>From {commerce_price_from product.pricing}</p>
+{for each entry in 'products' with status = published ordered by newest}
+  <a href="product.html?collection=products&slug={slug}">
+    {if entry has 'image'}
+      <img src="{'image'}" alt="{title}">
+    {endif}
+    <h2>{title}</h2>
+    <p>From {commerce_price_from slug products}</p>
   </a>
 {endfor}
 ```
 
-**Product detail with a variant picker**
+### Product detail + variants
 
 ```html
+<meta name="birkly-collection" content="products">
 <h1>{title}</h1>
-{content}
+<div>{'content'}</div>
 
-{for each variant in sub_entries variants}
-  <label class="variant">
-    <input type="radio" name="variant" value="{variant.id}">
-    {variant.title} — {commerce_price_from variant.pricing}
-  </label>
+{for each entry in 'variants' of 'products'.current ordered by order}
+  <div class="variant">
+    <h3>{title}</h3>
+    <a class="button" href="{commerce_buy_url slug products 1}">Add to cart</a>
+  </div>
 {endfor}
 
-<a class="button" href="{commerce_buy_url variant.id kekaba_products 1}">Add to cart</a>
+<script src="/birkly-client.js"></script>
 ```
 
-Simple products (no variants) put the Commerce field on the parent and link `{commerce_buy_url slug kekaba_products 1}` directly.
+Simple products (no variants): put Commerce on the parent and link `{commerce_buy_url slug products 1}` once.
 
-**Cart badge in the header**
+### Cart badge
 
 ```html
 <a href="cart.html">Cart ({commerce_cart_count})</a>
 ```
 
-**Events calendar / list**
+### Events list + detail
 
 ```html
-{for each event in upcoming_events 20}
-  <a class="events-card" href="event.html?slug={event.slug}">
-    <span class="date">{event.start}</span>
-    <h3>{event.title}</h3>
+{for each entry in 'events' with status = published ordered by newest}
+  <a href="event.html?collection=events&slug={slug}">
+    <h3>{title}</h3>
   </a>
 {endfor}
-
-<a class="button" href="{events_calendar_feed_url}">Subscribe (iCal)</a>
 ```
 
-**Single event with calendar export**
-
 ```html
+<!-- event.html — no collection loop -->
 <h1>{title}</h1>
-<p>{schedule.starts_at} – {schedule.ends_at} · {schedule.venue}</p>
-{content}
-
-<a href="{event_ics_url kekaba_events id 0}">Add this date (.ics)</a>
+<a href="{event_ics_url events id 0}">Add this date (.ics)</a>
+<a href="{events_calendar_feed_url}">Subscribe (iCal)</a>
 ```
 
 ## Advanced Users
 
-**Fulfillment types on one catalog.** A single products collection can mix `ship` (physical), `deliver` (digital download), `register` (workshop seat), and `none` (subscription / access grant). The CTA and post-purchase flow follow the entry's `fulfillment`; the template only needs the buy URL. See the [Commerce fieldtype](../06-extensibility/commerce-fieldtype.md).
+### For developers & AI
 
-**Multiple purchase options.** Subscriptions expose several `purchase_options` (e.g. monthly + annual). Render one control per option and pass its id as the fourth `commerce_buy_url` argument:
+- Detail pages: [Detail pages & URL context](detail-pages-and-url-context.md) — never loop the whole catalog on `product.html`.  
+- Variants: [Sub-collections in templates](sub-collections-in-templates.md).  
+- Plugin helpers: [Plugin language extensions](plugin-language-extensions.md).  
+- Delivery modes: default is live client; optional bake/hydrate — [Production optimization](production-optimization.md).
 
-```html
-{for each option in pricing.purchase_options}
-  <a href="{commerce_buy_url id kekaba_products 1 option.id}">
-    {option.label} — {option.price_cents}
-  </a>
-{endfor}
-```
+**Rejected phantoms**
 
-**Recurring events.** A `recurrence` block expands one entry into occurrences in `events_index.json`. List each date with its `series_index` and offer a per-occurrence `.ics` plus a whole-series subscribe:
-
-```html
-{for each occ in occurrences}
-  <li>
-    {occ.starts_at}
-    <a href="{event_ics_url kekaba_events id occ.series_index}">Add to calendar</a>
-  </li>
-{endfor}
-```
-
-**Hydrate vs bake.** Client sites can render these patterns server-side (baked HTML) or hydrate them in the browser with `birkly-client.js`. The kekaba demo bakes the page shell and hydrates catalog/event data from JSON, then links buy/cart/checkout and `.ics`/webcal URLs to the live plugin endpoints — so the same markup works offline as a static demo and online against a running CMS.
+| Wrong | Right |
+|-------|-------|
+| `{for each variant in sub_entries variants}` | `{for each entry in 'variants' of 'products'.current …}` |
+| `product.html?slug=` without collection when router needs it | `?collection=products&slug={slug}` |
 
 ## Related
 
 - [Commerce functions](commerce-functions.md)
 - [Events functions](events-functions.md)
 - [Loops and lists](loops-and-lists.md)
-- [Conditionals](conditionals.md)
+- [Detail pages & URL context](detail-pages-and-url-context.md)
+- [Reference projects](reference-projects.md)

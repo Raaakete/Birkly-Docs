@@ -1,0 +1,68 @@
+<p>How a single-entry page (blog post, product, event) reads the <strong>current</strong> entry from the URL — and the #1 anti-pattern: looping the whole collection on the detail page.</p>
+<div class="doc-summary"><p><strong>In short:</strong> List pages link with <code>?collection=YOUR_COLL&amp;slug={slug}</code>. The detail page prints <code>{title}</code>, <code>{'content'}</code>, etc. for <strong>that</strong> entry — it must <strong>not</strong> wrap the body in <code>{for each entry in 'YOUR_COLL'}</code>. Sub-collections use <code>of 'blog'.current</code>.</p>
+<blockquote><p><strong>Media (M4):</strong> Video list → detail URL → back; screenshot anti-pattern vs correct — <code>media/03-templating/detail-pages-and-url-context/</code>.</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>List → detail link</h3>
+<p>On the list page, inside a loop:</p>
+<pre><code>{for each entry in 'blog' with status = published ordered by newest}
+  &lt;a href=&quot;post.html?collection=blog&amp;slug={slug}&quot;&gt;{title}&lt;/a&gt;
+{endfor}</code></pre>
+<p>Prefer <strong><code>slug</code></strong> (auto-generated from title). Avoid <code>?id=</code> unless you have a reason.</p>
+<h3>Detail page (correct)</h3>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;birkly-collection&quot; content=&quot;blog&quot;&gt;
+  &lt;title&gt;{title}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;&lt;a href=&quot;blog.html&quot;&gt;← Back to blog&lt;/a&gt;&lt;/p&gt;
+  &lt;article&gt;
+    &lt;h1&gt;{title}&lt;/h1&gt;
+    &lt;time&gt;{created_at format &quot;F j, Y&quot;}&lt;/time&gt;
+    &lt;div&gt;{'content'}&lt;/div&gt;
+  &lt;/article&gt;
+
+  &lt;section class=&quot;comments&quot;&gt;
+    {for each entry in 'comments' of 'blog'.current ordered by newest}
+      &lt;p&gt;&lt;strong&gt;{'author'}&lt;/strong&gt; {'content'}&lt;/p&gt;
+    {endfor}
+  &lt;/section&gt;
+
+  &lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3>Detail page (wrong — never do this)</h3>
+<pre><code>&lt;!-- WRONG: always shows a list or the wrong item --&gt;
+{for each entry in 'blog'}
+  &lt;h1&gt;{title}&lt;/h1&gt;
+  &lt;div&gt;{'content'}&lt;/div&gt;
+{endfor}</code></pre>
+<h3>What <code>.current</code> means</h3>
+<p><code>'blog'.current</code> means “the blog entry resolved from this page’s URL.” It only works when the client knows the collection (query <code>collection=</code>, meta tag, or path convention).</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Resolution</strong></p>
+<ol>
+<li>Collection from <code>collection</code> query param, <code>meta name=&quot;birkly-collection&quot;</code>, or path heuristics.</li>
+<li>Entry from <code>slug</code> or <code>id</code>.</li>
+<li>Exposed as top-level fields + <code>entry</code> + <code>'collection'.current</code>.</li>
+</ol>
+<p><strong>Template access</strong></p>
+<pre><code>{title}
+{'content'}
+{for each entry in 'comments' of 'blog'.current ordered by newest}</code></pre>
+<p>Explicit alternative: <code>of 'blog'.'my-post-slug'</code> (slug or id, not title).</p>
+<p><strong>Query placeholders</strong></p>
+<pre><code>{query.'slug'}
+{query.'collection'}</code></pre>
+<p><strong>Known bad patterns (regressions)</strong></p>
+<table><thead><tr><th>Bad</th><th>Fix</th></tr></thead>
+<tbody><tr><td>Detail loops entire collection</td><td>URL context only</td></tr><tr><td>List links without <code>collection</code> when needed</td><td><code>?collection=&amp;slug=</code></td></tr><tr><td>Custom <code>fetch</code> that ignores router</td><td>Use client + query params</td></tr></tbody></table>
+<p>Also see <a href="from-get-and-existence.html">From…get</a> when loading a named entry without URL context.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+<li><a href="sub-collections-in-templates.html">Sub-collections in templates</a></li>
+<li><a href="client-setup.html">Client setup</a></li>
+<li><a href="worked-site-walkthrough.html">Worked site walkthrough</a></li>
+<li><a href="reference-projects.html">Reference projects</a></li>
+</ul></div>

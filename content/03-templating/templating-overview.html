@@ -1,73 +1,82 @@
-<p>Birkly uses a simple templating language in your HTML: placeholders like <code>{ title }</code> and blocks like <code>{for each entry in 'blog'}</code> are replaced with real content from the CMS when the page is rendered.</p>
-<div class="doc-summary"><p><strong>Templating</strong> is how your website displays Birkly content. In your HTML you write variables (e.g. <code>{ title }</code>), loops (e.g. <code>{for each entry in 'blog'} … {endfor}</code>), and conditionals (e.g. <code>{if} … {endif}</code>). The Birkly client script in the browser—or server-side rendering—fetches content and replaces those placeholders. You use single braces <code>{ }</code>, plain-English style tags, and safe output by default. No full programming language is required—just the syntax described in the templating docs.</p>
-<p><strong>Canonical reference:</strong> <a href="canonical-syntax.html">Canonical template syntax</a> — single source of truth for <code>{for each}</code> and engine boundaries. <strong>Stack choice:</strong> <a href="../04-integration/choose-your-stack.html">Choose your stack</a>. <strong>Regions:</strong> <a href="web-components.html">Web components (templating)</a>.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>Templating is the bridge between your <strong>content in Birkly</strong> and what <strong>visitors see</strong> on your site. You don’t paste content by hand into every page; instead you leave “slots” in your HTML and Birkly fills them with the right data.</p>
-<p><strong>What you actually do</strong></p>
+<p>Birkly fills your HTML with CMS content using a plain-English template language: placeholders like <code>{title}</code> and blocks like <code>{for each entry in 'blog'}…{endfor}</code>. The browser script <code>birkly-client.js</code> (or optional SSR) replaces those tags with live data.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Write normal HTML, leave slots where content should come from Birkly, and load <code>birkly-client.js</code>. Collections are quoted (<code>'blog'</code>). System fields are bare (<code>{title}</code>, <code>{slug}</code>); user-defined fields use quotes (<code>{'excerpt'}</code>, <code>{'price'}</code>). List pages loop a collection; detail pages read one entry from the URL — they must <strong>not</strong> loop the whole collection.</p>
+<p><strong>Canonical engine reference:</strong> Birkly repo <code>docs/TEMPLATE_LANGUAGE_SPEC.md</code> (Template Language Spec v1.0). Human SSOT pointer: <a href="canonical-syntax.html">Canonical template syntax</a>.</p>
+<blockquote><p><strong>Media (M4):</strong> Architecture diagram (HTML → client → API → DOM) planned — <code>media/03-templating/templating-overview/screenshots/</code>. See P62 media plan.</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Mental model</h3>
+<table><thead><tr><th>Piece</th><th>Role</th></tr></thead>
+<tbody><tr><td><strong>Your HTML</strong></td><td>Layout and template tags in the Light DOM</td></tr><tr><td><strong>Collections &amp; entries</strong></td><td>Content you edit in admin</td></tr><tr><td><strong><code>birkly-client.js</code></strong></td><td>Fetches published data and replaces <code>{…}</code> tags</td></tr><tr><td><strong>Public API / page bundle</strong></td><td>Where the client loads entries</td></tr></tbody></table>
+<p>You do <strong>not</strong> paste every blog post into HTML. You write a loop once; new published entries appear automatically.</p>
+<h3>Three page patterns</h3>
+<table><thead><tr><th>Pattern</th><th>When</th><th>Approach</th></tr></thead>
+<tbody><tr><td><strong>List</strong></td><td>Many items of one type</td><td><code>{for each entry in 'blog' …}{endfor}</code></td></tr><tr><td><strong>Detail</strong></td><td>One item from a link</td><td>URL <code>?collection=blog&amp;slug={slug}</code> + <code>{title}</code> / <code>{'content'}</code> — <strong>no collection loop</strong></td></tr><tr><td><strong>Shared chrome</strong></td><td>Header/footer on every page</td><td><code>&lt;birkly-region&gt;</code> or <code>{from 'site_elements' get entry '…'}</code></td></tr></tbody></table>
+<p>See <a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a> and <a href="web-components.html">Regions / web components</a>.</p>
+<h3>Minimal example (blog list)</h3>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Blog&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Blog&lt;/h1&gt;
+  {for each entry in 'blog' with status = published ordered by newest}
+    &lt;article&gt;
+      &lt;h2&gt;&lt;a href=&quot;post.html?collection=blog&amp;slug={slug}&quot;&gt;{title}&lt;/a&gt;&lt;/h2&gt;
+      {if entry has 'excerpt'}
+        &lt;p&gt;{'excerpt'}&lt;/p&gt;
+      {endif}
+      &lt;time&gt;{created_at format &quot;F j, Y&quot;}&lt;/time&gt;
+    &lt;/article&gt;
+  {endfor}
+  &lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Every templated page needs the client script. On an <strong>external</strong> site (different domain than the CMS), add <code>data-cms-url=&quot;https://your-cms.example&quot;</code>. See <a href="client-setup.html">Client setup</a>.</p>
+<h3>Learning path</h3>
 <ol>
-<li><strong>Write your page layout</strong> in HTML (headings, sections, columns, styles) as you normally would.</li>
-<li><strong>Insert template tags</strong> where content should come from the CMS:</li>
+<li><a href="client-setup.html">Client setup</a> — script tag, same-host vs external, SSR vs client</li>
+<li><a href="variables-and-output.html">Variables and output</a> — <code>{title}</code> vs <code>{'field'}</code></li>
+<li><a href="loops-and-lists.html">Loops and lists</a> — <code>with</code>, <code>ordered by</code>, <code>limit</code></li>
+<li><a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a> — <code>.current</code>, anti-patterns</li>
+<li><a href="conditionals.html">Conditionals</a> · <a href="dates-and-formatting.html">Dates</a> · <a href="from-get-and-existence.html">From…get</a></li>
+<li><a href="public-forms-templating.html">Public forms templating</a> · <a href="worked-site-walkthrough.html">Worked site walkthrough</a></li>
+<li><a href="cheat-sheet.html">Cheat sheet</a> — quick reference + phantoms</li>
 </ol>
-<p>   - Show a title: <code>{ title }</code>    - Show a list of blog posts: <code>{for each entry in 'blog'} … {endfor}</code> with <code>{ title }</code>, <code>{ slug }</code>, etc. inside    - Show something only when it exists: <code>{if entry has excerpt} … {endif}</code></p>
-<ol>
-<li><strong>Publish or open the page.</strong> The Birkly client (or your server) loads content from Birkly and swaps the tags for real text, links, and images.</li>
-</ol>
-<p><strong>Example: a simple blog index page</strong></p>
-<p>Your HTML might look like this:</p>
-<pre><code>&lt;h1&gt;Our Blog&lt;/h1&gt;
-
-{for each entry in 'blog'}
-  &lt;article&gt;
-    &lt;h2&gt;&lt;a href=&quot;/blog/{ slug }&quot;&gt;{ title }&lt;/a&gt;&lt;/h2&gt;
-    &lt;time&gt;{ date &quot;F j, Y&quot; }&lt;/time&gt;
-    &lt;p&gt;{ excerpt }&lt;/p&gt;
-  &lt;/article&gt;
-{endfor}</code></pre>
-<p>When the page runs, the loop runs once per blog entry. Each article shows that entry’s title (linked), date, and excerpt. You don’t edit this HTML when you add a new post—Birkly does it automatically.</p>
-<p><strong>Where does the replacement happen?</strong></p>
+<h3>Where does replacement happen?</h3>
 <ul>
-<li><strong>In the browser (client-side):</strong> A small script (<code>birkly-client.js</code>) runs on your page, asks Birkly for content (e.g. “give me all blog entries”), and then finds the template tags in the page and replaces them. This works well for static HTML sites without a server language.</li>
-<li><strong>On the server (server-side):</strong> Some setups use PHP or another language to load content and render the same template tags before sending HTML to the visitor. The idea is the same; only the place where it runs is different.</li>
-</ul>
-<p><strong>Is it safe?</strong></p>
-<p>Yes. Plain text (e.g. from a Text or Textarea field) is usually <strong>escaped</strong>: characters like <code>&lt;</code> and <code>&gt;</code> are turned into safe form so they can’t inject scripts. Rich editor content is often output as <strong>HTML</strong> on purpose so headings and links look correct—Birkly is designed so that content comes from your own CMS, not from random visitors.</p>
-<p><strong>What to read next</strong></p>
-<ul>
-<li><a href="variables-and-output.html">Variables and output</a> — How to display a single value: <code>{ title }</code>, <code>{ content }</code>, dates, media.</li>
-<li><a href="loops-and-lists.html">Loops and lists</a> — How to list all entries or items (blog index, tags, gallery).</li>
-<li><a href="conditionals.html">Conditionals</a> — How to show or hide blocks with <code>{if}</code>.</li>
-<li><a href="dates-and-formatting.html">Dates and formatting</a> — How to format dates (e.g. “January 5, 2025”).</li>
-<li><a href="media-in-templates.html">Media in templates</a> — How to show images and file links.</li>
+<li><strong>Browser (default):</strong> <code>birkly-client.js</code> discovers regions, loads a page bundle, replaces tags. Used by all <a href="reference-projects.html">reference projects</a>.</li>
+<li><strong>Server (optional):</strong> PHP / Astro / Next can pre-render the same syntax. See <a href="../04-integration/ssr-and-build-time.html">SSR and build-time</a> and <a href="production-optimization.html">Production optimization</a>.</li>
 </ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Architecture</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Architecture</strong></p>
 <ol>
-<li><strong>Template source:</strong> HTML (or a server-rendered view) contains the Birkly template syntax.</li>
-<li><strong>Content source:</strong> The Birkly client (browser) or a server-side renderer loads content via the Birkly API (or content files on disk).</li>
-<li><strong>Engine:</strong> Replaces variables <code>{ field }</code>, loops <code>{for each …}</code>, conditionals <code>{if} … {endif}</code>, and helpers (e.g. <code>{ media … }</code>, <code>{ date &quot;format&quot; }</code>) with actual data.</li>
-<li><strong>Output:</strong> Final HTML with content in place. Text/textarea typically escaped; editor (rich text) output as HTML.</li>
+<li>Template HTML contains Birkly syntax in the <strong>Light DOM</strong>.</li>
+<li>Client discovers regions (syntax-bearing nodes, <code>data-birkly-region</code>, or <code>&lt;birkly-region&gt;</code>).</li>
+<li>Page bundle / public API loads published entries (and always prefetches <code>site_elements</code>).</li>
+<li>String engine (<code>Birkly.render</code> / <code>processTemplates</code>) replaces tags.</li>
+<li>Events: <code>birkly:region-processed</code>, <code>birkly:templates-processed</code>.</li>
 </ol>
-<p><strong>Key syntax (concise)</strong></p>
-<table><thead><tr><th>Concept</th><th>Typical syntax</th><th>Notes</th></tr></thead>
-<tbody><tr><td>Variable</td><td><code>{ variable_name }</code></td><td>Single braces, spaces; name = field key.</td></tr><tr><td>Loop (collection)</td><td><code>{for each entry in 'collection'}</code> … <code>{endfor}</code></td><td>Inside loop, variables refer to current entry.</td></tr><tr><td>Single entry</td><td><code>{from 'blog' get entry 'slug'}</code> … <code>{endget}</code></td><td>Load one entry by slug; vars inside the block refer to it.</td></tr><tr><td>Conditional</td><td><code>{if condition}</code> … <code>{else}</code> … <code>{endif}</code></td><td>e.g. <code>{if 'blog' has entries}</code>, <code>{if entry has excerpt}</code>.</td></tr><tr><td>Date format</td><td><code>{ date_field &quot;F j, Y&quot; }</code></td><td>PHP-style format string.</td></tr><tr><td>Media</td><td><code>{ media 'file.jpg' }</code> or <code>{ media field_name }</code></td><td>URL; some engines support width/height/crop.</td></tr></tbody></table>
-<p><strong>Environments</strong></p>
+<p><strong>Light DOM vs Shadow DOM</strong></p>
+<table><thead><tr><th>Surface</th><th>Template language</th><th>How to render</th></tr></thead>
+<tbody><tr><td>Light DOM</td><td>Yes — <code>{for each}</code>, <code>{from}</code>, regions</td><td>Write tags in markup</td></tr><tr><td>Shadow DOM</td><td><strong>No</strong> auto-scan</td><td>Fetch API + <code>Birkly.render(html, data)</code></td></tr></tbody></table>
+<p><strong>Core rules (must match the engine)</strong></p>
 <ul>
-<li><strong>Client-side:</strong> <code>birkly-client.js</code> fetches from the public API, walks the DOM (or a cloned fragment), replaces placeholders, and injects the result. No build step required; works with static HTML.</li>
-<li><strong>Server-side:</strong> PHP (or other) can load entries from API or from content files and run the same template rules before sending HTML. Same syntax; different execution and no CORS/API exposure to the client.</li>
+<li>Collections always in <strong>single quotes</strong>: <code>'blog'</code>.</li>
+<li>User fields quoted: <code>{'content'}</code>. System: <code>{title}</code>, <code>{slug}</code>, <code>{created_at}</code>.</li>
+<li>Ordering: <code>ordered by newest</code> / <code>oldest</code> / <code>last-updated</code> / <code>order</code> — <strong>not</strong> <code>sort=&quot;date:desc&quot;</code>.</li>
+<li>Dates: <code>{created_at format &quot;Y-m-d&quot;}</code> — <strong>not</strong> <code>{ date &quot;…&quot; }</code>.</li>
+<li>Single entry: <code>{from 'blog' get entry 'slug'}…{endget}</code> — <strong>not</strong> <code>{entry 'blog'.'slug'}…{endentry}</code> (phantom; forms use <code>{entry for}</code> which is different).</li>
+<li>No Jinja/Liquid: not <code>{{ }}</code>, not <code>{% for %}</code>.</li>
 </ul>
-<p><strong>Safety</strong></p>
-<ul>
-<li>Escaping is applied to plain-text fields by default. Editor/HTML fields are intentionally rendered as HTML; only use them in trusted templates. The exact behaviour (which field types are escaped vs raw) is documented per field type in the admin Help or <a href="../02-content/field-types.html">Field types</a>.</li>
-</ul>
-<p><strong>Related</strong></p>
-<ul>
-<li><a href="variables-and-output.html">Variables and output</a></li>
-<li><a href="loops-and-lists.html">Loops and lists</a></li>
-<li><a href="conditionals.html">Conditionals</a></li>
-<li><a href="dates-and-formatting.html">Dates and formatting</a></li>
-<li><a href="media-in-templates.html">Media in templates</a></li>
-<li><a href="web-components.html">Web components (templating)</a> — <code>&lt;birkly-region&gt;</code>, Light DOM patterns</li>
-<li><a href="reference-projects.html">Reference projects</a> — six starter sites (live client only)</li>
-<li><a href="production-optimization.html">Production optimization</a> — optional hydrate/snapshot/bake</li>
+<p><strong>Interlinks for agents</strong></p>
+<table><thead><tr><th>Topic</th><th>Doc</th></tr></thead>
+<tbody><tr><td>Field types / schema</td><td><a href="../02-content/field-types.html">Field types</a></td></tr><tr><td>Sub-collections model</td><td><a href="../02-content/sub-collections.html">Sub-Collections</a></td></tr><tr><td>Forms</td><td><a href="public-forms-templating.html">Public forms templating</a>, <a href="../04-integration/public-forms.html">Public forms</a></td></tr><tr><td>WebMCP / AI</td><td><a href="../04-integration/webmcp-tools.html">Website tools</a>, <a href="../02-content/agent-guide.html">Agent Guide</a></td></tr><tr><td>Connect AI apps</td><td><strong>Settings → AI</strong> — <a href="../01-admin/mcp-connections.html">MCP connections</a></td></tr><tr><td>Spec (CMS repo)</td><td><code>docs/TEMPLATE_LANGUAGE_SPEC.md</code></td></tr></tbody></table></div></details>
+<div class="doc-related"><ul>
+<li><a href="canonical-syntax.html">Canonical syntax</a></li>
+<li><a href="client-setup.html">Client setup</a></li>
+<li><a href="cheat-sheet.html">Cheat sheet</a></li>
 <li><a href="../04-integration/choose-your-stack.html">Choose your stack</a></li>
 <li><a href="../04-integration/website-integration.html">Website integration</a></li>
 <li><a href="../04-integration/client-library.html">Client library</a></li>
-</ul></div></details>
+<li><a href="../02-content/content-model-overview.html">Content model overview</a></li>
+</ul></div>

@@ -1,0 +1,60 @@
+<p>Build contact, newsletter, and feedback forms with <code>{entry for 'collection'}…{endentry}</code> so <code>birkly-client.js</code> wires the form to Birkly’s public submit API.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Set the collection <strong>Entry method</strong> to <strong>Public API</strong>, match <code>name=&quot;{field_slug}&quot;</code> to the schema, wrap markup in <code>{entry for 'contact'}…{endentry}</code>, and load the client script. Prefer this over hand-rolled <code>fetch</code> JSON posts. Full admin/API notes: <a href="../04-integration/public-forms.html">Public forms</a>.</p>
+<blockquote><p><strong>Media (M4):</strong> Video submit → entry in admin; screenshot of <code>{entry for}</code> markup — <code>media/03-templating/public-forms-templating/</code>.</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>1. Collection setup</h3>
+<ol>
+<li>Create a collection (e.g. <code>contact</code>) with fields <code>name</code>, <code>email</code>, <code>message</code> (or your slugs).</li>
+<li>Settings → <strong>Entry method</strong> → <strong>Public API</strong>.</li>
+<li>Configure rate limit, notification email, CAPTCHA as needed.</li>
+<li>Usually keep <strong>auto-publish</strong> off so submissions land as drafts.</li>
+</ol>
+<h3>2. Template-first form (recommended)</h3>
+<pre><code>&lt;div class=&quot;contact-form-wrapper&quot;&gt;
+{entry for 'contact'}
+  &lt;label&gt;Name
+    &lt;input type=&quot;text&quot; name=&quot;{name}&quot; required&gt;
+  &lt;/label&gt;
+  &lt;label&gt;Email
+    &lt;input type=&quot;email&quot; name=&quot;{email}&quot; required&gt;
+  &lt;/label&gt;
+  &lt;label&gt;Message
+    &lt;textarea name=&quot;{message}&quot; required&gt;&lt;/textarea&gt;
+  &lt;/label&gt;
+  &lt;div class=&quot;birkly-form-status&quot; data-birkly-form-status hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+  &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+{endentry}
+&lt;/div&gt;
+
+&lt;script src=&quot;/birkly-client.js&quot; data-cms-url=&quot;https://your-cms.example&quot;&gt;&lt;/script&gt;</code></pre>
+<p>The client wraps your markup in a real <code>&lt;form&gt;</code>, posts to <code>/api/public_submit.php</code>, and can show status in <code>[data-birkly-form-status]</code>.</p>
+<h3>3. Auto-generated form</h3>
+<pre><code>{public_form 'contact'}
+&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h3>Known-bad patterns</h3>
+<table><thead><tr><th>Bad</th><th>Why</th><th>Do this instead</th></tr></thead>
+<tbody><tr><td>Custom <code>fetch</code> to invented REST paths</td><td>Wrong payload / missing server key handling</td><td><code>{entry for}</code></td></tr><tr><td><code>name=&quot;Name&quot;</code> that doesn’t match field slug</td><td>Submit drops or rejects fields</td><td><code>name=&quot;{email}&quot;</code> matching schema</td></tr><tr><td><code>{entry 'contact'.'x'}…{endentry}</code></td><td>Phantom single-entry syntax</td><td><code>{entry for 'contact'}</code> for forms; <code>{from …}</code> for read</td></tr><tr><td>No <code>birkly-client.js</code></td><td>Placeholder never hydrates</td><td>Load the client</td></tr></tbody></table></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Engine behaviour</strong></p>
+<ul>
+<li><code>{entry for}</code> → placeholder <code>div.birkly-entry-block</code> with encoded inner HTML.</li>
+<li>Client hydrates schema + submit URL; API key stays server-side.</li>
+<li><code>{public_form 'slug'}</code> → schema-generated fields.</li>
+</ul>
+<p><strong>Sub-entry comments</strong> (not <code>{entry for}</code> on parent):</p>
+<pre><code>&lt;form data-birkly-url=&quot;/api/public_sub_entry.php&quot; data-birkly-success=&quot;reload&quot;&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;parent_collection&quot; value=&quot;blog&quot;&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;parent_entry_id&quot; value=&quot;{id}&quot;&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;sub_collection&quot; value=&quot;comments&quot;&gt;
+  &lt;input type=&quot;text&quot; name=&quot;author&quot; required&gt;
+  &lt;textarea name=&quot;content&quot; required&gt;&lt;/textarea&gt;
+  &lt;button type=&quot;submit&quot;&gt;Post comment&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<p><strong>WebMCP:</strong> Declarative forms can expose tools when website tools allowlist includes the collection — <a href="../04-integration/webmcp-tools.html">Website tools</a>.</p>
+<p><strong>Clarify vs phantoms table:</strong> Spec “Not implemented” lists <code>{entry 'x'.'y'}…{endentry}</code> as phantom. <strong><code>{entry for}</code> is implemented</strong> and allowed by the project template validator.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="../04-integration/public-forms.html">Public forms (integration)</a></li>
+<li><a href="client-setup.html">Client setup</a></li>
+<li><a href="sub-collections-in-templates.html">Sub-collections in templates</a></li>
+<li><a href="../02-content/collections.html">Collections</a></li>
+<li><a href="canonical-syntax.html">Canonical syntax</a></li>
+</ul></div>

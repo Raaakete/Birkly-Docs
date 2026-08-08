@@ -18,7 +18,7 @@ Studio (visual builder) is separate — this guide covers the canonical public s
 
 ## Quick setup: Site builder service agent
 
-1. Open **Agent Guide → Connections**.
+1. Open **Settings → AI**.
 2. Click **Add agent** → choose **Service agent**.
 3. Click the **Site builder** preset (sets Admin role and a helpful name).
 4. Choose who may use the agent, then create it and copy the **Connector URL**.

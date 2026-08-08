@@ -70,17 +70,26 @@
         <a href="agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
-        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
         <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
         <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
         <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
         </div>
@@ -172,17 +181,18 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><div class="doc-summary"><p><strong>Agent Guide</strong> is Birkly's single admin home for <strong>AI communication and tools</strong> for your site, organized as four tabs: <strong>Guide</strong> (this doc), <strong>Tools</strong>, <strong>Connections</strong>, and <strong>Publish</strong>. This page covers the <strong>Guide</strong> tab — Birkly's structured context layer for AI systems and connected agents. It sits on top of your existing CMS content, Media library, and other canonical sources — it does <strong>not</strong> replace them. You declare <strong>sources of truth</strong> first, then build concise summaries (identity, offerings, claims, voice), and <strong>publish</strong> a versioned, machine-readable snapshot on your <strong>public site domain</strong> so agents, crawlers, and integrations can discover and use it responsibly.</p>
+        <div class="doc-content"><div class="doc-summary"><p><strong>Agent Guide</strong> is Birkly's admin home for <strong>Guide · Tools · Publish</strong>. This page covers the <strong>Guide</strong> tab — Birkly's structured context layer for AI systems and connected agents. It sits on top of your existing CMS content, Media library, and other canonical sources — it does <strong>not</strong> replace them. You declare <strong>sources of truth</strong> first, then build concise summaries (identity, offerings, claims, voice), and <strong>publish</strong> a versioned, machine-readable snapshot on your <strong>public site domain</strong> so agents, crawlers, and integrations can discover and use it responsibly.</p>
+<p><strong>AI app connections</strong> (Claude, ChatGPT, Cursor, built-in assistant keys) live under <strong>Settings → AI</strong> — not as an Agent Guide tab.</p>
 <p>Works for individuals, teams, enterprises, nonprofits, and any site that wants a single authoritative guide for automated assistants.</p>
 <p><strong>Product promise:</strong> Publish an authoritative, structured, evidence-aware representation that is easier for AI systems to discover and use. This is <strong>not</strong> a guarantee that every AI model will ingest your guide, and it is <strong>not</strong> a chatbot builder.</p>
-<h2>The Agent Guide hub (four tabs)</h2>
-<p>Agent Guide answers three different questions about AI and your site, plus a fourth tab that ties them together. All four are reached from the same admin page, but each lives in a different place — they are never the same thing:</p>
+<h2>The Agent Guide hub (three tabs)</h2>
+<p>Agent Guide answers Guide / Tools / Publish. <strong>CMS AI connections are not a hub tab</strong> — they live under <strong>Settings → AI</strong>.</p>
 <table><thead><tr><th>Tab</th><th>Question it answers</th><th>Where it actually lives</th></tr></thead>
-<tbody><tr><td><strong>Guide</strong></td><td>&quot;What should AI say about us?&quot;</td><td>Public JSON on your site domain (<code>/.well-known/agent-guide.json</code>) — covered by this doc</td></tr><tr><td><strong>Tools</strong></td><td>&quot;What can an AI helper <em>do</em> on our website while someone is visiting?&quot;</td><td>The <strong>WebMCP</strong> runtime, running in the visitor's browser — <strong>off by default</strong></td></tr><tr><td><strong>Connections</strong></td><td>&quot;How do ChatGPT / Claude / our built-in assistant connect to <em>this Birkly CMS</em>?&quot;</td><td>Always your Birkly address (<code>{your-birkly-url}/mcp</code>) — never your website host</td></tr><tr><td><strong>Publish</strong></td><td>&quot;Where do the above actually work, given how my site is hosted?&quot;</td><td>Mode-aware summary + hosting checklist for the other three</td></tr></tbody></table>
-<p>A compact <strong>status strip</strong> at the top of the page (Guide / Website tools / AI app connections / Where it's hosted) links straight into each tab.</p>
+<tbody><tr><td><strong>Guide</strong></td><td>&quot;What should AI say about us?&quot;</td><td>Public JSON on your site domain (<code>/.well-known/agent-guide.json</code>) — covered by this doc</td></tr><tr><td><strong>Tools</strong></td><td>&quot;What can an AI helper <em>do</em> on our website while someone is visiting?&quot;</td><td>The <strong>WebMCP</strong> runtime, running in the visitor's browser — <strong>off by default</strong></td></tr><tr><td><strong>Publish</strong></td><td>&quot;Where do Guide / Tools actually work, given how my site is hosted?&quot;</td><td>Mode-aware summary + hosting checklist</td></tr></tbody></table>
+<p>A compact <strong>status strip</strong> at the top of the page links into each tab (and may deep-link to <strong>Settings → AI</strong> for connector status).</p>
 <ul>
 <li><strong>Tools (WebMCP)</strong> — see <a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a> for the full catalog, safety model, and how to enable it.</li>
-<li><strong>Connections</strong> — the same personal connector / service agent controls as <strong>Agent Guide → Connections</strong>, mounted here for convenience. Both surfaces are currently live at once (Birkly is A/B-testing which one owners prefer); see <a href="../01-admin/mcp-connections.html">MCP connections</a> — nothing here forks that backend or its permissions.</li>
+<li><strong>AI connections</strong> — personal connector / service agents / built-in assistant keys: <a href="../01-admin/mcp-connections.html">MCP connections</a> and <a href="../01-admin/ai-connections.html">AI connections</a> under <strong>Settings → AI</strong>.</li>
 <li><strong>Publish</strong> — see <a href="#what-gets-published">What gets published</a> and <a href="#related-birkly-features">Related Birkly features</a> below; the tab is <strong>hosting-mode aware</strong> (&quot;On Birkly&quot; <code>project/</code> vs. &quot;External&quot; vs. &quot;None&quot;) and never shows a public URL Birkly can't actually serve for your site's hosting mode.</li>
 </ul>
 <h2>What problem does it solve?</h2>
@@ -259,7 +269,7 @@
 <p>Suggestions are <strong>never auto-saved</strong> until you accept them. AI Assist prefers declared <strong>sources of truth</strong> before inferring.</p>
 <h2>Documentation map</h2>
 <table><thead><tr><th>Doc</th><th>Audience</th><th>Contents</th></tr></thead>
-<tbody><tr><td><a href="agent-guide-getting-started.html">Getting started</a></td><td>Beginners</td><td>First publish in ~30 minutes</td></tr><tr><td><a href="agent-guide-workflows.html">Workflows</a></td><td>Editors</td><td>Tab-by-tab how-to</td></tr><tr><td><a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a></td><td>Editors + strategists</td><td>Proof, marketplace/review links, source roles</td></tr><tr><td><a href="agent-guide-ai-assist.html">AI Assist</a></td><td>Power users</td><td>Copilot modes, Guide Studio, field AI</td></tr><tr><td><a href="agent-guide-best-practices.html">Best practices</a></td><td>Everyone</td><td>Quality, governance, what not to do</td></tr><tr><td><a href="agent-guide-data-model.html">Data model</a></td><td>Developers</td><td>Schema, storage, completeness scoring</td></tr><tr><td><a href="../04-integration/agent-guide-public-api.html">Public API</a></td><td>Integrators</td><td>Endpoints, views, graph, caching</td></tr><tr><td><a href="../04-integration/agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a></td><td>Developers</td><td>MCP tools, resources, agent patterns</td></tr><tr><td><a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a></td><td>Everyone</td><td>The <strong>Tools</strong> hub tab — what visitor AI helpers can do, tool catalog, safety, hosting</td></tr><tr><td><a href="../01-admin/mcp-connections.html">MCP connections</a></td><td>Everyone</td><td>The <strong>Connections</strong> hub tab (= Agent Guide → Connections) — how AI apps connect to Birkly</td></tr></tbody></table>
+<tbody><tr><td><a href="agent-guide-getting-started.html">Getting started</a></td><td>Beginners</td><td>First publish in ~30 minutes</td></tr><tr><td><a href="agent-guide-workflows.html">Workflows</a></td><td>Editors</td><td>Tab-by-tab how-to</td></tr><tr><td><a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a></td><td>Editors + strategists</td><td>Proof, marketplace/review links, source roles</td></tr><tr><td><a href="agent-guide-ai-assist.html">AI Assist</a></td><td>Power users</td><td>Copilot modes, Guide Studio, field AI</td></tr><tr><td><a href="agent-guide-best-practices.html">Best practices</a></td><td>Everyone</td><td>Quality, governance, what not to do</td></tr><tr><td><a href="agent-guide-data-model.html">Data model</a></td><td>Developers</td><td>Schema, storage, completeness scoring</td></tr><tr><td><a href="../04-integration/agent-guide-public-api.html">Public API</a></td><td>Integrators</td><td>Endpoints, views, graph, caching</td></tr><tr><td><a href="../04-integration/agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a></td><td>Developers</td><td>MCP tools, resources, agent patterns</td></tr><tr><td><a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a></td><td>Everyone</td><td>The <strong>Tools</strong> hub tab — what visitor AI helpers can do, tool catalog, safety, hosting</td></tr><tr><td><a href="../01-admin/mcp-connections.html">MCP connections</a></td><td>Everyone</td><td><strong>Settings → AI</strong> — how AI apps connect to Birkly</td></tr></tbody></table>
 <h2>Quick start (5 steps)</h2>
 <ol>
 <li><strong>Sources</strong> — Add at least one <strong>narrative</strong> source of truth (CMS entry, website, or document).</li>
@@ -286,9 +296,8 @@
 <h2>Related Birkly features</h2>
 <ul>
 <li><strong>Agent Guide → Tools</strong> — Website tools (WebMCP); what visitor-facing AI helpers can <em>do</em> on your live site. See <a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a>.</li>
-<li><strong>Agent Guide → Connections / Agent Guide → Connections</strong> — How AI apps connect to your Birkly CMS. See <a href="../01-admin/mcp-connections.html">MCP connections</a>.</li>
+<li><strong>Settings → AI</strong> — How AI apps and the built-in assistant connect to your Birkly CMS. See <a href="../01-admin/mcp-connections.html">MCP connections</a> and <a href="../01-admin/ai-connections.html">AI connections</a>.</li>
 <li><strong>Settings → Site delivery</strong> — Public site URL where well-known and API are served</li>
-<li><strong>Agent Guide → Connections</strong> — Optional BYOAI for Assist (rules-only mode works without AI)</li>
 <li><strong>MCP connections</strong> — Inbound agents can read published guide context via MCP tools</li>
 <li><strong>Admin AI chat</strong> — Complementary; Agent Guide is structured publish, not conversational UI</li>
 </ul>
@@ -300,7 +309,7 @@
 <p><strong>Do I need AI connections configured?</strong>   No. Rule-based suggestions and manual editing work without AI. Connections unlock Copilot, Fill 100%, and smarter suggestions.</p>
 <p><strong>Do I need a vector database?</strong>   No. Agent Guide is <strong>curated truth + evidence + source links</strong> — the right model for “what is officially true about our brand?” Vector search helps <strong>fuzzy search over huge unstructured archives</strong> (e.g. support tickets). That is a different product problem; optional semantic search could be a <strong>future plugin</strong>, not core CMS.</p>
 <p><strong>Does publishing my Guide turn on website tools?</strong>   No. Publishing the Guide only makes your fact-sheet JSON public. <strong>Website tools</strong> (the Tools tab / WebMCP) is a separate, off-by-default switch — see <a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a>.</p>
-<p><strong>Why do I see Connections both here and in Agent Guide → Connections?</strong>   Birkly currently shows the same AI-connection controls in both places while it evaluates which location owners prefer. They share the same backend and settings — changes in one show up in the other. Nothing is duplicated or out of sync.</p>
+<p><strong>Where do I connect Claude / ChatGPT / Cursor?</strong>   <strong>Settings → AI</strong> — not an Agent Guide tab. Agent Guide is Guide · Tools · Publish only.</p>
 <p><strong>Legacy paths and tools?</strong>   <code>/.well-known/brand-context.json</code>, MCP <code>get_brand_context</code>, and admin <code>?page=ai-presence</code> remain supported as aliases.</p></div></div>
       </div>
     </main>

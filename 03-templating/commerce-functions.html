@@ -70,17 +70,26 @@
         <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Templating</div>
-        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="client-setup.html" class="nav-link">Client setup</a>
         <a href="variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
         <a href="conditionals.html" class="nav-link">Conditionals</a>
+        <a href="from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
         <a href="commerce-functions.html" class="nav-link active">Commerce functions</a>
         <a href="events-functions.html" class="nav-link">Events functions</a>
         <a href="storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="reference-projects.html" class="nav-link">Reference projects</a>
         <a href="production-optimization.html" class="nav-link">Production optimization</a>
         </div>
@@ -172,40 +181,42 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Template functions registered by the <strong>Commerce</strong> plugin when active. Use them in client-site HTML (kekaba, Birkly-Website, etc.) to show cart state and build checkout links.</p>
-<div class="doc-summary"><p>Commerce exposes <code>{commerce_cart_count}</code>, <code>{commerce_cart_url}</code>, <code>{commerce_buy_url}</code>, <code>{commerce_add_to_cart}</code>, and <code>{commerce_price_from}</code> for cart badges, buy buttons, and “from €X” pricing. Pass <strong>variant sub-entry</strong> ids for multi-SKU products. Functions register via <code>register_template_function()</code> in <code>plugins/commerce/plugin.php</code>.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Cart badge in header</strong></p>
-<pre><code>&lt;a href=&quot;/cart&quot;&gt;Cart ({commerce_cart_count})&lt;/a&gt;</code></pre>
-<p><strong>Buy button on a product page</strong></p>
+        <div class="doc-content"><p>Template functions registered by the <strong>Commerce</strong> plugin when active. Use them in client-site HTML for cart badges, buy links, and “from €X” pricing.</p>
+<div class="doc-summary"><p><strong>In short:</strong> With Commerce active you can use <code>{commerce_cart_count}</code>, <code>{commerce_cart_url}</code>, <code>{commerce_buy_url}</code>, <code>{commerce_add_to_cart}</code>, and <code>{commerce_price_from}</code>. For multi-SKU products, pass the <strong>variant sub-entry</strong> id/slug. Combine with normal loops and <a href="sub-collections-in-templates.html">sub-collection</a> syntax (<code>of 'products'.current</code>).</p>
+<blockquote><p><strong>Media (M4):</strong> Optional add-to-cart video — <code>media/03-templating/commerce-functions/</code> (P3 priority).</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Cart badge</h3>
+<pre><code>&lt;a href=&quot;/cart.html&quot;&gt;Cart ({commerce_cart_count})&lt;/a&gt;</code></pre>
+<h3>Buy button on a product detail page</h3>
 <pre><code>&lt;a href=&quot;{commerce_buy_url slug my_products 1}&quot;&gt;Buy now&lt;/a&gt;</code></pre>
 <ul>
-<li>First argument: entry <strong>id or slug</strong> (use variant sub-entry for options)</li>
-<li>Second argument: <strong>collection slug</strong></li>
-<li>Third argument: quantity (optional, default 1)</li>
+<li>First argument: entry <strong>id or slug</strong> (variant sub-entry for options)</li>
+<li>Second: <strong>collection slug</strong></li>
+<li>Third: quantity (optional, default 1)</li>
 </ul>
-<p><strong>Show lowest price on a parent product</strong></p>
-<p>When variants have different prices:</p>
+<h3>Lowest price on a parent product</h3>
 <pre><code>&lt;p&gt;From {commerce_price_from slug my_products}&lt;/p&gt;</code></pre>
-<p><strong>Add to cart vs buy</strong></p>
-<p><code>{commerce_add_to_cart …}</code> builds the same URL as <code>{commerce_buy_url …}</code> — use whichever label fits your UX.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><table><thead><tr><th>Function</th><th>Signature</th><th>Returns</th></tr></thead>
-<tbody><tr><td><code>commerce_cart_count</code></td><td>none</td><td>Item count in session cart (string)</td></tr><tr><td><code>commerce_cart_url</code></td><td>none</td><td>Cart API URL</td></tr><tr><td><code>commerce_buy_url</code></td><td><code>entry_id</code>, <code>collection_slug?</code>, <code>qty?</code></td><td>Checkout/add URL for sellable unit</td></tr><tr><td><code>commerce_add_to_cart</code></td><td>same as buy_url</td><td>Alias</td></tr><tr><td><code>commerce_price_from</code></td><td><code>entry_id</code>, <code>collection_slug?</code></td><td>Lowest <code>purchase_option</code> price for display</td></tr></tbody></table>
-<p><strong>Variants:</strong> Catalog indexes one row per sellable unit. Templates must target the <strong>variant sub-entry</strong> id/slug, not the parent marketing entry.</p>
-<p><strong>Example — variant loop</strong></p>
-<pre><code>{for each variant in sub_entries variants}
+<h3>Variants (sub-collection)</h3>
+<p>On a product detail page (URL has <code>?collection=products&amp;slug=…</code>):</p>
+<pre><code>{for each entry in 'variants' of 'products'.current ordered by order}
   &lt;div&gt;
-    &lt;h3&gt;{variant.title}&lt;/h3&gt;
-    &lt;a href=&quot;{commerce_buy_url variant.id products 1}&quot;&gt;Buy&lt;/a&gt;
+    &lt;h3&gt;{title}&lt;/h3&gt;
+    &lt;a href=&quot;{commerce_buy_url slug products 1}&quot;&gt;Buy&lt;/a&gt;
   &lt;/div&gt;
 {endfor}</code></pre>
-<p><strong>Affiliate:</strong> Append <code>?ref=partner_id</code> on site URLs; Commerce stores ref in session for discount rules at checkout.</p>
-<p><strong>API equivalent:</strong> <code>/api/index.php?route=commerce&amp;action=checkout&amp;entry_id=…&amp;collection=…&amp;purchase_option_id=…</code></p>
-<p><strong>Registration:</strong> Functions are omitted when Commerce is inactive (<code>commerce_plugin_active()</code> gate in <code>plugin.php</code>).</p></div></details>
+<p>Use the variant’s own slug/id in <code>commerce_buy_url</code> when that row is the sellable unit.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<table><thead><tr><th>Function</th><th>Signature</th><th>Returns</th></tr></thead>
+<tbody><tr><td><code>commerce_cart_count</code></td><td>none</td><td>Session cart item count</td></tr><tr><td><code>commerce_cart_url</code></td><td>none</td><td>Cart URL</td></tr><tr><td><code>commerce_buy_url</code></td><td><code>entry_id</code>, <code>collection_slug?</code>, <code>qty?</code></td><td>Checkout / add URL</td></tr><tr><td><code>commerce_add_to_cart</code></td><td>same as buy_url</td><td>Alias</td></tr><tr><td><code>commerce_price_from</code></td><td><code>entry_id</code>, <code>collection_slug?</code></td><td>Lowest purchase-option price</td></tr></tbody></table>
+<p><strong>Registration:</strong> <code>register_template_function()</code> in Commerce <code>plugin.php</code>; omitted when inactive. See <a href="plugin-language-extensions.html">Plugin language extensions</a>.</p>
+<p><strong>Do not</strong> invent <code>{for each variant in sub_entries variants}</code> — use <code>of 'collection'.current</code> / explicit slug.</p>
+<p><strong>Affiliate:</strong> Append <code>?ref=partner_id</code> on site URLs when using affiliate rules.</p>
+<p>Full page recipes: <a href="storefront-patterns.html">Storefront patterns</a>.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="storefront-patterns.html">Storefront and events patterns</a></li>
+<li><a href="sub-collections-in-templates.html">Sub-collections in templates</a></li>
 <li><a href="../06-extensibility/plugins/commerce.html">Commerce plugin</a></li>
-<li><a href="../06-extensibility/commerce-fieldtype.html">Commerce fieldtype</a></li>
-<li><a href="templating-overview.html">Templating overview</a></li>
 <li><a href="loops-and-lists.html">Loops and lists</a></li>
+<li><a href="plugin-language-extensions.html">Plugin language extensions</a></li>
 </ul></div></div>
       </div>
     </main>

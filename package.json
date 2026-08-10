@@ -29,6 +29,7 @@
     "css/",
     "00-overview/",
     "01-admin/",
+    "01-admin/connections/",
     "02-content/",
     "03-templating/",
     "04-integration/",

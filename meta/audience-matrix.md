@@ -15,6 +15,8 @@ The docs are structured so **everyone** sees a short **Summary** first. **Non-te
 | **01 Admin** | ✓ Summary + Beginner | ✓ Summary + Advanced Users |
 | Dashboard, Content overview, Media, Settings, Roles, Account, Help | ✓ Primary | ✓ Reference |
 | AI overview, AI connections, AI chat and actions, AI approvals | ✓ Primary | ✓ Reference |
+| Connections overview, email setup, commerce email prerequisite | ✓ Primary (Settings → Connections) | ✓ Reference |
+| Notification routes, HTTP credentials, webhooks, Automation mail migration | ✓ Setup steps | ✓ Primary (API / env / vault) |
 | **02 Content** | ✓ Summary + Beginner | ✓ Summary + Advanced Users |
 | Collections, Entries, Field types, Slugs and status | ✓ Primary | ✓ Primary |
 | **03 Templating** | ✓ Summary + Beginner (concepts) | ✓ Summary + Advanced Users (syntax, engine) |

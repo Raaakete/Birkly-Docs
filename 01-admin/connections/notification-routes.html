@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>notification routes — Birkly Docs</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../content-overview.html" class="nav-link">Content overview</a>
+        <a href="../entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../media-library.html" class="nav-link">Media library</a>
+        <a href="../settings.html" class="nav-link">Settings</a>
+        <a href="connections-overview.html" class="nav-link">Connections overview</a>
+        <a href="email-setup.html" class="nav-link">Email setup</a>
+        <a href="notification-routes.html" class="nav-link active">Notification routes</a>
+        <a href="http-credentials.html" class="nav-link">HTTP credentials</a>
+        <a href="webhooks.html" class="nav-link">Connections webhooks</a>
+        <a href="migration-from-automation.html" class="nav-link">Migration from Automation mail</a>
+        <a href="commerce-email-prerequisite.html" class="nav-link">Commerce email prerequisite</a>
+        <a href="../analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="../developer-mode.html" class="nav-link">Developer mode</a>
+        <a href="../project-git-sync.html" class="nav-link">Project Git sync</a>
+        <a href="../roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../account.html" class="nav-link">Account</a>
+        <a href="../admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../design-system.html" class="nav-link">Admin design system</a>
+        <a href="../admin-design-language.html" class="nav-link">Admin design language</a>
+        <a href="../help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../ai-approvals.html" class="nav-link">AI approvals</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../../03-templating/client-setup.html" class="nav-link">Client setup</a>
+        <a href="../../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
+        <a href="../../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
+        <a href="../../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
+        <a href="../../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
+        <a href="../../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
+        <a href="../../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        <a href="../../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../../06-extensibility/commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
+        <a href="../../06-extensibility/commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="../../06-extensibility/commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="../../06-extensibility/commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="../../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../../06-extensibility/commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="../../06-extensibility/commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="../../06-extensibility/commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="../../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../../06-extensibility/commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="../../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
+        <a href="../../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../../README.html" class="nav-link">README</a>
+        <a href="../../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><div class="doc-summary"><p><strong>Notification routes</strong> map platform events (order paid, form submission, password reset, health alert, …) to one or more <strong>channels</strong>: email (via an email alias), Slack, Discord, or SMS (Twilio). Configure channels and routes under <strong>Settings → Connections → Notification channels</strong>. Plugins call <code>birkly_notify($event, $payload)</code>; admins own the final routing map. This is fan-out for operational messages — not a marketing campaign builder.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What a route is</h3>
+<p>A <strong>route</strong> answers: “When <em>this</em> happens, tell <em>these</em> places.”</p>
+<p>Example: when <code>commerce.order_paid</code> fires → email the shop owner <strong>and</strong> post to a Slack channel.</p>
+<h3>Add a Slack channel</h3>
+<ol>
+<li>In Slack, create an <strong>Incoming Webhook</strong> for the channel you want.</li>
+<li>In Birkly: <strong>Settings → Connections → Notification channels → Add channel</strong>.</li>
+<li>Choose <strong>Slack</strong>, paste the webhook URL, name it (e.g. <code>Ops Slack</code>), save.</li>
+<li>Use <strong>Test channel</strong> if offered — you should see a test message in Slack.</li>
+</ol>
+<h3>Add Discord</h3>
+<ol>
+<li>In Discord: channel → Integrations → Webhooks → New Webhook → copy URL.</li>
+<li><strong>Add channel</strong> → <strong>Discord</strong> → paste URL → save → test.</li>
+</ol>
+<h3>Add SMS (Twilio)</h3>
+<ol>
+<li>In Twilio, note <strong>Account SID</strong>, <strong>Auth Token</strong>, and a <strong>From</strong> number (or Messaging Service).</li>
+<li><strong>Add channel</strong> → <strong>SMS (Twilio)</strong> → enter SID, token, From number → save.</li>
+<li>Test with a phone number you control (E.164 format, e.g. <code>+15551234567</code>).</li>
+</ol>
+<h3>Create a notification route</h3>
+<ol>
+<li>Under <strong>Notification routes</strong>, click <strong>Add route</strong>.</li>
+<li>Choose an <strong>event</strong> (built-in list or a plugin event key).</li>
+<li>Add one or more <strong>channels</strong> (email alias, Slack connection, Discord, SMS).</li>
+<li>For email channels, set the recipient and optionally the alias (<code>transactional_email</code> / <code>ops_alerts</code>).</li>
+<li>Save. Keep the route <strong>active</strong>.</li>
+</ol>
+<h3>Built-in events (common)</h3>
+<table><thead><tr><th>Event</th><th>Typical use</th></tr></thead>
+<tbody><tr><td><code>commerce.order_paid</code></td><td>New paid order</td></tr><tr><td><code>commerce.order_shipped</code></td><td>Shipment notice to ops</td></tr><tr><td><code>form.submission</code></td><td>Contact / public form</td></tr><tr><td><code>user.password_reset</code></td><td>Reset flow ops copy (customer mail still uses templates)</td></tr><tr><td><code>user.email_verify</code></td><td>Verify flow</td></tr><tr><td><code>system.health_alert</code></td><td>Degraded / error health</td></tr><tr><td><code>team.invitation</code></td><td>Admin invite</td></tr></tbody></table>
+<p>Plugins may register additional keys like <code>my_plugin.event_name</code>.</p>
+<h3>Tips</h3>
+<ul>
+<li>Email delivery still needs a healthy <a href="email-setup.html">Email setup</a> — routes that include email use <code>birkly_send_mail</code> under the hood.</li>
+<li>Automation workflows can still call Slack/email actions directly; Connections is the shared vault for credentials and fan-out.</li>
+<li>Start with one event → one Slack channel, then add email CC for ops.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>API</h3>
+<pre><code>require_once __DIR__ . '/../core/connections.php';
+
+$result = birkly_notify('commerce.order_paid', [
+    'to' =&gt; 'ops@example.com',
+    'subject' =&gt; 'Order paid',
+    'html' =&gt; '&lt;p&gt;Order #123 paid.&lt;/p&gt;',
+    'text' =&gt; 'Order #123 paid.',
+], [
+    'mode' =&gt; 'sync', // or 'queue'
+    'idempotency_key' =&gt; 'notify_order_123_paid',
+    // Optional ad-hoc channels when no admin route exists:
+    // 'channels' =&gt; [
+    //   ['type' =&gt; 'email', 'to' =&gt; 'ops@example.com', 'alias' =&gt; 'ops_alerts'],
+    //   ['type' =&gt; 'slack', 'connection_id' =&gt; 'conn_slack_ops'],
+    // ],
+]);</code></pre>
+<h3>Route storage</h3>
+<p><code>settings/connections/notification_routes.json</code>:</p>
+<pre><code>{
+  &quot;routes&quot;: [
+    {
+      &quot;id&quot;: &quot;route_abc123&quot;,
+      &quot;event&quot;: &quot;form.submission&quot;,
+      &quot;active&quot;: true,
+      &quot;channels&quot;: [
+        { &quot;type&quot;: &quot;email&quot;, &quot;to&quot;: &quot;hello@example.com&quot;, &quot;alias&quot;: &quot;transactional_email&quot; },
+        { &quot;type&quot;: &quot;slack&quot;, &quot;connection_id&quot;: &quot;conn_slack_ops&quot; }
+      ]
+    }
+  ]
+}</code></pre>
+<p>Admin REST: <code>routes_list</code>, <code>route_save</code>, <code>route_delete</code>, <code>events</code>, <code>test_channel</code> on <code>api/connections.php</code>.</p>
+<h3>Channel connection types</h3>
+<table><thead><tr><th>Channel <code>type</code></th><th>Connection type</th><th>Secret / config</th></tr></thead>
+<tbody><tr><td><code>email</code></td><td>Email alias</td><td>Uses <code>birkly_send_mail</code></td></tr><tr><td><code>slack</code></td><td><code>slack</code></td><td><code>webhook_url</code> (incoming webhook)</td></tr><tr><td><code>discord</code></td><td><code>discord</code></td><td>Webhook URL</td></tr><tr><td><code>sms</code> / Twilio</td><td><code>twilio_sms</code></td><td><code>account_sid</code>, <code>auth_token</code>, <code>from_number</code></td></tr></tbody></table>
+<h3>Twilio env overrides</h3>
+<table><thead><tr><th>Variable</th><th>Field</th></tr></thead>
+<tbody><tr><td><code>BIRKLY_TWILIO_ACCOUNT_SID</code></td><td>Account SID</td></tr><tr><td><code>BIRKLY_TWILIO_AUTH_TOKEN</code></td><td>Auth token</td></tr><tr><td><code>BIRKLY_TWILIO_FROM</code></td><td>From number</td></tr></tbody></table>
+<h3>Dispatch semantics</h3>
+<ul>
+<li>No matching active route → <code>ok: true</code> with empty results and a warning (not a hard error).</li>
+<li>Email channel without <code>to</code> fails that channel only; other channels still run.</li>
+<li><code>mode =&gt; 'queue'</code> enqueues a notify job in the Connections file queue.</li>
+</ul>
+<h3>Relation to Automation</h3>
+<p>Automation <strong>Send email</strong> / Slack actions remain valid. Prefer Connections for shared secrets and multi-channel fan-out so deactivating Automation does not remove the only Slack webhook store. Chat Setup notes should deep-link to <strong>Settings → Connections</strong>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="connections-overview.html">Connections overview</a></li>
+<li><a href="email-setup.html">Email setup</a></li>
+<li><a href="../../05-automation/automation-overview.html">Automation overview</a></li>
+<li><a href="../../07-operations/monitoring-alerts.html">Monitoring and health alerts</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

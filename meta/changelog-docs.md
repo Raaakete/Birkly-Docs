@@ -12,6 +12,21 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-10 — Central Connections guide (P65-M13)
+
+Major docs section for **Settings → Connections** (email & services fabric — not AI).
+
+- **New folder:** `01-admin/connections/`
+  - `connections-overview.md` — pipes vs templates; Email vs AI
+  - `email-setup.md` — SMTP / Log / Resend / Postmark / SES / Mailgun
+  - `notification-routes.md` — `birkly_notify`, Slack / Discord / Twilio
+  - `http-credentials.md` — plugin credential resolve
+  - `webhooks.md` — signing vault + inbound ESP bounce endpoints
+  - `migration-from-automation.md` — Automation Setup redirect; `automation_mail.json`
+  - `commerce-email-prerequisite.md` — enable template ≠ deliver; Stripe receipt vs Birkly thank-you
+- **Updated:** `01-admin/settings.md`, `CONTENTS_INDEX.md`, `manifest.json`, `help-manifest.json`, `meta/glossary.md`, `meta/audience-matrix.md`, `package.json`
+- **Admin Help:** topic ids `connections`, `connections-email`, `connections-notification-routes`, `connections-http-credentials`, `connections-webhooks`, `connections-migration`, `commerce-email-prerequisite` (CMS snapshots sync separately in Birkly)
+
 ## 2026-08-08 — Templating media + install clarity (P62-M4)
 
 - **Media:** Hand-authored SVG diagrams under `media/03-templating/{slug}/screenshots/` for P0/P1 pages (detail anti-pattern, client script + pipeline, `{entry for}`, loops, overview, canonical syntax, dates, regions, cheat sheet). Video slots reserved under `…/videos/` for computerUse follow-alongs.

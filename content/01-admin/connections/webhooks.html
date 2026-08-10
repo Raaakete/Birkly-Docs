@@ -1,0 +1,74 @@
+<div class="doc-summary"><p>Under <strong>Settings → Connections → Webhooks</strong>, Birkly stores <strong>signing secrets</strong> in the shared vault and registers <strong>inbound endpoints</strong> for ESP bounce/complaint events. Outbound content webhooks remain listed under <strong>Settings → Integrations → Webhooks</strong>, but secrets migrate into Connections. Inbound URL shape: <code>/api/connections_webhooks.php?endpoint=&lt;id&gt;</code>. Hard bounces and complaints update the <strong>suppression list</strong> so future sends short-circuit as <code>suppressed</code>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Two kinds of webhook</h3>
+<table><thead><tr><th>Kind</th><th>Purpose</th><th>Where you manage it</th></tr></thead>
+<tbody><tr><td><strong>Outbound (content)</strong></td><td>Birkly calls <em>your</em> URL when content changes</td><td>Settings → Integrations → Webhooks (signing secret in Connections vault)</td></tr><tr><td><strong>Inbound (ESP)</strong></td><td>Resend / Postmark / SES / Mailgun call <em>Birkly</em> about bounces</td><td>Settings → Connections → Webhooks</td></tr></tbody></table>
+<p>Stripe payment webhooks stay in Commerce / Payments — Connections does not replace them.</p>
+<h3>Add an inbound ESP endpoint</h3>
+<ol>
+<li>Open <strong>Settings → Connections → Webhooks</strong>.</li>
+<li>Click <strong>Add inbound endpoint</strong>.</li>
+<li>Name it (e.g. <code>Resend bounces</code>), choose provider (<strong>Resend</strong>, <strong>Postmark</strong>, <strong>SES</strong>, <strong>Mailgun</strong>, or generic).</li>
+<li>Set a <strong>signing secret</strong> (match what you configure at the ESP).</li>
+<li>Save. Copy the endpoint URL shown (or build it as below).</li>
+<li>In your ESP dashboard, add a webhook for bounce / complaint (and optionally delivery) pointing at that URL.</li>
+</ol>
+<p>Example URL:</p>
+<pre><code>https://your-cms.example/api/connections_webhooks.php?endpoint=in_YOUR_ID&amp;provider=resend</code></pre>
+<h3>Migrate Integrations secrets</h3>
+<p>If you already had outbound webhooks under Integrations:</p>
+<ol>
+<li>Open <strong>Connections → Webhooks</strong>.</li>
+<li>Click <strong>Migrate Integrations secrets</strong>.</li>
+<li>Signing secrets move into the Connections vault; Integrations keeps the URL list and deep-links here for secret management.</li>
+</ol>
+<h3>Suppressions</h3>
+<p>When a hard bounce or spam complaint arrives:</p>
+<ol>
+<li>The address is added to <strong>Delivery log &amp; health → Suppressions</strong>.</li>
+<li>Later sends to that address return status <strong>Suppressed</strong> (no delivery attempt).</li>
+<li>You can manually <strong>Add</strong> / remove suppressions for testing or GDPR cleanup.</li>
+</ol>
+<h3>Signing for outbound webhooks</h3>
+<p>Integrations outbound webhooks can include an HMAC signature. After migration, the secret is read from the Connections vault. Use the Integrations UI to manage URLs/events; use Connections for the secret itself.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Inbound public endpoint</h3>
+<p><code>api/connections_webhooks.php</code>:</p>
+<ul>
+<li>Query: <code>endpoint</code> (required), <code>provider</code> (optional), <code>simulate=1</code> (test bypass when developing).</li>
+<li>Verifies signature via <code>birkly_verify_webhook($endpointId, $rawBody, $headers)</code> when a secret is registered.</li>
+<li>Accepted signature headers: <code>X-Birkly-Signature</code>, <code>X-Hub-Signature-256</code>, <code>X-Webhook-Signature</code>, <code>X-Postmark-Signature</code>, <code>svix-signature</code> (prefix <code>sha256=</code> stripped).</li>
+</ul>
+<h3>Verify / sign helpers</h3>
+<pre><code>require_once __DIR__ . '/../core/connections.php';
+
+$ok = birkly_verify_webhook($endpointId, $rawBody, $headers);
+$sig = birkly_sign_webhook($endpointId, $payload); // HMAC-SHA256 hex</code></pre>
+<p>Vault ids:</p>
+<ul>
+<li>Inbound: <code>inbound:&lt;endpointId&gt;</code></li>
+<li>Migrated Integrations: <code>integrations_wh:&lt;webhookId&gt;</code></li>
+<li>Dual-read legacy plaintext: <code>data/webhooks/&lt;id&gt;.json</code> during migration</li>
+</ul>
+<h3>ESP normalization</h3>
+<p><code>birkly_connections_esp_webhook_handle()</code> maps provider payloads to events:</p>
+<table><thead><tr><th>Normalized type</th><th>Action</th></tr></thead>
+<tbody><tr><td><code>bounce</code> / <code>hard_bounce</code> / <code>permanent_fail</code></td><td>Suppression + delivery log <code>bounced</code></td></tr><tr><td><code>complaint</code> / <code>spam_complaint</code></td><td>Suppression + <code>complained</code></td></tr><tr><td><code>soft_bounce</code></td><td>Log <code>failed</code> / retry policy (no hard suppress)</td></tr></tbody></table>
+<p>Native test shape:</p>
+<pre><code>{
+  &quot;events&quot;: [
+    { &quot;type&quot;: &quot;bounce&quot;, &quot;email&quot;: &quot;bad@example.com&quot;, &quot;detail&quot;: &quot;550 user unknown&quot; }
+  ]
+}</code></pre>
+<h3>Storage</h3>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead>
+<tbody><tr><td><code>settings/connections/inbound_webhooks.json</code></td><td>Endpoint registry</td></tr><tr><td>Secrets vault</td><td><code>signing_secret</code></td></tr><tr><td><code>settings/connections/suppressions.json</code></td><td>Suppression list</td></tr><tr><td><code>data/webhooks/*.json</code></td><td>Legacy Integrations records (dual-read / migrate)</td></tr></tbody></table>
+<h3>Admin REST</h3>
+<p><code>api/connections.php</code>: <code>inbound_list</code>, <code>inbound_save</code>, <code>migrate_webhooks</code>, suppression CRUD, delivery log.</p>
+<h3>Relation to Automation webhooks</h3>
+<p>Automation <strong>incoming</strong> workflow trigger URLs (<code>automation_webhook.php</code>) are a different surface — they start workflows. Connections inbound ESP endpoints update mail suppressions. See <a href="../../05-automation/webhooks.html">Automation webhooks</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="connections-overview.html">Connections overview</a></li>
+<li><a href="email-setup.html">Email setup</a></li>
+<li><a href="http-credentials.html">HTTP credentials</a></li>
+<li><a href="../../05-automation/webhooks.html">Automation webhooks</a></li>
+<li><a href="../settings.html">Settings</a></li>
+</ul></div>

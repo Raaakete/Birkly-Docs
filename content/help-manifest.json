@@ -1,7 +1,7 @@
 {
     "version": 3,
     "docs_base_url": "https://docs.birkly.com",
-    "manifest_version": "2026-08-08-p62-m6",
+    "manifest_version": "2026-08-10-p65-m13",
     "description": "Public help manifest for Birkly CMS live fetch (P15-M3). CMS merges with bundled snapshots offline.",
     "topics": [
         {
@@ -234,6 +234,7 @@
                 "general",
                 "branding",
                 "security",
+                "connections",
                 "monitoring",
                 "api",
                 "domains",
@@ -242,6 +243,104 @@
             ],
             "docs_path": "01-admin/settings.html",
             "ai_topic": "settings-roles"
+        },
+        {
+            "id": "connections",
+            "title": "Connections (email & services)",
+            "keywords": [
+                "connections",
+                "email",
+                "smtp",
+                "resend",
+                "postmark",
+                "ses",
+                "mailgun",
+                "notify",
+                "slack",
+                "credentials",
+                "webhooks"
+            ],
+            "docs_path": "01-admin/connections/connections-overview.html",
+            "ai_topic": "settings-roles"
+        },
+        {
+            "id": "connections-email",
+            "title": "Email setup (Connections)",
+            "keywords": [
+                "smtp",
+                "email",
+                "resend",
+                "postmark",
+                "ses",
+                "mailgun",
+                "log transport",
+                "from address",
+                "test send"
+            ],
+            "docs_path": "01-admin/connections/email-setup.html"
+        },
+        {
+            "id": "connections-notification-routes",
+            "title": "Notification routes",
+            "keywords": [
+                "notify",
+                "slack",
+                "discord",
+                "twilio",
+                "sms",
+                "fan-out",
+                "birkly_notify"
+            ],
+            "docs_path": "01-admin/connections/notification-routes.html"
+        },
+        {
+            "id": "connections-http-credentials",
+            "title": "HTTP credentials",
+            "keywords": [
+                "http credentials",
+                "api key",
+                "bearer",
+                "plugin secrets",
+                "birkly_http_with_connection"
+            ],
+            "docs_path": "01-admin/connections/http-credentials.html"
+        },
+        {
+            "id": "connections-webhooks",
+            "title": "Connections webhooks",
+            "keywords": [
+                "webhook signing",
+                "bounce",
+                "complaint",
+                "suppression",
+                "esp",
+                "inbound webhook"
+            ],
+            "docs_path": "01-admin/connections/webhooks.html"
+        },
+        {
+            "id": "connections-migration",
+            "title": "Migration from Automation mail",
+            "keywords": [
+                "automation_mail",
+                "automation setup",
+                "smtp migration",
+                "legacy mail"
+            ],
+            "docs_path": "01-admin/connections/migration-from-automation.html"
+        },
+        {
+            "id": "commerce-email-prerequisite",
+            "title": "Commerce email prerequisite",
+            "keywords": [
+                "commerce email",
+                "thank-you",
+                "stripe receipt",
+                "template enable",
+                "delivery"
+            ],
+            "docs_path": "01-admin/connections/commerce-email-prerequisite.html",
+            "ai_topic": "commerce"
         },
         {
             "id": "analytics-presets",

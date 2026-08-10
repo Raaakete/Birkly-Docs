@@ -2,7 +2,7 @@
 
 ## Summary
 
-Settings is where you configure the Birkly installation itself: project name, branding (logo, favicon), users and roles, plugins, security, storage, and optionally webhooks, updates, or API options. Changes here apply to the whole CMS, not to a single collection or entry. Usually only administrators can access and change Settings.
+Settings is where you configure the Birkly installation itself: project name, branding (logo, favicon), users and roles, plugins, security, storage, **Connections** (email & shared credentials), AI, and optionally webhooks, updates, or API options. Changes here apply to the whole CMS, not to a single collection or entry. Usually only administrators can access and change Settings.
 
 **Phase 5.7:** Settings uses a **single global Save** bar at the top of the page. Edits on any tab are persisted together in one request when you click **Save settings**. Feedback appears as an inline toast (`#settings-message`), not browser alerts.
 
@@ -41,13 +41,15 @@ If something fails (for example invalid CSRF or missing permission), the message
 
 - **Analytics** — Site-wide visitor analytics presets (**Off** / **Minimal** / **Standard** / **Advanced**), reports, and consent hooks for Standard+. See [Analytics presets](analytics-presets.md).
 
-- **AI** — Outbound AI providers and inbound MCP connectors are configured under **Settings → AI**. See [AI overview](ai-overview.md), [AI connections](ai-connections.md), [MCP connections](mcp-connections.md), and [AI on localhost](../04-integration/ai-on-localhost.md).
+- **Connections** — Shared email delivery, notification channels (Slack / Discord / SMS), HTTP API credentials, and webhook signing / ESP bounce endpoints. This is the pipe for Commerce mail, form notify, invites, and password reset — not AI. See [Connections overview](connections/connections-overview.md) and [Email setup](connections/email-setup.md).
+
+- **AI** — Outbound AI providers and inbound MCP connectors are configured under **Settings → AI**. See [AI overview](ai-overview.md), [AI connections](ai-connections.md), [MCP connections](mcp-connections.md), and [AI on localhost](../04-integration/ai-on-localhost.md). Do not confuse with **Settings → Connections** (email & services).
 
 - **System** — Installation/system options, including **Developer mode** (off by default) for template/site-pack export and DX tools. See [Developer mode](developer-mode.md).
 
-- **Monitoring** — Health alert email and webhook URL when `/api/health.php` reports degraded or error. See [Monitoring and health alerts](../07-operations/monitoring-alerts.md).
+- **Monitoring** — Health alert email and webhook URL when `/api/health.php` reports degraded or error. See [Monitoring and health alerts](../07-operations/monitoring-alerts.md). Health alert *delivery* uses Connections when configured (`ops_alerts`).
 
-- **Webhooks** — Link to the dedicated webhooks page (`?page=webhooks`) for outgoing webhook URLs and events.
+- **Integrations / Webhooks** — Outgoing content webhook URLs and events; signing secrets live in the Connections vault (deep-link from Integrations). See [Connections webhooks](connections/webhooks.md).
 
 - **Updates** (if available) — Check for new versions. Always back up before updating.
 
@@ -109,7 +111,7 @@ Shown in the UI as **coming soon** and is not selectable. Use flat file or MySQL
 
 ## Advanced Users
 
-**Structure:** Settings are stored under `settings/` as JSON: `admin.json`, `site.json`, `media.json`, `security.json`, `branding.json`, `storage.json`, `plugins.json`, plus roles/users as applicable. Webhooks, domains, and API options may use additional files.
+**Structure:** Settings are stored under `settings/` as JSON: `admin.json`, `site.json`, `media.json`, `security.json`, `branding.json`, `storage.json`, `plugins.json`, plus roles/users as applicable. **Connections** uses `settings/connections/` (registry, encrypted secrets, aliases, routes, queue, delivery log). Webhooks, domains, and API options may use additional files.
 
 **Global Save implementation:**
 
@@ -121,7 +123,7 @@ Shown in the UI as **coming soon** and is not selectable. Use flat file or MySQL
 
 **Storage factory:** `core/storage/StorageFactory.php` — unified config path `settings/storage.json`, drivers `flatfile`, `mysql`, `postgresql`. `MySqlStorage` and `PostgresStorage` implement `StorageInterface`; flat file uses `FlatFileStorage`.
 
-**Tab hash routing:** Deep links such as `#security`, `#storage`, `#ai-integrations`, and alias `#mcp-connections` activate the correct tab on load.
+**Tab hash routing:** Deep links such as `#security`, `#storage`, `#connections`, `#ai-integrations`, and alias `#mcp-connections` activate the correct tab on load. Connections aliases: `email-connections`, `system-connections`, `smtp` → `connections`.
 
 **Standalone pages (D7):** Full management for plugins, activity, webhooks, and users remains on dedicated admin pages; Settings tabs show summaries and deep links.
 
@@ -129,6 +131,8 @@ Shown in the UI as **coming soon** and is not selectable. Use flat file or MySQL
 
 ## Related
 
+- [Connections overview](connections/connections-overview.md)
+- [Email setup](connections/email-setup.md)
 - [Project Git sync](project-git-sync.md)
 - [Analytics presets](analytics-presets.md)
 - [Developer mode](developer-mode.md)

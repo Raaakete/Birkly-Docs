@@ -23,7 +23,14 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Entry editor | `01-admin/entry-editor.md` | Sidebar tabs, slug auto-generate, reserved fields |
 | Collection editor | `01-admin/collection-editor.md` | Field schema, Settings tab slug parity |
 | Media library | `01-admin/media-library.md` | Upload, organize, use media in content |
-| Settings | `01-admin/settings.md` | General, branding, security, monitoring, Analytics, System tabs |
+| Settings | `01-admin/settings.md` | General, branding, security, Connections, monitoring, Analytics, System tabs |
+| Connections overview | `01-admin/connections/connections-overview.md` | Settings → Connections fabric; Email vs AI; pipes vs templates (P65) |
+| Email setup | `01-admin/connections/email-setup.md` | SMTP, Log, Resend, Postmark, SES, Mailgun recipes |
+| Notification routes | `01-admin/connections/notification-routes.md` | birkly_notify; Slack / Discord / Twilio SMS |
+| HTTP credentials | `01-admin/connections/http-credentials.md` | Shared HTTP credential resolve for plugins |
+| Connections webhooks | `01-admin/connections/webhooks.md` | Signing vault; inbound ESP bounce/complaint endpoints |
+| Migration from Automation mail | `01-admin/connections/migration-from-automation.md` | Automation Setup redirect; automation_mail.json dual-read |
+| Commerce email prerequisite | `01-admin/connections/commerce-email-prerequisite.md` | Enable template ≠ deliver; Stripe receipt vs Birkly thank-you |
 | Analytics presets | `01-admin/analytics-presets.md` | Off / Minimal / Standard / Advanced visitor analytics; consent for Standard+ |
 | Developer mode | `01-admin/developer-mode.md` | Off by default; template/site-pack export; system info and DX tools |
 | Project Git sync | `01-admin/project-git-sync.md` | Settings → Project → Git: push/pull `project/` to GitHub/GitLab/generic; project git vs. site packs |

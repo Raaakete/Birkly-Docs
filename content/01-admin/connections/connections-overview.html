@@ -1,0 +1,107 @@
+<div class="doc-summary"><p><strong>Connections</strong> is the shared Settings home for email, notification channels, HTTP API credentials, and webhook signing that Birkly and plugins use to <em>deliver</em> messages and call external services. Templates, Commerce emails, Automation workflows, and forms decide <em>what</em> to say; a healthy Connection is the pipe that actually delivers. This is separate from <strong>Settings → AI</strong> (AI providers and MCP). Mental model: <strong>Connections = pipes · templates/workflows = messages</strong>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What Connections is</h3>
+<p>Open <strong>Settings → Connections</strong>. You will see:</p>
+<ol>
+<li><strong>Email (transactional)</strong> — outbound mail health, From address, transport (SMTP, Log, Resend, Postmark, Amazon SES, Mailgun), Test send, and who uses it.</li>
+<li><strong>Notification channels</strong> — Slack, Discord, SMS (Twilio), plus <strong>notification routes</strong> (which events go where).</li>
+<li><strong>API credentials</strong> — shared HTTP secrets plugins can use without storing their own passwords.</li>
+<li><strong>Webhooks</strong> — signing secrets and inbound bounce/complaint endpoints for your email provider.</li>
+<li><strong>Delivery log &amp; health</strong> — recent attempts, queue, and suppression list.</li>
+</ol>
+<p>Subtitle in the admin: <em>“Email, notifications, and credentials Birkly and plugins share.”</em></p>
+<h3>Connections vs AI connections</h3>
+<table><thead><tr><th>Place</th><th>What it configures</th></tr></thead>
+<tbody><tr><td><strong>Settings → Connections</strong></td><td>Email delivery, Slack/Discord/SMS, HTTP credentials, webhook secrets</td></tr><tr><td><strong>Settings → AI</strong></td><td>Built-in assistant API keys, MCP endpoints for Claude / Cursor / ChatGPT</td></tr></tbody></table>
+<p>They share the word “connection” but are different products. AI never replaces SMTP; SMTP never lives under AI.</p>
+<h3>Pipes vs templates (mental model)</h3>
+<ul>
+<li><strong>Pipe (Connection)</strong> — How mail or a Slack message leaves your server (SMTP host, Resend API key, Slack webhook URL).</li>
+<li><strong>Template / workflow / form notify</strong> — What the message says and when it fires (Commerce thank-you template, Automation “Send email”, contact form notify).</li>
+</ul>
+<p>Nothing reaches an inbox or Slack channel until the matching Connection is <strong>healthy</strong>. Enabling a Commerce email template alone does <strong>not</strong> deliver mail — see <a href="commerce-email-prerequisite.html">Commerce email prerequisite</a>.</p>
+<h3>First setup (recommended path)</h3>
+<ol>
+<li>Go to <strong>Settings → Connections</strong>.</li>
+<li>Under <strong>Outbound mail</strong>, set <strong>From name</strong> and <strong>From email</strong> (a real address on a domain you control).</li>
+<li>Choose a <strong>Transport</strong>:</li>
+</ol>
+<p>   - Local/dev: <strong>Log only</strong> (messages are recorded, not delivered — the UI will say <em>Logged only</em>, never <em>Sent</em>).    - Production: <strong>SMTP</strong> or an ESP (<strong>Resend</strong>, <strong>Postmark</strong>, <strong>Amazon SES</strong>, <strong>Mailgun</strong>).</p>
+<ol>
+<li>Fill provider fields (host/API key). Save.</li>
+<li>Enter your own address in <strong>Test send</strong> and click <strong>Test send</strong>.</li>
+<li>Check your inbox (or the Delivery log if you used Log).</li>
+</ol>
+<p>When Email shows healthy, Commerce, Automation, public forms, invitations, password reset, and health alerts can all use the same pipe.</p>
+<h3>Who uses transactional email</h3>
+<ul>
+<li>Commerce transactional templates (orders, shipping, donations)</li>
+<li>Automation <strong>Send email</strong> actions</li>
+<li>Public form notifications and team invitations</li>
+<li>User Management password reset / email verify</li>
+<li>System health alerts (alias <code>ops_alerts</code>)</li>
+</ul>
+<h3>Related beginner guides</h3>
+<ul>
+<li><a href="email-setup.html">Email setup</a> — provider recipes</li>
+<li><a href="notification-routes.html">Notification routes</a> — Slack / Discord / SMS</li>
+<li><a href="migration-from-automation.html">Migration from Automation</a> — if you used Automation Setup SMTP before</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Architecture</h3>
+<pre><code>Settings → Connections (admin UI)
+        ↓
+Core Connections service
+  registry · aliases · encrypted secrets · audit · health
+        ↓
+┌─────────────────┬──────────────────┬────────────────────┐
+│ birkly_send_mail│ birkly_notify    │ birkly_get_connection│
+│ queue · retry   │ routes · fan-out │ HTTP / webhook helpers│
+└────────┬────────┴────────┬─────────┴──────────┬─────────┘
+   smtp/esp/log      slack/discord/sms/email   credentials</code></pre>
+<h3>Storage (under <code>settings/connections/</code>)</h3>
+<table><thead><tr><th>Path</th><th>Role</th></tr></thead>
+<tbody><tr><td><code>index.json</code></td><td>Connection metadata (no raw secrets)</td></tr><tr><td><code>secrets.enc</code> (vault)</td><td>Encrypted secret fields</td></tr><tr><td><code>aliases.json</code></td><td>Purpose aliases → connection id</td></tr><tr><td><code>notification_routes.json</code></td><td>Event → channel fan-out</td></tr><tr><td><code>inbound_webhooks.json</code></td><td>ESP bounce/complaint endpoints</td></tr><tr><td><code>delivery_log/</code></td><td>Rolling attempt log</td></tr><tr><td><code>queue/</code></td><td>Durable file queue</td></tr><tr><td><code>suppressions.json</code></td><td>Hard bounces / complaints</td></tr></tbody></table>
+<h3>Aliases (shipped)</h3>
+<table><thead><tr><th>Alias</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>transactional_email</code></td><td>Orders, resets, invites, form notify (default)</td></tr><tr><td><code>marketing_email</code></td><td>Opt-in / promo-style plugin sends</td></tr><tr><td><code>ops_alerts</code></td><td>Health / system alerts</td></tr></tbody></table>
+<p>Plugins bind to aliases, not to a hard-coded SMTP UI.</p>
+<h3>Types &amp; email providers</h3>
+<p><strong>Types:</strong> <code>email</code>, <code>slack</code>, <code>discord</code>, <code>twilio_sms</code>, <code>http_credential</code>, <code>webhook_signing</code>, <code>inbound_webhook</code>.</p>
+<p><strong>Email providers:</strong> <code>smtp</code>, <code>log</code>, <code>mail</code> (PHP <code>mail()</code> — advanced escape hatch), <code>resend</code>, <code>postmark</code>, <code>ses</code>, <code>mailgun</code>.</p>
+<h3>Delivery statuses</h3>
+<table><thead><tr><th>Status</th><th>Admin language</th></tr></thead>
+<tbody><tr><td><code>queued</code></td><td>Queued</td></tr><tr><td><code>accepted</code></td><td>Accepted by mail server / provider</td></tr><tr><td><code>logged</code></td><td>Logged only — not delivered</td></tr><tr><td><code>failed</code></td><td>Failed (+ stage)</td></tr><tr><td><code>suppressed</code></td><td>Suppressed</td></tr><tr><td><code>bounced</code> / <code>complained</code></td><td>From provider webhook</td></tr></tbody></table>
+<p>Log transport must never be labeled “Sent.”</p>
+<h3>Plugin &amp; admin API</h3>
+<pre><code>require_once __DIR__ . '/../core/connections.php';
+
+birkly_list_connections(['type' =&gt; 'email']);
+birkly_get_connection('transactional_email'); // secrets only with include_secrets in trusted code
+birkly_connection_health('transactional_email');
+birkly_send_mail($to, $subject, $html, $opts);
+birkly_notify($event, $payload, $opts);
+birkly_http_with_connection($id, $request);
+birkly_verify_webhook($endpointId, $rawBody, $headers);</code></pre>
+<p>Admin REST: <code>api/connections.php</code> — CRUD, <code>health</code>, <code>test_send</code>, <code>test_channel</code>, queue, log, suppressions, routes, aliases, inbound webhooks. Requires <code>read_settings</code> / <code>manage_settings</code>; secrets redacted on GET.</p>
+<h3>Env overrides (production)</h3>
+<table><thead><tr><th>Variable</th><th>Role</th></tr></thead>
+<tbody><tr><td><code>BIRKLY_SECRETS_KEY</code></td><td>Vault encryption key (env preferred over local <code>security.json</code>)</td></tr><tr><td><code>BIRKLY_SMTP_*</code></td><td>SMTP host/port/user/password/encryption overrides</td></tr><tr><td><code>BIRKLY_MAIL_FROM_*</code></td><td>Default From name/email</td></tr><tr><td><code>BIRKLY_RESEND_API_KEY</code>, <code>BIRKLY_POSTMARK_API_KEY</code>, <code>BIRKLY_MAILGUN_<em></code>, <code>BIRKLY_SES_</em></code></td><td>ESP credentials</td></tr><tr><td><code>BIRKLY_TWILIO_*</code></td><td>SMS channel</td></tr></tbody></table>
+<p>See <a href="email-setup.html">Email setup</a> for the full table.</p>
+<h3>MCP / agent tools</h3>
+<p>Agents diagnose delivery without reading passwords:</p>
+<table><thead><tr><th>Capability</th><th>Behavior</th></tr></thead>
+<tbody><tr><td>List / get <strong>connection health</strong></td><td>Always available to connected MCP clients (metadata + checklist; <strong>no secrets</strong>)</td></tr><tr><td>Propose connection update / test send</td><td>Privileged AI role; <strong>approval required by default</strong> (same spirit as other write tools)</td></tr><tr><td>Secret fields</td><td>Never returned in tool results</td></tr></tbody></table>
+<p>Help topic ids for admin Help / <code>ai_topic</code> mapping: <code>connections</code>, <code>connections-email</code>, <code>connections-notification-routes</code>, <code>connections-http-credentials</code>, <code>connections-webhooks</code>, <code>connections-migration</code>, <code>commerce-email-prerequisite</code>. Offline CMS snapshots live under Birkly <code>admin/docs/snapshots/</code> (sync separately — not in this repo).</p>
+<h3>Distinction from Ops Marketplace mail</h3>
+<p>CMS Connections (<code>birkly_send_mail</code>) is <strong>not</strong> the Ops Hub license mailer (<code>marketplace_send_mail</code> / Resend on Ops). Different runtime, different secrets. Pattern parity only.</p>
+<h3>Out of scope</h3>
+<p>Connections is not a marketing campaign / newsletter product, hosted ESP, or the home for Stripe payment keys or AI/MCP keys.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="email-setup.html">Email setup</a></li>
+<li><a href="notification-routes.html">Notification routes</a></li>
+<li><a href="http-credentials.html">HTTP credentials</a></li>
+<li><a href="webhooks.html">Webhooks</a></li>
+<li><a href="migration-from-automation.html">Migration from Automation</a></li>
+<li><a href="commerce-email-prerequisite.html">Commerce email prerequisite</a></li>
+<li><a href="../ai-connections.html">AI connections</a> — Settings → AI (different product)</li>
+<li><a href="../settings.html">Settings</a></li>
+</ul></div>

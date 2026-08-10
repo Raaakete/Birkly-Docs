@@ -1,0 +1,60 @@
+<div class="doc-summary"><p>Enabling a Commerce email template does <strong>not</strong> deliver mail by itself. Templates compose the message; <strong>Settings → Connections</strong> must have a healthy email transport for Birkly thank-you, shipping, donation, and invoice mail. Separately, <strong>Stripe</strong> can still send its own card <strong>receipt</strong> via Checkout <code>receipt_email</code> — that path does not use Birkly Connections. Both may fire for one order; design templates so customers are not thanked twice for the same payment.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>The rule to remember</h3>
+<blockquote><p><strong>Enable template ≠ deliver mail.</strong></p></blockquote>
+<table><thead><tr><th>Piece</th><th>Job</th></tr></thead>
+<tbody><tr><td>Commerce → Emails (template on)</td><td><em>What</em> to say and <em>when</em> (order paid, shipped, donation thanks, …)</td></tr><tr><td>Settings → Connections (Email healthy)</td><td><em>How</em> the message leaves your server</td></tr></tbody></table>
+<p>If Connections uses <strong>Log only</strong>, Commerce may record a send attempt as logged — the customer inbox stays empty. That is expected in development, not production.</p>
+<h3>First-time checklist</h3>
+<ol>
+<li><strong>Settings → Connections</strong> — configure SMTP or an ESP; <strong>Test send</strong> succeeds. See <a href="email-setup.html">Email setup</a>.</li>
+<li><strong>Commerce → Emails</strong> — enable the templates you want (order thank-you, shipping, donation thanks, etc.).</li>
+<li>Place a test order (or use Commerce’s template test if available).</li>
+<li>Confirm the <strong>Birkly</strong> message arrives from your Connections From address.</li>
+<li>Optionally check whether Stripe also sent a <strong>receipt</strong> from Stripe’s domain.</li>
+</ol>
+<h3>Stripe receipt vs Birkly thank-you</h3>
+<table><thead><tr><th>Mail</th><th>Who sends it</th><th>Where you configure it</th></tr></thead>
+<tbody><tr><td><strong>Card receipt</strong></td><td>Stripe</td><td>Stripe Dashboard / Checkout (<code>receipt_email</code> on the PaymentIntent)</td></tr><tr><td><strong>Thank-you / shipping / donation thanks / invoices</strong></td><td>Birkly</td><td>Commerce Emails + <strong>Settings → Connections</strong></td></tr></tbody></table>
+<ul>
+<li>Stripe receipts are useful even when CMS mail is not configured yet.</li>
+<li>Birkly templates carry your brand, order lines, and fulfillment copy.</li>
+<li>If both are on, keep Birkly copy focused on the order/fulfillment story and avoid a second “thanks for paying” that duplicates Stripe’s receipt.</li>
+</ul>
+<h3>Empty states and honesty</h3>
+<p>Commerce empty states and delivery notes should deep-link to <strong>Settings → Connections</strong> when email is unhealthy. Statuses:</p>
+<ul>
+<li><strong>Accepted</strong> / provider accepted — handed to SMTP/ESP</li>
+<li><strong>Logged only</strong> — not delivered</li>
+<li><strong>Failed</strong> / <strong>Suppressed</strong> — see Connections Delivery log</li>
+</ul>
+<p>Never treat “template enabled” as proof the customer received mail.</p>
+<h3>Automation optional</h3>
+<p>You no longer need the Automation plugin solely for Commerce SMTP. Connections alone is enough. If you still use Automation workflows for Slack or custom post-purchase steps, that is fine — see <a href="migration-from-automation.html">Migration from Automation</a>.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Delivery path (target architecture)</h3>
+<pre><code>CommerceEmailService::deliver / sendForTrigger
+        ↓
+birkly_send_mail(..., ['alias' =&gt; 'transactional_email', ...])
+        ↓
+Connections transport (smtp|resend|postmark|ses|mailgun|log|mail)</code></pre>
+<p>Honest result flags: <code>ok</code>, <code>status</code>, <code>logged</code>, <code>delivered</code> (where applicable). Log-only must not report success that implies inbox delivery without <code>logged: true</code>.</p>
+<h3>Stripe <code>receipt_email</code></h3>
+<p>Hosted Checkout sets <code>payment_intent_data[receipt_email]</code> from the customer email when configured. That is independent of <code>birkly_send_mail</code>. Disable Stripe receipts in the Stripe Dashboard if you want Birkly-only mail; or keep both with non-overlapping copy.</p>
+<h3>Donation vs shop templates</h3>
+<p>Donation thank-you (<code>donation_thanks</code>) should use warmer copy than the shop receipt. Both still require the same Connections pipe.</p>
+<h3>Notify fan-out</h3>
+<p>Ops can additionally route <code>commerce.order_paid</code> / <code>commerce.order_shipped</code> to Slack via <a href="notification-routes.html">Notification routes</a> without changing customer-facing templates.</p>
+<h3>Manifest</h3>
+<pre><code>{
+  &quot;requires_connections&quot;: [
+    { &quot;type&quot;: &quot;email&quot;, &quot;alias&quot;: &quot;transactional_email&quot;, &quot;optional&quot;: false }
+  ]
+}</code></pre>
+<h3>Ops Hub license mail</h3>
+<p>Marketplace Ops license / Hub purchase emails use the <strong>Ops</strong> mailer, not CMS Connections. Do not point merchants at Commerce Emails for Hub keys.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="connections-overview.html">Connections overview</a></li>
+<li><a href="email-setup.html">Email setup</a></li>
+<li><a href="migration-from-automation.html">Migration from Automation</a></li>
+<li><a href="../../06-extensibility/plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="../../05-automation/commerce-recipes.html">Automation Commerce recipes</a></li>
+</ul></div>

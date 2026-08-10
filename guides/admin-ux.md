@@ -24,7 +24,9 @@ Open **Settings** from the sidebar. Across the top you will see four areas:
 |------|-------------------|
 | **Site** | General info, hosting URLs, domains, project files, redirects |
 | **Team & security** | Users, roles, security rules, activity log |
-| **Integrations** | API keys, webhooks, AI and MCP connections |
+| **Connections** | Email delivery, Slack/Discord/SMS, HTTP credentials, webhook signing (not AI) |
+| **Integrations** | API overview, content webhooks (secrets vault deep-links to Connections) |
+| **AI** | Built-in assistant and MCP app connections |
 | **Infrastructure** | Storage backend, health monitoring |
 
 > **Since P59:** project files (and the new Git push/pull sync) are under a dedicated **Project** tab, not folded into "Site". Domains, the hosting wizard, and redirects stayed on **Site delivery**. See [Settings](../01-admin/settings.md).

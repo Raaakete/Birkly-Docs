@@ -1,0 +1,63 @@
+<div class="doc-summary"><p>Outbound SMTP used to live under <strong>Automation → Setup</strong> (<code>settings/automation_mail.json</code>, often with a plaintext password). <strong>Settings → Connections</strong> is now the home for email. During migration, Birkly <strong>dual-reads</strong> legacy Automation (and User plugin) mail settings so delivery keeps working; saving in Connections writes the encrypted vault and binds aliases. Automation Setup email UI <strong>redirects / deep-links</strong> to Connections. You can deactivate Automation and still send Commerce, form, and reset mail once Connections is healthy.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Do I need to migrate?</h3>
+<p>If you previously configured SMTP (or Log / PHP mail) under <strong>Automation → Setup</strong>, yes — open Connections once, confirm the settings, save, and test. If you never used Automation mail, skip this page and follow <a href="email-setup.html">Email setup</a>.</p>
+<h3>Guided steps</h3>
+<ol>
+<li>Open <strong>Settings → Connections</strong>.</li>
+<li>If Birkly still finds <code>automation_mail.json</code>, Outbound mail may already show your From address and transport (labeled as legacy / Automation until you save).</li>
+<li>Review From name/email, transport, and credentials.</li>
+<li>Click <strong>Save email connection</strong> — this copies secrets into the encrypted Connections vault and sets the <code>transactional_email</code> alias.</li>
+<li><strong>Test send</strong> to yourself.</li>
+<li>Visit <strong>Automation → Setup</strong> (if the plugin is active) — email settings should summarize status and link to <strong>Settings → Connections</strong> instead of a separate SMTP form.</li>
+<li>Optional: deactivate Automation under <strong>Settings → Plugins</strong>. Commerce thank-you mail, form notify, invites, and password reset should still work via Connections.</li>
+</ol>
+<h3>What about old workflows?</h3>
+<p>Automation <strong>Send email</strong> actions keep working. They call through the shared pipeline (<code>birkly_send_mail</code> / wrapper) instead of a private SMTP client. You do not rewrite every workflow.</p>
+<h3>What about User Management email settings?</h3>
+<p>If User plugin stored its own <code>email_settings</code> (SMTP stub), Connections dual-reads that file when no core email connection exists. Saving in Connections is the supported path going forward — remove duplicate SMTP UIs from plugin Setup when prompted.</p>
+<h3>Checklist</h3>
+<ul>
+<li>[ ] Connections Email health is Healthy (or intentional Logged only in dev)</li>
+<li>[ ] Test send received (or visible in Delivery log for Log transport)</li>
+<li>[ ] Automation Setup no longer asks for a separate SMTP password</li>
+<li>[ ] Commerce template test / real order uses Connections (see <a href="commerce-email-prerequisite.html">Commerce email prerequisite</a>)</li>
+<li>[ ] Production sets <code>BIRKLY_SECRETS_KEY</code> so the vault is not tied only to a local <code>security.json</code> key</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Dual-read order</h3>
+<p><code>birkly_mail_resolve_connection()</code>:</p>
+<ol>
+<li>Explicit <code>connection_id</code> in opts</li>
+<li>Alias (default <code>transactional_email</code>)</li>
+<li>Any active core <code>email</code> connection</li>
+<li>Legacy <code>settings/automation_mail.json</code> (<code>source: automation_mail</code>, id <code>legacy_automation_mail</code>)</li>
+<li>Legacy User <code>data/plugins/user_management/metadata/email_settings.json</code> (<code>source: user_email_settings</code>)</li>
+</ol>
+<p>Legacy rows are not written back; first admin <strong>save</strong> creates a core connection + encrypted secrets and should bind aliases.</p>
+<h3>Legacy file shape (<code>automation_mail.json</code>)</h3>
+<p>Typical fields: <code>method</code> (<code>smtp</code>|<code>log</code>|<code>mail</code>), <code>from_email</code>, <code>from_name</code>, <code>reply_to</code>, <code>smtp_host</code>, <code>smtp_port</code>, <code>smtp_username</code>, <code>smtp_password</code>, <code>smtp_encryption</code>. After cutover, stop writing this file; keep a backup until you confirm delivery.</p>
+<h3>Automation wrapper</h3>
+<p><code>automation_send_mail(...)</code> becomes a thin wrapper around <code>birkly_send_mail</code>. Setup health (<code>setup_health.php</code>) should report Connections health and deep-link:</p>
+<pre><code>?page=settings&amp;tab=connections</code></pre>
+<p>Aliases also accepted: <code>email-connections</code>, <code>system-connections</code>, <code>smtp</code> → Connections tab.</p>
+<h3>Deprecation freeze (phase end state)</h3>
+<ul>
+<li>No new writes to <code>automation_mail.json</code> from Setup UI</li>
+<li>One-shot migrate remaining installs</li>
+<li>Commerce removes “ok: true” log-only success without <code>logged</code> / honest flags</li>
+<li>PHP <code>mail()</code> remains only as explicit Connections transport <code>mail</code></li>
+</ul>
+<h3>Ops boundary</h3>
+<p>Do not merge CMS Connections with Marketplace Ops Resend (<code>marketplace_send_mail</code>). Hub license mail stays on Ops.</p>
+<h3>Plugin contract after migration</h3>
+<pre><code>{
+  &quot;requires_connections&quot;: [
+    { &quot;type&quot;: &quot;email&quot;, &quot;alias&quot;: &quot;transactional_email&quot;, &quot;optional&quot;: false }
+  ]
+}</code></pre>
+<p>Official plugins must not ship private SMTP settings UIs for platform mail.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="connections-overview.html">Connections overview</a></li>
+<li><a href="email-setup.html">Email setup</a></li>
+<li><a href="commerce-email-prerequisite.html">Commerce email prerequisite</a></li>
+<li><a href="../../05-automation/automation-overview.html">Automation overview</a></li>
+</ul></div>

@@ -1,0 +1,128 @@
+<div class="doc-summary"><p>Configure outbound email under <strong>Settings → Connections → Outbound mail</strong>. Choose a transport (SMTP, Log, Resend, Postmark, Amazon SES, or Mailgun), set From name/email, save, then <strong>Test send</strong>. Production should use SMTP or an ESP; <strong>Log only</strong> is for local development and never claims inbox delivery. PHP <code>mail()</code> remains an advanced escape hatch and is discouraged on Docker.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Before you start</h3>
+<ul>
+<li>You need a <strong>From email</strong> on a domain you control (or a provider-verified domain).</li>
+<li>For production, prefer <strong>SMTP</strong> or a hosted provider (<strong>Resend</strong>, <strong>Postmark</strong>, <strong>Amazon SES</strong>, <strong>Mailgun</strong>).</li>
+<li>Use <strong>Log only</strong> on a laptop when you only need to see that templates fire — check <strong>Delivery log</strong>, not your inbox.</li>
+</ul>
+<h3>Step-by-step</h3>
+<ol>
+<li>Open <strong>Settings → Connections</strong>.</li>
+<li>In <strong>Outbound mail</strong>, set:</li>
+</ol>
+<p>   - <strong>From name</strong> — e.g. <code>Acme Shop</code>    - <strong>From email</strong> — e.g. <code>orders@example.com</code></p>
+<ol>
+<li>Pick <strong>Transport</strong> and fill the fields for that choice (recipes below).</li>
+<li>Click <strong>Save email connection</strong>.</li>
+<li>Enter your address → <strong>Test send</strong>.</li>
+<li>Confirm health shows green / Healthy (or <em>Logged only</em> for Log).</li>
+</ol>
+<p>Optional: review <strong>DNS deliverability hints</strong> under the email section (SPF / DKIM / DMARC guidance). Finish DNS at your DNS host or ESP dashboard — Birkly does not host DKIM keys for you.</p>
+<h3>Recipe: Log only (development)</h3>
+<ol>
+<li>Transport → <strong>Log only (development)</strong>.</li>
+<li>Save → Test send.</li>
+<li>Open <strong>Delivery log &amp; health</strong> — status is <strong>Logged only</strong>, not Sent.</li>
+<li>Do <strong>not</strong> leave Log as the production transport; the admin warns if you do.</li>
+</ol>
+<h3>Recipe: SMTP</h3>
+<p>Typical for Google Workspace, Microsoft 365, Mailcow, or any relay.</p>
+<ol>
+<li>Transport → <strong>SMTP</strong>.</li>
+<li>Enter <strong>SMTP host</strong>, <strong>Port</strong> (often <code>587</code>), <strong>Username</strong>, <strong>Password</strong>.</li>
+<li><strong>Encryption</strong>: STARTTLS (common on 587), SSL (often 465), or None (local only).</li>
+<li>Save → Test send.</li>
+</ol>
+<p>Ask your host for the correct host/port. Wrong TLS mode is the most common failure.</p>
+<h3>Recipe: Resend</h3>
+<ol>
+<li>Create an API key in the Resend dashboard; verify your sending domain.</li>
+<li>Transport → <strong>Resend</strong>.</li>
+<li>Paste the <strong>API key</strong>.</li>
+<li>From email must be on a Resend-verified domain.</li>
+<li>Save → Test send.</li>
+<li>Optional: register Resend bounce webhooks under <a href="webhooks.html">Webhooks</a>.</li>
+</ol>
+<h3>Recipe: Postmark</h3>
+<ol>
+<li>Create a Server API token in Postmark; verify the sender domain/signature.</li>
+<li>Transport → <strong>Postmark</strong>.</li>
+<li>Paste the <strong>API key</strong>.</li>
+<li>Save → Test send.</li>
+<li>Optional: point Postmark bounce/complaint webhooks at Connections inbound endpoints.</li>
+</ol>
+<h3>Recipe: Amazon SES</h3>
+<p>Birkly’s SES adapter uses the <strong>HTTPS API</strong> (not the SES console “SMTP credentials” path by default).</p>
+<ol>
+<li>In AWS: verify domain/email, move out of sandbox if needed, create an IAM user with <code>ses:SendEmail</code> / <code>ses:SendRawEmail</code>.</li>
+<li>Transport → <strong>Amazon SES</strong>.</li>
+<li>Enter <strong>Access key ID</strong>, <strong>Secret</strong> (API key field), and <strong>Region</strong> (e.g. <code>us-east-1</code>).</li>
+<li>From email must be verified in that region.</li>
+<li>Save → Test send.</li>
+</ol>
+<blockquote><p><strong>Tip:</strong> Prefer SES SMTP credentials? Use transport <strong>SMTP</strong> with Amazon’s SMTP endpoint instead — same Connections page, different transport.</p></blockquote>
+<h3>Recipe: Mailgun</h3>
+<ol>
+<li>Verify domain in Mailgun; create a Private API key.</li>
+<li>Transport → <strong>Mailgun</strong>.</li>
+<li>Paste <strong>API key</strong> and <strong>Domain</strong> (e.g. <code>mg.example.com</code>).</li>
+<li>Save → Test send.</li>
+</ol>
+<h3>Recipe: PHP mail() (advanced)</h3>
+<ol>
+<li>Transport → <strong>PHP mail() — advanced</strong>.</li>
+<li>Only use when the host’s MTA is correctly configured.</li>
+<li>Health may warn on Docker / hosts without a local MTA — prefer SMTP or an ESP.</li>
+</ol>
+<h3>After email works</h3>
+<ul>
+<li>Wire Commerce templates — still need Connections healthy: <a href="commerce-email-prerequisite.html">Commerce email prerequisite</a>.</li>
+<li>Add Slack/Discord/SMS routes: <a href="notification-routes.html">Notification routes</a>.</li>
+<li>Migrating from Automation Setup SMTP: <a href="migration-from-automation.html">Migration from Automation</a>.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Pipeline API</h3>
+<pre><code>require_once __DIR__ . '/../core/connections.php';
+
+$result = birkly_send_mail(
+    'customer@example.com',
+    'Order paid',
+    '&lt;p&gt;Thanks for your order.&lt;/p&gt;',
+    [
+        'alias' =&gt; 'transactional_email', // or marketing_email / ops_alerts
+        'text' =&gt; 'Thanks for your order.',
+        'mode' =&gt; 'sync',                 // or 'queue'
+        'idempotency_key' =&gt; 'order_123_paid',
+        'reply_to' =&gt; 'support@example.com',
+        // 'attachments' =&gt; [['filename' =&gt; 'invoice.pdf', 'content' =&gt; $bytes, 'mime' =&gt; 'application/pdf']],
+        // 'brand_key' =&gt; 'eu',            // uses config.from_overrides when set
+    ]
+);
+// status: queued|accepted|logged|failed|suppressed|bounced|complained</code></pre>
+<p>Plugins compose HTML; they must not store platform SMTP passwords. Resolve health with <code>birkly_connection_health('transactional_email')</code>.</p>
+<h3>Admin REST</h3>
+<p><code>api/connections.php</code> (auth: <code>read_settings</code> / <code>manage_settings</code>):</p>
+<table><thead><tr><th>Action</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>list</code> / <code>get</code> / <code>save</code> / <code>delete</code></td><td>CRUD (secrets redacted on GET)</td></tr><tr><td><code>health</code></td><td>Checklist + last success/failure</td></tr><tr><td><code>test_send</code></td><td>Interactive test</td></tr><tr><td><code>process_queue</code> / <code>queue_list</code></td><td>Durable queue</td></tr><tr><td><code>list_log</code></td><td>Delivery log</td></tr><tr><td><code>suppressions_*</code></td><td>Bounce/complaint list</td></tr></tbody></table>
+<h3>Environment overrides</h3>
+<p>When set, env values win over UI-stored secrets (UI may show “Managed by environment”).</p>
+<table><thead><tr><th>Variable</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>BIRKLY_SECRETS_KEY</code></td><td>AES key for the secrets vault (64 hex chars or passphrase hashed to SHA-256). <strong>Required in production.</strong> Local installs auto-generate <code>settings/security.json</code> <code>encryption_key</code> with a warning.</td></tr><tr><td><code>BIRKLY_SMTP_HOST</code></td><td>SMTP host override</td></tr><tr><td><code>BIRKLY_SMTP_PORT</code></td><td>Port (e.g. <code>587</code>)</td></tr><tr><td><code>BIRKLY_SMTP_USER</code> / <code>BIRKLY_SMTP_USERNAME</code></td><td>Auth user</td></tr><tr><td><code>BIRKLY_SMTP_PASSWORD</code> / <code>BIRKLY_SMTP_PASS</code></td><td>Auth password</td></tr><tr><td><code>BIRKLY_SMTP_ENCRYPTION</code></td><td><code>tls</code> · <code>ssl</code> · <code>none</code></td></tr><tr><td><code>BIRKLY_MAIL_FROM_EMAIL</code> / <code>BIRKLY_MAIL_FROM_NAME</code></td><td>Default From</td></tr><tr><td><code>BIRKLY_RESEND_API_KEY</code> or <code>RESEND_API_KEY</code></td><td>Resend</td></tr><tr><td><code>BIRKLY_POSTMARK_API_KEY</code> or <code>POSTMARK_API_TOKEN</code></td><td>Postmark</td></tr><tr><td><code>BIRKLY_MAILGUN_API_KEY</code> / <code>BIRKLY_MAILGUN_DOMAIN</code> (or <code>MAILGUN_API_KEY</code>)</td><td>Mailgun</td></tr><tr><td><code>BIRKLY_SES_ACCESS_KEY</code> / <code>BIRKLY_SES_SECRET_KEY</code> / <code>BIRKLY_SES_REGION</code> (or standard <code>AWS_*</code>)</td><td>SES HTTPS API</td></tr></tbody></table>
+<h3>Transports (implementation)</h3>
+<table><thead><tr><th>Provider</th><th>Module</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>smtp</code></td><td><code>core/mail/smtp.php</code></td><td>Dependency-free sockets; STARTTLS/SSL</td></tr><tr><td><code>log</code></td><td><code>core/mail/log.php</code></td><td>Returns <code>logged: true</code></td></tr><tr><td><code>mail</code></td><td><code>core/mail/mail_php.php</code></td><td>PHP <code>mail()</code></td></tr><tr><td><code>resend</code> / <code>postmark</code> / <code>ses</code> / <code>mailgun</code></td><td>Thin HTTPS adapters</td><td>Store provider message id when present</td></tr></tbody></table>
+<h3>Queue &amp; retries</h3>
+<ul>
+<li>Default interactive path: <strong>sync</strong>.</li>
+<li><code>mode =&gt; 'queue'</code> or transient failures: durable files under <code>settings/connections/queue/</code>, exponential backoff, dead-letter in delivery log.</li>
+<li>Drain via admin <strong>Process queue</strong>, request hook, or cron calling <code>birkly_connections_process_queue()</code>.</li>
+</ul>
+<h3>DNS hints</h3>
+<p><code>birkly_connections_dns_hints($fromEmail)</code> soft-looks up SPF/DKIM/DMARC TXT for the From domain. Guidance only — not a full deliverability suite.</p>
+<h3>Legacy dual-read</h3>
+<p>If no core email connection exists, resolve falls back to <code>settings/automation_mail.json</code>, then User plugin <code>email_settings.json</code>. First save in Connections migrates into the vault — see <a href="migration-from-automation.html">Migration from Automation</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="connections-overview.html">Connections overview</a></li>
+<li><a href="webhooks.html">Webhooks</a> — bounce / complaint ingest</li>
+<li><a href="commerce-email-prerequisite.html">Commerce email prerequisite</a></li>
+<li><a href="../../07-operations/monitoring-alerts.html">Monitoring and health alerts</a></li>
+</ul></div>

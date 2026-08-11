@@ -1152,6 +1152,85 @@
                 "static"
             ],
             "docs_path": "04-integration/ssr-and-build-time.html"
+        },
+        {
+            "id": "connections",
+            "title": "Connections",
+            "keywords": [
+                "connections",
+                "email",
+                "smtp",
+                "resend",
+                "postmark",
+                "ses",
+                "mailgun",
+                "settings",
+                "alias",
+                "health",
+                "delivery log"
+            ],
+            "docs_path": "01-admin/connections.html",
+            "ai_topic": "settings-roles"
+        },
+        {
+            "id": "connections-provider-recipes",
+            "title": "Connections provider recipes",
+            "keywords": [
+                "connections",
+                "smtp",
+                "resend",
+                "postmark",
+                "ses",
+                "mailgun",
+                "email setup",
+                "dns",
+                "dkim",
+                "spf",
+                "dmarc"
+            ],
+            "docs_path": "01-admin/connections-provider-recipes.html"
+        },
+        {
+            "id": "connections-migration",
+            "title": "Migrate from Automation Setup email",
+            "keywords": [
+                "connections",
+                "migration",
+                "automation",
+                "setup",
+                "automation_mail",
+                "smtp",
+                "legacy"
+            ],
+            "docs_path": "01-admin/connections-migration.html"
+        },
+        {
+            "id": "connections-mcp-rules",
+            "title": "Connections MCP rules",
+            "keywords": [
+                "connections",
+                "mcp",
+                "agent",
+                "approval",
+                "secrets",
+                "redaction",
+                "health"
+            ],
+            "docs_path": "01-admin/connections-mcp-rules.html"
+        },
+        {
+            "id": "connections-api-reference",
+            "title": "Connections API reference",
+            "keywords": [
+                "connections",
+                "api",
+                "birkly_send_mail",
+                "birkly_notify",
+                "webhook",
+                "credential",
+                "developer"
+            ],
+            "docs_path": "04-integration/connections-api-reference.html"
         }
     ]
 }

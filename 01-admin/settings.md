@@ -41,6 +41,8 @@ If something fails (for example invalid CSRF or missing permission), the message
 
 - **Analytics** — Site-wide visitor analytics presets (**Off** / **Minimal** / **Standard** / **Advanced**), reports, and consent hooks for Standard+. See [Analytics presets](analytics-presets.md).
 
+- **Connections** — Shared pipes for email (SMTP, Resend, Postmark, SES, Mailgun), notification channels (Slack, Discord, SMS), HTTP API credentials, and webhook secrets. See [Connections](connections.md), [Provider recipes](connections-provider-recipes.md), and [Migrate from Automation Setup email](connections-migration.md).
+
 - **AI** — Outbound AI providers and inbound MCP connectors are configured under **Settings → AI**. See [AI overview](ai-overview.md), [AI connections](ai-connections.md), [MCP connections](mcp-connections.md), and [AI on localhost](../04-integration/ai-on-localhost.md).
 
 - **System** — Installation/system options, including **Developer mode** (off by default) for template/site-pack export and DX tools. See [Developer mode](developer-mode.md).

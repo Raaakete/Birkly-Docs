@@ -49,6 +49,10 @@
         <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
         <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
         <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        <a href="../01-admin/connections.html" class="nav-link">Connections</a>
+        <a href="../01-admin/connections-provider-recipes.html" class="nav-link">Connections provider recipes</a>
+        <a href="../01-admin/connections-migration.html" class="nav-link">Migrate from Automation Setup email</a>
+        <a href="../01-admin/connections-mcp-rules.html" class="nav-link">Connections MCP rules</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
         <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
@@ -106,6 +110,7 @@
         <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
         <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
         <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
+        <a href="../04-integration/connections-api-reference.html" class="nav-link">Connections API reference</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="automation-overview.html" class="nav-link active">Automation overview</a>
@@ -239,7 +244,7 @@
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Building blocks</strong></p>
 <table><thead><tr><th>Block</th><th>Role</th></tr></thead>
-<tbody><tr><td><strong>Trigger</strong></td><td>When the workflow runs: Scheduled (cron-like), Webhook (HTTP request), Entry created/updated/deleted (CMS event).</td></tr><tr><td><strong>Conditions</strong></td><td>Optional filters: payload field equals X, time in range, entry collection/sub-collection, etc. AND/OR logic.</td></tr><tr><td><strong>Actions</strong></td><td>Steps executed in order: Slack, HTTP request, Email, internal (e.g. update entry, log).</td></tr><tr><td><strong>Dry-run / test</strong></td><td>Executes condition + action logic against real or simulated payload; logs what would happen; <strong>no side effects</strong> unless the user confirms real execution.</td></tr><tr><td><strong>Queue / rate limit</strong></td><td>System may queue or throttle to avoid overloading external services.</td></tr></tbody></table>
+<tbody><tr><td><strong>Trigger</strong></td><td>When the workflow runs: Scheduled (cron-like), Webhook (HTTP request), Entry created/updated/deleted (CMS event).</td></tr><tr><td><strong>Conditions</strong></td><td>Optional filters: payload field equals X, time in range, entry collection/sub-collection, etc. AND/OR logic.</td></tr><tr><td><strong>Actions</strong></td><td>Steps executed in order: Slack, HTTP request, Email, internal (e.g. update entry, log). Email actions send via <strong>Settings → Connections</strong>; the old Automation → Setup SMTP UI redirects there.</td></tr><tr><td><strong>Dry-run / test</strong></td><td>Executes condition + action logic against real or simulated payload; logs what would happen; <strong>no side effects</strong> unless the user confirms real execution.</td></tr><tr><td><strong>Queue / rate limit</strong></td><td>System may queue or throttle to avoid overloading external services.</td></tr></tbody></table>
 <p><strong>Where it runs</strong></p>
 <ul>
 <li>Triggers: scheduler (cron or internal) for time-based; webhook endpoint for HTTP-triggered; CMS hooks for entry-triggered.</li>

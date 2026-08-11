@@ -5,6 +5,17 @@
 <li><strong>YYYY-MM-DD</strong> — Short description. (Optional: file or section.)</li>
 </ul>
 <p>---</p>
+<h2>2026-08-11 — Central Connections docs (P65-M13)</h2>
+<p>Documentation for Phase 65 — Central Connections: the new <strong>Settings → Connections</strong> fabric for email, notification channels, HTTP API credentials, and webhook secrets.</p>
+<ul>
+<li><strong>New:</strong> <code>01-admin/connections.md</code> — user guide: what Connections are, add/edit/delete, health/status, aliases, notification routes, delivery log, suppressions.</li>
+<li><strong>New:</strong> <code>01-admin/connections-provider-recipes.md</code> — SMTP, Resend, Postmark, Amazon SES, Mailgun setup recipes plus DNS guidance.</li>
+<li><strong>New:</strong> <code>01-admin/connections-migration.md</code> — migrate from Automation → Setup email settings (<code>automation_mail.json</code>) to Connections.</li>
+<li><strong>New:</strong> <code>01-admin/connections-mcp-rules.md</code> — MCP/agent rules: health read always; configure/test require approval; no secret echo.</li>
+<li><strong>New:</strong> <code>04-integration/connections-api-reference.md</code> — developer reference for <code>birkly_send_mail</code>, <code>birkly_notify</code>, credential resolve, and webhook verify.</li>
+<li><strong>Updated:</strong> <code>manifest.json</code>, <code>CONTENTS_INDEX.md</code>, <code>help-manifest.json</code>.</li>
+</ul>
+<p>---</p>
 <h2>2026-08-08 — Templating media + install clarity (P62-M4)</h2>
 <ul>
 <li><strong>Media:</strong> Hand-authored SVG diagrams under <code>media/03-templating/{slug}/screenshots/</code> for P0/P1 pages (detail anti-pattern, client script + pipeline, <code>{entry for}</code>, loops, overview, canonical syntax, dates, regions, cheat sheet). Video slots reserved under <code>…/videos/</code> for computerUse follow-alongs.</li>

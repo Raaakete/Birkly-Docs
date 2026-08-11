@@ -1,0 +1,138 @@
+<p>This reference documents the public PHP API for sending mail, sending notifications, resolving credentials, and verifying webhooks through Birkly Connections. It is intended for plugin authors and site developers who integrate with Birkly core.</p>
+<div class="doc-summary"><p>Connections exposes four groups of helpers: <strong>mail</strong> (<code>birkly_send_mail</code>), <strong>notifications</strong> (<code>birkly_notify</code>), <strong>credential resolution</strong> (<code>birkly_get_connection</code>, <code>birkly_http_with_connection</code>), and <strong>webhook verification</strong> (<code>birkly_verify_webhook</code>). All functions are native PHP; no Composer SDK is required. Secrets are never returned in plain text unless the caller explicitly requests them with the correct capability, and even then they should only be used inside a server-side helper, never logged or echoed.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>When to use each function</h3>
+<table><thead><tr><th>I want to...</th><th>Function</th></tr></thead>
+<tbody><tr><td>Send an email from a plugin or core path</td><td><code>birkly_send_mail</code></td></tr><tr><td>Notify multiple channels about an event</td><td><code>birkly_notify</code></td></tr><tr><td>Read a Connection’s metadata or health</td><td><code>birkly_get_connection</code></td></tr><tr><td>Make an HTTP call using a stored credential</td><td><code>birkly_http_with_connection</code></td></tr><tr><td>Check that an incoming webhook really came from a provider</td><td><code>birkly_verify_webhook</code></td></tr></tbody></table>
+<h3>Mail from a plugin</h3>
+<p>The simplest way to send email is:</p>
+<pre><code>birkly_send_mail(
+    $to = 'customer@example.com',
+    $subject = 'Order confirmed',
+    $html = '&lt;p&gt;Thank you for your order.&lt;/p&gt;',
+    $opts = [
+        'alias' =&gt; 'transactional_email',
+        'text' =&gt; 'Thank you for your order.',
+        'reply_to' =&gt; 'support@example.com',
+    ]
+);</code></pre>
+<p>Birkly looks up the <code>transactional_email</code> alias, picks the configured provider, and sends the message. If no alias is mapped, it returns a clear error instead of silently logging.</p>
+<h3>Notifications</h3>
+<p>To notify several channels at once, use an event key:</p>
+<pre><code>birkly_notify(
+    $event = 'commerce.order_paid',
+    $payload = ['order_id' =&gt; 123, 'customer' =&gt; 'customer@example.com'],
+    $opts = ['sync' =&gt; false]
+);</code></pre>
+<p>Birkly checks the notification routes for <code>commerce.order_paid</code> and fans out to email, Slack, Discord, and SMS channels that the admin configured.</p>
+<h3>Credentials</h3>
+<p>If your plugin needs to call an external HTTP API, do not store the secret in plugin metadata. Create an <strong>HTTP API credential</strong> Connection and resolve it:</p>
+<pre><code>$conn = birkly_get_connection('shipping_api');
+// $conn contains base URL, auth mode, and masked metadata — not the secret.</code></pre>
+<p>For a ready-made signed request:</p>
+<pre><code>$response = birkly_http_with_connection('shipping_api', [
+    'method' =&gt; 'GET',
+    'path' =&gt; '/rates',
+    'query' =&gt; ['from' =&gt; '90210', 'to' =&gt; '10001'],
+]);</code></pre>
+<h3>Webhooks</h3>
+<p>When a provider such as Resend or SES posts a bounce event to <code>/api/webhooks/connections/{id}</code>, verify it before acting:</p>
+<pre><code>$verified = birkly_verify_webhook($endpointId, $rawBody, $headers);
+if ($verified) {
+    // Process bounce/complaint/delivery event.
+}</code></pre></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3><code>birkly_send_mail</code></h3>
+<pre><code>$result = birkly_send_mail(
+    string $to,
+    string $subject,
+    string $html,
+    array $opts = []
+);</code></pre>
+<p>Options:</p>
+<table><thead><tr><th>Option</th><th>Type</th><th>Description</th></tr></thead>
+<tbody><tr><td><code>alias</code></td><td>string</td><td>Alias to resolve (<code>transactional_email</code>, <code>marketing_email</code>, <code>ops_alerts</code>, custom).</td></tr><tr><td><code>text</code></td><td>string</td><td>Plain-text body. If omitted, a text version is generated from HTML.</td></tr><tr><td><code>from</code></td><td>string</td><td>Override From address.</td></tr><tr><td><code>from_name</code></td><td>string</td><td>Override From display name.</td></tr><tr><td><code>reply_to</code></td><td>string</td><td>Reply-To address.</td></tr><tr><td><code>attachments</code></td><td>array</td><td>Array of <code>[name, mime, data]</code> or file paths.</td></tr><tr><td><code>headers</code></td><td>array</td><td>Additional headers as key/value pairs.</td></tr><tr><td><code>idempotency_key</code></td><td>string</td><td>Prevents duplicate sends on retry.</td></tr><tr><td><code>sync</code></td><td>bool</td><td><code>true</code> = send immediately; <code>false</code> = queue for async processing. Default depends on context.</td></tr><tr><td><code>connection_id</code></td><td>string</td><td>Bypass alias and use a specific Connection.</td></tr></tbody></table>
+<p>Return value:</p>
+<table><thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>ok</code></td><td>Whether the message was accepted/queued successfully.</td></tr><tr><td><code>status</code></td><td><code>queued</code>, <code>accepted</code>, <code>logged</code>, <code>failed</code>, <code>suppressed</code>.</td></tr><tr><td><code>message_id</code></td><td>Provider or internal message id, when available.</td></tr><tr><td><code>error</code></td><td>Error message if <code>ok</code> is false.</td></tr><tr><td><code>stage</code></td><td>Pipeline stage that failed, for debugging.</td></tr></tbody></table>
+<h3><code>birkly_notify</code></h3>
+<pre><code>$result = birkly_notify(
+    string $event,
+    array $payload,
+    array $opts = []
+);</code></pre>
+<p>Looks up the route for <code>$event</code> in <code>settings/connections/notification_routes.json</code> and fans out to each configured channel. Options include <code>sync</code> and <code>connection_id</code> overrides. The return value is an array of per-channel results.</p>
+<p>Built-in event keys:</p>
+<ul>
+<li><code>commerce.order_paid</code></li>
+<li><code>commerce.order_shipped</code></li>
+<li><code>form.submission</code></li>
+<li><code>user.password_reset</code></li>
+<li><code>user.email_verify</code></li>
+<li><code>system.health_alert</code></li>
+<li><code>team.invitation</code></li>
+</ul>
+<p>Plugins may register custom keys as <code>plugin_slug.event</code>.</p>
+<h3><code>birkly_get_connection</code></h3>
+<pre><code>$conn = birkly_get_connection(
+    string $idOrAlias,
+    array $opts = []
+);</code></pre>
+<p>Resolves a Connection by id or alias. By default the returned array does <strong>not</strong> contain secrets. To include decrypted secrets, pass <code>with_secrets =&gt; true</code>; this requires the caller to hold the appropriate capability and should only be used inside server-side helpers.</p>
+<p>Returned metadata includes:</p>
+<table><thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody><tr><td><code>id</code></td><td>Connection UUID.</td></tr><tr><td><code>name</code></td><td>Human label.</td></tr><tr><td><code>type</code></td><td>Connection type.</td></tr><tr><td><code>provider</code></td><td>Provider/transport slug.</td></tr><tr><td><code>config</code></td><td>Non-secret configuration.</td></tr><tr><td><code>health</code></td><td>Last health result.</td></tr><tr><td><code>managed_by_env</code></td><td>Whether env overrides are active.</td></tr></tbody></table>
+<h3><code>birkly_list_connections</code></h3>
+<pre><code>$connections = birkly_list_connections([
+    'type' =&gt; 'email-transactional',
+    'provider' =&gt; 'resend',
+]);</code></pre>
+<p>Returns metadata for picker UIs. Never includes secrets.</p>
+<h3><code>birkly_connection_health</code></h3>
+<pre><code>$health = birkly_connection_health('transactional_email');</code></pre>
+<p>Returns the stored health record and checklist for a Connection. Use this in admin dashboards and plugin empty states. Does not perform a live test; use the admin Test button or the REST API for that.</p>
+<h3><code>birkly_http_with_connection</code></h3>
+<pre><code>$response = birkly_http_with_connection(
+    string $idOrAlias,
+    array $request
+);</code></pre>
+<p>Applies the Connection’s auth mode to an HTTP request:</p>
+<ul>
+<li><code>bearer</code> — adds <code>Authorization: Bearer {secret}</code> header.</li>
+<li><code>basic</code> — adds <code>Authorization: Basic {secret}</code> header.</li>
+<li><code>header</code> — adds a custom header with the secret.</li>
+<li><code>query</code> — adds the secret as a query parameter.</li>
+</ul>
+<p><code>$request</code> fields:</p>
+<table><thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody><tr><td><code>method</code></td><td>HTTP method.</td></tr><tr><td><code>path</code></td><td>Path appended to the Connection base URL.</td></tr><tr><td><code>query</code></td><td>Query parameters.</td></tr><tr><td><code>headers</code></td><td>Extra headers.</td></tr><tr><td><code>body</code></td><td>Request body.</td></tr><tr><td><code>timeout</code></td><td>Request timeout in seconds.</td></tr></tbody></table>
+<p>The secret is applied inside the helper; plugin code never handles it directly.</p>
+<h3><code>birkly_verify_webhook</code></h3>
+<pre><code>$verified = birkly_verify_webhook(
+    string $endpointId,
+    string $rawBody,
+    array $headers
+);</code></pre>
+<p>Verifies the signature on an incoming webhook payload using the signing secret stored for that endpoint. Returns <code>true</code> or <code>false</code>. On success, the caller is responsible for parsing the event and updating the delivery log or suppression list.</p>
+<p>Provider-specific signature methods:</p>
+<table><thead><tr><th>Provider</th><th>Header / mechanism</th></tr></thead>
+<tbody><tr><td>Resend</td><td><code>svix-signature</code></td></tr><tr><td>Postmark</td><td><code>X-Postmark-Signature</code></td></tr><tr><td>SES</td><td>SNS signature validation</td></tr><tr><td>Mailgun</td><td><code>X-Mailgun-Signature</code> (timestamp + token + signature)</td></tr></tbody></table>
+<h3>Admin REST endpoints</h3>
+<p>The admin REST API mirrors the PHP helpers:</p>
+<table><thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr></thead>
+<tbody><tr><td>GET</td><td><code>/api/admin/connections</code></td><td>List metadata.</td></tr><tr><td>POST</td><td><code>/api/admin/connections</code></td><td>Create Connection.</td></tr><tr><td>GET</td><td><code>/api/admin/connections/{id}</code></td><td>Read metadata.</td></tr><tr><td>PATCH</td><td><code>/api/admin/connections/{id}</code></td><td>Update config/secrets.</td></tr><tr><td>DELETE</td><td><code>/api/admin/connections/{id}</code></td><td>Delete Connection.</td></tr><tr><td>POST</td><td><code>/api/admin/connections/{id}/test</code></td><td>Test send / test request.</td></tr><tr><td>GET</td><td><code>/api/admin/connections/aliases</code></td><td>List alias mappings.</td></tr><tr><td>POST</td><td><code>/api/admin/connections/aliases</code></td><td>Update alias mapping.</td></tr><tr><td>GET</td><td><code>/api/admin/connections/delivery-log</code></td><td>Query log.</td></tr><tr><td>POST</td><td><code>/api/admin/connections/queue/drain</code></td><td>Process queued items.</td></tr><tr><td>POST</td><td><code>/api/webhooks/connections/{id}</code></td><td>Inbound provider webhook.</td></tr></tbody></table>
+<p>Exact REST paths and field names may be finalized when core implementation reports stable API names.</p>
+<h3>Plugin manifest contract</h3>
+<p>Plugins declare their needs in <code>plugin.json</code>:</p>
+<pre><code>{
+  &quot;requires_connections&quot;: [
+    { &quot;type&quot;: &quot;email-transactional&quot;, &quot;alias&quot;: &quot;transactional_email&quot;, &quot;optional&quot;: false },
+    { &quot;type&quot;: &quot;slack-ops&quot;, &quot;alias&quot;: &quot;ops_alerts&quot;, &quot;optional&quot;: true }
+  ]
+}</code></pre>
+<p>Hub uses this to warn admins before installing a plugin that needs a Connection that is not configured.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="../01-admin/connections.html">Connections</a></li>
+<li><a href="../01-admin/connections-provider-recipes.html">Connections provider recipes</a></li>
+<li><a href="../01-admin/connections-migration.html">Migrate from Automation Setup email</a></li>
+<li><a href="../01-admin/connections-mcp-rules.html">Connections MCP rules</a></li>
+<li><a href="../06-plugin-economy/plugin-development.html">Plugin development</a></li>
+</ul></div>

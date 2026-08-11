@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>connections — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="media-library.html" class="nav-link">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="developer-mode.html" class="nav-link">Developer mode</a>
+        <a href="project-git-sync.html" class="nav-link">Project Git sync</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="design-system.html" class="nav-link">Admin design system</a>
+        <a href="admin-design-language.html" class="nav-link">Admin design language</a>
+        <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="ai-overview.html" class="nav-link">AI overview</a>
+        <a href="ai-connections.html" class="nav-link">AI connections</a>
+        <a href="mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="ai-approvals.html" class="nav-link">AI approvals</a>
+        <a href="connections.html" class="nav-link active">Connections</a>
+        <a href="connections-provider-recipes.html" class="nav-link">Connections provider recipes</a>
+        <a href="connections-migration.html" class="nav-link">Migrate from Automation Setup email</a>
+        <a href="connections-mcp-rules.html" class="nav-link">Connections MCP rules</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
+        <a href="../04-integration/connections-api-reference.html" class="nav-link">Connections API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
+        <a href="../06-extensibility/commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="../06-extensibility/commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="../06-extensibility/commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="../06-extensibility/commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="../06-extensibility/commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Connections is the shared home in <strong>Settings → Connections</strong> for all the pipes Birkly and official plugins use to talk to the outside world: transactional email, notification channels (Slack, Discord, SMS), HTTP API credentials, and webhook signing secrets. A Connection is a named record with a type, a provider or transport, encrypted credentials, and a health status. Until at least one Connection is healthy, no plugin can send email or post to chat on your behalf — enabling a template or workflow is not the same as delivering a message.</p>
+<div class="doc-summary"><p><strong>Connections</strong> replaces the scattered SMTP settings that used to live in Automation → Setup, Commerce, and other plugins. One Settings tab holds every shared pipe: Email (SMTP, Log, Resend, Postmark, Amazon SES, Mailgun), Notification channels (Slack, Discord, Twilio SMS), HTTP API credentials, and Webhook secrets. Each Connection has a <strong>type</strong>, a <strong>provider/transport</strong>, encrypted <strong>credentials</strong>, and a <strong>health</strong> status. Plugins ask for a Connection by <strong>alias</strong> (for example <code>transactional_email</code>) instead of storing passwords themselves. You can add, edit, test, and delete Connections from the admin; the delivery log shows what happened to each message. Aliases let you route different jobs to different providers without changing templates or plugin code.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What a Connection is</h3>
+<p>Think of a Connection as a saved account Birkly uses to send something out of the CMS:</p>
+<ul>
+<li><strong>Email Connection</strong> — the server or service that delivers your mail.</li>
+<li><strong>Notification channel</strong> — a Slack workspace, Discord server, or SMS number that receives alerts.</li>
+<li><strong>HTTP API credential</strong> — a base URL and secret for a shipping provider, CRM, or other API.</li>
+<li><strong>Webhook signing secret</strong> — a shared password that proves an incoming webhook really came from a provider.</li>
+</ul>
+<p>Each Connection has a friendly name you choose, a type (for example <strong>Email — SMTP</strong>), and the secret details needed to connect. Secrets are encrypted at rest; the admin only shows whether they exist, never the actual password or key.</p>
+<h3>Why this matters</h3>
+<p>Before Connections, email settings were hidden inside Automation → Setup. If you turned Automation off, Commerce order emails, form notifications, and password resets could stop working because they relied on that plugin’s SMTP settings. Connections moves that responsibility into the platform, so every plugin shares the same healthy pipe. The main thing to remember: <strong>turning on a feature is not the same as having a working Connection</strong>. A Commerce email template can be enabled, but if no Email Connection is healthy, the message will not reach a real inbox.</p>
+<h3>Opening Connections</h3>
+<ol>
+<li>In the Birkly admin, open <strong>Settings</strong>.</li>
+<li>Click <strong>Connections</strong>.</li>
+<li>The first viewport shows your <strong>Email</strong> health. If nothing is configured yet, the status is <strong>Not configured</strong>.</li>
+</ol>
+<h3>Adding a Connection</h3>
+<ol>
+<li>In <strong>Settings → Connections</strong>, click <strong>Add connection</strong>.</li>
+<li>Choose the <strong>type</strong> you need:</li>
+</ol>
+<p>   - <strong>Email — SMTP</strong> (your own mail server)    - <strong>Email — Resend / Postmark / Amazon SES / Mailgun</strong> (a mail service)    - <strong>Email — Log</strong> (writes to a log file; good for local development only)    - <strong>Slack</strong>, <strong>Discord</strong>, <strong>SMS (Twilio)</strong>    - <strong>HTTP API credential</strong>    - <strong>Webhook signing secret</strong></p>
+<ol>
+<li>Enter a <strong>name</strong> (for example <code>Primary SMTP</code> or <code>Resend production</code>).</li>
+<li>Fill in the provider fields. Passwords and API keys are masked and encrypted.</li>
+<li>Save.</li>
+</ol>
+<p>After saving, click <strong>Test</strong> to send a test message or request. The result updates the Connection’s health.</p>
+<h3>Editing a Connection</h3>
+<ol>
+<li>Find the Connection card and click <strong>Edit</strong>.</li>
+<li>Change the fields you need. Existing secrets stay in place unless you overwrite them.</li>
+<li>Save. The health status resets until the next successful test or send.</li>
+</ol>
+<p>If a field is managed by an environment variable (for example <code>BIRKLY_SMTP_HOST</code>), the UI shows <strong>Managed by environment</strong> and the field is read-only. Change the value in your server environment, not in the admin.</p>
+<h3>Deleting a Connection</h3>
+<ol>
+<li>Open the Connection and click <strong>Delete</strong>.</li>
+<li>Confirm. Birkly warns you if any alias or plugin still references this Connection.</li>
+</ol>
+<p>Deleting a Connection does not delete the delivery log, but new sends that relied on it will fail until you point the alias at another Connection.</p>
+<h3>Health and status</h3>
+<p>Each Connection shows a status:</p>
+<table><thead><tr><th>Status</th><th>What it means</th></tr></thead>
+<tbody><tr><td><strong>Healthy</strong></td><td>The last test or real send succeeded.</td></tr><tr><td><strong>Unhealthy</strong></td><td>The last attempt failed; the card shows the staged error (network, auth, DNS, TLS).</td></tr><tr><td><strong>Not configured</strong></td><td>No Connection of this type exists yet.</td></tr><tr><td><strong>Managed by environment</strong></td><td>Some or all values come from environment variables; the UI is read-only.</td></tr><tr><td><strong>Warning</strong></td><td>The Connection works, but a checklist item is missing (for example production is using the Log transport).</td></tr></tbody></table>
+<p>Email Connections also include a small checklist:</p>
+<ul>
+<li>From address and Reply-To are set.</li>
+<li>SPF/DKIM/DMARC DNS records are mentioned (Birkly does not generate keys; your provider does).</li>
+<li>For Docker hosts, SMTP is available or an ESP is recommended.</li>
+</ul>
+<p>Click <strong>Test send</strong> on an Email Connection to send yourself a message and confirm the provider accepted it. A successful test only means the provider accepted the message; it does not guarantee delivery to the inbox.</p>
+<h3>Aliases</h3>
+<p>An <strong>alias</strong> is a stable purpose name that plugins use so they do not need to know which provider you chose. Birkly ships with three email aliases:</p>
+<table><thead><tr><th>Alias</th><th>Typical use</th></tr></thead>
+<tbody><tr><td><code>transactional_email</code></td><td>Order receipts, form notifications, password resets, invites, health alerts.</td></tr><tr><td><code>marketing_email</code></td><td>Opt-in promotions and newsletters sent by plugins.</td></tr><tr><td><code>ops_alerts</code></td><td>System health and urgent alerts.</td></tr></tbody></table>
+<p>To map an alias:</p>
+<ol>
+<li>In <strong>Settings → Connections</strong>, open <strong>Aliases</strong>.</li>
+<li>Pick an alias from the list.</li>
+<li>Choose which Email Connection should handle it.</li>
+<li>Save.</li>
+</ol>
+<p>If a plugin asks for <code>transactional_email</code> and you map it to a Resend Connection, every plugin that uses the alias sends through Resend. You can change the provider later without touching templates or plugin settings.</p>
+<p>You can also create custom aliases for your own plugins or integrations.</p>
+<h3>Notification routes</h3>
+<p>A <strong>route</strong> maps an event to one or more channels. For example, when the event <code>commerce.order_paid</code> happens, you might want:</p>
+<ul>
+<li>an email to the customer (<code>transactional_email</code> alias),</li>
+<li>a Slack message to the <code>#orders</code> channel,</li>
+<li>an SMS to the on-call number.</li>
+</ul>
+<p>Routes are managed under <strong>Connections → Notification routes</strong>. Plugins can suggest default routes, but the admin owns the final map.</p>
+<h3>Delivery log</h3>
+<p>The delivery log shows every send attempt: recipient, alias used, Connection, status (<code>queued</code>, <code>accepted</code>, <code>logged</code>, <code>failed</code>, <code>suppressed</code>, <code>bounced</code>, <code>complained</code>), timestamp, and a short message. Sensitive body content is truncated. You can filter by status and retry failed queued items manually.</p>
+<h3>Suppressions</h3>
+<p>If an email hard-bounces or a recipient complains, the address is added to the suppression list. Future sends to that address are skipped with status <code>suppressed</code>. You can view and manually remove addresses from <strong>Connections → Suppressions</strong>, but only remove addresses you are sure are valid and willing.</p>
+<h3>What to do when email is not working</h3>
+<ol>
+<li>Open <strong>Settings → Connections</strong> and look at the Email health card.</li>
+<li>If no Connection exists, add one using a provider recipe.</li>
+<li>If the status is <strong>Unhealthy</strong>, read the staged error.</li>
+<li>Click <strong>Test send</strong> to yourself.</li>
+<li>Check the delivery log for the real status of plugin sends.</li>
+<li>If you are on Docker or a restricted host, SMTP may be blocked; use an ESP such as Resend or Mailgun instead.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Connection model</h3>
+<p>A Connection is a typed record stored in <code>settings/connections/index.json</code> with secrets encrypted separately. The schema is roughly:</p>
+<table><thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>id</code></td><td>UUID of the Connection.</td></tr><tr><td><code>name</code></td><td>Human label.</td></tr><tr><td><code>type</code></td><td><code>email-transactional</code>, <code>slack-ops</code>, <code>http-shipping</code>, <code>webhook-signing</code>, etc.</td></tr><tr><td><code>provider</code> / <code>transport</code></td><td><code>smtp</code>, <code>resend</code>, <code>postmark</code>, <code>ses</code>, <code>mailgun</code>, <code>log</code>, <code>slack_webhook</code>, <code>discord_webhook</code>, <code>twilio_sms</code>, <code>http_bearer</code>, etc.</td></tr><tr><td><code>config</code></td><td>Non-secret settings: host, port, from address, base URL, etc.</td></tr><tr><td><code>secrets</code></td><td>Encrypted credential fields; never returned in full on read.</td></tr><tr><td><code>health</code></td><td>Last check result, checklist state, timestamp.</td></tr><tr><td><code>managed_by_env</code></td><td>Whether the Connection is overridden by environment variables.</td></tr></tbody></table>
+<p>Storage paths (subject to core implementation):</p>
+<table><thead><tr><th>Item</th><th>Location</th></tr></thead>
+<tbody><tr><td>Connection metadata</td><td><code>settings/connections/index.json</code></td></tr><tr><td>Encrypted secrets</td><td><code>settings/connections/secrets.enc</code> or per-id files</td></tr><tr><td>Aliases</td><td><code>settings/connections/aliases.json</code></td></tr><tr><td>Notification routes</td><td><code>settings/connections/notification_routes.json</code></td></tr><tr><td>Delivery log</td><td><code>settings/connections/delivery_log/</code></td></tr><tr><td>Durable queue</td><td><code>settings/connections/queue/</code></td></tr><tr><td>Suppressions</td><td><code>settings/connections/suppressions.json</code></td></tr></tbody></table>
+<h3>Encryption and environment overrides</h3>
+<p>Secrets are encrypted with a key derived from <code>BIRKLY_SECRETS_KEY</code> in production. Local installs without that env var use an install-generated key and show a persistent warning. When an environment variable such as <code>BIRKLY_SMTP_HOST</code>, <code>BIRKLY_SMTP_PASS</code>, or a provider API key is set, it wins over the stored value and the UI shows <strong>Managed by environment</strong>.</p>
+<h3>Email transports and status semantics</h3>
+<table><thead><tr><th>Transport</th><th>Behavior</th></tr></thead>
+<tbody><tr><td><code>smtp</code></td><td>Native dependency-free socket client with STARTTLS/SSL and AUTH LOGIN.</td></tr><tr><td><code>log</code></td><td>Writes to the delivery log; status <code>logged</code>; never labeled as “sent.”</td></tr><tr><td><code>mail</code></td><td>PHP <code>mail()</code>; available but discouraged, especially on Docker.</td></tr><tr><td><code>resend</code> / <code>postmark</code> / <code>ses</code> / <code>mailgun</code></td><td>Thin HTTPS adapters; store the provider message id.</td></tr></tbody></table>
+<p>Pipeline statuses:</p>
+<table><thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>queued</code></td><td>In the durable retry queue.</td></tr><tr><td><code>accepted</code></td><td>Provider or SMTP server accepted the message.</td></tr><tr><td><code>logged</code></td><td>Log transport only.</td></tr><tr><td><code>failed</code></td><td>Exhausted retries or hard error.</td></tr><tr><td><code>suppressed</code></td><td>Address is on the suppression list.</td></tr><tr><td><code>bounced</code> / <code>complained</code></td><td>Reported by provider webhook.</td></tr></tbody></table>
+<p>Never claim end-to-end inbox delivery unless a provider event confirms it.</p>
+<h3>Aliases and plugin contract</h3>
+<p>Aliases decouple plugins from providers. A plugin calls <code>birkly_send_mail(..., ['alias' =&gt; 'transactional_email'])</code>; the core resolves the alias to the current Connection id. The shipped aliases are <code>transactional_email</code>, <code>marketing_email</code>, and <code>ops_alerts</code>, but custom aliases are allowed.</p>
+<p>Plugins declare their needs in <code>plugin.json</code> via <code>requires_connections: [{ type: 'email-transactional', alias: 'transactional_email', optional: false }]</code>. Hub shows a warning if the requirement is missing.</p>
+<h3>Notification fan-out</h3>
+<p><code>birkly_notify($event, $payload)</code> looks up the route for <code>$event</code> and fans out to each configured channel. Built-in event keys include <code>commerce.order_paid</code>, <code>commerce.order_shipped</code>, <code>form.submission</code>, <code>user.password_reset</code>, <code>user.email_verify</code>, <code>system.health_alert</code>, and <code>team.invitation</code>. Plugins may register <code>plugin_slug.event</code> keys.</p>
+<h3>Durable queue and retries</h3>
+<p>Interactive tests and small transactional paths send synchronously by default. The durable file queue handles retries after transient failures, burst protection, and optional scheduled Commerce delays. Retry policy is exponential backoff over a small number of attempts; dead-lettered items remain in the delivery log. Idempotency keys prevent duplicate sends on retry.</p>
+<h3>Permissions</h3>
+<table><thead><tr><th>Action</th><th>Required role</th></tr></thead>
+<tbody><tr><td>View metadata / health / log</td><td>Settings read</td></tr><tr><td>Edit secrets, routes, suppressions</td><td>Settings write / system admin</td></tr><tr><td>Test send / test channel</td><td>Settings write</td></tr><tr><td>MCP configure / test</td><td>Privileged AI role + approval</td></tr></tbody></table>
+<p>Audit events record who changed what fields (never password values) and delivery failures as system events.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="connections-provider-recipes.html">Connections provider recipes</a></li>
+<li><a href="connections-migration.html">Migrate from Automation Setup email</a></li>
+<li><a href="../04-integration/connections-api-reference.html">Connections API reference</a></li>
+<li><a href="connections-mcp-rules.html">Connections MCP rules</a></li>
+<li><a href="../05-automation/automation-overview.html">Automation overview</a></li>
+<li><a href="../07-operations/monitoring-alerts.html">Monitoring and health alerts</a></li>
+<li><a href="../06-extensibility/plugins/commerce.html">Commerce plugin</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

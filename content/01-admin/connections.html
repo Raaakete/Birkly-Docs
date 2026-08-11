@@ -1,0 +1,125 @@
+<p>Connections is the shared home in <strong>Settings → Connections</strong> for all the pipes Birkly and official plugins use to talk to the outside world: transactional email, notification channels (Slack, Discord, SMS), HTTP API credentials, and webhook signing secrets. A Connection is a named record with a type, a provider or transport, encrypted credentials, and a health status. Until at least one Connection is healthy, no plugin can send email or post to chat on your behalf — enabling a template or workflow is not the same as delivering a message.</p>
+<div class="doc-summary"><p><strong>Connections</strong> replaces the scattered SMTP settings that used to live in Automation → Setup, Commerce, and other plugins. One Settings tab holds every shared pipe: Email (SMTP, Log, Resend, Postmark, Amazon SES, Mailgun), Notification channels (Slack, Discord, Twilio SMS), HTTP API credentials, and Webhook secrets. Each Connection has a <strong>type</strong>, a <strong>provider/transport</strong>, encrypted <strong>credentials</strong>, and a <strong>health</strong> status. Plugins ask for a Connection by <strong>alias</strong> (for example <code>transactional_email</code>) instead of storing passwords themselves. You can add, edit, test, and delete Connections from the admin; the delivery log shows what happened to each message. Aliases let you route different jobs to different providers without changing templates or plugin code.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What a Connection is</h3>
+<p>Think of a Connection as a saved account Birkly uses to send something out of the CMS:</p>
+<ul>
+<li><strong>Email Connection</strong> — the server or service that delivers your mail.</li>
+<li><strong>Notification channel</strong> — a Slack workspace, Discord server, or SMS number that receives alerts.</li>
+<li><strong>HTTP API credential</strong> — a base URL and secret for a shipping provider, CRM, or other API.</li>
+<li><strong>Webhook signing secret</strong> — a shared password that proves an incoming webhook really came from a provider.</li>
+</ul>
+<p>Each Connection has a friendly name you choose, a type (for example <strong>Email — SMTP</strong>), and the secret details needed to connect. Secrets are encrypted at rest; the admin only shows whether they exist, never the actual password or key.</p>
+<h3>Why this matters</h3>
+<p>Before Connections, email settings were hidden inside Automation → Setup. If you turned Automation off, Commerce order emails, form notifications, and password resets could stop working because they relied on that plugin’s SMTP settings. Connections moves that responsibility into the platform, so every plugin shares the same healthy pipe. The main thing to remember: <strong>turning on a feature is not the same as having a working Connection</strong>. A Commerce email template can be enabled, but if no Email Connection is healthy, the message will not reach a real inbox.</p>
+<h3>Opening Connections</h3>
+<ol>
+<li>In the Birkly admin, open <strong>Settings</strong>.</li>
+<li>Click <strong>Connections</strong>.</li>
+<li>The first viewport shows your <strong>Email</strong> health. If nothing is configured yet, the status is <strong>Not configured</strong>.</li>
+</ol>
+<h3>Adding a Connection</h3>
+<ol>
+<li>In <strong>Settings → Connections</strong>, click <strong>Add connection</strong>.</li>
+<li>Choose the <strong>type</strong> you need:</li>
+</ol>
+<p>   - <strong>Email — SMTP</strong> (your own mail server)    - <strong>Email — Resend / Postmark / Amazon SES / Mailgun</strong> (a mail service)    - <strong>Email — Log</strong> (writes to a log file; good for local development only)    - <strong>Slack</strong>, <strong>Discord</strong>, <strong>SMS (Twilio)</strong>    - <strong>HTTP API credential</strong>    - <strong>Webhook signing secret</strong></p>
+<ol>
+<li>Enter a <strong>name</strong> (for example <code>Primary SMTP</code> or <code>Resend production</code>).</li>
+<li>Fill in the provider fields. Passwords and API keys are masked and encrypted.</li>
+<li>Save.</li>
+</ol>
+<p>After saving, click <strong>Test</strong> to send a test message or request. The result updates the Connection’s health.</p>
+<h3>Editing a Connection</h3>
+<ol>
+<li>Find the Connection card and click <strong>Edit</strong>.</li>
+<li>Change the fields you need. Existing secrets stay in place unless you overwrite them.</li>
+<li>Save. The health status resets until the next successful test or send.</li>
+</ol>
+<p>If a field is managed by an environment variable (for example <code>BIRKLY_SMTP_HOST</code>), the UI shows <strong>Managed by environment</strong> and the field is read-only. Change the value in your server environment, not in the admin.</p>
+<h3>Deleting a Connection</h3>
+<ol>
+<li>Open the Connection and click <strong>Delete</strong>.</li>
+<li>Confirm. Birkly warns you if any alias or plugin still references this Connection.</li>
+</ol>
+<p>Deleting a Connection does not delete the delivery log, but new sends that relied on it will fail until you point the alias at another Connection.</p>
+<h3>Health and status</h3>
+<p>Each Connection shows a status:</p>
+<table><thead><tr><th>Status</th><th>What it means</th></tr></thead>
+<tbody><tr><td><strong>Healthy</strong></td><td>The last test or real send succeeded.</td></tr><tr><td><strong>Unhealthy</strong></td><td>The last attempt failed; the card shows the staged error (network, auth, DNS, TLS).</td></tr><tr><td><strong>Not configured</strong></td><td>No Connection of this type exists yet.</td></tr><tr><td><strong>Managed by environment</strong></td><td>Some or all values come from environment variables; the UI is read-only.</td></tr><tr><td><strong>Warning</strong></td><td>The Connection works, but a checklist item is missing (for example production is using the Log transport).</td></tr></tbody></table>
+<p>Email Connections also include a small checklist:</p>
+<ul>
+<li>From address and Reply-To are set.</li>
+<li>SPF/DKIM/DMARC DNS records are mentioned (Birkly does not generate keys; your provider does).</li>
+<li>For Docker hosts, SMTP is available or an ESP is recommended.</li>
+</ul>
+<p>Click <strong>Test send</strong> on an Email Connection to send yourself a message and confirm the provider accepted it. A successful test only means the provider accepted the message; it does not guarantee delivery to the inbox.</p>
+<h3>Aliases</h3>
+<p>An <strong>alias</strong> is a stable purpose name that plugins use so they do not need to know which provider you chose. Birkly ships with three email aliases:</p>
+<table><thead><tr><th>Alias</th><th>Typical use</th></tr></thead>
+<tbody><tr><td><code>transactional_email</code></td><td>Order receipts, form notifications, password resets, invites, health alerts.</td></tr><tr><td><code>marketing_email</code></td><td>Opt-in promotions and newsletters sent by plugins.</td></tr><tr><td><code>ops_alerts</code></td><td>System health and urgent alerts.</td></tr></tbody></table>
+<p>To map an alias:</p>
+<ol>
+<li>In <strong>Settings → Connections</strong>, open <strong>Aliases</strong>.</li>
+<li>Pick an alias from the list.</li>
+<li>Choose which Email Connection should handle it.</li>
+<li>Save.</li>
+</ol>
+<p>If a plugin asks for <code>transactional_email</code> and you map it to a Resend Connection, every plugin that uses the alias sends through Resend. You can change the provider later without touching templates or plugin settings.</p>
+<p>You can also create custom aliases for your own plugins or integrations.</p>
+<h3>Notification routes</h3>
+<p>A <strong>route</strong> maps an event to one or more channels. For example, when the event <code>commerce.order_paid</code> happens, you might want:</p>
+<ul>
+<li>an email to the customer (<code>transactional_email</code> alias),</li>
+<li>a Slack message to the <code>#orders</code> channel,</li>
+<li>an SMS to the on-call number.</li>
+</ul>
+<p>Routes are managed under <strong>Connections → Notification routes</strong>. Plugins can suggest default routes, but the admin owns the final map.</p>
+<h3>Delivery log</h3>
+<p>The delivery log shows every send attempt: recipient, alias used, Connection, status (<code>queued</code>, <code>accepted</code>, <code>logged</code>, <code>failed</code>, <code>suppressed</code>, <code>bounced</code>, <code>complained</code>), timestamp, and a short message. Sensitive body content is truncated. You can filter by status and retry failed queued items manually.</p>
+<h3>Suppressions</h3>
+<p>If an email hard-bounces or a recipient complains, the address is added to the suppression list. Future sends to that address are skipped with status <code>suppressed</code>. You can view and manually remove addresses from <strong>Connections → Suppressions</strong>, but only remove addresses you are sure are valid and willing.</p>
+<h3>What to do when email is not working</h3>
+<ol>
+<li>Open <strong>Settings → Connections</strong> and look at the Email health card.</li>
+<li>If no Connection exists, add one using a provider recipe.</li>
+<li>If the status is <strong>Unhealthy</strong>, read the staged error.</li>
+<li>Click <strong>Test send</strong> to yourself.</li>
+<li>Check the delivery log for the real status of plugin sends.</li>
+<li>If you are on Docker or a restricted host, SMTP may be blocked; use an ESP such as Resend or Mailgun instead.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Connection model</h3>
+<p>A Connection is a typed record stored in <code>settings/connections/index.json</code> with secrets encrypted separately. The schema is roughly:</p>
+<table><thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>id</code></td><td>UUID of the Connection.</td></tr><tr><td><code>name</code></td><td>Human label.</td></tr><tr><td><code>type</code></td><td><code>email-transactional</code>, <code>slack-ops</code>, <code>http-shipping</code>, <code>webhook-signing</code>, etc.</td></tr><tr><td><code>provider</code> / <code>transport</code></td><td><code>smtp</code>, <code>resend</code>, <code>postmark</code>, <code>ses</code>, <code>mailgun</code>, <code>log</code>, <code>slack_webhook</code>, <code>discord_webhook</code>, <code>twilio_sms</code>, <code>http_bearer</code>, etc.</td></tr><tr><td><code>config</code></td><td>Non-secret settings: host, port, from address, base URL, etc.</td></tr><tr><td><code>secrets</code></td><td>Encrypted credential fields; never returned in full on read.</td></tr><tr><td><code>health</code></td><td>Last check result, checklist state, timestamp.</td></tr><tr><td><code>managed_by_env</code></td><td>Whether the Connection is overridden by environment variables.</td></tr></tbody></table>
+<p>Storage paths (subject to core implementation):</p>
+<table><thead><tr><th>Item</th><th>Location</th></tr></thead>
+<tbody><tr><td>Connection metadata</td><td><code>settings/connections/index.json</code></td></tr><tr><td>Encrypted secrets</td><td><code>settings/connections/secrets.enc</code> or per-id files</td></tr><tr><td>Aliases</td><td><code>settings/connections/aliases.json</code></td></tr><tr><td>Notification routes</td><td><code>settings/connections/notification_routes.json</code></td></tr><tr><td>Delivery log</td><td><code>settings/connections/delivery_log/</code></td></tr><tr><td>Durable queue</td><td><code>settings/connections/queue/</code></td></tr><tr><td>Suppressions</td><td><code>settings/connections/suppressions.json</code></td></tr></tbody></table>
+<h3>Encryption and environment overrides</h3>
+<p>Secrets are encrypted with a key derived from <code>BIRKLY_SECRETS_KEY</code> in production. Local installs without that env var use an install-generated key and show a persistent warning. When an environment variable such as <code>BIRKLY_SMTP_HOST</code>, <code>BIRKLY_SMTP_PASS</code>, or a provider API key is set, it wins over the stored value and the UI shows <strong>Managed by environment</strong>.</p>
+<h3>Email transports and status semantics</h3>
+<table><thead><tr><th>Transport</th><th>Behavior</th></tr></thead>
+<tbody><tr><td><code>smtp</code></td><td>Native dependency-free socket client with STARTTLS/SSL and AUTH LOGIN.</td></tr><tr><td><code>log</code></td><td>Writes to the delivery log; status <code>logged</code>; never labeled as “sent.”</td></tr><tr><td><code>mail</code></td><td>PHP <code>mail()</code>; available but discouraged, especially on Docker.</td></tr><tr><td><code>resend</code> / <code>postmark</code> / <code>ses</code> / <code>mailgun</code></td><td>Thin HTTPS adapters; store the provider message id.</td></tr></tbody></table>
+<p>Pipeline statuses:</p>
+<table><thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>queued</code></td><td>In the durable retry queue.</td></tr><tr><td><code>accepted</code></td><td>Provider or SMTP server accepted the message.</td></tr><tr><td><code>logged</code></td><td>Log transport only.</td></tr><tr><td><code>failed</code></td><td>Exhausted retries or hard error.</td></tr><tr><td><code>suppressed</code></td><td>Address is on the suppression list.</td></tr><tr><td><code>bounced</code> / <code>complained</code></td><td>Reported by provider webhook.</td></tr></tbody></table>
+<p>Never claim end-to-end inbox delivery unless a provider event confirms it.</p>
+<h3>Aliases and plugin contract</h3>
+<p>Aliases decouple plugins from providers. A plugin calls <code>birkly_send_mail(..., ['alias' =&gt; 'transactional_email'])</code>; the core resolves the alias to the current Connection id. The shipped aliases are <code>transactional_email</code>, <code>marketing_email</code>, and <code>ops_alerts</code>, but custom aliases are allowed.</p>
+<p>Plugins declare their needs in <code>plugin.json</code> via <code>requires_connections: [{ type: 'email-transactional', alias: 'transactional_email', optional: false }]</code>. Hub shows a warning if the requirement is missing.</p>
+<h3>Notification fan-out</h3>
+<p><code>birkly_notify($event, $payload)</code> looks up the route for <code>$event</code> and fans out to each configured channel. Built-in event keys include <code>commerce.order_paid</code>, <code>commerce.order_shipped</code>, <code>form.submission</code>, <code>user.password_reset</code>, <code>user.email_verify</code>, <code>system.health_alert</code>, and <code>team.invitation</code>. Plugins may register <code>plugin_slug.event</code> keys.</p>
+<h3>Durable queue and retries</h3>
+<p>Interactive tests and small transactional paths send synchronously by default. The durable file queue handles retries after transient failures, burst protection, and optional scheduled Commerce delays. Retry policy is exponential backoff over a small number of attempts; dead-lettered items remain in the delivery log. Idempotency keys prevent duplicate sends on retry.</p>
+<h3>Permissions</h3>
+<table><thead><tr><th>Action</th><th>Required role</th></tr></thead>
+<tbody><tr><td>View metadata / health / log</td><td>Settings read</td></tr><tr><td>Edit secrets, routes, suppressions</td><td>Settings write / system admin</td></tr><tr><td>Test send / test channel</td><td>Settings write</td></tr><tr><td>MCP configure / test</td><td>Privileged AI role + approval</td></tr></tbody></table>
+<p>Audit events record who changed what fields (never password values) and delivery failures as system events.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="connections-provider-recipes.html">Connections provider recipes</a></li>
+<li><a href="connections-migration.html">Migrate from Automation Setup email</a></li>
+<li><a href="../04-integration/connections-api-reference.html">Connections API reference</a></li>
+<li><a href="connections-mcp-rules.html">Connections MCP rules</a></li>
+<li><a href="../05-automation/automation-overview.html">Automation overview</a></li>
+<li><a href="../07-operations/monitoring-alerts.html">Monitoring and health alerts</a></li>
+<li><a href="../06-extensibility/plugins/commerce.html">Commerce plugin</a></li>
+</ul></div>

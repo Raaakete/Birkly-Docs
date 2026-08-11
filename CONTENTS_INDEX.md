@@ -39,6 +39,10 @@ This index lists every documentation topic and its file path. Use it for navigat
 | AI site builder | `01-admin/ai-site-builder.md` | MCP tools for project/ HTML, CSS, JS (P38) |
 | AI chat and actions | `01-admin/ai-chat-and-actions.md` | Using the chat and what the AI can do |
 | AI approvals | `01-admin/ai-approvals.md` | Approval queue for AI write actions |
+| Connections | `01-admin/connections.md` | Settings → Connections: email, channels, credentials, webhooks, health |
+| Connections provider recipes | `01-admin/connections-provider-recipes.md` | SMTP, Resend, Postmark, SES, Mailgun setup |
+| Migrate from Automation Setup email | `01-admin/connections-migration.md` | Move Automation SMTP into Connections |
+| Connections MCP rules | `01-admin/connections-mcp-rules.md` | Agent read, approval-gated write, no secret echo |
 
 ## 02 — Content
 
@@ -113,6 +117,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Agent Guide MCP & agents | `04-integration/agent-guide-mcp-and-agents.md` | MCP tools, resources, agent patterns |
 | Website tools (WebMCP) | `04-integration/webmcp-tools.md` | Public-site WebMCP tool catalog (off by default) |
 | AI on localhost | `04-integration/ai-on-localhost.md` | Built-in/Ollama vs remote connectors; mcp-bridge and tunnel recipes |
+| Connections API reference | `04-integration/connections-api-reference.md` | birkly_send_mail, birkly_notify, credentials, webhooks |
 
 ## 05 — Automation
 

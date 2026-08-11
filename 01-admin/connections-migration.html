@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>connections migration — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="media-library.html" class="nav-link">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="developer-mode.html" class="nav-link">Developer mode</a>
+        <a href="project-git-sync.html" class="nav-link">Project Git sync</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="design-system.html" class="nav-link">Admin design system</a>
+        <a href="admin-design-language.html" class="nav-link">Admin design language</a>
+        <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="ai-overview.html" class="nav-link">AI overview</a>
+        <a href="ai-connections.html" class="nav-link">AI connections</a>
+        <a href="mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="ai-approvals.html" class="nav-link">AI approvals</a>
+        <a href="connections.html" class="nav-link">Connections</a>
+        <a href="connections-provider-recipes.html" class="nav-link">Connections provider recipes</a>
+        <a href="connections-migration.html" class="nav-link active">Migrate from Automation Setup email</a>
+        <a href="connections-mcp-rules.html" class="nav-link">Connections MCP rules</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
+        <a href="../04-integration/connections-api-reference.html" class="nav-link">Connections API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
+        <a href="../06-extensibility/commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="../06-extensibility/commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="../06-extensibility/commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="../06-extensibility/commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="../06-extensibility/commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Before Phase 65, transactional email settings lived inside <strong>Automation → Setup</strong> in a file called <code>automation_mail.json</code>. That made Automation a hidden dependency for Commerce receipts, form notifications, password resets, and health alerts. Phase 65 moves email into <strong>Settings → Connections</strong>. This guide explains how to migrate without losing sends.</p>
+<div class="doc-summary"><p>If you previously configured SMTP or Log mail under <strong>Automation → Setup</strong>, those settings are now read by <strong>Settings → Connections</strong> during a short dual-read period. The recommended path is to create a new Email Connection in <strong>Settings → Connections</strong>, map the <code>transactional_email</code> alias to it, and let Automation become a wrapper around the shared pipe. After migration, Automation can be deactivated without breaking Commerce, forms, User, or Events email. The old Automation Setup email UI redirects to Connections.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What changed</h3>
+<table><thead><tr><th>Before P65</th><th>After P65</th></tr></thead>
+<tbody><tr><td>SMTP host, port, username, password in Automation → Setup</td><td>Same fields in <strong>Settings → Connections</strong> as an Email Connection</td></tr><tr><td><code>automation_send_mail</code> sends mail</td><td><code>birkly_send_mail</code> sends mail; Automation actions call it</td></tr><tr><td>Commerce depends on Automation being active</td><td>Commerce uses Connections directly</td></tr><tr><td>Form notifications use PHP <code>mail()</code></td><td>Form notifications use Connections alias</td></tr><tr><td>Password resets use plugin stub SMTP</td><td>Password resets use Connections alias</td></tr></tbody></table>
+<h3>Who needs to migrate</h3>
+<p>You need to migrate if any of the following are true:</p>
+<ul>
+<li>You configured SMTP under <strong>Automation → Setup</strong>.</li>
+<li>You rely on Commerce order emails.</li>
+<li>You use public form notifications.</li>
+<li>You use password reset or email verification emails.</li>
+<li>You use health alert emails.</li>
+</ul>
+<p>You do not need to migrate Ops Marketplace license emails; those use a separate runtime.</p>
+<h3>Migration steps</h3>
+<ol>
+<li>Open <strong>Settings → Connections</strong>.</li>
+<li>Click <strong>Add connection</strong> and choose the same transport you had in Automation (SMTP, Resend, etc.).</li>
+<li>Copy the values from Automation → Setup into the Connection fields.</li>
+</ol>
+<p>   - Host, port, encryption, username, password for SMTP.    - API key and from address for ESPs.</p>
+<ol>
+<li>Give the Connection a clear name such as <code>Primary transactional email</code>.</li>
+<li>Save and click <strong>Test send</strong>.</li>
+<li>Go to <strong>Aliases</strong>, find <code>transactional_email</code>, and set it to this Connection.</li>
+<li>Visit <strong>Automation → Setup</strong>. The email section now shows a summary and a link to <strong>Settings → Connections</strong>. It no longer stores its own SMTP password.</li>
+<li>Send a test Commerce receipt or submit a form to confirm delivery.</li>
+</ol>
+<h3>What happens to old settings</h3>
+<p>During the dual-read period, Birkly reads in this order:</p>
+<ol>
+<li>Connections core (<code>transactional_email</code> alias).</li>
+<li>Legacy <code>automation_mail.json</code> if no alias is mapped.</li>
+<li>User plugin <code>email_settings</code> if no other source exists.</li>
+</ol>
+<p>The first time you save a Connection and map the alias, the legacy file is marked migrated. New writes no longer update <code>automation_mail.json</code>. Eventually the legacy dual-read is removed, so do not rely on it long-term.</p>
+<h3>Commerce-specific notes</h3>
+<p>Commerce previously showed <code>ok: true</code> even when email was only logged and not sent. After migration:</p>
+<ul>
+<li>Commerce sends through <code>birkly_send_mail</code> using the <code>transactional_email</code> alias.</li>
+<li>The delivery log shows the real status (<code>accepted</code>, <code>logged</code>, <code>failed</code>, etc.).</li>
+<li>If no alias is mapped, Commerce shows an empty state pointing to Connections instead of faking success.</li>
+</ul>
+<h3>Stripe receipt vs Commerce thank-you</h3>
+<p>Stripe can send its own receipt when you set <code>receipt_email</code>. Commerce also sends thank-you / shipping / donation emails through Connections. Both may fire. Make sure your templates do not double-thank the customer.</p>
+<h3>Form notifications</h3>
+<p>Public form notifications now use the <code>transactional_email</code> alias. A common bug fixed in P65 is the mismatch between <code>notify_email</code> and <code>notification_email</code> settings. After migration, the form notify field is unified to the Connections alias.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Dual-read / dual-write mechanics</h3>
+<p>The migration is designed for zero downtime:</p>
+<ol>
+<li>Core Connections and the encrypted store ship first.</li>
+<li>Consumers read core first, then fall back to legacy sources.</li>
+<li>The first admin save to Connections writes the canonical record and marks the legacy source migrated.</li>
+<li><code>automation_send_mail</code> becomes a thin wrapper around <code>birkly_send_mail</code>.</li>
+<li>Automation Setup SMTP UI redirects to Connections.</li>
+<li>Legacy writes stop.</li>
+<li>One-shot migration script cleans remaining installs at the deprecation freeze (P65-M14).</li>
+</ol>
+<h3>Consumer cutover table</h3>
+<table><thead><tr><th>Consumer</th><th>New call</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>birkly-plugin-automation/includes/mailer.php</code></td><td><code>birkly_send_mail</code></td><td>Wrapper; Setup redirect.</td></tr><tr><td><code>birkly-plugin-commerce/includes/CommerceEmailService.php</code></td><td><code>birkly_send_mail</code> / <code>birkly_notify</code></td><td>Honest statuses; remove fake <code>ok</code>.</td></tr><tr><td><code>birkly/api/public_submit.php</code>, <code>public/collections.php</code>, <code>public_sub_entry.php</code>, <code>secure_forms.php</code></td><td><code>birkly_send_mail</code></td><td>Fix <code>notify_email</code> vs <code>notification_email</code>.</td></tr><tr><td><code>birkly/api/invitations.php</code>, <code>birkly/core/health_alerts.php</code></td><td><code>birkly_send_mail</code> alias <code>ops_alerts</code></td><td>May share <code>transactional_email</code>.</td></tr><tr><td><code>birkly-plugin-user/includes/EmailVerification.php</code></td><td><code>birkly_send_mail</code> alias <code>transactional_email</code></td><td>Remove stub SMTP.</td></tr><tr><td><code>birkly-plugin-events</code></td><td><code>birkly_send_mail</code> / <code>birkly_notify</code></td><td>No private SMTP UI.</td></tr></tbody></table>
+<h3>Migration script for unattended installs</h3>
+<p>For installs that cannot use the admin UI, a one-shot migration helper reads <code>automation_mail.json</code> and creates the equivalent Connection. Run it from the CLI or as part of P65-M14 deprecation freeze. It preserves existing secrets by writing them into the encrypted store.</p>
+<h3>Testing the migration</h3>
+<ol>
+<li>Deactivate the Automation plugin.</li>
+<li>Submit a public form.</li>
+<li>Place a test Commerce order.</li>
+<li>Request a password reset.</li>
+<li>Check the delivery log for statuses.</li>
+</ol>
+<p>If all four deliver correctly with Automation off, the migration is complete.</p>
+<h3>Rollback during dual-read</h3>
+<p>If a Connection test fails, legacy settings still work until the deprecation freeze. Re-enable Automation or correct the legacy file, then retry the Connection setup. Do not wait until M14 to validate; test as soon as you create the Connection.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="connections.html">Connections</a></li>
+<li><a href="connections-provider-recipes.html">Connections provider recipes</a></li>
+<li><a href="../04-integration/connections-api-reference.html">Connections API reference</a></li>
+<li><a href="connections-mcp-rules.html">Connections MCP rules</a></li>
+<li><a href="../05-automation/automation-overview.html">Automation overview</a></li>
+<li><a href="../06-extensibility/plugins/commerce.html">Commerce plugin</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

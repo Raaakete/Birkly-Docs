@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>connections provider recipes — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="content-overview.html" class="nav-link">Content overview</a>
+        <a href="entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="media-library.html" class="nav-link">Media library</a>
+        <a href="settings.html" class="nav-link">Settings</a>
+        <a href="analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="developer-mode.html" class="nav-link">Developer mode</a>
+        <a href="project-git-sync.html" class="nav-link">Project Git sync</a>
+        <a href="roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="design-system.html" class="nav-link">Admin design system</a>
+        <a href="admin-design-language.html" class="nav-link">Admin design language</a>
+        <a href="help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="ai-overview.html" class="nav-link">AI overview</a>
+        <a href="ai-connections.html" class="nav-link">AI connections</a>
+        <a href="mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="ai-approvals.html" class="nav-link">AI approvals</a>
+        <a href="connections.html" class="nav-link">Connections</a>
+        <a href="connections-provider-recipes.html" class="nav-link active">Connections provider recipes</a>
+        <a href="connections-migration.html" class="nav-link">Migrate from Automation Setup email</a>
+        <a href="connections-mcp-rules.html" class="nav-link">Connections MCP rules</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
+        <a href="../04-integration/connections-api-reference.html" class="nav-link">Connections API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="../06-extensibility/plugins.html" class="nav-link">Plugins</a>
+        <a href="../06-extensibility/marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
+        <a href="../06-extensibility/commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="../06-extensibility/commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="../06-extensibility/commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="../06-extensibility/commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="../06-extensibility/commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="../06-extensibility/commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="../06-extensibility/commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="../06-extensibility/commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="../06-extensibility/commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="../06-extensibility/commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="../06-extensibility/commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="../06-extensibility/commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="../06-extensibility/commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>These recipes walk through adding each supported email provider in <strong>Settings → Connections</strong>. Each recipe assumes you already have an account with the provider and a verified domain or sender address. If you are unsure which provider to choose, start with a managed Email Service Provider (ESP) such as Resend or Postmark rather than your host’s SMTP, because ESPs handle deliverability, bounces, and DNS records for you.</p>
+<div class="doc-summary"><p>Birkly supports five email transports out of the box: <strong>SMTP</strong> (generic), <strong>Resend</strong>, <strong>Postmark</strong>, <strong>Amazon SES</strong>, and <strong>Mailgun</strong>. For each provider you create an <strong>Email</strong> Connection in <strong>Settings → Connections</strong>, enter the provider-specific fields, and click <strong>Test</strong>. The recipes below list the exact values to paste and common pitfalls. After setup, map the Connection to an alias such as <code>transactional_email</code> so plugins can use it without knowing which provider you picked.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Before you start</h3>
+<ol>
+<li>Open <strong>Settings → Connections</strong>.</li>
+<li>Click <strong>Add connection</strong> and choose the <strong>Email</strong> type.</li>
+<li>Pick the provider/transport that matches your account.</li>
+<li>Give the Connection a clear name, for example <code>Resend production</code> or <code>Mailgun EU</code>.</li>
+<li>Save, then click <strong>Test send</strong>.</li>
+<li>If the test succeeds, go to <strong>Aliases</strong> and map <code>transactional_email</code> to this Connection.</li>
+</ol>
+<h3>Generic SMTP</h3>
+<p>Use SMTP when you have your own mail server or a host-provided relay.</p>
+<p>Fields you need:</p>
+<table><thead><tr><th>Field</th><th>Example</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Host</td><td><code>smtp.example.com</code></td><td>Your mail server hostname.</td></tr><tr><td>Port</td><td><code>587</code> or <code>465</code></td><td>587 usually uses STARTTLS; 465 usually uses SSL.</td></tr><tr><td>Encryption</td><td><code>STARTTLS</code>, <code>SSL</code>, or <code>None</code></td><td>Match your port.</td></tr><tr><td>Username</td><td><code>you@example.com</code></td><td>Often the full email address.</td></tr><tr><td>Password</td><td>app-specific password</td><td>Use an app password, not your login password.</td></tr><tr><td>From address</td><td><code>noreply@example.com</code></td><td>Must be allowed by the server.</td></tr><tr><td>From name</td><td><code>Birkly</code></td><td>Display name recipients see.</td></tr></tbody></table>
+<p>Common problems:</p>
+<ul>
+<li><strong>Docker hosts</strong> often block outbound SMTP on port 25/587. If test fails with a network timeout, switch to an ESP or ask your host to open the port.</li>
+<li><strong>Gmail / Outlook personal accounts</strong> require app-specific passwords and may have strict sending limits. For production sites, use a transactional ESP instead.</li>
+<li>Wrong encryption/port pair is the most common failure.</li>
+</ul>
+<h3>Resend</h3>
+<p>Resend is a transactional email service with a simple HTTP API.</p>
+<p>Fields you need:</p>
+<table><thead><tr><th>Field</th><th>Example</th><th>Notes</th></tr></thead>
+<tbody><tr><td>API key</td><td><code>re_xxxxxxxxxxxxxxxx</code></td><td>Create in Resend dashboard → API keys.</td></tr><tr><td>From address</td><td><code>onboarding@yourdomain.com</code></td><td>Must be a verified domain or a Resend-provided test address.</td></tr><tr><td>From name</td><td><code>Your site</code></td><td>Display name.</td></tr></tbody></table>
+<p>After saving:</p>
+<ol>
+<li>Click <strong>Test send</strong>.</li>
+<li>If the domain is not verified, Resend accepts mail only from a test address or may reject depending on your plan.</li>
+<li>Add the Resend bounce/complaint webhook URL in Connections → Webhooks if you want automatic suppression updates.</li>
+</ol>
+<h3>Postmark</h3>
+<p>Postmark focuses on transactional email and provides clear delivery events.</p>
+<p>Fields you need:</p>
+<table><thead><tr><th>Field</th><th>Example</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Server API token</td><td><code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code></td><td>From a Postmark server, not an account token.</td></tr><tr><td>From address</td><td><code>noreply@yourdomain.com</code></td><td>Must match a verified sender signature.</td></tr><tr><td>From name</td><td><code>Your site</code></td><td>Display name.</td></tr></tbody></table>
+<p>After saving:</p>
+<ol>
+<li>Click <strong>Test send</strong>.</li>
+<li>In Postmark, copy the inbound webhook URL from Connections → Webhooks and paste it into Postmark → Webhooks so bounces and spam complaints update Birkly’s suppression list.</li>
+</ol>
+<h3>Amazon SES</h3>
+<p>Birkly prefers the Amazon SES HTTPS API adapter. You can also use SES-SMTP credentials through the generic SMTP transport if you prefer.</p>
+<p>Fields for the SES HTTPS API adapter:</p>
+<table><thead><tr><th>Field</th><th>Example</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Access key ID</td><td><code>AKIA...</code></td><td>IAM user with <code>ses:SendRawEmail</code> permission.</td></tr><tr><td>Secret access key</td><td><code>...</code></td><td>Stored encrypted.</td></tr><tr><td>Region</td><td><code>us-east-1</code></td><td>Your SES region.</td></tr><tr><td>From address</td><td><code>noreply@yourdomain.com</code></td><td>Must be a verified identity in SES.</td></tr><tr><td>From name</td><td><code>Your site</code></td><td>Display name.</td></tr></tbody></table>
+<p>IAM permission needed:</p>
+<pre><code>{
+  &quot;Version&quot;: &quot;2012-10-17&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [&quot;ses:SendEmail&quot;, &quot;ses:SendRawEmail&quot;],
+      &quot;Resource&quot;: &quot;*&quot;
+    }
+  ]
+}</code></pre>
+<p>After saving:</p>
+<ol>
+<li>Click <strong>Test send</strong>.</li>
+<li>SES in sandbox mode only sends to verified addresses. Move out of sandbox for production.</li>
+<li>Configure SNS → HTTPS webhook to <code>/api/webhooks/connections/{id}</code> for bounce/complaint delivery.</li>
+</ol>
+<h3>Mailgun</h3>
+<p>Mailgun provides both US and EU endpoints.</p>
+<p>Fields you need:</p>
+<table><thead><tr><th>Field</th><th>Example</th><th>Notes</th></tr></thead>
+<tbody><tr><td>API key</td><td><code>key-xxxxxxxxxxxxxxxx</code></td><td>From Mailgun dashboard → Settings → API keys.</td></tr><tr><td>Domain</td><td><code>mg.yourdomain.com</code></td><td>Must be active in Mailgun.</td></tr><tr><td>Region</td><td><code>US</code> or <code>EU</code></td><td>Choose the region where your domain is hosted.</td></tr><tr><td>From address</td><td><code>noreply@mg.yourdomain.com</code></td><td>Must belong to the configured domain.</td></tr><tr><td>From name</td><td><code>Your site</code></td><td>Display name.</td></tr></tbody></table>
+<p>After saving:</p>
+<ol>
+<li>Click <strong>Test send</strong>.</li>
+<li>Add Mailgun webhook URLs for permanent fail and spam complaints in Connections → Webhooks.</li>
+</ol>
+<h3>DNS: SPF, DKIM, DMARC</h3>
+<p>Birkly does not generate DKIM keys for you; your provider does. The provider recipe is incomplete until DNS is correct:</p>
+<ol>
+<li>Add the provider’s SPF include to your domain’s TXT record.</li>
+<li>Add the DKIM record the provider gives you.</li>
+<li>Add a DMARC policy record such as <code>v=DMARC1; p=quarantine; rua=mailto:dmarc@yourdomain.com</code>.</li>
+</ol>
+<p>The Email Connection checklist links to provider-specific DNS instructions. Incorrect DNS is the most common cause of messages landing in spam.</p>
+<h3>Choosing between providers</h3>
+<table><thead><tr><th>Choose this</th><th>When</th></tr></thead>
+<tbody><tr><td><strong>Resend</strong></td><td>Fastest setup, generous free tier, strong developer focus.</td></tr><tr><td><strong>Postmark</strong></td><td>Strictly transactional, excellent deliverability reputation, detailed events.</td></tr><tr><td><strong>Amazon SES</strong></td><td>Lowest cost at scale, already in AWS, comfortable managing IAM/SNS.</td></tr><tr><td><strong>Mailgun</strong></td><td>Need EU residency, complex routing, or existing Mailgun workflows.</td></tr><tr><td><strong>SMTP</strong></td><td>You already run a reliable mail server and cannot use an ESP.</td></tr><tr><td><strong>Log</strong></td><td>Local development only; never for production.</td></tr></tbody></table></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Environment-variable overrides</h3>
+<p>Each provider field can be overridden by an environment variable. When an env override is active, the admin shows <strong>Managed by environment</strong> and the field is read-only. Common variables:</p>
+<table><thead><tr><th>Provider</th><th>Variable examples</th></tr></thead>
+<tbody><tr><td>SMTP</td><td><code>BIRKLY_SMTP_HOST</code>, <code>BIRKLY_SMTP_PORT</code>, <code>BIRKLY_SMTP_USER</code>, <code>BIRKLY_SMTP_PASS</code>, <code>BIRKLY_SMTP_FROM</code></td></tr><tr><td>Resend</td><td><code>BIRKLY_RESEND_API_KEY</code>, <code>BIRKLY_RESEND_FROM</code></td></tr><tr><td>Postmark</td><td><code>BIRKLY_POSTMARK_API_TOKEN</code>, <code>BIRKLY_POSTMARK_FROM</code></td></tr><tr><td>SES</td><td><code>BIRKLY_SES_ACCESS_KEY</code>, <code>BIRKLY_SES_SECRET_KEY</code>, <code>BIRKLY_SES_REGION</code>, <code>BIRKLY_SES_FROM</code></td></tr><tr><td>Mailgun</td><td><code>BIRKLY_MAILGUN_API_KEY</code>, <code>BIRKLY_MAILGUN_DOMAIN</code>, <code>BIRKLY_MAILGUN_REGION</code>, <code>BIRKLY_MAILGUN_FROM</code></td></tr></tbody></table>
+<p>Exact variable names may be finalized when core implementation reports stable API names.</p>
+<h3>Provider adapter interface</h3>
+<p>Core exposes a thin adapter interface. Official adapters are native PHP + cURL; no Composer SDK is required. A custom adapter can be registered by a plugin if it implements the contract:</p>
+<ul>
+<li><code>send($envelope)</code> — accepts to, from, subject, html, text, attachments, headers, idempotency key.</li>
+<li><code>parseResponse($httpResponse)</code> — returns provider message id or error.</li>
+<li><code>webhookHandlers()</code> — returns map of event types to suppression/ status actions.</li>
+</ul>
+<h3>Webhook endpoints per provider</h3>
+<p>Bounce/complaint webhooks are registered under <strong>Connections → Webhooks</strong>. The URL pattern is <code>/api/webhooks/connections/{id}</code>. Provider-specific setup:</p>
+<table><thead><tr><th>Provider</th><th>Webhook events to enable</th></tr></thead>
+<tbody><tr><td>Resend</td><td><code>bounce</code>, <code>complaint</code>, <code>delivery</code></td></tr><tr><td>Postmark</td><td><code>Bounce</code>, <code>SpamComplaint</code></td></tr><tr><td>SES</td><td>SNS → HTTPS to the endpoint; subscribe the endpoint to <code>Bounce</code> and <code>Complaint</code> topics</td></tr><tr><td>Mailgun</td><td><code>permanent_fail</code>, <code>complained</code></td></tr></tbody></table>
+<p>The verify helper checks the provider signature before acting on the payload.</p>
+<h3>SES SigV4 fallback</h3>
+<p>If the native SES HTTPS adapter is unavailable on your build, use SES-SMTP credentials through the generic SMTP transport. Retrieve SMTP credentials from the SES console, choose region-specific host such as <code>email-smtp.us-east-1.amazonaws.com</code>, port 587, and STARTTLS. Document this path in the Connection notes.</p>
+<h3>Rate limits and queueing</h3>
+<p>Providers enforce rate limits. Birkly respects them with per-connection soft caps and queues bursts. If you hit a rate limit, the status remains <code>queued</code> and retries automatically. For high-volume sites, warm up the provider domain reputation before sending large batches.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="connections.html">Connections</a></li>
+<li><a href="connections-migration.html">Migrate from Automation Setup email</a></li>
+<li><a href="../04-integration/connections-api-reference.html">Connections API reference</a></li>
+<li><a href="connections-mcp-rules.html">Connections MCP rules</a></li>
+<li><a href="../07-operations/monitoring-alerts.html">Monitoring and health alerts</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

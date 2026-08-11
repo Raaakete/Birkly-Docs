@@ -38,7 +38,11 @@
         { "path": "01-admin/mcp-connections.md", "label": "MCP connections" },
         { "path": "01-admin/ai-site-builder.md", "label": "AI site builder" },
         { "path": "01-admin/ai-chat-and-actions.md", "label": "AI chat and actions" },
-        { "path": "01-admin/ai-approvals.md", "label": "AI approvals" }
+        { "path": "01-admin/ai-approvals.md", "label": "AI approvals" },
+        { "path": "01-admin/connections.md", "label": "Connections" },
+        { "path": "01-admin/connections-provider-recipes.md", "label": "Connections provider recipes" },
+        { "path": "01-admin/connections-migration.md", "label": "Migrate from Automation Setup email" },
+        { "path": "01-admin/connections-mcp-rules.md", "label": "Connections MCP rules" }
       ]
     },
     {
@@ -107,7 +111,8 @@
         { "path": "04-integration/agent-guide-public-api.md", "label": "Agent Guide public API" },
         { "path": "04-integration/agent-guide-mcp-and-agents.md", "label": "Agent Guide MCP & agents" },
         { "path": "04-integration/webmcp-tools.md", "label": "Website tools (WebMCP)" },
-        { "path": "04-integration/ai-on-localhost.md", "label": "AI on localhost" }
+        { "path": "04-integration/ai-on-localhost.md", "label": "AI on localhost" },
+        { "path": "04-integration/connections-api-reference.md", "label": "Connections API reference" }
       ]
     },
     {

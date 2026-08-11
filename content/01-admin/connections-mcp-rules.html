@@ -1,0 +1,82 @@
+<p>This document defines how MCP servers, agents, and AI tools may interact with Birkly Connections. The rules are part of the P65 security model: agents can diagnose problems and propose changes, but they cannot read secrets or reconfigure email without explicit human approval.</p>
+<div class="doc-summary"><p>AI and MCP tools follow three rules for Connections:</p>
+<ol>
+<li><strong>Health read is always allowed.</strong> Agents can list Connections, read metadata, and check health/status to answer “why is email not working?”</li>
+<li><strong>Configure and test require approval.</strong> Any action that creates, edits, deletes, or tests a Connection, or changes aliases and routes, must go through the AI approval queue with the default approval setting turned on.</li>
+<li><strong>Never echo secrets.</strong> Agents must not return passwords, API keys, signing secrets, or decrypted credentials in chat, tool results, logs, or external calls.</li>
+</ol>
+<p>These rules apply to all Connections interactions regardless of which plugin or agent initiated them.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What agents can see</h3>
+<p>When you ask an AI assistant about Connections, it can tell you:</p>
+<ul>
+<li>Which Connections exist and what type they are.</li>
+<li>Whether each Connection is healthy, unhealthy, or not configured.</li>
+<li>The last error message (for example “authentication failed” or “connection timed out”).</li>
+<li>Which alias is mapped to which Connection.</li>
+<li>Recent delivery log statuses.</li>
+</ul>
+<p>It cannot tell you:</p>
+<ul>
+<li>The SMTP password.</li>
+<li>The Resend or Mailgun API key.</li>
+<li>The webhook signing secret.</li>
+<li>Any other credential value.</li>
+</ul>
+<h3>What agents can change</h3>
+<p>Agents can propose changes such as:</p>
+<ul>
+<li>Create a new Email Connection.</li>
+<li>Update an alias mapping.</li>
+<li>Add a notification route.</li>
+<li>Run a test send.</li>
+<li>Delete an unused Connection.</li>
+</ul>
+<p>Each proposal appears in the <strong>AI approvals</strong> queue. The default setting is that approval is required, so a human must confirm before the change happens. You can disable the approval requirement only by changing the AI approval settings yourself; agents cannot turn it off.</p>
+<h3>Example safe questions</h3>
+<ul>
+<li>“Why are Commerce order emails failing?” — Safe. The agent reads health and the delivery log.</li>
+<li>“Which provider is mapped to transactional_email?” — Safe. The agent reads alias metadata.</li>
+<li>“Send a test email through the primary Connection.” — Requires approval.</li>
+<li>“Add a Resend Connection with this API key.” — Requires approval; the key is never echoed back.</li>
+<li>“What is my SMTP password?” — Refused. The agent cannot read secrets.</li>
+</ul>
+<h3>Why this matters</h3>
+<p>Connections holds the keys to your email, chat notifications, and external APIs. If an agent could read or change those without oversight, a mistaken prompt could expose credentials or break delivery. The rules keep diagnosis fast while keeping configuration changes human-gated.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Tool exposure</h3>
+<p>The MCP server exposes read tools and write tools separately:</p>
+<table><thead><tr><th>Tool</th><th>Category</th><th>Approval required</th><th>Returns secrets</th></tr></thead>
+<tbody><tr><td><code>connection_list</code></td><td>Read</td><td>No</td><td>No</td></tr><tr><td><code>connection_get</code></td><td>Read</td><td>No</td><td>No</td></tr><tr><td><code>connection_health</code></td><td>Read</td><td>No</td><td>No</td></tr><tr><td><code>delivery_log_query</code></td><td>Read</td><td>No</td><td>No</td></tr><tr><td><code>connection_propose_create</code></td><td>Write</td><td>Yes</td><td>No input secret returned</td></tr><tr><td><code>connection_propose_update</code></td><td>Write</td><td>Yes</td><td>No input secret returned</td></tr><tr><td><code>connection_propose_delete</code></td><td>Write</td><td>Yes</td><td>No</td></tr><tr><td><code>connection_test</code></td><td>Write</td><td>Yes</td><td>No</td></tr><tr><td><code>alias_update</code></td><td>Write</td><td>Yes</td><td>No</td></tr><tr><td><code>route_update</code></td><td>Write</td><td>Yes</td><td>No</td></tr></tbody></table>
+<p>Read tools return metadata only. Write tools are implemented as proposals that enter the AI approval queue. The approval system is the same one used for other AI write actions; see <a href="ai-approvals.html">AI approvals</a>.</p>
+<h3>Secret redaction</h3>
+<p>The MCP layer redacts credential fields before any response leaves core:</p>
+<ul>
+<li>Password fields are replaced with a masked placeholder such as <code>••••••••</code>.</li>
+<li>API keys are returned as a short prefix plus ellipsis, for example <code>re_••••abcd</code>.</li>
+<li>If a caller attempts to request <code>with_secrets</code>, the capability check fails unless the caller holds a privileged server role; MCP agents never hold that role.</li>
+</ul>
+<p>Even when an admin approves a proposed update, the agent only submits the new secret value; it does not receive the old one.</p>
+<h3>Approval default</h3>
+<p>P65-D5 locks the default approval setting to <strong>on</strong> for all Connection write and test tools. Admins may opt out through the AI approvals settings, but the agent cannot request or perform that opt-out.</p>
+<h3>Audit trail</h3>
+<p>Every agent-driven proposal is logged:</p>
+<ul>
+<li>Agent id and session.</li>
+<li>Proposed fields (secret values excluded).</li>
+<li>Human approver identity.</li>
+<li>Timestamp and result.</li>
+</ul>
+<p>Delivery failures triggered by agent tests are also recorded as system events.</p>
+<h3>Error responses</h3>
+<p>When a rule is violated, the MCP tool returns a clear error:</p>
+<table><thead><tr><th>Violation</th><th>Error</th></tr></thead>
+<tbody><tr><td>Attempt to read secrets</td><td><code>secrets_not_readable</code></td></tr><tr><td>Write without approval</td><td><code>approval_required</code></td></tr><tr><td>Test without approval</td><td><code>approval_required</code></td></tr><tr><td>Secret echoed in prompt or result</td><td><code>secret_redaction_refused</code></td></tr></tbody></table>
+<h3>Implementation note for core developers</h3>
+<p>The MCP handler should call the same core functions as the admin REST API, but with an explicit <code>context = 'mcp'</code> flag. Core enforces the redaction and approval rules; the MCP layer should not rely on the agent to withhold secrets.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="connections.html">Connections</a></li>
+<li><a href="connections-provider-recipes.html">Connections provider recipes</a></li>
+<li><a href="connections-migration.html">Migrate from Automation Setup email</a></li>
+<li><a href="../04-integration/connections-api-reference.html">Connections API reference</a></li>
+<li><a href="ai-approvals.html">AI approvals</a></li>
+<li><a href="mcp-connections.html">MCP connections</a></li>
+</ul></div>

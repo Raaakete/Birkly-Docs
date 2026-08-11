@@ -1,0 +1,114 @@
+<p>These recipes walk through adding each supported email provider in <strong>Settings → Connections</strong>. Each recipe assumes you already have an account with the provider and a verified domain or sender address. If you are unsure which provider to choose, start with a managed Email Service Provider (ESP) such as Resend or Postmark rather than your host’s SMTP, because ESPs handle deliverability, bounces, and DNS records for you.</p>
+<div class="doc-summary"><p>Birkly supports five email transports out of the box: <strong>SMTP</strong> (generic), <strong>Resend</strong>, <strong>Postmark</strong>, <strong>Amazon SES</strong>, and <strong>Mailgun</strong>. For each provider you create an <strong>Email</strong> Connection in <strong>Settings → Connections</strong>, enter the provider-specific fields, and click <strong>Test</strong>. The recipes below list the exact values to paste and common pitfalls. After setup, map the Connection to an alias such as <code>transactional_email</code> so plugins can use it without knowing which provider you picked.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Before you start</h3>
+<ol>
+<li>Open <strong>Settings → Connections</strong>.</li>
+<li>Click <strong>Add connection</strong> and choose the <strong>Email</strong> type.</li>
+<li>Pick the provider/transport that matches your account.</li>
+<li>Give the Connection a clear name, for example <code>Resend production</code> or <code>Mailgun EU</code>.</li>
+<li>Save, then click <strong>Test send</strong>.</li>
+<li>If the test succeeds, go to <strong>Aliases</strong> and map <code>transactional_email</code> to this Connection.</li>
+</ol>
+<h3>Generic SMTP</h3>
+<p>Use SMTP when you have your own mail server or a host-provided relay.</p>
+<p>Fields you need:</p>
+<table><thead><tr><th>Field</th><th>Example</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Host</td><td><code>smtp.example.com</code></td><td>Your mail server hostname.</td></tr><tr><td>Port</td><td><code>587</code> or <code>465</code></td><td>587 usually uses STARTTLS; 465 usually uses SSL.</td></tr><tr><td>Encryption</td><td><code>STARTTLS</code>, <code>SSL</code>, or <code>None</code></td><td>Match your port.</td></tr><tr><td>Username</td><td><code>you@example.com</code></td><td>Often the full email address.</td></tr><tr><td>Password</td><td>app-specific password</td><td>Use an app password, not your login password.</td></tr><tr><td>From address</td><td><code>noreply@example.com</code></td><td>Must be allowed by the server.</td></tr><tr><td>From name</td><td><code>Birkly</code></td><td>Display name recipients see.</td></tr></tbody></table>
+<p>Common problems:</p>
+<ul>
+<li><strong>Docker hosts</strong> often block outbound SMTP on port 25/587. If test fails with a network timeout, switch to an ESP or ask your host to open the port.</li>
+<li><strong>Gmail / Outlook personal accounts</strong> require app-specific passwords and may have strict sending limits. For production sites, use a transactional ESP instead.</li>
+<li>Wrong encryption/port pair is the most common failure.</li>
+</ul>
+<h3>Resend</h3>
+<p>Resend is a transactional email service with a simple HTTP API.</p>
+<p>Fields you need:</p>
+<table><thead><tr><th>Field</th><th>Example</th><th>Notes</th></tr></thead>
+<tbody><tr><td>API key</td><td><code>re_xxxxxxxxxxxxxxxx</code></td><td>Create in Resend dashboard → API keys.</td></tr><tr><td>From address</td><td><code>onboarding@yourdomain.com</code></td><td>Must be a verified domain or a Resend-provided test address.</td></tr><tr><td>From name</td><td><code>Your site</code></td><td>Display name.</td></tr></tbody></table>
+<p>After saving:</p>
+<ol>
+<li>Click <strong>Test send</strong>.</li>
+<li>If the domain is not verified, Resend accepts mail only from a test address or may reject depending on your plan.</li>
+<li>Add the Resend bounce/complaint webhook URL in Connections → Webhooks if you want automatic suppression updates.</li>
+</ol>
+<h3>Postmark</h3>
+<p>Postmark focuses on transactional email and provides clear delivery events.</p>
+<p>Fields you need:</p>
+<table><thead><tr><th>Field</th><th>Example</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Server API token</td><td><code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code></td><td>From a Postmark server, not an account token.</td></tr><tr><td>From address</td><td><code>noreply@yourdomain.com</code></td><td>Must match a verified sender signature.</td></tr><tr><td>From name</td><td><code>Your site</code></td><td>Display name.</td></tr></tbody></table>
+<p>After saving:</p>
+<ol>
+<li>Click <strong>Test send</strong>.</li>
+<li>In Postmark, copy the inbound webhook URL from Connections → Webhooks and paste it into Postmark → Webhooks so bounces and spam complaints update Birkly’s suppression list.</li>
+</ol>
+<h3>Amazon SES</h3>
+<p>Birkly prefers the Amazon SES HTTPS API adapter. You can also use SES-SMTP credentials through the generic SMTP transport if you prefer.</p>
+<p>Fields for the SES HTTPS API adapter:</p>
+<table><thead><tr><th>Field</th><th>Example</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Access key ID</td><td><code>AKIA...</code></td><td>IAM user with <code>ses:SendRawEmail</code> permission.</td></tr><tr><td>Secret access key</td><td><code>...</code></td><td>Stored encrypted.</td></tr><tr><td>Region</td><td><code>us-east-1</code></td><td>Your SES region.</td></tr><tr><td>From address</td><td><code>noreply@yourdomain.com</code></td><td>Must be a verified identity in SES.</td></tr><tr><td>From name</td><td><code>Your site</code></td><td>Display name.</td></tr></tbody></table>
+<p>IAM permission needed:</p>
+<pre><code>{
+  &quot;Version&quot;: &quot;2012-10-17&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [&quot;ses:SendEmail&quot;, &quot;ses:SendRawEmail&quot;],
+      &quot;Resource&quot;: &quot;*&quot;
+    }
+  ]
+}</code></pre>
+<p>After saving:</p>
+<ol>
+<li>Click <strong>Test send</strong>.</li>
+<li>SES in sandbox mode only sends to verified addresses. Move out of sandbox for production.</li>
+<li>Configure SNS → HTTPS webhook to <code>/api/webhooks/connections/{id}</code> for bounce/complaint delivery.</li>
+</ol>
+<h3>Mailgun</h3>
+<p>Mailgun provides both US and EU endpoints.</p>
+<p>Fields you need:</p>
+<table><thead><tr><th>Field</th><th>Example</th><th>Notes</th></tr></thead>
+<tbody><tr><td>API key</td><td><code>key-xxxxxxxxxxxxxxxx</code></td><td>From Mailgun dashboard → Settings → API keys.</td></tr><tr><td>Domain</td><td><code>mg.yourdomain.com</code></td><td>Must be active in Mailgun.</td></tr><tr><td>Region</td><td><code>US</code> or <code>EU</code></td><td>Choose the region where your domain is hosted.</td></tr><tr><td>From address</td><td><code>noreply@mg.yourdomain.com</code></td><td>Must belong to the configured domain.</td></tr><tr><td>From name</td><td><code>Your site</code></td><td>Display name.</td></tr></tbody></table>
+<p>After saving:</p>
+<ol>
+<li>Click <strong>Test send</strong>.</li>
+<li>Add Mailgun webhook URLs for permanent fail and spam complaints in Connections → Webhooks.</li>
+</ol>
+<h3>DNS: SPF, DKIM, DMARC</h3>
+<p>Birkly does not generate DKIM keys for you; your provider does. The provider recipe is incomplete until DNS is correct:</p>
+<ol>
+<li>Add the provider’s SPF include to your domain’s TXT record.</li>
+<li>Add the DKIM record the provider gives you.</li>
+<li>Add a DMARC policy record such as <code>v=DMARC1; p=quarantine; rua=mailto:dmarc@yourdomain.com</code>.</li>
+</ol>
+<p>The Email Connection checklist links to provider-specific DNS instructions. Incorrect DNS is the most common cause of messages landing in spam.</p>
+<h3>Choosing between providers</h3>
+<table><thead><tr><th>Choose this</th><th>When</th></tr></thead>
+<tbody><tr><td><strong>Resend</strong></td><td>Fastest setup, generous free tier, strong developer focus.</td></tr><tr><td><strong>Postmark</strong></td><td>Strictly transactional, excellent deliverability reputation, detailed events.</td></tr><tr><td><strong>Amazon SES</strong></td><td>Lowest cost at scale, already in AWS, comfortable managing IAM/SNS.</td></tr><tr><td><strong>Mailgun</strong></td><td>Need EU residency, complex routing, or existing Mailgun workflows.</td></tr><tr><td><strong>SMTP</strong></td><td>You already run a reliable mail server and cannot use an ESP.</td></tr><tr><td><strong>Log</strong></td><td>Local development only; never for production.</td></tr></tbody></table></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Environment-variable overrides</h3>
+<p>Each provider field can be overridden by an environment variable. When an env override is active, the admin shows <strong>Managed by environment</strong> and the field is read-only. Common variables:</p>
+<table><thead><tr><th>Provider</th><th>Variable examples</th></tr></thead>
+<tbody><tr><td>SMTP</td><td><code>BIRKLY_SMTP_HOST</code>, <code>BIRKLY_SMTP_PORT</code>, <code>BIRKLY_SMTP_USER</code>, <code>BIRKLY_SMTP_PASS</code>, <code>BIRKLY_SMTP_FROM</code></td></tr><tr><td>Resend</td><td><code>BIRKLY_RESEND_API_KEY</code>, <code>BIRKLY_RESEND_FROM</code></td></tr><tr><td>Postmark</td><td><code>BIRKLY_POSTMARK_API_TOKEN</code>, <code>BIRKLY_POSTMARK_FROM</code></td></tr><tr><td>SES</td><td><code>BIRKLY_SES_ACCESS_KEY</code>, <code>BIRKLY_SES_SECRET_KEY</code>, <code>BIRKLY_SES_REGION</code>, <code>BIRKLY_SES_FROM</code></td></tr><tr><td>Mailgun</td><td><code>BIRKLY_MAILGUN_API_KEY</code>, <code>BIRKLY_MAILGUN_DOMAIN</code>, <code>BIRKLY_MAILGUN_REGION</code>, <code>BIRKLY_MAILGUN_FROM</code></td></tr></tbody></table>
+<p>Exact variable names may be finalized when core implementation reports stable API names.</p>
+<h3>Provider adapter interface</h3>
+<p>Core exposes a thin adapter interface. Official adapters are native PHP + cURL; no Composer SDK is required. A custom adapter can be registered by a plugin if it implements the contract:</p>
+<ul>
+<li><code>send($envelope)</code> — accepts to, from, subject, html, text, attachments, headers, idempotency key.</li>
+<li><code>parseResponse($httpResponse)</code> — returns provider message id or error.</li>
+<li><code>webhookHandlers()</code> — returns map of event types to suppression/ status actions.</li>
+</ul>
+<h3>Webhook endpoints per provider</h3>
+<p>Bounce/complaint webhooks are registered under <strong>Connections → Webhooks</strong>. The URL pattern is <code>/api/webhooks/connections/{id}</code>. Provider-specific setup:</p>
+<table><thead><tr><th>Provider</th><th>Webhook events to enable</th></tr></thead>
+<tbody><tr><td>Resend</td><td><code>bounce</code>, <code>complaint</code>, <code>delivery</code></td></tr><tr><td>Postmark</td><td><code>Bounce</code>, <code>SpamComplaint</code></td></tr><tr><td>SES</td><td>SNS → HTTPS to the endpoint; subscribe the endpoint to <code>Bounce</code> and <code>Complaint</code> topics</td></tr><tr><td>Mailgun</td><td><code>permanent_fail</code>, <code>complained</code></td></tr></tbody></table>
+<p>The verify helper checks the provider signature before acting on the payload.</p>
+<h3>SES SigV4 fallback</h3>
+<p>If the native SES HTTPS adapter is unavailable on your build, use SES-SMTP credentials through the generic SMTP transport. Retrieve SMTP credentials from the SES console, choose region-specific host such as <code>email-smtp.us-east-1.amazonaws.com</code>, port 587, and STARTTLS. Document this path in the Connection notes.</p>
+<h3>Rate limits and queueing</h3>
+<p>Providers enforce rate limits. Birkly respects them with per-connection soft caps and queues bursts. If you hit a rate limit, the status remains <code>queued</code> and retries automatically. For high-volume sites, warm up the provider domain reputation before sending large batches.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="connections.html">Connections</a></li>
+<li><a href="connections-migration.html">Migrate from Automation Setup email</a></li>
+<li><a href="../04-integration/connections-api-reference.html">Connections API reference</a></li>
+<li><a href="connections-mcp-rules.html">Connections MCP rules</a></li>
+<li><a href="../07-operations/monitoring-alerts.html">Monitoring and health alerts</a></li>
+</ul></div>

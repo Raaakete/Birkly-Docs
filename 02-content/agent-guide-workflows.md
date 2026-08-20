@@ -272,6 +272,16 @@ After publish, warns when:
 
 Republish after review when material changes occur.
 
+### Unpublish
+
+Use **Unpublish** on the hub **Publish** tab when you need public endpoints to stop serving the guide without deleting your draft:
+
+- Well-known JSON, `/llms.txt`, and public API return **404**
+- Draft remains in admin — edit and republish when ready
+- Website tools (WebMCP) are separate; unpublishing the guide does not automatically disable Tools
+
+Republish restores the last published snapshot (or publish again after draft edits).
+
 ### API view URLs
 
 Publish tab lists example URLs:
@@ -279,6 +289,38 @@ Publish tab lists example URLs:
 - `view=summary` — Lightweight identity + supported claims + sources hint
 - `view=products` — Catalog only
 - `view=claims` — Supported claims with sources
+
+---
+
+## Tools tab (Website tools / WebMCP)
+
+**Purpose:** Enable safe, visitor-facing actions on your **live public site** — submit a contact form, read page context, Commerce cart actions, Events RSVP — via the emerging **WebMCP** browser standard. **Off by default.**
+
+This is **not** the same as Agent Guide JSON (what AI should *say*) or Birkly MCP (how AI apps connect to your **admin**). See [Website tools (WebMCP)](../04-integration/webmcp-tools.md).
+
+### Typical workflow
+
+1. Open **Agent Guide → Tools** (`?page=agent-guide&zone=tools`).
+2. Enable **Website tools**.
+3. Choose built-in actions (page context, list content, submit form, plus Commerce/Events packs when installed).
+4. Allowlist which public forms may be submitted (never expose admin forms).
+5. For **external** hosting (site not in `project/`), copy the script tags from **Publish** tab and add `birkly-webmcp.js` + `birkly-client.js` to your site template.
+6. Verify with the checklist on the Tools tab (form `toolname`/`tooldescription` attributes, local browser with WebMCP support).
+
+### Safety model
+
+- Write actions always require **visitor confirmation** in the browser.
+- Nothing registers until you enable Tools and allowlist forms.
+- Unsupported browsers fall back to normal site behavior (no breakage).
+
+### Hosting note
+
+| Site hosting | Tools behavior |
+|--------------|----------------|
+| Birkly `project/` | Scripts injected automatically when Tools enabled |
+| External site | Add snippets from Publish tab; CMS still serves config |
+
+Publishing Agent Guide JSON does **not** turn on Website tools — enable Tools separately.
 
 ---
 
@@ -296,3 +338,4 @@ Never rely on auto-save for AI suggestions — accept explicitly in AI Assist fi
 - [Getting started](agent-guide-getting-started.md)
 - [AI Assist](agent-guide-ai-assist.md)
 - [Best practices](agent-guide-best-practices.md)
+- [Website tools (WebMCP)](../04-integration/webmcp-tools.md)

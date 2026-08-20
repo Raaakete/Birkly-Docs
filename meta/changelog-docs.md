@@ -12,6 +12,17 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-20 — Agent Guide documentation depth (workflows, API, MCP, playbooks)
+
+- **Updated:** `02-content/agent-guide.md` — `/llms.txt`, HTML discovery link, fixed hub anchor.
+- **Updated:** `02-content/agent-guide-workflows.md` — Tools tab (WebMCP) workflow, Unpublish section.
+- **Updated:** `04-integration/agent-guide-public-api.md` — `/llms.txt` discovery channel and curl example.
+- **Updated:** `04-integration/agent-guide-mcp-and-agents.md` — `cms_admin_action` write actions (`agent_guide.publish`, `unpublish`, etc.).
+- **Updated:** `04-integration/website-integration.md` — Agent Guide discovery on `project/` pages.
+- **Updated:** `help-manifest.json` — `ai_topic` links for Agent Guide subtopics and WebMCP.
+
+---
+
 ## 2026-08-11 — Central Connections docs (P65-M13)
 
 Documentation for Phase 65 — Central Connections: the new **Settings → Connections** fabric for email, notification channels, HTTP API credentials, and webhook secrets.

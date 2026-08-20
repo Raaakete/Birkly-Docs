@@ -159,7 +159,32 @@ Legacy tool names (`get_brand_context`, etc.) still work.
 
 The admin **AI chat** may also dispatch read actions via `api/ai_read_actions.php` — same backends as MCP for guide tools.
 
-Write actions (edit draft, publish) are **not** exposed as MCP tools — use admin UI or authenticated admin API.
+Standard inbound MCP exposes **read** tools only. Draft edit and publish use admin UI, authenticated `/api/ai_presence.php`, or **`cms_admin_action`** (below).
+
+## MCP admin actions (`cms_admin_action`)
+
+When the connecting user has `manage_settings`, these write actions are available via `cms_admin_action` with `action` set to the slug below:
+
+| Action | Purpose |
+|--------|---------|
+| `agent_guide.get` | Read draft or published Agent Guide state |
+| `agent_guide.save_draft` | Save draft JSON |
+| `agent_guide.publish` | Publish draft to public endpoints |
+| `agent_guide.unpublish` | Stop serving public endpoints (draft preserved) |
+| `agent_guide.cms_refresh` | Sync narrative CMS sources into draft fields |
+| `agent_guide.copilot` | AI Assist suggestions (review before save) |
+| `agent_guide.wizard_generate` | Generate draft from CMS collections |
+| `agent_guide.validate_links` | Run link health check on draft |
+
+Typical admin-agent flow:
+
+1. `agent_guide.get` — inspect current draft
+2. User approves edits in admin, or agent calls `agent_guide.save_draft` with validated payload
+3. `agent_guide.validate_links` before publish
+4. `agent_guide.publish` — go live
+5. `agent_guide.unpublish` — take down without losing draft
+
+Draft saves and publish require **`manage_settings`**. Read tools require only **`read`** and return **published** data only.
 
 ## Caching & freshness
 

@@ -74,6 +74,7 @@ Detail pages must **not** loop the whole collection — [Detail pages & URL cont
 - **SSR / bake** — [SSR and build-time](ssr-and-build-time.md)
 - **Forms** — [Public forms](public-forms.md), [Public forms templating](../03-templating/public-forms-templating.md)
 - **AI apps** — connect under **Settings → AI** ([MCP connections](../01-admin/mcp-connections.md)); website tools under Agent Guide → Tools ([WebMCP](webmcp-tools.md))
+- **Agent Guide discovery** — when the guide is published, Birkly may inject `<link rel="alternate" type="application/json" title="Agent Guide" href="https://YOUR-SITE/.well-known/agent-guide.json">` into `project/` pages; crawlers and integrations can also use `/llms.txt` and the public API ([Agent Guide public API](agent-guide-public-api.md))
 
 ## Advanced Users
 

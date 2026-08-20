@@ -62,6 +62,7 @@ Think of Agent Guide as the **index and authority map** — not the full encyclo
 ┌─────────────────────────────────────────────────────────────┐
 │  Public export (on your site domain)                        │
 │  /.well-known/agent-guide.json                              │
+│  /llms.txt (Markdown discovery map)                         │
 │  /api/public/ai_presence.php                                │
 │  Optional JSON-LD · MCP tools · graph views                 │
 └─────────────────────────────────────────────────────────────┘
@@ -114,7 +115,7 @@ The **Guide** tab has a view-mode toggle:
 | **Claims & Evidence** | Factual statements, proof sources, review workflow |
 | **Media** | Per-asset context (what it represents, intended use, restrictions) |
 
-Full publish controls (enable publishing, version history, staleness warnings, AI preview) live one level up, in the hub's **Publish** tab — see [The Agent Guide hub](#the-agent-guide-hub-four-tabs).
+Full publish controls (enable publishing, version history, staleness warnings, AI preview) live one level up, in the hub's **Publish** tab — see [The Agent Guide hub](#the-agent-guide-hub-three-tabs).
 
 ## AI Assist sidebar
 
@@ -165,8 +166,11 @@ Published JSON (`agent_guide.v1`; legacy exports may show `ai_presence.v1`) incl
 - **`usage_hints`** — Guidance for AI consumers (authoritative vs marketing fields; follow sources of truth)
 - **`identity.derived_from`** — Which sources ground summary fields
 - Optional **`json_ld`** — Schema.org graph (Organization, Product/Service, Claim)
+- **`/llms.txt`** — Markdown discovery map (links to well-known JSON, API views, and key public pages) when publishing is enabled
 
 Legacy field **`connected_content[]`** is migrated into `sources_of_truth[]` on save.
+
+**Discovery aids on published sites:** Birkly may inject `<link rel="alternate" type="application/json" title="Agent Guide" href="…/agent-guide.json">` into `project/` pages when the guide is published, so crawlers and tools can find the JSON without guessing the path.
 
 ## Related Birkly features
 

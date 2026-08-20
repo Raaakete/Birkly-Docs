@@ -12,6 +12,13 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-20 — P66 unified site delivery & routing
+
+- **New:** `07-operations/site-delivery-routing.md` — delivery health, wizard, multi-domain roles, migration/repair, MCP tools.
+- **Updated:** Cross-links from Dokploy/deployment docs implied; SSR note points to Settings → Project.
+
+---
+
 ## 2026-08-20 — Agent Guide documentation depth (workflows, API, MCP, playbooks)
 
 - **Updated:** `02-content/agent-guide.md` — `/llms.txt`, HTML discovery link, fixed hub anchor.

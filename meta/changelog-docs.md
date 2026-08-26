@@ -12,6 +12,13 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-08-26 — Plugin WebMCP catalog registration
+
+- **Updated:** `04-integration/webmcp-tools.md` — plugin author hook `birkly_webmcp_register_tools()` vs inbound `register_plugin_mcp_tools()`; Discovery → WebMCP as the owner path; plugin tools appear only when the plugin is active.
+- **Updated:** `06-plugin-economy/plugin-development.md` — WebMCP catalog registration from `plugin.php`.
+
+---
+
 ## 2026-08-20 — P66 unified site delivery & routing
 
 - **New:** `07-operations/site-delivery-routing.md` — delivery health, wizard, multi-domain roles, migration/repair, MCP tools.

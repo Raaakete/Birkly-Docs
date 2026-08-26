@@ -84,6 +84,7 @@ Register services on load. Typical patterns:
 - Navigation via `plugin.json` `navigation` block or programmatic sidebar registration. Set `navigation.icon` to a registry name (for example `"gear"`) or inline SVG — see [Plugin navigation icon](plugin-navigation-icon.md).
 - Routes under `api/` mapped to `/api/{handle}/...`.
 - Hook callbacks registered against names declared in `plugin.json`.
+- **Visitor website tools (WebMCP)** via `birkly_webmcp_register_tools()` — a catalog of public-site actions for Discovery → WebMCP. This is **not** inbound Birkly MCP (`register_plugin_mcp_tools()`), which is for AI apps connected to the CMS admin. See [Website tools (WebMCP)](../04-integration/webmcp-tools.md#plugin-authors-register-a-webmcp-catalog).
 
 **Capability enforcement**
 

@@ -69,6 +69,7 @@ Simple products (no variants): put Commerce on the parent and link `{commerce_bu
 ### For developers & AI
 
 - Detail pages: [Detail pages & URL context](detail-pages-and-url-context.md) — never loop the whole catalog on `product.html`.  
+- **Linked checkout (donations, registrants):** [Commerce linked checkout](commerce-linked-checkout.md) — `data-commerce-linked-checkout` + `begin_linked_checkout`.  
 - Variants: [Sub-collections in templates](sub-collections-in-templates.md).  
 - Plugin helpers: [Plugin language extensions](plugin-language-extensions.md).  
 - Delivery modes: default is live client; optional bake/hydrate — [Production optimization](production-optimization.md).
@@ -82,6 +83,7 @@ Simple products (no variants): put Commerce on the parent and link `{commerce_bu
 
 ## Related
 
+- [Commerce linked checkout](commerce-linked-checkout.md)
 - [Commerce functions](commerce-functions.md)
 - [Events functions](events-functions.md)
 - [Loops and lists](loops-and-lists.md)

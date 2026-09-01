@@ -90,6 +90,7 @@
         { "path": "03-templating/commerce-functions.md", "label": "Commerce functions" },
         { "path": "03-templating/events-functions.md", "label": "Events functions" },
         { "path": "03-templating/storefront-patterns.md", "label": "Storefront and events patterns" },
+        { "path": "03-templating/commerce-linked-checkout.md", "label": "Commerce linked checkout" },
         { "path": "03-templating/worked-site-walkthrough.md", "label": "Worked site walkthrough" },
         { "path": "03-templating/cheat-sheet.md", "label": "Cheat sheet" },
         { "path": "03-templating/reference-projects.md", "label": "Reference projects" },

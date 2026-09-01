@@ -2,7 +2,7 @@
 
 Use **linked checkout** when a purchase should create or update a CMS entry before payment — supporters, registrants, members, or any collection row tied to an order.
 
-Requires **Commerce 1.0.94+** and `commerce-storefront.js` on the page.
+Requires **Commerce 1.0.97+** and `commerce-storefront.js` on the page.
 
 ## Summary
 
@@ -38,6 +38,9 @@ Requires **Commerce 1.0.94+** and `commerce-storefront.js` on the page.
   </select>
   <input id="custom-amount" type="number" min="1" step="0.01" data-commerce-custom-amount>
   <input type="checkbox" name="show" value="yes" checked>
+  <label>Optional logo (public list)
+    <input type="file" name="logo" accept="image/png,image/jpeg,image/webp,image/gif">
+  </label>
   <button type="submit">Donate</button>
   <p data-commerce-linked-status hidden role="alert"></p>
 </form>
@@ -121,9 +124,29 @@ POST /api/commerce.php
 }
 ```
 
-## Known limits (P70)
+## File uploads (logos, images)
 
-- **Logo / file uploads** on the linked form are not sent through `begin_linked_checkout` (JSON only). Use admin or a follow-up flow.
+**Commerce 1.0.97+:** `data-commerce-linked-checkout` automatically pre-uploads `<input type="file" name="…">` fields via `upload_linked_checkout_asset` before `begin_linked_checkout`. Returned URLs are merged into `linked_entry.fields` (field name = input `name`, e.g. `logo`).
+
+- Images only (JPEG, PNG, WebP, GIF), max 5MB
+- Stored under `/media/linked_checkout/` on the CMS host
+- No custom upload JS required when using the storefront binder
+
+Manual upload (integrators):
+
+```
+POST /api/index.php?route=commerce
+Content-Type: multipart/form-data
+
+action=upload_linked_checkout_asset
+field=logo
+file=<binary>
+```
+
+Response `data.url` is the value to pass in `linked_entry.fields.logo`.
+
+## Known limits
+
 - **Variable recurring** (pay-what-you-want subscriptions) is deferred; fixed recurring tiers work.
 
 ## Related

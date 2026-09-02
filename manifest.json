@@ -18,6 +18,7 @@
       "items": [
         { "path": "01-admin/dashboard.md", "label": "Dashboard" },
         { "path": "01-admin/admin-responsive-dashboard.md", "label": "Responsive dashboard" },
+        { "path": "01-admin/admin-chrome-action-zones.md", "label": "Admin chrome and action zones" },
         { "path": "01-admin/content-overview.md", "label": "Content overview" },
         { "path": "01-admin/entry-editor.md", "label": "Entry editor" },
         { "path": "01-admin/admin-forms-navigation.md", "label": "Forms and navigation" },
@@ -42,7 +43,11 @@
         { "path": "01-admin/connections.md", "label": "Connections" },
         { "path": "01-admin/connections-provider-recipes.md", "label": "Connections provider recipes" },
         { "path": "01-admin/connections-migration.md", "label": "Migrate from Automation Setup email" },
-        { "path": "01-admin/connections-mcp-rules.md", "label": "Connections MCP rules" }
+        { "path": "01-admin/connections-mcp-rules.md", "label": "Connections MCP rules" },
+        { "path": "01-admin/discovery.md", "label": "Discovery" },
+        { "path": "01-admin/site-url-map.md", "label": "Site URL Map" },
+        { "path": "01-admin/activity.md", "label": "Activity feed" },
+        { "path": "01-admin/notifications.md", "label": "Admin notifications" }
       ]
     },
     {
@@ -117,6 +122,14 @@
       ]
     },
     {
+      "id": "studio",
+      "label": "Studio",
+      "items": [
+        { "path": "04-studio/getting-started.md", "label": "Studio getting started" },
+        { "path": "04-studio/production-builder.md", "label": "Production builder" }
+      ]
+    },
+    {
       "id": "automation",
       "label": "Automation",
       "items": [
@@ -183,6 +196,7 @@
       "label": "Operations",
       "items": [
         { "path": "07-operations/deployment.md", "label": "Deployment" },
+        { "path": "07-operations/site-delivery-routing.md", "label": "Site delivery and routing" },
         { "path": "07-operations/dokploy-hosting.md", "label": "Hosting on Dokploy" },
         { "path": "07-operations/production-deploy-checklist.md", "label": "Production deploy checklist" },
         { "path": "07-operations/monitoring-alerts.md", "label": "Monitoring and health alerts" },

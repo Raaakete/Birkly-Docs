@@ -1,0 +1,46 @@
+<div class="doc-summary"><p>Phase 32 standardizes where actions live in the Birkly admin: primary buttons in the <strong>main actions bar</strong> below the breadcrumb, global utilities in the <strong>top bar</strong> (theme, search, notifications, account), and save actions in a <strong>sticky save bar</strong> on long forms. List tables use compact icon buttons for edit and delete.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Where to find things</strong></p>
+<ul>
+<li><strong>Top bar (always visible):</strong> theme, search (Ctrl+K), notifications, your account.</li>
+<li><strong>Main actions bar:</strong> the primary action for the page — e.g. <em>New entry</em>, <em>Upload media</em>, <em>Customize dashboard</em>.</li>
+<li><strong>Sticky save bar:</strong> appears at the bottom of Settings, the entry editor, and the collection editor when you scroll.</li>
+</ul>
+<p><strong>Media library</strong></p>
+<ul>
+<li>Upload and <em>New folder</em> are in the main actions bar.</li>
+<li>Switch between grid and list view with the toggle buttons.</li>
+<li>Select multiple files for bulk delete or move.</li>
+<li>Drag files onto the grid to upload.</li>
+<li>Open a file to edit alt text and focal point.</li>
+</ul>
+<p><strong>Content workflows</strong></p>
+<ul>
+<li><strong>Duplicate</strong> an entry from the entries list.</li>
+<li><strong>Trash</strong> soft-deletes entries; restore them from the Trashed filter.</li>
+<li><strong>Bulk field edit</strong> updates one field across selected entries.</li>
+<li><strong>Revision history</strong> in the entry editor sidebar lets you restore older versions.</li>
+<li><strong>Redirects</strong> under Content → Redirects manages 301/302 rules.</li>
+</ul>
+<p>Press <strong>Ctrl+K</strong> (or click the search icon) for global admin search across collections and entries.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Action zone contract</h3>
+<table><thead><tr><th>Zone</th><th>Allowed controls</th></tr></thead>
+<tbody><tr><td><code>.admin-topbar-actions</code></td><td>Theme, search, notifications, user menu</td></tr><tr><td><code>.main-actions-bar</code></td><td>Primary CTA left; filters/secondary right</td></tr><tr><td><code>.sticky-save-bar</code></td><td>Save, cancel, unsaved indicator</td></tr><tr><td><code>.cell-actions</code></td><td><code>.btn-icon--edit</code>, <code>.btn-icon--danger</code></td></tr></tbody></table>
+<p>Templates should use <code>page-header</code> for breadcrumbs only. When breadcrumbs hoist to the topbar, empty in-page headers get <code>.page-header--hoisted-empty</code>.</p>
+<h3>New fieldtypes (P32)</h3>
+<table><thead><tr><th>Type</th><th>Slug</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Phone</td><td><code>phone</code></td><td><code>tel</code> input with basic validation</td></tr><tr><td>Toggle</td><td><code>toggle</code></td><td>Boolean switch</td></tr><tr><td>Markdown</td><td><code>markdown</code></td><td>Write/preview tabs, stored as markdown</td></tr><tr><td>oEmbed</td><td><code>oembed</code></td><td>YouTube/Vimeo URL embed</td></tr><tr><td>Code</td><td><code>code</code></td><td>Monospace; optional JSON validation</td></tr></tbody></table>
+<h3>APIs</h3>
+<ul>
+<li><code>GET /api/search.php?action=admin_search&amp;q=…</code> — global search</li>
+<li><code>POST /api/admin_entries.php?action=duplicate</code> — duplicate entry</li>
+<li><code>POST /api/admin_entries.php?action=bulk_field_edit</code> — bulk field update</li>
+<li><code>GET /api/admin_entries.php?action=list_versions</code> — revision list</li>
+<li><code>GET/POST /api/redirects.php</code> — redirect CRUD</li>
+<li><code>GET/POST /api/content.php?action=*_field_template</code> — field templates</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="dashboard.html">Dashboard</a></li>
+<li><a href="admin-appearance.html">Admin appearance</a></li>
+<li><a href="../02-content/field-types.html">Field types</a></li>
+<li><a href="media-library.html">Media library</a></li>
+</ul></div>

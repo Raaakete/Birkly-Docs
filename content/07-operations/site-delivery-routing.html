@@ -1,0 +1,58 @@
+<p>Configure <strong>where admin lives</strong>, <strong>where visitors see your site</strong>, and <strong>how extra hostnames route</strong> — all from <strong>Settings → Site delivery</strong> in the admin panel.</p>
+<p>Technical storage: <code>settings/hosting.json</code> (schema v2). Birkly routes HTTP by hostname using this file; your reverse proxy (Dokploy, nginx, Apache) only forwards traffic to PHP.</p>
+<h2>Concepts</h2>
+<table><thead><tr><th>Setting</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><strong>CMS URL</strong></td><td>Admin, API, <code>birkly-client.js</code> base (e.g. <code>https://cms.example.com</code>)</td></tr><tr><td><strong>Public site URL</strong></td><td>Where visitors see the marketing site (optional)</td></tr><tr><td><strong>Public website mode</strong></td><td>None · Hosted elsewhere · In Birkly (<code>project/</code>)</td></tr><tr><td><strong>Primary vs alias</strong></td><td>One canonical URL per surface; extra hostnames are aliases</td></tr><tr><td><strong>Delivery role (Domains tab)</strong></td><td>How each registered hostname routes: CMS alias · Public alias · API only</td></tr></tbody></table>
+<p><strong>Domains tab</strong> serves two purposes:</p>
+<ol>
+<li><strong>CORS / Public API</strong> allowlist for <code>birkly-client.js</code> and public APIs</li>
+<li><strong>Delivery role</strong> — syncs alias hostnames with <code>hosting.json</code> (P66)</li>
+</ol>
+<p>Register every hostname you use in production, then assign the correct delivery role.</p>
+<h2>Delivery health dashboard</h2>
+<p>At the top of <strong>Site delivery</strong> and <strong>Project → Overview</strong>, the <strong>Delivery status</strong> strip runs live probes:</p>
+<table><thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+<tbody><tr><td>Green</td><td>Configuration and runtime checks pass</td></tr><tr><td>Yellow</td><td>Usable but needs attention (missing alias suggestion, etc.)</td></tr><tr><td>Red</td><td>Broken routing or unreachable public URL</td></tr></tbody></table>
+<p>Actions:</p>
+<ul>
+<li><strong>Refresh</strong> — re-run probes</li>
+<li><strong>Repair delivery</strong> — preview/apply non-destructive fixes (schema migration, domain sync)</li>
+</ul>
+<p>Use <strong>Fix</strong> links on individual checks to jump to Hosting, Domains, or Redirects.</p>
+<h2>Setup wizard</h2>
+<p><strong>Settings → Site delivery → Hosting URLs</strong> hosts the setup wizard:</p>
+<ol>
+<li><strong>Detect</strong> — reads current request, project folder, env overrides</li>
+<li><strong>Propose</strong> — suggests CMS/public URLs and www↔apex aliases (nothing saved until you confirm)</li>
+<li><strong>Apply suggestion</strong> — writes <code>hosting.json</code> and re-probes</li>
+</ol>
+<p>When <code>BIRKLY_CMS_BASE_URL</code> (or related env vars) are set, URL fields are <strong>read-only</strong> but probes still run.</p>
+<h2>Multi-domain example</h2>
+<table><thead><tr><th>Host</th><th>Delivery role</th><th>Serves</th></tr></thead>
+<tbody><tr><td><code>cms.example.com</code></td><td>CMS (primary)</td><td>Admin + API</td></tr><tr><td><code>staging-cms.example.com</code></td><td>CMS alias</td><td>Same as CMS</td></tr><tr><td><code>www.example.com</code></td><td>Public (primary)</td><td><code>project/</code> site</td></tr><tr><td><code>example.com</code></td><td>Public alias</td><td>301 → <code>www</code> (default)</td></tr><tr><td><code>legacy.example.com</code></td><td>API only</td><td>CORS only — no routing</td></tr></tbody></table>
+<p>Both CMS and public hostnames must point to the <strong>same app</strong> on Dokploy (Path <code>/</code>, Internal Path <code>/</code>). See <a href="dokploy-hosting.html">Hosting on Dokploy</a>.</p>
+<h2>Redirects</h2>
+<p><strong>Settings → Site delivery → Redirects</strong> rules are enforced in the PHP router (v1). Export snippets for nginx/Apache are documentation only until you configure the edge separately.</p>
+<h2>Migration &amp; repair</h2>
+<p>Upgrading from older installs:</p>
+<ul>
+<li>v1 configs load unchanged in memory</li>
+<li>Schema v2 persists on <strong>Save</strong>, <strong>Apply suggestion</strong>, or <strong>Repair delivery</strong></li>
+<li><code>.bak</code> backup created before writes; rollback restores prior file</li>
+</ul>
+<p>After upgrade, a non-blocking notice appears if probes fail — the site keeps prior behavior until you repair.</p>
+<h2>Subdirectory installs</h2>
+<p>When Birkly is not at the web root, URL builders include the install base path. Verify probes show correct <code>install_base_path</code> and that asset links on the public site do not double-prefix <code>/project/</code>.</p>
+<h2>AI / MCP</h2>
+<p>Agents can call:</p>
+<ul>
+<li><code>get_site_delivery_status</code></li>
+<li><code>run_site_delivery_probe</code></li>
+</ul>
+<p>Playbook topic: <code>site-delivery</code> (via <code>read_birkly_docs</code>).</p>
+<div class="doc-related"><ul>
+<li><a href="dokploy-hosting.html">Hosting on Dokploy</a> — Docker, volumes, Internal Path <code>/</code></li>
+<li><a href="deployment.html">Deployment</a> — production checklist</li>
+<li><a href="troubleshooting.html">Troubleshooting</a> — general ops issues</li>
+</ul>
+<p><strong>Note:</strong> Server-side rendering (SSR) settings live under <strong>Settings → Project</strong>, not Site delivery. SSR follows <code>public_site_mode</code> from <code>hosting.json</code>.</p></div>

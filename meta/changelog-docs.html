@@ -28,6 +28,7 @@
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
         <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/admin-chrome-action-zones.html" class="nav-link">Admin chrome and action zones</a>
         <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
         <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
         <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
@@ -53,6 +54,10 @@
         <a href="../01-admin/connections-provider-recipes.html" class="nav-link">Connections provider recipes</a>
         <a href="../01-admin/connections-migration.html" class="nav-link">Migrate from Automation Setup email</a>
         <a href="../01-admin/connections-mcp-rules.html" class="nav-link">Connections MCP rules</a>
+        <a href="../01-admin/discovery.html" class="nav-link">Discovery</a>
+        <a href="../01-admin/site-url-map.html" class="nav-link">Site URL Map</a>
+        <a href="../01-admin/activity.html" class="nav-link">Activity feed</a>
+        <a href="../01-admin/notifications.html" class="nav-link">Admin notifications</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
         <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
@@ -92,6 +97,7 @@
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/commerce-linked-checkout.html" class="nav-link">Commerce linked checkout</a>
         <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
         <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
@@ -111,6 +117,10 @@
         <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
         <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
         <a href="../04-integration/connections-api-reference.html" class="nav-link">Connections API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Studio</div>
+        <a href="../04-studio/getting-started.html" class="nav-link">Studio getting started</a>
+        <a href="../04-studio/production-builder.html" class="nav-link">Production builder</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -164,6 +174,7 @@
         </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/site-delivery-routing.html" class="nav-link">Site delivery and routing</a>
         <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
         <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
         <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
@@ -191,6 +202,16 @@
 <h2>Format</h2>
 <ul>
 <li><strong>YYYY-MM-DD</strong> — Short description. (Optional: file or section.)</li>
+</ul>
+<p>---</p>
+<h2>2026-09-02 — P72 docs sync hardening</h2>
+<ul>
+<li><strong>New:</strong> <code>01-admin/discovery.md</code> — Discovery admin hub (SEO, Agent Guide, WebMCP packs).</li>
+<li><strong>New:</strong> <code>01-admin/site-url-map.md</code> — Site URL Map in Discovery → SEO.</li>
+<li><strong>New:</strong> <code>01-admin/activity.md</code>, <code>01-admin/notifications.md</code> — moved from CMS-only snapshots into SoT.</li>
+<li><strong>Updated:</strong> <code>help-manifest.json</code> — Discovery, Site URL Map, Roles, Activity, Notifications indexed.</li>
+<li><strong>Updated:</strong> <code>manifest.json</code> — same topics added for static site build.</li>
+<li><strong>New:</strong> <code>scripts/validate-manifests.js</code> — CI gate for orphan <code>.md</code> files.</li>
 </ul>
 <p>---</p>
 <h2>2026-08-26 — Plugin WebMCP catalog registration</h2>

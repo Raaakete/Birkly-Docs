@@ -17,10 +17,10 @@
 <h3>get_agent_guide_context</h3>
 <p>Primary tool. Legacy alias: <strong><code>get_brand_context</code></strong>.</p>
 <pre><code>{
-  &quot;view&quot;: &quot;summary | full | products&quot;
+  &quot;view&quot;: &quot;summary | full | products | claims&quot;
 }</code></pre>
 <table><thead><tr><th>view</th><th>Returns</th></tr></thead>
-<tbody><tr><td>summary</td><td>Identity, positioning highlights, supported claim statements, sources_of_truth, usage_hints</td></tr><tr><td>full</td><td>Complete enriched export</td></tr><tr><td>products</td><td><code>products_services</code> array with resolved sources</td></tr></tbody></table>
+<tbody><tr><td>summary</td><td>Identity, positioning, supported claim statements, <code>evidence_ids</code>, <code>sources_of_truth</code>, usage_hints</td></tr><tr><td>full</td><td>Complete enriched export (includes top-level <code>evidence[]</code>)</td></tr><tr><td>products</td><td><code>products_services</code> array with resolved sources</td></tr><tr><td>claims</td><td>Supported <code>claims[]</code> plus linked <code>evidence[]</code> for all supported claims</td></tr></tbody></table>
 <p>Returns error if not published or disabled.</p>
 <h3>list_agent_guide_products</h3>
 <p>No arguments. Legacy alias: <strong><code>list_brand_products</code></strong>.</p>
@@ -28,7 +28,16 @@
 <h3>get_agent_guide_claim</h3>
 <pre><code>{ &quot;id&quot;: &quot;claim_x&quot; }</code></pre>
 <p>Legacy alias: <strong><code>get_brand_claim</code></strong>.</p>
-<p>Returns single <strong>supported</strong> claim from full export (includes sources, evidence_ids).</p>
+<p>Returns <strong>claim graph</strong> (same as public API <code>?action=claim&amp;id=x&amp;graph=1</code>):</p>
+<pre><code>{
+  &quot;claim&quot;: { &quot;id&quot;: &quot;…&quot;, &quot;statement&quot;: &quot;…&quot;, &quot;evidence_ids&quot;: [&quot;…&quot;], &quot;sources&quot;: [] },
+  &quot;evidence&quot;: [
+    { &quot;id&quot;: &quot;…&quot;, &quot;type&quot;: &quot;external_url&quot;, &quot;url&quot;: &quot;https://…&quot;, &quot;verification_status&quot;: &quot;user_verified&quot; }
+  ],
+  &quot;sources&quot;: [],
+  &quot;usage_hints&quot;: { &quot;repeat_only_with_evidence&quot;: true }
+}</code></pre>
+<p>Supported claims only. Use this tool (not summary alone) when you need proof URLs for a claim.</p>
 <h3>get_agent_guide_product</h3>
 <pre><code>{ &quot;id&quot;: &quot;prod_x&quot; }</code></pre>
 <p>Legacy alias: <strong><code>get_brand_product</code></strong>.</p>
@@ -94,7 +103,20 @@ read_entry(collection, slug)
 <p>Legacy tool names (<code>get_brand_context</code>, etc.) still work.</p>
 <h2>Admin AI chat</h2>
 <p>The admin <strong>AI chat</strong> may also dispatch read actions via <code>api/ai_read_actions.php</code> — same backends as MCP for guide tools.</p>
-<p>Write actions (edit draft, publish) are <strong>not</strong> exposed as MCP tools — use admin UI or authenticated admin API.</p>
+<p>Standard inbound MCP exposes <strong>read</strong> tools only. Draft edit and publish use admin UI, authenticated <code>/api/ai_presence.php</code>, or <strong><code>cms_admin_action</code></strong> (below).</p>
+<h2>MCP admin actions (<code>cms_admin_action</code>)</h2>
+<p>When the connecting user has <code>manage_settings</code>, these write actions are available via <code>cms_admin_action</code> with <code>action</code> set to the slug below:</p>
+<table><thead><tr><th>Action</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>agent_guide.get</code></td><td>Read draft or published Agent Guide state</td></tr><tr><td><code>agent_guide.save_draft</code></td><td>Save draft JSON</td></tr><tr><td><code>agent_guide.publish</code></td><td>Publish draft to public endpoints</td></tr><tr><td><code>agent_guide.unpublish</code></td><td>Stop serving public endpoints (draft preserved)</td></tr><tr><td><code>agent_guide.cms_refresh</code></td><td>Sync narrative CMS sources into draft fields</td></tr><tr><td><code>agent_guide.copilot</code></td><td>AI Assist suggestions (review before save)</td></tr><tr><td><code>agent_guide.wizard_generate</code></td><td>Generate draft from CMS collections</td></tr><tr><td><code>agent_guide.validate_links</code></td><td>Run link health check on draft</td></tr></tbody></table>
+<p>Typical admin-agent flow:</p>
+<ol>
+<li><code>agent_guide.get</code> — inspect current draft</li>
+<li>User approves edits in admin, or agent calls <code>agent_guide.save_draft</code> with validated payload</li>
+<li><code>agent_guide.validate_links</code> before publish</li>
+<li><code>agent_guide.publish</code> — go live</li>
+<li><code>agent_guide.unpublish</code> — take down without losing draft</li>
+</ol>
+<p>Draft saves and publish require <strong><code>manage_settings</code></strong>. Read tools require only <strong><code>read</code></strong> and return <strong>published</strong> data only.</p>
 <h2>Caching &amp; freshness</h2>
 <ul>
 <li>Published MCP responses reflect last <strong>Publish</strong> action</li>

@@ -5,6 +5,16 @@
 <li><strong>YYYY-MM-DD</strong> — Short description. (Optional: file or section.)</li>
 </ul>
 <p>---</p>
+<h2>2026-09-02 — P72 docs sync hardening</h2>
+<ul>
+<li><strong>New:</strong> <code>01-admin/discovery.md</code> — Discovery admin hub (SEO, Agent Guide, WebMCP packs).</li>
+<li><strong>New:</strong> <code>01-admin/site-url-map.md</code> — Site URL Map in Discovery → SEO.</li>
+<li><strong>New:</strong> <code>01-admin/activity.md</code>, <code>01-admin/notifications.md</code> — moved from CMS-only snapshots into SoT.</li>
+<li><strong>Updated:</strong> <code>help-manifest.json</code> — Discovery, Site URL Map, Roles, Activity, Notifications indexed.</li>
+<li><strong>Updated:</strong> <code>manifest.json</code> — same topics added for static site build.</li>
+<li><strong>New:</strong> <code>scripts/validate-manifests.js</code> — CI gate for orphan <code>.md</code> files.</li>
+</ul>
+<p>---</p>
 <h2>2026-08-26 — Plugin WebMCP catalog registration</h2>
 <ul>
 <li><strong>Updated:</strong> <code>04-integration/webmcp-tools.md</code> — plugin author hook <code>birkly_webmcp_register_tools()</code> vs inbound <code>register_plugin_mcp_tools()</code>; Discovery → WebMCP as the owner path; plugin tools appear only when the plugin is active.</li>

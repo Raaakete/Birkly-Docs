@@ -1,0 +1,36 @@
+<div class="doc-summary"><p><strong>Discovery → SEO → Site URL Map</strong> is the only place to configure how each URL on your site appears in Google, Bing, and social networks. It combines <strong>site defaults</strong>, <strong>per-page SEO</strong> for static HTML files, and <strong>per-item SEO</strong> for collection detail URLs. The same published map powers both SSR and client-side rendering — no duplicate configuration.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Three layers</h3>
+<table><thead><tr><th>Layer</th><th>What it covers</th></tr></thead>
+<tbody><tr><td><strong>Site defaults</strong></td><td>Fallback title, description, and OG image for the whole site</td></tr><tr><td><strong>Per-page SEO</strong></td><td>One row per static project page (<code>index.html</code>, <code>about.html</code>, …)</td></tr><tr><td><strong>Per-item SEO</strong></td><td>Detail URLs (blog posts, products) from collection + template bindings</td></tr></tbody></table>
+<h3>Workflow</h3>
+<ol>
+<li>Open <strong>Discovery → SEO</strong> and turn the SEO pack <strong>on</strong>.</li>
+<li>Click <strong>Rescan project</strong> to discover HTML files under <code>project/</code>.</li>
+<li>Configure <strong>detail bindings</strong> — link a collection to a detail template file. Templates with <code>&lt;meta name=&quot;birkly-collection&quot; content=&quot;slug&quot;&gt;</code> are auto-detected.</li>
+<li>Optionally override title/description per URL row; add <strong>redirects</strong> (301/302).</li>
+<li>Click <strong>Publish SEO</strong> — updates sitemap, injects meta tags, and materializes detail URLs.</li>
+</ol>
+<h3>Detail bindings</h3>
+<p>Each binding links:</p>
+<ul>
+<li>A <strong>collection</strong> (e.g. <code>blog</code>)</li>
+<li>A <strong>template file</strong> (e.g. <code>post.html</code>)</li>
+<li>An <strong>excerpt field</strong> (auto-guessed: <code>excerpt</code>, <code>summary</code>, <code>teaser</code>, …)</li>
+</ul>
+<p>Published entries get a URL map row. SEO defaults from entry <strong>title</strong> + excerpt; per-row overrides are optional.</p>
+<h3>Pretty URLs (optional)</h3>
+<p>Set a <strong>URL pattern</strong> on a binding, e.g. <code>/blog/{slug}</code>. Birkly routes that path to the detail template without query strings.</p>
+<h3>Entry editor change</h3>
+<p>The entry <strong>Meta Data</strong> tab is removed for collections with a detail binding. Use <strong>Search listing in Discovery</strong> on the entry sidebar instead. Legacy <code>meta_title</code> / <code>meta_description</code> on entries are imported into the URL map on first SEO publish after upgrade.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>SSR vs client rendering:</strong></p>
+<table><thead><tr><th>Mode</th><th>How SEO applies</th></tr></thead>
+<tbody><tr><td><strong>Server (SSR)</strong></td><td>Meta tags injected during <code>core/project_ssr.php</code> render</td></tr><tr><td><strong>Client</strong></td><td><code>birkly-client.js</code> fetches <code>/api/public/seo-context.php</code> and applies head tags on boot</td></tr></tbody></table>
+<p>Same published map powers both paths.</p>
+<p><strong>Detail template contract:</strong> Detail pages must use URL context (<code>?collection=slug&amp;slug={slug}</code> or pretty URL) with <code>&lt;meta name=&quot;birkly-collection&quot; content=&quot;slug&quot;&gt;</code> — not a collection loop. See <a href="../03-templating/detail-pages-and-url-context.html">Detail pages and URL context</a>.</p>
+<p><strong>Redirects:</strong> 301/302 rows are enforced at the HTTP layer when site delivery routing is active (P66).</p>
+<p><strong>Health board:</strong> Discovery → SEO surfaces missing titles, duplicate descriptions, and redirect loops alongside the URL map.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="discovery.html">Discovery overview</a></li>
+<li><a href="../03-templating/detail-pages-and-url-context.html">Detail pages and URL context</a></li>
+<li><a href="../04-integration/website-integration.html">Website integration</a></li>
+</ul></div>

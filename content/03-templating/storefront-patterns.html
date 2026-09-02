@@ -39,6 +39,7 @@
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
 <ul>
 <li>Detail pages: <a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a> — never loop the whole catalog on <code>product.html</code>.</li>
+<li><strong>Linked checkout (donations, registrants):</strong> <a href="commerce-linked-checkout.html">Commerce linked checkout</a> — <code>data-commerce-linked-checkout</code> + <code>begin_linked_checkout</code>.</li>
 <li>Variants: <a href="sub-collections-in-templates.html">Sub-collections in templates</a>.</li>
 <li>Plugin helpers: <a href="plugin-language-extensions.html">Plugin language extensions</a>.</li>
 <li>Delivery modes: default is live client; optional bake/hydrate — <a href="production-optimization.html">Production optimization</a>.</li>
@@ -47,6 +48,7 @@
 <table><thead><tr><th>Wrong</th><th>Right</th></tr></thead>
 <tbody><tr><td><code>{for each variant in sub_entries variants}</code></td><td><code>{for each entry in 'variants' of 'products'.current …}</code></td></tr><tr><td><code>product.html?slug=</code> without collection when router needs it</td><td><code>?collection=products&amp;slug={slug}</code></td></tr></tbody></table></div></details>
 <div class="doc-related"><ul>
+<li><a href="commerce-linked-checkout.html">Commerce linked checkout</a></li>
 <li><a href="commerce-functions.html">Commerce functions</a></li>
 <li><a href="events-functions.html">Events functions</a></li>
 <li><a href="loops-and-lists.html">Loops and lists</a></li>

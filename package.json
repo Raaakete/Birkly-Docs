@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "build": "node build-static.js",
+    "validate": "node scripts/validate-manifests.js",
     "prepublishOnly": "npm run build"
   },
   "repository": {

@@ -163,7 +163,20 @@ Each topic file should follow this structure:
 
 ---
 
-## 8. Summary (architecture)
+## 8. What does NOT belong in Birkly-Docs
+
+| Content type | Where it lives | Bridge |
+|--------------|----------------|--------|
+| User-facing product docs | **Birkly-Docs** (this repo) | `manifest.json`, `help-manifest.json` |
+| Agent operational playbooks | `Birkly/docs/ai/playbooks/` | `ai_topic` in help-manifest |
+| Internal planning / phase plans | `Birkly-Marketplace/internal/planning/` | Not synced to Help |
+| Plugin-specific deep docs | Plugin repos + `docs_shelf` at runtime | Plugin Help merge |
+
+Never add product documentation directly to `admin/docs/snapshots/` in the CMS repo. Run `./scripts/sync-birkly-docs.sh` after Birkly-Docs changes.
+
+---
+
+## 9. Summary (architecture)
 
 | Item | Rule |
 |------|------|

@@ -28,6 +28,7 @@
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
         <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/admin-chrome-action-zones.html" class="nav-link">Admin chrome and action zones</a>
         <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
         <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
         <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
@@ -53,6 +54,10 @@
         <a href="../01-admin/connections-provider-recipes.html" class="nav-link">Connections provider recipes</a>
         <a href="../01-admin/connections-migration.html" class="nav-link">Migrate from Automation Setup email</a>
         <a href="../01-admin/connections-mcp-rules.html" class="nav-link">Connections MCP rules</a>
+        <a href="../01-admin/discovery.html" class="nav-link">Discovery</a>
+        <a href="../01-admin/site-url-map.html" class="nav-link">Site URL Map</a>
+        <a href="../01-admin/activity.html" class="nav-link">Activity feed</a>
+        <a href="../01-admin/notifications.html" class="nav-link">Admin notifications</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
         <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
@@ -92,6 +97,7 @@
         <a href="commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="events-functions.html" class="nav-link">Events functions</a>
         <a href="storefront-patterns.html" class="nav-link active">Storefront and events patterns</a>
+        <a href="commerce-linked-checkout.html" class="nav-link">Commerce linked checkout</a>
         <a href="worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
         <a href="cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="reference-projects.html" class="nav-link">Reference projects</a>
@@ -111,6 +117,10 @@
         <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
         <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
         <a href="../04-integration/connections-api-reference.html" class="nav-link">Connections API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Studio</div>
+        <a href="../04-studio/getting-started.html" class="nav-link">Studio getting started</a>
+        <a href="../04-studio/production-builder.html" class="nav-link">Production builder</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -164,6 +174,7 @@
         </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/site-delivery-routing.html" class="nav-link">Site delivery and routing</a>
         <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
         <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
         <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
@@ -227,6 +238,7 @@
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
 <ul>
 <li>Detail pages: <a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a> — never loop the whole catalog on <code>product.html</code>.</li>
+<li><strong>Linked checkout (donations, registrants):</strong> <a href="commerce-linked-checkout.html">Commerce linked checkout</a> — <code>data-commerce-linked-checkout</code> + <code>begin_linked_checkout</code>.</li>
 <li>Variants: <a href="sub-collections-in-templates.html">Sub-collections in templates</a>.</li>
 <li>Plugin helpers: <a href="plugin-language-extensions.html">Plugin language extensions</a>.</li>
 <li>Delivery modes: default is live client; optional bake/hydrate — <a href="production-optimization.html">Production optimization</a>.</li>
@@ -235,6 +247,7 @@
 <table><thead><tr><th>Wrong</th><th>Right</th></tr></thead>
 <tbody><tr><td><code>{for each variant in sub_entries variants}</code></td><td><code>{for each entry in 'variants' of 'products'.current …}</code></td></tr><tr><td><code>product.html?slug=</code> without collection when router needs it</td><td><code>?collection=products&amp;slug={slug}</code></td></tr></tbody></table></div></details>
 <div class="doc-related"><ul>
+<li><a href="commerce-linked-checkout.html">Commerce linked checkout</a></li>
 <li><a href="commerce-functions.html">Commerce functions</a></li>
 <li><a href="events-functions.html">Events functions</a></li>
 <li><a href="loops-and-lists.html">Loops and lists</a></li>

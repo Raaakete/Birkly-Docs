@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>commerce plugin — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/admin-chrome-action-zones.html" class="nav-link">Admin chrome and action zones</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="../01-admin/developer-mode.html" class="nav-link">Developer mode</a>
+        <a href="../01-admin/project-git-sync.html" class="nav-link">Project Git sync</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        <a href="../01-admin/connections.html" class="nav-link">Connections</a>
+        <a href="../01-admin/connections-provider-recipes.html" class="nav-link">Connections provider recipes</a>
+        <a href="../01-admin/connections-migration.html" class="nav-link">Migrate from Automation Setup email</a>
+        <a href="../01-admin/connections-mcp-rules.html" class="nav-link">Connections MCP rules</a>
+        <a href="../01-admin/discovery.html" class="nav-link">Discovery</a>
+        <a href="../01-admin/site-url-map.html" class="nav-link">Site URL Map</a>
+        <a href="../01-admin/activity.html" class="nav-link">Activity feed</a>
+        <a href="../01-admin/notifications.html" class="nav-link">Admin notifications</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/commerce-linked-checkout.html" class="nav-link">Commerce linked checkout</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
+        <a href="../04-integration/connections-api-reference.html" class="nav-link">Connections API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Studio</div>
+        <a href="../04-studio/getting-started.html" class="nav-link">Studio getting started</a>
+        <a href="../04-studio/production-builder.html" class="nav-link">Production builder</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="commerce-coexistence.html" class="nav-link">Commerce coexistence</a>
+        <a href="commerce-plugin.html" class="nav-link active">Commerce plugin reference</a>
+        <a href="commerce-fieldtype.html" class="nav-link">Commerce fieldtype</a>
+        <a href="events-plugin.html" class="nav-link">Events plugin</a>
+        <a href="payment-shelf-api.html" class="nav-link">Payment shelf API</a>
+        <a href="payments-plugin.html" class="nav-link">Payments plugin</a>
+        <a href="shopping-cart-plugin.html" class="nav-link">Shopping cart plugin</a>
+        <a href="commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
+        <a href="commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/site-delivery-routing.html" class="nav-link">Site delivery and routing</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>The <strong>Commerce</strong> plugin (<code>plugins/commerce/</code>) is Birkly’s content-first commerce platform: payment providers, the <strong>Commerce fieldtype</strong>, catalog index, inventory ledger, cart, checkout, orders, customers, discounts, gift cards, tax providers, shipping rate providers, import, and fulfillment.</p>
+<p>It replaces the legacy <strong>Payments</strong> plugin (<code>plugins/payments/</code> is now a compatibility shim).</p>
+<p>Current documented build: Commerce <strong>1.0.29</strong> (P54 P3 — Commerce 0→1 foundation complete). For a beginner walkthrough, see <a href="plugins/commerce.html">Commerce plugin overview</a> and the in-admin help shelf when Commerce is active.</p>
+<h2>Prerequisites</h2>
+<ol>
+<li>Activate <strong>Commerce</strong> under Settings → Plugins.</li>
+<li>Configure at least one <strong>provider connection</strong> (<strong>Settings → Connections</strong>).</li>
+<li>Add the <strong>Commerce</strong> fieldtype to collection schemas for purchasable entries.</li>
+</ol>
+<h2>Admin areas</h2>
+<table><thead><tr><th>Tab</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><strong>Dashboard</strong></td><td>Revenue, cohorts, needs-shipping / SLA breaches, avg fulfillment time, top products, affiliates (default landing)</td></tr><tr><td><strong>Orders</strong></td><td>Commercial history with frozen money/tax snapshots; <strong>Draft orders / Quotes</strong> (cart-free editor) live inside Orders</td></tr><tr><td><strong>Customers</strong></td><td>Email-keyed profiles, CSV import, timeline; optional User Management link; no passwords</td></tr><tr><td><strong>Catalog</strong></td><td>Indexed read model of sellable CMS entries</td></tr><tr><td><strong>Inventory</strong></td><td>Ledger SoR for countable stock (Unlimited · Simple · Locations); low-stock threshold → <code>commerce_low_stock</code></td></tr><tr><td><strong>Subscriptions</strong></td><td>Recurring purchases and lifecycle</td></tr><tr><td><strong>Discounts</strong></td><td>Promotions v2: usage limits, min purchase, dates, free shipping, stacking</td></tr><tr><td><strong>Gift Cards</strong></td><td>Admin-issued store credit (sellable cards use field fulfillment <code>gift_card</code>)</td></tr><tr><td><strong>Settings</strong></td><td>Connections, General (fulfillment SLA hours), Fieldtypes, Mappings, Import &amp; migrate, Shipping, Tax, Fulfillment, Activity, Documentation</td></tr></tbody></table>
+<p>Inside <strong>Settings → Import &amp; migrate</strong>: <strong>Shopify cutover</strong> (one-time products, customers, archived orders), CSV imports, and Beta live product import adapters. Legacy Shop / Events migration appears only when legacy sources are detected. See <a href="commerce-shopify-cutover.html">Shopify cutover playbook</a>.</p>
+<p>Inside <strong>Settings → Tax</strong>: provider <strong>Manual</strong> or <strong>Stripe Tax</strong> (orthogonal to charge PSP), classes, class×country rates, optional <strong>B2B reverse charge</strong>. See <a href="commerce-tax.html">Commerce tax</a>.</p>
+<p>Inside <strong>Settings → Shipping</strong>: rate provider <strong>Manual</strong> zones or <strong>EasyPost</strong> live quotes (weight required; fallback to zones). See <a href="commerce-shipping.html">Commerce shipping rates</a>.</p>
+<p>Inside <strong>Settings → Fulfillment</strong>: <strong>Manual / Export</strong> (default) or <strong>EasyPost</strong> (push + tracking webhook). ShipStation is an internal stub and is not merchant-selectable. See <a href="commerce-fulfillment.html">Commerce fulfillment</a>.</p>
+<h2>Mental model</h2>
+<table><thead><tr><th>Area</th><th>Role</th></tr></thead>
+<tbody><tr><td><strong>Catalog</strong></td><td>Checkout read model from CMS entries with Commerce fields</td></tr><tr><td><strong>Inventory</strong></td><td>Stock ledger (on hand, reserved, available, low threshold)</td></tr><tr><td><strong>Orders</strong></td><td>History — totals and tax lines are frozen at payment, not recalculated from current catalog</td></tr><tr><td><strong>Customers</strong></td><td>Commercial profiles keyed by email (not login credentials)</td></tr></tbody></table>
+<h2>Commerce fieldtype</h2>
+<p>Add to any collection schema:</p>
+<pre><code>{ &quot;name&quot;: &quot;commerce&quot;, &quot;type&quot;: &quot;commerce&quot;, &quot;label&quot;: &quot;Pricing&quot; }</code></pre>
+<p><strong>Stored value (v2):</strong></p>
+<table><thead><tr><th>Field</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>fulfillment</code></td><td><code>ship</code>, <code>deliver</code>, <code>register</code>, <code>gift_card</code>, or <code>none</code></td></tr><tr><td><code>tax_class</code></td><td>Product tax class (<code>standard</code>, <code>reduced</code>, <code>zero</code>, or custom). Default <code>standard</code></td></tr><tr><td><code>weight_grams</code></td><td>Required on <code>ship</code> when EasyPost live rates are on; optional dims <code>length_mm</code> / <code>width_mm</code> / <code>height_mm</code></td></tr><tr><td><code>purchase_options[]</code></td><td>id, label, billing, pricing_mode, price_cents, currency, interval?</td></tr><tr><td><code>quantity_available</code></td><td>Catalog projection of Inventory Available, or null for unlimited; capacity for <code>register</code></td></tr><tr><td><code>sku</code></td><td>Optional; defaults to entry slug</td></tr></tbody></table>
+<p>Tier grants are <strong>not</strong> on the fieldtype — configure <strong>Purchase mappings</strong> under Commerce → Settings → Mappings.</p>
+<p>See <a href="commerce-fieldtype.html">Commerce fieldtype</a> for panels and variants.</p>
+<h2>Public API</h2>
+<p>Base: <code>/api/index.php?route=commerce</code></p>
+<p>Cart actions: <code>get</code>, <code>add</code>, <code>update</code>, <code>remove</code>, <code>checkout</code> (entry-based lines from catalog index). Hybrid carts may return <code>split_required</code> / <code>groups[]</code>; pass <code>group_key</code> + <code>checkout_session_id</code> for split checkout. See <a href="commerce-hybrid-cart.html">Hybrid cart</a>.</p>
+<p>Affiliate: pass <code>?ref=partner_id</code> — stored in session for checkout discount rules.</p>
+<p>Draft-order admin actions: <code>draft_order_create</code>, <code>draft_order_update</code>, <code>draft_order_preview</code>, <code>draft_order_get</code>, <code>draft_order_search_catalog</code>, <code>draft_order_checkout</code>.</p>
+<h2>Template functions</h2>
+<table><thead><tr><th>Function</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>{commerce_cart_count}</code></td><td>Items in session cart</td></tr><tr><td><code>{commerce_cart_url}</code></td><td>Cart API URL</td></tr><tr><td><code>{commerce_buy_url entry_id}</code></td><td>Quick checkout for one entry</td></tr><tr><td><code>{commerce_add_to_cart entry_id qty}</code></td><td>Add-to-cart URL</td></tr></tbody></table>
+<h2>Shelf services</h2>
+<table><thead><tr><th>Service ID</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>commerce_shelf</code></td><td>Primary API</td></tr><tr><td><code>payment_shelf</code></td><td>Legacy alias — same instance</td></tr></tbody></table>
+<p>Consumer plugins (Shopping Cart, Events) continue to use <code>payment_shelf</code> during transition.</p>
+<h2>Coexistence with Shop &amp; Events</h2>
+<table><thead><tr><th>Plugin</th><th>Status</th></tr></thead>
+<tbody><tr><td><code>shopping_cart</code></td><td>Legacy — uses <code>shop_products</code> collection</td></tr><tr><td><code>events</code></td><td>Legacy — uses <code>events</code> collection + RSVP</td></tr></tbody></table>
+<p><strong>New sites:</strong> use Commerce fieldtype on any collection. Legacy plugins are not removed. Migration wizard under <strong>Settings → Import &amp; migrate</strong> appears only when legacy sources are detected.</p>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
+<li><a href="commerce-hybrid-cart.html">Commerce hybrid cart</a></li>
+<li><a href="commerce-store-kit.html">Commerce store kit</a></li>
+<li><a href="../05-automation/commerce-recipes.html">Automation Commerce recipes</a></li>
+<li><a href="commerce-analytics.html">Commerce analytics</a></li>
+<li><a href="commerce-customers.html">Commerce customers</a></li>
+<li><a href="commerce-promotions.html">Commerce promotions</a></li>
+<li><a href="commerce-gift-cards-quotes.html">Commerce gift cards and draft orders</a></li>
+<li><a href="commerce-tax.html">Commerce tax</a></li>
+<li><a href="commerce-shipping.html">Commerce shipping rates</a></li>
+<li><a href="commerce-fulfillment.html">Commerce fulfillment</a></li>
+<li><a href="commerce-shopify-cutover.html">Shopify cutover playbook</a></li>
+<li><a href="commerce-fieldtype.html">Commerce fieldtype</a></li>
+<li><a href="payment-shelf-api.html">Payment shelf API</a> (legacy naming; use <code>commerce_shelf</code>)</li>
+<li><a href="shopping-cart-plugin.html">Shopping Cart plugin</a> (legacy)</li>
+<li><a href="events-plugin.html">Events plugin</a> (legacy)</li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

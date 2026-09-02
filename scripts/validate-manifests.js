@@ -28,16 +28,8 @@ const SECTION_PREFIXES = [
   '07-operations',
 ];
 
-/** Legacy stubs superseded by plugins/commerce.md — remove when consolidated (P72+). */
-const ORPHAN_ALLOWLIST = new Set([
-  '06-extensibility/commerce-coexistence.md',
-  '06-extensibility/commerce-fieldtype.md',
-  '06-extensibility/commerce-plugin.md',
-  '06-extensibility/events-plugin.md',
-  '06-extensibility/payment-shelf-api.md',
-  '06-extensibility/payments-plugin.md',
-  '06-extensibility/shopping-cart-plugin.md',
-]);
+/** Legacy stubs superseded by plugins/commerce.md — indexed in manifest.json (P72 follow-up). */
+const ORPHAN_ALLOWLIST = new Set([]);
 
 /** @type {Set<string>} */
 const manifestPaths = new Set();
@@ -45,6 +37,17 @@ const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'u
 for (const section of manifest.sections) {
   for (const item of section.items) {
     manifestPaths.add(item.path.replace(/\\/g, '/'));
+  }
+}
+
+// help-manifest topics must have .md and be in manifest.json
+const metaTopics = JSON.parse(fs.readFileSync(path.join(root, 'help-topics-meta.json'), 'utf8')).topics || {};
+for (const mdPath of Object.keys(metaTopics)) {
+  if (!manifestPaths.has(mdPath)) {
+    fail(`help-topics-meta topic not in manifest.json: ${mdPath}`);
+  }
+  if (!fs.existsSync(path.join(root, mdPath))) {
+    fail(`help-topics-meta missing source: ${mdPath}`);
   }
 }
 

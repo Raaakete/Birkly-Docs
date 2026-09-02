@@ -32,11 +32,13 @@
 <p>Update Birkly-Docs <strong>when a CMS platform milestone ships</strong> — not as a parallel project during stabilization.</p>
 <table><thead><tr><th>Trigger</th><th>Action</th></tr></thead>
 <tbody><tr><td>CMS milestone merged to <code>main</code> (security, templating, API, client)</td><td>Add or revise topics affected by that milestone</td></tr><tr><td>New public API or template syntax</td><td>Update <code>04-integration/</code> and <code>03-templating/</code>; add entry to <code>meta/changelog-docs.md</code></td></tr><tr><td>No CMS change</td><td>No docs PR required</td></tr></tbody></table>
-<p><strong>Workflow:</strong> edit <code>.md</code> → <code>npm run build</code> → update <code>CONTENTS_INDEX.md</code> if paths changed → <code>meta/changelog-docs.md</code> → commit <code>.md</code> + built <code>.html</code> + <code>content/</code> → PR to <code>main</code>. Site repos (Birkly-Website <code>docs/</code>) sync separately via submodule or <code>sync-docs.sh</code>.</p>
+<p><strong>Workflow:</strong> edit <code>.md</code> → add/update <code>manifest.json</code> + <code>help-topics-meta.json</code> (for CMS Help) → <code>npm run build</code> → update <code>CONTENTS_INDEX.md</code> if paths changed → <code>meta/changelog-docs.md</code> → commit → PR. <code>help-manifest.json</code> is <strong>generated</strong> — do not edit by hand.</p>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead>
+<tbody><tr><td><code>manifest.json</code></td><td>Static site nav — all published topics</td></tr><tr><td><code>help-topics-meta.json</code></td><td>CMS Help ids, keywords, <code>ai_topic</code> (keyed by <code>.md</code> path)</td></tr><tr><td><code>help-manifest.json</code></td><td><strong>Generated</strong> by <code>npm run generate:help</code></td></tr></tbody></table>
 <ul>
 <li>After changing or adding docs:</li>
 </ul>
-<p>  1. Run <code>npm run build</code> (or <code>node build-static.js</code>) to regenerate HTML and content-only files   2. Update <strong>CONTENTS_INDEX.md</strong> if you added/renamed topics   3. Update <strong>meta/changelog-docs.md</strong> with your changes   4. Commit both <code>.md</code>, <code>.html</code>, and <code>content/</code> files   5. Push to repository</p>
+<p>  1. Run <code>npm run build</code> (generates help manifest + HTML + content fragments)   2. Update <strong>CONTENTS_INDEX.md</strong> if you added/renamed topics   3. Update <strong>meta/changelog-docs.md</strong> with your changes   4. Commit both <code>.md</code>, <code>.html</code>, and <code>content/</code> files   5. Push to repository</p>
 <h2>🔗 For integrators (CMS, website, dev portal)</h2>
 <h3>Option 1: Git submodule (recommended)</h3>
 <p>In your CMS or website repository:</p>

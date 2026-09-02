@@ -1,0 +1,35 @@
+<p>The <strong>Shopping Cart</strong> plugin (<code>plugins/shopping_cart/</code>) is a <code>payment_shelf</code> consumer: products live in the <code>shop_products</code> collection, checkout creates orders and charges via Payments, and order status updates when payment webhooks fire.</p>
+<h2>Prerequisites</h2>
+<ol>
+<li><strong>Payments</strong> plugin active with at least one provider connection.</li>
+<li><strong>Shopping Cart</strong> plugin activated (seeds <code>shop_products</code> collection on first activation).</li>
+<li>Cart plugin granted <strong><code>access_payment_shelf</code></strong> (auto-granted on activation).</li>
+</ol>
+<h2>Admin</h2>
+<p>Open <strong>Shop</strong> in the admin sidebar.</p>
+<table><thead><tr><th>Tab</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><strong>Orders</strong></td><td>List orders, status, payment IDs, cancel pending orders</td></tr><tr><td><strong>Settings</strong></td><td>Checkout success/cancel paths</td></tr></tbody></table>
+<p>Use <strong>Manage Products</strong> to edit the <code>shop_products</code> collection (title, price, currency, SKU, stock).</p>
+<h2>Checkout flow</h2>
+<ol>
+<li>Visitor adds items via API (<code>action=add</code>) or template URLs.</li>
+<li><strong>Checkout</strong> creates a pending order and calls <code>payment_shelf-&gt;createPayment()</code> with <code>source_plugin=shopping_cart</code> and <code>source_ref=order_id</code>.</li>
+<li>Provider webhook → Payments broadcasts <code>payment_succeeded</code> → Cart marks order <strong>paid</strong> and clears the session cart.</li>
+</ol>
+<h2>Public API</h2>
+<p>Base: <code>/api/index.php?route=shopping_cart</code></p>
+<table><thead><tr><th>Action</th><th>Auth</th><th>Description</th></tr></thead>
+<tbody><tr><td><code>get</code></td><td>Public</td><td>Cart contents and total</td></tr><tr><td><code>add</code></td><td>Public</td><td>Add product (<code>product_id</code>, <code>quantity</code>)</td></tr><tr><td><code>update</code></td><td>Public</td><td>Set quantity</td></tr><tr><td><code>remove</code></td><td>Public</td><td>Remove line</td></tr><tr><td><code>checkout</code></td><td>Public</td><td>Start payment (<code>customer_email</code>, optional return URLs)</td></tr><tr><td><code>list_orders</code></td><td>Admin</td><td>All orders</td></tr><tr><td><code>get_order</code></td><td>Admin</td><td>Single order</td></tr><tr><td><code>cancel_order</code></td><td>Admin</td><td>Cancel pending order (CSRF)</td></tr></tbody></table>
+<h2>Template functions</h2>
+<table><thead><tr><th>Function</th><th>Returns</th></tr></thead>
+<tbody><tr><td><code>{cart_count}</code></td><td>Item count in session</td></tr><tr><td><code>{cart_checkout_url}</code></td><td>Checkout API URL</td></tr><tr><td><code>{cart_add_url product_id}</code></td><td>Add-to-cart URL</td></tr></tbody></table>
+<h2>Automation triggers</h2>
+<ul>
+<li><code>order_created</code> — pending order created from cart</li>
+<li><code>order_paid</code> — order marked paid after webhook</li>
+<li><code>order_cancelled</code> — admin cancelled order</li>
+</ul>
+<div class="doc-related"><ul>
+<li><a href="payment-shelf-api.html">Payment shelf API</a></li>
+<li><a href="payments-plugin.html">Payments plugin</a></li>
+</ul></div>

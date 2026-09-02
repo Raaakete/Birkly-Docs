@@ -42,10 +42,16 @@ Update Birkly-Docs **when a CMS platform milestone ships** — not as a parallel
 | New public API or template syntax | Update `04-integration/` and `03-templating/`; add entry to `meta/changelog-docs.md` |
 | No CMS change | No docs PR required |
 
-**Workflow:** edit `.md` → `npm run build` → update `CONTENTS_INDEX.md` if paths changed → `meta/changelog-docs.md` → commit `.md` + built `.html` + `content/` → PR to `main`. Site repos (Birkly-Website `docs/`) sync separately via submodule or `sync-docs.sh`.
+**Workflow:** edit `.md` → add/update `manifest.json` + `help-topics-meta.json` (for CMS Help) → `npm run build` → update `CONTENTS_INDEX.md` if paths changed → `meta/changelog-docs.md` → commit → PR. `help-manifest.json` is **generated** — do not edit by hand.
+
+| File | Role |
+|------|------|
+| `manifest.json` | Static site nav — all published topics |
+| `help-topics-meta.json` | CMS Help ids, keywords, `ai_topic` (keyed by `.md` path) |
+| `help-manifest.json` | **Generated** by `npm run generate:help` |
 
 - After changing or adding docs:
-  1. Run `npm run build` (or `node build-static.js`) to regenerate HTML and content-only files
+  1. Run `npm run build` (generates help manifest + HTML + content fragments)
   2. Update **CONTENTS_INDEX.md** if you added/renamed topics
   3. Update **meta/changelog-docs.md** with your changes
   4. Commit both `.md`, `.html`, and `content/` files

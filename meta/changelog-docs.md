@@ -21,6 +21,13 @@ This changelog records **documentation** updates: new pages, reorganized section
 - **Updated:** `manifest.json` — same topics added for static site build.
 - **New:** `scripts/validate-manifests.js` — CI gate for orphan `.md` files.
 
+## 2026-09-02 — P72 follow-up: manifest generator
+
+- **New:** `help-topics-meta.json` — CMS Help metadata SSOT (ids, keywords, ai_topic).
+- **New:** `scripts/generate-help-manifest.js` — generates `help-manifest.json` from meta + manifest.
+- **Updated:** `npm run build` runs generator first; `npm run validate` checks generated output.
+- **Updated:** Indexed legacy commerce plugin stub topics in `manifest.json`.
+
 ---
 
 ## 2026-08-26 — Plugin WebMCP catalog registration

@@ -40,7 +40,7 @@ Use **Fix** links on individual checks to jump to Hosting, Domains, or Redirects
 
 ## Setup wizard
 
-**Settings → Site delivery → Hosting URLs** (and onboarding step 2) share one wizard:
+**Settings → Site delivery → Hosting URLs** hosts the setup wizard:
 
 1. **Detect** — reads current request, project folder, env overrides  
 2. **Propose** — suggests CMS/public URLs and www↔apex aliases (nothing saved until you confirm)  

@@ -134,6 +134,14 @@
 <li>Evidence link status is <strong>broken</strong></li>
 </ul>
 <p>Republish after review when material changes occur.</p>
+<h3>Unpublish</h3>
+<p>Use <strong>Unpublish</strong> on the hub <strong>Publish</strong> tab when you need public endpoints to stop serving the guide without deleting your draft:</p>
+<ul>
+<li>Well-known JSON, <code>/llms.txt</code>, and public API return <strong>404</strong></li>
+<li>Draft remains in admin — edit and republish when ready</li>
+<li>Website tools (WebMCP) are separate; unpublishing the guide does not automatically disable Tools</li>
+</ul>
+<p>Republish restores the last published snapshot (or publish again after draft edits).</p>
 <h3>API view URLs</h3>
 <p>Publish tab lists example URLs:</p>
 <ul>
@@ -141,6 +149,29 @@
 <li><code>view=products</code> — Catalog only</li>
 <li><code>view=claims</code> — Supported claims with sources</li>
 </ul>
+<p>---</p>
+<h2>Tools tab (Website tools / WebMCP)</h2>
+<p><strong>Purpose:</strong> Enable safe, visitor-facing actions on your <strong>live public site</strong> — submit a contact form, read page context, Commerce cart actions, Events RSVP — via the emerging <strong>WebMCP</strong> browser standard. <strong>Off by default.</strong></p>
+<p>This is <strong>not</strong> the same as Agent Guide JSON (what AI should <em>say</em>) or Birkly MCP (how AI apps connect to your <strong>admin</strong>). See <a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a>.</p>
+<h3>Typical workflow</h3>
+<ol>
+<li>Open <strong>Agent Guide → Tools</strong> (<code>?page=agent-guide&amp;zone=tools</code>).</li>
+<li>Enable <strong>Website tools</strong>.</li>
+<li>Choose built-in actions (page context, list content, submit form, plus Commerce/Events packs when installed).</li>
+<li>Allowlist which public forms may be submitted (never expose admin forms).</li>
+<li>For <strong>external</strong> hosting (site not in <code>project/</code>), copy the script tags from <strong>Publish</strong> tab and add <code>birkly-webmcp.js</code> + <code>birkly-client.js</code> to your site template.</li>
+<li>Verify with the checklist on the Tools tab (form <code>toolname</code>/<code>tooldescription</code> attributes, local browser with WebMCP support).</li>
+</ol>
+<h3>Safety model</h3>
+<ul>
+<li>Write actions always require <strong>visitor confirmation</strong> in the browser.</li>
+<li>Nothing registers until you enable Tools and allowlist forms.</li>
+<li>Unsupported browsers fall back to normal site behavior (no breakage).</li>
+</ul>
+<h3>Hosting note</h3>
+<table><thead><tr><th>Site hosting</th><th>Tools behavior</th></tr></thead>
+<tbody><tr><td>Birkly <code>project/</code></td><td>Scripts injected automatically when Tools enabled</td></tr><tr><td>External site</td><td>Add snippets from Publish tab; CMS still serves config</td></tr></tbody></table>
+<p>Publishing Agent Guide JSON does <strong>not</strong> turn on Website tools — enable Tools separately.</p>
 <p>---</p>
 <h2>Save bar workflow</h2>
 <ol>
@@ -155,4 +186,5 @@
 <li><a href="agent-guide-getting-started.html">Getting started</a></li>
 <li><a href="agent-guide-ai-assist.html">AI Assist</a></li>
 <li><a href="agent-guide-best-practices.html">Best practices</a></li>
+<li><a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a></li>
 </ul></div>

@@ -1,0 +1,15 @@
+<div class="doc-summary"><p>The topbar <strong>notification bell</strong> shows platform events: content publishes, plugin activity, security events, and more. Notifications have three states: <strong>unread</strong>, <strong>seen</strong>, and <strong>read</strong>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Unread → Seen → Read</strong></p>
+<ol>
+<li><strong>Unread</strong> — Accent badge count; unread rows show a dot and stronger styling.</li>
+<li><strong>Seen</strong> — Opening the dropdown marks visible items as seen. The badge turns <strong>grey</strong> even if you did not click an item.</li>
+<li><strong>Read</strong> — Clicking a notification or using <strong>Mark all read</strong> sets <code>read_at</code> and persists read state.</li>
+</ol>
+<p>Seen state is per user and stored alongside read IDs in the notifications store.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>API:</strong> <code>POST /api/notifications.php</code> with <code>action=mark_seen</code> and visible notification IDs when the dropdown opens. Responses include <code>badge_state</code>: <code>unread</code>, <code>seen</code>, or <code>none</code>, and <code>pending_count</code> for accent display.</p>
+<p><strong>Plugin activity:</strong> Commerce and other plugins can emit to the plugin activity bus; those items appear in the bell when <code>activity_notify</code> is enabled for the plugin.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="dashboard.html">Dashboard</a></li>
+<li><a href="activity.html">Activity</a></li>
+<li><a href="settings.html">Settings</a></li>
+</ul></div>

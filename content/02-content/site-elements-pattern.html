@@ -1,10 +1,10 @@
-<div class="doc-summary"><p><strong>Site elements</strong> is a content-model pattern for shared site chrome: headers, footers, announcement bars, and other blocks that appear on many pages. You store them as <strong>entries</strong> in a dedicated collection (canonical handle <strong><code>site_elements</code></strong>) and inject them on your site with <strong><code>&lt;birkly-region&gt;</code></strong> — not as a separate CMS content type.</p>
-<p>The client always prefetches the collection slug <code>site_elements</code> for page bundles. Prefer that handle so defaults and regions match the engine.</p></div>
+<div class="doc-summary"><p><strong>Site elements</strong> is a content-model pattern for shared site chrome: headers, footers, announcement bars, and other blocks that appear on many pages. You store them as <strong>entries</strong> in a dedicated collection and inject them on your site with <strong><code>&lt;birkly-region&gt;</code></strong> — not as a separate CMS content type.</p>
+<p>The client prefetches a <strong><code>site_elements</code></strong> bundle key for page loads. The CMS slugifies collection handles to <strong>lowercase hyphen</strong> form (e.g. name “Site Elements” → slug <strong><code>site-elements</code></strong>). Public read and <code>page_bundle</code> treat <strong><code>site_elements</code> and <code>site-elements</code> as the same collection</strong> via slug normalization — templates may keep the underscore alias.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Why a collection, not a “global settings” doc?</h3>
 <p>Birkly uses <strong>collections + entries only</strong>. Shared layout content is still entries — usually one entry per region (<code>header</code>, <code>footer</code>). That keeps versioning, drafts, multilanguage, and the Public API consistent with the rest of your content.</p>
 <h3>Setup steps</h3>
 <ol>
-<li><strong>Create collection</strong> — Name: “Site elements”, handle: <strong><code>site_elements</code></strong> (underscore).</li>
+<li><strong>Create collection</strong> — Name: “Site elements”. Either set slug explicitly to <strong><code>site-elements</code></strong>, or accept the auto slug from the title (also <code>site-elements</code>). Do not rely on a literal underscore slug from the name alone — <code>create_collection</code> normalizes underscores to hyphens.</li>
 <li><strong>Fields (example):</strong></li>
 </ol>
 <p>   - <strong>Title</strong> (text) — admin label, e.g. “Header”.    - <strong>Blocks</strong> (Dynamic items) — logo, nav links, CTA buttons, legal links — <em>or</em> a simple content field for HTML chrome.</p>
@@ -31,9 +31,9 @@
 <tbody><tr><td>Many similar items (blog posts, products)</td><td>Regular collection + list/detail templates</td></tr><tr><td>Child rows on one page (comments)</td><td><a href="sub-collections.html">Sub-collections</a></td></tr><tr><td>One long article</td><td>Single entry with Content editor field</td></tr><tr><td>Visitor-submitted data</td><td>Public API collection — <a href="../04-integration/public-forms.html">Public forms</a></td></tr></tbody></table></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Handles in templates and API:</strong></p>
 <ul>
-<li>Prefer <code>{from 'site_elements' get entry 'header'}…{endget}</code> or Public API <code>GET /api/public/collections/site_elements/entries/header</code></li>
-<li>Prefer stable entry slugs (<code>header</code>, <code>footer</code>) — referenced in HTML and build scripts.</li>
-<li>If you create a different handle (e.g. <code>site-elements</code>), templates and <code>&lt;birkly-region collection=&quot;…&quot;&gt;</code> must use <strong>that</strong> handle — engine defaults and prefetch still special-case <code>site_elements</code>.</li>
+<li>Prefer <code>{from 'site_elements' get entry 'header'}…{endget}</code> (underscore alias) or <code>{from 'site-elements' get entry 'header'}…{endget}</code> — both resolve to the same collection when slugified handles match.</li>
+<li><code>&lt;birkly-region collection=&quot;site-elements&quot; …&gt;</code> should use the <strong>stored collection slug</strong> from admin/API. The client bundle still requests the <code>site_elements</code> alias; public read maps it to your on-disk collection.</li>
+<li>If you use a completely different handle, templates and regions must use <strong>that</strong> slug consistently; engine defaults and prefetch still special-case the <code>site_elements</code> alias.</li>
 </ul>
 <p><strong>Dynamic items inside regions:</strong> The <code>field</code> attribute points to your Dynamic items field API name (e.g. <code>blocks</code>). Block structure is defined in <a href="dynamic-items-field.html">Dynamic items field</a>.</p>
 <p><strong>Draft workflow:</strong> Keep region entries as <strong>Draft</strong> while redesigning; published site keeps the last published version until you publish updates.</p></div></details>

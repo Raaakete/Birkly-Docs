@@ -1,0 +1,116 @@
+<p>Use <strong>linked checkout</strong> when a purchase should create or update a CMS entry before payment — supporters, registrants, members, or any collection row tied to an order.</p>
+<p>Requires <strong>Commerce 1.0.97+</strong> and <code>commerce-storefront.js</code> on the page.</p>
+<div class="doc-summary"><table><thead><tr><th>Piece</th><th>Role</th></tr></thead>
+<tbody><tr><td>Commerce product entry</td><td>Purchase options (fixed or variable amounts)</td></tr><tr><td><code>catalog_item</code> API</td><td>Storefront SSOT for options and min/max</td></tr><tr><td><code>begin_linked_checkout</code></td><td>Server creates linked entry + hosted checkout session</td></tr><tr><td><code>data-commerce-linked-checkout</code></td><td>Form binder — no custom donate/checkout JS</td></tr><tr><td><code>commerce_entry_sync_*</code> settings</td><td>Maps checkout metadata → entry fields after pay/abandon</td></tr></tbody></table>
+<h2>Minimal form</h2>
+<pre><code>&lt;script src=&quot;/plugins/commerce/assets/commerce-storefront.js&quot;&gt;&lt;/script&gt;
+
+&lt;form
+  data-commerce-linked-checkout
+  data-product-collection=&quot;donations&quot;
+  data-product-entry=&quot;support-birkly&quot;
+  data-linked-collection=&quot;supporters&quot;
+  data-consent-field=&quot;featured&quot;
+  data-hosted-checkout=&quot;1&quot;
+  data-success-url=&quot;/project/thank-you.html&quot;
+  data-cancel-url=&quot;/project/sponsors.html?canceled=1#supporters&quot;
+  data-onetime-option-id=&quot;once&quot;
+  data-recurring-option-id=&quot;monthly&quot;&gt;
+  &lt;input name=&quot;name&quot; required&gt;
+  &lt;input type=&quot;email&quot; name=&quot;email&quot; required&gt;
+  &lt;select id=&quot;amount-select&quot;&gt;
+    &lt;option value=&quot;15&quot; selected&gt;€15&lt;/option&gt;
+    &lt;option value=&quot;custom&quot;&gt;Custom&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;input id=&quot;custom-amount&quot; type=&quot;number&quot; min=&quot;1&quot; step=&quot;0.01&quot; data-commerce-custom-amount&gt;
+  &lt;input type=&quot;checkbox&quot; name=&quot;show&quot; value=&quot;yes&quot; checked&gt;
+  &lt;label&gt;Optional logo (public list)
+    &lt;input type=&quot;file&quot; name=&quot;logo&quot; accept=&quot;image/png,image/jpeg,image/webp,image/gif&quot;&gt;
+  &lt;/label&gt;
+  &lt;button type=&quot;submit&quot;&gt;Donate&lt;/button&gt;
+  &lt;p data-commerce-linked-status hidden role=&quot;alert&quot;&gt;&lt;/p&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.BirklyCommerce) {
+    BirklyCommerce.bind(document);
+    BirklyCommerce.handleHostedCheckoutReturn();
+  }
+});
+&lt;/script&gt;</code></pre>
+<h2>Thank-you / return page</h2>
+<pre><code>&lt;script src=&quot;/plugins/commerce/assets/commerce-storefront.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.BirklyCommerce &amp;&amp; BirklyCommerce.handleHostedCheckoutReturn) {
+    BirklyCommerce.handleHostedCheckoutReturn();
+  }
+});
+&lt;/script&gt;</code></pre>
+<p>On cancel, the binder calls <code>abandon_checkout</code> so linked entries move to the abandoned payment state.</p>
+<h2>Purchase options binder (optional)</h2>
+<p>For catalog-driven option UI instead of a hand-built amount select:</p>
+<pre><code>&lt;div
+  data-commerce-purchase-options
+  data-product-collection=&quot;donations&quot;
+  data-product-entry=&quot;support-birkly&quot;&gt;&lt;/div&gt;</code></pre>
+<p>The binder reads <code>catalog_item</code>, renders radios, and validates amounts against <code>min_price_cents</code> / <code>max_price_cents</code>.</p>
+<h2>Product configuration</h2>
+<p>In the entry editor (Commerce field):</p>
+<ul>
+<li>Set <strong>pricing mode</strong> to <strong>variable</strong> for custom amounts.</li>
+<li>Set <strong>min_price_cents</strong> / <strong>max_price_cents</strong> on each purchase option (e.g. €1 minimum = <code>100</code>).</li>
+<li>Re-save the entry or <strong>Rebuild catalog</strong> so <code>catalog_item</code> reflects changes.</li>
+</ul>
+<h2>Entry sync settings</h2>
+<p>Commerce → Settings → General → <strong>Entry sync</strong> keys (<code>commerce_entry_sync_*</code>):</p>
+<ul>
+<li>Metadata keys written on checkout (entry id, collection, consent)</li>
+<li>CMS fields updated when payment succeeds or is abandoned</li>
+</ul>
+<p>See the Commerce plugin RFC: <code>RFC-STOREFRONT-PLATFORM-V2.md</code>.</p>
+<h2>API sketch</h2>
+<pre><code>POST /api/commerce.php
+{
+  &quot;action&quot;: &quot;begin_linked_checkout&quot;,
+  &quot;product&quot;: {
+    &quot;collection&quot;: &quot;donations&quot;,
+    &quot;entry_id&quot;: &quot;support-birkly&quot;,
+    &quot;purchase_option_id&quot;: &quot;once&quot;,
+    &quot;amount_cents&quot;: 1500
+  },
+  &quot;customer&quot;: { &quot;email&quot;: &quot;a@b.com&quot;, &quot;name&quot;: &quot;Ada&quot; },
+  &quot;linked_entry&quot;: {
+    &quot;collection&quot;: &quot;supporters&quot;,
+    &quot;fields&quot;: { &quot;title&quot;: &quot;Ada&quot;, &quot;email&quot;: &quot;a@b.com&quot;, &quot;featured&quot;: &quot;1&quot; },
+    &quot;consent_field&quot;: &quot;featured&quot;
+  },
+  &quot;hosted_checkout&quot;: true,
+  &quot;success_url&quot;: &quot;https://example.com/thank-you.html&quot;,
+  &quot;cancel_url&quot;: &quot;https://example.com/donate.html?canceled=1&quot;
+}</code></pre>
+<h2>File uploads (logos, images)</h2>
+<p><strong>Commerce 1.0.97+:</strong> <code>data-commerce-linked-checkout</code> automatically pre-uploads <code>&lt;input type=&quot;file&quot; name=&quot;…&quot;&gt;</code> fields via <code>upload_linked_checkout_asset</code> before <code>begin_linked_checkout</code>. Returned URLs are merged into <code>linked_entry.fields</code> (field name = input <code>name</code>, e.g. <code>logo</code>).</p>
+<ul>
+<li>Images only (JPEG, PNG, WebP, GIF), max 5MB</li>
+<li>Stored under <code>/media/linked_checkout/</code> on the CMS host</li>
+<li>No custom upload JS required when using the storefront binder</li>
+</ul>
+<p>Manual upload (integrators):</p>
+<pre><code>POST /api/index.php?route=commerce
+Content-Type: multipart/form-data
+
+action=upload_linked_checkout_asset
+field=logo
+file=&lt;binary&gt;</code></pre>
+<p>Response <code>data.url</code> is the value to pass in <code>linked_entry.fields.logo</code>.</p>
+<h2>Known limits</h2>
+<ul>
+<li><strong>Variable recurring</strong> (pay-what-you-want subscriptions) is deferred; fixed recurring tiers work.</li>
+</ul></div>
+<div class="doc-related"><ul>
+<li><a href="storefront-patterns.html">Storefront patterns</a></li>
+<li><a href="commerce-functions.html">Commerce functions</a></li>
+<li><a href="public-forms.html">Public forms</a> — for non-payment submissions</li>
+</ul></div>

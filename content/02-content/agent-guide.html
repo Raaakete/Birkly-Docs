@@ -44,6 +44,7 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  Public export (on your site domain)                        │
 │  /.well-known/agent-guide.json                              │
+│  /llms.txt (Markdown discovery map)                         │
 │  /api/public/ai_presence.php                                │
 │  Optional JSON-LD · MCP tools · graph views                 │
 └─────────────────────────────────────────────────────────────┘</code></pre>
@@ -74,7 +75,7 @@
 <h2>Guide → Advanced tabs (at a glance)</h2>
 <table><thead><tr><th>Tab</th><th>Purpose</th></tr></thead>
 <tbody><tr><td><strong>Overview</strong></td><td>Completeness score, source health, CMS sync drift, link checks, public URLs</td></tr><tr><td><strong>Sources</strong></td><td><code>sources_of_truth[]</code> registry — CMS, websites, documents, media, marketplaces</td></tr><tr><td><strong>Context</strong></td><td>Identity, positioning, terminology, relationships</td></tr><tr><td><strong>Products &amp; Services</strong></td><td>Structured catalog with typed source links</td></tr><tr><td><strong>Claims &amp; Evidence</strong></td><td>Factual statements, proof sources, review workflow</td></tr><tr><td><strong>Media</strong></td><td>Per-asset context (what it represents, intended use, restrictions)</td></tr></tbody></table>
-<p>Full publish controls (enable publishing, version history, staleness warnings, AI preview) live one level up, in the hub's <strong>Publish</strong> tab — see <a href="#the-agent-guide-hub-four-tabs">The Agent Guide hub</a>.</p>
+<p>Full publish controls (enable publishing, version history, staleness warnings, AI preview) live one level up, in the hub's <strong>Publish</strong> tab — see <a href="#the-agent-guide-hub-three-tabs">The Agent Guide hub</a>.</p>
 <h2>AI Assist sidebar</h2>
 <p>The sticky save bar and right-hand <strong>AI Assist</strong> panel help you fill gaps without auto-saving:</p>
 <ul>
@@ -108,8 +109,10 @@
 <li><strong><code>usage_hints</code></strong> — Guidance for AI consumers (authoritative vs marketing fields; follow sources of truth)</li>
 <li><strong><code>identity.derived_from</code></strong> — Which sources ground summary fields</li>
 <li>Optional <strong><code>json_ld</code></strong> — Schema.org graph (Organization, Product/Service, Claim)</li>
+<li><strong><code>/llms.txt</code></strong> — Markdown discovery map (links to well-known JSON, API views, and key public pages) when publishing is enabled</li>
 </ul>
 <p>Legacy field <strong><code>connected_content[]</code></strong> is migrated into <code>sources_of_truth[]</code> on save.</p>
+<p><strong>Discovery aids on published sites:</strong> Birkly may inject <code>&lt;link rel=&quot;alternate&quot; type=&quot;application/json&quot; title=&quot;Agent Guide&quot; href=&quot;…/agent-guide.json&quot;&gt;</code> into <code>project/</code> pages when the guide is published, so crawlers and tools can find the JSON without guessing the path.</p>
 <h2>Related Birkly features</h2>
 <ul>
 <li><strong>Agent Guide → Tools</strong> — Website tools (WebMCP); what visitor-facing AI helpers can <em>do</em> on your live site. See <a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a>.</li>

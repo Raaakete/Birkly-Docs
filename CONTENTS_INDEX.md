@@ -43,6 +43,10 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Connections provider recipes | `01-admin/connections-provider-recipes.md` | SMTP, Resend, Postmark, SES, Mailgun setup |
 | Migrate from Automation Setup email | `01-admin/connections-migration.md` | Move Automation SMTP into Connections |
 | Connections MCP rules | `01-admin/connections-mcp-rules.md` | Agent read, approval-gated write, no secret echo |
+| Discovery | `01-admin/discovery.md` | SEO, Agent Guide, WebMCP packs — public discoverability hub |
+| Site URL Map | `01-admin/site-url-map.md` | Per-URL SEO overrides in Discovery → SEO |
+| Activity feed | `01-admin/activity.md` | Auditable timeline of CMS events |
+| Admin notifications | `01-admin/notifications.md` | Topbar bell — unread, seen, read states |
 
 ## 02 — Content
 

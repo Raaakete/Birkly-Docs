@@ -12,6 +12,17 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-09-02 — P72 docs sync hardening
+
+- **New:** `01-admin/discovery.md` — Discovery admin hub (SEO, Agent Guide, WebMCP packs).
+- **New:** `01-admin/site-url-map.md` — Site URL Map in Discovery → SEO.
+- **New:** `01-admin/activity.md`, `01-admin/notifications.md` — moved from CMS-only snapshots into SoT.
+- **Updated:** `help-manifest.json` — Discovery, Site URL Map, Roles, Activity, Notifications indexed.
+- **Updated:** `manifest.json` — same topics added for static site build.
+- **New:** `scripts/validate-manifests.js` — CI gate for orphan `.md` files.
+
+---
+
 ## 2026-08-26 — Plugin WebMCP catalog registration
 
 - **Updated:** `04-integration/webmcp-tools.md` — plugin author hook `birkly_webmcp_register_tools()` vs inbound `register_plugin_mcp_tools()`; Discovery → WebMCP as the owner path; plugin tools appear only when the plugin is active.

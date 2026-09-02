@@ -1,0 +1,59 @@
+<h1>Studio production builder</h1>
+<p><strong>Summary:</strong> WYSIWYG design canvas, live client preview, template engine v2, CSS studio, and section presets inside the Studio IDE.</p>
+<h2>Design canvas</h2>
+<p>The visual canvas applies your project's compiled styles (<code>kit.css</code>, <code>generated.css</code>, <code>custom.css</code>) so the editor looks like the published site—not dashed preview boxes only.</p>
+<ul>
+<li>Toggle <strong>Outlines</strong> to show or hide selection chrome</li>
+<li>Insert <strong>section presets</strong> (Hero, Features, Blog grid, CTA) from the sidebar</li>
+</ul>
+<h2>Live preview</h2>
+<p>Use the <strong>Live</strong> view in the Studio toolbar to preview collection data inside the admin:</p>
+<table><thead><tr><th>View</th><th>What you see</th></tr></thead>
+<tbody><tr><td>Visual</td><td>Design canvas with project CSS</td></tr><tr><td>Code</td><td>Compiled HTML</td></tr><tr><td>Live</td><td>iframe with <code>birkly-client.js</code> and real data</td></tr><tr><td>Split</td><td>Visual + code side-by-side</td></tr></tbody></table>
+<p>The preview refreshes automatically when you save.</p>
+<h2>Template engine v2</h2>
+<p>Published pages use server-side rendering with advanced binding support:</p>
+<ul>
+<li><strong>Conditionals</strong> — <code>{if entry has 'price' &lt;= 10}…{endif}</code></li>
+<li><strong>Sub-entry loops</strong> — <code>{for each comment in 'comments' of 'blog'.'first-post'}…{endfor}</code></li>
+<li><strong>Template functions</strong> — <code>{upcoming_events}</code>, commerce helpers via <code>page_bundle</code></li>
+<li><strong>Ordered + limit</strong> — <code>{for each entry in 'blog' ordered by newest limit 3}…{endfor}</code></li>
+</ul>
+<p>The binding wizard includes steps for conditional, sub-entry, and template-function blocks.</p>
+<h2>CSS panel</h2>
+<p>Inspector tabs:</p>
+<table><thead><tr><th>Tab</th><th>Purpose</th></tr></thead>
+<tbody><tr><td>CSS</td><td>Element styles (margin, padding, color, etc.)</td></tr><tr><td>Stylesheets</td><td>Edit <code>custom.css</code>; view Generated and Kit (read-only)</td></tr><tr><td>Page</td><td>Meta title and description (compiled into <code>&lt;head&gt;</code>)</td></tr></tbody></table>
+<p>The <strong>class manager</strong> on the Properties tab lets you add and remove CSS classes with kit-aware suggestions.</p>
+<h2>Section presets</h2>
+<p>One-click insert from the Sections sidebar:</p>
+<ul>
+<li><strong>Hero</strong> — centered headline, subtitle, CTA button</li>
+<li><strong>Features</strong> — three-column feature grid</li>
+<li><strong>Blog grid</strong> — post cards with collection loop</li>
+<li><strong>CTA banner</strong> — call-to-action strip</li>
+</ul>
+<p>Presets use kit classes (<code>.hero</code>, <code>.product-card</code>, etc.) so published pages look professional immediately.</p>
+<h2>Layout tools</h2>
+<ul>
+<li><strong>Box model overlay</strong> — drag margin and padding handles on selected elements</li>
+<li><strong>Column resize</strong> — drag column borders in multi-column sections</li>
+<li><strong>Align toolbar</strong> — left, center, right alignment</li>
+</ul>
+<h2>Content panel</h2>
+<p>The <strong>Content</strong> sidebar lists your collections. Expand a collection to browse fields; click a field to insert <code>{ field_name }</code> into the selected element or binding template.</p>
+<h2>Plugin blocks</h2>
+<p>With Commerce and Events plugins active:</p>
+<ul>
+<li><strong>Product card grid</strong> — reference-quality commerce markup</li>
+<li><strong>Events list</strong> — upcoming events via template function</li>
+</ul>
+<h2>Quality assurance</h2>
+<p>Studio includes an automated smoke test run in CI:</p>
+<pre><code>./scripts/studio-smoke.sh</code></pre>
+<p>This compiles a fixture project, publishes, and verifies SSR output has no raw template tags.</p>
+<h2>See also</h2>
+<ul>
+<li><a href="getting-started.html">Studio getting started</a> — create projects, publish, export</li>
+<li>Birkly core: <code>plugins/studio/docs/production-builder.md</code> (developer reference)</li>
+</ul>

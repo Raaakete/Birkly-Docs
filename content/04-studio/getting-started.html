@@ -1,0 +1,24 @@
+<p><strong>Summary:</strong> Build and publish template-first sites inside Birkly with a visual canvas, style kits, and SSR.</p>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><ol>
+<li>Activate <strong>Studio</strong> under Settings → Plugins.</li>
+<li>Open <strong>Studio</strong> in the admin sidebar.</li>
+<li>Click <strong>New project</strong> and pick a style kit (Minimal, Bootstrap, or Tailwind Lite).</li>
+<li>Add sections and elements from the palette. Use <strong>Collection loop</strong> to bind blog or product lists.</li>
+<li>Click <strong>Publish</strong> — your site is live at <code>/site/your-project-slug/</code>.</li>
+<li>Optional: <strong>Export ZIP</strong> for a static copy; the in-CMS project remains the source of truth.</li>
+</ol>
+<h2>Advanced</h2>
+<h3>Storage</h3>
+<p>Projects live at <code>content/studio-projects/{id}/</code>:</p>
+<ul>
+<li><code>*.studio.json</code> — editor canvas (not served publicly)</li>
+<li><code>*.html</code> — compiled publish artifact with Birkly template tags</li>
+<li><code>styles/kit.css</code> + <code>styles/custom.css</code></li>
+</ul>
+<h3>Preview vs SSR</h3>
+<table><thead><tr><th>Mode</th><th>Engine</th><th>URL</th></tr></thead>
+<tbody><tr><td>Admin preview</td><td><code>birkly-client.js</code> + P21 page_bundle</td><td>iframe in editor</td></tr><tr><td>Published</td><td>PHP SSR (<code>StudioRenderer</code>)</td><td><code>/site/{slug}/</code></td></tr></tbody></table>
+<h3>Deactivation</h3>
+<p>Deactivating Studio returns <strong>503</strong> on <code>/site/*</code>. Files are not deleted.</p>
+<h3>Docs in repo</h3>
+<p>See <code>plugins/studio/README.md</code> in the Birkly core repository.</p></div></details>

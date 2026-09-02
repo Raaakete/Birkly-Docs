@@ -5,7 +5,7 @@
 <pre><code>https://YOUR-PUBLIC-SITE/</code></pre>
 <h2>Discovery channels</h2>
 <table><thead><tr><th>Channel</th><th>URL</th><th>Format</th></tr></thead>
-<tbody><tr><td>Well-known file (default)</td><td><code>GET /.well-known/agent-guide.json</code></td><td>Raw JSON export</td></tr><tr><td>Well-known file (legacy)</td><td><code>GET /.well-known/brand-context.json</code></td><td>Same snapshot (legacy path)</td></tr><tr><td>Public API</td><td><code>GET /api/public/ai_presence.php</code></td><td>JSON envelope <code>{ status, data }</code></td></tr></tbody></table>
+<tbody><tr><td>Well-known file (default)</td><td><code>GET /.well-known/agent-guide.json</code></td><td>Raw JSON export</td></tr><tr><td>Well-known file (legacy)</td><td><code>GET /.well-known/brand-context.json</code></td><td>Same snapshot (legacy path)</td></tr><tr><td>llms.txt map</td><td><code>GET /llms.txt</code></td><td>Markdown link map (Agentic Browsing / llmstxt.org)</td></tr><tr><td>Public API</td><td><code>GET /api/public/ai_presence.php</code></td><td>JSON envelope <code>{ status, data }</code></td></tr><tr><td>HTML discovery</td><td><code>&lt;link rel=&quot;alternate&quot; … href=&quot;…/agent-guide.json&quot;&gt;</code> on <code>project/</code> pages</td><td>Injected when guide is published</td></tr></tbody></table>
 <p>Both well-known paths and the API serve the same canonical export for <code>action=brand</code> (full view) unless a <code>view</code> filter is applied on the API.</p>
 <h2>Endpoints</h2>
 <table><thead><tr><th>Action</th><th>URL</th><th>Returns</th></tr></thead>
@@ -126,6 +126,11 @@
 <h2>Example — claim graph</h2>
 <pre><code>GET /api/public/ai_presence.php?action=claim&amp;id=claim_soc2&amp;graph=1</code></pre>
 <p>Includes <code>claim</code>, <code>evidence[]</code> (resolved items), <code>sources[]</code>, and <code>usage_hints.repeat_only_with_evidence</code>.</p>
+<h2>Example — llms.txt</h2>
+<p>When publishing is enabled, Birkly serves a Markdown discovery map at the site root:</p>
+<pre><code>GET /llms.txt</code></pre>
+<p>The body links to the well-known JSON, public API summary view, and other published endpoints. Useful for agentic browsing tools and human-readable discovery. Returns <strong>404</strong> when the guide is unpublished or publishing is disabled (same gate as well-known JSON).</p>
+<pre><code>curl -s &quot;$BASE/llms.txt&quot; | head</code></pre>
 <h2>Example — well-known file</h2>
 <pre><code>GET /.well-known/agent-guide.json</code></pre>
 <p>Returns raw JSON body (no <code>{ status, data }</code> wrapper). Same content as full API export including <code>json_ld</code> when enabled.</p>
@@ -173,6 +178,7 @@
 <h3>curl smoke test</h3>
 <pre><code>BASE=&quot;https://your-public-site.com&quot;
 curl -s &quot;$BASE/.well-known/agent-guide.json&quot; | jq .published_version
+curl -s &quot;$BASE/llms.txt&quot; | head
 curl -s &quot;$BASE/api/public/ai_presence.php?action=brand&amp;view=summary&quot; | jq .data.identity.official_name</code></pre>
 <h3>JavaScript (allowed origin)</h3>
 <pre><code>const res = await fetch('/api/public/ai_presence.php?action=brand&amp;view=products');

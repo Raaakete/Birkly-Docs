@@ -28,6 +28,7 @@
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
         <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/admin-chrome-action-zones.html" class="nav-link">Admin chrome and action zones</a>
         <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
         <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
         <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
@@ -53,6 +54,10 @@
         <a href="../01-admin/connections-provider-recipes.html" class="nav-link">Connections provider recipes</a>
         <a href="../01-admin/connections-migration.html" class="nav-link">Migrate from Automation Setup email</a>
         <a href="../01-admin/connections-mcp-rules.html" class="nav-link">Connections MCP rules</a>
+        <a href="../01-admin/discovery.html" class="nav-link">Discovery</a>
+        <a href="../01-admin/site-url-map.html" class="nav-link">Site URL Map</a>
+        <a href="../01-admin/activity.html" class="nav-link">Activity feed</a>
+        <a href="../01-admin/notifications.html" class="nav-link">Admin notifications</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Content</div>
         <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
@@ -92,6 +97,7 @@
         <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
         <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
         <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/commerce-linked-checkout.html" class="nav-link">Commerce linked checkout</a>
         <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
         <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
         <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
@@ -111,6 +117,10 @@
         <a href="webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
         <a href="ai-on-localhost.html" class="nav-link">AI on localhost</a>
         <a href="connections-api-reference.html" class="nav-link">Connections API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Studio</div>
+        <a href="../04-studio/getting-started.html" class="nav-link">Studio getting started</a>
+        <a href="../04-studio/production-builder.html" class="nav-link">Production builder</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Automation</div>
         <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
@@ -164,6 +174,7 @@
         </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/site-delivery-routing.html" class="nav-link">Site delivery and routing</a>
         <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
         <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
         <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
@@ -193,7 +204,7 @@
 <pre><code>https://YOUR-PUBLIC-SITE/</code></pre>
 <h2>Discovery channels</h2>
 <table><thead><tr><th>Channel</th><th>URL</th><th>Format</th></tr></thead>
-<tbody><tr><td>Well-known file (default)</td><td><code>GET /.well-known/agent-guide.json</code></td><td>Raw JSON export</td></tr><tr><td>Well-known file (legacy)</td><td><code>GET /.well-known/brand-context.json</code></td><td>Same snapshot (legacy path)</td></tr><tr><td>Public API</td><td><code>GET /api/public/ai_presence.php</code></td><td>JSON envelope <code>{ status, data }</code></td></tr></tbody></table>
+<tbody><tr><td>Well-known file (default)</td><td><code>GET /.well-known/agent-guide.json</code></td><td>Raw JSON export</td></tr><tr><td>Well-known file (legacy)</td><td><code>GET /.well-known/brand-context.json</code></td><td>Same snapshot (legacy path)</td></tr><tr><td>llms.txt map</td><td><code>GET /llms.txt</code></td><td>Markdown link map (Agentic Browsing / llmstxt.org)</td></tr><tr><td>Public API</td><td><code>GET /api/public/ai_presence.php</code></td><td>JSON envelope <code>{ status, data }</code></td></tr><tr><td>HTML discovery</td><td><code>&lt;link rel=&quot;alternate&quot; … href=&quot;…/agent-guide.json&quot;&gt;</code> on <code>project/</code> pages</td><td>Injected when guide is published</td></tr></tbody></table>
 <p>Both well-known paths and the API serve the same canonical export for <code>action=brand</code> (full view) unless a <code>view</code> filter is applied on the API.</p>
 <h2>Endpoints</h2>
 <table><thead><tr><th>Action</th><th>URL</th><th>Returns</th></tr></thead>
@@ -314,6 +325,11 @@
 <h2>Example — claim graph</h2>
 <pre><code>GET /api/public/ai_presence.php?action=claim&amp;id=claim_soc2&amp;graph=1</code></pre>
 <p>Includes <code>claim</code>, <code>evidence[]</code> (resolved items), <code>sources[]</code>, and <code>usage_hints.repeat_only_with_evidence</code>.</p>
+<h2>Example — llms.txt</h2>
+<p>When publishing is enabled, Birkly serves a Markdown discovery map at the site root:</p>
+<pre><code>GET /llms.txt</code></pre>
+<p>The body links to the well-known JSON, public API summary view, and other published endpoints. Useful for agentic browsing tools and human-readable discovery. Returns <strong>404</strong> when the guide is unpublished or publishing is disabled (same gate as well-known JSON).</p>
+<pre><code>curl -s &quot;$BASE/llms.txt&quot; | head</code></pre>
 <h2>Example — well-known file</h2>
 <pre><code>GET /.well-known/agent-guide.json</code></pre>
 <p>Returns raw JSON body (no <code>{ status, data }</code> wrapper). Same content as full API export including <code>json_ld</code> when enabled.</p>
@@ -361,6 +377,7 @@
 <h3>curl smoke test</h3>
 <pre><code>BASE=&quot;https://your-public-site.com&quot;
 curl -s &quot;$BASE/.well-known/agent-guide.json&quot; | jq .published_version
+curl -s &quot;$BASE/llms.txt&quot; | head
 curl -s &quot;$BASE/api/public/ai_presence.php?action=brand&amp;view=summary&quot; | jq .data.identity.official_name</code></pre>
 <h3>JavaScript (allowed origin)</h3>
 <pre><code>const res = await fetch('/api/public/ai_presence.php?action=brand&amp;view=products');

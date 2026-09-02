@@ -1,0 +1,40 @@
+<p>The <strong>Commerce</strong> fieldtype is registered by the Commerce plugin on the fieldtype shelf. It marks how an <strong>entry</strong> (or variant sub-entry) is sold.</p>
+<div class="doc-summary"><p>Commerce v2 stores <strong>fulfillment</strong> (<code>ship</code>, <code>deliver</code>, <code>register</code>, <code>gift_card</code>, <code>none</code>), optional <strong><code>tax_class</code></strong> / <strong><code>tax_included</code></strong>, ship <strong><code>weight_grams</code></strong> / dims, and one or more <strong>purchase_options</strong> (one-time and/or recurring prices) on each sellable entry. Optional <code>quantity_available</code> and <code>sku</code> support capacity and fulfillment. Variants use a <code>variants</code> sub-collection with a Commerce field on each sub-entry.</p>
+<h2>Schema (v2 stored value)</h2>
+<table><thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>fulfillment</code></td><td>enum</td><td><code>ship</code>, <code>deliver</code>, <code>register</code>, <code>gift_card</code>, <code>none</code></td></tr><tr><td><code>tax_class</code></td><td>string</td><td><code>standard</code>, <code>reduced</code>, <code>zero</code>, or custom. Default <code>standard</code>. Rates from <strong>Settings → Tax</strong></td></tr><tr><td><code>tax_included</code></td><td>bool</td><td>Default <code>true</code> (EU): shelf price includes tax. <code>false</code> = tax excluded and added at checkout</td></tr><tr><td><code>weight_grams</code></td><td>int | null</td><td>Required on <code>ship</code> when EasyPost live rates are enabled</td></tr><tr><td><code>length_mm</code> / <code>width_mm</code> / <code>height_mm</code></td><td>int | null</td><td>Optional parcel dims for live rates</td></tr><tr><td><code>purchase_options[]</code></td><td>array</td><td><code>id</code>, <code>label</code>, <code>billing</code>, <code>price_cents</code>, <code>currency</code>, <code>interval?</code></td></tr><tr><td><code>quantity_available</code></td><td>int | null</td><td>Catalog projection of Inventory Available; capacity for <code>register</code>; null = unlimited</td></tr><tr><td><code>sku</code></td><td>string | null</td><td>Fulfillment/import; defaults to entry slug</td></tr></tbody></table>
+<p>Example:</p>
+<pre><code>{
+  &quot;fulfillment&quot;: &quot;register&quot;,
+  &quot;tax_class&quot;: &quot;standard&quot;,
+  &quot;tax_included&quot;: true,
+  &quot;purchase_options&quot;: [
+    { &quot;id&quot;: &quot;ticket&quot;, &quot;label&quot;: &quot;Workshop ticket&quot;, &quot;billing&quot;: &quot;one_time&quot;, &quot;price_cents&quot;: 2500, &quot;currency&quot;: &quot;eur&quot; }
+  ],
+  &quot;quantity_available&quot;: 20
+}</code></pre>
+<h2>Fulfillment panels</h2>
+<table><thead><tr><th>Value</th><th>Editor extras</th><th>Checkout</th></tr></thead>
+<tbody><tr><td><code>ship</code></td><td>Weight (grams); optional L×W×H mm</td><td>Shipping address; live rates need weight</td></tr><tr><td><code>deliver</code></td><td>Asset URL/file</td><td>Download token after pay</td></tr><tr><td><code>register</code></td><td>Uses quantity</td><td>Attendee name</td></tr><tr><td><code>gift_card</code></td><td>Face value = purchase option price</td><td>Email only; issues codes on pay</td></tr><tr><td><code>none</code></td><td>—</td><td>Purchase mappings / membership</td></tr></tbody></table>
+<p>Collection schema may include <code>commerce_settings</code> to preset enabled fulfillments and billing intervals. Fieldtype profiles under <strong>Commerce → Fieldtypes</strong> can restrict enabled fulfillments (including a gift-card-only profile).</p>
+<h2>What is NOT on the fieldtype</h2>
+<ul>
+<li>Discount amounts — Commerce <strong>Discounts</strong> (<a href="commerce-promotions.html">promotions</a>)</li>
+<li>Affiliate codes — <code>?ref=</code> + rule engine</li>
+<li>Tier grants — <strong>Settings → Mappings</strong></li>
+<li>Stock ledger rows — <strong>Inventory</strong> (modes: Unlimited · Simple · Locations)</li>
+<li>Tax rates / providers — <strong>Settings → Tax</strong> (field picks <code>tax_class</code> + included/excluded mode)</li>
+<li>Shipping rate provider — <strong>Settings → Shipping</strong> (field supplies weight/dims for quotes)</li>
+</ul>
+<h2>Catalog index</h2>
+<p>One indexed row per <strong>sellable unit</strong> (variant sub-entry if variants exist, else parent). Cart/checkout read from <code>catalog_index.json</code>. For countable SKUs, <strong>Inventory</strong> is the ledger system of record; Catalog stores projected availability.</p>
+<h2>Legacy migration</h2>
+<p>P6.4 values (<code>price_cents</code> + <code>billing</code> only) migrate to a single <code>purchase_option</code> with inferred fulfillment (default <code>ship</code>).</p></div>
+<div class="doc-related"><ul>
+<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="commerce-tax.html">Commerce tax</a></li>
+<li><a href="commerce-shipping.html">Commerce shipping rates</a></li>
+<li><a href="commerce-gift-cards-quotes.html">Commerce gift cards and draft orders</a></li>
+<li><a href="../../03-templating/commerce-functions.html">Commerce template functions</a></li>
+<li><a href="commerce-import.html">Import guide</a></li>
+</ul></div>

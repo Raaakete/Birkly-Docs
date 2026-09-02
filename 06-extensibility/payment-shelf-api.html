@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>payment shelf api — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/admin-chrome-action-zones.html" class="nav-link">Admin chrome and action zones</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="../01-admin/developer-mode.html" class="nav-link">Developer mode</a>
+        <a href="../01-admin/project-git-sync.html" class="nav-link">Project Git sync</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        <a href="../01-admin/connections.html" class="nav-link">Connections</a>
+        <a href="../01-admin/connections-provider-recipes.html" class="nav-link">Connections provider recipes</a>
+        <a href="../01-admin/connections-migration.html" class="nav-link">Migrate from Automation Setup email</a>
+        <a href="../01-admin/connections-mcp-rules.html" class="nav-link">Connections MCP rules</a>
+        <a href="../01-admin/discovery.html" class="nav-link">Discovery</a>
+        <a href="../01-admin/site-url-map.html" class="nav-link">Site URL Map</a>
+        <a href="../01-admin/activity.html" class="nav-link">Activity feed</a>
+        <a href="../01-admin/notifications.html" class="nav-link">Admin notifications</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/commerce-linked-checkout.html" class="nav-link">Commerce linked checkout</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
+        <a href="../04-integration/connections-api-reference.html" class="nav-link">Connections API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Studio</div>
+        <a href="../04-studio/getting-started.html" class="nav-link">Studio getting started</a>
+        <a href="../04-studio/production-builder.html" class="nav-link">Production builder</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="commerce-coexistence.html" class="nav-link">Commerce coexistence</a>
+        <a href="commerce-plugin.html" class="nav-link">Commerce plugin reference</a>
+        <a href="commerce-fieldtype.html" class="nav-link">Commerce fieldtype</a>
+        <a href="events-plugin.html" class="nav-link">Events plugin</a>
+        <a href="payment-shelf-api.html" class="nav-link active">Payment shelf API</a>
+        <a href="payments-plugin.html" class="nav-link">Payments plugin</a>
+        <a href="shopping-cart-plugin.html" class="nav-link">Shopping cart plugin</a>
+        <a href="commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
+        <a href="commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="commerce-membership.html" class="nav-link">Commerce membership wiring</a>
+        <a href="plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/site-delivery-routing.html" class="nav-link">Site delivery and routing</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>The <strong>payment shelf</strong> is the stable integration surface for plugin authors who need to charge, capture, refund, or manage subscriptions. The Payments plugin registers it as <code>payment_shelf</code>. Consumer plugins call the shelf; they do <strong>not</strong> call Stripe, Mollie, or other provider APIs directly.</p>
+<p>This document covers the shelf only. Cart, checkout UX, and order storage are out of scope (future consumer plugins).</p>
+<div class="doc-summary"><p>Obtain the shelf with <code>get_plugin_service('payment_shelf')</code>. Check <code>isConfigured()</code> before use. Resolve a provider with <code>resolveProvider()</code> or pass <code>'auto'</code> / a provider ID to <code>createPayment()</code>. Pass <code>source_plugin</code> and <code>source_ref</code> in the <strong>context</strong> array so the activity log traces your plugin. Grant your plugin the <code>access_payment_shelf</code> capability. Listen for automation events <code>payment_succeeded</code> and <code>payment_failed</code> if you use workflows.</p>
+<h2>Prerequisites</h2>
+<ol>
+<li><strong>Payments plugin enabled</strong> on the site.</li>
+<li>At least one <strong>provider connection</strong> configured in admin.</li>
+<li>Your plugin declares a dependency on Payments (recommended in <code>plugin.json</code>).</li>
+<li>Your plugin is granted <strong><code>access_payment_shelf</code></strong> (Settings → Plugins → your plugin → capabilities).</li>
+</ol>
+<p>Without the capability, <code>get_plugin_service('payment_shelf')</code> returns <code>null</code> when the registry checks the requesting plugin ID.</p>
+<h2>Obtaining the shelf</h2>
+<pre><code>$shelf = get_plugin_service('payment_shelf');
+if (!$shelf || !$shelf-&gt;isConfigured()) {
+    // Payments off or no connections — degrade gracefully
+    return;
+}</code></pre>
+<p>The service is a <code>PaymentShelf</code> instance registered at Payments plugin load:</p>
+<pre><code>register_plugin_service('payment_shelf', $shelf, [
+    'version' =&gt; '1.0.0',
+    'description' =&gt; 'Payment processing shelf for consumer plugins',
+    'capability' =&gt; 'access_payment_shelf',
+    'scope' =&gt; 'global',
+]);</code></pre>
+<p>Pass your plugin ID as the third argument to <code>get_plugin_service()</code> when calling from generic bootstrap code so capability checks apply:</p>
+<pre><code>$shelf = get_plugin_service('payment_shelf', true, 'your_plugin_id');</code></pre>
+<h2>Core methods</h2>
+<h3><code>isConfigured(): bool</code></h3>
+<p>Returns <code>true</code> when at least one provider connection is saved and enabled. Call this before any charge operation.</p>
+<h3><code>listAvailableProviders(array $filters = []): array</code></h3>
+<p>Returns provider metadata for UI or logic. Each entry includes <code>id</code>, <code>name</code>, <code>configured</code>, and <code>capabilities</code> (regions, currencies, methods, features).</p>
+<p>Optional filters:</p>
+<table><thead><tr><th>Filter</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>configured_only</code></td><td>Only providers with an active connection</td></tr><tr><td><code>currency</code></td><td>Providers supporting the currency (or <code>*</code>)</td></tr><tr><td><code>country</code></td><td>Providers supporting the region (or <code>*</code>)</td></tr><tr><td><code>method</code></td><td>Providers supporting the payment method</td></tr></tbody></table>
+<p><code>listProviders()</code> is an alias that calls <code>listAvailableProviders([])</code> with no filters.</p>
+<h3><code>resolveProvider(array $criteria): ?string</code></h3>
+<p>Returns a provider ID string or <code>null</code>. Uses site <strong>selection_mode</strong> (<code>auto</code> vs <code>fixed</code>) and the criteria keys below.</p>
+<table><thead><tr><th>Key</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>provider</code> or <code>provider_id</code></td><td>Explicit provider (must be connected)</td></tr><tr><td><code>provider_hint</code></td><td>Consumer preference; also read from <code>metadata.provider_hint</code></td></tr><tr><td><code>currency</code></td><td>ISO currency code (e.g. <code>eur</code>, <code>jpy</code>)</td></tr><tr><td><code>country</code></td><td>ISO country code (e.g. <code>DE</code>, <code>CN</code>)</td></tr><tr><td><code>method</code> or <code>payment_method</code></td><td>e.g. <code>ideal</code>, <code>alipay</code>, <code>card</code></td></tr></tbody></table>
+<p>Resolution order in <strong>auto</strong> mode: explicit → hint → currency map → country map → method map → site default → first configured.</p>
+<h3><code>getProviderCapabilities(string $provider): array</code></h3>
+<p>Returns the adapter capability array: <code>regions</code>, <code>currencies</code>, <code>methods</code>, <code>features</code> (<code>capture</code>, <code>refunds</code>, <code>subscriptions</code>, <code>webhooks</code>).</p>
+<h3><code>getWebhookUrl(string $provider): string</code></h3>
+<p>Returns the public webhook URL for admin display or debugging:</p>
+<pre><code>{base}/api/index.php?route=payments_webhook&amp;provider={provider_id}</code></pre>
+<p>Webhook handling is internal to Payments; consumers normally do not register webhooks themselves.</p>
+<h2>Payment operations</h2>
+<p>All mutating methods accept an optional <strong><code>$context</code></strong> array. Use it for activity-log tracing:</p>
+<table><thead><tr><th>Context key</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>source_plugin</code></td><td>Your plugin ID (e.g. <code>events_tickets</code>)</td></tr><tr><td><code>source_ref</code></td><td>Your reference (order ID, entry ID, invoice key)</td></tr></tbody></table>
+<h3><code>createPayment(string $provider, array $params, array $context = []): array</code></h3>
+<p>Creates a payment with the given provider. Pass <code>'auto'</code> or <code>''</code> as <code>$provider</code> to run <code>resolveProvider()</code> on merged <code>$params</code> and <code>$context</code>.</p>
+<p><strong>Params</strong> (typical):</p>
+<table><thead><tr><th>Key</th><th>Required</th><th>Description</th></tr></thead>
+<tbody><tr><td><code>amount_cents</code></td><td>Yes</td><td>Integer minor units</td></tr><tr><td><code>currency</code></td><td>Yes</td><td>ISO code (e.g. <code>usd</code>, <code>eur</code>)</td></tr><tr><td><code>description</code></td><td>No</td><td>Shown on provider side when supported</td></tr><tr><td><code>metadata</code></td><td>No</td><td>Key/value passed to provider</td></tr></tbody></table>
+<p><strong>Returns:</strong> array with at least <code>ok</code> (bool). On success: <code>provider</code>, <code>payment_id</code>, <code>status</code>, and provider-specific fields (e.g. <code>client_secret</code> for Stripe). On failure: <code>error</code> message.</p>
+<pre><code>$result = $shelf-&gt;createPayment('auto', [
+    'amount_cents' =&gt; 2900,
+    'currency' =&gt; 'eur',
+    'description' =&gt; 'Workshop ticket',
+    'metadata' =&gt; ['ticket_id' =&gt; '42'],
+], [
+    'source_plugin' =&gt; 'my_plugin',
+    'source_ref' =&gt; 'ticket_42',
+]);
+
+if (!($result['ok'] ?? false)) {
+    // handle $result['error']
+}</code></pre>
+<h3><code>capturePayment(string $provider, string $paymentId, array $params = [], array $context = []): array</code></h3>
+<p>Captures a previously authorized payment when the adapter supports <code>features.capture</code>.</p>
+<h3><code>refundPayment(string $provider, string $paymentId, ?int $amountCents = null, array $context = []): array</code></h3>
+<p>Refunds full or partial amount. Fails with an error if the provider does not support refunds.</p>
+<h3><code>getPaymentStatus(string $provider, string $paymentId, array $context = []): array</code></h3>
+<p>Polls current status from the provider.</p>
+<h3><code>createSubscription(string $provider, array $params, array $context = []): array</code></h3>
+<p>Starts a subscription when <code>features.subscriptions</code> is true. Params are provider-specific (e.g. Stripe: <code>customer_id</code>, <code>price_id</code>).</p>
+<h3><code>cancelSubscription(string $provider, string $subscriptionId, array $context = []): array</code></h3>
+<p>Cancels an active subscription.</p>
+<h3><code>testConnection(string $provider, array $credentials): array</code></h3>
+<p>Used by admin UI; consumer plugins normally do not call this.</p>
+<h2>Result shape</h2>
+<p>Methods return associative arrays:</p>
+<pre><code>// Success
+['ok' =&gt; true, 'provider' =&gt; 'stripe', 'payment_id' =&gt; 'pi_…', 'status' =&gt; 'pending', …]
+
+// Failure
+['ok' =&gt; false, 'error' =&gt; 'Provider not configured: stripe']</code></pre>
+<p>Always check <code>$result['ok']</code>. Do not assume HTTP was used in your request path — the shelf calls provider adapters internally.</p>
+<h2>Activity log and metadata</h2>
+<p>Every shelf mutation appends to the Payments activity log with:</p>
+<ul>
+<li><code>type</code> — payment, capture, refund, subscription, webhook</li>
+<li><code>provider</code>, <code>status</code>, <code>payment_id</code>, <code>amount_cents</code>, <code>currency</code></li>
+<li><code>source_plugin</code>, <code>source_ref</code> from <code>$context</code></li>
+<li><code>message</code> — human-readable summary</li>
+</ul>
+<p>Secrets in metadata are redacted in stored log entries. Pass business references in <code>source_ref</code>, not API keys.</p>
+<h2>Automation events</h2>
+<p>Payments registers automation <strong>triggers</strong> (when Automation is enabled):</p>
+<table><thead><tr><th>Trigger ID</th><th>When</th></tr></thead>
+<tbody><tr><td><code>payment_succeeded</code></td><td>Webhook or provider outcome maps to success</td></tr><tr><td><code>payment_failed</code></td><td>Payment failed or was rejected</td></tr></tbody></table>
+<p>Each trigger supports an optional <strong>provider</strong> filter in workflow config.</p>
+<p><strong>Event context</strong> broadcast to automation (via webhooks):</p>
+<table><thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody><tr><td><code>payment_id</code></td><td>Provider payment reference</td></tr><tr><td><code>provider</code></td><td>Provider ID</td></tr><tr><td><code>status</code></td><td>Provider status string</td></tr><tr><td><code>amount_cents</code></td><td>Amount when known</td></tr><tr><td><code>currency</code></td><td>Currency when known</td></tr></tbody></table>
+<p>Hook workflows to these triggers instead of parsing raw provider webhooks in consumer plugins.</p>
+<h2>Capabilities</h2>
+<table><thead><tr><th>Capability</th><th>Who</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>access_payment_shelf</code></td><td>Consumer plugins</td><td>Required to obtain <code>payment_shelf</code> via service registry</td></tr><tr><td><code>manage_payments</code></td><td>Admin roles</td><td>Connections and settings (not for shelf consumers)</td></tr><tr><td><code>view_payment_activity</code></td><td>Admin roles</td><td>Activity log</td></tr><tr><td><code>view_payment_stats</code></td><td>Admin roles</td><td>Dashboard aggregates</td></tr></tbody></table>
+<p>In <code>plugin.json</code>, declare that your plugin may request shelf access:</p>
+<pre><code>{
+  &quot;requires_capabilities&quot;: [],
+  &quot;permissions&quot;: []
+}</code></pre>
+<p>An administrator grants <code>access_payment_shelf</code> to your plugin in <strong>Settings → Plugins</strong> (capability grant UI). Without it, the registry withholds the service.</p>
+<h2>Example: minimal consumer bootstrap</h2>
+<pre><code>// plugin.php
+require_once __DIR__ . '/includes/checkout.php';
+
+function my_plugin_charge(int $amountCents, string $currency, string $orderRef): array
+{
+    $shelf = get_plugin_service('payment_shelf', false, 'my_plugin');
+    if (!$shelf || !$shelf-&gt;isConfigured()) {
+        return ['ok' =&gt; false, 'error' =&gt; 'Payments not available'];
+    }
+
+    return $shelf-&gt;createPayment('auto', [
+        'amount_cents' =&gt; $amountCents,
+        'currency' =&gt; $currency,
+        'description' =&gt; 'Order ' . $orderRef,
+    ], [
+        'source_plugin' =&gt; 'my_plugin',
+        'source_ref' =&gt; $orderRef,
+    ]);
+}</code></pre>
+<h2>Design rules</h2>
+<ol>
+<li><strong>Shelf only</strong> — No direct provider HTTP from consumer plugins.</li>
+<li><strong>Check configured</strong> — Handle disabled Payments and empty connections.</li>
+<li><strong>Trace with context</strong> — Always pass <code>source_plugin</code> and <code>source_ref</code>.</li>
+<li><strong>Respect capabilities</strong> — Refunds and subscriptions may be unsupported; check <code>getProviderCapabilities()</code> or handle <code>ok === false</code>.</li>
+<li><strong>No checkout in Payments</strong> — Your plugin owns UX, order state, and post-payment fulfilment.</li>
+</ol></div>
+<div class="doc-related"><ul>
+<li><a href="commerce-plugin.html">Commerce plugin</a> — primary commerce platform (P6.4+)</li>
+<li><a href="payments-plugin.html">Payments plugin (admin guide)</a> — legacy; superseded by Commerce</li>
+<li><a href="shopping-cart-plugin.html">Shopping Cart plugin</a> — reference consumer (legacy)</li>
+<li><a href="events-plugin.html">Events plugin</a> — reference consumer (legacy)</li>
+<li><a href="plugins.html">Plugins</a></li>
+<li><a href="../05-automation/automation-overview.html">Automation overview</a></li>
+<li><a href="../05-automation/triggers.html">Automation triggers</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

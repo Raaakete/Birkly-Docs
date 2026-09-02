@@ -135,6 +135,13 @@
         <a href="../06-extensibility/marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
         <a href="../06-extensibility/marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
         <a href="../06-extensibility/plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="../06-extensibility/commerce-coexistence.html" class="nav-link">Commerce coexistence</a>
+        <a href="../06-extensibility/commerce-plugin.html" class="nav-link">Commerce plugin reference</a>
+        <a href="../06-extensibility/commerce-fieldtype.html" class="nav-link">Commerce fieldtype</a>
+        <a href="../06-extensibility/events-plugin.html" class="nav-link">Events plugin</a>
+        <a href="../06-extensibility/payment-shelf-api.html" class="nav-link">Payment shelf API</a>
+        <a href="../06-extensibility/payments-plugin.html" class="nav-link">Payments plugin</a>
+        <a href="../06-extensibility/shopping-cart-plugin.html" class="nav-link">Shopping cart plugin</a>
         <a href="../06-extensibility/commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
         <a href="../06-extensibility/commerce-store-kit.html" class="nav-link">Commerce store kit</a>
         <a href="../06-extensibility/commerce-customers.html" class="nav-link">Commerce customers</a>
@@ -212,6 +219,13 @@
 <li><strong>Updated:</strong> <code>help-manifest.json</code> — Discovery, Site URL Map, Roles, Activity, Notifications indexed.</li>
 <li><strong>Updated:</strong> <code>manifest.json</code> — same topics added for static site build.</li>
 <li><strong>New:</strong> <code>scripts/validate-manifests.js</code> — CI gate for orphan <code>.md</code> files.</li>
+</ul>
+<h2>2026-09-02 — P72 follow-up: manifest generator</h2>
+<ul>
+<li><strong>New:</strong> <code>help-topics-meta.json</code> — CMS Help metadata SSOT (ids, keywords, ai_topic).</li>
+<li><strong>New:</strong> <code>scripts/generate-help-manifest.js</code> — generates <code>help-manifest.json</code> from meta + manifest.</li>
+<li><strong>Updated:</strong> <code>npm run build</code> runs generator first; <code>npm run validate</code> checks generated output.</li>
+<li><strong>Updated:</strong> Indexed legacy commerce plugin stub topics in <code>manifest.json</code>.</li>
 </ul>
 <p>---</p>
 <h2>2026-08-26 — Plugin WebMCP catalog registration</h2>

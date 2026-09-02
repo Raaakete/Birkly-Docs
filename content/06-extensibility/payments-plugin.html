@@ -1,0 +1,103 @@
+<p>The <strong>Payments</strong> plugin is a <strong>connection hub</strong> for payment providers. It stores credentials, routes webhooks, and exposes a unified <strong>payment shelf</strong> service that other plugins call. It does <strong>not</strong> include a shop, cart, or checkout — consumer plugins (Cart, Events, Membership, etc.) use the shelf API described in <a href="payment-shelf-api.html">Payment shelf API</a>.</p>
+<div class="doc-summary"><p>Enable <strong>Payments</strong> under <strong>Settings → Plugins</strong>. Open <strong>Payments</strong> in the sidebar to connect up to eight providers (Stripe, Mollie, PayPal, Adyen, Square, Razorpay, Komoju, Payssion), copy webhook URLs into each provider’s dashboard, and review activity in one log. Choose <strong>auto</strong> or <strong>fixed</strong> provider selection in Settings. Optionally enable a dashboard stats widget (off by default). Deactivating the plugin stops the shelf; consumer plugins should call <code>isConfigured()</code> before charging.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What the Payments plugin does</strong></p>
+<ul>
+<li><strong>Connects providers</strong> — Add one or more connections (test or live) with API keys stored encrypted on the server.</li>
+<li><strong>Unified activity log</strong> — Payments, captures, refunds, subscriptions, and webhooks appear in one place with provider, status, amount, and source plugin reference.</li>
+<li><strong>Provider selection</strong> — Site-wide rules pick which connected provider to use when a consumer plugin does not specify one.</li>
+<li><strong>Shelf for other plugins</strong> — Cart, Events, and future commerce plugins call <code>get_plugin_service('payment_shelf')</code>; they never talk to Stripe or Mollie directly.</li>
+</ul>
+<p>The plugin <strong>does not</strong> sell products, show a checkout page, or manage orders by itself.</p>
+<p><strong>Enable the plugin</strong></p>
+<ol>
+<li><strong>Settings → Plugins</strong> → find <strong>Payments</strong> → <strong>Enable</strong>.</li>
+<li><strong>Payments</strong> appears in the sidebar.</li>
+<li>Open <strong>Connections</strong> and click <strong>Add Connection</strong> for each provider you use.</li>
+</ol>
+<p><strong>Add a provider connection</strong></p>
+<ol>
+<li>Open <strong>Payments → Connections</strong>.</li>
+<li>Click <strong>Add Connection</strong>.</li>
+<li>Choose <strong>Provider</strong>, enter a <strong>Label</strong> (e.g. “Stripe Live”), and select <strong>Mode</strong> (Test / Sandbox or Live).</li>
+<li>Fill in the credential fields for that provider (see table below).</li>
+<li>Click <strong>Test connection</strong> if available, then <strong>Save</strong>.</li>
+<li>Copy the <strong>Webhook URL</strong> shown for that connection into the provider’s webhook settings (see <a href="#webhooks">Webhooks</a>).</li>
+</ol>
+<p>Each provider ID can have one active connection at a time. The provider matrix at the top of Connections shows which adapters are connected and their capabilities (currencies, methods, refunds, subscriptions).</p>
+<p><strong>Supported providers and credentials</strong></p>
+<table><thead><tr><th>Provider</th><th>ID</th><th>Credential fields</th></tr></thead>
+<tbody><tr><td>Stripe</td><td><code>stripe</code></td><td>Secret Key</td></tr><tr><td>Mollie</td><td><code>mollie</code></td><td>API Key</td></tr><tr><td>PayPal</td><td><code>paypal</code></td><td>Client ID, Client Secret</td></tr><tr><td>Adyen</td><td><code>adyen</code></td><td>API Key, Merchant Account, HMAC Key (webhooks)</td></tr><tr><td>Square</td><td><code>square</code></td><td>Access Token, Location ID</td></tr><tr><td>Razorpay</td><td><code>razorpay</code></td><td>Key ID, Key Secret</td></tr><tr><td>Komoju</td><td><code>komoju</code></td><td>Secret Key</td></tr><tr><td>Payssion</td><td><code>payssion</code></td><td>API Key, Secret Key</td></tr></tbody></table>
+<p>Enable only the providers you need. Unused adapters stay available but unconfigured.</p>
+<p><strong>Webhooks</strong></p>
+<p>Each provider sends payment status updates to a single Birkly endpoint. The URL is shown per connection in the connections table and follows this format:</p>
+<pre><code>{site_base_url}/api/index.php?route=payments_webhook&amp;provider={provider_id}</code></pre>
+<p>Examples:</p>
+<ul>
+<li>Stripe: <code>https://yoursite.example/api/index.php?route=payments_webhook&amp;provider=stripe</code></li>
+<li>Mollie: <code>https://yoursite.example/api/index.php?route=payments_webhook&amp;provider=mollie</code></li>
+</ul>
+<p>Register the URL in the provider’s dashboard for the events they support (e.g. payment succeeded, failed). Birkly verifies signatures, deduplicates events, writes to the activity log, and fires automation triggers when configured.</p>
+<p>Use <strong>HTTPS</strong> in production so webhook payloads and credentials stay protected.</p>
+<p><strong>Activity log</strong></p>
+<p>Open <strong>Payments → Activity</strong> to review:</p>
+<ul>
+<li><strong>Type</strong> — payment, capture, refund, subscription, webhook</li>
+<li><strong>Provider</strong> — which adapter handled the event</li>
+<li><strong>Status</strong> — succeeded, failed, pending, refunded, etc.</li>
+<li><strong>Source</strong> — <code>source_plugin</code> and <code>source_ref</code> from the consumer that initiated the action (when provided)</li>
+<li><strong>Amount and currency</strong> — when applicable</li>
+</ul>
+<p>Filter by provider or status, then <strong>Refresh</strong>. Secrets in metadata are redacted; API keys never appear in the log.</p>
+<p><strong>Provider selection (Settings tab)</strong></p>
+<table><thead><tr><th>Setting</th><th>Description</th></tr></thead>
+<tbody><tr><td><strong>Provider selection mode</strong></td><td><strong>Auto</strong> — resolve by currency, country, payment method, then default. <strong>Fixed</strong> — always use the default provider when the consumer does not specify one.</td></tr><tr><td><strong>Default provider</strong></td><td>Fallback when mode is fixed, or when auto rules do not match. Must be a connected provider.</td></tr></tbody></table>
+<p><strong>Auto mode</strong> (when the consumer passes <code>'auto'</code> or an empty provider) applies rules in order:</p>
+<ol>
+<li>Explicit provider on the request (if connected)</li>
+<li>Consumer hint (<code>provider_hint</code> in params or metadata)</li>
+<li>Currency (e.g. JPY → Komoju, INR → Razorpay, CNY → Payssion)</li>
+<li>Country (e.g. CN → Payssion, JP → Komoju, IN → Razorpay; EU → Mollie; US → Square when connected)</li>
+<li>Payment method (e.g. iDEAL → Mollie, Alipay / WeChat → Payssion, Konbini / PayPay → Komoju)</li>
+<li>Site default provider</li>
+<li>First configured provider</li>
+</ol>
+<p><strong>Fixed mode</strong> uses the default provider (or the first connected provider if the default is not connected).</p>
+<p><strong>Dashboard widget (opt-in)</strong></p>
+<p>Payment stats on the admin home are <strong>off by default</strong>.</p>
+<ol>
+<li>Open <strong>Payments → Settings</strong>.</li>
+<li>Check <strong>Enable dashboard widget</strong>.</li>
+<li>Choose <strong>Dashboard widget roles</strong> (default: Admin only).</li>
+<li>Save.</li>
+</ol>
+<p>When enabled, eligible roles see volume, success rate, and a link to <strong>Payments</strong>. Leave disabled if you prefer not to expose payment aggregates on the dashboard.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Capabilities</strong></p>
+<table><thead><tr><th>Capability</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>manage_payments</code></td><td>Create, edit, delete connections; save plugin settings</td></tr><tr><td><code>view_payment_activity</code></td><td>Read activity log and connection list</td></tr><tr><td><code>view_payment_stats</code></td><td>View aggregated stats (dashboard widget API)</td></tr><tr><td><code>access_payment_shelf</code></td><td>Granted to <strong>consumer plugins</strong> (not human roles) via plugin capability UI</td></tr></tbody></table>
+<p>Admin access is enforced on <code>/api/index.php?route=payments</code>. Webhooks use the public <code>payments_webhook</code> route with signature verification only.</p>
+<p><strong>Plugin paths</strong></p>
+<ul>
+<li>Plugin root: <code>plugins/payments/</code></li>
+<li>Admin UI: <code>admin/payments.html</code>, <code>payments.js</code>, <code>payments.css</code></li>
+<li>Admin API: <code>api/payments.php</code> (connections, activity, stats, settings)</li>
+<li>Webhooks: <code>api/webhook.php</code> (routed as <code>payments_webhook</code>)</li>
+<li>Runtime data: encrypted connections and activity under plugin data dir (not committed)</li>
+</ul>
+<p><strong>Automation triggers</strong></p>
+<p>When the Automation plugin is active, Payments registers:</p>
+<ul>
+<li><strong>Payment Succeeded</strong> — optional filter by provider ID</li>
+<li><strong>Payment Failed</strong> — optional filter by provider ID</li>
+</ul>
+<p>Webhooks map provider events to these triggers and pass context: <code>payment_id</code>, <code>provider</code>, <code>status</code>, <code>amount_cents</code>, <code>currency</code>.</p>
+<p><strong>Consumer integration</strong></p>
+<p>Other plugins depend on the shelf, not on provider SDKs. See <a href="payment-shelf-api.html">Payment shelf API</a> for <code>get_plugin_service('payment_shelf')</code>, method signatures, and granting <code>access_payment_shelf</code>.</p>
+<p><strong>Deactivate behaviour</strong></p>
+<p>Disabling Payments unregisters the shelf. Consumer plugins must handle a missing or unconfigured shelf gracefully (<code>isConfigured()</code> returns false).</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="payment-shelf-api.html">Payment shelf API</a> — developer guide for consumer plugins</li>
+<li><a href="plugins.html">Plugins</a></li>
+<li><a href="../05-automation/automation-overview.html">Automation overview</a></li>
+<li><a href="../01-admin/dashboard.html">Dashboard</a></li>
+<li><a href="roles-and-permissions.html">Roles and permissions</a></li>
+</ul></div>

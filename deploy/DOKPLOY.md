@@ -27,6 +27,7 @@ Host the static documentation at **docs.birkly.cloud** (or any domain). The mark
 | `https://docs.birkly.cloud/` | Docs home page |
 | `https://docs.birkly.cloud/manifest.json` | JSON topic list |
 | `https://birkly.cloud/docs.html` | Sidebar + doc content |
+| `https://birkly.io/docs.html` | Sidebar + doc content (requires CORS for birkly.io) |
 
 ## Updates
 
@@ -34,4 +35,4 @@ Push changes to `main` on GitHub → **Deploy** (or enable auto-deploy) in Dokpl
 
 ## CORS
 
-`deploy/nginx.conf` allows browser requests from `https://birkly.cloud` and `https://cms.birkly.cloud`. Add more origins in the `map` block if needed.
+`deploy/nginx.conf` allows browser requests from `https://birkly.cloud`, `https://cms.birkly.cloud`, `https://birkly.io`, `https://www.birkly.io`, and `https://docs.birkly.com`. Add more origins in the `map` block if needed.

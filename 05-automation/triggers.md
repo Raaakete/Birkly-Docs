@@ -134,7 +134,8 @@ For webhook triggers, the incoming body is parsed (JSON or form) and available a
 | `commerce_order_admin_notify` | Order paid — staff notification |
 | `commerce_subscription_payment_failed` | Subscription renewal failed (`past_due`) |
 | `commerce_subscription_recovered` | Subscription payment recovered after failure |
-| `commerce_membership_started` | Recurring membership (`fulfillment: none`) paid |
+| `commerce_subscription_started` | Recurring membership (`fulfillment: none`) paid — **canonical** (User plugin handles tier/activation) |
+| `commerce_membership_started` | **Deprecated alias** for `commerce_subscription_started` — migrate workflows |
 | `commerce_physical_fulfilled` | Physical line fulfilled |
 | `commerce_digital_delivered` | Digital download delivered |
 | `commerce_event_registered` | Event/workshop registration completed |

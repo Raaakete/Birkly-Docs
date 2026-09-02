@@ -158,7 +158,8 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Commerce multi-currency | `06-extensibility/commerce-multi-currency.md` | Site default + per-option currency (P14) |
 | Commerce inventory webhooks | `06-extensibility/commerce-inventory-webhooks.md` | Shopify/Woo real-time stock (P14) |
 | Commerce warehouse stock | `06-extensibility/commerce-warehouse-stock.md` | SKU warehouse, decrement on pay (P14) |
-| Commerce membership wiring | `06-extensibility/commerce-membership.md` | Purchase → user tier mapping |
+| User signup and membership | `06-extensibility/user-signup-membership.md` | Signup flows, membership products, tier lifecycle |
+| Commerce membership (legacy) | `06-extensibility/commerce-membership.md` | Redirect to User-owned membership guide |
 | Plugin security denylist | `06-extensibility/plugin-security-denylist.md` | Denylist collections, resources, spaces |
 | Plugin scaffolding CLI | `06-extensibility/scaffold-plugin-cli.md` | `scaffold-plugin.php` developer CLI (P15) |
 | Commerce CSV import | `06-extensibility/commerce-import.md` | CSV import wizard and history |

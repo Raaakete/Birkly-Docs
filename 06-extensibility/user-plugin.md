@@ -59,6 +59,10 @@ Install and enable the plugin under **Settings → Plugins**. Admin pages **User
 - `user_registered` — after successful signup
 - `user_login` — after successful login
 
+**Signup flows and membership (P74)**
+
+Paid memberships use **signup flows** and **membership products** in User admin — not Commerce purchase mappings. Presets include `free_register`, `pay_then_activate`, `register_then_pay`, and `activate_only`. Public API: `user_signup` (`start`, `step`, `status`). See [User signup and membership](user-signup-membership.md).
+
 **Ops guide (maintainers)**
 
 See platform repo `docs/user-plugin-ops.md` for checklist, backup scope, and troubleshooting. Plugin source of truth: [Birkly-Other-Things/Birkly-Plugin-User](https://github.com/Birkly-Other-Things/Birkly-Plugin-User).
@@ -70,6 +74,7 @@ Plugin-local entry visibility (`EntryPermissions`) is implemented and tested in 
 ## Related
 
 - [Plugins](plugins.md)
+- [User signup and membership](user-signup-membership.md)
 - [Roles and permissions](roles-and-permissions.md)
 - [Public forms](../04-integration/public-forms.md)
 - [Closed alpha guide](../00-overview/closed-alpha-guide.md)

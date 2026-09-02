@@ -12,6 +12,14 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-09-02 — P74 User Signup Platform (membership docs)
+
+- **New:** `06-extensibility/user-signup-membership.md` — User-owned signup flows, membership products, tier lifecycle, Birkly Club pattern.
+- **Updated:** `06-extensibility/commerce-membership.md` — redirect stub; Commerce no longer grants tiers.
+- **Updated:** `05-automation/triggers.md` — `commerce_subscription_started` canonical; `commerce_membership_started` deprecated.
+- **Updated:** `06-extensibility/user-plugin.md`, `plugins/commerce.md`, `commerce-subscriptions.md`, `commerce-customers.md`.
+- **Updated:** `manifest.json`, `CONTENTS_INDEX.md`.
+
 ## 2026-09-02 — P72 docs sync hardening
 
 - **New:** `01-admin/discovery.md` — Discovery admin hub (SEO, Agent Guide, WebMCP packs).

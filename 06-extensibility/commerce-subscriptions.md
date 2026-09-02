@@ -107,4 +107,4 @@ Configure workflows under **Automation** using these trigger types for Slack, em
 - [Commerce plugin](plugins/commerce.md)
 - [Commerce fieldtype](commerce-fieldtype.md) — recurring purchase options
 - [Automation triggers](../05-automation/triggers.md)
-- [Commerce membership wiring](commerce-membership.md)
+- [Commerce membership wiring](commerce-membership.md) — redirects to [User signup and membership](user-signup-membership.md)

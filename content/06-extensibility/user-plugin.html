@@ -36,12 +36,15 @@
 <li><code>user_registered</code> — after successful signup</li>
 <li><code>user_login</code> — after successful login</li>
 </ul>
+<p><strong>Signup flows and membership (P74)</strong></p>
+<p>Paid memberships use <strong>signup flows</strong> and <strong>membership products</strong> in User admin — not Commerce purchase mappings. Presets include <code>free_register</code>, <code>pay_then_activate</code>, <code>register_then_pay</code>, and <code>activate_only</code>. Public API: <code>user_signup</code> (<code>start</code>, <code>step</code>, <code>status</code>). See <a href="user-signup-membership.html">User signup and membership</a>.</p>
 <p><strong>Ops guide (maintainers)</strong></p>
 <p>See platform repo <code>docs/user-plugin-ops.md</code> for checklist, backup scope, and troubleshooting. Plugin source of truth: <a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-User">Birkly-Other-Things/Birkly-Plugin-User</a>.</p>
 <p><strong>Follow-up — public list/search permission filtering</strong></p>
 <p>Plugin-local entry visibility (<code>EntryPermissions</code>) is implemented and tested in the SoT repo. <strong>Public</strong> list/detail (and related read surfaces) may still skip that filter until the CMS adds a shared <strong>public-read hook contract</strong> (load active plugins, then filter in <code>core/public_read.php</code> / public API list and get paths). Documented as a CMS follow-up — not closable from the plugin alone. See SoT <code>docs/WAVE3-RELEASE-EVIDENCE.md</code>.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="plugins.html">Plugins</a></li>
+<li><a href="user-signup-membership.html">User signup and membership</a></li>
 <li><a href="roles-and-permissions.html">Roles and permissions</a></li>
 <li><a href="../04-integration/public-forms.html">Public forms</a></li>
 <li><a href="../00-overview/closed-alpha-guide.html">Closed alpha guide</a></li>

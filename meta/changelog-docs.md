@@ -12,6 +12,13 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-09-04 — P77 User fieldtype profiles (member-as-entry)
+
+- **New:** `06-extensibility/user-fieldtype-profiles.md` — fieldtype profiles, `user_account*` fieldtype, Members tab, Commerce shelf, collection-scoped signup.
+- **New:** `06-extensibility/user-member-migration.md` — `migrate-p77-members.php`, dual-read auth, cutover settings.
+- **Updated:** `06-extensibility/user-plugin.md`, `user-signup-membership.md` — P77 model; Signup Fields deprecated.
+- **Updated:** `manifest.json`.
+
 ## 2026-09-02 — P74 User Signup Platform (membership docs)
 
 - **New:** `06-extensibility/user-signup-membership.md` — User-owned signup flows, membership products, tier lifecycle, Birkly Club pattern.

@@ -42,8 +42,8 @@ Install and enable the plugin under **Settings → Plugins**. Admin pages **User
 **Key paths**
 
 - Plugin root: `plugins/user_management/`
-- APIs: `api/user_auth.php`, `api/user_registration.php`, `api/user_admin.php`, `api/user_graph.php`, `api/user_graph_admin.php`, `api/collection_permissions.php`
-- Fieldtypes: `user`, `password`, `user_relationship` (virtual graph panel on profile entries)
+- APIs: `api/user_auth.php`, `api/user_registration.php`, `api/user_member_signup.php`, `api/user_members.php`, `api/user_account.php`, `api/user_admin.php`, `api/user_graph.php`, `api/user_graph_admin.php`, `api/collection_permissions.php`
+- Fieldtypes: `user_account*` (member marker), `user` (UGC reference), `password`, `user_relationship` (virtual graph panel on profile entries)
 - Permissions: `includes/EntryPermissions.php`, `includes/UserPermissions.php`
 
 **Template functions**
@@ -69,9 +69,13 @@ See [UGC ownership and social graph](user-ugc-ownership.md) for owner fields, `u
 - `user_registered` — after successful signup
 - `user_login` — after successful login
 
-**Signup flows and membership (P74)**
+**Member-as-entry (P77)**
 
-Paid memberships use **signup flows** and **membership products** in User admin — not Commerce purchase mappings. Presets include `free_register`, `pay_then_activate`, `register_then_pay`, and `activate_only`. Public API: `user_signup` (`start`, `step`, `status`). See [User signup and membership](user-signup-membership.md).
+New sites model members as **collection entries** with a `user_account*` fieldtype — not separate User List rows. **Fieldtype profiles** (User → Fieldtypes) define signup requirements, social gates, and Commerce payment flags per tier. Collection-scoped signup uses `user_member_signup`; the **Members** tab is index-backed. See [User fieldtype profiles](user-fieldtype-profiles.md) and [Member migration](user-member-migration.md).
+
+**Signup flows and membership (P74 + P77)**
+
+Paid memberships use **signup flows** and **membership products** in User admin — not Commerce purchase mappings. Presets include `free_register`, `pay_then_activate`, `register_then_pay`, and `activate_only`. Public API: `user_signup` (`start`, `step`, `status`) for flow presets; **P77** adds `user_member_signup` for collection-scoped member registration. See [User signup and membership](user-signup-membership.md).
 
 **Ops guide (maintainers)**
 
@@ -84,6 +88,8 @@ The User plugin registers `birkly_public_entries_filter` and `birkly_public_entr
 ## Related
 
 - [Plugins](plugins.md)
+- [User fieldtype profiles](user-fieldtype-profiles.md)
+- [Member migration](user-member-migration.md)
 - [User-generated content and ownership](user-ugc-ownership.md)
 - [User signup and membership](user-signup-membership.md)
 - [Roles and permissions](roles-and-permissions.md)

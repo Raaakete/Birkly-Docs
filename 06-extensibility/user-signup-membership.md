@@ -6,7 +6,7 @@ Link **paid subscriptions** to **User Management** tiers using signup flows and 
 
 Membership sites use Commerce **fulfillment: none** with a **recurring** purchase option. After payment, Commerce fires `commerce_subscription_started`. The **User Management** plugin listens for that event, grants the linked tier when the product matches a **membership product**, and runs the configured **signup flow** (for example `pay_then_activate` for checkout → activation email → password → club access). Tier lifecycle (cancel, past_due, grace) is also User-owned.
 
-Requires **User Management 1.0.13+** and **Commerce 1.0.106+**.
+Requires **User Management 1.0.13+** and **Commerce 1.0.106+**. **P77 (1.0.46+):** new member sites should use [fieldtype profiles](user-fieldtype-profiles.md) and `user_member_signup` for collection-scoped registration; global **Signup Fields** are deprecated.
 
 ## Beginner
 
@@ -20,12 +20,14 @@ Requires **User Management 1.0.13+** and **Commerce 1.0.106+**.
 
 Commerce no longer grants tiers from purchase mappings or `club_opt_in`. Those paths were removed in P74.
 
-**Set up a membership product**
+**P77 member signup (preferred for new sites)**
 
-1. Activate **Commerce** and **User Management**.
-2. Create a sellable entry with **fulfillment: none** and a recurring purchase option (for example monthly).
-3. Open **User → Membership products** and link the Commerce collection/entry/option to a **tier id** (for example `club`) and a **signup flow id** (for example `pay_then_activate`).
-4. Optionally import legacy mappings from **Commerce → Settings → Mappings** using the migration helper in User admin.
+| API | Use |
+|-----|-----|
+| `user_member_signup` | Collection-scoped schema + register (`collection`, `tier`, `fields`) |
+| `user_signup` | Preset multi-step flows (`pay_then_activate`, etc.) — pass `collection` / `tier` in context when using fieldtype profiles |
+
+Signup requirements come from the **tier-linked fieldtype profile**, not the legacy Signup Fields tab. When `payment_required_at_signup` is set on the profile, registration returns `checkout_required` and defers publish until Commerce payment completes.
 
 **Preset signup flows**
 
@@ -37,6 +39,13 @@ Commerce no longer grants tiers from purchase mappings or `club_opt_in`. Those p
 | `activate_only` | Resend activation for visitors who already paid |
 
 Enable and edit flows under **User → Signup flows**. Redirect URLs and Commerce product refs can be overridden per site.
+
+**Set up a membership product**
+
+1. Activate **Commerce** and **User Management** (1.0.53+ recommended).
+2. Create a sellable entry with **fulfillment: none** and a recurring purchase option (for example monthly).
+3. Open **User → Membership products** and link the Commerce collection/entry/option to a **tier id** (for example `club`) and a **signup flow id** (for example `pay_then_activate`).
+4. Optionally import legacy mappings from **Commerce → Settings → Mappings** using the migration helper in User admin.
 
 **Birkly Club pattern (`pay_then_activate`)**
 
@@ -123,6 +132,8 @@ If you previously used **Commerce → Settings → Mappings** with `grant_tier`:
 ## Related
 
 - [User plugin](user-plugin.md)
+- [User fieldtype profiles](user-fieldtype-profiles.md)
+- [Member migration](user-member-migration.md)
 - [Commerce plugin](plugins/commerce.md)
 - [Commerce subscriptions](commerce-subscriptions.md)
 - [Automation triggers](../05-automation/triggers.md)

@@ -173,6 +173,8 @@
         { "path": "06-extensibility/commerce-inventory-webhooks.md", "label": "Commerce inventory webhooks" },
         { "path": "06-extensibility/commerce-warehouse-stock.md", "label": "Commerce warehouse stock" },
         { "path": "06-extensibility/user-signup-membership.md", "label": "User signup and membership" },
+        { "path": "06-extensibility/user-fieldtype-profiles.md", "label": "User fieldtype profiles" },
+        { "path": "06-extensibility/user-member-migration.md", "label": "Member migration (P77)" },
         { "path": "06-extensibility/commerce-membership.md", "label": "Commerce membership (legacy redirect)" },
         { "path": "06-extensibility/plugin-security-denylist.md", "label": "Plugin security denylist" },
         { "path": "06-extensibility/scaffold-plugin-cli.md", "label": "Plugin scaffolding CLI" },

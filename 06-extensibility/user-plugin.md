@@ -42,7 +42,8 @@ Install and enable the plugin under **Settings → Plugins**. Admin pages **User
 **Key paths**
 
 - Plugin root: `plugins/user_management/`
-- APIs: `api/user_auth.php`, `api/user_registration.php`, `api/user_admin.php`, `api/user_graph.php`, `api/collection_permissions.php`
+- APIs: `api/user_auth.php`, `api/user_registration.php`, `api/user_admin.php`, `api/user_graph.php`, `api/user_graph_admin.php`, `api/collection_permissions.php`
+- Fieldtypes: `user`, `password`, `user_relationship` (virtual graph panel on profile entries)
 - Permissions: `includes/EntryPermissions.php`, `includes/UserPermissions.php`
 
 **Template functions**
@@ -55,11 +56,13 @@ Install and enable the plugin under **Settings → Plugins**. Admin pages **User
 | `{user_profile "id"}` | Public profile entry if collection enabled |
 | `{user_is_following from to}` | Boolean |
 | `{user_is_friend a b}` | Boolean |
+| `{user_is_connected a b}` | Mutual connection |
 | `{user_graph_follows user_id}` | User ID list |
 | `{user_graph_followers user_id}` | User ID list |
+| `{user_graph_connected user_id}` | User ID list |
 | `{user_can_view entry}` | Boolean visibility |
 
-See [UGC ownership and social graph](user-ugc-ownership.md) for owner fields, `user_graph` API, and likes sub-entries.
+See [UGC ownership and social graph](user-ugc-ownership.md) for owner fields, `user_graph` API, `user_relationship` fieldtype, and likes sub-entries.
 
 **Automation hooks**
 

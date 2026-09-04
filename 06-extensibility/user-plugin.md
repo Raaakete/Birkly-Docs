@@ -42,7 +42,7 @@ Install and enable the plugin under **Settings → Plugins**. Admin pages **User
 **Key paths**
 
 - Plugin root: `plugins/user_management/`
-- APIs: `api/user_auth.php`, `api/user_registration.php`, `api/user_admin.php`, `api/collection_permissions.php`
+- APIs: `api/user_auth.php`, `api/user_registration.php`, `api/user_admin.php`, `api/user_graph.php`, `api/collection_permissions.php`
 - Permissions: `includes/EntryPermissions.php`, `includes/UserPermissions.php`
 
 **Template functions**
@@ -53,6 +53,13 @@ Install and enable the plugin under **Settings → Plugins**. Admin pages **User
 | `{user_current}` | Current user object (id, name, email, …) |
 | `{user_list}` | Filtered user list (admin/config dependent) |
 | `{user_profile "id"}` | Public profile entry if collection enabled |
+| `{user_is_following from to}` | Boolean |
+| `{user_is_friend a b}` | Boolean |
+| `{user_graph_follows user_id}` | User ID list |
+| `{user_graph_followers user_id}` | User ID list |
+| `{user_can_view entry}` | Boolean visibility |
+
+See [UGC ownership and social graph](user-ugc-ownership.md) for owner fields, `user_graph` API, and likes sub-entries.
 
 **Automation hooks**
 
@@ -69,11 +76,12 @@ See platform repo `docs/user-plugin-ops.md` for checklist, backup scope, and tro
 
 **Follow-up — public list/search permission filtering**
 
-Plugin-local entry visibility (`EntryPermissions`) is implemented and tested in the SoT repo. **Public** list/detail (and related read surfaces) may still skip that filter until the CMS adds a shared **public-read hook contract** (load active plugins, then filter in `core/public_read.php` / public API list and get paths). Documented as a CMS follow-up — not closable from the plugin alone. See SoT `docs/WAVE3-RELEASE-EVIDENCE.md`.
+The User plugin registers `birkly_public_entries_filter` and `birkly_public_entry_filter` hooks (Hub 1.0.38+). Core `entry_ownership.php` stamps owner from session on public create. Ensure production CMS runs current Birkly core with `core/public_read.php` hooks active.
 
 ## Related
 
 - [Plugins](plugins.md)
+- [User-generated content and ownership](user-ugc-ownership.md)
 - [User signup and membership](user-signup-membership.md)
 - [Roles and permissions](roles-and-permissions.md)
 - [Public forms](../04-integration/public-forms.md)

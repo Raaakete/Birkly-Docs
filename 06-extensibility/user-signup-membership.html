@@ -159,11 +159,14 @@
         <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
         <a href="commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
         <a href="user-signup-membership.html" class="nav-link active">User signup and membership</a>
+        <a href="user-fieldtype-profiles.html" class="nav-link">User fieldtype profiles</a>
+        <a href="user-member-migration.html" class="nav-link">Member migration (P77)</a>
         <a href="commerce-membership.html" class="nav-link">Commerce membership (legacy redirect)</a>
         <a href="plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
         <a href="scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
         <a href="commerce-import.html" class="nav-link">Commerce CSV import</a>
         <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="user-ugc-ownership.html" class="nav-link">UGC ownership and social graph</a>
         <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
         <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
         <a href="updates.html" class="nav-link">Updates</a>
@@ -207,23 +210,46 @@
       <div class="content doc-body">
         <div class="doc-content"><p>Link <strong>paid subscriptions</strong> to <strong>User Management</strong> tiers using signup flows and membership products. Commerce handles payments and generic subscription events; User owns activation, tier grant/revoke, and club-style onboarding.</p>
 <div class="doc-summary"><p>Membership sites use Commerce <strong>fulfillment: none</strong> with a <strong>recurring</strong> purchase option. After payment, Commerce fires <code>commerce_subscription_started</code>. The <strong>User Management</strong> plugin listens for that event, grants the linked tier when the product matches a <strong>membership product</strong>, and runs the configured <strong>signup flow</strong> (for example <code>pay_then_activate</code> for checkout → activation email → password → club access). Tier lifecycle (cancel, past_due, grace) is also User-owned.</p>
-<p>Requires <strong>User Management 1.0.13+</strong> and <strong>Commerce 1.0.106+</strong>.</p></div>
+<p>Requires <strong>User Management 1.0.13+</strong> and <strong>Commerce 1.0.106+</strong>. <strong>P77 (1.0.46+):</strong> new member sites should use <a href="user-fieldtype-profiles.html">fieldtype profiles</a> and <code>user_member_signup</code> for collection-scoped registration; global <strong>Signup Fields</strong> are deprecated.</p>
+<p><strong>P79 (1.0.60+):</strong> Birkly Club access is <strong>free</strong> — visitors join with the <code>club_free_register</code> preset and receive the <code>club</code> tier without payment. <strong>Donor recognition</strong> is stored on <strong><code>club-profiles</code> entry fields</strong> (<code>supporter_badge</code>, <code>supporter_cadence</code>), not as User plugin tiers. Commerce emits payment facts; User <strong><code>SupporterBadgeSync</code></strong> reconciles badge fields from orders, subscriptions, and <code>supporters</code> entries.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Architecture</strong></p>
 <table><thead><tr><th>Layer</th><th>Owns</th></tr></thead>
 <tbody><tr><td><strong>Commerce</strong></td><td>Catalog, checkout, subscriptions, <code>commerce_subscription_started</code></td></tr><tr><td><strong>User</strong></td><td>Signup flows, activation email, membership products, tier grant/revoke</td></tr><tr><td><strong>Your site</strong></td><td>Forms pass <code>signup_flow_*</code> metadata into linked checkout</td></tr></tbody></table>
 <p>Commerce no longer grants tiers from purchase mappings or <code>club_opt_in</code>. Those paths were removed in P74.</p>
+<p><strong>P77 member signup (preferred for new sites)</strong></p>
+<table><thead><tr><th>API</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>user_member_signup</code></td><td>Collection-scoped schema + register (<code>collection</code>, <code>tier</code>, <code>fields</code>)</td></tr><tr><td><code>user_signup</code></td><td>Preset multi-step flows (<code>pay_then_activate</code>, etc.) — pass <code>collection</code> / <code>tier</code> in context when using fieldtype profiles</td></tr></tbody></table>
+<p>Signup requirements come from the <strong>tier-linked fieldtype profile</strong>, not the legacy Signup Fields tab. When <code>payment_required_at_signup</code> is set on the profile, registration returns <code>checkout_required</code> and defers publish until Commerce payment completes.</p>
+<p><strong>Preset signup flows</strong></p>
+<table><thead><tr><th>Flow id</th><th>Use case</th></tr></thead>
+<tbody><tr><td><code>free_register</code></td><td>Open registration with optional email verification</td></tr><tr><td><code>club_free_register</code></td><td><strong>Free club join</strong> — no payment; creates <code>club-profiles</code> entry with <code>supporter_badge: none</code> (P79)</td></tr><tr><td><code>pay_then_activate</code></td><td>Checkout first, then activation link (legacy paid club path)</td></tr><tr><td><code>register_then_pay</code></td><td>Account first, then redirect to checkout</td></tr><tr><td><code>activate_only</code></td><td>Resend activation for visitors who already paid</td></tr></tbody></table>
+<p>Enable and edit flows under <strong>User → Signup flows</strong>. Redirect URLs and Commerce product refs can be overridden per site.</p>
 <p><strong>Set up a membership product</strong></p>
 <ol>
-<li>Activate <strong>Commerce</strong> and <strong>User Management</strong>.</li>
+<li>Activate <strong>Commerce</strong> and <strong>User Management</strong> (1.0.53+ recommended).</li>
 <li>Create a sellable entry with <strong>fulfillment: none</strong> and a recurring purchase option (for example monthly).</li>
 <li>Open <strong>User → Membership products</strong> and link the Commerce collection/entry/option to a <strong>tier id</strong> (for example <code>club</code>) and a <strong>signup flow id</strong> (for example <code>pay_then_activate</code>).</li>
 <li>Optionally import legacy mappings from <strong>Commerce → Settings → Mappings</strong> using the migration helper in User admin.</li>
 </ol>
-<p><strong>Preset signup flows</strong></p>
-<table><thead><tr><th>Flow id</th><th>Use case</th></tr></thead>
-<tbody><tr><td><code>free_register</code></td><td>Open registration with optional email verification</td></tr><tr><td><code>pay_then_activate</code></td><td>Checkout first, then activation link (Birkly Club pattern)</td></tr><tr><td><code>register_then_pay</code></td><td>Account first, then redirect to checkout</td></tr><tr><td><code>activate_only</code></td><td>Resend activation for visitors who already paid</td></tr></tbody></table>
-<p>Enable and edit flows under <strong>User → Signup flows</strong>. Redirect URLs and Commerce product refs can be overridden per site.</p>
-<p><strong>Birkly Club pattern (<code>pay_then_activate</code>)</strong></p>
+<p><strong>Free club join (<code>club_free_register</code>) — P79</strong></p>
+<p>Club <strong>access</strong> and <strong>donor recognition</strong> are separate:</p>
+<table><thead><tr><th>Concept</th><th>Where it lives</th><th>How it is granted</th></tr></thead>
+<tbody><tr><td><strong>Club access</strong></td><td>User tier <code>club</code></td><td>Free signup via <code>club_free_register</code> — no donation required</td></tr><tr><td><strong>Supporter badge</strong></td><td><code>club-profiles</code> entry fields</td><td>Synced from Commerce orders/subscriptions by email match</td></tr></tbody></table>
+<ol>
+<li>Guest opens your club page and submits the free join form (name, email, password — fields from the tier-linked profile).</li>
+<li>Site calls the signup flow API with <code>flow_id: &quot;club_free_register&quot;</code>.</li>
+<li>User plugin runs steps: <code>collect_fields</code> → optional <code>verify_email</code> → <code>create_club_profile</code> → <code>grant_tier</code> → redirect to <code>/club.html</code>.</li>
+<li>New member receives <strong><code>club</code> tier</strong>, a <strong><code>club-profiles</code> entry</strong> with <code>supporter_badge: none</code>, and full member hub access (feed, directory, profile).</li>
+</ol>
+<p>Example API sequence:</p>
+<pre><code>POST /api/index.php?route=user_signup&amp;action=start
+{ &quot;flow_id&quot;: &quot;club_free_register&quot;, &quot;email&quot;: &quot;member@example.com&quot;, &quot;fields&quot;: { &quot;display_name&quot;: &quot;Alex&quot; } }
+
+POST /api/index.php?route=user_signup&amp;action=step
+{ &quot;session_id&quot;: &quot;…&quot;, &quot;step_id&quot;: &quot;fields&quot;, &quot;password&quot;: &quot;…&quot;, &quot;fields&quot;: { … } }</code></pre>
+<p>Enable the preset under <strong>User → Signup flows</strong>. Redirect URL defaults to <code>/club.html</code>.</p>
+<p><strong>Paid club path (<code>pay_then_activate</code>) — optional</strong></p>
+<p>Sites that still gate club access on checkout can use the paid flow:</p>
 <ol>
 <li>Visitor selects a recurring donation/product and opts into the club on your site form.</li>
 <li>Form includes hidden <code>signup_flow_id=pay_then_activate</code> and checkbox <code>signup_flow_opt_in=1</code>.</li>
@@ -231,6 +257,33 @@
 <li>After payment, User sends an activation email (no password at checkout).</li>
 <li>Visitor completes activation, receives the linked tier, and lands on your club page.</li>
 </ol>
+<p>On P79 sites, prefer <strong><code>club_free_register</code></strong> for access and let donations update badges only.</p>
+<p><strong>Supporter badges on <code>club-profiles</code> (not tiers)</strong></p>
+<p>Badges are <strong>CMS entry fields</strong> on the <code>club-profiles</code> collection — not User plugin tiers and not admin badge UI in User settings.</p>
+<table><thead><tr><th>Field</th><th>Type</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>supporter_badge</code></td><td><code>select</code></td><td><code>none</code>, <code>supporter</code>, <code>patron</code>, <code>champion</code>, <code>monthly_supporter</code>, <code>monthly_patron</code>, <code>monthly_champion</code></td></tr><tr><td><code>supporter_cadence</code></td><td><code>select</code></td><td><code>none</code>, <code>one_time</code>, <code>month</code></td></tr><tr><td><code>supporter_amount_eur</code></td><td><code>number</code></td><td>Highest qualifying gift (EUR)</td></tr><tr><td><code>supporter_entry_id</code></td><td><code>text</code></td><td>Optional link to a <code>supporters</code> row (admin/debug)</td></tr><tr><td><code>supporter_synced_at</code></td><td><code>text</code></td><td>ISO timestamp of last sync</td></tr></tbody></table>
+<p><strong>Email is the join key:</strong> when a donor later signs up with the same email (or vice versa), <code>SupporterBadgeSync</code> updates the <strong>existing</strong> profile — it does not create a duplicate user.</p>
+<p><strong>Badge rules</strong> are configurable in <code>{user_data_dir}/supporter_badge_rules.json</code> (defaults below). When both one-time gifts and an <strong>active monthly</strong> subscription exist, the <strong>monthly badge wins</strong>. Subscription cancel <strong>downgrades the badge only</strong> — the member <strong>keeps</strong> <code>club</code> tier access.</p>
+<table><thead><tr><th>Cadence</th><th>Amount (EUR)</th><th>Badge value</th></tr></thead>
+<tbody><tr><td><code>one_time</code></td><td>≥ 5</td><td><code>supporter</code></td></tr><tr><td><code>one_time</code></td><td>≥ 25</td><td><code>patron</code></td></tr><tr><td><code>one_time</code></td><td>≥ 100</td><td><code>champion</code></td></tr><tr><td><code>month</code></td><td>≥ 5</td><td><code>monthly_supporter</code></td></tr><tr><td><code>month</code></td><td>≥ 25</td><td><code>monthly_patron</code></td></tr><tr><td><code>month</code></td><td>≥ 100</td><td><code>monthly_champion</code></td></tr></tbody></table>
+<p>The public <strong><code>user_account</code> → <code>list_members</code></strong> API returns <code>supporter_badge</code> and <code>supporter_cadence</code> for directory and feed rendering. The <strong><code>supporters</code></strong> wall (<code>supporters.featured</code>) stays independent — featured wall rows do not require a club account.</p>
+<p><strong>Badge sync (<code>SupporterBadgeSync</code>) and reconcile</strong></p>
+<p><code>SupporterBadgeSync</code> reads Commerce facts (paid orders, active subscriptions) and optional <code>supporters</code> entries, resolves the badge via <code>SupporterBadgeRules</code>, and writes the fields on the matching <code>club-profiles</code> entry.</p>
+<table><thead><tr><th>Method</th><th>Scope</th></tr></thead>
+<tbody><tr><td><code>reconcileForEmail($email)</code></td><td>One member after donate, signup, or subscription change</td></tr><tr><td><code>reconcileForUserId($userId)</code></td><td>Same, keyed by site user id</td></tr><tr><td><code>reconcileAll()</code></td><td>Batch — all club-tier users</td></tr></tbody></table>
+<p><strong>When sync runs automatically</strong></p>
+<ul>
+<li>Commerce order paid / subscription started, canceled, or paused (via <code>UserMembershipLifecycle</code> and Automation <code>sync_supporter_badge</code> action)</li>
+<li>Plugin upgrade — one-time grandfather reconcile for existing donors</li>
+<li>After <code>club_free_register</code> completes — profile starts at <code>supporter_badge: none</code>; sync runs when a matching donation appears</li>
+</ul>
+<p><strong>Manual reconcile (admin)</strong></p>
+<ol>
+<li>Open <strong>User → Members</strong> (or Club settings).</li>
+<li>Run <strong>Sync supporter badges</strong> — calls <code>reconcile_supporter_badges</code> and processes all profiles.</li>
+</ol>
+<p>MCP: <code>user_reconcile_supporter_badges</code> (optional <code>email</code> for a single member).</p>
+<p>Automation plugin action: <code>sync_supporter_badge</code> with <code>{ &quot;email&quot;: &quot;member@example.com&quot; }</code> when Automation is active.</p>
 <p><strong>Resend activation (club page)</strong></p>
 <p>Use the <code>activate_only</code> flow via the public API instead of calling <code>user_activation</code> directly:</p>
 <pre><code>POST /api/index.php?route=user_signup&amp;action=start
@@ -269,9 +322,15 @@ POST /api/index.php?route=user_signup&amp;action=step
 <li>Upgrade User and Commerce to P74 versions.</li>
 <li>Open <strong>User → Membership products</strong> and run <strong>Import from Commerce mappings</strong>.</li>
 <li>Remove tier grants from Commerce mappings (they are ignored after Commerce 1.0.106).</li>
-</ol></div></details>
+</ol>
+<p><strong>Supporter badge sync (P79)</strong></p>
+<table><thead><tr><th>Trigger</th><th>Handler</th></tr></thead>
+<tbody><tr><td><code>commerce_order_paid</code></td><td>Automation recipe or lifecycle → <code>SupporterBadgeSync::reconcileForEmail</code></td></tr><tr><td><code>commerce_subscription_started</code> / <code>canceled</code> / <code>paused</code></td><td>Badge recompute; <strong>does not</strong> revoke <code>club</code> tier on cancel</td></tr><tr><td>Admin <strong>Sync supporter badges</strong></td><td><code>reconcileAll()</code></td></tr><tr><td>MCP <code>user_reconcile_supporter_badges</code></td><td>Single email or batch</td></tr></tbody></table>
+<p>Commerce emits payment facts only — badge threshold logic stays in User plugin (<code>supporter_badge_rules.json</code> + <code>SupporterBadgeRules</code>).</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="user-plugin.html">User plugin</a></li>
+<li><a href="user-fieldtype-profiles.html">User fieldtype profiles</a></li>
+<li><a href="user-member-migration.html">Member migration</a></li>
 <li><a href="plugins/commerce.html">Commerce plugin</a></li>
 <li><a href="commerce-subscriptions.html">Commerce subscriptions</a></li>
 <li><a href="../05-automation/triggers.html">Automation triggers</a></li>

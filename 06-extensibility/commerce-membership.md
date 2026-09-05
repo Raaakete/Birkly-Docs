@@ -19,7 +19,7 @@ Commerce still sells recurring products and fires subscription events. It does *
 - **Site forms:** hidden `signup_flow_id`, optional `signup_flow_opt_in` checkbox
 - **API:** `user_signup` (`start`, `step`, `status`)
 
-Full documentation: [User signup and membership](user-signup-membership.md).
+Full documentation: [User signup and membership](user-signup-membership.md) — includes **P79 free club** (`club_free_register`), **supporter badges on `club-profiles`**, and **`SupporterBadgeSync`** reconcile.
 
 ## Related
 

@@ -159,6 +159,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Commerce inventory webhooks | `06-extensibility/commerce-inventory-webhooks.md` | Shopify/Woo real-time stock (P14) |
 | Commerce warehouse stock | `06-extensibility/commerce-warehouse-stock.md` | SKU warehouse, decrement on pay (P14) |
 | User signup and membership | `06-extensibility/user-signup-membership.md` | Signup flows, membership products, tier lifecycle |
+| Membership club depth (P80) | `06-extensibility/membership-club-depth.md` | Onboarding, mentions, digests, moderation, wishes, automation hooks |
 | Commerce membership (legacy) | `06-extensibility/commerce-membership.md` | Redirect to User-owned membership guide |
 | Plugin security denylist | `06-extensibility/plugin-security-denylist.md` | Denylist collections, resources, spaces |
 | Plugin scaffolding CLI | `06-extensibility/scaffold-plugin-cli.md` | `scaffold-plugin.php` developer CLI (P15) |

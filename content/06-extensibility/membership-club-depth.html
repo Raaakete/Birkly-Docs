@@ -1,0 +1,80 @@
+<p>Extend the Birkly Club member hub with onboarding, @mentions, notification digests, block/mute safety, moderation reports, wishes, deal analytics, and Automation lifecycle hooks.</p>
+<div class="doc-summary"><p><strong>P80</strong> builds on <a href="user-signup-membership.html">User signup and membership</a> (P79 free club + supporter badges). Members join with <code>club_free_register</code>, complete a profile onboarding flow, and use the club hub (<code>club.html</code> + <code>club-app.js</code>). Site owners get admin APIs for wishes, reports, and deal counters; Automation can react to club lifecycle events via the <strong><code>membership-club-depth</code></strong> recipe pack.</p>
+<p><strong>Requires:</strong> User Management <strong>≥ 1.0.69</strong>, Automation <strong>≥ 1.1.22</strong> (Hub). Commerce is optional (paid activation path + badge sync).</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What P80 adds for members</strong></p>
+<table><thead><tr><th>Area</th><th>What members see</th></tr></thead>
+<tbody><tr><td><strong>Onboarding</strong></td><td>Welcome modal on first login; completeness score; deep link to pinned <strong>Introduce yourself</strong> post</td></tr><tr><td><strong>Profiles</strong></td><td>Public profile URLs (<code>?member=slug</code>), OG meta tags, interests and links</td></tr><tr><td><strong>Mentions</strong></td><td><code>@slug</code> links in posts and comments; mention notifications (in-app + optional email)</td></tr><tr><td><strong>Digests</strong></td><td>Daily/weekly email batch of unread notifications (opt-in in notification settings)</td></tr><tr><td><strong>Safety</strong></td><td>Block/mute other members; muted authors skipped in notifications</td></tr><tr><td><strong>Wishes</strong></td><td>Submit feature wishes; status badges (<code>pending</code> → <code>planned</code> → <code>shipped</code>)</td></tr><tr><td><strong>Deals</strong></td><td>Member perks with copy/visit tracking</td></tr></tbody></table>
+<p><strong>What site owners configure</strong></p>
+<ol>
+<li><strong>Hub upgrade</strong> — Install User <strong>1.0.69+</strong> and Automation <strong>1.1.22+</strong> from the Birkly Hub.</li>
+<li><strong>Collections</strong> — Plugin upgrade ensures schemas for <code>club-profiles</code>, <code>club-posts</code>, <code>club-wishes</code>, <code>club-deals</code>, <code>club-reports</code> (fields for onboarding, mentions, moderation, analytics).</li>
+<li><strong>Club hub</strong> — Deploy <code>project/club.html</code>, <code>js/club-app.js</code>, and club CSS from your reference site or birkly.cloud <code>project/</code>.</li>
+<li><strong>Automation (optional)</strong> — Import recipe pack <strong><code>membership-club-depth</code></strong> under <strong>Automation → Recipes</strong>. Enable workflows after SMTP is configured under <strong>Connections</strong> or Automation setup.</li>
+<li><strong>Moderation</strong> — Review <code>club-reports</code> in <strong>Collections</strong>; use admin actions to hide posts or suspend users.</li>
+</ol>
+<p><strong>Onboarding flow</strong></p>
+<ol>
+<li>Member signs up with <code>club_free_register</code> (see <a href="user-signup-membership.html">User signup and membership</a>).</li>
+<li>On first visit to <code>/club.html</code>, the welcome modal prompts for avatar, bio, links, and interests.</li>
+<li><code>user_account?action=complete_onboarding</code> marks <code>onboarding_completed</code> and fires <code>club_member_onboarded</code>.</li>
+<li>UI links to the pinned <strong>Introduce yourself</strong> post (<code>slug: introduce-yourself</code>) for first comments.</li>
+</ol>
+<p><strong>Notification preferences</strong></p>
+<p>Members control prefs via <code>club_notifications</code> API (also exposed in club profile settings UI):</p>
+<table><thead><tr><th>Pref</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>notify_mentions</code></td><td>In-app mention alerts</td></tr><tr><td><code>email_mentions</code></td><td>Email on @mention</td></tr><tr><td><code>digest_enabled</code></td><td>Batch unread into digest email</td></tr><tr><td><code>digest_frequency</code></td><td><code>daily</code> or <code>weekly</code></td></tr></tbody></table>
+<p>Import Automation recipe <strong><code>club-depth-send-notification-digests</code></strong> for a daily scheduled digest sender (calls User action <code>send_club_notification_digests</code>).</p>
+<p><strong>Moderation (v1)</strong></p>
+<ul>
+<li>Members tap <strong>Report</strong> on a post → creates a <code>club-reports</code> entry.</li>
+<li>Block/mute graph hides blocked authors from the feed and skips muted actors in notifications.</li>
+<li>Admins review open reports in Collections; optional Automation recipe emails ops on <code>club_member_reported</code>.</li>
+</ul>
+<p><strong>Wishes and deals</strong></p>
+<ul>
+<li><strong>Wishes:</strong> Members submit ideas; admins promote to <code>roadmap-features</code> drafts via <code>club_wishes?action=promote</code>.</li>
+<li><strong>Deals:</strong> <code>club_deals?action=track</code> increments <code>copy_count</code> / <code>visit_count</code> (session + CSRF); counters visible in admin.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Plugin versions (P80-M7)</strong></p>
+<table><thead><tr><th>Plugin</th><th>Min version</th><th>P80 highlights</th></tr></thead>
+<tbody><tr><td>User Management</td><td>1.0.69</td><td>Onboarding, mentions, digests, block/mute, reports, wishes, deals, automation hook bridge</td></tr><tr><td>Automation</td><td>1.1.22</td><td><code>membership-club-depth</code> pack v1.0.2 (5 recipes)</td></tr><tr><td>Commerce</td><td>1.0.106+</td><td>Optional <code>club_opt_in</code> checkout metadata; badge sync unchanged from P79</td></tr></tbody></table>
+<p><strong>Key collections and fields</strong></p>
+<table><thead><tr><th>Collection</th><th>P80 fields / behavior</th></tr></thead>
+<tbody><tr><td><code>club-profiles</code></td><td><code>interests</code>, <code>onboarding_completed</code>, <code>profile_completeness</code>, <code>notification_prefs</code> (JSON)</td></tr><tr><td><code>club-posts</code></td><td><code>mentioned_user_ids</code> (server-written JSON), <code>moderation_hidden</code></td></tr><tr><td><code>club-wishes</code></td><td><code>status</code> enum, <code>decline_reason</code>, <code>roadmap_link</code></td></tr><tr><td><code>club-deals</code></td><td><code>copy_count</code>, <code>visit_count</code></td></tr><tr><td><code>club-reports</code></td><td><code>report_status</code>, <code>target_collection</code>, <code>target_entry_id</code>, <code>reporter_user_id</code>, <code>reason</code></td></tr></tbody></table>
+<p><strong>User APIs (selected)</strong></p>
+<table><thead><tr><th>Route</th><th>Actions</th></tr></thead>
+<tbody><tr><td><code>user_account</code></td><td><code>onboarding_status</code>, <code>complete_onboarding</code>, <code>public_profile</code></td></tr><tr><td><code>user_graph</code></td><td><code>block</code>, <code>unblock</code>, <code>mute</code>, <code>unmute</code>, <code>list_blocks</code>, <code>list_mutes</code></td></tr><tr><td><code>club_notifications</code></td><td><code>list</code>, <code>unread_count</code>, <code>mark_read</code>, <code>get_preferences</code>, <code>save_preferences</code></td></tr><tr><td><code>club_reports</code></td><td><code>submit</code> (member), <code>list</code> / <code>hide_post</code> (admin)</td></tr><tr><td><code>club_wishes</code></td><td><code>promote</code> (admin → roadmap draft)</td></tr><tr><td><code>club_deals</code></td><td><code>track</code> (<code>copy</code> | <code>visit</code>)</td></tr></tbody></table>
+<p><strong>Automation hooks (User → Automation bridge)</strong></p>
+<p>When Automation is active, User Management enqueues these triggers (merged context includes <code>email</code>, <code>name</code>, <code>site_name</code>, <code>site_url</code> when available):</p>
+<table><thead><tr><th>Hook</th><th>Payload keys</th></tr></thead>
+<tbody><tr><td><code>club_profile_created</code></td><td><code>user_id</code>, <code>profile_slug</code>, <code>entry_id</code></td></tr><tr><td><code>club_member_onboarded</code></td><td><code>user_id</code>, <code>completeness</code>, <code>slug</code>, <code>profile_slug</code>, <code>email</code></td></tr><tr><td><code>club_post_created</code></td><td><code>entry_id</code>, <code>title</code>, <code>slug</code>, <code>user_id</code>, <code>collection</code></td></tr><tr><td><code>club_mention_created</code></td><td><code>entry_id</code>, <code>mentioned_user_ids</code>, <code>collection</code>; comments add <code>sub_entry_id</code>, <code>sub_collection</code></td></tr><tr><td><code>supporter_badge_granted</code></td><td><code>user_id</code>, <code>email</code>, <code>supporter_badge</code>, <code>supporter_cadence</code>, <code>supporter_amount_eur</code></td></tr><tr><td><code>club_member_reported</code></td><td><code>report_id</code>, <code>target_collection</code>, <code>target_entry_id</code>, <code>reporter_id</code>, <code>reason</code></td></tr><tr><td><code>user_tier_changed</code></td><td><code>user_id</code>, <code>old_tier</code>, <code>tier_id</code></td></tr></tbody></table>
+<p><strong>Recipe pack <code>membership-club-depth</code> (Automation 1.1.22)</strong></p>
+<table><thead><tr><th>Recipe id</th><th>Trigger</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>club-depth-send-activation-on-opt-in</code></td><td><code>commerce_subscription_started</code></td><td>Activation email when checkout includes club opt-in</td></tr><tr><td><code>club-depth-welcome-on-tier-granted</code></td><td><code>user_tier_changed</code></td><td>Optional welcome when tier becomes <code>club</code></td></tr><tr><td><code>club-depth-welcome-on-member-onboarded</code></td><td><code>club_member_onboarded</code></td><td>Welcome after onboarding completes</td></tr><tr><td><code>club-depth-admin-notify-on-report</code></td><td><code>club_member_reported</code></td><td>Email ops inbox on new report</td></tr><tr><td><code>club-depth-send-notification-digests</code></td><td><code>scheduled</code> (daily)</td><td>Calls <code>send_club_notification_digests</code></td></tr></tbody></table>
+<p>Import via <strong>Automation → Recipes → membership-club-depth</strong>. Recipes ship <strong>disabled</strong> — set admin email / SMTP, then enable per workflow.</p>
+<p><strong>Paid subscriber activation (optional)</strong></p>
+<p>For recurring supporters who opt into club at checkout:</p>
+<ol>
+<li>Commerce passes <code>club_opt_in</code> / <code>signup_flow_opt_in</code> metadata on linked checkout.</li>
+<li><code>commerce_subscription_started</code> fires; Automation recipe can call User <code>send_activation_email</code>.</li>
+<li>Entitlement checker <code>hasActiveSubscriptionForEmail</code> gates activation when configured.</li>
+</ol>
+<p>Free club (<code>club_free_register</code>) does not require this path.</p>
+<p><strong>Project site files</strong></p>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead>
+<tbody><tr><td><code>club.html</code></td><td>Hub shell, onboarding modal, feed, profile modal</td></tr><tr><td><code>js/club-app.js</code></td><td>API client, mention rendering, digest prefs, wishes/deals, <code>?member=</code> router</td></tr><tr><td><code>css/club-social-v3.css</code></td><td>Onboarding, badges, wish status pills, moderation affordances</td></tr><tr><td><code>sponsors.html</code></td><td>Optional <code>club_opt_in</code> checkbox on recurring checkout</td></tr></tbody></table>
+<p>Cache-bust <code>club-app.js</code> after deploy (<code>?v=</code> query) when iterating on large bundles.</p>
+<p><strong>MCP / admin</strong></p>
+<ul>
+<li><code>user_reconcile_supporter_badges</code> — badge sync (P79, unchanged)</li>
+<li><code>automation_import_recipe_pack</code> with pack id <code>membership-club-depth</code></li>
+<li>Collections seed: pinned post <strong>Introduce yourself</strong> (<code>author: __birkly__</code>, slug <code>introduce-yourself</code>)</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="user-signup-membership.html">User signup and membership</a> — P79 free club, badges, signup flows</li>
+<li><a href="user-plugin.html">User plugin</a></li>
+<li><a href="user-ugc-ownership.html">UGC ownership and social graph</a></li>
+<li><a href="../05-automation/triggers.html">Automation triggers</a></li>
+<li><a href="../05-automation/conditions-and-actions.html">Automation conditions and actions</a></li>
+<li><a href="commerce-subscriptions.html">Commerce subscriptions</a></li>
+</ul></div>

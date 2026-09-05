@@ -10,6 +10,8 @@ Requires **User Management 1.0.13+** and **Commerce 1.0.106+**. **P77 (1.0.46+):
 
 **P79 (1.0.60+):** Birkly Club access is **free** — visitors join with the `club_free_register` preset and receive the `club` tier without payment. **Donor recognition** is stored on **`club-profiles` entry fields** (`supporter_badge`, `supporter_cadence`), not as User plugin tiers. Commerce emits payment facts; User **`SupporterBadgeSync`** reconciles badge fields from orders, subscriptions, and `supporters` entries.
 
+**P80 (1.0.69+):** Club **depth** features — onboarding completeness, @mentions, notification digests, block/mute, moderation reports, wishes, deal analytics, and Automation lifecycle hooks. See [Membership club depth](membership-club-depth.md).
+
 ## Beginner
 
 **Architecture**
@@ -227,6 +229,7 @@ Commerce emits payment facts only — badge threshold logic stays in User plugin
 
 ## Related
 
+- [Membership club depth (P80)](membership-club-depth.md)
 - [User plugin](user-plugin.md)
 - [User fieldtype profiles](user-fieldtype-profiles.md)
 - [Member migration](user-member-migration.md)

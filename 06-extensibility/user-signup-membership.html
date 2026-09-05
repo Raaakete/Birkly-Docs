@@ -159,6 +159,7 @@
         <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
         <a href="commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
         <a href="user-signup-membership.html" class="nav-link active">User signup and membership</a>
+        <a href="membership-club-depth.html" class="nav-link">Membership club depth (P80)</a>
         <a href="user-fieldtype-profiles.html" class="nav-link">User fieldtype profiles</a>
         <a href="user-member-migration.html" class="nav-link">Member migration (P77)</a>
         <a href="commerce-membership.html" class="nav-link">Commerce membership (legacy redirect)</a>
@@ -211,7 +212,8 @@
         <div class="doc-content"><p>Link <strong>paid subscriptions</strong> to <strong>User Management</strong> tiers using signup flows and membership products. Commerce handles payments and generic subscription events; User owns activation, tier grant/revoke, and club-style onboarding.</p>
 <div class="doc-summary"><p>Membership sites use Commerce <strong>fulfillment: none</strong> with a <strong>recurring</strong> purchase option. After payment, Commerce fires <code>commerce_subscription_started</code>. The <strong>User Management</strong> plugin listens for that event, grants the linked tier when the product matches a <strong>membership product</strong>, and runs the configured <strong>signup flow</strong> (for example <code>pay_then_activate</code> for checkout → activation email → password → club access). Tier lifecycle (cancel, past_due, grace) is also User-owned.</p>
 <p>Requires <strong>User Management 1.0.13+</strong> and <strong>Commerce 1.0.106+</strong>. <strong>P77 (1.0.46+):</strong> new member sites should use <a href="user-fieldtype-profiles.html">fieldtype profiles</a> and <code>user_member_signup</code> for collection-scoped registration; global <strong>Signup Fields</strong> are deprecated.</p>
-<p><strong>P79 (1.0.60+):</strong> Birkly Club access is <strong>free</strong> — visitors join with the <code>club_free_register</code> preset and receive the <code>club</code> tier without payment. <strong>Donor recognition</strong> is stored on <strong><code>club-profiles</code> entry fields</strong> (<code>supporter_badge</code>, <code>supporter_cadence</code>), not as User plugin tiers. Commerce emits payment facts; User <strong><code>SupporterBadgeSync</code></strong> reconciles badge fields from orders, subscriptions, and <code>supporters</code> entries.</p></div>
+<p><strong>P79 (1.0.60+):</strong> Birkly Club access is <strong>free</strong> — visitors join with the <code>club_free_register</code> preset and receive the <code>club</code> tier without payment. <strong>Donor recognition</strong> is stored on <strong><code>club-profiles</code> entry fields</strong> (<code>supporter_badge</code>, <code>supporter_cadence</code>), not as User plugin tiers. Commerce emits payment facts; User <strong><code>SupporterBadgeSync</code></strong> reconciles badge fields from orders, subscriptions, and <code>supporters</code> entries.</p>
+<p><strong>P80 (1.0.69+):</strong> Club <strong>depth</strong> features — onboarding completeness, @mentions, notification digests, block/mute, moderation reports, wishes, deal analytics, and Automation lifecycle hooks. See <a href="membership-club-depth.html">Membership club depth</a>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Architecture</strong></p>
 <table><thead><tr><th>Layer</th><th>Owns</th></tr></thead>
 <tbody><tr><td><strong>Commerce</strong></td><td>Catalog, checkout, subscriptions, <code>commerce_subscription_started</code></td></tr><tr><td><strong>User</strong></td><td>Signup flows, activation email, membership products, tier grant/revoke</td></tr><tr><td><strong>Your site</strong></td><td>Forms pass <code>signup_flow_*</code> metadata into linked checkout</td></tr></tbody></table>
@@ -328,6 +330,7 @@ POST /api/index.php?route=user_signup&amp;action=step
 <tbody><tr><td><code>commerce_order_paid</code></td><td>Automation recipe or lifecycle → <code>SupporterBadgeSync::reconcileForEmail</code></td></tr><tr><td><code>commerce_subscription_started</code> / <code>canceled</code> / <code>paused</code></td><td>Badge recompute; <strong>does not</strong> revoke <code>club</code> tier on cancel</td></tr><tr><td>Admin <strong>Sync supporter badges</strong></td><td><code>reconcileAll()</code></td></tr><tr><td>MCP <code>user_reconcile_supporter_badges</code></td><td>Single email or batch</td></tr></tbody></table>
 <p>Commerce emits payment facts only — badge threshold logic stays in User plugin (<code>supporter_badge_rules.json</code> + <code>SupporterBadgeRules</code>).</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="membership-club-depth.html">Membership club depth (P80)</a></li>
 <li><a href="user-plugin.html">User plugin</a></li>
 <li><a href="user-fieldtype-profiles.html">User fieldtype profiles</a></li>
 <li><a href="user-member-migration.html">Member migration</a></li>

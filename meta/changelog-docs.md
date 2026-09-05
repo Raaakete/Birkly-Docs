@@ -12,6 +12,12 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-09-05 — P80 Membership club depth
+
+- **New:** `06-extensibility/membership-club-depth.md` — onboarding, mentions, digests, moderation, wishes, deals, automation hooks, recipe pack.
+- **Updated:** `06-extensibility/user-signup-membership.md` — P80 cross-link from P79 membership guide.
+- **Updated:** `manifest.json`, `CONTENTS_INDEX.md`.
+
 ## 2026-09-04 — P77 User fieldtype profiles (member-as-entry)
 
 - **New:** `06-extensibility/user-fieldtype-profiles.md` — fieldtype profiles, `user_account*` fieldtype, Members tab, Commerce shelf, collection-scoped signup.

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>membership club depth — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/admin-chrome-action-zones.html" class="nav-link">Admin chrome and action zones</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="../01-admin/developer-mode.html" class="nav-link">Developer mode</a>
+        <a href="../01-admin/project-git-sync.html" class="nav-link">Project Git sync</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        <a href="../01-admin/connections.html" class="nav-link">Connections</a>
+        <a href="../01-admin/connections-provider-recipes.html" class="nav-link">Connections provider recipes</a>
+        <a href="../01-admin/connections-migration.html" class="nav-link">Migrate from Automation Setup email</a>
+        <a href="../01-admin/connections-mcp-rules.html" class="nav-link">Connections MCP rules</a>
+        <a href="../01-admin/discovery.html" class="nav-link">Discovery</a>
+        <a href="../01-admin/site-url-map.html" class="nav-link">Site URL Map</a>
+        <a href="../01-admin/activity.html" class="nav-link">Activity feed</a>
+        <a href="../01-admin/notifications.html" class="nav-link">Admin notifications</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/commerce-linked-checkout.html" class="nav-link">Commerce linked checkout</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
+        <a href="../04-integration/connections-api-reference.html" class="nav-link">Connections API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Studio</div>
+        <a href="../04-studio/getting-started.html" class="nav-link">Studio getting started</a>
+        <a href="../04-studio/production-builder.html" class="nav-link">Production builder</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="commerce-coexistence.html" class="nav-link">Commerce coexistence</a>
+        <a href="commerce-plugin.html" class="nav-link">Commerce plugin reference</a>
+        <a href="commerce-fieldtype.html" class="nav-link">Commerce fieldtype</a>
+        <a href="events-plugin.html" class="nav-link">Events plugin</a>
+        <a href="payment-shelf-api.html" class="nav-link">Payment shelf API</a>
+        <a href="payments-plugin.html" class="nav-link">Payments plugin</a>
+        <a href="shopping-cart-plugin.html" class="nav-link">Shopping cart plugin</a>
+        <a href="commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
+        <a href="commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="user-signup-membership.html" class="nav-link">User signup and membership</a>
+        <a href="membership-club-depth.html" class="nav-link active">Membership club depth (P80)</a>
+        <a href="user-fieldtype-profiles.html" class="nav-link">User fieldtype profiles</a>
+        <a href="user-member-migration.html" class="nav-link">Member migration (P77)</a>
+        <a href="commerce-membership.html" class="nav-link">Commerce membership (legacy redirect)</a>
+        <a href="plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="user-ugc-ownership.html" class="nav-link">UGC ownership and social graph</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/site-delivery-routing.html" class="nav-link">Site delivery and routing</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Extend the Birkly Club member hub with onboarding, @mentions, notification digests, block/mute safety, moderation reports, wishes, deal analytics, and Automation lifecycle hooks.</p>
+<div class="doc-summary"><p><strong>P80</strong> builds on <a href="user-signup-membership.html">User signup and membership</a> (P79 free club + supporter badges). Members join with <code>club_free_register</code>, complete a profile onboarding flow, and use the club hub (<code>club.html</code> + <code>club-app.js</code>). Site owners get admin APIs for wishes, reports, and deal counters; Automation can react to club lifecycle events via the <strong><code>membership-club-depth</code></strong> recipe pack.</p>
+<p><strong>Requires:</strong> User Management <strong>≥ 1.0.69</strong>, Automation <strong>≥ 1.1.22</strong> (Hub). Commerce is optional (paid activation path + badge sync).</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What P80 adds for members</strong></p>
+<table><thead><tr><th>Area</th><th>What members see</th></tr></thead>
+<tbody><tr><td><strong>Onboarding</strong></td><td>Welcome modal on first login; completeness score; deep link to pinned <strong>Introduce yourself</strong> post</td></tr><tr><td><strong>Profiles</strong></td><td>Public profile URLs (<code>?member=slug</code>), OG meta tags, interests and links</td></tr><tr><td><strong>Mentions</strong></td><td><code>@slug</code> links in posts and comments; mention notifications (in-app + optional email)</td></tr><tr><td><strong>Digests</strong></td><td>Daily/weekly email batch of unread notifications (opt-in in notification settings)</td></tr><tr><td><strong>Safety</strong></td><td>Block/mute other members; muted authors skipped in notifications</td></tr><tr><td><strong>Wishes</strong></td><td>Submit feature wishes; status badges (<code>pending</code> → <code>planned</code> → <code>shipped</code>)</td></tr><tr><td><strong>Deals</strong></td><td>Member perks with copy/visit tracking</td></tr></tbody></table>
+<p><strong>What site owners configure</strong></p>
+<ol>
+<li><strong>Hub upgrade</strong> — Install User <strong>1.0.69+</strong> and Automation <strong>1.1.22+</strong> from the Birkly Hub.</li>
+<li><strong>Collections</strong> — Plugin upgrade ensures schemas for <code>club-profiles</code>, <code>club-posts</code>, <code>club-wishes</code>, <code>club-deals</code>, <code>club-reports</code> (fields for onboarding, mentions, moderation, analytics).</li>
+<li><strong>Club hub</strong> — Deploy <code>project/club.html</code>, <code>js/club-app.js</code>, and club CSS from your reference site or birkly.cloud <code>project/</code>.</li>
+<li><strong>Automation (optional)</strong> — Import recipe pack <strong><code>membership-club-depth</code></strong> under <strong>Automation → Recipes</strong>. Enable workflows after SMTP is configured under <strong>Connections</strong> or Automation setup.</li>
+<li><strong>Moderation</strong> — Review <code>club-reports</code> in <strong>Collections</strong>; use admin actions to hide posts or suspend users.</li>
+</ol>
+<p><strong>Onboarding flow</strong></p>
+<ol>
+<li>Member signs up with <code>club_free_register</code> (see <a href="user-signup-membership.html">User signup and membership</a>).</li>
+<li>On first visit to <code>/club.html</code>, the welcome modal prompts for avatar, bio, links, and interests.</li>
+<li><code>user_account?action=complete_onboarding</code> marks <code>onboarding_completed</code> and fires <code>club_member_onboarded</code>.</li>
+<li>UI links to the pinned <strong>Introduce yourself</strong> post (<code>slug: introduce-yourself</code>) for first comments.</li>
+</ol>
+<p><strong>Notification preferences</strong></p>
+<p>Members control prefs via <code>club_notifications</code> API (also exposed in club profile settings UI):</p>
+<table><thead><tr><th>Pref</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>notify_mentions</code></td><td>In-app mention alerts</td></tr><tr><td><code>email_mentions</code></td><td>Email on @mention</td></tr><tr><td><code>digest_enabled</code></td><td>Batch unread into digest email</td></tr><tr><td><code>digest_frequency</code></td><td><code>daily</code> or <code>weekly</code></td></tr></tbody></table>
+<p>Import Automation recipe <strong><code>club-depth-send-notification-digests</code></strong> for a daily scheduled digest sender (calls User action <code>send_club_notification_digests</code>).</p>
+<p><strong>Moderation (v1)</strong></p>
+<ul>
+<li>Members tap <strong>Report</strong> on a post → creates a <code>club-reports</code> entry.</li>
+<li>Block/mute graph hides blocked authors from the feed and skips muted actors in notifications.</li>
+<li>Admins review open reports in Collections; optional Automation recipe emails ops on <code>club_member_reported</code>.</li>
+</ul>
+<p><strong>Wishes and deals</strong></p>
+<ul>
+<li><strong>Wishes:</strong> Members submit ideas; admins promote to <code>roadmap-features</code> drafts via <code>club_wishes?action=promote</code>.</li>
+<li><strong>Deals:</strong> <code>club_deals?action=track</code> increments <code>copy_count</code> / <code>visit_count</code> (session + CSRF); counters visible in admin.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Plugin versions (P80-M7)</strong></p>
+<table><thead><tr><th>Plugin</th><th>Min version</th><th>P80 highlights</th></tr></thead>
+<tbody><tr><td>User Management</td><td>1.0.69</td><td>Onboarding, mentions, digests, block/mute, reports, wishes, deals, automation hook bridge</td></tr><tr><td>Automation</td><td>1.1.22</td><td><code>membership-club-depth</code> pack v1.0.2 (5 recipes)</td></tr><tr><td>Commerce</td><td>1.0.106+</td><td>Optional <code>club_opt_in</code> checkout metadata; badge sync unchanged from P79</td></tr></tbody></table>
+<p><strong>Key collections and fields</strong></p>
+<table><thead><tr><th>Collection</th><th>P80 fields / behavior</th></tr></thead>
+<tbody><tr><td><code>club-profiles</code></td><td><code>interests</code>, <code>onboarding_completed</code>, <code>profile_completeness</code>, <code>notification_prefs</code> (JSON)</td></tr><tr><td><code>club-posts</code></td><td><code>mentioned_user_ids</code> (server-written JSON), <code>moderation_hidden</code></td></tr><tr><td><code>club-wishes</code></td><td><code>status</code> enum, <code>decline_reason</code>, <code>roadmap_link</code></td></tr><tr><td><code>club-deals</code></td><td><code>copy_count</code>, <code>visit_count</code></td></tr><tr><td><code>club-reports</code></td><td><code>report_status</code>, <code>target_collection</code>, <code>target_entry_id</code>, <code>reporter_user_id</code>, <code>reason</code></td></tr></tbody></table>
+<p><strong>User APIs (selected)</strong></p>
+<table><thead><tr><th>Route</th><th>Actions</th></tr></thead>
+<tbody><tr><td><code>user_account</code></td><td><code>onboarding_status</code>, <code>complete_onboarding</code>, <code>public_profile</code></td></tr><tr><td><code>user_graph</code></td><td><code>block</code>, <code>unblock</code>, <code>mute</code>, <code>unmute</code>, <code>list_blocks</code>, <code>list_mutes</code></td></tr><tr><td><code>club_notifications</code></td><td><code>list</code>, <code>unread_count</code>, <code>mark_read</code>, <code>get_preferences</code>, <code>save_preferences</code></td></tr><tr><td><code>club_reports</code></td><td><code>submit</code> (member), <code>list</code> / <code>hide_post</code> (admin)</td></tr><tr><td><code>club_wishes</code></td><td><code>promote</code> (admin → roadmap draft)</td></tr><tr><td><code>club_deals</code></td><td><code>track</code> (<code>copy</code> | <code>visit</code>)</td></tr></tbody></table>
+<p><strong>Automation hooks (User → Automation bridge)</strong></p>
+<p>When Automation is active, User Management enqueues these triggers (merged context includes <code>email</code>, <code>name</code>, <code>site_name</code>, <code>site_url</code> when available):</p>
+<table><thead><tr><th>Hook</th><th>Payload keys</th></tr></thead>
+<tbody><tr><td><code>club_profile_created</code></td><td><code>user_id</code>, <code>profile_slug</code>, <code>entry_id</code></td></tr><tr><td><code>club_member_onboarded</code></td><td><code>user_id</code>, <code>completeness</code>, <code>slug</code>, <code>profile_slug</code>, <code>email</code></td></tr><tr><td><code>club_post_created</code></td><td><code>entry_id</code>, <code>title</code>, <code>slug</code>, <code>user_id</code>, <code>collection</code></td></tr><tr><td><code>club_mention_created</code></td><td><code>entry_id</code>, <code>mentioned_user_ids</code>, <code>collection</code>; comments add <code>sub_entry_id</code>, <code>sub_collection</code></td></tr><tr><td><code>supporter_badge_granted</code></td><td><code>user_id</code>, <code>email</code>, <code>supporter_badge</code>, <code>supporter_cadence</code>, <code>supporter_amount_eur</code></td></tr><tr><td><code>club_member_reported</code></td><td><code>report_id</code>, <code>target_collection</code>, <code>target_entry_id</code>, <code>reporter_id</code>, <code>reason</code></td></tr><tr><td><code>user_tier_changed</code></td><td><code>user_id</code>, <code>old_tier</code>, <code>tier_id</code></td></tr></tbody></table>
+<p><strong>Recipe pack <code>membership-club-depth</code> (Automation 1.1.22)</strong></p>
+<table><thead><tr><th>Recipe id</th><th>Trigger</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>club-depth-send-activation-on-opt-in</code></td><td><code>commerce_subscription_started</code></td><td>Activation email when checkout includes club opt-in</td></tr><tr><td><code>club-depth-welcome-on-tier-granted</code></td><td><code>user_tier_changed</code></td><td>Optional welcome when tier becomes <code>club</code></td></tr><tr><td><code>club-depth-welcome-on-member-onboarded</code></td><td><code>club_member_onboarded</code></td><td>Welcome after onboarding completes</td></tr><tr><td><code>club-depth-admin-notify-on-report</code></td><td><code>club_member_reported</code></td><td>Email ops inbox on new report</td></tr><tr><td><code>club-depth-send-notification-digests</code></td><td><code>scheduled</code> (daily)</td><td>Calls <code>send_club_notification_digests</code></td></tr></tbody></table>
+<p>Import via <strong>Automation → Recipes → membership-club-depth</strong>. Recipes ship <strong>disabled</strong> — set admin email / SMTP, then enable per workflow.</p>
+<p><strong>Paid subscriber activation (optional)</strong></p>
+<p>For recurring supporters who opt into club at checkout:</p>
+<ol>
+<li>Commerce passes <code>club_opt_in</code> / <code>signup_flow_opt_in</code> metadata on linked checkout.</li>
+<li><code>commerce_subscription_started</code> fires; Automation recipe can call User <code>send_activation_email</code>.</li>
+<li>Entitlement checker <code>hasActiveSubscriptionForEmail</code> gates activation when configured.</li>
+</ol>
+<p>Free club (<code>club_free_register</code>) does not require this path.</p>
+<p><strong>Project site files</strong></p>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead>
+<tbody><tr><td><code>club.html</code></td><td>Hub shell, onboarding modal, feed, profile modal</td></tr><tr><td><code>js/club-app.js</code></td><td>API client, mention rendering, digest prefs, wishes/deals, <code>?member=</code> router</td></tr><tr><td><code>css/club-social-v3.css</code></td><td>Onboarding, badges, wish status pills, moderation affordances</td></tr><tr><td><code>sponsors.html</code></td><td>Optional <code>club_opt_in</code> checkbox on recurring checkout</td></tr></tbody></table>
+<p>Cache-bust <code>club-app.js</code> after deploy (<code>?v=</code> query) when iterating on large bundles.</p>
+<p><strong>MCP / admin</strong></p>
+<ul>
+<li><code>user_reconcile_supporter_badges</code> — badge sync (P79, unchanged)</li>
+<li><code>automation_import_recipe_pack</code> with pack id <code>membership-club-depth</code></li>
+<li>Collections seed: pinned post <strong>Introduce yourself</strong> (<code>author: __birkly__</code>, slug <code>introduce-yourself</code>)</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="user-signup-membership.html">User signup and membership</a> — P79 free club, badges, signup flows</li>
+<li><a href="user-plugin.html">User plugin</a></li>
+<li><a href="user-ugc-ownership.html">UGC ownership and social graph</a></li>
+<li><a href="../05-automation/triggers.html">Automation triggers</a></li>
+<li><a href="../05-automation/conditions-and-actions.html">Automation conditions and actions</a></li>
+<li><a href="commerce-subscriptions.html">Commerce subscriptions</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

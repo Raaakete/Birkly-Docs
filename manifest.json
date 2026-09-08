@@ -155,6 +155,7 @@
         { "path": "06-extensibility/commerce-fieldtype.md", "label": "Commerce fieldtype" },
         { "path": "06-extensibility/events-plugin.md", "label": "Events plugin" },
         { "path": "06-extensibility/payment-shelf-api.md", "label": "Payment shelf API" },
+        { "path": "06-extensibility/admin-plugin-extension.md", "label": "Admin plugin extension" },
         { "path": "06-extensibility/payments-plugin.md", "label": "Payments plugin" },
         { "path": "06-extensibility/shopping-cart-plugin.md", "label": "Shopping cart plugin" },
         { "path": "06-extensibility/commerce-hybrid-cart.md", "label": "Commerce hybrid cart" },

@@ -1157,6 +1157,22 @@
             "ai_topic": "settings-roles"
         },
         {
+            "id": "admin-plugin-extension",
+            "title": "Admin plugin extension",
+            "keywords": [
+                "admin",
+                "plugin",
+                "dashboard",
+                "notification",
+                "webmcp",
+                "shelf",
+                "extension",
+                "admin.scripts"
+            ],
+            "docs_path": "06-extensibility/admin-plugin-extension.html",
+            "ai_topic": "plugins-overview"
+        },
+        {
             "id": "scaffold-plugin",
             "title": "Plugin scaffolding CLI",
             "keywords": [

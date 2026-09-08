@@ -679,6 +679,20 @@
                 "create"
             ]
         },
+        "06-extensibility/admin-plugin-extension.md": {
+            "id": "admin-plugin-extension",
+            "title": "Admin plugin extension",
+            "keywords": [
+                "admin",
+                "plugin",
+                "dashboard",
+                "notification",
+                "webmcp",
+                "shelf",
+                "extension"
+            ],
+            "ai_topic": "plugins-overview"
+        },
         "01-admin/media-library.md": {
             "id": "media",
             "title": "Media library",

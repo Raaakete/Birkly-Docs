@@ -12,6 +12,11 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-09-08 — P83 Admin plugin extension playbook
+
+- **Added:** `06-extensibility/admin-plugin-extension.md` — admin.scripts shelf, dashboard mounts, notification formatters, WebMCP runtime packs (P83-M8).
+- **Indexed:** manifest.json, help-manifest.json, help-topics-meta.json, CONTENTS_INDEX.
+
 ## 2026-09-08 — P82 Project sites + plugin storefront shelf
 
 - **New:** `03-templating/project-sites-and-plugins.md` — one `birkly-client.js` tag, `data-cms-url` cross-origin, auto-loaded `storefront.scripts`, `data-user-require-auth`, `Birkly.fetch` / `routeFetch`, deprecation of manual plugin script tags.

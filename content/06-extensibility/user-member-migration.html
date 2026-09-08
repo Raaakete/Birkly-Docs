@@ -1,0 +1,56 @@
+<p>Move existing <strong>User List</strong> accounts into <strong>member collection entries</strong> without breaking login or the P76 social graph.</p>
+<p>Requires <strong>User Management 1.0.53+</strong>.</p>
+<div class="doc-summary"><p>The migration is <strong>additive and idempotent</strong>:</p>
+<ul>
+<li>Legacy <code>UserStorage</code> users are <strong>not deleted</strong></li>
+<li>Member entries get <code>account.member_id</code> and <code>account.legacy_user_id</code></li>
+<li><code>member_legacy_map</code> metadata links <code>user_id</code> ↔ <code>member_id</code></li>
+<li>Dual-read auth lets existing users sign in with the same email and password</li>
+<li>P76 <code>user_relationship</code> resolves anchors from <code>legacy_user_id</code> or the legacy map</li>
+</ul>
+<h2>Before you start</h2>
+<ol>
+<li><strong>Backup</strong> <code>content/</code> and <code>data/plugins/user_management/</code>.</li>
+<li>Deploy User <strong>1.0.53+</strong> from the Hub.</li>
+<li>Confirm the target collection schema includes an account field (for example <code>account</code> with type <code>user_account_club</code>).</li>
+<li>Verify <strong>User → Fieldtypes</strong> and <strong>Members</strong> tabs load in admin.</li>
+</ol>
+<h2>Migration script</h2>
+<p>Path: <code>plugins/user_management/scripts/migrate-p77-members.php</code></p>
+<pre><code># Preview
+php plugins/user_management/scripts/migrate-p77-members.php --dry-run --collection=club-profiles
+
+# Execute
+php plugins/user_management/scripts/migrate-p77-members.php --collection=club-profiles</code></pre>
+<table><thead><tr><th>Flag</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>--dry-run</code></td><td>Report counts without writing</td></tr><tr><td><code>--collection=slug</code></td><td>Target member collection (required)</td></tr></tbody></table>
+<p><strong>On success:</strong></p>
+<ul>
+<li>Creates or updates entries with populated <code>account</code> field</li>
+<li>Writes <code>member_legacy_map</code> entries</li>
+<li>Sets <code>member_entry_auth</code> = <code>true</code> automatically</li>
+</ul>
+<h2>Verify</h2>
+<table><thead><tr><th>Check</th><th>Expected</th></tr></thead>
+<tbody><tr><td>Admin → <strong>Members</strong></td><td>Lists migrated rows; links open collection entries</td></tr><tr><td>Legacy login</td><td>Same email/password works (<code>auth_source: member_entry</code> in session)</td></tr><tr><td><code>user_relationship</code> panel</td><td>Loads on profile entries (anchor from <code>legacy_user_id</code> / owner)</td></tr><tr><td>New signup</td><td>Uses <code>user_member_signup</code> or <code>{entry for}</code> — not legacy <code>user_registration</code> when cutover enabled</td></tr></tbody></table>
+<h2>Cutover (optional)</h2>
+<p>When all active users have member entries:</p>
+<ol>
+<li><strong>User → Settings</strong> → enable <strong>Member entry signup only</strong></li>
+<li>Legacy <code>user_registration</code> returns <code>member_entry_signup_only</code> with redirect to <code>user_member_signup</code></li>
+</ol>
+<p>Keep <strong>Member entry authentication</strong> enabled for dual-read login.</p>
+<h2>Rollback</h2>
+<ul>
+<li>Disable <code>member_entry_auth</code> in plugin settings to turn off member-entry login fallback</li>
+<li>Restore from backup if entry writes need reverting</li>
+<li>Migration does not remove User List rows</li>
+</ul>
+<h2>birkly.io reference</h2>
+<p>Platform runbook (maintainers): <code>internal/planning/reviews/P77-birkly-io-migration-runbook.md</code> in Birkly-Marketplace.</p>
+<p>Phase A targets <code>club-profiles</code> with existing club tiers and Commerce membership products.</p></div>
+<div class="doc-related"><ul>
+<li><a href="user-fieldtype-profiles.html">User fieldtype profiles</a></li>
+<li><a href="user-plugin.html">User plugin</a></li>
+<li><a href="user-ugc-ownership.html">UGC ownership and social graph</a></li>
+</ul></div>

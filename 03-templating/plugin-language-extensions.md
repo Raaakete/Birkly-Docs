@@ -42,6 +42,7 @@ Plugins typically call `register_template_function()` (or the language-module eq
 - Prefer distinctive prefixes (`commerce_`, `event_`, `user_`).  
 - Do not redefine `for each`, `from`, `if`, `format`, `ordered by`.  
 - Document public helpers in Birkly-Docs under `03-templating/` and link from the plugin’s extensibility page.  
+- Storefront behavior (cart, auth gate, RSVP) ships in `*-storefront.js` and auto-loads via `plugin.json` — see [Project sites and plugins](project-sites-and-plugins.md).  
 - Keep Shadow DOM policy: helpers still run through the string engine; discovery remains Light DOM.
 
 **Testing**
@@ -62,3 +63,4 @@ Plugins typically call `register_template_function()` (or the language-module eq
 - [Events functions](events-functions.md)
 - [Plugin development](../06-plugin-economy/plugin-development.md)
 - [Storefront patterns](storefront-patterns.md)
+- [Project sites and plugins](project-sites-and-plugins.md)

@@ -1,0 +1,115 @@
+<p>How <code>project/</code> HTML works with active plugins: one client script tag, auto-loaded storefront behavior, member gates, and credentialed plugin API calls — including cross-origin sites.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Every project page needs <strong>one</strong> script: <code>birkly-client.js</code> (add <code>data-cms-url</code> when the site is not on the CMS host). Core loads plugin storefront scripts from each active plugin’s <code>plugin.json</code> manifest — you do <strong>not</strong> add <code>&lt;script src=&quot;/plugins/…/storefront.js&quot;&gt;</code> yourself. Member-only pages use <code>data-user-require-auth</code> on <code>&lt;body&gt;</code> or <code>&lt;html&gt;</code>. Custom plugin JavaScript should call plugin APIs through <code>Birkly.fetch</code> / <code>Birkly.routeFetch</code>, not hardcoded <code>/api/…</code> URLs.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>One script tag</h3>
+<p>Same host (CMS preview at <code>/project/</code>):</p>
+<pre><code>&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>Cross-origin (e.g. <code>birkly.io</code> → <code>cms.birkly.cloud</code>):</p>
+<pre><code>&lt;script src=&quot;https://cms.birkly.cloud/birkly-client.js&quot;
+        data-cms-url=&quot;https://cms.birkly.cloud&quot;&gt;&lt;/script&gt;</code></pre>
+<ul>
+<li><strong><code>data-cms-url</code></strong> must point at the CMS base URL so content, sessions, and plugin APIs resolve correctly.</li>
+<li>Your public site origin must be allowed by the CMS (CORS / licensed origins).</li>
+<li>Full script-tag checklist: <a href="client-setup.html">Client setup</a>.</li>
+</ul>
+<p>Do <strong>not</strong> add separate tags for User, Commerce, or Events storefront scripts. <code>birkly-client.js</code> fetches the manifest and injects them for you.</p>
+<h3>What loads automatically</h3>
+<p>When a plugin is <strong>active</strong>, its <code>plugin.json</code> can declare storefront scripts:</p>
+<table><thead><tr><th>Plugin</th><th>Global</th><th>Typical behavior</th></tr></thead>
+<tbody><tr><td>User Management</td><td><code>BirklyUser</code></td><td>Login/logout forms, account UI, member auth gate</td></tr><tr><td>Commerce</td><td><code>BirklyCommerce</code></td><td>Cart, checkout, linked donation binders</td></tr><tr><td>Events</td><td><code>BirklyEvents</code></td><td>RSVP binders</td></tr></tbody></table>
+<p>Automation and Studio do not ship separate storefront scripts for project sites.</p>
+<p>Template helpers (<code>{commerce_cart_count}</code>, <code>{user_logged_in}</code>, etc.) still come from the templating engine — see <a href="plugin-language-extensions.html">Plugin language extensions</a>. Storefront scripts handle <strong>interactive</strong> behavior after the page loads.</p>
+<h3>Member-only pages (User plugin)</h3>
+<p>Protect a page for signed-in members only:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; data-user-require-auth data-user-login-url=&quot;/club/login.html&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Member feed&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome back&lt;/h1&gt;
+  &lt;!-- loops, regions, etc. --&gt;
+  &lt;script src=&quot;https://cms.birkly.cloud/birkly-client.js&quot;
+          data-cms-url=&quot;https://cms.birkly.cloud&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<ul>
+<li><strong><code>data-user-require-auth</code></strong> — guests are redirected to the login URL.</li>
+<li><strong><code>data-user-login-url</code></strong> — where to send guests (default <code>/club/login.html</code>).</li>
+<li>Legacy alias: <code>data-birkly-require-member</code> (prefer <code>data-user-require-auth</code>).</li>
+</ul>
+<p>The User plugin waits for plugin scripts to load before running the gate, so cross-origin login → redirect → member page works with only <code>birkly-client.js</code>.</p>
+<h3>Shop, donate, and events pages</h3>
+<p>Use the same single script tag. Commerce cart/checkout and Events RSVP binders attach via auto-loaded storefront scripts when those plugins are active. Page recipes: <a href="storefront-patterns.html">Storefront and events patterns</a>, <a href="commerce-linked-checkout.html">Commerce linked checkout</a>.</p>
+<h3>Deprecated: manual plugin script tags</h3>
+<p><strong>Do not</strong> add tags like:</p>
+<pre><code>&lt;!-- deprecated — remove these --&gt;
+&lt;script src=&quot;/plugins/user_management/assets/user-storefront.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/plugins/commerce/assets/commerce-storefront.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>Manual tags are deprecated. The loader deduplicates by global name (<code>provides</code> in <code>plugin.json</code>), but omitting them keeps pages simpler and avoids version drift. Remove site-specific gate scripts (e.g. <code>club-gate.js</code>) — use <code>data-user-require-auth</code> instead.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<p><strong>Init sequence (CSR and SSR)</strong></p>
+<ol>
+<li><code>detectApiEndpoint()</code> — resolve <code>Birkly.cmsUrl</code> from <code>data-cms-url</code> or same origin.</li>
+<li><code>public.php?action=site_client_config</code> — merged plugin config (e.g. auth check routes).</li>
+<li><code>public.php?action=storefront_scripts</code> — active plugins’ script URLs + versions.</li>
+<li>Inject each script from <code>cmsUrl</code> + path; skip if <code>window[provides]</code> already exists.</li>
+<li><code>birkly:plugins-ready</code> — storefront scripts loaded.</li>
+<li>Plugin binders (auth gate, cart, RSVP) + template processing.</li>
+<li><code>birkly:client-ready</code> — full client init complete.</li>
+</ol>
+<p>SSR pages (<code>&lt;meta name=&quot;birkly-ssr&quot;&gt;</code>) may skip client template re-render but <strong>still</strong> load storefront scripts and run auth gates.</p>
+<p><strong><code>plugin.json</code> manifest (plugin authors)</strong></p>
+<pre><code>{
+  &quot;storefront&quot;: {
+    &quot;scripts&quot;: [
+      {
+        &quot;path&quot;: &quot;assets/user-storefront.js&quot;,
+        &quot;provides&quot;: &quot;BirklyUser&quot;,
+        &quot;load&quot;: &quot;always&quot;
+      }
+    ]
+  }
+}</code></pre>
+<table><thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><code>path</code></td><td>Relative to plugin root; served at <code>/plugins/{plugin_id}/{path}</code></td></tr><tr><td><code>provides</code></td><td>Global for dedupe (<code>window.BirklyUser</code>)</td></tr><tr><td><code>load</code></td><td><code>always</code> (default) or <code>when-detected</code> (future)</td></tr></tbody></table>
+<p>Core aggregates via <code>birkly_get_storefront_scripts()</code>; inactive plugins are excluded.</p>
+<p><strong><code>Birkly.fetch</code> / <code>Birkly.routeFetch</code> (plugin API transport)</strong></p>
+<p>Use for credentialed calls to <code>/api/index.php?route=…</code> with site session header — required for cross-origin project sites:</p>
+<pre><code>const json = await Birkly.fetch({
+  route: 'user_auth',
+  action: 'check',
+  method: 'GET',
+});
+
+await Birkly.routeFetch({
+  route: 'commerce',
+  action: 'add_to_cart',
+  method: 'POST',
+  body: { product_slug: 'supporter', quantity: 1 },
+});</code></pre>
+<p><code>Birkly.routeFetch</code> and object-form <code>Birkly.fetch</code> are equivalent. Both use <code>credentials: 'include'</code> and <code>X-Birkly-Site-Session</code> when present.</p>
+<p><strong>Legacy public API form</strong> — string action still works for content reads:</p>
+<pre><code>const list = await Birkly.fetch('list_entries', { collection: 'blog' });</code></pre>
+<p>Do not hardcode <code>/api/index.php?route=commerce</code> in project or plugin storefront code.</p>
+<p><strong><code>site_client_config</code></strong></p>
+<p>Plugins contribute keys via the <code>birkly_site_client_config</code> filter (e.g. User plugin <code>auth.check</code> / <code>auth.login</code>). Core merges; no plugin-specific keys in core. Client reads once at init.</p>
+<p><strong>Events</strong></p>
+<table><thead><tr><th>Event</th><th>When</th></tr></thead>
+<tbody><tr><td><code>birkly:api-ready</code></td><td><code>Birkly.cmsUrl</code> resolved</td></tr><tr><td><code>birkly:plugins-ready</code></td><td>Storefront scripts loaded</td></tr><tr><td><code>birkly:client-ready</code></td><td>Templates processed (if CSR), binders wired</td></tr><tr><td><code>birkly:templates-processed</code></td><td>Full-document template pass finished</td></tr></tbody></table>
+<p>Custom site JS that depends on <code>BirklyUser</code> or <code>BirklyCommerce</code> should listen for <code>birkly:plugins-ready</code> or <code>birkly:client-ready</code>.</p>
+<p><strong>Division of responsibility</strong></p>
+<table><thead><tr><th>Layer</th><th>Owns</th></tr></thead>
+<tbody><tr><td>Core <code>birkly-client.js</code></td><td>Templating, manifest loader, <code>Birkly.fetch</code>, site session transport, generic <code>data-birkly-route</code> forms</td></tr><tr><td>Plugin <code>*-storefront.js</code></td><td>Auth gate, cart/checkout, RSVP, account UI</td></tr><tr><td>Merchant <code>project/</code> HTML</td><td>Markup + declarative <code>data-*</code> — no custom auth gate scripts</td></tr></tbody></table>
+<p><strong>Common failures</strong></p>
+<table><thead><tr><th>Symptom</th><th>Fix</th></tr></thead>
+<tbody><tr><td>Gate never runs</td><td>User plugin inactive; missing <code>birkly-client.js</code>; gate attribute on wrong element</td></tr><tr><td>Cart/login fails cross-origin</td><td>Set <code>data-cms-url</code>; allow site origin on CMS</td></tr><tr><td>Duplicate plugin behavior</td><td>Remove manual <code>/plugins/…/storefront.js</code> tags</td></tr><tr><td><code>BirklyUser</code> undefined</td><td>Wait for <code>birkly:plugins-ready</code>; confirm plugin active and manifest entry exists</td></tr></tbody></table></div></details>
+<div class="doc-related"><ul>
+<li><a href="client-setup.html">Client setup</a></li>
+<li><a href="storefront-patterns.html">Storefront and events patterns</a></li>
+<li><a href="commerce-linked-checkout.html">Commerce linked checkout</a></li>
+<li><a href="plugin-language-extensions.html">Plugin language extensions</a></li>
+<li><a href="../04-integration/client-library.html">Client library</a></li>
+<li><a href="../06-extensibility/user-signup-membership.html">User signup and membership</a></li>
+<li><a href="production-optimization.html">Production optimization</a> — SSR still loads storefront scripts</li>
+</ul></div>

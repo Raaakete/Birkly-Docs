@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>user ugc ownership — Birkly Docs</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="header-inner">
+        <a href="../index.html" class="logo">Birkly Docs</a>
+        <p class="tagline">Single source of truth for Birkly CMS documentation</p>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+      <nav class="nav" aria-label="Documentation">
+        <div class="nav-section"><a href="../index.html" class="nav-link">Home</a></div>
+        <div class="nav-section"><div class="nav-section-title">Overview</div>
+        <a href="../00-overview/what-is-birkly.html" class="nav-link">What is Birkly</a>
+        <a href="../00-overview/what-is-a-cms.html" class="nav-link">What is a CMS</a>
+        <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
+        <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
+        <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Admin</div>
+        <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../01-admin/admin-responsive-dashboard.html" class="nav-link">Responsive dashboard</a>
+        <a href="../01-admin/admin-chrome-action-zones.html" class="nav-link">Admin chrome and action zones</a>
+        <a href="../01-admin/content-overview.html" class="nav-link">Content overview</a>
+        <a href="../01-admin/entry-editor.html" class="nav-link">Entry editor</a>
+        <a href="../01-admin/admin-forms-navigation.html" class="nav-link">Forms and navigation</a>
+        <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
+        <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
+        <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/analytics-presets.html" class="nav-link">Analytics presets</a>
+        <a href="../01-admin/developer-mode.html" class="nav-link">Developer mode</a>
+        <a href="../01-admin/project-git-sync.html" class="nav-link">Project Git sync</a>
+        <a href="../01-admin/roles-and-permissions.html" class="nav-link">Roles and permissions</a>
+        <a href="../01-admin/account.html" class="nav-link">Account</a>
+        <a href="../01-admin/admin-appearance.html" class="nav-link">Admin appearance</a>
+        <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
+        <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
+        <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
+        <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
+        <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
+        <a href="../01-admin/ai-site-builder.html" class="nav-link">AI site builder</a>
+        <a href="../01-admin/ai-chat-and-actions.html" class="nav-link">AI chat and actions</a>
+        <a href="../01-admin/ai-approvals.html" class="nav-link">AI approvals</a>
+        <a href="../01-admin/connections.html" class="nav-link">Connections</a>
+        <a href="../01-admin/connections-provider-recipes.html" class="nav-link">Connections provider recipes</a>
+        <a href="../01-admin/connections-migration.html" class="nav-link">Migrate from Automation Setup email</a>
+        <a href="../01-admin/connections-mcp-rules.html" class="nav-link">Connections MCP rules</a>
+        <a href="../01-admin/discovery.html" class="nav-link">Discovery</a>
+        <a href="../01-admin/site-url-map.html" class="nav-link">Site URL Map</a>
+        <a href="../01-admin/activity.html" class="nav-link">Activity feed</a>
+        <a href="../01-admin/notifications.html" class="nav-link">Admin notifications</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Content</div>
+        <a href="../02-content/content-model-overview.html" class="nav-link">Content model overview</a>
+        <a href="../02-content/collections.html" class="nav-link">Collections</a>
+        <a href="../02-content/collection-groups.html" class="nav-link">Collection groups</a>
+        <a href="../02-content/sub-collections.html" class="nav-link">Sub-Collections</a>
+        <a href="../02-content/entries.html" class="nav-link">Entries</a>
+        <a href="../02-content/site-elements-pattern.html" class="nav-link">Site elements pattern</a>
+        <a href="../02-content/dynamic-items-field.html" class="nav-link">Dynamic items field</a>
+        <a href="../02-content/field-types.html" class="nav-link">Field types</a>
+        <a href="../02-content/slugs-and-status.html" class="nav-link">Slugs and status</a>
+        <a href="../02-content/content-editor.html" class="nav-link">ContentEditor</a>
+        <a href="../02-content/agent-guide.html" class="nav-link">Agent Guide</a>
+        <a href="../02-content/agent-guide-getting-started.html" class="nav-link">Agent Guide — getting started</a>
+        <a href="../02-content/agent-guide-workflows.html" class="nav-link">Agent Guide — workflows</a>
+        <a href="../02-content/agent-guide-claims-evidence-and-links.html" class="nav-link">Agent Guide — claims &amp; links</a>
+        <a href="../02-content/agent-guide-ai-assist.html" class="nav-link">Agent Guide — AI Assist</a>
+        <a href="../02-content/agent-guide-best-practices.html" class="nav-link">Agent Guide — best practices</a>
+        <a href="../02-content/agent-guide-data-model.html" class="nav-link">Agent Guide — data model</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Templating</div>
+        <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
+        <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
+        <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
+        <a href="../03-templating/project-sites-and-plugins.html" class="nav-link">Project sites and plugins</a>
+        <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
+        <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
+        <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
+        <a href="../03-templating/conditionals.html" class="nav-link">Conditionals</a>
+        <a href="../03-templating/from-get-and-existence.html" class="nav-link">From…get / existence</a>
+        <a href="../03-templating/sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
+        <a href="../03-templating/dates-and-formatting.html" class="nav-link">Dates and formatting</a>
+        <a href="../03-templating/media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="../03-templating/public-forms-templating.html" class="nav-link">Public forms templating</a>
+        <a href="../03-templating/multilingual-templating.html" class="nav-link">Multilingual templating</a>
+        <a href="../03-templating/web-components.html" class="nav-link">Web components (templating)</a>
+        <a href="../03-templating/plugin-language-extensions.html" class="nav-link">Plugin language extensions</a>
+        <a href="../03-templating/commerce-functions.html" class="nav-link">Commerce functions</a>
+        <a href="../03-templating/events-functions.html" class="nav-link">Events functions</a>
+        <a href="../03-templating/storefront-patterns.html" class="nav-link">Storefront and events patterns</a>
+        <a href="../03-templating/commerce-linked-checkout.html" class="nav-link">Commerce linked checkout</a>
+        <a href="../03-templating/worked-site-walkthrough.html" class="nav-link">Worked site walkthrough</a>
+        <a href="../03-templating/cheat-sheet.html" class="nav-link">Cheat sheet</a>
+        <a href="../03-templating/reference-projects.html" class="nav-link">Reference projects</a>
+        <a href="../03-templating/production-optimization.html" class="nav-link">Production optimization</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Integration</div>
+        <a href="../04-integration/choose-your-stack.html" class="nav-link">Choose your stack</a>
+        <a href="../04-integration/website-integration.html" class="nav-link">Website integration</a>
+        <a href="../04-integration/web-components.html" class="nav-link">Web components</a>
+        <a href="../04-integration/spa-react-vue.html" class="nav-link">SPA (React / Vue)</a>
+        <a href="../04-integration/ssr-and-build-time.html" class="nav-link">SSR and build-time</a>
+        <a href="../04-integration/client-library.html" class="nav-link">Client library</a>
+        <a href="../04-integration/public-api.html" class="nav-link">Public API</a>
+        <a href="../04-integration/public-forms.html" class="nav-link">Public forms</a>
+        <a href="../04-integration/agent-guide-public-api.html" class="nav-link">Agent Guide public API</a>
+        <a href="../04-integration/agent-guide-mcp-and-agents.html" class="nav-link">Agent Guide MCP &amp; agents</a>
+        <a href="../04-integration/webmcp-tools.html" class="nav-link">Website tools (WebMCP)</a>
+        <a href="../04-integration/ai-on-localhost.html" class="nav-link">AI on localhost</a>
+        <a href="../04-integration/connections-api-reference.html" class="nav-link">Connections API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Studio</div>
+        <a href="../04-studio/getting-started.html" class="nav-link">Studio getting started</a>
+        <a href="../04-studio/production-builder.html" class="nav-link">Production builder</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Automation</div>
+        <a href="../05-automation/automation-overview.html" class="nav-link">Automation overview</a>
+        <a href="../05-automation/triggers.html" class="nav-link">Triggers</a>
+        <a href="../05-automation/commerce-recipes.html" class="nav-link">Commerce recipe pack</a>
+        <a href="../05-automation/conditions-and-actions.html" class="nav-link">Conditions and actions</a>
+        <a href="../05-automation/webhooks.html" class="nav-link">Webhooks</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Extensibility</div>
+        <a href="plugins.html" class="nav-link">Plugins</a>
+        <a href="marketplace-go-live.html" class="nav-link">Marketplace go-live</a>
+        <a href="marketplace-provider-guide.html" class="nav-link">Marketplace — provider guide</a>
+        <a href="marketplace-buyer-guide.html" class="nav-link">Marketplace — buyer guide</a>
+        <a href="plugins/commerce.html" class="nav-link">Commerce plugin</a>
+        <a href="commerce-coexistence.html" class="nav-link">Commerce coexistence</a>
+        <a href="commerce-plugin.html" class="nav-link">Commerce plugin reference</a>
+        <a href="commerce-fieldtype.html" class="nav-link">Commerce fieldtype</a>
+        <a href="events-plugin.html" class="nav-link">Events plugin</a>
+        <a href="payment-shelf-api.html" class="nav-link">Payment shelf API</a>
+        <a href="payments-plugin.html" class="nav-link">Payments plugin</a>
+        <a href="shopping-cart-plugin.html" class="nav-link">Shopping cart plugin</a>
+        <a href="commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
+        <a href="commerce-store-kit.html" class="nav-link">Commerce store kit</a>
+        <a href="commerce-customers.html" class="nav-link">Commerce customers</a>
+        <a href="commerce-promotions.html" class="nav-link">Commerce promotions</a>
+        <a href="commerce-gift-cards-quotes.html" class="nav-link">Commerce gift cards and quotes</a>
+        <a href="commerce-tax.html" class="nav-link">Commerce tax</a>
+        <a href="commerce-shipping.html" class="nav-link">Commerce shipping rates</a>
+        <a href="commerce-fulfillment.html" class="nav-link">Commerce fulfillment</a>
+        <a href="commerce-subscriptions.html" class="nav-link">Commerce subscriptions</a>
+        <a href="commerce-analytics.html" class="nav-link">Commerce analytics</a>
+        <a href="commerce-migration-wizard.html" class="nav-link">Commerce migration wizard</a>
+        <a href="commerce-shopify-cutover.html" class="nav-link">Shopify cutover playbook</a>
+        <a href="commerce-live-import.html" class="nav-link">Commerce live import</a>
+        <a href="commerce-multi-currency.html" class="nav-link">Commerce multi-currency</a>
+        <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
+        <a href="commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
+        <a href="user-signup-membership.html" class="nav-link">User signup and membership</a>
+        <a href="membership-club-depth.html" class="nav-link">Membership club depth (P80)</a>
+        <a href="user-fieldtype-profiles.html" class="nav-link">User fieldtype profiles</a>
+        <a href="user-member-migration.html" class="nav-link">Member migration (P77)</a>
+        <a href="commerce-membership.html" class="nav-link">Commerce membership (legacy redirect)</a>
+        <a href="plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
+        <a href="scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
+        <a href="commerce-import.html" class="nav-link">Commerce CSV import</a>
+        <a href="user-plugin.html" class="nav-link">User plugin</a>
+        <a href="user-ugc-ownership.html" class="nav-link active">UGC ownership and social graph</a>
+        <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
+        <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
+        <a href="updates.html" class="nav-link">Updates</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Plugin economy</div>
+        <a href="../06-plugin-economy/overview.html" class="nav-link">Overview</a>
+        <a href="../06-plugin-economy/for-site-owners.html" class="nav-link">For site owners</a>
+        <a href="../06-plugin-economy/for-providers.html" class="nav-link">For providers</a>
+        <a href="../06-plugin-economy/plugin-development.html" class="nav-link">Plugin development</a>
+        <a href="../06-plugin-economy/plugin-admin-styling.html" class="nav-link">Plugin admin styling</a>
+        <a href="../06-plugin-economy/plugin-navigation-icon.html" class="nav-link">Plugin navigation icon</a>
+        <a href="../06-plugin-economy/theme-and-template-packs.html" class="nav-link">Hub, themes, and site packs</a>
+        <a href="../06-plugin-economy/security-and-review.html" class="nav-link">Security and review</a>
+        <a href="../06-plugin-economy/official-plugins.html" class="nav-link">Official plugins</a>
+        <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
+        <a href="../07-operations/site-delivery-routing.html" class="nav-link">Site delivery and routing</a>
+        <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
+        <a href="../07-operations/production-deploy-checklist.html" class="nav-link">Production deploy checklist</a>
+        <a href="../07-operations/monitoring-alerts.html" class="nav-link">Monitoring and health alerts</a>
+        <a href="../07-operations/security.html" class="nav-link">Security</a>
+        <a href="../07-operations/backup-and-restore.html" class="nav-link">Backup and restore</a>
+        <a href="../07-operations/troubleshooting.html" class="nav-link">Troubleshooting</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Meta</div>
+        <a href="../meta/glossary.html" class="nav-link">Glossary</a>
+        <a href="../meta/audience-matrix.html" class="nav-link">Audience matrix</a>
+        <a href="../meta/changelog-docs.html" class="nav-link">Changelog (docs)</a>
+        </div>
+        <div class="nav-section"><div class="nav-section-title">Source</div>
+        <a href="../DOCS_ARCHITECTURE.html" class="nav-link">Docs architecture</a>
+        <a href="../README.html" class="nav-link">README</a>
+        <a href="../CONTENTS_INDEX.html" class="nav-link">Contents index</a>
+        </div>
+      </nav>
+    </aside>
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
+    <main class="main">
+      <div class="content doc-body">
+        <div class="doc-content"><p>Canonical model for posts, comments, likes, and profiles: one <strong>owner</strong> field per schema, a <strong>plugin-private social graph</strong>, and platform-enforced session ownership on public APIs.</p>
+<p>Requires <strong>User Management 1.0.42+</strong> (graph fieldtype + private store) and <strong>Birkly core</strong> with <code>entry_ownership.php</code>, virtual fieldtype hooks, and public-read filters.</p>
+<div class="doc-summary"><p>UGC collections declare a single <code>type: &quot;user&quot;</code> field with <code>ownership: true</code>. Public create paths (<code>public_submit</code>, <code>public_sub_entry</code>) set owner from the logged-in session — clients cannot spoof it. Social edges (follow, connection, block) live in <strong>plugin-private storage</strong> (<code>data/plugins/user_management/graph/</code>) via <code>UserGraphService</code> and the <code>user_graph</code> API. Profile collections may add a <strong><code>user_relationship</code> virtual field</strong> for the admin relationship panel — graph data is not stored on the profile entry JSON. Reactions (likes, votes) are <strong>sub-entries</strong> with their own <code>owner</code> field, not plugin metadata.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Three primitives</strong></p>
+<table><thead><tr><th>Primitive</th><th>Where</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><strong>Owner field</strong></td><td>Entry / sub-entry schema</td><td>Links content to an account (<code>owner</code>, <code>type: user</code>, <code>ownership: true</code>)</td></tr><tr><td><strong>Profile entry</strong></td><td>Configurable profile collection</td><td>Public card for an account (avatar, bio) + optional <code>user_relationship</code> admin panel</td></tr><tr><td><strong>User graph</strong></td><td>Plugin-private <code>graph/</code> store</td><td>Directed edges: <strong>follow</strong> (one-way), <strong>connection</strong> (mutual), <strong>block</strong></td></tr></tbody></table>
+<p><strong>Relationship kinds</strong></p>
+<table><thead><tr><th>Kind</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><strong>Follow</strong></td><td>One-way — A follows B</td></tr><tr><td><strong>Connection</strong></td><td>Mutual — request, accept, active</td></tr><tr><td><strong>Block</strong></td><td>One-way safety edge</td></tr></tbody></table>
+<p>The legacy <code>user-relationships</code> CMS collection is migrated and hidden on upgrade to 1.0.42+.</p>
+<p><strong>Schema example (post collection)</strong></p>
+<pre><code>{
+  &quot;name&quot;: &quot;owner&quot;,
+  &quot;type&quot;: &quot;user&quot;,
+  &quot;label&quot;: &quot;Author&quot;,
+  &quot;ownership&quot;: true,
+  &quot;required&quot;: true,
+  &quot;public_visible&quot;: false
+}</code></pre>
+<p>In the collection editor, enable <strong>Entry owner</strong> on a User field. Owner fields should stay hidden on public forms (<code>public_visible: false</code>).</p>
+<p><strong>Public create behavior</strong></p>
+<table><thead><tr><th>Surface</th><th>Owner</th></tr></thead>
+<tbody><tr><td>Logged-in visitor submits post/comment/like</td><td>Set from session automatically</td></tr><tr><td>Anonymous submit to owner-required collection</td><td>Rejected (401)</td></tr><tr><td>Client sends <code>owner</code> in POST body</td><td>Ignored — platform overwrites</td></tr></tbody></table>
+<p>Optional <code>author_name</code> text may remain as a display snapshot; do not use text <code>author_user_id</code> / <code>user_id</code> for permissions.</p>
+<p><strong>Social graph API</strong></p>
+<p>Use <code>user_graph</code> (not legacy <code>club_social</code> or <code>user_relations</code>):</p>
+<table><thead><tr><th>Action</th><th>Method</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>follow</code> / <code>unfollow</code></td><td>POST</td><td>Directed active follow edge</td></tr><tr><td><code>connect</code> / <code>accept</code> / <code>reject</code> / <code>disconnect</code></td><td>POST</td><td>Mutual connections</td></tr><tr><td><code>block</code> / <code>unblock</code></td><td>POST</td><td>Blocks follow/connect</td></tr><tr><td><code>state</code></td><td>GET</td><td><code>following</code>, <code>followers</code>, <code>connected</code>, pending, blocked</td></tr></tbody></table>
+<p>Site members use <code>user_graph</code> as themselves. Admins editing a profile entry use <code>user_graph_admin</code> with <code>subject_user_id</code> (inline from the <code>user_relationship</code> fieldtype panel).</p>
+<p><strong>Likes and votes</strong></p>
+<p>Toggle via <code>public_sub_entry.php</code> with <code>operation: toggle</code> on a <code>likes</code> sub-collection. Each like is a sub-entry with <code>owner</code> = session user. Roadmap votes use the same pattern.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Template functions</strong></p>
+<table><thead><tr><th>Function</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>{user_current}</code></td><td>Current account</td></tr><tr><td><code>{user_profile entry.owner}</code></td><td>Profile for entry owner</td></tr><tr><td><code>{user_is_following from to}</code></td><td>Boolean follow check</td></tr><tr><td><code>{user_is_friend a b}</code></td><td>Alias for connected / legacy friend check</td></tr><tr><td><code>{user_is_connected a b}</code></td><td>Active mutual connection</td></tr><tr><td><code>{user_is_blocked a b}</code></td><td>Block edge</td></tr><tr><td><code>{user_graph_follows user_id}</code></td><td>User IDs this account follows</td></tr><tr><td><code>{user_graph_followers user_id}</code></td><td>Follower user IDs</td></tr><tr><td><code>{user_graph_connected user_id}</code></td><td>Connected user IDs</td></tr><tr><td><code>{user_can_view entry}</code></td><td><code>EntryPermissions</code> visibility</td></tr></tbody></table>
+<p><strong>Entry visibility</strong></p>
+<p><code>EntryPermissions</code> enforces <code>public</code>, <code>private</code>, <code>relationship</code>, and <code>tier</code> on list <strong>and</strong> get when the User plugin registers <code>birkly_public_entries_filter</code> / <code>birkly_public_entry_filter</code> hooks (declared in <code>plugin.json</code>).</p>
+<p><strong>Migration</strong></p>
+<p>On plugin upgrade:</p>
+<ul>
+<li><code>scripts/migrate-p75-ugc.php</code> — legacy author fields, reaction metadata, follow metadata</li>
+<li><code>scripts/migrate-p76-graph-store.php</code> (1.0.42+) — <code>user-relationships</code> collection edges → plugin graph store; hides legacy collection</li>
+</ul>
+<p>Re-run safely after data fixes: upgrade to latest User plugin or run scripts from CLI on the CMS host.</p>
+<p><strong>Validation</strong></p>
+<p>Birkly core rejects collection schemas with more than one <code>ownership: true</code> field, more than one <code>user_relationship</code> field, or <code>user_relationship</code> without an owner field (admin save + MCP <code>update_collection</code>). Virtual fieldtypes do not persist on entry JSON.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="user-plugin.html">User plugin</a></li>
+<li><a href="user-signup-membership.html">User signup and membership</a></li>
+<li><a href="../04-integration/public-forms.html">Public forms</a></li>
+<li>Historical design: <a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-User/blob/main/docs/archive/implementation-history/UNIVERSAL_DESIGN.html">UNIVERSAL_DESIGN.md</a></li>
+</ul></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var sb = document.getElementById('sidebar');
+      var openBtn = document.getElementById('sidebarToggle');
+      var closeBtn = document.getElementById('sidebarClose');
+      if (openBtn) openBtn.onclick = function() { sb && sb.classList.add('is-open'); };
+      if (closeBtn) closeBtn.onclick = function() { sb && sb.classList.remove('is-open'); };
+    })();
+  </script>
+</body>
+</html>

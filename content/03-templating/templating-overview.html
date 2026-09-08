@@ -31,10 +31,11 @@
   &lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-<p>Every templated page needs the client script. On an <strong>external</strong> site (different domain than the CMS), add <code>data-cms-url=&quot;https://your-cms.example&quot;</code>. See <a href="client-setup.html">Client setup</a>.</p>
+<p>Every templated page needs the client script. On an <strong>external</strong> site (different domain than the CMS), add <code>data-cms-url=&quot;https://your-cms.example&quot;</code>. See <a href="client-setup.html">Client setup</a>. When User, Commerce, or Events plugins are active, storefront behavior loads automatically — <a href="project-sites-and-plugins.html">Project sites and plugins</a>.</p>
 <h3>Learning path</h3>
 <ol>
 <li><a href="client-setup.html">Client setup</a> — script tag, same-host vs external, SSR vs client</li>
+<li><a href="project-sites-and-plugins.html">Project sites and plugins</a> — plugin storefront auto-load, member gates, <code>Birkly.fetch</code></li>
 <li><a href="variables-and-output.html">Variables and output</a> — <code>{title}</code> vs <code>{'field'}</code></li>
 <li><a href="loops-and-lists.html">Loops and lists</a> — <code>with</code>, <code>ordered by</code>, <code>limit</code></li>
 <li><a href="detail-pages-and-url-context.html">Detail pages &amp;amp; URL context</a> — <code>.current</code>, anti-patterns</li>
@@ -74,6 +75,7 @@
 <div class="doc-related"><ul>
 <li><a href="canonical-syntax.html">Canonical syntax</a></li>
 <li><a href="client-setup.html">Client setup</a></li>
+<li><a href="project-sites-and-plugins.html">Project sites and plugins</a></li>
 <li><a href="cheat-sheet.html">Cheat sheet</a></li>
 <li><a href="../04-integration/choose-your-stack.html">Choose your stack</a></li>
 <li><a href="../04-integration/website-integration.html">Website integration</a></li>

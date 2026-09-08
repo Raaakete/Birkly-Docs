@@ -1,5 +1,5 @@
 <p>The Birkly client library is a JavaScript file (<code>birkly-client.js</code>) that you add to your website. It connects to your Birkly CMS, fetches content, and renders the templating syntax in your HTML so you don’t need to write API calls or rendering logic yourself.</p>
-<div class="doc-summary"><p><strong>Add one script tag</strong> to your page: <code>src</code> = your Birkly base URL + <code>/birkly-client.js</code>, and <code>data-cms-url</code> when the page is not on the CMS host. The script replaces <code>{title}</code>, <code>{'excerpt'}</code>, and <code>{for each entry in 'blog'}</code> with published data. How-to: <a href="../03-templating/client-setup.html">Client setup</a>.</p></div>
+<div class="doc-summary"><p><strong>Add one script tag</strong> to your page: <code>src</code> = your Birkly base URL + <code>/birkly-client.js</code>, and <code>data-cms-url</code> when the page is not on the CMS host. The script replaces <code>{title}</code>, <code>{'excerpt'}</code>, and <code>{for each entry in 'blog'}</code> with published data, and auto-loads active plugin storefront scripts (User, Commerce, Events). How-to: <a href="../03-templating/client-setup.html">Client setup</a> · <a href="../03-templating/project-sites-and-plugins.html">Project sites and plugins</a>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>The <strong>client library</strong> is a small script that does the “fetch content and fill in the page” work for you. You don’t need to learn the API or write <code>fetch()</code> calls—just include the script and use the template tags.</p>
 <p><strong>Including the script</strong></p>
 <p>Put this before the closing <code>&lt;/body&gt;</code> tag. Use your real Birkly URL instead of <code>your-cms-domain.com</code>:</p>
@@ -91,7 +91,7 @@ const post = await Birkly.getEntryBySlug('blog', 'welcome');
 const html = Birkly.render('&lt;h1&gt;{title}&lt;/h1&gt;', post);</code></pre>
 <p><strong>Events</strong></p>
 <table><thead><tr><th>Event</th><th>Where</th><th>When</th></tr></thead>
-<tbody><tr><td><code>birkly:region-processed</code></td><td>Region element (bubbles)</td><td>After that region’s HTML/text is written</td></tr><tr><td><code>birkly:templates-processed</code></td><td><code>document</code></td><td>After a <strong>full-document</strong> <code>processTemplates()</code> finishes (<code>detail.regions</code> = count)</td></tr></tbody></table>
+<tbody><tr><td><code>birkly:api-ready</code></td><td><code>document</code></td><td><code>Birkly.cmsUrl</code> resolved</td></tr><tr><td><code>birkly:plugins-ready</code></td><td><code>document</code></td><td>Plugin storefront scripts loaded</td></tr><tr><td><code>birkly:client-ready</code></td><td><code>document</code></td><td>Full client init (templates + binders)</td></tr><tr><td><code>birkly:region-processed</code></td><td>Region element (bubbles)</td><td>After that region’s HTML/text is written</td></tr><tr><td><code>birkly:templates-processed</code></td><td><code>document</code></td><td>After a <strong>full-document</strong> <code>processTemplates()</code> finishes (<code>detail.regions</code> = count)</td></tr></tbody></table>
 <pre><code>document.addEventListener('birkly:templates-processed', () =&gt; {
   console.log('All page regions ready');
 });
@@ -114,6 +114,7 @@ el.addEventListener('birkly:region-processed', (e) =&gt; {
 <p>For SPA frameworks, prefer JSON + components over DOM template discovery — <a href="spa-react-vue.html">SPA (React / Vue)</a>.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="../03-templating/client-setup.html">Client setup</a></li>
+<li><a href="../03-templating/project-sites-and-plugins.html">Project sites and plugins</a></li>
 <li><a href="choose-your-stack.html">Choose your stack</a></li>
 <li><a href="website-integration.html">Website integration</a></li>
 <li><a href="web-components.html">Web components</a></li>

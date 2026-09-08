@@ -1,0 +1,51 @@
+<p>Canonical model for posts, comments, likes, and profiles: one <strong>owner</strong> field per schema, a <strong>plugin-private social graph</strong>, and platform-enforced session ownership on public APIs.</p>
+<p>Requires <strong>User Management 1.0.42+</strong> (graph fieldtype + private store) and <strong>Birkly core</strong> with <code>entry_ownership.php</code>, virtual fieldtype hooks, and public-read filters.</p>
+<div class="doc-summary"><p>UGC collections declare a single <code>type: &quot;user&quot;</code> field with <code>ownership: true</code>. Public create paths (<code>public_submit</code>, <code>public_sub_entry</code>) set owner from the logged-in session — clients cannot spoof it. Social edges (follow, connection, block) live in <strong>plugin-private storage</strong> (<code>data/plugins/user_management/graph/</code>) via <code>UserGraphService</code> and the <code>user_graph</code> API. Profile collections may add a <strong><code>user_relationship</code> virtual field</strong> for the admin relationship panel — graph data is not stored on the profile entry JSON. Reactions (likes, votes) are <strong>sub-entries</strong> with their own <code>owner</code> field, not plugin metadata.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Three primitives</strong></p>
+<table><thead><tr><th>Primitive</th><th>Where</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><strong>Owner field</strong></td><td>Entry / sub-entry schema</td><td>Links content to an account (<code>owner</code>, <code>type: user</code>, <code>ownership: true</code>)</td></tr><tr><td><strong>Profile entry</strong></td><td>Configurable profile collection</td><td>Public card for an account (avatar, bio) + optional <code>user_relationship</code> admin panel</td></tr><tr><td><strong>User graph</strong></td><td>Plugin-private <code>graph/</code> store</td><td>Directed edges: <strong>follow</strong> (one-way), <strong>connection</strong> (mutual), <strong>block</strong></td></tr></tbody></table>
+<p><strong>Relationship kinds</strong></p>
+<table><thead><tr><th>Kind</th><th>Meaning</th></tr></thead>
+<tbody><tr><td><strong>Follow</strong></td><td>One-way — A follows B</td></tr><tr><td><strong>Connection</strong></td><td>Mutual — request, accept, active</td></tr><tr><td><strong>Block</strong></td><td>One-way safety edge</td></tr></tbody></table>
+<p>The legacy <code>user-relationships</code> CMS collection is migrated and hidden on upgrade to 1.0.42+.</p>
+<p><strong>Schema example (post collection)</strong></p>
+<pre><code>{
+  &quot;name&quot;: &quot;owner&quot;,
+  &quot;type&quot;: &quot;user&quot;,
+  &quot;label&quot;: &quot;Author&quot;,
+  &quot;ownership&quot;: true,
+  &quot;required&quot;: true,
+  &quot;public_visible&quot;: false
+}</code></pre>
+<p>In the collection editor, enable <strong>Entry owner</strong> on a User field. Owner fields should stay hidden on public forms (<code>public_visible: false</code>).</p>
+<p><strong>Public create behavior</strong></p>
+<table><thead><tr><th>Surface</th><th>Owner</th></tr></thead>
+<tbody><tr><td>Logged-in visitor submits post/comment/like</td><td>Set from session automatically</td></tr><tr><td>Anonymous submit to owner-required collection</td><td>Rejected (401)</td></tr><tr><td>Client sends <code>owner</code> in POST body</td><td>Ignored — platform overwrites</td></tr></tbody></table>
+<p>Optional <code>author_name</code> text may remain as a display snapshot; do not use text <code>author_user_id</code> / <code>user_id</code> for permissions.</p>
+<p><strong>Social graph API</strong></p>
+<p>Use <code>user_graph</code> (not legacy <code>club_social</code> or <code>user_relations</code>):</p>
+<table><thead><tr><th>Action</th><th>Method</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>follow</code> / <code>unfollow</code></td><td>POST</td><td>Directed active follow edge</td></tr><tr><td><code>connect</code> / <code>accept</code> / <code>reject</code> / <code>disconnect</code></td><td>POST</td><td>Mutual connections</td></tr><tr><td><code>block</code> / <code>unblock</code></td><td>POST</td><td>Blocks follow/connect</td></tr><tr><td><code>state</code></td><td>GET</td><td><code>following</code>, <code>followers</code>, <code>connected</code>, pending, blocked</td></tr></tbody></table>
+<p>Site members use <code>user_graph</code> as themselves. Admins editing a profile entry use <code>user_graph_admin</code> with <code>subject_user_id</code> (inline from the <code>user_relationship</code> fieldtype panel).</p>
+<p><strong>Likes and votes</strong></p>
+<p>Toggle via <code>public_sub_entry.php</code> with <code>operation: toggle</code> on a <code>likes</code> sub-collection. Each like is a sub-entry with <code>owner</code> = session user. Roadmap votes use the same pattern.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Template functions</strong></p>
+<table><thead><tr><th>Function</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>{user_current}</code></td><td>Current account</td></tr><tr><td><code>{user_profile entry.owner}</code></td><td>Profile for entry owner</td></tr><tr><td><code>{user_is_following from to}</code></td><td>Boolean follow check</td></tr><tr><td><code>{user_is_friend a b}</code></td><td>Alias for connected / legacy friend check</td></tr><tr><td><code>{user_is_connected a b}</code></td><td>Active mutual connection</td></tr><tr><td><code>{user_is_blocked a b}</code></td><td>Block edge</td></tr><tr><td><code>{user_graph_follows user_id}</code></td><td>User IDs this account follows</td></tr><tr><td><code>{user_graph_followers user_id}</code></td><td>Follower user IDs</td></tr><tr><td><code>{user_graph_connected user_id}</code></td><td>Connected user IDs</td></tr><tr><td><code>{user_can_view entry}</code></td><td><code>EntryPermissions</code> visibility</td></tr></tbody></table>
+<p><strong>Entry visibility</strong></p>
+<p><code>EntryPermissions</code> enforces <code>public</code>, <code>private</code>, <code>relationship</code>, and <code>tier</code> on list <strong>and</strong> get when the User plugin registers <code>birkly_public_entries_filter</code> / <code>birkly_public_entry_filter</code> hooks (declared in <code>plugin.json</code>).</p>
+<p><strong>Migration</strong></p>
+<p>On plugin upgrade:</p>
+<ul>
+<li><code>scripts/migrate-p75-ugc.php</code> — legacy author fields, reaction metadata, follow metadata</li>
+<li><code>scripts/migrate-p76-graph-store.php</code> (1.0.42+) — <code>user-relationships</code> collection edges → plugin graph store; hides legacy collection</li>
+</ul>
+<p>Re-run safely after data fixes: upgrade to latest User plugin or run scripts from CLI on the CMS host.</p>
+<p><strong>Validation</strong></p>
+<p>Birkly core rejects collection schemas with more than one <code>ownership: true</code> field, more than one <code>user_relationship</code> field, or <code>user_relationship</code> without an owner field (admin save + MCP <code>update_collection</code>). Virtual fieldtypes do not persist on entry JSON.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="user-plugin.html">User plugin</a></li>
+<li><a href="user-signup-membership.html">User signup and membership</a></li>
+<li><a href="../04-integration/public-forms.html">Public forms</a></li>
+<li>Historical design: <a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-User/blob/main/docs/archive/implementation-history/UNIVERSAL_DESIGN.html">UNIVERSAL_DESIGN.md</a></li>
+</ul></div>

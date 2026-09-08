@@ -1,5 +1,5 @@
 <p>Connect your website to Birkly so visitors see CMS-managed content. The main path is <code>birkly-client.js</code> plus the public template language.</p>
-<div class="doc-summary"><p><strong>In short:</strong> (1) Add the Birkly client script (<code>data-cms-url</code> when the site is not on the CMS host). (2) Put canonical template tags in your HTML (<code>{title}</code>, <code>{for each entry in 'blog'}</code>, <code>{'excerpt'}</code>). The client fetches published content and replaces the tags. Stack choice: <a href="choose-your-stack.html">Choose your stack</a>. Templating deep dive: <a href="../03-templating/templating-overview.html">Templating overview</a> and <a href="../03-templating/client-setup.html">Client setup</a>.</p></div>
+<div class="doc-summary"><p><strong>In short:</strong> (1) Add the Birkly client script (<code>data-cms-url</code> when the site is not on the CMS host). (2) Put canonical template tags in your HTML (<code>{title}</code>, <code>{for each entry in 'blog'}</code>, <code>{'excerpt'}</code>). The client fetches published content and replaces the tags. Plugin storefront behavior (auth, cart, RSVP) loads automatically — <a href="../03-templating/project-sites-and-plugins.html">Project sites and plugins</a>. Stack choice: <a href="choose-your-stack.html">Choose your stack</a>. Templating deep dive: <a href="../03-templating/templating-overview.html">Templating overview</a> and <a href="../03-templating/client-setup.html">Client setup</a>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Add the client</h3>
 <p><strong>External site:</strong></p>
 <pre><code>&lt;script src=&quot;https://your-cms-domain.com/birkly-client.js&quot;
@@ -59,6 +59,7 @@
 </ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="../03-templating/client-setup.html">Client setup</a></li>
+<li><a href="../03-templating/project-sites-and-plugins.html">Project sites and plugins</a></li>
 <li><a href="client-library.html">Client library</a></li>
 <li><a href="choose-your-stack.html">Choose your stack</a></li>
 <li><a href="public-api.html">Public API</a></li>

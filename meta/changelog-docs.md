@@ -12,6 +12,12 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-09-08 — P82 Project sites + plugin storefront shelf
+
+- **New:** `03-templating/project-sites-and-plugins.md` — one `birkly-client.js` tag, `data-cms-url` cross-origin, auto-loaded `storefront.scripts`, `data-user-require-auth`, `Birkly.fetch` / `routeFetch`, deprecation of manual plugin script tags.
+- **Updated:** `client-setup.md`, `storefront-patterns.md`, `templating-overview.md`, `cheat-sheet.md`, `plugin-language-extensions.md`, `04-integration/client-library.md`, `04-integration/website-integration.md`, `06-extensibility/user-signup-membership.md` — P82 cross-links.
+- **Updated:** `manifest.json`, `CONTENTS_INDEX.md`, `help-topics-meta.json`.
+
 ## 2026-09-05 — P80 Membership club depth
 
 - **New:** `06-extensibility/membership-club-depth.md` — onboarding, mentions, digests, moderation, wishes, deals, automation hooks, recipe pack.

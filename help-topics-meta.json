@@ -741,6 +741,21 @@
             ],
             "ai_topic": "templating"
         },
+        "03-templating/project-sites-and-plugins.md": {
+            "id": "project-sites-and-plugins",
+            "title": "Project sites and plugins",
+            "keywords": [
+                "storefront",
+                "plugin",
+                "birkly-client",
+                "data-user-require-auth",
+                "Birkly.fetch",
+                "cross-origin",
+                "storefront.scripts",
+                "member gate"
+            ],
+            "ai_topic": "templating"
+        },
         "03-templating/variables-and-output.md": {
             "id": "variables-and-output",
             "title": "Variables and output",

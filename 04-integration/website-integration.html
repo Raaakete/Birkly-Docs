@@ -82,6 +82,7 @@
         <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
         <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
+        <a href="../03-templating/project-sites-and-plugins.html" class="nav-link">Project sites and plugins</a>
         <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
         <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
@@ -159,11 +160,15 @@
         <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
         <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
         <a href="../06-extensibility/user-signup-membership.html" class="nav-link">User signup and membership</a>
+        <a href="../06-extensibility/membership-club-depth.html" class="nav-link">Membership club depth (P80)</a>
+        <a href="../06-extensibility/user-fieldtype-profiles.html" class="nav-link">User fieldtype profiles</a>
+        <a href="../06-extensibility/user-member-migration.html" class="nav-link">Member migration (P77)</a>
         <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership (legacy redirect)</a>
         <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
         <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
         <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
         <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/user-ugc-ownership.html" class="nav-link">UGC ownership and social graph</a>
         <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
         <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
         <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
@@ -206,7 +211,7 @@
     <main class="main">
       <div class="content doc-body">
         <div class="doc-content"><p>Connect your website to Birkly so visitors see CMS-managed content. The main path is <code>birkly-client.js</code> plus the public template language.</p>
-<div class="doc-summary"><p><strong>In short:</strong> (1) Add the Birkly client script (<code>data-cms-url</code> when the site is not on the CMS host). (2) Put canonical template tags in your HTML (<code>{title}</code>, <code>{for each entry in 'blog'}</code>, <code>{'excerpt'}</code>). The client fetches published content and replaces the tags. Stack choice: <a href="choose-your-stack.html">Choose your stack</a>. Templating deep dive: <a href="../03-templating/templating-overview.html">Templating overview</a> and <a href="../03-templating/client-setup.html">Client setup</a>.</p></div>
+<div class="doc-summary"><p><strong>In short:</strong> (1) Add the Birkly client script (<code>data-cms-url</code> when the site is not on the CMS host). (2) Put canonical template tags in your HTML (<code>{title}</code>, <code>{for each entry in 'blog'}</code>, <code>{'excerpt'}</code>). The client fetches published content and replaces the tags. Plugin storefront behavior (auth, cart, RSVP) loads automatically — <a href="../03-templating/project-sites-and-plugins.html">Project sites and plugins</a>. Stack choice: <a href="choose-your-stack.html">Choose your stack</a>. Templating deep dive: <a href="../03-templating/templating-overview.html">Templating overview</a> and <a href="../03-templating/client-setup.html">Client setup</a>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Add the client</h3>
 <p><strong>External site:</strong></p>
 <pre><code>&lt;script src=&quot;https://your-cms-domain.com/birkly-client.js&quot;
@@ -266,6 +271,7 @@
 </ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="../03-templating/client-setup.html">Client setup</a></li>
+<li><a href="../03-templating/project-sites-and-plugins.html">Project sites and plugins</a></li>
 <li><a href="client-library.html">Client library</a></li>
 <li><a href="choose-your-stack.html">Choose your stack</a></li>
 <li><a href="public-api.html">Public API</a></li>

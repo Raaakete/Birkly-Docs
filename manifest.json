@@ -80,6 +80,7 @@
         { "path": "03-templating/templating-overview.md", "label": "Templating overview" },
         { "path": "03-templating/canonical-syntax.md", "label": "Canonical syntax" },
         { "path": "03-templating/client-setup.md", "label": "Client setup" },
+        { "path": "03-templating/project-sites-and-plugins.md", "label": "Project sites and plugins" },
         { "path": "03-templating/variables-and-output.md", "label": "Variables and output" },
         { "path": "03-templating/loops-and-lists.md", "label": "Loops and lists" },
         { "path": "03-templating/detail-pages-and-url-context.md", "label": "Detail pages & URL context" },

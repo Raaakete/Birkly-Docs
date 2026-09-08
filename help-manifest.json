@@ -1073,6 +1073,22 @@
             "ai_topic": "templating"
         },
         {
+            "id": "project-sites-and-plugins",
+            "title": "Project sites and plugins",
+            "keywords": [
+                "storefront",
+                "plugin",
+                "birkly-client",
+                "data-user-require-auth",
+                "Birkly.fetch",
+                "cross-origin",
+                "storefront.scripts",
+                "member gate"
+            ],
+            "docs_path": "03-templating/project-sites-and-plugins.html",
+            "ai_topic": "templating"
+        },
+        {
             "id": "public-forms",
             "title": "Public forms",
             "keywords": [

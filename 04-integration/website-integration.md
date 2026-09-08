@@ -4,7 +4,7 @@ Connect your website to Birkly so visitors see CMS-managed content. The main pat
 
 ## Summary
 
-**In short:** (1) Add the Birkly client script (`data-cms-url` when the site is not on the CMS host). (2) Put canonical template tags in your HTML (`{title}`, `{for each entry in 'blog'}`, `{'excerpt'}`). The client fetches published content and replaces the tags. Stack choice: [Choose your stack](choose-your-stack.md). Templating deep dive: [Templating overview](../03-templating/templating-overview.md) and [Client setup](../03-templating/client-setup.md).
+**In short:** (1) Add the Birkly client script (`data-cms-url` when the site is not on the CMS host). (2) Put canonical template tags in your HTML (`{title}`, `{for each entry in 'blog'}`, `{'excerpt'}`). The client fetches published content and replaces the tags. Plugin storefront behavior (auth, cart, RSVP) loads automatically — [Project sites and plugins](../03-templating/project-sites-and-plugins.md). Stack choice: [Choose your stack](choose-your-stack.md). Templating deep dive: [Templating overview](../03-templating/templating-overview.md) and [Client setup](../03-templating/client-setup.md).
 
 ## Beginner
 
@@ -88,6 +88,7 @@ Detail pages must **not** loop the whole collection — [Detail pages & URL cont
 ## Related
 
 - [Client setup](../03-templating/client-setup.md)
+- [Project sites and plugins](../03-templating/project-sites-and-plugins.md)
 - [Client library](client-library.md)
 - [Choose your stack](choose-your-stack.md)
 - [Public API](public-api.md)

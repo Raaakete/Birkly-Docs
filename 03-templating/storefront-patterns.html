@@ -82,6 +82,7 @@
         <a href="templating-overview.html" class="nav-link">Templating overview</a>
         <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="client-setup.html" class="nav-link">Client setup</a>
+        <a href="project-sites-and-plugins.html" class="nav-link">Project sites and plugins</a>
         <a href="variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
         <a href="detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
@@ -159,11 +160,15 @@
         <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
         <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
         <a href="../06-extensibility/user-signup-membership.html" class="nav-link">User signup and membership</a>
+        <a href="../06-extensibility/membership-club-depth.html" class="nav-link">Membership club depth (P80)</a>
+        <a href="../06-extensibility/user-fieldtype-profiles.html" class="nav-link">User fieldtype profiles</a>
+        <a href="../06-extensibility/user-member-migration.html" class="nav-link">Member migration (P77)</a>
         <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership (legacy redirect)</a>
         <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
         <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
         <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
         <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/user-ugc-ownership.html" class="nav-link">UGC ownership and social graph</a>
         <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
         <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
         <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
@@ -206,7 +211,7 @@
     <main class="main">
       <div class="content doc-body">
         <div class="doc-content"><p>Copy-paste page patterns that combine <a href="commerce-functions.html">Commerce</a> and <a href="events-functions.html">Events</a> functions with core loops, detail URL context, and sub-collections.</p>
-<div class="doc-summary"><p><strong>In short:</strong> A shop needs a <strong>listing</strong> loop, a <strong>product detail</strong> page (URL context + optional variant sub-collection), and a <strong>cart</strong> link using <code>{commerce_cart_count}</code>. Events need a <strong>list</strong> and a <strong>single-event</strong> page with <code>.ics</code> / subscribe links. Use the same canonical syntax as the rest of templating — no phantom <code>sub_entries</code> loops.</p></div>
+<div class="doc-summary"><p><strong>In short:</strong> A shop needs a <strong>listing</strong> loop, a <strong>product detail</strong> page (URL context + optional variant sub-collection), and a <strong>cart</strong> link using <code>{commerce_cart_count}</code>. Events need a <strong>list</strong> and a <strong>single-event</strong> page with <code>.ics</code> / subscribe links. Use the same canonical syntax as the rest of templating — no phantom <code>sub_entries</code> loops. Load only <code>birkly-client.js</code> — Commerce and Events storefront scripts auto-load when those plugins are active (<a href="project-sites-and-plugins.html">Project sites and plugins</a>).</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Shop listing</h3>
 <pre><code>{for each entry in 'products' with status = published ordered by newest}
   &lt;a href=&quot;product.html?collection=products&amp;slug={slug}&quot;&gt;
@@ -255,6 +260,7 @@
 <table><thead><tr><th>Wrong</th><th>Right</th></tr></thead>
 <tbody><tr><td><code>{for each variant in sub_entries variants}</code></td><td><code>{for each entry in 'variants' of 'products'.current …}</code></td></tr><tr><td><code>product.html?slug=</code> without collection when router needs it</td><td><code>?collection=products&amp;slug={slug}</code></td></tr></tbody></table></div></details>
 <div class="doc-related"><ul>
+<li><a href="project-sites-and-plugins.html">Project sites and plugins</a> — one script tag, auto-loaded storefront JS, cross-origin</li>
 <li><a href="commerce-linked-checkout.html">Commerce linked checkout</a></li>
 <li><a href="commerce-functions.html">Commerce functions</a></li>
 <li><a href="events-functions.html">Events functions</a></li>

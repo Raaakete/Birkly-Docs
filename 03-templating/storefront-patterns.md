@@ -4,7 +4,7 @@ Copy-paste page patterns that combine [Commerce](commerce-functions.md) and [Eve
 
 ## Summary
 
-**In short:** A shop needs a **listing** loop, a **product detail** page (URL context + optional variant sub-collection), and a **cart** link using `{commerce_cart_count}`. Events need a **list** and a **single-event** page with `.ics` / subscribe links. Use the same canonical syntax as the rest of templating — no phantom `sub_entries` loops.
+**In short:** A shop needs a **listing** loop, a **product detail** page (URL context + optional variant sub-collection), and a **cart** link using `{commerce_cart_count}`. Events need a **list** and a **single-event** page with `.ics` / subscribe links. Use the same canonical syntax as the rest of templating — no phantom `sub_entries` loops. Load only `birkly-client.js` — Commerce and Events storefront scripts auto-load when those plugins are active ([Project sites and plugins](project-sites-and-plugins.md)).
 
 ## Beginner
 
@@ -83,6 +83,7 @@ Simple products (no variants): put Commerce on the parent and link `{commerce_bu
 
 ## Related
 
+- [Project sites and plugins](project-sites-and-plugins.md) — one script tag, auto-loaded storefront JS, cross-origin
 - [Commerce linked checkout](commerce-linked-checkout.md)
 - [Commerce functions](commerce-functions.md)
 - [Events functions](events-functions.md)

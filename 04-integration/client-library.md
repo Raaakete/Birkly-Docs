@@ -4,7 +4,7 @@ The Birkly client library is a JavaScript file (`birkly-client.js`) that you add
 
 ## Summary
 
-**Add one script tag** to your page: `src` = your Birkly base URL + `/birkly-client.js`, and `data-cms-url` when the page is not on the CMS host. The script replaces `{title}`, `{'excerpt'}`, and `{for each entry in 'blog'}` with published data. How-to: [Client setup](../03-templating/client-setup.md).
+**Add one script tag** to your page: `src` = your Birkly base URL + `/birkly-client.js`, and `data-cms-url` when the page is not on the CMS host. The script replaces `{title}`, `{'excerpt'}`, and `{for each entry in 'blog'}` with published data, and auto-loads active plugin storefront scripts (User, Commerce, Events). How-to: [Client setup](../03-templating/client-setup.md) · [Project sites and plugins](../03-templating/project-sites-and-plugins.md).
 
 ## Beginner
 
@@ -157,6 +157,9 @@ const html = Birkly.render('<h1>{title}</h1>', post);
 
 | Event | Where | When |
 |-------|-------|------|
+| `birkly:api-ready` | `document` | `Birkly.cmsUrl` resolved |
+| `birkly:plugins-ready` | `document` | Plugin storefront scripts loaded |
+| `birkly:client-ready` | `document` | Full client init (templates + binders) |
 | `birkly:region-processed` | Region element (bubbles) | After that region’s HTML/text is written |
 | `birkly:templates-processed` | `document` | After a **full-document** `processTemplates()` finishes (`detail.regions` = count) |
 
@@ -191,6 +194,7 @@ For SPA frameworks, prefer JSON + components over DOM template discovery — [SP
 ## Related
 
 - [Client setup](../03-templating/client-setup.md)
+- [Project sites and plugins](../03-templating/project-sites-and-plugins.md)
 - [Choose your stack](choose-your-stack.md)
 - [Website integration](website-integration.md)
 - [Web components](web-components.md)

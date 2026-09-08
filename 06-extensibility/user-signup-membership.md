@@ -237,3 +237,4 @@ Commerce emits payment facts only — badge threshold logic stays in User plugin
 - [Commerce subscriptions](commerce-subscriptions.md)
 - [Automation triggers](../05-automation/triggers.md)
 - [Storefront patterns](../03-templating/storefront-patterns.md)
+- [Project sites and plugins](../03-templating/project-sites-and-plugins.md)

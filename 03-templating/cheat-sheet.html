@@ -82,6 +82,7 @@
         <a href="templating-overview.html" class="nav-link">Templating overview</a>
         <a href="canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="client-setup.html" class="nav-link">Client setup</a>
+        <a href="project-sites-and-plugins.html" class="nav-link">Project sites and plugins</a>
         <a href="variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="loops-and-lists.html" class="nav-link">Loops and lists</a>
         <a href="detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
@@ -159,11 +160,15 @@
         <a href="../06-extensibility/commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
         <a href="../06-extensibility/commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
         <a href="../06-extensibility/user-signup-membership.html" class="nav-link">User signup and membership</a>
+        <a href="../06-extensibility/membership-club-depth.html" class="nav-link">Membership club depth (P80)</a>
+        <a href="../06-extensibility/user-fieldtype-profiles.html" class="nav-link">User fieldtype profiles</a>
+        <a href="../06-extensibility/user-member-migration.html" class="nav-link">Member migration (P77)</a>
         <a href="../06-extensibility/commerce-membership.html" class="nav-link">Commerce membership (legacy redirect)</a>
         <a href="../06-extensibility/plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
         <a href="../06-extensibility/scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
         <a href="../06-extensibility/commerce-import.html" class="nav-link">Commerce CSV import</a>
         <a href="../06-extensibility/user-plugin.html" class="nav-link">User plugin</a>
+        <a href="../06-extensibility/user-ugc-ownership.html" class="nav-link">UGC ownership and social graph</a>
         <a href="../06-extensibility/templates-pages.html" class="nav-link">Templates (pages)</a>
         <a href="../06-extensibility/audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
         <a href="../06-extensibility/updates.html" class="nav-link">Updates</a>
@@ -253,10 +258,10 @@
 <tbody><tr><td><code>newest</code> / <code>oldest</code></td><td><code>created_at</code></td></tr><tr><td><code>last-updated</code></td><td><code>updated_at</code></td></tr><tr><td><code>order</code></td><td><code>order</code> or <code>sort_order</code></td></tr></tbody></table>
 <h3>Phantoms (reject in review)</h3>
 <table><thead><tr><th>Phantom</th><th>Use instead</th></tr></thead>
-<tbody><tr><td><code>{{ }}</code> / <code>{% for %}</code></td><td><code>{…}</code> / <code>{for each}</code></td></tr><tr><td><code>{entry 'blog'.'slug'}…{endentry}</code></td><td><code>{from 'blog' get entry 'slug'}…{endget}</code></td></tr><tr><td><code>{ date &quot;F j, Y&quot; }</code></td><td><code>{created_at format &quot;F j, Y&quot;}</code></td></tr><tr><td><code>{title truncate 80}</code></td><td>excerpt field</td></tr><tr><td><code>{'content' strip_tags}</code></td><td>plain field / CMS cleanup</td></tr><tr><td><code>{from 'blog' get entries …}</code> / <code>sort=</code> / <code>limit=</code></td><td><code>ordered by</code> + <code>limit N</code></td></tr><tr><td><code>{ media … }</code></td><td><code>{'featured_image'}</code> in <code>&lt;img&gt;</code></td></tr><tr><td><code>ordered=&quot;date:desc&quot;</code></td><td><code>ordered=&quot;newest&quot;</code></td></tr><tr><td>Detail page collection loop</td><td>URL context + <code>.current</code></td></tr><tr><td>Custom form <code>fetch</code></td><td><code>{entry for}</code></td></tr></tbody></table>
+<tbody><tr><td><code>{{ }}</code> / <code>{% for %}</code></td><td><code>{…}</code> / <code>{for each}</code></td></tr><tr><td><code>{entry 'blog'.'slug'}…{endentry}</code></td><td><code>{from 'blog' get entry 'slug'}…{endget}</code></td></tr><tr><td><code>{ date &quot;F j, Y&quot; }</code></td><td><code>{created_at format &quot;F j, Y&quot;}</code></td></tr><tr><td><code>{title truncate 80}</code></td><td>excerpt field</td></tr><tr><td><code>{'content' strip_tags}</code></td><td>plain field / CMS cleanup</td></tr><tr><td><code>{from 'blog' get entries …}</code> / <code>sort=</code> / <code>limit=</code></td><td><code>ordered by</code> + <code>limit N</code></td></tr><tr><td><code>{ media … }</code></td><td><code>{'featured_image'}</code> in <code>&lt;img&gt;</code></td></tr><tr><td><code>ordered=&quot;date:desc&quot;</code></td><td><code>ordered=&quot;newest&quot;</code></td></tr><tr><td>Detail page collection loop</td><td>URL context + <code>.current</code></td></tr><tr><td>Manual <code>/plugins/…/storefront.js</code> tags</td><td>Single <code>birkly-client.js</code> — <a href="project-sites-and-plugins.html">Project sites and plugins</a></td></tr><tr><td>Custom <code>club-gate.js</code> auth script</td><td><code>data-user-require-auth</code> on <code>&lt;html&gt;</code> / <code>&lt;body&gt;</code></td></tr></tbody></table>
 <h3>Learning map</h3>
 <table><thead><tr><th>Task</th><th>Doc</th></tr></thead>
-<tbody><tr><td>Mental model</td><td><a href="templating-overview.html">Templating overview</a></td></tr><tr><td>Script tag</td><td><a href="client-setup.html">Client setup</a></td></tr><tr><td>List/detail</td><td><a href="loops-and-lists.html">Loops</a>, <a href="detail-pages-and-url-context.html">Detail pages</a></td></tr><tr><td>Forms</td><td><a href="public-forms-templating.html">Public forms templating</a></td></tr><tr><td>Full tutorial</td><td><a href="worked-site-walkthrough.html">Worked site walkthrough</a></td></tr><tr><td>Spec (CMS)</td><td><code>docs/TEMPLATE_LANGUAGE_SPEC.md</code></td></tr></tbody></table></div></details>
+<tbody><tr><td>Mental model</td><td><a href="templating-overview.html">Templating overview</a></td></tr><tr><td>Script tag + plugins</td><td><a href="client-setup.html">Client setup</a>, <a href="project-sites-and-plugins.html">Project sites and plugins</a></td></tr><tr><td>List/detail</td><td><a href="loops-and-lists.html">Loops</a>, <a href="detail-pages-and-url-context.html">Detail pages</a></td></tr><tr><td>Forms</td><td><a href="public-forms-templating.html">Public forms templating</a></td></tr><tr><td>Full tutorial</td><td><a href="worked-site-walkthrough.html">Worked site walkthrough</a></td></tr><tr><td>Spec (CMS)</td><td><code>docs/TEMPLATE_LANGUAGE_SPEC.md</code></td></tr></tbody></table></div></details>
 <div class="doc-related"><ul>
 <li><a href="canonical-syntax.html">Canonical syntax</a></li>
 <li><a href="templating-overview.html">Templating overview</a></li>

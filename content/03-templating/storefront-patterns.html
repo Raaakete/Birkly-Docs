@@ -1,5 +1,5 @@
 <p>Copy-paste page patterns that combine <a href="commerce-functions.html">Commerce</a> and <a href="events-functions.html">Events</a> functions with core loops, detail URL context, and sub-collections.</p>
-<div class="doc-summary"><p><strong>In short:</strong> A shop needs a <strong>listing</strong> loop, a <strong>product detail</strong> page (URL context + optional variant sub-collection), and a <strong>cart</strong> link using <code>{commerce_cart_count}</code>. Events need a <strong>list</strong> and a <strong>single-event</strong> page with <code>.ics</code> / subscribe links. Use the same canonical syntax as the rest of templating — no phantom <code>sub_entries</code> loops.</p></div>
+<div class="doc-summary"><p><strong>In short:</strong> A shop needs a <strong>listing</strong> loop, a <strong>product detail</strong> page (URL context + optional variant sub-collection), and a <strong>cart</strong> link using <code>{commerce_cart_count}</code>. Events need a <strong>list</strong> and a <strong>single-event</strong> page with <code>.ics</code> / subscribe links. Use the same canonical syntax as the rest of templating — no phantom <code>sub_entries</code> loops. Load only <code>birkly-client.js</code> — Commerce and Events storefront scripts auto-load when those plugins are active (<a href="project-sites-and-plugins.html">Project sites and plugins</a>).</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Shop listing</h3>
 <pre><code>{for each entry in 'products' with status = published ordered by newest}
   &lt;a href=&quot;product.html?collection=products&amp;slug={slug}&quot;&gt;
@@ -48,6 +48,7 @@
 <table><thead><tr><th>Wrong</th><th>Right</th></tr></thead>
 <tbody><tr><td><code>{for each variant in sub_entries variants}</code></td><td><code>{for each entry in 'variants' of 'products'.current …}</code></td></tr><tr><td><code>product.html?slug=</code> without collection when router needs it</td><td><code>?collection=products&amp;slug={slug}</code></td></tr></tbody></table></div></details>
 <div class="doc-related"><ul>
+<li><a href="project-sites-and-plugins.html">Project sites and plugins</a> — one script tag, auto-loaded storefront JS, cross-origin</li>
 <li><a href="commerce-linked-checkout.html">Commerce linked checkout</a></li>
 <li><a href="commerce-functions.html">Commerce functions</a></li>
 <li><a href="events-functions.html">Events functions</a></li>

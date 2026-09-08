@@ -82,6 +82,7 @@
         <a href="../03-templating/templating-overview.html" class="nav-link">Templating overview</a>
         <a href="../03-templating/canonical-syntax.html" class="nav-link">Canonical syntax</a>
         <a href="../03-templating/client-setup.html" class="nav-link">Client setup</a>
+        <a href="../03-templating/project-sites-and-plugins.html" class="nav-link">Project sites and plugins</a>
         <a href="../03-templating/variables-and-output.html" class="nav-link">Variables and output</a>
         <a href="../03-templating/loops-and-lists.html" class="nav-link">Loops and lists</a>
         <a href="../03-templating/detail-pages-and-url-context.html" class="nav-link">Detail pages &amp; URL context</a>
@@ -159,11 +160,15 @@
         <a href="commerce-inventory-webhooks.html" class="nav-link">Commerce inventory webhooks</a>
         <a href="commerce-warehouse-stock.html" class="nav-link">Commerce warehouse stock</a>
         <a href="user-signup-membership.html" class="nav-link">User signup and membership</a>
+        <a href="membership-club-depth.html" class="nav-link">Membership club depth (P80)</a>
+        <a href="user-fieldtype-profiles.html" class="nav-link">User fieldtype profiles</a>
+        <a href="user-member-migration.html" class="nav-link">Member migration (P77)</a>
         <a href="commerce-membership.html" class="nav-link">Commerce membership (legacy redirect)</a>
         <a href="plugin-security-denylist.html" class="nav-link">Plugin security denylist</a>
         <a href="scaffold-plugin-cli.html" class="nav-link">Plugin scaffolding CLI</a>
         <a href="commerce-import.html" class="nav-link">Commerce CSV import</a>
         <a href="user-plugin.html" class="nav-link active">User plugin</a>
+        <a href="user-ugc-ownership.html" class="nav-link">UGC ownership and social graph</a>
         <a href="templates-pages.html" class="nav-link">Templates (pages)</a>
         <a href="audit-log-and-activity.html" class="nav-link">Audit log and activity</a>
         <a href="updates.html" class="nav-link">Updates</a>
@@ -232,25 +237,32 @@
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Key paths</strong></p>
 <ul>
 <li>Plugin root: <code>plugins/user_management/</code></li>
-<li>APIs: <code>api/user_auth.php</code>, <code>api/user_registration.php</code>, <code>api/user_admin.php</code>, <code>api/collection_permissions.php</code></li>
+<li>APIs: <code>api/user_auth.php</code>, <code>api/user_registration.php</code>, <code>api/user_member_signup.php</code>, <code>api/user_members.php</code>, <code>api/user_account.php</code>, <code>api/user_admin.php</code>, <code>api/user_graph.php</code>, <code>api/user_graph_admin.php</code>, <code>api/collection_permissions.php</code></li>
+<li>Fieldtypes: <code>user_account*</code> (member marker), <code>user</code> (UGC reference), <code>password</code>, <code>user_relationship</code> (virtual graph panel on profile entries)</li>
 <li>Permissions: <code>includes/EntryPermissions.php</code>, <code>includes/UserPermissions.php</code></li>
 </ul>
 <p><strong>Template functions</strong></p>
 <table><thead><tr><th>Function</th><th>Returns</th></tr></thead>
-<tbody><tr><td><code>{user_logged_in}</code></td><td>Boolean</td></tr><tr><td><code>{user_current}</code></td><td>Current user object (id, name, email, …)</td></tr><tr><td><code>{user_list}</code></td><td>Filtered user list (admin/config dependent)</td></tr><tr><td><code>{user_profile &quot;id&quot;}</code></td><td>Public profile entry if collection enabled</td></tr></tbody></table>
+<tbody><tr><td><code>{user_logged_in}</code></td><td>Boolean</td></tr><tr><td><code>{user_current}</code></td><td>Current user object (id, name, email, …)</td></tr><tr><td><code>{user_list}</code></td><td>Filtered user list (admin/config dependent)</td></tr><tr><td><code>{user_profile &quot;id&quot;}</code></td><td>Public profile entry if collection enabled</td></tr><tr><td><code>{user_is_following from to}</code></td><td>Boolean</td></tr><tr><td><code>{user_is_friend a b}</code></td><td>Boolean</td></tr><tr><td><code>{user_is_connected a b}</code></td><td>Mutual connection</td></tr><tr><td><code>{user_graph_follows user_id}</code></td><td>User ID list</td></tr><tr><td><code>{user_graph_followers user_id}</code></td><td>User ID list</td></tr><tr><td><code>{user_graph_connected user_id}</code></td><td>User ID list</td></tr><tr><td><code>{user_can_view entry}</code></td><td>Boolean visibility</td></tr></tbody></table>
+<p>See <a href="user-ugc-ownership.html">UGC ownership and social graph</a> for owner fields, <code>user_graph</code> API, <code>user_relationship</code> fieldtype, and likes sub-entries.</p>
 <p><strong>Automation hooks</strong></p>
 <ul>
 <li><code>user_registered</code> — after successful signup</li>
 <li><code>user_login</code> — after successful login</li>
 </ul>
-<p><strong>Signup flows and membership (P74)</strong></p>
-<p>Paid memberships use <strong>signup flows</strong> and <strong>membership products</strong> in User admin — not Commerce purchase mappings. Presets include <code>free_register</code>, <code>pay_then_activate</code>, <code>register_then_pay</code>, and <code>activate_only</code>. Public API: <code>user_signup</code> (<code>start</code>, <code>step</code>, <code>status</code>). See <a href="user-signup-membership.html">User signup and membership</a>.</p>
+<p><strong>Member-as-entry (P77)</strong></p>
+<p>New sites model members as <strong>collection entries</strong> with a <code>user_account*</code> fieldtype — not separate User List rows. <strong>Fieldtype profiles</strong> (User → Fieldtypes) define signup requirements, social gates, and Commerce payment flags per tier. Collection-scoped signup uses <code>user_member_signup</code>; the <strong>Members</strong> tab is index-backed. See <a href="user-fieldtype-profiles.html">User fieldtype profiles</a> and <a href="user-member-migration.html">Member migration</a>.</p>
+<p><strong>Signup flows and membership (P74 + P77)</strong></p>
+<p>Paid memberships use <strong>signup flows</strong> and <strong>membership products</strong> in User admin — not Commerce purchase mappings. Presets include <code>free_register</code>, <code>pay_then_activate</code>, <code>register_then_pay</code>, and <code>activate_only</code>. Public API: <code>user_signup</code> (<code>start</code>, <code>step</code>, <code>status</code>) for flow presets; <strong>P77</strong> adds <code>user_member_signup</code> for collection-scoped member registration. See <a href="user-signup-membership.html">User signup and membership</a>.</p>
 <p><strong>Ops guide (maintainers)</strong></p>
 <p>See platform repo <code>docs/user-plugin-ops.md</code> for checklist, backup scope, and troubleshooting. Plugin source of truth: <a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-User">Birkly-Other-Things/Birkly-Plugin-User</a>.</p>
 <p><strong>Follow-up — public list/search permission filtering</strong></p>
-<p>Plugin-local entry visibility (<code>EntryPermissions</code>) is implemented and tested in the SoT repo. <strong>Public</strong> list/detail (and related read surfaces) may still skip that filter until the CMS adds a shared <strong>public-read hook contract</strong> (load active plugins, then filter in <code>core/public_read.php</code> / public API list and get paths). Documented as a CMS follow-up — not closable from the plugin alone. See SoT <code>docs/WAVE3-RELEASE-EVIDENCE.md</code>.</p></div></details>
+<p>The User plugin registers <code>birkly_public_entries_filter</code> and <code>birkly_public_entry_filter</code> hooks (Hub 1.0.38+). Core <code>entry_ownership.php</code> stamps owner from session on public create. Ensure production CMS runs current Birkly core with <code>core/public_read.php</code> hooks active.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="plugins.html">Plugins</a></li>
+<li><a href="user-fieldtype-profiles.html">User fieldtype profiles</a></li>
+<li><a href="user-member-migration.html">Member migration</a></li>
+<li><a href="user-ugc-ownership.html">User-generated content and ownership</a></li>
 <li><a href="user-signup-membership.html">User signup and membership</a></li>
 <li><a href="roles-and-permissions.html">Roles and permissions</a></li>
 <li><a href="../04-integration/public-forms.html">Public forms</a></li>

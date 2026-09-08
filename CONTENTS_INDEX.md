@@ -78,6 +78,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Templating overview | `03-templating/templating-overview.md` | Mental model, learning path, Light/Shadow |
 | Canonical syntax | `03-templating/canonical-syntax.md` | SSOT pointer + phantoms (aligns to TEMPLATE_LANGUAGE_SPEC) |
 | Client setup | `03-templating/client-setup.md` | `birkly-client.js`, `data-cms-url`, SSR vs client |
+| Project sites and plugins | `03-templating/project-sites-and-plugins.md` | One script tag, storefront auto-load, member gates, `Birkly.fetch` |
 | Variables and output | `03-templating/variables-and-output.md` | `{title}` vs `{'field'}`, system variables |
 | Loops and lists | `03-templating/loops-and-lists.md` | `with`, `ordered by`, `limit N`; no phantom sort= |
 | Detail pages & URL context | `03-templating/detail-pages-and-url-context.md` | `.current`, list→detail, anti-patterns |

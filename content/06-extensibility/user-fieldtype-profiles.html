@@ -1,0 +1,79 @@
+<p><strong>P77</strong> aligns User Management with the Commerce fieldtype profile pattern: a <strong>member is one collection entry</strong> with a <code>user_account*</code> field, not a separate User List row plus optional profile.</p>
+<p>Requires <strong>User Management 1.0.46+</strong> (profiles and <code>UserAccount</code> fieldtype). Full P77 stack (signup, indexer, Commerce shelf, migration) ships in <strong>1.0.53+</strong>.</p>
+<div class="doc-summary"><table><thead><tr><th>Concept</th><th>What it means</th></tr></thead>
+<tbody><tr><td><strong>Member</strong></td><td>One published collection entry with an account field (<code>user_account</code>, <code>user_account_pro</code>, …)</td></tr><tr><td><strong>Fieldtype profile</strong></td><td>Settings for that account type: signup requirements, social gates, privacy, Commerce payment flags</td></tr><tr><td><strong>Tier</strong></td><td>Links to one profile (<code>fieldtype_type_key</code>); tier wizard provisions <code>user_account_{tier_slug}</code></td></tr><tr><td><strong>Collection context</strong></td><td>Signup and upgrade URLs pass <code>collection</code> + optional <code>tier</code> — the plugin never auto-picks among equal collections</td></tr></tbody></table>
+<p>The legacy <strong>User List</strong> (<code>UserStorage</code>) and global <strong>Signup Fields</strong> tab remain for backward compatibility during migration but are <strong>not</strong> the source of truth for new sites.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Enable the model</strong></p>
+<ol>
+<li>Install <strong>User Management 1.0.53+</strong> from the Hub.</li>
+<li>Open <strong>User → Fieldtypes</strong> — confirm the default <code>user_account</code> profile exists.</li>
+<li>Add an account field to your member collection schema (for example <code>account</code> with type <code>user_account</code> or <code>user_account_club</code>).</li>
+<li>Create tiers under <strong>User → Tiers</strong> — each tier links to a profile; the wizard creates <code>user_account_{slug}</code> when needed.</li>
+<li>Use collection-scoped signup on your site (see <a href="#member-signup">Member signup</a> below).</li>
+</ol>
+<p><strong>Admin tabs (P77)</strong></p>
+<table><thead><tr><th>Tab</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><strong>Fieldtypes</strong></td><td>CRUD profiles (requirements, social, privacy, Commerce flags)</td></tr><tr><td><strong>Members</strong></td><td>Index-backed list of all <code>user_account*</code> entries across collections</td></tr><tr><td><strong>Tiers</strong></td><td>Link tier → profile; wizard replaces global Signup Fields</td></tr><tr><td><strong>Users</strong></td><td>Legacy User List (dual-read during migration)</td></tr></tbody></table>
+<p><strong>Account field vs reference field</strong></p>
+<table><thead><tr><th>Field type</th><th>Role</th></tr></thead>
+<tbody><tr><td><code>user_account</code>, <code>user_account_*</code></td><td><strong>This entry is a member</strong> — stores <code>member_id</code>, encrypted email, password hash, tier</td></tr><tr><td><code>user</code></td><td><strong>Reference picker</strong> — UGC owner on posts, comments, etc. (unchanged from P75)</td></tr><tr><td><code>user_relationship</code></td><td><strong>Virtual graph panel</strong> on profile entries (P76)</td></tr></tbody></table>
+<p>Do not use the <code>user</code> reference field as the member marker.</p>
+<p><strong>Member signup</strong></p>
+<p>Visitors register into a <strong>specific collection</strong> you name in the form or API:</p>
+<pre><code>GET /api/index.php?route=user_member_signup&amp;action=schema&amp;collection=club-profiles&amp;tier=club</code></pre>
+<pre><code>POST /api/index.php?route=user_member_signup&amp;action=register
+{
+  &quot;collection&quot;: &quot;club-profiles&quot;,
+  &quot;tier&quot;: &quot;club&quot;,
+  &quot;fields&quot;: { &quot;email&quot;: &quot;member@example.com&quot;, &quot;password&quot;: &quot;…&quot;, &quot;name&quot;: &quot;Alex&quot; }
+}</code></pre>
+<p>Public <code>{entry for}</code> forms on member collections use the same profile-driven validation via the <code>before_entry_create</code> hook.</p>
+<p><strong>Commerce shelf (when Commerce is installed)</strong></p>
+<p>Fieldtype profiles expose two payment flags (hidden when Commerce is inactive):</p>
+<table><thead><tr><th>Setting</th><th>Effect</th></tr></thead>
+<tbody><tr><td><code>payment_required_at_signup</code></td><td>Checkout before the member entry is published</td></tr><tr><td><code>payment_enabled</code></td><td>Account area can show payment summary and checkout for subscriptions</td></tr></tbody></table>
+<p>Commerce owns customers, payment methods, and card data. The account field shows a <strong>read-only summary</strong> only.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Profile store</strong></p>
+<ul>
+<li>Service: <code>UserFieldtypeProfileStore</code> (mirrors <code>CommerceFieldtypeProfileStore</code>)</li>
+<li>Registration: <code>user_register_fieldtype_profiles()</code> on plugin load</li>
+<li>Base type key: <code>user_account</code>; variants: <code>user_account_{slug}</code></li>
+<li>API: <code>user_fieldtype_profiles</code> (admin CRUD)</li>
+</ul>
+<p><strong>Account field value (internal)</strong></p>
+<table><thead><tr><th>Key</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>member_id</code></td><td>Stable UUID; preserved across tier upgrades and cross-collection moves</td></tr><tr><td><code>tier_id</code></td><td>Current tier</td></tr><tr><td><code>email</code></td><td>Encrypted at rest</td></tr><tr><td><code>password</code></td><td>Hashed; never returned on API read</td></tr><tr><td><code>legacy_user_id</code></td><td>Set after P77 migration for dual-read auth</td></tr><tr><td>Custom fields</td><td>From profile requirements schema</td></tr></tbody></table>
+<p>Export and MCP reads redact sensitive fields via <code>birkly_ai_read_entry</code>.</p>
+<p><strong>Indexer</strong></p>
+<ul>
+<li><code>UserMemberIndexer</code> maintains <code>members_index.json</code> keyed by <code>member_id</code></li>
+<li>Hooks: <code>after_entry_save</code>, <code>after_entry_delete</code>, reindex on activate</li>
+<li>API: <code>route=members</code> actions <code>list</code>, <code>get</code>, <code>reindex</code></li>
+</ul>
+<p><strong>Tier upgrade and cross-collection migration</strong></p>
+<ul>
+<li><code>MemberMigrationService</code> — in-place tier change or entry move; <code>member_id</code> unchanged</li>
+<li>API: <code>user_members</code> actions <code>plan_upgrade</code>, <code>change_tier</code></li>
+<li>Requirement validation blocks publish until new profile fields (or payment) are satisfied</li>
+</ul>
+<p><strong>Commerce integration</strong></p>
+<ul>
+<li><code>MemberCommerceShelf</code> — customer create/link by <code>member_id</code>, signup checkout gate, payment summary</li>
+<li>Filters: <code>user_commerce_checkout_required</code>, <code>user_commerce_payment_url</code></li>
+<li>Signup API: <code>user_member_signup</code> action <code>begin_checkout</code> when <code>payment_required_at_signup</code></li>
+<li>Account API: <code>user_account</code> actions <code>payment_summary</code>, <code>payment_checkout</code> when <code>payment_enabled</code></li>
+</ul>
+<p><strong>Authentication (migration period)</strong></p>
+<table><thead><tr><th>Setting</th><th>Default</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><code>member_entry_auth</code></td><td><code>false</code> (auto-enabled after migration script)</td><td>Dual-read login via member account field</td></tr><tr><td><code>member_entry_signup_only</code></td><td><code>false</code></td><td>Block legacy <code>user_registration</code>; force member collection signup</td></tr></tbody></table>
+<p><code>MemberAuthService</code> falls back when legacy <code>UserStorage</code> lookup fails. Sessions include <code>auth_source: member_entry</code> when applicable.</p>
+<p><strong>Deprecated (do not use for new sites)</strong></p>
+<table><thead><tr><th>Legacy</th><th>Replacement</th></tr></thead>
+<tbody><tr><td>Global <strong>Signup Fields</strong> tab</td><td><strong>Fieldtypes</strong> profile requirements</td></tr><tr><td><code>user_registration</code> only</td><td><code>user_member_signup</code> + <code>{entry for}</code> on member collections</td></tr><tr><td>User List as primary identity</td><td>Member collection entry with <code>user_account*</code> field</td></tr></tbody></table></div></details>
+<div class="doc-related"><ul>
+<li><a href="user-plugin.html">User plugin</a></li>
+<li><a href="user-signup-membership.html">User signup and membership</a></li>
+<li><a href="user-member-migration.html">Member migration guide</a></li>
+<li><a href="user-ugc-ownership.html">UGC ownership and social graph</a></li>
+<li><a href="commerce-fieldtype.html">Commerce fieldtype</a></li>
+</ul></div>

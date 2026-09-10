@@ -1,0 +1,59 @@
+# Admin internationalization (i18n)
+
+How the Birkly admin panel loads translations for core UI and plugins.
+
+## Two systems
+
+| System | Purpose |
+|--------|---------|
+| **Admin UI i18n** | Panel chrome, settings, plugin admin pages |
+| **Content multilang** | Site visitor content (see [Multilingual templating](../03-templating/multilingual-templating.md)) |
+
+Admin language is chosen per user (user menu → language). It does **not** follow browser `Accept-Language` automatically.
+
+## Core strings
+
+- Canonical catalog: `lang/en.json` under the CMS root (`admin.*` keys).
+- PHP: `__('admin.save')` with `{{param}}` interpolation.
+- HTML templates: `{translate 'admin.settings'}`.
+- JavaScript: `Birkly.i18n.t('admin.save')` (flat full-key dictionary injected in `layout_head.php`).
+
+## Plugin strings
+
+Plugins ship their own catalogs:
+
+```
+plugins/my-plugin/lang/en.json
+plugins/my-plugin/lang/de.json
+```
+
+Declare in `plugin.json`:
+
+```json
+"admin": {
+  "i18n": { "path": "lang", "namespace": "plugins.my_plugin" }
+}
+```
+
+Keys use namespace `plugins.{plugin_id}.{key}` (underscores in plugin id).
+
+- HTML: `{translate 'plugins.commerce.tab_orders'}`
+- JS: `Birkly.i18n.t('plugins.commerce.tab_orders')`
+- Settings labels: `"label": "@i18n:plugins.commerce.settings.default_currency.label"`
+
+Core merges active plugin catalogs when loading the admin language. Inactive plugins contribute nothing.
+
+## Tooling
+
+```bash
+php scripts/i18n-audit.php --locale=de --strict
+php scripts/i18n-sync-locale.php de
+```
+
+- **`--strict`**: fail on missing keys vs `en.json`.
+- **`--check-untranslated`**: also fail when locale values are identical to English.
+
+## Related
+
+- [Plugin development](plugin-development.md)
+- P85 plan (internal): Birkly-Marketplace `internal/planning/reviews/P85-admin-i18n-platform-plan.md`

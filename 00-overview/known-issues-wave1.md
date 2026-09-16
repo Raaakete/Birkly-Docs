@@ -10,6 +10,7 @@ Public list of **accepted limitations** while P86 (self-host–ready engineering
 
 | Area | Issue | Workaround |
 |------|--------|------------|
+| **Hub (alpha)** | **Events** and **Studio** show as *Coming soon* — not installable in Wave 1 | Use **User**, **Commerce**, and **Automation** from the Hub |
 | **Architecture (P74)** | User ↔ Commerce club/membership boundaries still migrating to shelf model | Use documented plugin flows; report cross-plugin bugs via Feedback |
 | **Hub** | Plugin versions must be installed/upgraded via Marketplace; pin versions your team documents | Hub → Update per plugin |
 | **Email** | User activation and some notifications need **Connections → SMTP** | Run test email before signup tests |

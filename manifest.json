@@ -9,7 +9,8 @@
         { "path": "00-overview/what-is-a-cms.md", "label": "What is a CMS" },
         { "path": "00-overview/getting-started.md", "label": "Getting started" },
         { "path": "00-overview/closed-alpha-guide.md", "label": "Closed alpha guide" },
-        { "path": "00-overview/alpha-legal.md", "label": "Alpha legal and feedback" }
+        { "path": "00-overview/alpha-legal.md", "label": "Alpha legal and feedback" },
+        { "path": "00-overview/known-issues-wave1.md", "label": "Known issues (Wave 1)" }
       ]
     },
     {
@@ -25,6 +26,7 @@
         { "path": "01-admin/collection-editor.md", "label": "Collection editor" },
         { "path": "01-admin/media-library.md", "label": "Media library" },
         { "path": "01-admin/settings.md", "label": "Settings" },
+        { "path": "01-admin/admin-language-vs-site-language.md", "label": "Admin language vs site language" },
         { "path": "01-admin/analytics-presets.md", "label": "Analytics presets" },
         { "path": "01-admin/developer-mode.md", "label": "Developer mode" },
         { "path": "01-admin/project-git-sync.md", "label": "Project Git sync" },
@@ -210,6 +212,7 @@
       "id": "operations",
       "label": "Operations",
       "items": [
+        { "path": "07-operations/self-host-install.md", "label": "Self-host install" },
         { "path": "07-operations/deployment.md", "label": "Deployment" },
         { "path": "07-operations/site-delivery-routing.md", "label": "Site delivery and routing" },
         { "path": "07-operations/dokploy-hosting.md", "label": "Hosting on Dokploy" },

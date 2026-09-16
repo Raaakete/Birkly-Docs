@@ -1,0 +1,32 @@
+<div class="doc-summary"><p>Install Birkly on <strong>your own server or local PHP</strong> using the <strong>official CMS release zip</strong> from GitHub (not Composer). Official plugins are <strong>not</strong> bundled — install them from <strong>Plugins → Hub</strong> after onboarding. Support for blockers: <strong>hello@birkly.io</strong>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What you need</h3>
+<ul>
+<li><strong>PHP</strong> 8.1+ (match the version noted on the GitHub release)</li>
+<li>A <strong>web server</strong> (Apache/Nginx) or the included <code>./start-server.sh</code> for local trials</li>
+<li>Writable folders: <code>content/</code>, <code>data/</code>, <code>media/</code>, <code>settings/</code>, <code>logs/</code></li>
+</ul>
+<h3>Steps</h3>
+<ol>
+<li><strong>Download</strong> the release zip for the tagged version you are using (GitHub → Releases, or a secure link from your team).</li>
+<li><strong>Extract</strong> so <code>admin/</code>, <code>api/</code>, <code>core/</code>, and <strong><code>0_START-HERE.html</code></strong> sit in the <strong>same folder</strong> (not nested twice).</li>
+<li>Open <strong><code>0_START-HERE.html</code></strong> in a browser. Confirm the folder check passes.</li>
+<li>Choose <strong>local</strong> or <strong>server</strong> path, then <strong>Start setup</strong> → admin onboarding.</li>
+<li>Pick <strong>admin UI language</strong> during onboarding (separate from site language — see <a href="../01-admin/admin-language-vs-site-language.html">Admin language vs site language</a>).</li>
+<li>In <strong>Settings → Hosting</strong>, set <strong>CMS URL</strong> (and public site URL if you use <code>project/</code>).</li>
+<li>Configure <strong>Connections</strong> (SMTP) and send a test email before User signup flows.</li>
+<li>Install official plugins from <strong>Plugins → Hub</strong> (User, Commerce, Automation, Events, Studio as needed).</li>
+</ol>
+<h3>Plugins</h3>
+<p>The zip ships an empty <code>plugins/</code> folder. Do not copy unofficial plugin trees into the CMS repo — use Hub install/upgrade. See <a href="../06-plugin-economy/official-plugins.html">Official plugins</a>.</p>
+<h2>Advanced</h2>
+<ul>
+<li><strong>Docker:</strong> <a href="dokploy-hosting.html">Hosting on Dokploy</a> and root <code>docker-compose.yml</code> in the release.</li>
+<li><strong>Updates:</strong> <a href="../06-extensibility/updates.html">Updates</a> — self-host instances do not use removed legacy <code>api/update.php</code>; use Hub + documented upgrade path.</li>
+<li><strong>Backup:</strong> <a href="backup-and-restore.html">Backup and restore</a> before upgrades.</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="../00-overview/getting-started.html">Getting started</a></li>
+<li><a href="deployment.html">Deployment</a></li>
+<li><a href="troubleshooting.html">Troubleshooting</a></li>
+<li><a href="../00-overview/known-issues-wave1.html">Known issues (Wave 1 engineering)</a></li>
+</ul></div>

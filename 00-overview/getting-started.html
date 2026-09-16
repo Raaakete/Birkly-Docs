@@ -24,6 +24,7 @@
         <a href="getting-started.html" class="nav-link active">Getting started</a>
         <a href="closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
         <a href="alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        <a href="known-issues-wave1.html" class="nav-link">Known issues (Wave 1)</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
@@ -35,6 +36,7 @@
         <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
         <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
         <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/admin-language-vs-site-language.html" class="nav-link">Admin language vs site language</a>
         <a href="../01-admin/analytics-presets.html" class="nav-link">Analytics presets</a>
         <a href="../01-admin/developer-mode.html" class="nav-link">Developer mode</a>
         <a href="../01-admin/project-git-sync.html" class="nav-link">Project Git sync</a>
@@ -141,6 +143,8 @@
         <a href="../06-extensibility/commerce-fieldtype.html" class="nav-link">Commerce fieldtype</a>
         <a href="../06-extensibility/events-plugin.html" class="nav-link">Events plugin</a>
         <a href="../06-extensibility/payment-shelf-api.html" class="nav-link">Payment shelf API</a>
+        <a href="../06-extensibility/admin-plugin-extension.html" class="nav-link">Admin plugin extension</a>
+        <a href="../06-extensibility/admin-i18n.html" class="nav-link">Admin internationalization</a>
         <a href="../06-extensibility/payments-plugin.html" class="nav-link">Payments plugin</a>
         <a href="../06-extensibility/shopping-cart-plugin.html" class="nav-link">Shopping cart plugin</a>
         <a href="../06-extensibility/commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
@@ -186,6 +190,7 @@
         <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/self-host-install.html" class="nav-link">Self-host install</a>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
         <a href="../07-operations/site-delivery-routing.html" class="nav-link">Site delivery and routing</a>
         <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
@@ -210,19 +215,20 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><div class="doc-summary"><p>Get started with Birkly in six steps: (0) Install via <strong>release zip</strong> or <strong>Docker</strong>, then open <strong>START_HERE.html</strong> before admin login. (1) Log in to the admin. (2) Complete the first-time wizard (project name, use case, optional AI). (3) Create a collection (e.g. “Blog posts”) and add fields (title, content, date, image). (4) Add one or more entries and set status to Published. (5) Add the Birkly client script to your website so it can load and display the content. No coding is required for basic content creation; connecting the site is one script tag plus simple placeholders in your HTML.</p>
+        <div class="doc-content"><div class="doc-summary"><p>Get started with Birkly in six steps: (0) Install via <strong>release zip</strong> or <strong>Docker</strong>, then open <strong><code>0_START-HERE.html</code></strong> before admin login. (1) Log in to the admin. (2) Complete the first-time wizard (project name, use case, optional AI). (3) Create a collection (e.g. “Blog posts”) and add fields (title, content, date, image). (4) Add one or more entries and set status to Published. (5) Add the Birkly client script to your website so it can load and display the content. No coding is required for basic content creation; connecting the site is one script tag plus simple placeholders in your HTML.</p>
 <p>Supported install channels are <strong>zip</strong> and <strong>Docker</strong> only — Composer, npm, and cPanel installers are not documented product paths. See <a href="../07-operations/deployment.html">Deployment</a> and <a href="../07-operations/dokploy-hosting.html">Hosting on Dokploy</a>.</p>
 <p><img class="doc-figure" src="../media/00-overview/getting-started/screenshots/install-zip-docker.svg" alt="Install Birkly via release zip or Docker"></p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Step 0 — Extract and open START_HERE.html</strong></p>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Step 0 — Extract and open 0_START-HERE.html</strong></p>
 <p>If you downloaded Birkly as a zip file, do this <strong>before</strong> logging in to the admin:</p>
 <ol>
 <li><strong>Extract the zip</strong> to a folder (e.g. <code>Documents/Birkly</code> on your computer, or upload the contents to your web host).</li>
-<li>Confirm you see <strong>START_HERE.html</strong> in the <strong>same folder</strong> as <code>admin/</code>, <code>api/</code>, and <code>core/</code> — not still inside the zip, and not one folder too deep (e.g. <code>Birkly/Birkly/</code>).</li>
-<li><strong>Open START_HERE.html</strong> in your browser (double-click the file locally, or visit <code>https://your-domain.com/START_HERE.html</code> after upload).</li>
+<li>Confirm you see <strong><code>0_START-HERE.html</code></strong> in the <strong>same folder</strong> as <code>admin/</code>, <code>api/</code>, and <code>core/</code> — not still inside the zip, and not one folder too deep (e.g. <code>Birkly/Birkly/</code>).</li>
+<li><strong>Open <code>0_START-HERE.html</code></strong> in your browser (double-click the file locally, or visit <code>https://your-domain.com/0_START-HERE.html</code> after upload).</li>
 <li>Wait for the <strong>folder check</strong> to confirm you're in the right place.</li>
 <li>Choose <strong>On your computer</strong> (local test with PHP) or <strong>On a web server</strong> (FTP/cloud), follow the short steps for your path, then click <strong>Start setup</strong> to open the admin onboarding wizard.</li>
 </ol>
-<p><strong>Example:</strong> You extract <code>Birkly-1.0.zip</code> to <code>~/Birkly</code>, open <code>START_HERE.html</code>, pick <strong>On your computer</strong>, run <code>./start-server.sh</code> in that folder, then click <strong>Start setup</strong> — the browser opens the admin wizard at <code>http://localhost:8080/admin/</code> with local install hints.</p>
+<p><strong>Example:</strong> You extract <code>Birkly-1.0.zip</code> to <code>~/Birkly</code>, open <code>0_START-HERE.html</code>, pick <strong>On your computer</strong>, run <code>./start-server.sh</code> in that folder, then click <strong>Start setup</strong> — the browser opens the admin wizard at <code>http://localhost:8080/admin/</code> with local install hints.</p>
+<p>For server installs and Hub plugins, see <a href="../07-operations/self-host-install.html">Self-host install</a>.</p>
 <p>---</p>
 <p><strong>Step 1 — Log in</strong></p>
 <p>Open your Birkly address in the browser. It usually looks like:</p>

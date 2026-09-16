@@ -51,6 +51,7 @@
 <li>Routes under <code>api/</code> mapped to <code>/api/{handle}/...</code>.</li>
 <li>Hook callbacks registered against names declared in <code>plugin.json</code>.</li>
 <li><strong>Visitor website tools (WebMCP)</strong> via <code>birkly_webmcp_register_tools()</code> — a catalog of public-site actions for Discovery → WebMCP. This is <strong>not</strong> inbound Birkly MCP (<code>register_plugin_mcp_tools()</code>), which is for AI apps connected to the CMS admin. See <a href="../04-integration/webmcp-tools.html#plugin-authors-register-a-webmcp-catalog">Website tools (WebMCP)</a>.</li>
+<li><strong>Admin presentation shelf (P83)</strong> — <code>admin.scripts[]</code>, dashboard mounts, notification formatters, WebMCP runtime packs, and hook subscriptions. See <a href="../06-extensibility/admin-plugin-extension.html">Admin plugin extension</a>.</li>
 </ul>
 <p><strong>Capability enforcement</strong></p>
 <p>Runtime checks use <code>has_plugin_capability($plugin_id, $capability, $scope)</code>. The <strong>plugin security denylist</strong> in Settings → Security can hard-block collections or admin spaces regardless of granted capabilities — see <a href="../06-extensibility/plugin-security-denylist.html">Plugin security denylist</a>.</p>

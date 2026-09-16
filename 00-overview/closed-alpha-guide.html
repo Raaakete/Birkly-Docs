@@ -24,6 +24,7 @@
         <a href="getting-started.html" class="nav-link">Getting started</a>
         <a href="closed-alpha-guide.html" class="nav-link active">Closed alpha guide</a>
         <a href="alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        <a href="known-issues-wave1.html" class="nav-link">Known issues (Wave 1)</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
@@ -35,6 +36,7 @@
         <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
         <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
         <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/admin-language-vs-site-language.html" class="nav-link">Admin language vs site language</a>
         <a href="../01-admin/analytics-presets.html" class="nav-link">Analytics presets</a>
         <a href="../01-admin/developer-mode.html" class="nav-link">Developer mode</a>
         <a href="../01-admin/project-git-sync.html" class="nav-link">Project Git sync</a>
@@ -141,6 +143,8 @@
         <a href="../06-extensibility/commerce-fieldtype.html" class="nav-link">Commerce fieldtype</a>
         <a href="../06-extensibility/events-plugin.html" class="nav-link">Events plugin</a>
         <a href="../06-extensibility/payment-shelf-api.html" class="nav-link">Payment shelf API</a>
+        <a href="../06-extensibility/admin-plugin-extension.html" class="nav-link">Admin plugin extension</a>
+        <a href="../06-extensibility/admin-i18n.html" class="nav-link">Admin internationalization</a>
         <a href="../06-extensibility/payments-plugin.html" class="nav-link">Payments plugin</a>
         <a href="../06-extensibility/shopping-cart-plugin.html" class="nav-link">Shopping cart plugin</a>
         <a href="../06-extensibility/commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
@@ -186,6 +190,7 @@
         <a href="../06-plugin-economy/api-reference.html" class="nav-link">API reference</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/self-host-install.html" class="nav-link">Self-host install</a>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
         <a href="../07-operations/site-delivery-routing.html" class="nav-link">Site delivery and routing</a>
         <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
@@ -210,14 +215,14 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Guide for <strong>invited closed-alpha testers</strong> of Birkly. If you do not have an invite, request access at the <a href="https://birkly.com">Birkly website</a> waitlist.</p>
-<div class="doc-summary"><p>Closed alpha means Birkly is feature-complete enough for real self-hosted trials but <strong>not</strong> a public beta. Expect rough edges. Your job: use the CMS on your own server, report bugs and ideas via in-admin <strong>Feedback</strong>, and read <strong>Help</strong> for live Birkly-Docs. We ship fixes from your reports before open beta.</p>
+        <div class="doc-content"><p>Reference for <strong>future</strong> closed-alpha self-host trials — not an open invite program. When your team runs a cohort, use this alongside <a href="../07-operations/self-host-install.html">Self-host install</a> and <a href="known-issues-wave1.html">Known issues (Wave 1)</a>.</p>
+<div class="doc-summary"><p>Closed alpha means Birkly is mature enough for real self-hosted trials but <strong>not</strong> a public beta. Expect rough edges. Testers use the CMS on their own server, report bugs via in-admin <strong>Feedback</strong>, and read <strong>Help</strong> for live Birkly-Docs. Support: <strong>hello@birkly.io</strong>.</p>
 <h2>What is in this alpha</h2>
 <table><thead><tr><th>Area</th><th>What to test</th></tr></thead>
 <tbody><tr><td><strong>BYOAI</strong></td><td>Connect your provider (OpenAI, Claude, Ollama, …), assign a role, try chat read/write and approval queue</td></tr><tr><td><strong>MCP</strong></td><td>Optional: connect Claude Desktop with a per-connection MCP key</td></tr><tr><td><strong>Automation</strong></td><td>Enable the automation plugin; create a webhook or scheduled workflow</td></tr><tr><td><strong>User plugin</strong></td><td>Registration, login, collection permissions</td></tr><tr><td><strong>ContentEditor</strong></td><td>Block components (callout, quote, CTA, table, image) — save and reload entries</td></tr><tr><td><strong>Marketplace</strong></td><td>Install free official plugins; paid/subscription checkout on marketplace.birkly.io</td></tr><tr><td><strong>Commerce</strong></td><td>Multi-currency products, live import, warehouse stock, inventory webhooks</td></tr><tr><td><strong>Cloud account</strong></td><td>Optional link on Account page (local login still primary)</td></tr><tr><td><strong>Admin UX</strong></td><td>Light/dark/system theme toggle; mobile-friendly dashboard and Commerce</td></tr><tr><td><strong>Help</strong></td><td>Live docs from Birkly-Docs with offline snapshot fallback</td></tr><tr><td><strong>Feedback</strong></td><td>Submit bug/idea from the admin Feedback widget; confirm it appears in Feedback admin</td></tr></tbody></table>
 <h2>Getting started</h2>
 <ol>
-<li><strong>Install</strong> Birkly on a server or local PHP (see <a href="getting-started.html">Getting started</a>).</li>
+<li><strong>Install</strong> Birkly on a server or local PHP (see <a href="../07-operations/self-host-install.html">Self-host install</a> and <a href="getting-started.html">Getting started</a>).</li>
 <li>Complete <strong>onboarding</strong> (project name, first admin user).</li>
 <li>Open <strong>Help</strong> (sidebar) for contextual docs — <strong>Read full doc</strong> opens Birkly-Docs topics.</li>
 <li>Install plugins from <strong>Plugins → Hub</strong> (Commerce, Events, Automation, User Management).</li>
@@ -251,9 +256,11 @@
 <li><a href="../06-extensibility/scaffold-plugin-cli.html">Plugin scaffolding CLI</a></li>
 </ul></div>
 <div class="doc-related"><ul>
+<li><a href="../01-admin/admin-language-vs-site-language.html">Admin language vs site language</a></li>
 <li><a href="getting-started.html">Getting started</a></li>
 <li><a href="../01-admin/help-and-onboarding.html">Help and onboarding</a></li>
 <li><a href="../07-operations/troubleshooting.html">Troubleshooting</a></li>
+<li><a href="known-issues-wave1.html">Known issues (Wave 1)</a></li>
 </ul></div></div>
       </div>
     </main>

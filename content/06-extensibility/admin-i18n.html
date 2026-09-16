@@ -1,0 +1,38 @@
+<p>How the Birkly admin panel loads translations for core UI and plugins.</p>
+<h2>Two systems</h2>
+<table><thead><tr><th>System</th><th>Purpose</th></tr></thead>
+<tbody><tr><td><strong>Admin UI i18n</strong></td><td>Panel chrome, settings, plugin admin pages</td></tr><tr><td><strong>Content multilang</strong></td><td>Site visitor content (see <a href="../03-templating/multilingual-templating.html">Multilingual templating</a>)</td></tr></tbody></table>
+<p>Admin language is chosen per user (user menu → language). It does <strong>not</strong> follow browser <code>Accept-Language</code> automatically.</p>
+<h2>Core strings</h2>
+<ul>
+<li>Canonical catalog: <code>lang/en.json</code> under the CMS root (<code>admin.*</code> keys).</li>
+<li>PHP: <code>__('admin.save')</code> with <code>{{param}}</code> interpolation.</li>
+<li>HTML templates: <code>{translate 'admin.settings'}</code>.</li>
+<li>JavaScript: <code>Birkly.i18n.t('admin.save')</code> (flat full-key dictionary injected in <code>layout_head.php</code>).</li>
+</ul>
+<h2>Plugin strings</h2>
+<p>Plugins ship their own catalogs:</p>
+<pre><code>plugins/my-plugin/lang/en.json
+plugins/my-plugin/lang/de.json</code></pre>
+<p>Declare in <code>plugin.json</code>:</p>
+<pre><code>&quot;admin&quot;: {
+  &quot;i18n&quot;: { &quot;path&quot;: &quot;lang&quot;, &quot;namespace&quot;: &quot;plugins.my_plugin&quot; }
+}</code></pre>
+<p>Keys use namespace <code>plugins.{plugin_id}.{key}</code> (underscores in plugin id).</p>
+<ul>
+<li>HTML: <code>{translate 'plugins.commerce.tab_orders'}</code></li>
+<li>JS: <code>Birkly.i18n.t('plugins.commerce.tab_orders')</code></li>
+<li>Settings labels: <code>&quot;label&quot;: &quot;@i18n:plugins.commerce.settings.default_currency.label&quot;</code></li>
+</ul>
+<p>Core merges active plugin catalogs when loading the admin language. Inactive plugins contribute nothing.</p>
+<h2>Tooling</h2>
+<pre><code>php scripts/i18n-audit.php --locale=de --strict
+php scripts/i18n-sync-locale.php de</code></pre>
+<ul>
+<li><strong><code>--strict</code></strong>: fail on missing keys vs <code>en.json</code>.</li>
+<li><strong><code>--check-untranslated</code></strong>: also fail when locale values are identical to English.</li>
+</ul>
+<div class="doc-related"><ul>
+<li><a href="plugin-development.html">Plugin development</a></li>
+<li>P85 plan (internal): Birkly-Marketplace <code>internal/planning/reviews/P85-admin-i18n-platform-plan.md</code></li>
+</ul></div>

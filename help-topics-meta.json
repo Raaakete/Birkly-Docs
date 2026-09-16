@@ -38,6 +38,40 @@
                 "alpha"
             ]
         },
+        "00-overview/known-issues-wave1.md": {
+            "id": "known-issues-wave1",
+            "title": "Known issues — Wave 1",
+            "keywords": [
+                "known issues",
+                "limitations",
+                "wave 1",
+                "alpha",
+                "defer"
+            ]
+        },
+        "07-operations/self-host-install.md": {
+            "id": "self-host-install",
+            "title": "Self-host install",
+            "keywords": [
+                "self-host",
+                "zip",
+                "install",
+                "release",
+                "0_START-HERE"
+            ]
+        },
+        "01-admin/admin-language-vs-site-language.md": {
+            "id": "admin-language-vs-site",
+            "title": "Admin language vs site language",
+            "keywords": [
+                "language",
+                "i18n",
+                "admin",
+                "site",
+                "onboarding",
+                "locale"
+            ]
+        },
         "01-admin/dashboard.md": {
             "id": "dashboard",
             "title": "Dashboard",

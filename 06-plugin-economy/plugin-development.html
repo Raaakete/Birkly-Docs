@@ -24,6 +24,7 @@
         <a href="../00-overview/getting-started.html" class="nav-link">Getting started</a>
         <a href="../00-overview/closed-alpha-guide.html" class="nav-link">Closed alpha guide</a>
         <a href="../00-overview/alpha-legal.html" class="nav-link">Alpha legal and feedback</a>
+        <a href="../00-overview/known-issues-wave1.html" class="nav-link">Known issues (Wave 1)</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Admin</div>
         <a href="../01-admin/dashboard.html" class="nav-link">Dashboard</a>
@@ -35,6 +36,7 @@
         <a href="../01-admin/collection-editor.html" class="nav-link">Collection editor</a>
         <a href="../01-admin/media-library.html" class="nav-link">Media library</a>
         <a href="../01-admin/settings.html" class="nav-link">Settings</a>
+        <a href="../01-admin/admin-language-vs-site-language.html" class="nav-link">Admin language vs site language</a>
         <a href="../01-admin/analytics-presets.html" class="nav-link">Analytics presets</a>
         <a href="../01-admin/developer-mode.html" class="nav-link">Developer mode</a>
         <a href="../01-admin/project-git-sync.html" class="nav-link">Project Git sync</a>
@@ -141,6 +143,8 @@
         <a href="../06-extensibility/commerce-fieldtype.html" class="nav-link">Commerce fieldtype</a>
         <a href="../06-extensibility/events-plugin.html" class="nav-link">Events plugin</a>
         <a href="../06-extensibility/payment-shelf-api.html" class="nav-link">Payment shelf API</a>
+        <a href="../06-extensibility/admin-plugin-extension.html" class="nav-link">Admin plugin extension</a>
+        <a href="../06-extensibility/admin-i18n.html" class="nav-link">Admin internationalization</a>
         <a href="../06-extensibility/payments-plugin.html" class="nav-link">Payments plugin</a>
         <a href="../06-extensibility/shopping-cart-plugin.html" class="nav-link">Shopping cart plugin</a>
         <a href="../06-extensibility/commerce-hybrid-cart.html" class="nav-link">Commerce hybrid cart</a>
@@ -186,6 +190,7 @@
         <a href="api-reference.html" class="nav-link">API reference</a>
         </div>
         <div class="nav-section"><div class="nav-section-title">Operations</div>
+        <a href="../07-operations/self-host-install.html" class="nav-link">Self-host install</a>
         <a href="../07-operations/deployment.html" class="nav-link">Deployment</a>
         <a href="../07-operations/site-delivery-routing.html" class="nav-link">Site delivery and routing</a>
         <a href="../07-operations/dokploy-hosting.html" class="nav-link">Hosting on Dokploy</a>
@@ -263,6 +268,7 @@
 <li>Routes under <code>api/</code> mapped to <code>/api/{handle}/...</code>.</li>
 <li>Hook callbacks registered against names declared in <code>plugin.json</code>.</li>
 <li><strong>Visitor website tools (WebMCP)</strong> via <code>birkly_webmcp_register_tools()</code> — a catalog of public-site actions for Discovery → WebMCP. This is <strong>not</strong> inbound Birkly MCP (<code>register_plugin_mcp_tools()</code>), which is for AI apps connected to the CMS admin. See <a href="../04-integration/webmcp-tools.html#plugin-authors-register-a-webmcp-catalog">Website tools (WebMCP)</a>.</li>
+<li><strong>Admin presentation shelf (P83)</strong> — <code>admin.scripts[]</code>, dashboard mounts, notification formatters, WebMCP runtime packs, and hook subscriptions. See <a href="../06-extensibility/admin-plugin-extension.html">Admin plugin extension</a>.</li>
 </ul>
 <p><strong>Capability enforcement</strong></p>
 <p>Runtime checks use <code>has_plugin_capability($plugin_id, $capability, $scope)</code>. The <strong>plugin security denylist</strong> in Settings → Security can hard-block collections or admin spaces regardless of granted capabilities — see <a href="../06-extensibility/plugin-security-denylist.html">Plugin security denylist</a>.</p>

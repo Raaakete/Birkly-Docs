@@ -51,10 +51,19 @@ Core merges active plugin catalogs when loading the admin language. Inactive plu
 ```bash
 php scripts/i18n-audit.php --locale=de --strict
 php scripts/i18n-sync-locale.php de
+php scripts/i18n-audit.php --locale=ja --strict
 ```
 
 - **`--strict`**: fail on missing keys vs `en.json`.
 - **`--check-untranslated`**: also fail when locale values are identical to English.
+
+**Japanese (batch):** from the CMS repo root, sync missing keys and machine-translate English copies for core + Wave 1 plugin SoT repos:
+
+```bash
+./scripts/p85-ja-full-pass.sh
+```
+
+Requires `pip install deep-translator`. CI enforces **ja** key parity for core (`ci-check.sh`).
 
 ## Related
 

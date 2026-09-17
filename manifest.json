@@ -36,6 +36,7 @@
         { "path": "01-admin/design-system.md", "label": "Admin design system" },
         { "path": "01-admin/admin-design-language.md", "label": "Admin design language" },
         { "path": "01-admin/help-and-onboarding.md", "label": "Help and onboarding" },
+        { "path": "01-admin/admin-guide-companion.md", "label": "Admin Guide companion" },
         { "path": "01-admin/ai-overview.md", "label": "AI overview" },
         { "path": "01-admin/ai-connections.md", "label": "AI connections" },
         { "path": "01-admin/mcp-connections.md", "label": "MCP connections" },

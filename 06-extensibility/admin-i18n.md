@@ -11,20 +11,6 @@ How the Birkly admin panel loads translations for core UI and plugins.
 
 Admin language is chosen per user (user menu → language). It does **not** follow browser `Accept-Language` automatically.
 
-### Selectable admin UI languages
-
-The account / onboarding language picker lists only curated locales (see `birkly_admin_ui_selectable_language_codes()` in `core/i18n.php`):
-
-| Code | Notes |
-|------|--------|
-| `en` | Default |
-| `de` | Strict quality bar |
-| `fr` | Tier-1 |
-| `ja` | Tier-1 |
-| `es` | Tier-1 (next focus) |
-
-Other `lang/*.json` files (e.g. `da`, `hi`, `zh`) may remain in the repo for future work but are **not** offered in the UI until promoted to the whitelist.
-
 ## Core strings
 
 - Canonical catalog: `lang/en.json` under the CMS root (`admin.*` keys).
@@ -60,38 +46,31 @@ Keys use namespace `plugins.{plugin_id}.{key}` (underscores in plugin id).
 
 Core merges active plugin catalogs when loading the admin language. Inactive plugins contribute nothing.
 
+## Tier-1 locales (P85)
+
+**French (`fr`)** and **Spanish (`es`)** are tier-1 admin locales: full `admin.*` parity with `lang/en.json`, plus Wave 1 official plugins (User, Commerce, Automation, Events, Studio).
+
+Spanish catalogs are rebuilt **from English only** (no machine translation, no French fallback). After adding or changing `lang/en.json` keys:
+
+```bash
+./scripts/p85-es-full-pass.sh
+php scripts/i18n-audit.php --locale=es --strict
+php scripts/i18n-audit-es-quality.php
+```
+
+`i18n-audit-es-quality.php` flags FR→ES heuristic leaks (same-as-`fr.json`, mixed EN/ES, French phrases). CI runs it warn-only for core and sibling plugin repos.
+
+Do **not** use `scripts/p85-es-fr-to-es.php` (deprecated).
+
 ## Tooling
 
 ```bash
 php scripts/i18n-audit.php --locale=de --strict
 php scripts/i18n-sync-locale.php de
-php scripts/i18n-audit.php --locale=ja --strict
 ```
 
 - **`--strict`**: fail on missing keys vs `en.json`.
 - **`--check-untranslated`**: also fail when locale values are identical to English.
-
-**Japanese (batch):** from the CMS repo root, sync missing keys and machine-translate English copies for core + Wave 1 plugin SoT repos:
-
-```bash
-./scripts/p85-ja-full-pass.sh
-```
-
-Requires `pip install deep-translator`. CI enforces **ja** key parity for core (`ci-check.sh`).
-
-**French (core + plugins):** sync keys, then merge translated patches (PHP only, no pip):
-
-```bash
-# Core
-php scripts/i18n-sync-locale.php fr
-php scripts/i18n-apply-admin-patches.php fr path/to/patch.json
-php scripts/i18n-audit.php --locale=fr --strict
-
-# Official plugin (SoT repo)
-php scripts/i18n-sync-plugin-locale.php /path/to/Birkly-Plugin-Commerce commerce fr
-php scripts/i18n-apply-plugin-patches.php /path/to/Birkly-Plugin-Commerce commerce fr patch.json
-php scripts/i18n-audit-plugin.php /path/to/Birkly-Plugin-Commerce commerce --locale=fr --strict
-```
 
 ## Related
 

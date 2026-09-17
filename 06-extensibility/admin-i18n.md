@@ -11,6 +11,10 @@ How the Birkly admin panel loads translations for core UI and plugins.
 
 Admin language is chosen per user (user menu → language). It does **not** follow browser `Accept-Language` automatically.
 
+### Selectable admin UI languages
+
+Curated picker list (`birkly_admin_ui_selectable_language_codes()`): **en**, **de**, **fr**, **ja**, **es**. Tier-1 quality bar matches **de** / **fr** / **ja** for **es** (core + Wave 1 plugins). Rebuild: `./scripts/p85-es-full-pass.sh` from the CMS repo.
+
 ## Core strings
 
 - Canonical catalog: `lang/en.json` under the CMS root (`admin.*` keys).

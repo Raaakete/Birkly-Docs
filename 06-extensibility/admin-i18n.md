@@ -16,7 +16,10 @@ Admin language is chosen per user (user menu → language). It does **not** foll
 - Canonical catalog: `lang/en.json` under the CMS root (`admin.*` keys).
 - PHP: `__('admin.save')` with `{{param}}` interpolation.
 - HTML templates: `{translate 'admin.settings'}`.
+- PHP partials (not plugin HTML): `<?= __('admin.save') ?>` — use `{translate}` in plugin `.html` admin pages.
 - JavaScript: `Birkly.i18n.t('admin.save')` (flat full-key dictionary injected in `layout_head.php`).
+
+Admin language is stored on the **user profile** and applied on the next full page load after `api/users.php` `set_language`. There is no separate per-plugin language control.
 
 ## Plugin strings
 

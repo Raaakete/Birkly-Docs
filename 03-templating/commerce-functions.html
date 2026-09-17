@@ -46,6 +46,7 @@
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
         <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/admin-guide-companion.html" class="nav-link">Admin Guide companion</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
         <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
@@ -227,8 +228,13 @@
 <li>Second: <strong>collection slug</strong></li>
 <li>Third: quantity (optional, default 1)</li>
 </ul>
-<h3>Lowest price on a parent product</h3>
-<pre><code>&lt;p&gt;From {commerce_price_from slug my_products}&lt;/p&gt;</code></pre>
+<h3>Lowest price on a product detail page</h3>
+<p>On a detail URL (<code>?collection=products&amp;slug=…</code>), <code>slug</code> resolves to the current entry:</p>
+<pre><code>&lt;p&gt;€{commerce_price_from slug products}&lt;/p&gt;</code></pre>
+<p>Or pass the commerce field directly (variants, custom field slugs):</p>
+<pre><code>&lt;p&gt;€{commerce_price_from {'commerce'}}&lt;/p&gt;
+&lt;p&gt;€{commerce_price_from variant.commerce}&lt;/p&gt;</code></pre>
+<p>The tag returns a <strong>number</strong> with a dot decimal (for example <code>6.50</code>). Add your currency symbol and locale formatting in HTML/CSS.</p>
 <h3>Variants (sub-collection)</h3>
 <p>On a product detail page (URL has <code>?collection=products&amp;slug=…</code>):</p>
 <pre><code>{for each entry in 'variants' of 'products'.current ordered by order}
@@ -240,7 +246,7 @@
 <p>Use the variant’s own slug/id in <code>commerce_buy_url</code> when that row is the sellable unit.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
 <table><thead><tr><th>Function</th><th>Signature</th><th>Returns</th></tr></thead>
-<tbody><tr><td><code>commerce_cart_count</code></td><td>none</td><td>Session cart item count</td></tr><tr><td><code>commerce_cart_url</code></td><td>none</td><td>Cart URL</td></tr><tr><td><code>commerce_buy_url</code></td><td><code>entry_id</code>, <code>collection_slug?</code>, <code>qty?</code></td><td>Checkout / add URL</td></tr><tr><td><code>commerce_add_to_cart</code></td><td>same as buy_url</td><td>Alias</td></tr><tr><td><code>commerce_price_from</code></td><td><code>entry_id</code>, <code>collection_slug?</code></td><td>Lowest purchase-option price</td></tr></tbody></table>
+<tbody><tr><td><code>commerce_cart_count</code></td><td>none</td><td>Session cart item count</td></tr><tr><td><code>commerce_cart_url</code></td><td>none</td><td>Cart URL</td></tr><tr><td><code>commerce_buy_url</code></td><td><code>entry_id</code>, <code>collection_slug?</code>, <code>qty?</code></td><td>Checkout / add URL</td></tr><tr><td><code>commerce_add_to_cart</code></td><td>same as buy_url</td><td>Alias</td></tr><tr><td><code>commerce_price_from</code></td><td><code>entry_id</code>, <code>collection_slug</code> <strong>or</strong> commerce field value</td><td>Lowest purchase-option price (catalog lookup or field array). Empty when unknown.</td></tr></tbody></table>
 <p><strong>Registration:</strong> <code>register_template_function()</code> in Commerce <code>plugin.php</code>; omitted when inactive. See <a href="plugin-language-extensions.html">Plugin language extensions</a>.</p>
 <p><strong>Do not</strong> invent <code>{for each variant in sub_entries variants}</code> — use <code>of 'collection'.current</code> / explicit slug.</p>
 <p><strong>Affiliate:</strong> Append <code>?ref=partner_id</code> on site URLs when using affiliate rules.</p>

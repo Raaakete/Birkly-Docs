@@ -8,8 +8,10 @@
 <li>Canonical catalog: <code>lang/en.json</code> under the CMS root (<code>admin.*</code> keys).</li>
 <li>PHP: <code>__('admin.save')</code> with <code>{{param}}</code> interpolation.</li>
 <li>HTML templates: <code>{translate 'admin.settings'}</code>.</li>
+<li>PHP partials (not plugin HTML): <code>&lt;?= __('admin.save') ?&gt;</code> — use <code>{translate}</code> in plugin <code>.html</code> admin pages.</li>
 <li>JavaScript: <code>Birkly.i18n.t('admin.save')</code> (flat full-key dictionary injected in <code>layout_head.php</code>).</li>
 </ul>
+<p>Admin language is stored on the <strong>user profile</strong> and applied on the next full page load after <code>api/users.php</code> <code>set_language</code>. There is no separate per-plugin language control.</p>
 <h2>Plugin strings</h2>
 <p>Plugins ship their own catalogs:</p>
 <pre><code>plugins/my-plugin/lang/en.json
@@ -27,11 +29,25 @@ plugins/my-plugin/lang/de.json</code></pre>
 <p>Core merges active plugin catalogs when loading the admin language. Inactive plugins contribute nothing.</p>
 <h2>Tooling</h2>
 <pre><code>php scripts/i18n-audit.php --locale=de --strict
-php scripts/i18n-sync-locale.php de</code></pre>
+php scripts/i18n-sync-locale.php de
+php scripts/i18n-audit.php --locale=ja --strict</code></pre>
 <ul>
 <li><strong><code>--strict</code></strong>: fail on missing keys vs <code>en.json</code>.</li>
 <li><strong><code>--check-untranslated</code></strong>: also fail when locale values are identical to English.</li>
 </ul>
+<p><strong>Japanese (batch):</strong> from the CMS repo root, sync missing keys and machine-translate English copies for core + Wave 1 plugin SoT repos:</p>
+<pre><code>./scripts/p85-ja-full-pass.sh</code></pre>
+<p>Requires <code>pip install deep-translator</code>. CI enforces <strong>ja</strong> key parity for core (<code>ci-check.sh</code>).</p>
+<p><strong>French (core + plugins):</strong> sync keys, then merge translated patches (PHP only, no pip):</p>
+<pre><code># Core
+php scripts/i18n-sync-locale.php fr
+php scripts/i18n-apply-admin-patches.php fr path/to/patch.json
+php scripts/i18n-audit.php --locale=fr --strict
+
+# Official plugin (SoT repo)
+php scripts/i18n-sync-plugin-locale.php /path/to/Birkly-Plugin-Commerce commerce fr
+php scripts/i18n-apply-plugin-patches.php /path/to/Birkly-Plugin-Commerce commerce fr patch.json
+php scripts/i18n-audit-plugin.php /path/to/Birkly-Plugin-Commerce commerce --locale=fr --strict</code></pre>
 <div class="doc-related"><ul>
 <li><a href="plugin-development.html">Plugin development</a></li>
 <li>P85 plan (internal): Birkly-Marketplace <code>internal/planning/reviews/P85-admin-i18n-platform-plan.md</code></li>

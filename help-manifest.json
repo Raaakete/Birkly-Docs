@@ -845,20 +845,6 @@
             "ai_topic": "playbooks-index"
         },
         {
-            "id": "admin-guide-companion",
-            "title": "Admin Guide companion",
-            "keywords": [
-                "guide",
-                "checklist",
-                "journey",
-                "onboarding",
-                "setup",
-                "empty state"
-            ],
-            "docs_path": "01-admin/admin-guide-companion.html",
-            "ai_topic": "getting-started"
-        },
-        {
             "id": "known-issues-wave1",
             "title": "Known issues — Wave 1",
             "keywords": [

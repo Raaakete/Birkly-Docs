@@ -1,7 +1,7 @@
 <div class="doc-summary"><p>Birkly separates <strong>two languages</strong>:</p>
 <table><thead><tr><th>Layer</th><th>What it controls</th><th>Where you set it</th></tr></thead>
-<tbody><tr><td><strong>Admin UI language</strong></td><td>Menus, buttons, onboarding, plugin admin shells</td><td><strong>Account</strong> (and onboarding for the first user)</td></tr><tr><td><strong>Site default language</strong></td><td>Default for <strong>content</strong> / storefront-facing defaults where configured</td><td><strong>Settings → General</strong></td></tr></tbody></table>
-<p>Changing <strong>Settings → General</strong> site language does <strong>not</strong> switch the admin interface. Use <strong>Account</strong> to change admin UI language.</p></div>
+<tbody><tr><td><strong>Admin UI language</strong></td><td>Menus, buttons, onboarding, plugin admin shells</td><td><strong>Account</strong> (and onboarding for the first user)</td></tr><tr><td><strong>Public site language</strong></td><td>Which localized <strong>content</strong> visitors see</td><td>Per-collection <strong>multilanguage</strong> fields, template <code>?lang=</code> / visitor picker — not a single General setting</td></tr></tbody></table>
+<p>There is <strong>no</strong> site-wide language dropdown under <strong>Settings → General</strong>. Use <strong>Account</strong> for admin UI language.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><ol>
 <li><strong>First login:</strong> Onboarding asks for <strong>admin UI language</strong> — this saves to your user profile.</li>
 <li><strong>Later:</strong> Open <strong>Account</strong> → language → save → reload admin.</li>
@@ -10,7 +10,7 @@
 <h2>Advanced</h2>
 <ul>
 <li>Admin strings: <code>lang/*.json</code> in core and plugin <code>lang/</code> packs (P85 i18n).</li>
-<li>Site language in General maps to platform/site settings used for content defaults — not <code>user.language</code>.</li>
+<li>Legacy <code>settings/site.json</code> may still contain a <code>language</code> key for defaults; it is not exposed in General settings UI.</li>
 </ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="account.html">Account</a></li>

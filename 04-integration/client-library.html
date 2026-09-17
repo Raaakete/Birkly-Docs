@@ -46,6 +46,7 @@
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
         <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/admin-guide-companion.html" class="nav-link">Admin Guide companion</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
         <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
@@ -291,7 +292,8 @@
     { &quot;type&quot;: &quot;list_collection_groups&quot;, &quot;into&quot;: &quot;collection_groups&quot; }
   ]
 }</code></pre>
-<p>Response: <code>{ &quot;status&quot;: &quot;ok&quot;, &quot;data&quot;: { &quot;blog&quot;: [...], &quot;about&quot;: {...}, &quot;collection_groups&quot;: [...] } }</code>.</p>
+<p>Every request except <code>template_functions_meta</code> <strong>must</strong> include a unique <strong><code>into</code></strong> key (where the result is stored in <code>data</code>). Missing <code>into</code> yields <strong><code>status: &quot;error&quot;</code></strong> (HTTP 400) when the whole batch is invalid, or <strong><code>status: &quot;partial&quot;</code></strong> when some requests succeed. Check the <strong><code>errors</code></strong> array — do not treat <code>ok</code> with empty <code>data</code> as “no content” without reading <code>errors</code>.</p>
+<p>Response: <code>{ &quot;status&quot;: &quot;ok&quot;|&quot;partial&quot;|&quot;error&quot;, &quot;data&quot;: { ... }, &quot;errors&quot;: [] }</code>.</p>
 <p>When your HTML uses <code>{for each group in collection_groups}</code>, the client includes a <code>list_collection_groups</code> request automatically (or reads it from a snapshot). See <a href="../02-content/collection-groups.html">Collection groups</a>.</p>
 <p><strong>Errors and fallbacks</strong></p>
 <ul>

@@ -46,6 +46,7 @@
         <a href="../01-admin/design-system.html" class="nav-link">Admin design system</a>
         <a href="../01-admin/admin-design-language.html" class="nav-link">Admin design language</a>
         <a href="../01-admin/help-and-onboarding.html" class="nav-link">Help and onboarding</a>
+        <a href="../01-admin/admin-guide-companion.html" class="nav-link">Admin Guide companion</a>
         <a href="../01-admin/ai-overview.html" class="nav-link">AI overview</a>
         <a href="../01-admin/ai-connections.html" class="nav-link">AI connections</a>
         <a href="../01-admin/mcp-connections.html" class="nav-link">MCP connections</a>
@@ -260,6 +261,10 @@
 <ul>
 <li><strong>Read API</strong> — Generally safe to expose; use CORS for allowed origins; rate limit. <strong>Submit/forms</strong> — Rate limiting, CAPTCHA, or tokens; no admin credentials on frontend; validate and sanitize server-side.</li>
 </ul>
+<p><strong>Dependencies and scanners</strong></p>
+<ul>
+<li>Birkly <strong>core</strong> does not ship a <code>vendor/</code> tree or <code>composer.lock</code>; <code>composer.json</code> only declares PHP version and optional autoload metadata. Tools that warn about a missing lockfile are tuned for Composer apps — that warning is <strong>expected</strong> for Birkly. Runtime pins are the <strong>Docker/PHP image</strong>, extensions, and <strong>plugin</strong> versions from Hub. See the CMS repo <code>docs/security/dependencies.md</code> (mirrored in product docs over time).</li>
+</ul>
 <p><strong>Server and PHP</strong></p>
 <ul>
 <li><strong>PHP</strong> — Disable dangerous functions if possible; supported PHP version. <code>display_errors</code> off in production.</li>
@@ -269,6 +274,13 @@
 <p><strong>Backups</strong></p>
 <ul>
 <li>Back up content, media, settings, database regularly; store off-server; test restore. See <a href="backup-and-restore.html">Backup and restore</a>.</li>
+</ul>
+<p><strong>Deploy health and secrets (P88)</strong></p>
+<ul>
+<li><strong>Public health:</strong> <code>GET /api/deploy_revision.php</code> returns only <code>status</code>, <code>service</code>, <code>build_revision</code>, and <code>time</code> — no installation id, data paths, or hosting env maps. Dokploy and other monitors can use this URL with <strong>no extra configuration</strong>.</li>
+<li><strong>Diagnostics:</strong> While logged in to <strong>Admin</strong> (read settings or higher), use <code>/admin/deploy-check.php</code> or <code>/api/admin_deploy_diagnostics.php</code> with your session cookie. Mutating actions use <strong>POST</strong> with CSRF, like other admin APIs. No server env secrets are required.</li>
+<li><strong>Emergency password reset:</strong> Use <code>php scripts/reset-admin-password.php --email=…</code> and enter the password at the prompt, or set <code>BIRKLY_RESET_PASSWORD</code> in the container env for one run. Do <strong>not</strong> use <code>--password=…</code> on the command line (visible in <code>ps</code>).</li>
+<li><strong>Runtime data:</strong> Keep <code>data/</code>, <code>settings/</code>, and <code>users/</code> off git and off public HTTP. Security scanners that read live volumes may flag local JSON; that is not the same as secrets in the repository.</li>
 </ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="deployment.html">Deployment</a></li>

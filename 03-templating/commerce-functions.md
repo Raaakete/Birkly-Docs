@@ -26,11 +26,22 @@ Template functions registered by the **Commerce** plugin when active. Use them i
 - Second: **collection slug**  
 - Third: quantity (optional, default 1)
 
-### Lowest price on a parent product
+### Lowest price on a product detail page
+
+On a detail URL (`?collection=products&slug=…`), `slug` resolves to the current entry:
 
 ```html
-<p>From {commerce_price_from slug my_products}</p>
+<p>€{commerce_price_from slug products}</p>
 ```
+
+Or pass the commerce field directly (variants, custom field slugs):
+
+```html
+<p>€{commerce_price_from {'commerce'}}</p>
+<p>€{commerce_price_from variant.commerce}</p>
+```
+
+The tag returns a **number** with a dot decimal (for example `6.50`). Add your currency symbol and locale formatting in HTML/CSS.
 
 ### Variants (sub-collection)
 
@@ -57,7 +68,7 @@ Use the variant’s own slug/id in `commerce_buy_url` when that row is the sella
 | `commerce_cart_url` | none | Cart URL |
 | `commerce_buy_url` | `entry_id`, `collection_slug?`, `qty?` | Checkout / add URL |
 | `commerce_add_to_cart` | same as buy_url | Alias |
-| `commerce_price_from` | `entry_id`, `collection_slug?` | Lowest purchase-option price |
+| `commerce_price_from` | `entry_id`, `collection_slug` **or** commerce field value | Lowest purchase-option price (catalog lookup or field array). Empty when unknown. |
 
 **Registration:** `register_template_function()` in Commerce `plugin.php`; omitted when inactive. See [Plugin language extensions](plugin-language-extensions.md).
 

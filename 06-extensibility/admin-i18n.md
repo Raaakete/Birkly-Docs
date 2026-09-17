@@ -11,6 +11,20 @@ How the Birkly admin panel loads translations for core UI and plugins.
 
 Admin language is chosen per user (user menu → language). It does **not** follow browser `Accept-Language` automatically.
 
+### Selectable admin UI languages
+
+The account / onboarding language picker lists only curated locales (see `birkly_admin_ui_selectable_language_codes()` in `core/i18n.php`):
+
+| Code | Notes |
+|------|--------|
+| `en` | Default |
+| `de` | Strict quality bar |
+| `fr` | Tier-1 |
+| `ja` | Tier-1 |
+| `es` | Tier-1 (next focus) |
+
+Other `lang/*.json` files (e.g. `da`, `hi`, `zh`) may remain in the repo for future work but are **not** offered in the UI until promoted to the whitelist.
+
 ## Core strings
 
 - Canonical catalog: `lang/en.json` under the CMS root (`admin.*` keys).

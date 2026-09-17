@@ -54,6 +54,10 @@ Security for Birkly means protecting the admin, content, and any public API from
 
 - **Read API** — Generally safe to expose; use CORS for allowed origins; rate limit. **Submit/forms** — Rate limiting, CAPTCHA, or tokens; no admin credentials on frontend; validate and sanitize server-side.
 
+**Dependencies and scanners**
+
+- Birkly **core** does not ship a `vendor/` tree or `composer.lock`; `composer.json` only declares PHP version and optional autoload metadata. Tools that warn about a missing lockfile are tuned for Composer apps — that warning is **expected** for Birkly. Runtime pins are the **Docker/PHP image**, extensions, and **plugin** versions from Hub. See the CMS repo `docs/security/dependencies.md` (mirrored in product docs over time).
+
 **Server and PHP**
 
 - **PHP** — Disable dangerous functions if possible; supported PHP version. `display_errors` off in production.

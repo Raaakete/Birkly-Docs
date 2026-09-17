@@ -46,6 +46,22 @@ Keys use namespace `plugins.{plugin_id}.{key}` (underscores in plugin id).
 
 Core merges active plugin catalogs when loading the admin language. Inactive plugins contribute nothing.
 
+## Tier-1 locales (P85)
+
+**French (`fr`)** and **Spanish (`es`)** are tier-1 admin locales: full `admin.*` parity with `lang/en.json`, plus Wave 1 official plugins (User, Commerce, Automation, Events, Studio).
+
+Spanish catalogs are rebuilt **from English only** (no machine translation, no French fallback). After adding or changing `lang/en.json` keys:
+
+```bash
+./scripts/p85-es-full-pass.sh
+php scripts/i18n-audit.php --locale=es --strict
+php scripts/i18n-audit-es-quality.php
+```
+
+`i18n-audit-es-quality.php` flags FR→ES heuristic leaks (same-as-`fr.json`, mixed EN/ES, French phrases). CI runs it warn-only for core and sibling plugin repos.
+
+Do **not** use `scripts/p85-es-fr-to-es.php` (deprecated).
+
 ## Tooling
 
 ```bash

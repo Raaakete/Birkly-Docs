@@ -65,6 +65,20 @@ php scripts/i18n-audit.php --locale=ja --strict
 
 Requires `pip install deep-translator`. CI enforces **ja** key parity for core (`ci-check.sh`).
 
+**French (core + plugins):** sync keys, then merge translated patches (PHP only, no pip):
+
+```bash
+# Core
+php scripts/i18n-sync-locale.php fr
+php scripts/i18n-apply-admin-patches.php fr path/to/patch.json
+php scripts/i18n-audit.php --locale=fr --strict
+
+# Official plugin (SoT repo)
+php scripts/i18n-sync-plugin-locale.php /path/to/Birkly-Plugin-Commerce commerce fr
+php scripts/i18n-apply-plugin-patches.php /path/to/Birkly-Plugin-Commerce commerce fr patch.json
+php scripts/i18n-audit-plugin.php /path/to/Birkly-Plugin-Commerce commerce --locale=fr --strict
+```
+
 ## Related
 
 - [Plugin development](plugin-development.md)

@@ -124,7 +124,9 @@ The client uses the canonical public language: `{title}` / `{'field'}`, `{for ea
 }
 ```
 
-Response: `{ "status": "ok", "data": { "blog": [...], "about": {...}, "collection_groups": [...] } }`.
+Every request except `template_functions_meta` **must** include a unique **`into`** key (where the result is stored in `data`). Missing `into` yields **`status: "error"`** (HTTP 400) when the whole batch is invalid, or **`status: "partial"`** when some requests succeed. Check the **`errors`** array — do not treat `ok` with empty `data` as “no content” without reading `errors`.
+
+Response: `{ "status": "ok"|"partial"|"error", "data": { ... }, "errors": [] }`.
 
 When your HTML uses `{for each group in collection_groups}`, the client includes a `list_collection_groups` request automatically (or reads it from a snapshot). See [Collection groups](../02-content/collection-groups.md).
 

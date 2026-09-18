@@ -1,6 +1,10 @@
 <p>How plugins add template sentences and functions without overriding the core Birkly language.</p>
-<div class="doc-summary"><p><strong>In short:</strong> Plugins can register extra helpers (Commerce cart URLs, Events <code>.ics</code>, user “logged in” checks, etc.). At runtime the engine loads <strong>plugin language first</strong>, then <strong>core last</strong> — core keywords win on conflicts (CSS-like cascade). Extend; don’t override <code>{for each}</code>, <code>{from}</code>, or <code>format</code>.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What you might see</h3>
+<div class="doc-summary"><p><strong>In short:</strong> <strong>Core</strong> registers built-in fieldtype shelf helpers (<code>media_url</code>, <code>gallery_html</code>, …) for every site. <strong>Plugins</strong> can add more (Commerce cart URLs, Events <code>.ics</code>, user “logged in” checks, etc.). At runtime the engine loads <strong>plugin language first</strong>, then <strong>core last</strong> — core keywords win on conflicts (CSS-like cascade). Extend; don’t override <code>{for each}</code>, <code>{from}</code>, or <code>format</code>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Core shelf (always available)</h3>
+<p>No plugin required — see <a href="core-template-shelf.html">Core template shelf</a>:</p>
+<table><thead><tr><th>Helper</th><th>Use</th></tr></thead>
+<tbody><tr><td><code>{media_url('field')}</code></td><td>Public URL for a <code>file</code> field</td></tr><tr><td><code>{media_img('field', 'Alt')}</code></td><td><code>&lt;img&gt;</code> for a media id</td></tr><tr><td><code>{gallery_html('field')}</code></td><td>Gallery grid</td></tr><tr><td><code>{oembed_html('field')}</code></td><td>Embed iframe</td></tr><tr><td><code>{relation_titles('field')}</code></td><td>Related entry titles</td></tr><tr><td><code>{relation_links('field')}</code></td><td>Linked list to related entries</td></tr><tr><td><code>{dynamicitems_html('field')}</code></td><td>Dynamic items blocks</td></tr></tbody></table>
+<h3>What you might see from plugins</h3>
 <p>When a plugin is <strong>active</strong>, new placeholders appear in docs for that plugin:</p>
 <table><thead><tr><th>Plugin</th><th>Examples</th></tr></thead>
 <tbody><tr><td>Commerce</td><td><code>{commerce_cart_count}</code>, <code>{commerce_buy_url …}</code> — <a href="commerce-functions.html">Commerce functions</a></td></tr><tr><td>Events</td><td><code>{upcoming_events}</code>, <code>{event_ics_url …}</code> — <a href="events-functions.html">Events functions</a></td></tr><tr><td>User Management</td><td>Phrases like <code>user_logged_in</code>, <code>user_current</code> (when registered)</td></tr></tbody></table>
@@ -35,6 +39,7 @@
 <li>AI app connections: <strong>Settings → AI</strong> — <a href="../01-admin/mcp-connections.html">MCP connections</a>.</li>
 </ul></div></details>
 <div class="doc-related"><ul>
+<li><a href="core-template-shelf.html">Core template shelf</a></li>
 <li><a href="canonical-syntax.html">Canonical syntax</a></li>
 <li><a href="commerce-functions.html">Commerce functions</a></li>
 <li><a href="events-functions.html">Events functions</a></li>

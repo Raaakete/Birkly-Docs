@@ -40,16 +40,26 @@
 {public_form 'contact'}</code></pre>
 <h3>Detail URL</h3>
 <pre><code>post.html?collection=blog&amp;slug={slug}</code></pre>
-<p>On detail: <code>{title}</code> / <code>{'content'}</code> — <strong>no</strong> <code>{for each entry in 'blog'}</code>.</p></div></details>
+<p>On detail: <code>{title}</code> / <code>{'content'}</code> — <strong>no</strong> <code>{for each entry in 'blog'}</code>.</p>
+<h3>Core shelf (fieldtypes)</h3>
+<pre><code>{media_url('hero')}
+{media_img('hero', 'Alt text')}
+{gallery_html('photos')}
+{oembed_html('video')}
+{relation_titles('related')}
+{relation_links('related')}
+{dynamicitems_html('blocks')}
+{for each id in 'gallery'}{media_img(id)}{endfor}
+{for each tag in 'tags'}{tag}{endfor}</code></pre></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Ordering phrases</h3>
 <table><thead><tr><th>Phrase</th><th>Field</th></tr></thead>
 <tbody><tr><td><code>newest</code> / <code>oldest</code></td><td><code>created_at</code></td></tr><tr><td><code>last-updated</code></td><td><code>updated_at</code></td></tr><tr><td><code>order</code></td><td><code>order</code> or <code>sort_order</code></td></tr></tbody></table>
 <h3>Phantoms (reject in review)</h3>
 <table><thead><tr><th>Phantom</th><th>Use instead</th></tr></thead>
-<tbody><tr><td><code>{{ }}</code> / <code>{% for %}</code></td><td><code>{…}</code> / <code>{for each}</code></td></tr><tr><td><code>{entry 'blog'.'slug'}…{endentry}</code></td><td><code>{from 'blog' get entry 'slug'}…{endget}</code></td></tr><tr><td><code>{ date &quot;F j, Y&quot; }</code></td><td><code>{created_at format &quot;F j, Y&quot;}</code></td></tr><tr><td><code>{title truncate 80}</code></td><td>excerpt field</td></tr><tr><td><code>{'content' strip_tags}</code></td><td>plain field / CMS cleanup</td></tr><tr><td><code>{from 'blog' get entries …}</code> / <code>sort=</code> / <code>limit=</code></td><td><code>ordered by</code> + <code>limit N</code></td></tr><tr><td><code>{ media … }</code></td><td><code>{'featured_image'}</code> in <code>&lt;img&gt;</code></td></tr><tr><td><code>ordered=&quot;date:desc&quot;</code></td><td><code>ordered=&quot;newest&quot;</code></td></tr><tr><td>Detail page collection loop</td><td>URL context + <code>.current</code></td></tr><tr><td>Manual <code>/plugins/…/storefront.js</code> tags</td><td>Single <code>birkly-client.js</code> — <a href="project-sites-and-plugins.html">Project sites and plugins</a></td></tr><tr><td>Custom <code>club-gate.js</code> auth script</td><td><code>data-user-require-auth</code> on <code>&lt;html&gt;</code> / <code>&lt;body&gt;</code></td></tr></tbody></table>
+<tbody><tr><td><code>{{ }}</code> / <code>{% for %}</code></td><td><code>{…}</code> / <code>{for each}</code></td></tr><tr><td><code>{entry 'blog'.'slug'}…{endentry}</code></td><td><code>{from 'blog' get entry 'slug'}…{endget}</code></td></tr><tr><td><code>{ date &quot;F j, Y&quot; }</code></td><td><code>{created_at format &quot;F j, Y&quot;}</code></td></tr><tr><td><code>{title truncate 80}</code></td><td>excerpt field</td></tr><tr><td><code>{'content' strip_tags}</code></td><td>plain field / CMS cleanup</td></tr><tr><td><code>{from 'blog' get entries …}</code> / <code>sort=</code> / <code>limit=</code></td><td><code>ordered by</code> + <code>limit N</code></td></tr><tr><td><code>{ media … }</code></td><td><code>{media_img('featured_image', '…')}</code> or <code>{media_url('featured_image')}</code></td></tr><tr><td><code>ordered=&quot;date:desc&quot;</code></td><td><code>ordered=&quot;newest&quot;</code></td></tr><tr><td>Detail page collection loop</td><td>URL context + <code>.current</code></td></tr><tr><td>Manual <code>/plugins/…/storefront.js</code> tags</td><td>Single <code>birkly-client.js</code> — <a href="project-sites-and-plugins.html">Project sites and plugins</a></td></tr><tr><td>Custom <code>club-gate.js</code> auth script</td><td><code>data-user-require-auth</code> on <code>&lt;html&gt;</code> / <code>&lt;body&gt;</code></td></tr></tbody></table>
 <h3>Learning map</h3>
 <table><thead><tr><th>Task</th><th>Doc</th></tr></thead>
-<tbody><tr><td>Mental model</td><td><a href="templating-overview.html">Templating overview</a></td></tr><tr><td>Script tag + plugins</td><td><a href="client-setup.html">Client setup</a>, <a href="project-sites-and-plugins.html">Project sites and plugins</a></td></tr><tr><td>List/detail</td><td><a href="loops-and-lists.html">Loops</a>, <a href="detail-pages-and-url-context.html">Detail pages</a></td></tr><tr><td>Forms</td><td><a href="public-forms-templating.html">Public forms templating</a></td></tr><tr><td>Full tutorial</td><td><a href="worked-site-walkthrough.html">Worked site walkthrough</a></td></tr><tr><td>Spec (CMS)</td><td><code>docs/TEMPLATE_LANGUAGE_SPEC.md</code></td></tr></tbody></table></div></details>
+<tbody><tr><td>Mental model</td><td><a href="templating-overview.html">Templating overview</a></td></tr><tr><td>Script tag + plugins</td><td><a href="client-setup.html">Client setup</a>, <a href="project-sites-and-plugins.html">Project sites and plugins</a></td></tr><tr><td>List/detail</td><td><a href="loops-and-lists.html">Loops</a>, <a href="detail-pages-and-url-context.html">Detail pages</a></td></tr><tr><td>Media / shelf</td><td><a href="core-template-shelf.html">Core template shelf</a>, <a href="media-in-templates.html">Media in templates</a></td></tr><tr><td>Forms</td><td><a href="public-forms-templating.html">Public forms templating</a></td></tr><tr><td>Full tutorial</td><td><a href="worked-site-walkthrough.html">Worked site walkthrough</a></td></tr><tr><td>Spec (CMS)</td><td><code>docs/TEMPLATE_LANGUAGE_SPEC.md</code></td></tr></tbody></table></div></details>
 <div class="doc-related"><ul>
 <li><a href="canonical-syntax.html">Canonical syntax</a></li>
 <li><a href="templating-overview.html">Templating overview</a></li>

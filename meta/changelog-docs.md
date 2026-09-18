@@ -12,6 +12,13 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-09-18 — Fieldtype QA / core template shelf (CMS parity)
+
+- **New:** `03-templating/core-template-shelf.md` — built-in shelf helpers (`media_url`, `media_img`, `gallery_html`, `oembed_html`, `relation_*`, `dynamicitems_html`).
+- **Updated:** `02-content/field-types.md` — `file` vs `media` naming, password, markdown, shelf, aliases, MCP notes.
+- **Updated:** `03-templating/media-in-templates.md`, `loops-and-lists.md`, `plugin-language-extensions.md`, `cheat-sheet.md`, `02-content/dynamic-items-field.md`, `01-admin/mcp-connections.md` — shelf, array loops, `_mcp_field_hints`, ghost-dir validation.
+- **Indexed:** `manifest.json`, `help-topics-meta.json`, `CONTENTS_INDEX.md`.
+
 ## 2026-09-08 — P83 Admin plugin extension playbook
 
 - **Added:** `06-extensibility/admin-plugin-extension.md` — admin.scripts shelf, dashboard mounts, notification formatters, WebMCP runtime packs (P83-M8).

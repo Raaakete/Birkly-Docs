@@ -92,6 +92,7 @@
         { "path": "03-templating/sub-collections-in-templates.md", "label": "Sub-collections in templates" },
         { "path": "03-templating/dates-and-formatting.md", "label": "Dates and formatting" },
         { "path": "03-templating/media-in-templates.md", "label": "Media in templates" },
+        { "path": "03-templating/core-template-shelf.md", "label": "Core template shelf" },
         { "path": "03-templating/public-forms-templating.md", "label": "Public forms templating" },
         { "path": "03-templating/multilingual-templating.md", "label": "Multilingual templating" },
         { "path": "03-templating/web-components.md", "label": "Web components (templating)" },

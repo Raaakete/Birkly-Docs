@@ -1,51 +1,57 @@
-<p>Show images and files by outputting the <strong>field value</strong> (filename or URL) into normal HTML — there is no <code>{ media … }</code> helper in the public template language.</p>
-<div class="doc-summary"><p><strong>In short:</strong> Store a filename or media ref on an <code>image</code> / <code>media</code> / <code>gallery</code> field, then print it with <code>{'featured_image'}</code> (quoted user field). Put that value in <code>&lt;img src=&quot;…&quot;&gt;</code> or <code>&lt;a href=&quot;…&quot;&gt;</code>. Always guard empty fields with <code>{if entry has 'featured_image'}</code>. Build public URLs from your CMS media path (often <code>/media/…</code> — confirm with the Media library).</p>
-<blockquote><p><strong>Media (P2):</strong> screenshot deferred — media pick + <code>&lt;img&gt;</code> in template.</p></blockquote></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Single image field</h3>
-<p>Collection field e.g. <code>featured_image</code> (type <code>image</code>). Entry stores a filename such as <code>hero-bread.jpg</code>.</p>
+<p>Show images and files from <strong>file</strong> / <strong>gallery</strong> fields using core <strong>template shelf</strong> helpers or loops — not <code>{ media … }</code> phantoms.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Store a <strong>media library id</strong> on a <code>file</code> field (aliases <code>image</code>, <code>media</code>) or an array of ids on <code>gallery</code>. In templates use <code>{media_url('hero')}</code>, <code>{media_img('hero', 'Alt')}</code>, or <code>{gallery_html('photos')}</code>. For custom markup, loop ids and call <code>{media_img(id)}</code>. Guard empty fields with <code>{if entry has 'hero'}</code>. Full shelf reference: <a href="core-template-shelf.html">Core template shelf</a>.</p>
+<blockquote><p><strong>Media (P2):</strong> screenshot deferred — media pick + shelf output in template.</p></blockquote></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Single image (<code>file</code> / <code>image</code> / <code>media</code>)</h3>
+<p>Collection field e.g. <code>featured_image</code> (type <code>file</code>). Entry stores a media library <strong>id</strong> (not a bare filename path).</p>
 <pre><code>{if entry has 'featured_image'}
-  &lt;img src=&quot;/media/{'featured_image'}&quot; alt=&quot;{title}&quot;&gt;
+  {media_img('featured_image', title)}
 {else}
   &lt;img src=&quot;/images/placeholder.jpg&quot; alt=&quot;&quot;&gt;
 {endif}</code></pre>
-<p>If your API already returns a full URL in the field, use:</p>
-<pre><code>&lt;img src=&quot;{'featured_image'}&quot; alt=&quot;{title}&quot;&gt;</code></pre>
-<p>Check one published entry in the public API or preview before hard-coding a prefix.</p>
+<p>URL only:</p>
+<pre><code>&lt;a href=&quot;{media_url('brochure')}&quot;&gt;Download&lt;/a&gt;</code></pre>
 <h3>Inside a list loop</h3>
 <pre><code>{for each entry in 'gallery' with status = published ordered by order}
   {if entry has 'image'}
     &lt;figure&gt;
-      &lt;img src=&quot;{'image'}&quot; alt=&quot;{title}&quot;&gt;
+      {media_img('image', title)}
       &lt;figcaption&gt;{title}&lt;/figcaption&gt;
     &lt;/figure&gt;
   {endif}
 {endfor}</code></pre>
 <h3>Gallery (array) field</h3>
+<p>Built-in grid:</p>
 <pre><code>{if entry has 'gallery'}
-  {for each item in 'gallery'}
-    &lt;img src=&quot;{item}&quot; alt=&quot;&quot;&gt;
+  {gallery_html('gallery')}
+{endif}</code></pre>
+<p>Custom layout — loop scalar ids:</p>
+<pre><code>{if entry has 'gallery'}
+  {for each id in 'gallery'}
+    {media_img(id)}
   {endfor}
 {endif}</code></pre>
-<p>If items are objects, your build may expose a path such as a URL property — inspect API JSON; do not invent <code>{ media }</code> helpers.</p>
+<p>Inside the loop you can use <code>{entry}</code> or <code>{.}</code> for the current id.</p>
 <h3>Files / downloads</h3>
 <pre><code>{if entry has 'document'}
-  &lt;a href=&quot;{'document'}&quot; download&gt;Download&lt;/a&gt;
+  &lt;a href=&quot;{media_url('document')}&quot; download&gt;Download&lt;/a&gt;
 {endif}</code></pre>
 <h3>Rich text images</h3>
 <p>Editor fields already contain <code>&lt;img&gt;</code> HTML. Output with <code>{'content'}</code> (HTML). Upload those assets via the Media library / editor UI — see <a href="../02-content/content-editor.html">Content editor</a>.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
-<p><strong>Aligned with media playbook</strong></p>
+<p><strong>Workflow</strong></p>
 <ol>
-<li><code>list_media</code> / Media library — note exact filename.</li>
-<li>Set the image field on <code>create_entry</code> / <code>update_entry</code>.</li>
-<li>Template: <code>{'featured_image'}</code> — <strong>not</strong> <code>{ media featured_image }</code>.</li>
+<li><code>list_media</code> / <code>upload_media</code> — note media id.</li>
+<li>Set the field on <code>create_entry</code> / <code>update_entry</code>.</li>
+<li>Template: <code>{media_url('hero')}</code> · <code>{media_img('hero', 'Alt')}</code> · <code>{gallery_html('photos')}</code>.</li>
 </ol>
 <p><strong>Phantoms</strong></p>
 <table><thead><tr><th>Wrong</th><th>Right</th></tr></thead>
-<tbody><tr><td><code>{ media 'logo.svg' }</code></td><td>Static path or a CMS field that holds the file</td></tr><tr><td><code>{ media featured_image width=400 }</code></td><td><code>{'featured_image'}</code> + CSS / native <code>width</code> / your CDN</td></tr><tr><td><code>{ image.url }</code> without verifying shape</td><td>Inspect API; use <code>{item}</code> or documented path</td></tr></tbody></table>
+<tbody><tr><td><code>{ media 'logo.svg' }</code></td><td>Static path or <code>{media_url('logo')}</code></td></tr><tr><td><code>{ media featured_image width=400 }</code></td><td><code>{media_img('featured_image', '…')}</code> + CSS</td></tr><tr><td><code>{'featured_image'}</code> alone in <code>&lt;img src&gt;</code> when value is an id</td><td><code>{media_img('featured_image', '…')}</code></td></tr><tr><td><code>{ image.url }</code> without verifying shape</td><td>Shelf helpers or inspect API JSON</td></tr></tbody></table>
 <p><strong>Empty guards</strong> — required for clean DOM (<code>src=&quot;&quot;</code> breaks layout and a11y).</p>
-<p><strong>Performance</strong> — prefer appropriately sized uploads; the core language does not resize on the fly.</p></div></details>
+<p><strong>Performance</strong> — prefer appropriately sized uploads; the core language does not resize on the fly.</p>
+<p><strong>External URLs</strong> — use a <code>url</code> field for partner links, not <code>file</code> / <code>gallery</code>.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="core-template-shelf.html">Core template shelf</a></li>
 <li><a href="variables-and-output.html">Variables and output</a></li>
 <li><a href="conditionals.html">Conditionals</a></li>
 <li><a href="loops-and-lists.html">Loops and lists</a></li>

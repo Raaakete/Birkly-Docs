@@ -1,0 +1,39 @@
+<p>Built-in helpers for fieldtypes that need more than a raw stored value (media URLs, embeds, relations, Dynamic items blocks). Available on every site — no plugin required.</p>
+<div class="doc-summary"><p><strong>In short:</strong> Use <code>{media_url('hero')}</code>, <code>{media_img('hero', 'Alt')}</code>, <code>{gallery_html('photos')}</code>, <code>{oembed_html('video')}</code>, <code>{relation_titles('related')}</code>, <code>{relation_links('related')}</code>, and <code>{dynamicitems_html('blocks')}</code> instead of inventing <code>{ media … }</code> phantoms or hand-building HTML from opaque JSON.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>When to use shelf helpers</h3>
+<table><thead><tr><th>Field type</th><th>Stored value</th><th>Shelf helper</th></tr></thead>
+<tbody><tr><td><code>file</code> (aliases <code>image</code>, <code>media</code>)</td><td>Media library id</td><td><code>{media_url('hero')}</code> · <code>{media_img('hero', 'Alt text')}</code></td></tr><tr><td><code>gallery</code></td><td>Array of media ids</td><td><code>{gallery_html('photos')}</code> or loop ids + <code>{media_img(id)}</code></td></tr><tr><td><code>oembed</code></td><td>Embed URL</td><td><code>{oembed_html('video')}</code></td></tr><tr><td><code>relation</code></td><td>Array of <code>{id, title?, collection?}</code></td><td><code>{relation_titles('related')}</code> · <code>{relation_links('related')}</code></td></tr><tr><td><code>dynamicitems</code></td><td>Block list with <code>type</code> + <code>value</code></td><td><code>{dynamicitems_html('blocks')}</code></td></tr></tbody></table>
+<p><strong>Markdown</strong> and <strong>editor</strong> body fields still use <code>{'body'}</code> or <code>{'content'}</code> — markdown is rendered to HTML when the collection schema type is <code>markdown</code> (trusted HTML via the page bundle).</p>
+<h3>Examples</h3>
+<pre><code>{if entry has 'hero'}
+  {media_img('hero', title)}
+{endif}
+
+{gallery_html('product_photos')}
+
+{oembed_html('promo_video')}
+
+&lt;p&gt;Related: {relation_titles('related_posts')}&lt;/p&gt;
+&lt;ul&gt;{relation_links('related_posts')}&lt;/ul&gt;
+
+&lt;section&gt;{dynamicitems_html('page_blocks')}&lt;/section&gt;</code></pre>
+<p>Loop a gallery field manually when you need custom markup:</p>
+<pre><code>{for each id in 'gallery'}
+  {media_img(id)}
+{endfor}</code></pre></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Shelf model</h3>
+<p>Fieldtypes own admin UI, validation, storage, and optional <code>register_template_function</code> helpers. Core templating resolves stored JSON and exposes these <strong>core shelf</strong> functions from <code>core/fieldtype_template_shelf.php</code> — it does not embed gallery grids, oEmbed players, or relation cards unless you call the shelf helper (or a plugin registers its own).</p>
+<p>Plugins load <strong>before</strong> core; core wins on name conflicts. Plugin helpers use prefixes (<code>commerce_</code>, <code>event_</code>) — see <a href="plugin-language-extensions.html">Plugin language extensions</a>.</p>
+<h3>Phantoms</h3>
+<table><thead><tr><th>Wrong</th><th>Right</th></tr></thead>
+<tbody><tr><td><code>{ media featured_image }</code></td><td><code>{media_url('featured_image')}</code> or <code>{media_img('featured_image', '…')}</code></td></tr><tr><td><code>{ image.url }</code> without verifying API shape</td><td>Shelf helpers or inspect public API JSON</td></tr><tr><td>String-replace hacks for embed HTML</td><td><code>{oembed_html('field')}</code></td></tr></tbody></table>
+<h3>MCP / AI</h3>
+<p><code>read_entry</code> may include <code>_mcp_field_hints</code> (per-field <code>type</code> + template hint). Do not send <code>_mcp_field_hints</code> back on <code>update_entry</code>. Prefer <code>file</code> / <code>gallery</code> for CMS images — see <a href="../01-admin/mcp-connections.html#content-tools-for-connected-agents">MCP connections</a>.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="media-in-templates.html">Media in templates</a></li>
+<li><a href="../02-content/field-types.html">Field types</a></li>
+<li><a href="../02-content/dynamic-items-field.html">Dynamic items field</a></li>
+<li><a href="loops-and-lists.html">Loops and lists</a></li>
+<li><a href="plugin-language-extensions.html">Plugin language extensions</a></li>
+<li><a href="cheat-sheet.html">Cheat sheet</a></li>
+</ul></div>

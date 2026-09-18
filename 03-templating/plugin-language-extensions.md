@@ -4,11 +4,25 @@ How plugins add template sentences and functions without overriding the core Bir
 
 ## Summary
 
-**In short:** Plugins can register extra helpers (Commerce cart URLs, Events `.ics`, user “logged in” checks, etc.). At runtime the engine loads **plugin language first**, then **core last** — core keywords win on conflicts (CSS-like cascade). Extend; don’t override `{for each}`, `{from}`, or `format`.
+**In short:** **Core** registers built-in fieldtype shelf helpers (`media_url`, `gallery_html`, …) for every site. **Plugins** can add more (Commerce cart URLs, Events `.ics`, user “logged in” checks, etc.). At runtime the engine loads **plugin language first**, then **core last** — core keywords win on conflicts (CSS-like cascade). Extend; don’t override `{for each}`, `{from}`, or `format`.
 
 ## Beginner
 
-### What you might see
+### Core shelf (always available)
+
+No plugin required — see [Core template shelf](core-template-shelf.md):
+
+| Helper | Use |
+|--------|-----|
+| `{media_url('field')}` | Public URL for a `file` field |
+| `{media_img('field', 'Alt')}` | `<img>` for a media id |
+| `{gallery_html('field')}` | Gallery grid |
+| `{oembed_html('field')}` | Embed iframe |
+| `{relation_titles('field')}` | Related entry titles |
+| `{relation_links('field')}` | Linked list to related entries |
+| `{dynamicitems_html('field')}` | Dynamic items blocks |
+
+### What you might see from plugins
 
 When a plugin is **active**, new placeholders appear in docs for that plugin:
 
@@ -58,6 +72,7 @@ Plugins typically call `register_template_function()` (or the language-module eq
 
 ## Related
 
+- [Core template shelf](core-template-shelf.md)
 - [Canonical syntax](canonical-syntax.md)
 - [Commerce functions](commerce-functions.md)
 - [Events functions](events-functions.md)

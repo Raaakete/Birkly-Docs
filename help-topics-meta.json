@@ -893,9 +893,28 @@
                 "media",
                 "image",
                 "gallery",
-                "templates"
+                "templates",
+                "media_url",
+                "media_img",
+                "gallery_html"
             ],
             "ai_topic": "media"
+        },
+        "03-templating/core-template-shelf.md": {
+            "id": "core-template-shelf",
+            "title": "Core template shelf",
+            "keywords": [
+                "template shelf",
+                "media_url",
+                "media_img",
+                "gallery_html",
+                "oembed_html",
+                "relation_titles",
+                "relation_links",
+                "dynamicitems_html",
+                "fieldtypes"
+            ],
+            "ai_topic": "templating"
         },
         "03-templating/public-forms-templating.md": {
             "id": "public-forms-templating",

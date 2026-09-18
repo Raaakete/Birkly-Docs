@@ -3,6 +3,8 @@
 <table><thead><tr><th>System</th><th>Purpose</th></tr></thead>
 <tbody><tr><td><strong>Admin UI i18n</strong></td><td>Panel chrome, settings, plugin admin pages</td></tr><tr><td><strong>Content multilang</strong></td><td>Site visitor content (see <a href="../03-templating/multilingual-templating.html">Multilingual templating</a>)</td></tr></tbody></table>
 <p>Admin language is chosen per user (user menu → language). It does <strong>not</strong> follow browser <code>Accept-Language</code> automatically.</p>
+<h3>Selectable admin UI languages</h3>
+<p>Curated picker list (<code>birkly_admin_ui_selectable_language_codes()</code>): <strong>en</strong>, <strong>de</strong>, <strong>fr</strong>, <strong>ja</strong>, <strong>es</strong>. Tier-1 quality bar matches <strong>de</strong> / <strong>fr</strong> / <strong>ja</strong> for <strong>es</strong> (core + Wave 1 plugins). Rebuild: <code>./scripts/p85-es-full-pass.sh</code> from the CMS repo.</p>
 <h2>Core strings</h2>
 <ul>
 <li>Canonical catalog: <code>lang/en.json</code> under the CMS root (<code>admin.*</code> keys).</li>
@@ -27,27 +29,21 @@ plugins/my-plugin/lang/de.json</code></pre>
 <li>Settings labels: <code>&quot;label&quot;: &quot;@i18n:plugins.commerce.settings.default_currency.label&quot;</code></li>
 </ul>
 <p>Core merges active plugin catalogs when loading the admin language. Inactive plugins contribute nothing.</p>
+<h2>Tier-1 locales (P85)</h2>
+<p><strong>French (<code>fr</code>)</strong> and <strong>Spanish (<code>es</code>)</strong> are tier-1 admin locales: full <code>admin.*</code> parity with <code>lang/en.json</code>, plus Wave 1 official plugins (User, Commerce, Automation, Events, Studio).</p>
+<p>Spanish catalogs are rebuilt <strong>from English only</strong> (no machine translation, no French fallback). After adding or changing <code>lang/en.json</code> keys:</p>
+<pre><code>./scripts/p85-es-full-pass.sh
+php scripts/i18n-audit.php --locale=es --strict
+php scripts/i18n-audit-es-quality.php</code></pre>
+<p><code>i18n-audit-es-quality.php</code> flags FR→ES heuristic leaks (same-as-<code>fr.json</code>, mixed EN/ES, French phrases). CI runs it warn-only for core and sibling plugin repos.</p>
+<p>Do <strong>not</strong> use <code>scripts/p85-es-fr-to-es.php</code> (deprecated).</p>
 <h2>Tooling</h2>
 <pre><code>php scripts/i18n-audit.php --locale=de --strict
-php scripts/i18n-sync-locale.php de
-php scripts/i18n-audit.php --locale=ja --strict</code></pre>
+php scripts/i18n-sync-locale.php de</code></pre>
 <ul>
 <li><strong><code>--strict</code></strong>: fail on missing keys vs <code>en.json</code>.</li>
 <li><strong><code>--check-untranslated</code></strong>: also fail when locale values are identical to English.</li>
 </ul>
-<p><strong>Japanese (batch):</strong> from the CMS repo root, sync missing keys and machine-translate English copies for core + Wave 1 plugin SoT repos:</p>
-<pre><code>./scripts/p85-ja-full-pass.sh</code></pre>
-<p>Requires <code>pip install deep-translator</code>. CI enforces <strong>ja</strong> key parity for core (<code>ci-check.sh</code>).</p>
-<p><strong>French (core + plugins):</strong> sync keys, then merge translated patches (PHP only, no pip):</p>
-<pre><code># Core
-php scripts/i18n-sync-locale.php fr
-php scripts/i18n-apply-admin-patches.php fr path/to/patch.json
-php scripts/i18n-audit.php --locale=fr --strict
-
-# Official plugin (SoT repo)
-php scripts/i18n-sync-plugin-locale.php /path/to/Birkly-Plugin-Commerce commerce fr
-php scripts/i18n-apply-plugin-patches.php /path/to/Birkly-Plugin-Commerce commerce fr patch.json
-php scripts/i18n-audit-plugin.php /path/to/Birkly-Plugin-Commerce commerce --locale=fr --strict</code></pre>
 <div class="doc-related"><ul>
 <li><a href="plugin-development.html">Plugin development</a></li>
 <li>P85 plan (internal): Birkly-Marketplace <code>internal/planning/reviews/P85-admin-i18n-platform-plan.md</code></li>

@@ -2,7 +2,7 @@
 
 ## Summary
 
-Field types define what kind of data each field in a collection can hold: short text, long formatted text, numbers, dates, images, choices from a list, and more. Choosing the right type gives editors the right input (e.g. a date picker for dates, a media picker for images) and keeps content consistent for templates and the API. Common types include Text, Textarea, Editor (rich text), Media, Gallery, Number, Date, Select, Checkbox, Tags, URL, and Email; there are more for relations, colors, maps, and repeating blocks.
+Field types define what kind of data each field in a collection can hold: short text, long formatted text, numbers, dates, images, choices from a list, and more. Choosing the right type gives editors the right input (e.g. a date picker for dates, a media picker for images) and keeps content consistent for templates and the API. Common types include Text, Textarea, Editor (rich text), **File** (single media asset; aliases **image**, **media**), Gallery, Number, Date, Select, Checkbox, Tags, URL, Email, Password, Markdown, and Dynamic items; there are more for relations, colors, maps, and oEmbed.
 
 ## Beginner
 
@@ -20,11 +20,13 @@ When you add a field to a collection, you choose a **field type**. That type dec
 
 **Media**
 
-- **Media** — One file (image or document). Use for: featured image, logo, one PDF. The editor picks from the Media Library.  
-  **Example:** Featured image = “hero.jpg”; Brochure = “brochure.pdf”.
+- **File** (type `file`; aliases `image`, `media`) — One file (image or document). Use for: featured image, logo, one PDF. The editor picks from the Media Library; the entry stores a **media id**.  
+  **Templates:** `{media_url('hero')}` · `{media_img('hero', 'Alt text')}` — see [Core template shelf](../03-templating/core-template-shelf.md).  
+  **Example:** Featured image = media id for `hero.jpg`; Brochure = id for `brochure.pdf`.
 
 - **Gallery** — Several images (or files) in order. Use for: product photos, image carousels, before/after sets. You can reorder them.  
-  **Example:** Product images = [“product-1.jpg”, “product-2.jpg”, “product-3.jpg”].
+  **Templates:** `{gallery_html('photos')}` or loop ids with `{media_img(id)}`.  
+  **Example:** Product images = array of media ids.
 
 **Numbers and dates**
 
@@ -70,11 +72,13 @@ When you add a field to a collection, you choose a **field type**. That type dec
 
 - **oEmbed** — A video or embed URL (YouTube, Vimeo). Stores the URL and renders an embed preview in the editor.
 
-- **Code** — Monospace text for snippets or JSON. Optional JSON mode validates syntax on save.
+- **Code** — Monospace text for snippets or JSON. Optional JSON mode validates syntax on save. `$` and `${name}` in snippets are preserved in storage and templates.
+
+- **Password** — Secrets (hashed at rest). Never shown on MCP or public API reads (`[redacted]`). Leave blank when editing to keep the existing hash.
 
 **Less common but useful**
 
-- **Relation** — Link to other entries (e.g. “Author” from a “Team” collection, or “Category” from a “Categories” collection). The editor picks one or more entries from another collection.
+- **Relation** — Link to other entries (e.g. “Author” from a “Team” collection). Stored as structured items; templates: `{relation_titles('related')}` · `{relation_links('related')}`.
 - **Color** — A colour (e.g. for brand or theme). Stored as a hex code.
 - **DynamicItems** — Repeating blocks: each “item” has its own set of fields (e.g. FAQ: question + answer; Steps: title + description). Use when one entry needs several similar blocks.
 
@@ -85,7 +89,7 @@ When you add a field to a collection, you choose a **field type**. That type dec
 | Name    | Text   | Short name. |
 | Role    | Text   | Job title. |
 | Bio     | Editor | Long text with formatting. |
-| Photo   | Media  | One image. |
+| Photo   | File   | One image (media library). |
 | Email   | Email  | Contact email. |
 | LinkedIn| URL    | Profile link. |
 
@@ -93,23 +97,28 @@ When you add a field to a collection, you choose a **field type**. That type dec
 
 ## Advanced Users
 
-**Storage and output:** Each type maps to a JSON value type (string, number, boolean, array, object). Editor/rich text often stored as HTML string; Media/Gallery as filename or ID (or array of). Templates and API expose these; use the right helper (e.g. `{ media field }` for Media, format string for Date).
+**Storage and output:** Each type maps to a JSON value type (string, number, boolean, array, object). Editor/rich text stored as HTML; `file` / `gallery` as media id(s); `markdown` rendered to HTML in templates when schema type is `markdown`. Aliases normalize at save (`image`→`file`, `editor`→`contenteditor`, `richtext`→`contenteditor`). Invalid types such as `boolean` or `json` are rejected — use `checkbox`/`toggle` or `code` (JSON mode) / sub-collections.
 
 **Reference table (key types):**
 
 | Type       | Storage example      | Template / API note |
 |------------|----------------------|----------------------|
-| Text       | `"Hello"`            | `{ field }` escaped |
-| Textarea   | `"Plain\nlines"`     | Same |
-| Editor     | `"<p>Hi</p>"`        | Output as HTML |
-| Media      | `"hero.jpg"` or id   | `{ media field }` → URL |
-| Gallery    | `["a.jpg","b.jpg"]`  | Loop for URLs |
-| Number     | `29.99`              | `{ field }` |
-| Date       | `"2025-02-05"`       | `{ field "F j, Y" }` |
-| Select     | `"published"`        | `{ field }` |
-| Tags       | `["a","b"]`          | Loop or join |
-| Relation   | `"entry-id"` or []   | Resolve to entry object |
-| Checkbox   | `true`/`false`       | Conditional in template |
+| Text       | `"Hello"`            | `{'name'}` |
+| Textarea   | `"Plain\nlines"`     | `{'body'}` |
+| Editor     | `"<p>Hi</p>"`        | Trusted HTML via `{'content'}` |
+| Markdown   | `"# Hi"`             | Rendered HTML via `{'body'}` when type is `markdown` |
+| File       | `"media-id"`         | `{media_url('hero')}` · `{media_img('hero', 'Alt')}` |
+| Gallery    | `["id1","id2"]`      | `{gallery_html('photos')}` or loop + `{media_img(id)}` |
+| Number     | `29.99`              | `{'price'}` |
+| Date       | `"2025-02-05"`       | `{created_at format "F j, Y"}` (system dates) |
+| Select     | `"published"`        | `{'status'}` |
+| Tags       | `["a","b"]`          | Loop `{for each tag in 'tags'}` or comma list via `{'tags'}` |
+| Relation   | `[{id, title?, …}]`  | `{relation_titles('related')}` · `{relation_links('related')}` |
+| Password   | hash at rest         | Never exposed on read; MCP shows `[redacted]` |
+| Dynamic items | block array       | `{dynamicitems_html('blocks')}` |
+| Checkbox   | `0`/`1`              | Filters use `'1'`; conditionals in template |
+
+**Shelf model:** Fieldtypes can register template helpers; core provides [Core template shelf](../03-templating/core-template-shelf.md) for media, gallery, oEmbed, relation, and Dynamic items.
 
 **Options (type-specific):** Select/MultiSelect: list of options (value + label). Number: min, max, step, decimals. Editor: allowed blocks/tools. Relation: target collection, single vs multiple. Add fields in collection editor; keys become entry JSON and template variables. See [Variables and output](../03-templating/variables-and-output.md), [Media in templates](../03-templating/media-in-templates.md).
 
@@ -122,3 +131,4 @@ When you add a field to a collection, you choose a **field type**. That type dec
 - [Content editor](content-editor.md) — tables, grids, layout studio
 - [Variables and output](../03-templating/variables-and-output.md)
 - [Media in templates](../03-templating/media-in-templates.md)
+- [Core template shelf](../03-templating/core-template-shelf.md)

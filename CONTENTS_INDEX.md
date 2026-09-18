@@ -86,7 +86,8 @@ This index lists every documentation topic and its file path. Use it for navigat
 | From…get / existence | `03-templating/from-get-and-existence.md` | `{from … get …}`, exist checks |
 | Sub-collections in templates | `03-templating/sub-collections-in-templates.md` | `of 'blog'.current` |
 | Dates and formatting | `03-templating/dates-and-formatting.md` | `{created_at format "…"}` |
-| Media in templates | `03-templating/media-in-templates.md` | Image fields, empty guards (no `{ media }` helper) |
+| Media in templates | `03-templating/media-in-templates.md` | `file`/`gallery` fields, shelf helpers, empty guards |
+| Core template shelf | `03-templating/core-template-shelf.md` | Built-in `media_url`, `gallery_html`, relations, Dynamic items |
 | Public forms templating | `03-templating/public-forms-templating.md` | `{entry for}`, known-bad fetch patterns |
 | Multilingual templating | `03-templating/multilingual-templating.md` | Language switcher, `{current.language}` |
 | Web components (templating) | `03-templating/web-components.md` | Regions, `ordered="newest"`, enhance-only |

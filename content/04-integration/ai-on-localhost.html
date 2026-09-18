@@ -1,65 +1,21 @@
-<div class="doc-summary"><p>Running Birkly on <code>http://localhost</code> works for day-to-day admin and the <strong>built-in assistant</strong>, but <strong>cloud connector UIs</strong> usually reject <code>http://localhost</code> URLs. For <strong>Claude Desktop</strong> on the same machine, use <strong><code>mcp-remote</code></strong> (stdio) with a <strong>service agent</strong> URL from <strong>Settings → AI</strong>. Alternatives: a short-lived <strong>HTTPS tunnel</strong>, or the legacy <strong>mcp-bridge</strong> under Developer / debug.</p>
-<blockquote><p><strong>Warning:</strong> Do <strong>not</strong> expose your admin panel to the open internet as a “quick fix.” Prefer <code>mcp-remote</code> + OAuth service agents for local desktop tools, or a short-lived tunnel only for the MCP endpoint.</p></blockquote></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What works on localhost</h3>
-<table><thead><tr><th>Path</th><th>Works?</th><th>Notes</th></tr></thead>
-<tbody><tr><td>Admin + <strong>built-in assistant</strong> on localhost</td><td><strong>Yes</strong></td><td>Outbound BYOAI (API keys) works from your machine. <strong>Ollama</strong> on <code>http://localhost:11434</code> is fine.</td></tr><tr><td>Remote <strong>connectors</strong> (Claude / ChatGPT / similar) → <code>http://localhost/mcp</code></td><td><strong>Usually no</strong></td><td>Those apps need a <strong>public HTTPS</strong> Connector URL ending in <code>/mcp</code>.</td></tr><tr><td><strong>Claude Desktop</strong> via <strong><code>mcp-remote</code></strong> + service agent URL</td><td><strong>Yes</strong></td><td>Recommended — stdio on your Mac/PC proxies to <code>http://localhost:PORT/mcp/agents/…</code> with OAuth.</td></tr><tr><td><strong>Tunnel</strong> (<code>cloudflared</code> / ngrok) → HTTPS → <code>/mcp</code></td><td><strong>Yes</strong></td><td>When the connector UI requires a public HTTPS URL.</td></tr><tr><td><strong>mcp-bridge</strong> (legacy API-key stdio)</td><td><strong>Yes</strong></td><td>Developer / debug only — see Settings → AI.</td></tr></tbody></table>
-<p>Where to configure connectors: <strong>Settings → AI</strong> (Settings → AI is the home for connectors). See <a href="../01-admin/mcp-connections.html">Connect your AI app</a>.</p>
-<h3>Option A — mcp-remote + service agent (recommended for Claude Desktop)</h3>
-<p>Use when your AI app runs on the <strong>same machine</strong> as Birkly and supports <strong>stdio</strong> MCP servers.</p>
+<div class="doc-summary"><p><strong>Two different ways to use AI with Birkly</strong> — pick the one that matches what you are trying to do.</p>
+<h2>Chat inside Birkly (works on a local address)</h2>
+<p>Use the <strong>built-in assistant</strong> on <strong>Settings → AI</strong>. Birkly talks to your AI provider from the server. You do not need a Connector URL for this.</p>
+<h2>Connect an external AI app</h2>
+<p>Claude, ChatGPT, Cursor, and similar apps connect <strong>into</strong> Birkly using a <strong>Connector URL</strong> from <strong>Settings → AI</strong> (personal connector or service agent).</p>
+<p>Those apps must be able to <strong>reach your site on the web</strong>. When your site uses a normal <strong>HTTPS</strong> address, copy the Connector URL, paste it in your AI app, and sign in.</p>
+<h2>While your site is only on a local or private address</h2>
+<p>A Connector URL that points at your computer (for example <code>http://localhost</code>) usually <strong>will not work</strong> in external AI apps — their services cannot open pages that only exist on your machine.</p>
+<p><strong>What to do:</strong></p>
 <ol>
-<li><strong>Settings → AI → Service agents → Add agent</strong> — choose a preset (for example <strong>Site builder</strong> with Admin) and copy the connector URL (<code>http://localhost:8080/mcp/agents/ai_agent_…</code>).</li>
-<li>In Claude Desktop config (<code>claude_desktop_config.json</code>), add:</li>
+<li><strong>Use the built-in assistant</strong> in the admin while you build content locally.</li>
+<li><strong>After your site has HTTPS</strong>, use the Connector URL from this page — same flow as production.</li>
 </ol>
-<pre><code>{
-  &quot;mcpServers&quot;: {
-    &quot;birkly-local&quot;: {
-      &quot;command&quot;: &quot;/absolute/path/to/npx&quot;,
-      &quot;args&quot;: [&quot;-y&quot;, &quot;mcp-remote&quot;, &quot;http://localhost:8080/mcp/agents/ai_agent_YOUR_ID&quot;]
-    }
-  }
-}</code></pre>
-<p>Use <code>which npx</code> for the absolute path — the desktop app may not inherit your shell <code>PATH</code>.</p>
-<ol>
-<li>Quit Claude completely (not just close the window). On first connect, complete Birkly <strong>OAuth</strong> in the browser.</li>
-<li>After installing or upgrading plugins, <strong>restart Claude</strong> so <code>tools/list</code> refreshes.</li>
-</ol>
-<h3>Option B — Tunnel to public HTTPS</h3>
-<p>Use when the connector <strong>must</strong> be a public HTTPS URL (most browser or cloud Claude/ChatGPT connector UIs).</p>
-<ol>
-<li>Run Birkly locally (for example <code>http://localhost:8080</code>).</li>
-<li>Start a tunnel that terminates <strong>HTTPS</strong> and forwards to your local CMS port:</li>
-</ol>
-<p><strong>cloudflared (example):</strong></p>
-<pre><code>cloudflared tunnel --url http://localhost:8080</code></pre>
-<p><strong>ngrok (example):</strong></p>
-<pre><code>ngrok http 8080</code></pre>
-<ol>
-<li>Copy the HTTPS origin the tunnel prints (for example <code>https://abc123.trycloudflare.com</code>).</li>
-<li>In <strong>Settings → AI</strong>, use a Connector URL of the form:</li>
-</ol>
-<pre><code>https://YOUR-TUNNEL-HOST/mcp</code></pre>
-<ol>
-<li>Paste that URL into Claude, ChatGPT, or Cursor. Leave Client ID / Client Secret empty. Sign in when prompted.</li>
-</ol>
-<p>Keep the tunnel process running while you work. Treat the temporary URL like a secret — anyone who reaches <code>/mcp</code> still goes through Birkly auth, but you should not leave unused tunnels running.</p>
-<h3>Option C — mcp-bridge (Developer / debug)</h3>
-<p>Legacy stdio bridge to <code>api/mcp_server.php</code> using <code>BIRKLY_MCP_API_KEY</code>. OAuth <strong>service agents</strong> are preferred. Instructions: <strong>Settings → AI → Developer / debug</strong>.</p>
-<h3>Security reminders</h3>
-<ul>
-<li>Prefer <strong>mcp-remote + service agent</strong> for purely local desktop workflows — no public URL.</li>
-<li>Tunnels are for development; shut them down when finished.</li>
-<li>Never set Birkly to “open admin with no auth” to make AI connect.</li>
-<li>Production sites should already be on public HTTPS — use the normal Connector URL from <strong>Settings → AI</strong>; no tunnel needed.</li>
-</ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Why remote connectors fail on localhost:</strong> Cloud AI apps open OAuth and then call your MCP HTTP endpoint from their servers. Those servers cannot reach your laptop’s <code>127.0.0.1</code>. A tunnel provides a reachable HTTPS hostname; mcp-bridge avoids HTTP entirely by using stdio on the local machine.</p>
-<p><strong>Ollama:</strong> Built-in assistant provider <code>ollama</code> defaults to <code>http://localhost:11434/api/chat</code>. That path does not require a public URL because the request is <strong>outbound from PHP</strong> on the same host.</p>
-<p><strong>Connector URL shape:</strong> Always HTTPS in production and for tunneled local use; path ends with <code>/mcp</code>. See <a href="../01-admin/mcp-connections.html#requirements">Connect your AI app</a>.</p>
-<p><strong>Related surfaces:</strong> Website tools (<a href="webmcp-tools.html">WebMCP</a>) are a different layer — browser agents on your <strong>public site</strong>, not the CMS MCP connector. Localhost WebMCP still needs a secure context (HTTPS or localhost).</p>
+<p>Do not expose the whole admin panel to the internet as a shortcut.</p>
+<h2>Advanced (developers)</h2>
+<p><strong>Settings → AI → Developer / debug</strong> may list extra tools for special local setups. Use only if you know you need them.</p>
 <h2>Further reading</h2>
 <ul>
-<li><a href="../01-admin/mcp-connections.html">Connect your AI app</a> — personal connector, service agents, OAuth</li>
-<li><a href="../01-admin/ai-connections.html">Built-in assistant</a> — outbound API keys / Ollama</li>
-<li><a href="../02-content/agent-guide.html">Agent Guide</a> — Guide · Tools · Publish (connectors under <strong>Settings → AI</strong>)</li>
-<li><a href="webmcp-tools.html">Website tools (WebMCP)</a></li>
-<li><a href="../01-admin/developer-mode.html">Developer mode</a> — system info and MCP smoke helpers</li>
-</ul></div></details>
+<li><a href="../01-admin/mcp-connections.html">Connect your AI app</a></li>
+<li><a href="../01-admin/ai-connections.html">Built-in assistant</a></li>
+</ul></div>

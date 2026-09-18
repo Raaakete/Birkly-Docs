@@ -48,7 +48,13 @@
   }
 ]</code></pre>
 <p><strong>Allowed block types:</strong> Most built-in fieldtypes except nested Dynamic items, Gallery, Map, and Relation (to avoid excessive nesting). <strong>ContentEditor</strong> is available for rich body blocks. The admin discovers available types automatically.</p>
-<p><strong>Templates:</strong> Output depends on integration — with <code>&lt;birkly-region&gt;</code>, the client hydrates the field HTML. In custom JSON consumers, iterate the array and map <code>type</code> + <code>value</code>.</p>
+<p><strong>Templates (project HTML):</strong></p>
+<ul>
+<li><strong>Shelf (recommended):</strong> <code>{dynamicitems_html('blocks')}</code> — renders blocks (markdown and editor output as HTML).</li>
+<li><strong>Manual loop:</strong> iterate stored items when you need custom markup; each item exposes <code>{ type }</code>, <code>{ value }</code>, and dot paths on <code>value</code> when it is an object.</li>
+<li><strong>Regions:</strong> <code>&lt;birkly-region&gt;</code> can hydrate Dynamic items HTML on the client.</li>
+</ul>
+<p>See <a href="../03-templating/core-template-shelf.html">Core template shelf</a>.</p>
 <p><strong>Multilanguage:</strong> Field container IDs and block handlers are scoped per language tab (<code>field_en_blocks</code>, etc.); Add Block must target the active tab’s field name.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="content-model-overview.html">Content model overview</a></li>

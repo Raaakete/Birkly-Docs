@@ -94,6 +94,7 @@
         <a href="sub-collections-in-templates.html" class="nav-link">Sub-collections in templates</a>
         <a href="dates-and-formatting.html" class="nav-link">Dates and formatting</a>
         <a href="media-in-templates.html" class="nav-link">Media in templates</a>
+        <a href="core-template-shelf.html" class="nav-link">Core template shelf</a>
         <a href="public-forms-templating.html" class="nav-link">Public forms templating</a>
         <a href="multilingual-templating.html" class="nav-link">Multilingual templating</a>
         <a href="web-components.html" class="nav-link">Web components (templating)</a>
@@ -261,20 +262,25 @@
 {endfor}</code></pre>
 <h3>Empty state</h3>
 <p>Loops over empty collections render nothing. Show a message with a surrounding conditional when you need one (see <a href="conditionals.html">Conditionals</a> and <a href="from-get-and-existence.html">From…get / existence</a>).</p>
-<h3>Array fields (tags)</h3>
+<h3>Array fields (tags, multiselect)</h3>
+<p>Loop the <strong>field name</strong> (quoted reads from the current entry):</p>
 <pre><code>{if entry has 'tags'}
-  {for each item in 'tags'}
-    &lt;span class=&quot;tag&quot;&gt;{item}&lt;/span&gt;
+  {for each tag in 'tags'}
+    &lt;span class=&quot;tag&quot;&gt;{tag}&lt;/span&gt;
   {endfor}
 {endif}</code></pre>
+<ul>
+<li>Loop variables: <code>tag</code>, <code>cat</code>, <code>id</code>, or <code>{entry}</code> / <code>{.}</code> for scalar lists.</li>
+<li>Direct output <code>{'tags'}</code> prints a <strong>comma-separated list</strong> when the schema type is <code>tags</code> or <code>multiselect</code> (page bundle <code>_field_types</code>).</li>
+</ul>
 <h3>Gallery / multi-image</h3>
-<p>If the field is an array of image refs:</p>
+<p>Prefer the shelf helper <code>{gallery_html('gallery')}</code> or loop media ids:</p>
 <pre><code>{if entry has 'gallery'}
-  {for each item in 'gallery'}
-    &lt;img src=&quot;{item}&quot; alt=&quot;&quot;&gt;
+  {for each id in 'gallery'}
+    {media_img(id)}
   {endfor}
 {endif}</code></pre>
-<p>Exact item shape depends on the fieldtype; always guard with <code>{if entry has '…'}</code>. See <a href="media-in-templates.html">Media in templates</a>.</p>
+<p>See <a href="media-in-templates.html">Media in templates</a> and <a href="core-template-shelf.html">Core template shelf</a>.</p>
 <h3>Sub-collections</h3>
 <pre><code>{for each entry in 'comments' of 'blog'.current ordered by newest}
   &lt;p&gt;&lt;strong&gt;{'author'}&lt;/strong&gt; {'content'}&lt;/p&gt;

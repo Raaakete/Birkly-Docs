@@ -74,13 +74,17 @@ When you add a field to a collection, you choose a **field type**. That type dec
 
 - **Code** — Monospace text for snippets or JSON. Optional JSON mode validates syntax on save. `$` and `${name}` in snippets are preserved in storage and templates.
 
-- **Password** — Secrets (hashed at rest). Never shown on MCP or public API reads (`[redacted]`). Leave blank when editing to keep the existing hash.
+- **Password** — Secrets (hashed at rest). MCP and public API reads show `[redacted]` only. On the **storefront**, `{'field'}` renders as **`••••••`** (never the raw secret). Leave blank when editing in admin to keep the existing hash.
 
 **Less common but useful**
 
 - **Relation** — Link to other entries (e.g. “Author” from a “Team” collection). Stored as structured items; templates: `{relation_titles('related')}` · `{relation_links('related')}`.
 - **Color** — A colour (e.g. for brand or theme). Stored as a hex code.
-- **DynamicItems** — Repeating blocks: each “item” has its own set of fields (e.g. FAQ: question + answer; Steps: title + description). Use when one entry needs several similar blocks.
+- **DynamicItems** — Repeating blocks: each “item” has its own set of fields (e.g. FAQ: question + answer; Steps: title + description). Use when one entry needs several similar blocks. Templates: `{dynamicitems_html('blocks')}` — blocks are entry JSON, not a collection loop.
+
+- **Map** — Latitude/longitude (and optional label). Templates: `{map_html('location')}` for an OSM embed.
+
+- **Range** — Numeric slider value with min/max in field config. Storefront: `{range_html('band', 0, 100)}` renders a read-only `<meter>` — not an interactive admin slider.
 
 **Example: choosing types for a “Team member” collection**
 
@@ -114,11 +118,13 @@ When you add a field to a collection, you choose a **field type**. That type dec
 | Select     | `"published"`        | `{'status'}` |
 | Tags       | `["a","b"]`          | Loop `{for each tag in 'tags'}` or comma list via `{'tags'}` |
 | Relation   | `[{id, title?, …}]`  | `{relation_titles('related')}` · `{relation_links('related')}` |
-| Password   | hash at rest         | Never exposed on read; MCP shows `[redacted]` |
+| Password   | hash at rest         | MCP/API `[redacted]`; storefront `{'secret'}` → `••••••` |
 | Dynamic items | block array       | `{dynamicitems_html('blocks')}` |
-| Checkbox   | `0`/`1`              | Filters use `'1'`; conditionals in template |
+| Map        | `{lat,lng,…}`        | `{map_html('location')}` |
+| Range      | number + field min/max | `{range_html('band', min, max)}` |
+| Checkbox   | `0`/`1`              | Filters use `'1'`; storefront Yes/No pills via presentation layer |
 
-**Shelf model:** Fieldtypes can register template helpers; core provides [Core template shelf](../03-templating/core-template-shelf.md) for media, gallery, oEmbed, relation, and Dynamic items.
+**Shelf model:** Fieldtypes can register template helpers; core provides [Core template shelf](../03-templating/core-template-shelf.md) for media, gallery, map, range, oEmbed, relation, and Dynamic items. Use **parenthesis** syntax: `{media_img('hero', 'Alt')}`.
 
 **Options (type-specific):** Select/MultiSelect: list of options (value + label). Number: min, max, step, decimals. Editor: allowed blocks/tools. Relation: target collection, single vs multiple. Add fields in collection editor; keys become entry JSON and template variables. See [Variables and output](../03-templating/variables-and-output.md), [Media in templates](../03-templating/media-in-templates.md).
 

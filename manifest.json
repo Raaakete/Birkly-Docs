@@ -8,6 +8,7 @@
         { "path": "00-overview/what-is-birkly.md", "label": "What is Birkly" },
         { "path": "00-overview/what-is-a-cms.md", "label": "What is a CMS" },
         { "path": "00-overview/getting-started.md", "label": "Getting started" },
+        { "path": "00-overview/how-birkly-io-is-built.md", "label": "How birkly.io is built" },
         { "path": "00-overview/closed-alpha-guide.md", "label": "Closed alpha guide" },
         { "path": "00-overview/alpha-legal.md", "label": "Alpha legal and feedback" },
         { "path": "00-overview/known-issues-wave1.md", "label": "Known issues (Wave 1)" }

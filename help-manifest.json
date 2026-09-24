@@ -862,6 +862,23 @@
             "ai_topic": "playbooks-index"
         },
         {
+            "id": "how-birkly-io-is-built",
+            "title": "How birkly.io is built",
+            "keywords": [
+                "birkly.io",
+                "project folder",
+                "marketing site",
+                "shopify",
+                "wordpress",
+                "cost",
+                "self-host",
+                "club",
+                "custom"
+            ],
+            "docs_path": "00-overview/how-birkly-io-is-built.html",
+            "section": "00-overview"
+        },
+        {
             "id": "known-issues-wave1",
             "title": "Known issues — Wave 1",
             "keywords": [

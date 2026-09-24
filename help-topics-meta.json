@@ -15,22 +15,6 @@
             ],
             "ai_topic": "playbooks-index"
         },
-        "00-overview/how-birkly-io-is-built.md": {
-            "id": "how-birkly-io-is-built",
-            "title": "How birkly.io is built",
-            "keywords": [
-                "birkly.io",
-                "project folder",
-                "marketing site",
-                "shopify",
-                "wordpress",
-                "cost",
-                "self-host",
-                "club",
-                "custom"
-            ],
-            "section": "00-overview"
-        },
         "00-overview/closed-alpha-guide.md": {
             "id": "closed-alpha",
             "title": "Closed alpha guide",

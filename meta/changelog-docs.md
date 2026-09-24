@@ -12,11 +12,6 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
-## 2026-09-24 — How birkly.io is built
-
-- **New:** `00-overview/how-birkly-io-is-built.md` — project-folder anatomy of the public site (collections, custom header/footer, club, donations, Hub) and a cost, plugin, and flexibility comparison with Shopify and WordPress.
-- **Indexed:** `manifest.json`, `CONTENTS_INDEX.md`, `help-topics-meta.json`.
-
 ## 2026-09-18 — Fieldtype QA / core template shelf (CMS parity)
 
 - **New:** `03-templating/core-template-shelf.md` — built-in shelf helpers (`media_url`, `media_img`, `gallery_html`, `oembed_html`, `relation_*`, `dynamicitems_html`).

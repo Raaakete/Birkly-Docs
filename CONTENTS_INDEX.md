@@ -9,7 +9,6 @@ This index lists every documentation topic and its file path. Use it for navigat
 | What is Birkly | `00-overview/what-is-birkly.md` | Product overview and key differentiators |
 | What is a CMS | `00-overview/what-is-a-cms.md` | CMS concept for non-technical readers |
 | Getting started | `00-overview/getting-started.md` | First steps: login, project name, first collection |
-| How birkly.io is built | `00-overview/how-birkly-io-is-built.md` | Worked example of the public site, plus Shopify and WordPress comparison |
 | Closed alpha guide | `00-overview/closed-alpha-guide.md` | Invited tester guide: feedback, scope, doc links |
 | Alpha legal and feedback | `00-overview/alpha-legal.md` | Terms, privacy, feedback widget (P15) |
 

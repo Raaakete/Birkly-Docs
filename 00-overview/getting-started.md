@@ -22,6 +22,14 @@ If you downloaded Birkly as a zip file, do this **before** logging in to the adm
 
 **Example:** You extract `Birkly-1.0.zip` to `~/Birkly`, open `0_START-HERE.html`, pick **On your computer**, run `./start-server.sh` in that folder, then click **Start setup** — the browser opens the admin wizard at `http://localhost:8080/admin/` with local install hints.
 
+**Windows:** A terminal is the text window named **PowerShell**, already on your PC. In File Explorer, Windows 11: right-click the Birkly folder → **Open in Terminal**. Windows 10: Shift+right-click → **Open PowerShell window here** (or type `powershell` in the address bar). Copy the command from `0_START-HERE.html`, paste with Ctrl+V, and press Enter.
+
+1. `powershell -ExecutionPolicy Bypass -File .\check-php.ps1`
+2. If PHP is missing: `powershell -ExecutionPolicy Bypass -File .\install-php.ps1`
+3. `powershell -ExecutionPolicy Bypass -File .\start-server.ps1`
+
+Leave that window open. It prints the admin login, usually `http://localhost:8080/admin/`. Bookmark it. The next day, run the same start command again, then open that address. If the built-in server stays slow, use Laragon, XAMPP, or MAMP and point the document root at the Birkly folder. Mac and Linux use `./check-php.sh` and `./start-server.sh` the same way.
+
 For server installs and Hub plugins, see [Self-host install](../07-operations/self-host-install.md).
 
 ---

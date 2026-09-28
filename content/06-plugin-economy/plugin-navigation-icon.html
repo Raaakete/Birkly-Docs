@@ -1,54 +1,40 @@
-<p>How to set the sidebar icon for a plugin via <code>plugin.json</code> → <code>navigation.icon</code>.</p>
-<div class="doc-summary"><p>Plugins that add an admin sidebar item declare <code>navigation</code> in <code>plugin.json</code>. The <strong><code>icon</code></strong> field controls the glyph shown next to the plugin name. Prefer a <strong>registry name</strong> string (for example <code>&quot;gear&quot;</code> or <code>&quot;shopping-bag&quot;</code>) that matches the Birkly admin icon set. For one-off artwork, you can instead supply <strong>inline SVG</strong> markup. Icon names are defined in <code>core/icons.php</code> (PHP) and mirrored in <code>admin/js/icon.js</code> (JavaScript); matching SVG files live under <code>admin/assets/icons/</code>.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>When your plugin appears in the admin sidebar, visitors see a small icon beside its label. You choose that icon in <code>plugin.json</code>:</p>
+<p>How to set the sidebar icon for a plugin via <code>plugin.json</code> → <code>navigation.icon</code> (or <code>sidebar.icon</code> in the admin shelf metadata).</p>
+<div class="doc-summary"><p>A plugin that adds an admin sidebar item declares <code>navigation</code> in <code>plugin.json</code>, and its <strong><code>icon</code></strong> field sets the glyph beside the plugin name. Use a <strong>registry name</strong> from the Birch icon set, such as <code>&quot;card&quot;</code>, <code>&quot;calendar&quot;</code>, <code>&quot;users&quot;</code>, <code>&quot;zap&quot;</code> or <code>&quot;template&quot;</code>. The admin draws it as a 13 px pixel icon that plays its hover gesture, exactly like Dashboard, Content and Settings. A plugin's own inline SVG still works as a fallback: it is sized to the same 13 px box, but it has no gesture.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>When your plugin appears in the admin sidebar, a small icon sits beside its label. You choose that icon in <code>plugin.json</code>:</p>
 <pre><code>{
   &quot;name&quot;: &quot;My Plugin&quot;,
   &quot;navigation&quot;: {
     &quot;name&quot;: &quot;My Plugin&quot;,
     &quot;page&quot;: &quot;my-plugin&quot;,
-    &quot;icon&quot;: &quot;gear&quot;
+    &quot;icon&quot;: &quot;calendar&quot;
   }
 }</code></pre>
-<p><strong>Registry name (recommended)</strong> — Use a short name from the built-in set, such as <code>gear</code>, <code>shopping-bag</code>, <code>file-text</code>, or <code>users</code>. The admin renders it in the same stroke style as Dashboard, Content, and Settings.</p>
-<p><strong>Custom inline SVG (fallback)</strong> — If you need a unique mark, set <code>icon</code> to a full <code>&lt;svg&gt;...&lt;/svg&gt;</code> string. Keep it <strong>16×16</strong>, use <code>stroke=&quot;currentColor&quot;</code>, and add <code>class=&quot;nav-icon&quot;</code> so it aligns with core nav icons.</p>
-<p><strong>If you omit <code>icon</code></strong> — The sidebar falls back to the <code>gear</code> registry icon.</p></div></details>
+<p><strong>Registry name (recommended).</strong> Pick a name from the icon set in <a href="../01-admin/admin-design-language.html#6-icons">Admin design language § Icons</a>. The sidebar draws it in the same pixel style as core items, and it moves when the row is hovered or focused: a calendar hops, a bell rings, a truck bounces.</p>
+<p><strong>Custom inline SVG (fallback).</strong> If nothing fits, set <code>icon</code> to a full <code>&lt;svg&gt;…&lt;/svg&gt;</code> string using <code>currentColor</code>. It is shown at 13 × 13 px. For a crisp result, draw it on a 13 × 13 <code>viewBox</code> in whole cells with <code>shape-rendering=&quot;crispEdges&quot;</code>.</p>
+<p><strong>If you omit <code>icon</code>,</strong> or give a name that doesn't exist, the sidebar shows the default plugin icon (<code>sliders</code>).</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3><code>navigation</code> block</h3>
 <table><thead><tr><th>Field</th><th>Purpose</th></tr></thead>
 <tbody><tr><td><code>name</code></td><td>Sidebar label</td></tr><tr><td><code>page</code></td><td>Admin page slug (matches your registered admin route)</td></tr><tr><td><code>icon</code></td><td>Registry name <strong>or</strong> inline SVG string</td></tr></tbody></table>
-<p>Example with registry name:</p>
-<pre><code>&quot;navigation&quot;: {
-  &quot;name&quot;: &quot;Commerce&quot;,
-  &quot;page&quot;: &quot;commerce&quot;,
-  &quot;icon&quot;: &quot;shopping-bag&quot;
-}</code></pre>
-<p>Example with inline SVG fallback:</p>
-<pre><code>&quot;navigation&quot;: {
-  &quot;name&quot;: &quot;My Integration&quot;,
-  &quot;page&quot;: &quot;my-integration&quot;,
-  &quot;icon&quot;: &quot;&lt;svg class=\&quot;nav-icon\&quot; width=\&quot;16\&quot; height=\&quot;16\&quot; viewBox=\&quot;0 0 24 24\&quot; fill=\&quot;none\&quot; stroke=\&quot;currentColor\&quot; stroke-width=\&quot;2\&quot; aria-hidden=\&quot;true\&quot;&gt;&lt;circle cx=\&quot;12\&quot; cy=\&quot;12\&quot; r=\&quot;10\&quot;/&gt;&lt;/svg&gt;&quot;
-}</code></pre>
-<h3>Icon registry sources</h3>
-<table><thead><tr><th>Location</th><th>Role</th></tr></thead>
-<tbody><tr><td><code>core/icons.php</code></td><td>PHP helper <code>birkly_icon($name, $attrs)</code> — registry keys and inline SVG paths</td></tr><tr><td><code>admin/js/icon.js</code></td><td><code>Birkly.icon(name, opts)</code> — same names for admin JavaScript</td></tr><tr><td><code>admin/assets/icons/{name}.svg</code></td><td>Standalone SVG assets; used by <code>Birkly.iconImg()</code> and reference</td></tr></tbody></table>
-<p>Registry names use <strong>kebab-case</strong> (for example <code>magnifying-glass</code>, <code>pencil-simple</code>, <code>dots-six-vertical</code>). Aliases exist where useful (<code>gauge</code> / <code>speedometer</code>).</p>
-<p><strong>Listing names in PHP:</strong> <code>array_keys(birkly_icon_paths())</code></p>
-<p><strong>Listing names in JS:</strong> <code>Birkly.iconNames</code></p>
-<h3>Rendering in admin</h3>
-<ul>
-<li>Core nav items call <code>birkly_icon('gauge', ['class' =&gt; 'nav-icon'])</code> in <code>admin/partials/sidebar.php</code>.</li>
-<li>Plugin entries use <code>navigation.icon</code> from <code>plugin.json</code>. Registry names are resolved through the same helper with <code>class=&quot;nav-icon&quot;</code> so size and stroke match core items.</li>
-<li>The plugin API (<code>api/plugins.php</code>, action <code>get_navigation</code>) returns the resolved icon markup for dynamic clients.</li>
-</ul>
-<h3>Plugin shelf navigation</h3>
-<p>Plugins that register via the <strong>admin shelf</strong> API can set <code>sidebar.icon</code> in shelf metadata using the same registry names or inline SVG convention. See <code>core/plugins/admin_shelf.php</code> → <code>birkly_plugin_admin_sidebar_navigation()</code>.</p>
+<p>Plugins that register through the admin shelf (<code>register_plugin_admin_meta()</code>) set the same value as <code>sidebar.icon</code>; the shelf entry wins over <code>plugin.json</code>:</p>
+<pre><code>register_plugin_admin_meta('my-plugin', [
+    'title' =&gt; '@i18n:plugins.my_plugin.title',
+    'root_page' =&gt; 'my-plugin',
+    'sidebar' =&gt; ['show' =&gt; true, 'label' =&gt; '@i18n:plugins.my_plugin.title', 'order' =&gt; 50, 'icon' =&gt; 'calendar'],
+]);</code></pre>
+<h3>Rendering</h3>
+<p><code>birkly_nav_icon($icon)</code> in <code>core/icons.php</code> renders the value. It is used by <code>admin/partials/sidebar.php</code> and by the <code>get_navigation</code> action of <code>api/plugins.php</code>.</p>
+<table><thead><tr><th>Value</th><th>Result</th></tr></thead>
+<tbody><tr><td>A registry name (<code>[a-z0-9-]+</code>) that resolves</td><td><code>birkly_icon($name, ['class' =&gt; 'nav-icon'])</code>: a 13 px Birch icon with its gesture</td></tr><tr><td>A string starting with <code>&lt;svg</code></td><td>Returned as is. The sidebar sizes it to <code>var(--icon)</code></td></tr><tr><td>Anything else, or empty</td><td>The default plugin icon</td></tr></tbody></table>
+<p>Pre-Birch names (<code>gear</code>, <code>shopping-bag</code>, <code>file-text</code>) still resolve through aliases, but the aliases are going away. Use the Birch name instead (<code>sliders</code>, <code>bag</code>, <code>content</code>); the full table is in <a href="plugin-admin-styling.html#icon-names">Plugin admin styling § Icon names</a>.</p>
+<p><strong>Listing names:</strong> <code>birkly_icon_names()</code> in PHP, <code>Birkly.iconNames</code> in JS.</p>
 <h3>Choosing an icon</h3>
-<ol>
-<li>Pick a registry name that fits the feature (<code>shopping-bag</code> for commerce, <code>users</code> for membership, <code>stack</code> for automation).</li>
-<li>If no registry icon fits, add inline SVG only for that plugin — do not fork <code>core/icons.php</code> for a single plugin unless you are contributing a reusable icon to core.</li>
-<li>Test in light and dark themes; icons inherit <code>currentColor</code> from the sidebar.</li>
-</ol></div></details>
+<table><thead><tr><th>Plugin</th><th>Icon</th></tr></thead>
+<tbody><tr><td>Commerce</td><td><code>card</code></td></tr><tr><td>Events</td><td><code>calendar</code></td></tr><tr><td>User</td><td><code>users</code></td></tr><tr><td>Automation</td><td><code>zap</code></td></tr><tr><td>Studio</td><td><code>template</code></td></tr></tbody></table>
+<p>Pick the icon that names what the plugin <em>is</em>, not a brand mark. Don't reuse an icon that a core item already shows (<code>dashboard</code>, <code>content</code>, <code>media</code>, <code>sparkle</code> for Discovery, <code>bag</code> for the Hub, <code>sliders</code> for Settings, <code>help</code>). If no registry icon fits, ship inline SVG for that plugin only. To contribute a reusable icon to core, add its grid to <code>core/icon_data.php</code> and run <code>php scripts/build-icons.php</code>.</p>
+<p>Icons inherit <code>currentColor</code> from the sidebar row, so check them in light and dark.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="plugin-development.html">Plugin development</a></li>
-<li><a href="../01-admin/design-system.html">Admin design system</a> — tokens and <code>birkly_icon</code> / <code>Birkly.icon</code></li>
+<li><a href="plugin-admin-styling.html">Plugin admin styling</a></li>
+<li><a href="../01-admin/design-system.html">Admin design system</a></li>
 <li><a href="../06-extensibility/plugins.html">Plugins</a></li>
 </ul></div>

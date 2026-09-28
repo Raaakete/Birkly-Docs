@@ -1,14 +1,14 @@
 # Plugin navigation icon
 
-How to set the sidebar icon for a plugin via `plugin.json` → `navigation.icon`.
+How to set the sidebar icon for a plugin via `plugin.json` → `navigation.icon` (or `sidebar.icon` in the admin shelf metadata).
 
 ## Summary
 
-Plugins that add an admin sidebar item declare `navigation` in `plugin.json`. The **`icon`** field controls the glyph shown next to the plugin name. Prefer a **registry name** string (for example `"gear"` or `"shopping-bag"`) that matches the Birkly admin icon set. For one-off artwork, you can instead supply **inline SVG** markup. Icon names are defined in `core/icons.php` (PHP) and mirrored in `admin/js/icon.js` (JavaScript); matching SVG files live under `admin/assets/icons/`.
+A plugin that adds an admin sidebar item declares `navigation` in `plugin.json`, and its **`icon`** field sets the glyph beside the plugin name. Use a **registry name** from the Birch icon set, such as `"card"`, `"calendar"`, `"users"`, `"zap"` or `"template"`. The admin draws it as a 13 px pixel icon that plays its hover gesture, exactly like Dashboard, Content and Settings. A plugin's own inline SVG still works as a fallback: it is sized to the same 13 px box, but it has no gesture.
 
 ## Beginner
 
-When your plugin appears in the admin sidebar, visitors see a small icon beside its label. You choose that icon in `plugin.json`:
+When your plugin appears in the admin sidebar, a small icon sits beside its label. You choose that icon in `plugin.json`:
 
 ```json
 {
@@ -16,16 +16,16 @@ When your plugin appears in the admin sidebar, visitors see a small icon beside 
   "navigation": {
     "name": "My Plugin",
     "page": "my-plugin",
-    "icon": "gear"
+    "icon": "calendar"
   }
 }
 ```
 
-**Registry name (recommended)** — Use a short name from the built-in set, such as `gear`, `shopping-bag`, `file-text`, or `users`. The admin renders it in the same stroke style as Dashboard, Content, and Settings.
+**Registry name (recommended).** Pick a name from the icon set in [Admin design language § Icons](../01-admin/admin-design-language.md#6-icons). The sidebar draws it in the same pixel style as core items, and it moves when the row is hovered or focused: a calendar hops, a bell rings, a truck bounces.
 
-**Custom inline SVG (fallback)** — If you need a unique mark, set `icon` to a full `<svg>...</svg>` string. Keep it **16×16**, use `stroke="currentColor"`, and add `class="nav-icon"` so it aligns with core nav icons.
+**Custom inline SVG (fallback).** If nothing fits, set `icon` to a full `<svg>…</svg>` string using `currentColor`. It is shown at 13 × 13 px. For a crisp result, draw it on a 13 × 13 `viewBox` in whole cells with `shape-rendering="crispEdges"`.
 
-**If you omit `icon`** — The sidebar falls back to the `gear` registry icon.
+**If you omit `icon`,** or give a name that doesn't exist, the sidebar shows the default plugin icon (`sliders`).
 
 ## Advanced Users
 
@@ -37,58 +37,47 @@ When your plugin appears in the admin sidebar, visitors see a small icon beside 
 | `page` | Admin page slug (matches your registered admin route) |
 | `icon` | Registry name **or** inline SVG string |
 
-Example with registry name:
+Plugins that register through the admin shelf (`register_plugin_admin_meta()`) set the same value as `sidebar.icon`; the shelf entry wins over `plugin.json`:
 
-```json
-"navigation": {
-  "name": "Commerce",
-  "page": "commerce",
-  "icon": "shopping-bag"
-}
+```php
+register_plugin_admin_meta('my-plugin', [
+    'title' => '@i18n:plugins.my_plugin.title',
+    'root_page' => 'my-plugin',
+    'sidebar' => ['show' => true, 'label' => '@i18n:plugins.my_plugin.title', 'order' => 50, 'icon' => 'calendar'],
+]);
 ```
 
-Example with inline SVG fallback:
+### Rendering
 
-```json
-"navigation": {
-  "name": "My Integration",
-  "page": "my-integration",
-  "icon": "<svg class=\"nav-icon\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/></svg>"
-}
-```
+`birkly_nav_icon($icon)` in `core/icons.php` renders the value. It is used by `admin/partials/sidebar.php` and by the `get_navigation` action of `api/plugins.php`.
 
-### Icon registry sources
+| Value | Result |
+|-------|--------|
+| A registry name (`[a-z0-9-]+`) that resolves | `birkly_icon($name, ['class' => 'nav-icon'])`: a 13 px Birch icon with its gesture |
+| A string starting with `<svg` | Returned as is. The sidebar sizes it to `var(--icon)` |
+| Anything else, or empty | The default plugin icon |
 
-| Location | Role |
-|----------|------|
-| `core/icons.php` | PHP helper `birkly_icon($name, $attrs)` — registry keys and inline SVG paths |
-| `admin/js/icon.js` | `Birkly.icon(name, opts)` — same names for admin JavaScript |
-| `admin/assets/icons/{name}.svg` | Standalone SVG assets; used by `Birkly.iconImg()` and reference |
+Pre-Birch names (`gear`, `shopping-bag`, `file-text`) still resolve through aliases, but the aliases are going away. Use the Birch name instead (`sliders`, `bag`, `content`); the full table is in [Plugin admin styling § Icon names](plugin-admin-styling.md#icon-names).
 
-Registry names use **kebab-case** (for example `magnifying-glass`, `pencil-simple`, `dots-six-vertical`). Aliases exist where useful (`gauge` / `speedometer`).
-
-**Listing names in PHP:** `array_keys(birkly_icon_paths())`
-
-**Listing names in JS:** `Birkly.iconNames`
-
-### Rendering in admin
-
-- Core nav items call `birkly_icon('gauge', ['class' => 'nav-icon'])` in `admin/partials/sidebar.php`.
-- Plugin entries use `navigation.icon` from `plugin.json`. Registry names are resolved through the same helper with `class="nav-icon"` so size and stroke match core items.
-- The plugin API (`api/plugins.php`, action `get_navigation`) returns the resolved icon markup for dynamic clients.
-
-### Plugin shelf navigation
-
-Plugins that register via the **admin shelf** API can set `sidebar.icon` in shelf metadata using the same registry names or inline SVG convention. See `core/plugins/admin_shelf.php` → `birkly_plugin_admin_sidebar_navigation()`.
+**Listing names:** `birkly_icon_names()` in PHP, `Birkly.iconNames` in JS.
 
 ### Choosing an icon
 
-1. Pick a registry name that fits the feature (`shopping-bag` for commerce, `users` for membership, `stack` for automation).
-2. If no registry icon fits, add inline SVG only for that plugin — do not fork `core/icons.php` for a single plugin unless you are contributing a reusable icon to core.
-3. Test in light and dark themes; icons inherit `currentColor` from the sidebar.
+| Plugin | Icon |
+|--------|------|
+| Commerce | `card` |
+| Events | `calendar` |
+| User | `users` |
+| Automation | `zap` |
+| Studio | `template` |
+
+Pick the icon that names what the plugin *is*, not a brand mark. Don't reuse an icon that a core item already shows (`dashboard`, `content`, `media`, `sparkle` for Discovery, `bag` for the Hub, `sliders` for Settings, `help`). If no registry icon fits, ship inline SVG for that plugin only. To contribute a reusable icon to core, add its grid to `core/icon_data.php` and run `php scripts/build-icons.php`.
+
+Icons inherit `currentColor` from the sidebar row, so check them in light and dark.
 
 ## Related
 
 - [Plugin development](plugin-development.md)
-- [Admin design system](../01-admin/design-system.md) — tokens and `birkly_icon` / `Birkly.icon`
+- [Plugin admin styling](plugin-admin-styling.md)
+- [Admin design system](../01-admin/design-system.md)
 - [Plugins](../06-extensibility/plugins.md)

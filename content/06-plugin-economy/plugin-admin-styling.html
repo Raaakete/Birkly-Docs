@@ -1,397 +1,299 @@
-<div class="doc-summary"><p>A Birkly plugin's admin screens can look exactly like core without shipping a single line of CSS. Compose your page from the core classes — <code>.plugin-page</code>, <code>.card</code>, <code>.btn</code>, <code>.field</code>, <code>.table</code>, <code>.badge</code>, <code>.tabs</code>, <code>.modal</code> — plus the <code>u-<em></code> helpers, and you inherit the whole design language including dark mode, focus rings and reduced-motion handling for free. If you do need CSS, build it on the design tokens and namespace it as <code>.{plugin}-</em></code>. Plugins <strong>should</strong> adopt the design language, but are <strong>never required</strong> to: the platform will not force a rewrite of existing plugin CSS, and a compatibility layer keeps old token names working.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Three ways to style a plugin page</h3>
-<table><thead><tr><th>Tier</th><th>What you do</th><th>CSS you ship</th></tr></thead>
-<tbody><tr><td><strong>Tier 0 — Compose</strong> <em>(recommended)</em></td><td>Build the page out of core classes and helpers</td><td><strong>None</strong></td></tr><tr><td><strong>Tier 1 — Extend</strong></td><td>Ship a small stylesheet for genuinely plugin-specific UI, built on core tokens</td><td><code>.{plugin}-*</code> only</td></tr><tr><td><strong>Tier 2 — Independent</strong></td><td>Ship your own look</td><td>Fully namespaced, still meets the baseline rules</td></tr></tbody></table>
-<p>Start at Tier 0. Most plugin admin screens are a toolbar, some panels, a table and a form — all of which core already provides. Every line of CSS you don't write is a line that can't drift out of sync when the admin design changes.</p>
-<h3>Why Tier 0 is worth it</h3>
+<div class="doc-summary"><p>A plugin's admin pages can look exactly like core without shipping CSS. Put <code>data-birch</code> on your page root, then compose the page from the Birch roles and kit:</p>
 <ul>
-<li><strong>Dark mode works automatically.</strong> Core classes read their colours from tokens that get remapped for dark themes. A plugin that hardcodes <code>#ffffff</code> looks broken the moment a user switches theme.</li>
-<li><strong>Accessibility comes with it.</strong> Focus rings, contrast-checked text colours, <code>prefers-reduced-motion</code>, keyboard-visible row actions — all already handled.</li>
-<li><strong>Your plugin looks native.</strong> Users don't have to learn a second visual language inside the same admin.</li>
-<li><strong>You inherit improvements.</strong> When core adjusts padding or a border colour, your page moves with it.</li>
+<li><code>.frame</code> for a named group, <code>.slab</code> for one thing;</li>
+<li><code>.button.is-main</code> for the one main action;</li>
+<li><code>.field-group</code>, <code>.signal</code>, <code>.table</code>, <code>.menu</code>, <code>.dialog</code> and <code>.empty</code>.</li>
 </ul>
-<h3>The one rule you cannot break</h3>
-<p><strong>Never restyle a core class.</strong> Writing <code>.btn { … }</code> or <code>.card { … }</code> in your plugin's stylesheet changes buttons and cards for the entire admin, including other plugins' pages. Scope everything to your own namespace.</p>
+<p>You then inherit light and dark, the three densities, focus rings, icon gestures and reduced motion for free. When you do need CSS, build it only from tokens and name it for what it is (<code>.order-row</code>, <code>.workflow-node</code>). Pages written for the older P56 design still render in Birch through an adoption layer and two alias files. Both are removed in a later CMS release, and this page's rename tables are the migration path.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Three steps to a Birch plugin page</h3>
+<ol>
+<li><strong>Opt in.</strong> Give your page root <code>class=&quot;plugin-page&quot;</code> and the <code>data-birch</code> attribute.</li>
+<li><strong>Ask the four questions</strong> for every block, in order, and stop at the first yes:</li>
+</ol>
+<p>   - floats and goes away → a float or a menu;    - one thing → a slab;    - a named group next to other groups → a frame;    - anything else → the canvas.</p>
+<p>   Something not there yet is dashed; something that needs the user is a signal.</p>
+<ol>
+<li><strong>Use the kit.</strong> Buttons, fields, rows, tables, dialogs and empty states already exist. See <a href="../01-admin/admin-design-language.html">Admin design language</a> for every one, with markup.</li>
+</ol>
+<h3>Why not write your own CSS</h3>
+<ul>
+<li><strong>Dark mode and density work automatically.</strong> Kit classes read tokens that are remapped for dark and resized per density. A hard-coded <code>#ffffff</code> or <code>height: 40px</code> breaks the moment a user switches either.</li>
+<li><strong>Accessibility comes with it.</strong> Contrast-checked colours, focus rings, reduced motion and the phone More menu are already handled.</li>
+<li><strong>Your plugin looks native.</strong> Users don't meet a second visual language inside the same admin.</li>
+<li><strong>You inherit improvements.</strong> When core adjusts a gap or a colour, your page moves with it.</li>
+</ul>
+<h3>The rules you cannot break</h3>
+<ul>
+<li><strong>Never restyle a core class.</strong> A rule such as <code>.button { … }</code> or <code>.slab { … }</code> in your stylesheet changes every page in the admin, including other plugins' pages.</li>
+<li><strong>One mint button per view.</strong> Mint is the main action. Everything else is a secondary, quiet or danger button.</li>
+<li><strong>No colour literals.</strong> Every colour is a token, or dark mode breaks.</li>
+</ul>
 <h3>Where to put your CSS</h3>
-<p>Plugin admin templates load their stylesheet themselves, at the top of the template:</p>
-<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;{birkly_url '/admin/css/plugin-page.css'}&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;{birkly_url '/plugins/my-plugin/admin/my-plugin.css'}&quot;&gt;</code></pre>
-<p>A Tier 0 plugin only needs the first line — and often not even that, since <code>plugin-page.css</code> is already part of the admin bundle.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>1. Adoption tiers in detail</h3>
-<h4>Tier 0 — Compose (recommended)</h4>
-<p>Use <code>.plugin-page</code> as your root, <code>{plugin_page_header}</code> for breadcrumbs, and the contracted components below for everything else. Layout comes from <code>u-stack-<em></code>, <code>u-row</code>, <code>u-cluster</code>, <code>u-grid</em></code> and <code>u-split</code>. Ship no stylesheet at all.</p>
-<p>This is achievable for the large majority of plugin admin screens. If you find a genuine gap — a shape core has no component for — that is worth filing as a core gap rather than absorbing into your plugin.</p>
-<h4>Tier 1 — Extend</h4>
-<p>Ship a small stylesheet for UI that is genuinely specific to your plugin: a workflow canvas, a chart container, a domain-specific editor. Build it entirely from tokens; use core components for everything around it.</p>
-<p>Rules of thumb for Tier 1:</p>
+<p>A plugin loads its own stylesheet at the top of its admin template:</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;{birkly_url '/plugins/my-plugin/admin/my-plugin.css'}&quot;&gt;</code></pre>
+<p>A plugin that only composes kit classes needs no stylesheet at all.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>1. Opting in</h3>
+<pre><code>{plugin_page_header}
+
+&lt;div class=&quot;webhooks-page plugin-page&quot; data-birch&gt;
+  …
+&lt;/div&gt;</code></pre>
 <ul>
-<li>One stylesheet, named after the plugin, under <code>admin/</code> in your plugin folder.</li>
-<li>Every declaration uses <code>var(--…)</code> for colour, spacing, radius, shadow, motion and z-index.</li>
-<li>Every selector starts with <code>.{plugin}-</code>.</li>
-<li>No selector matches a core class on its own.</li>
+<li><code>{plugin_page_header}</code> emits the breadcrumb (<code>birkly_render_plugin_page_breadcrumbs()</code>). The last segment becomes the page title in the top bar, so don't render an <code>&lt;h1&gt;</code>.</li>
+<li><code>&lt;body&gt;</code> already carries <code>data-birch</code>, so the kit applies everywhere. <code>data-birch</code> on your <code>.plugin-page</code> root turns on the <strong>adoption layer</strong>: P56 markup inside the root takes Birch roles, as the next table shows. Keep it on even after you move to Birch classes; it also sets the 24 px gap between the root's children.</li>
 </ul>
-<h4>Tier 2 — Independent</h4>
-<p>Ship your own look. This is allowed — the platform does not require adoption. You still must not restyle core classes, must not use <code>!important</code> against core, must not remove focus outlines, and must handle dark mode yourself (which is more work than adopting the tokens, which is why Tier 2 is rarely the right call).</p>
-<p>---</p>
-<h3>2. The public class contract</h3>
-<p>These class names and their visual meaning are guaranteed across minor versions. Their presence is verified in CI, so a core refactor cannot silently delete one out from under you.</p>
-<p><strong>Page chrome</strong></p>
-<p><code>.page</code> · <code>.plugin-page</code> · <code>.page-header</code> · <code>.page-header-left</code> · <code>.page-header-actions</code> · <code>.breadcrumbs</code> · <code>.main-actions-bar</code> · <code>.section-header</code> · <code>.section-title</code> · <code>.section-description</code></p>
-<p><strong>Panels</strong></p>
-<p><code>.card</code> · <code>.card-header</code> · <code>.card-title</code> · <code>.card-body</code> · <code>.card-footer</code></p>
-<p>Once content is already inside a <code>.card</code>, don't nest a second one — use <code>.card-section</code> to divide the body into divider-separated sub-blocks instead (a settings group, a fieldtype's options block). See <a href="../01-admin/admin-design-language.html#card-section--stop-nesting-a-card-inside-a-card">Admin design language § Card section</a> for the markup. <code>.card-section</code> is documented and stable, but — unlike the classes listed above — its presence is <strong>not yet</strong> checked by CI (see the note at the end of this section).</p>
-<p><strong>Controls</strong></p>
-<p><code>.btn</code> · <code>.btn-primary</code> · <code>.btn-secondary</code> · <code>.btn-outline</code> · <code>.btn-danger</code> · <code>.btn-sm</code> · <code>.btn-lg</code> · <code>.btn-icon</code></p>
-<p><strong>Forms</strong></p>
-<p><code>.field</code> · <code>.form-group</code> · <code>.input</code> · <code>.select</code> · <code>.textarea</code> · <code>.switch</code> · <code>.field-help</code> · <code>.field-error</code></p>
-<p><strong>Data</strong></p>
-<p><code>.table</code> · <code>.table-container</code> · <code>.data-list</code> · <code>.badge</code></p>
-<p><strong>Feedback and state</strong></p>
-<p><code>.callout</code> · <code>.empty-state</code> · <code>.skeleton</code> · <code>.spinner</code></p>
-<p><strong>Navigation and overlays</strong></p>
-<p><code>.tabs</code> · <code>.tab</code> · <code>.tab-panel</code> · <code>.modal</code> · <code>.modal-header</code> · <code>.modal-body</code> · <code>.modal-footer</code> · <code>.dropdown</code> · <code>.dropdown-item</code></p>
-<p><code>.tab</code>'s active state is a filled pill (<code>--surface-selected</code>), not an underline. For vertical secondary navigation, the equivalent component is <code>.side-nav</code> / <code>.side-nav-item</code> — same active/hover/focus rule as <code>.tab</code>, oriented vertically, with an optional <code>.side-nav-sub</code> for nested items. Like <code>.card-section</code>, <code>.side-nav</code> and <code>.side-nav-item</code> are documented in <a href="../01-admin/admin-design-language.html">Admin design language</a> but not yet in the CI presence check below.</p>
-<p><strong>Misc</strong></p>
-<p><code>.avatar</code> · <code>.divider</code> · <code>.birkly-icon</code></p>
-<p>Also contracted, though not in the CI presence check: every <code>u-<em></code> helper, every documented token, the <code>.fieldtype-</em></code> API, the action-zone classes <code>.main-actions-left</code> / <code>.main-actions-right</code> / <code>.main-actions-bar--sticky</code> / <code>.cell-actions</code> / <code>.btn-icon--edit</code> / <code>.btn-icon--danger</code>, and the newer <code>.card-section</code> / <code>.side-nav</code> / <code>.side-nav-item</code> (documented in <a href="../01-admin/admin-design-language.html">Admin design language</a> but added after the current CI contract list was written, so don't rely on CI to flag a regression in these specifically — treat them as stable by documentation, not yet by automated enforcement).</p>
-<p><strong>Not contracted:</strong> internal element parts not listed above (for example <code>.card-heading</code>, <code>.data-list-main</code>, <code>.tabs-v2-<em></code> internals), page-level classes in <code>admin/css/pages/</em>.css</code>, and <code>.entries-smart-table</code> internals. Modifier suffixes documented in <a href="../01-admin/admin-design-language.html">Admin design language</a> — <code>.card--compact</code>, <code>.badge-success</code>, <code>.modal--lg</code>, <code>.table--compact</code> and so on — are stable in practice but the list above is what CI guarantees.</p>
-<p>---</p>
-<h3>3. Rules for plugin CSS (all tiers)</h3>
+<table><thead><tr><th>P56 markup inside <code>.plugin-page[data-birch]</code></th><th>Rendered as</th></tr></thead>
+<tbody><tr><td>A top-level <code>.card</code></td><td>Frame: no fill, 1 px <code>--line</code>, 20 px padding</td></tr><tr><td>A <code>.card</code> inside a card, in a <code>u-grid-*</code> / <code>.stats-grid</code>, <code>.card--sunken</code>, or inside <code>.card--flush</code></td><td>Slab</td></tr><tr><td><code>.card-header</code> / <code>.card-title</code> / <code>.card-description</code></td><td>Frame head: <code>title-l</code>, <code>small</code> <code>--text-3</code></td></tr><tr><td><code>.card-body</code>, <code>.card-footer</code></td><td>No padding, border or fill</td></tr><tr><td><code>table.table</code> in <code>.table-container</code></td><td>Header on the canvas; each row a slab 4 px apart</td></tr><tr><td><code>.stat-label</code> / <code>.stat-value</code></td><td>Metric label and <code>number</code> value</td></tr><tr><td><code>.empty-state</code></td><td>Dashed</td></tr><tr><td><code>.callout</code></td><td>No border, 6 px radius</td></tr><tr><td><code>.field</code> / <code>.form-group</code> label</td><td><code>small</code> 500, sentence case</td></tr><tr><td><code>.input</code> inside a frame · inside a slab</td><td>White · <code>--surface-2</code> (the field takes the opposite of what it sits on)</td></tr><tr><td><code>.modal</code> &gt; <code>.modal-content</code></td><td>Float; <code>.modal.is-sheet</code> docks it right</td></tr><tr><td><code>.btn-primary</code> · <code>.btn-secondary</code> · <code>.btn-danger</code></td><td>Mint · secondary · danger-soft</td></tr><tr><td><code>label.switch &gt; input + .switch__slider</code></td><td>The Birch two-cell switch</td></tr></tbody></table>
+<p>The adoption layer keeps shipped plugins intact. It is not the target: write new pages with the Birch classes in § 3.</p>
+<h3>2. Class names</h3>
+<ul>
+<li><strong>Plain words</strong>, with no prefix, suffix or BEM: <code>.order-row</code>, <code>.workflow-node</code>, <code>.tier-card</code>, <code>.bulk-bar</code>.</li>
+<li><strong>State</strong> through <code>is-</code> classes and ARIA: <code>.is-main</code>, <code>.is-selected</code> / <code>aria-selected</code>, <code>[aria-current=&quot;page&quot;]</code>, <code>aria-pressed</code>, <code>aria-checked</code>.</li>
+<li><strong>Core owns the generic names</strong>: <code>.row</code>, <code>.table</code>, <code>.card</code>, <code>.field</code>, <code>.frame</code>, <code>.slab</code>, <code>.menu</code> and the rest of the kit. A plugin component is named for what it is, and never reuses a core name for something else.</li>
+<li><strong>A component's surface comes from its role.</strong> If your <code>.order-row</code> is one thing, style it like a slab (<code>--surface</code>, 6 px radius, 16 px padding, no border, no shadow), or better, put <code>class=&quot;slab order-row&quot;</code> on it and style only its layout.</li>
+<li><strong>No <code>u-</code> prefix</strong> for your own helpers; that prefix belongs to core.</li>
+</ul>
+<h3>3. P56 → Birch rename tables</h3>
+<p>The tables list every P56 class, token and icon name that core still honours, with its Birch replacement. The alias files <code>admin/css/core/migration-aliases.css</code> and <code>admin/css/core/compat-tokens.css</code>, the icon aliases, and the P56 component sheets are removed in the CMS release after 1.1. Move your plugin before then.</p>
+<h4>Classes</h4>
+<table><thead><tr><th>P56</th><th>Birch</th><th>Notes</th></tr></thead>
+<tbody><tr><td><code>.btn.btn-primary</code></td><td><code>.button.is-main</code></td><td>One visible per view</td></tr><tr><td><code>.btn</code>, <code>.btn-secondary</code>, <code>.btn-outline</code></td><td><code>.button</code></td><td>Secondary is the default</td></tr><tr><td><code>.btn-ghost</code>, <code>.btn-link</code></td><td><code>.button.is-quiet</code></td><td>Cancel and low-weight actions</td></tr><tr><td><code>.btn-danger</code>, <code>.btn-danger-quiet</code></td><td><code>.button.is-danger</code></td><td>Danger-soft fill, danger text</td></tr><tr><td><code>.btn-sm</code> · <code>.btn-lg</code></td><td><code>.button.is-small</code> · <code>.button</code></td><td>Height follows density (<code>--control</code>)</td></tr><tr><td><code>.btn-icon</code>, <code>.btn-icon-sm</code>, <code>.btn-icon-xs</code>, <code>.btn-icon--edit</code>, <code>.btn-icon--danger</code></td><td><code>.icon-button</code> + <code>aria-label</code></td><td>Destructive row actions go in a menu as <code>.menu-item.is-danger</code></td></tr><tr><td><code>.card</code> (top level)</td><td><code>.frame</code></td><td>A named group of slabs</td></tr><tr><td><code>.card</code> (nested), <code>.card--elevated</code>, <code>.card--bordered</code>, stat tile</td><td><code>.slab</code></td><td>One thing; no border, no shadow</td></tr><tr><td><code>.card--sunken</code>, <code>.card--borderless</code></td><td><code>.well</code> · canvas</td><td></td></tr><tr><td><code>.card-header</code>, <code>.card-title</code>, <code>.card-description</code>, <code>.card-subtitle</code></td><td><code>.frame-head</code> &gt; <code>.frame-head-body</code> &gt; <code>.frame-title</code> + <code>.frame-text</code></td><td>Actions sit at the end of <code>.frame-head</code></td></tr><tr><td><code>.card-body</code>, <code>.card-footer</code></td><td>No wrapper</td><td>Footer actions go in the page bar or a dialog foot</td></tr><tr><td><code>.card-section</code>, <code>.card-section--compact</code></td><td>One <code>.slab</code> per section, or <code>.setting-row</code></td><td>Slabs 4 px apart inside the frame</td></tr><tr><td><code>.section-header</code>, <code>.section-title</code>, <code>section__header</code></td><td><code>.frame-head</code>, or <code>.group-title</code> on the canvas</td><td></td></tr><tr><td><code>.stats-grid</code> &gt; <code>.stat</code> (<code>.stat-label</code>, <code>.stat-value</code>, <code>.stat-meta</code>)</td><td><code>.metrics</code> &gt; <code>.metric</code> (<code>.metric-label</code>, <code>.metric-value</code>, <code>.metric-meta</code>)</td><td>Up to four slots in one slab</td></tr><tr><td><code>.callout</code>, <code>.callout-info</code> / <code>-success</code> / <code>-warning</code> / <code>-danger</code>, <code>.callout--banner</code>, <code>.callout--compact</code></td><td><code>.signal</code> (warning), <code>.signal.is-info</code> / <code>.is-success</code> / <code>.is-danger</code> with <code>.signal-body</code> &gt; <code>.signal-title</code> + <code>.signal-text</code></td><td>Action as a secondary button on the right</td></tr><tr><td><code>.badge</code>, <code>.badge-success</code> / <code>-warning</code> / <code>-danger</code> / <code>-info</code> / <code>-neutral</code></td><td><code>.status.is-success</code> / <code>.is-warning</code> / <code>.is-danger</code> / <code>.is-info</code> / <code>.status</code>; <code>.count</code> for numbers; <code>.chip</code> for tags</td><td><code>.is-plain</code> drops the fill</td></tr><tr><td><code>.status-indicator</code></td><td><code>.status</code></td><td>6 px square dot</td></tr><tr><td><code>.empty-state</code> (<code>-icon</code>, <code>-title</code>, <code>-text</code>, <code>-actions</code>), <code>.empty-state--compact</code></td><td><code>.empty</code> (<code>.empty-icon</code>, <code>.empty-title</code>, <code>.empty-text</code>)</td><td>Dashed; 26 px icon in an accent-soft well</td></tr><tr><td><code>.loading-state</code>, <code>.spinner</code>, <code>.skeleton-row</code>, <code>.skeleton-block</code></td><td><code>.skeleton</code> bars; <code>.button.is-busy</code> with the <code>loader</code> icon</td><td></td></tr><tr><td><code>.field</code>, <code>.form-group</code> (label + control + help)</td><td><code>.field-group</code></td><td>In Birch, <code>.field</code> is the entry editor's field <strong>slab</strong></td></tr><tr><td><code>.field-label</code>, <code>.field-help</code>, <code>.field-error</code>, <code>.input</code></td><td>Unchanged</td><td></td></tr><tr><td><code>.textarea</code>, <code>.input-lg</code>, <code>.input-search</code></td><td><code>textarea.input</code>, <code>.input</code>, <code>.search-field</code> &gt; <code>.input</code></td><td></td></tr><tr><td><code>select.select</code>, <code>.dropdown-chevron</code></td><td><code>.select-box</code> &gt; <code>select.input</code> + the <code>chev-down</code> icon</td><td></td></tr><tr><td><code>.input-icon-wrap</code>, prefix addons</td><td><code>.input-group</code> &gt; <code>.prefix.well</code> + <code>.input</code></td><td></td></tr><tr><td><code>.checkbox-label</code> &gt; <code>input</code></td><td><code>label.choice</code> &gt; <code>input.check</code> (<code>input.radio</code>)</td><td></td></tr><tr><td><code>label.switch</code> &gt; <code>input</code> + <code>.switch__slider</code>, <code>.switch--sm</code>, <code>.switch--disabled</code></td><td><code>button.switch[role=&quot;switch&quot;][aria-checked]</code> with two <code>&lt;span&gt;</code> cells (x, check)</td><td>The P56 markup keeps working</td></tr><tr><td><code>.segmented</code> &gt; <code>.segmented-item.active</code></td><td><code>.segmented.well</code> &gt; <code>button[aria-pressed]</code></td><td></td></tr><tr><td><code>.tabs</code> &gt; <code>.tab.active</code>, <code>.tab-panel</code></td><td><code>.tabs[role=&quot;tablist&quot;]</code> &gt; <code>button[role=&quot;tab&quot;][aria-selected]</code></td><td>2 px ink underline</td></tr><tr><td><code>.side-nav</code>, <code>.side-nav-item</code>, <code>.side-nav-chevron</code></td><td>Unchanged: <code>.side-nav-item.active</code> or <code>aria-selected</code></td><td>Ink bar for current; the chevron is the <code>chev-right</code> icon</td></tr><tr><td><code>.table-container</code> &gt; <code>table.table</code>, <code>.cell-muted</code>, <code>.cell-numeric</code></td><td><code>.table</code> &gt; <code>.table-head</code> + <code>.table-row</code> (or keep <code>table.table</code> inside the adoption layer); <code>.row-meta</code>, <code>.u-numeric</code></td><td>Rows are slabs</td></tr><tr><td><code>.data-list</code></td><td><code>.list-rows</code> &gt; <code>.list-row</code> (<code>.row-body</code>, <code>.row-title</code>, <code>.row-meta</code>, <code>.row-actions</code>)</td><td></td></tr><tr><td><code>.dropdown-menu</code> &gt; <code>.dropdown-item</code>, <code>.dropdown-divider</code>, <code>.dropdown-header</code>, <code>.dropdown-item-meta</code>, <code>.dropdown-empty</code></td><td><code>.menu</code> &gt; <code>.menu-item</code>, <code>.menu-rule</code>, <code>.menu-head</code>, <code>.row-meta</code>, <code>.menu-note</code></td><td>Menu shadow; never a form</td></tr><tr><td><code>.modal-header</code>, <code>.modal-title</code>, <code>.modal-body</code>, <code>.modal-footer</code>, <code>.modal-footer--split</code></td><td><code>.modal-content.dialog</code> &gt; <code>.dialog-head</code> (<code>.dialog-title</code>, <code>.dialog-text</code>), <code>.dialog-body</code>, <code>.dialog-foot</code></td><td>Keep the <code>.modal</code> + <code>.modal-backdrop</code> shell</td></tr><tr><td><code>.sheet-panel</code>, <code>.sheet-backdrop</code>, <code>.sheet-title</code>, <code>.sheet-body</code>, <code>.sheet-footer</code>, <code>.sheet--mobile-only</code>, <code>.drawer-header</code> / <code>-body</code> / <code>-footer</code></td><td><code>.modal.is-sheet</code> &gt; <code>.modal-content.dialog</code></td><td>Docked right</td></tr><tr><td><code>.main-actions-bar</code> &gt; <code>.main-actions-left</code> / <code>.main-actions-right</code></td><td><code>.page-bar</code> &gt; (actions) + <code>.page-bar-tools</code></td><td>The More menu handles phones for both</td></tr><tr><td><code>.divider</code>, <code>.divider-labelled</code></td><td>A gap; <code>.menu-rule</code> inside menus</td><td></td></tr><tr><td><code>.page--narrow</code></td><td><code>.u-max-w-page-narrow</code></td><td></td></tr><tr><td><code>.grid-cols-1</code>, <code>.grid-cols-auto-fill</code>, <code>.grid-cols-auto-fit</code></td><td><code>.u-grid-auto-sm</code> / <code>.u-grid-auto</code> / <code>.u-grid-auto-lg</code>, <code>.card-grid</code></td><td></td></tr><tr><td><code>.birkly-icon--sm</code></td><td><code>.birkly-icon</code> (13 px)</td><td>Two sizes only: 13 and 26</td></tr><tr><td><code>.u-bg-<em></code>, <code>.u-border</em></code>, <code>.u-elevation-<em></code>, <code>.u-radius-</em></code></td><td>The role class (<code>.slab</code>, <code>.well</code>, <code>.frame</code> …)</td><td>The role decides fill, line, radius and shadow</td></tr></tbody></table>
+<h4>Tokens</h4>
+<p><code>--accent</code> changed meaning. In P56 it was mint; in Birch it is blue (on, selected, focus). Plugin CSS that painted a mint fill with <code>var(--accent)</code> now paints blue. Use <code>var(--mint)</code> only for the one main action. Otherwise decide whether you mean &quot;selected&quot; (<code>--accent-soft</code>, <code>--accent-line</code>) or &quot;link&quot; (<code>--accent-text</code>).</p>
+<p>Every P56 name that core still defines is listed below with the Birch token it resolves to today. Replace the left column with the middle one.</p>
+<h4>Surfaces</h4>
+<table><thead><tr><th>P56 name</th><th>Birch token</th><th>Note</th></tr></thead>
+<tbody><tr><td><code>--canvas</code></td><td><code>--bg</code></td><td></td></tr><tr><td><code>--surface-sunken</code></td><td><code>--surface-2</code></td><td></td></tr><tr><td><code>--surface-raised</code></td><td><code>--surface</code></td><td></td></tr><tr><td><code>--surface-hover</code></td><td><code>--surface-2</code></td><td></td></tr><tr><td><code>--surface-active</code></td><td><code>--surface-3</code></td><td></td></tr><tr><td><code>--surface-selected</code></td><td><code>--accent-soft</code></td><td></td></tr><tr><td><code>--surface-inverse</code></td><td><code>--ink-float</code></td><td></td></tr><tr><td><code>--overlay</code></td><td><code>--scrim</code></td><td></td></tr><tr><td><code>--bg-primary</code></td><td><code>--surface</code></td><td></td></tr><tr><td><code>--bg-secondary</code></td><td><code>--surface-2</code></td><td></td></tr><tr><td><code>--bg-tertiary</code></td><td><code>--surface-2</code></td><td></td></tr><tr><td><code>--bg-elevated</code></td><td><code>--surface</code></td><td></td></tr><tr><td><code>--bg-hover</code></td><td><code>--surface-2</code></td><td></td></tr><tr><td><code>--bg-overlay</code></td><td><code>--scrim</code></td><td></td></tr><tr><td><code>--surface-1</code></td><td><code>--surface</code></td><td></td></tr><tr><td><code>--surface-muted</code></td><td><code>--surface-2</code></td><td></td></tr><tr><td><code>--color-neutral-200</code></td><td><code>--surface-3</code></td><td></td></tr><tr><td><code>--gray-50</code></td><td><code>--surface-2</code></td><td></td></tr><tr><td><code>--gray-100</code></td><td><code>--surface-2</code></td><td></td></tr><tr><td><code>--surface-secondary</code></td><td><code>--surface-2</code></td><td></td></tr><tr><td><code>--surface-color</code></td><td><code>--surface</code></td><td></td></tr><tr><td><code>--bg-subtle</code></td><td><code>--surface-2</code></td><td></td></tr></tbody></table>
+<h4>Text</h4>
+<table><thead><tr><th>P56 name</th><th>Birch token</th><th>Note</th></tr></thead>
+<tbody><tr><td><code>--text-primary</code></td><td><code>--text</code></td><td></td></tr><tr><td><code>--text-secondary</code></td><td><code>--text-2</code></td><td></td></tr><tr><td><code>--text-tertiary</code></td><td><code>--text-3</code></td><td></td></tr><tr><td><code>--text-inverse</code></td><td><code>--on-ink-float</code></td><td></td></tr><tr><td><code>--text-link</code></td><td><code>--accent-text</code></td><td></td></tr><tr><td><code>--text-link-hover</code></td><td><code>--accent-hover</code></td><td></td></tr><tr><td><code>--color-black</code></td><td><code>--text</code></td><td></td></tr><tr><td><code>--gray-500</code></td><td><code>--text-3</code></td><td></td></tr><tr><td><code>--gray-800</code></td><td><code>--text</code></td><td></td></tr><tr><td><code>--gray-900</code></td><td><code>--text</code></td><td></td></tr><tr><td><code>--color-text</code></td><td><code>--text</code></td><td></td></tr><tr><td><code>--color-text-secondary</code></td><td><code>--text-2</code></td><td></td></tr><tr><td><code>--text-muted</code></td><td><code>--text-2</code></td><td></td></tr></tbody></table>
+<h4>Lines</h4>
+<table><thead><tr><th>P56 name</th><th>Birch token</th><th>Note</th></tr></thead>
+<tbody><tr><td><code>--border-subtle</code></td><td><code>--line</code></td><td></td></tr><tr><td><code>--border-default</code></td><td><code>--line</code></td><td></td></tr><tr><td><code>--border-control</code></td><td><code>--line-strong</code></td><td></td></tr><tr><td><code>--border-control-hover</code></td><td><code>--text-3</code></td><td>A text colour used as a line; prefer <code>--line-strong</code>.</td></tr><tr><td><code>--border-strong</code></td><td><code>--text-3</code></td><td>A text colour used as a line; prefer <code>--line-strong</code>.</td></tr><tr><td><code>--field-border</code></td><td><code>--line</code></td><td></td></tr><tr><td><code>--field-border-hover</code></td><td><code>--line-strong</code></td><td></td></tr><tr><td><code>--field-border-focus</code></td><td><code>--accent</code></td><td></td></tr><tr><td><code>--gray-200</code></td><td><code>--line</code></td><td></td></tr><tr><td><code>--gray-300</code></td><td><code>--line</code></td><td></td></tr><tr><td><code>--gray-400</code></td><td><code>--line-strong</code></td><td></td></tr><tr><td><code>--border-light</code></td><td><code>--line</code></td><td></td></tr><tr><td><code>--border-medium</code></td><td><code>--line</code></td><td></td></tr><tr><td><code>--border-color</code></td><td><code>--line</code></td><td></td></tr><tr><td><code>--color-border</code></td><td><code>--line</code></td><td></td></tr></tbody></table>
+<h4>Accent and mint</h4>
+<table><thead><tr><th>P56 name</th><th>Birch token</th><th>Note</th></tr></thead>
+<tbody><tr><td><code>--accent-active</code></td><td><code>--accent-hover</code></td><td></td></tr><tr><td><code>--accent-muted</code></td><td><code>--accent-line</code></td><td></td></tr><tr><td><code>--accent-focus</code></td><td><code>--accent</code></td><td><code>--accent</code> is blue in Birch (it was mint in P56).</td></tr><tr><td><code>--accent-text-hover</code></td><td><code>--accent-hover</code></td><td></td></tr><tr><td><code>--accent-soft-hover</code></td><td><code>--accent-line</code></td><td></td></tr><tr><td><code>--accent-border</code></td><td><code>--accent-line</code></td><td></td></tr><tr><td><code>--ink-on-accent</code></td><td><code>--on-accent</code></td><td></td></tr><tr><td><code>--control-track</code></td><td><code>--surface-3</code></td><td></td></tr><tr><td><code>--control-track-hover</code></td><td><code>--line-strong</code></td><td></td></tr><tr><td><code>--control-knob</code></td><td><code>--surface</code></td><td></td></tr><tr><td><code>--primary</code></td><td><code>--mint</code></td><td>Mint means the one main action. Use it only on <code>.button.is-main</code>.</td></tr><tr><td><code>--primary-50</code></td><td><code>--mint-50</code></td><td>Mint tints are legacy. For a tint use <code>--accent-soft</code> (selected) or a status <code>-soft</code>.</td></tr><tr><td><code>--primary-100</code></td><td><code>--mint-100</code></td><td></td></tr><tr><td><code>--primary-200</code></td><td><code>--mint-200</code></td><td></td></tr><tr><td><code>--primary-300</code></td><td><code>--mint-300</code></td><td></td></tr><tr><td><code>--primary-400</code></td><td><code>--mint-400</code></td><td></td></tr><tr><td><code>--primary-500</code></td><td><code>--mint-500</code></td><td></td></tr><tr><td><code>--primary-600</code></td><td><code>--mint-600</code></td><td></td></tr><tr><td><code>--primary-700</code></td><td><code>--mint-700</code></td><td>Never a text colour.</td></tr><tr><td><code>--primary-800</code></td><td><code>--mint-800</code></td><td></td></tr><tr><td><code>--color-primary</code></td><td><code>--mint</code></td><td>As <code>--primary</code>.</td></tr><tr><td><code>--color-primary-strong</code></td><td><code>--accent-text</code></td><td></td></tr><tr><td><code>--color-primary-soft</code></td><td><code>--accent-soft</code></td><td></td></tr><tr><td><code>--color-primary-muted</code></td><td><code>--accent-line</code></td><td></td></tr><tr><td><code>--color-primary-border</code></td><td><code>--accent-line</code></td><td></td></tr></tbody></table>
+<h4>Status</h4>
+<table><thead><tr><th>P56 name</th><th>Birch token</th><th>Note</th></tr></thead>
+<tbody><tr><td><code>--success-surface</code></td><td><code>--success-soft</code></td><td></td></tr><tr><td><code>--success-border</code></td><td><code>--success-soft</code></td><td>Birch signals have no line; the soft fill is the edge.</td></tr><tr><td><code>--success-fg</code></td><td><code>--success</code></td><td></td></tr><tr><td><code>--success-solid</code></td><td><code>--success</code></td><td></td></tr><tr><td><code>--ink-on-success</code></td><td><code>--on-status</code></td><td></td></tr><tr><td><code>--warning-surface</code></td><td><code>--warning-soft</code></td><td></td></tr><tr><td><code>--warning-border</code></td><td><code>--warning-soft</code></td><td></td></tr><tr><td><code>--warning-fg</code></td><td><code>--warning</code></td><td></td></tr><tr><td><code>--warning-solid</code></td><td><code>--warning</code></td><td></td></tr><tr><td><code>--ink-on-warning</code></td><td><code>--on-status</code></td><td></td></tr><tr><td><code>--danger-surface</code></td><td><code>--danger-soft</code></td><td></td></tr><tr><td><code>--danger-border</code></td><td><code>--danger-soft</code></td><td></td></tr><tr><td><code>--danger-fg</code></td><td><code>--danger</code></td><td></td></tr><tr><td><code>--danger-solid</code></td><td><code>--danger</code></td><td></td></tr><tr><td><code>--ink-on-danger</code></td><td><code>--on-status</code></td><td></td></tr><tr><td><code>--info-surface</code></td><td><code>--info-soft</code></td><td></td></tr><tr><td><code>--info-border</code></td><td><code>--info-soft</code></td><td></td></tr><tr><td><code>--info-fg</code></td><td><code>--info</code></td><td></td></tr><tr><td><code>--info-solid</code></td><td><code>--info</code></td><td></td></tr><tr><td><code>--ink-on-info</code></td><td><code>--on-status</code></td><td></td></tr><tr><td><code>--neutral-surface</code></td><td><code>--surface-2</code></td><td></td></tr><tr><td><code>--neutral-border</code></td><td><code>--line</code></td><td></td></tr><tr><td><code>--neutral-fg</code></td><td><code>--text-2</code></td><td></td></tr><tr><td><code>--status-dot-ok</code></td><td><code>--success</code></td><td></td></tr><tr><td><code>--status-dot-ok-glow</code></td><td><code>--success</code></td><td>Birch dots do not glow.</td></tr><tr><td><code>--status-dot-bad</code></td><td><code>--danger</code></td><td></td></tr><tr><td><code>--status-dot-bad-glow</code></td><td><code>--danger</code></td><td>Birch dots do not glow.</td></tr><tr><td><code>--success-50</code></td><td><code>--success-soft</code></td><td></td></tr><tr><td><code>--success-100</code></td><td><code>--success-soft</code></td><td></td></tr><tr><td><code>--success-200</code></td><td><code>--success-soft</code></td><td></td></tr><tr><td><code>--success-500</code></td><td><code>--success</code></td><td></td></tr><tr><td><code>--success-600</code></td><td><code>--success</code></td><td></td></tr><tr><td><code>--success-700</code></td><td><code>--success</code></td><td></td></tr><tr><td><code>--success-800</code></td><td><code>--success</code></td><td></td></tr><tr><td><code>--error-50</code></td><td><code>--danger-soft</code></td><td></td></tr><tr><td><code>--error-100</code></td><td><code>--danger-soft</code></td><td></td></tr><tr><td><code>--error-200</code></td><td><code>--danger-soft</code></td><td></td></tr><tr><td><code>--error-500</code></td><td><code>--danger</code></td><td></td></tr><tr><td><code>--error-600</code></td><td><code>--danger</code></td><td></td></tr><tr><td><code>--error-700</code></td><td><code>--danger</code></td><td></td></tr><tr><td><code>--error-800</code></td><td><code>--danger</code></td><td></td></tr><tr><td><code>--color-error</code></td><td><code>--danger</code></td><td></td></tr><tr><td><code>--danger-100</code></td><td><code>--danger-soft</code></td><td></td></tr><tr><td><code>--danger-700</code></td><td><code>--danger</code></td><td></td></tr><tr><td><code>--warning-50</code></td><td><code>--warning-soft</code></td><td></td></tr><tr><td><code>--warning-100</code></td><td><code>--warning-soft</code></td><td></td></tr><tr><td><code>--warning-200</code></td><td><code>--warning-soft</code></td><td></td></tr><tr><td><code>--warning-500</code></td><td><code>--warning</code></td><td></td></tr><tr><td><code>--warning-600</code></td><td><code>--warning</code></td><td></td></tr><tr><td><code>--warning-700</code></td><td><code>--warning</code></td><td></td></tr><tr><td><code>--warning-800</code></td><td><code>--warning</code></td><td></td></tr><tr><td><code>--warning-900</code></td><td><code>--warning</code></td><td></td></tr><tr><td><code>--info-500</code></td><td><code>--info</code></td><td></td></tr><tr><td><code>--danger-color</code></td><td><code>--danger</code></td><td></td></tr></tbody></table>
+<h4>Space</h4>
+<table><thead><tr><th>P56 name</th><th>Birch token</th><th>Note</th></tr></thead>
+<tbody><tr><td><code>--space-0</code></td><td><code>0</code></td><td></td></tr><tr><td><code>--space-1</code></td><td><code>--s-1</code></td><td></td></tr><tr><td><code>--space-2</code></td><td><code>--s-2</code></td><td></td></tr><tr><td><code>--space-3</code></td><td><code>--s-3</code></td><td></td></tr><tr><td><code>--space-4</code></td><td><code>--s-4</code></td><td></td></tr><tr><td><code>--space-5</code></td><td><code>--s-5</code></td><td></td></tr><tr><td><code>--space-6</code></td><td><code>--s-6</code></td><td></td></tr><tr><td><code>--space-8</code></td><td><code>32px</code> (literal)</td><td>App UI stops at 24 px (<code>--s-6</code>); larger gaps are docs only.</td></tr><tr><td><code>--space-10</code></td><td><code>40px</code> (literal)</td><td>App UI stops at 24 px (<code>--s-6</code>).</td></tr><tr><td><code>--space-12</code></td><td><code>48px</code> (literal)</td><td>App UI stops at 24 px (<code>--s-6</code>).</td></tr><tr><td><code>--space-16</code></td><td><code>64px</code> (literal)</td><td>App UI stops at 24 px (<code>--s-6</code>).</td></tr></tbody></table>
+<h4>Type</h4>
+<table><thead><tr><th>P56 name</th><th>Birch token</th><th>Note</th></tr></thead>
+<tbody><tr><td><code>--text-2xs</code></td><td><code>--size-caption</code></td><td></td></tr><tr><td><code>--text-xs</code></td><td><code>--size-small</code></td><td>Careful: <code>--text-2</code> is a colour, not a size.</td></tr><tr><td><code>--text-sm</code></td><td><code>--size-small</code></td><td></td></tr><tr><td><code>--text-base</code></td><td><code>--size-body</code></td><td></td></tr><tr><td><code>--text-md</code></td><td><code>--size-slab-title</code></td><td></td></tr><tr><td><code>--text-lg</code></td><td><code>--size-title-l</code></td><td></td></tr><tr><td><code>--text-xl</code></td><td><code>--size-page-title</code></td><td></td></tr><tr><td><code>--text-2xl</code></td><td><code>--size-number</code></td><td></td></tr><tr><td><code>--leading-tight</code></td><td><code>1.25</code> (literal)</td><td>Use the paired <code>--lh-*</code> token for the size.</td></tr><tr><td><code>--leading-snug</code></td><td><code>1.4</code> (literal)</td><td></td></tr><tr><td><code>--leading-normal</code></td><td><code>1.5</code> (literal)</td><td></td></tr><tr><td><code>--leading-relaxed</code></td><td><code>1.6</code> (literal)</td><td></td></tr><tr><td><code>--tracking-tight</code></td><td><code>--tracking-title</code></td><td></td></tr><tr><td><code>--tracking-normal</code></td><td><code>0</code> (literal)</td><td></td></tr><tr><td><code>--tracking-label</code></td><td><code>0</code></td><td>Sentence case, no tracking.</td></tr><tr><td><code>--font-family-mono</code></td><td><code>--font-mono</code></td><td></td></tr><tr><td><code>--font-size-base</code></td><td><code>--size-body</code></td><td></td></tr><tr><td><code>--font-medium</code></td><td><code>--weight-medium</code></td><td></td></tr></tbody></table>
+<h4>Radius</h4>
+<table><thead><tr><th>P56 name</th><th>Birch token</th><th>Note</th></tr></thead>
+<tbody><tr><td><code>--radius-none</code></td><td><code>0</code></td><td></td></tr><tr><td><code>--radius-sm</code></td><td><code>--r</code></td><td></td></tr><tr><td><code>--radius-md</code></td><td><code>--r</code></td><td></td></tr><tr><td><code>--radius-lg</code></td><td><code>--r</code></td><td></td></tr><tr><td><code>--radius-pill</code></td><td><code>--r</code></td><td>No pills in Birch; everything is 6 px.</td></tr><tr><td><code>--radius-xs</code></td><td><code>--r</code></td><td></td></tr><tr><td><code>--radius-full</code></td><td><code>--r</code></td><td>No pills in Birch; everything is 6 px.</td></tr><tr><td><code>--radius-round</code></td><td><code>--r</code></td><td></td></tr></tbody></table>
+<h4>Elevation</h4>
+<table><thead><tr><th>P56 name</th><th>Birch token</th><th>Note</th></tr></thead>
+<tbody><tr><td><code>--elevation-0</code></td><td><code>none</code></td><td></td></tr><tr><td><code>--elevation-1</code></td><td><code>none</code></td><td>Slabs are flat. Only floats cast shadows.</td></tr><tr><td><code>--elevation-2</code></td><td><code>--shadow-float-2</code></td><td></td></tr><tr><td><code>--elevation-3</code></td><td><code>--shadow-menu</code></td><td></td></tr><tr><td><code>--elevation-inset</code></td><td><code>none</code></td><td></td></tr><tr><td><code>--elevation-inset-strong</code></td><td><code>none</code></td><td></td></tr><tr><td><code>--shadow-sm</code></td><td><code>none</code></td><td>Slabs are flat. Only floats cast shadows.</td></tr><tr><td><code>--shadow-md</code></td><td><code>--shadow-float-2</code></td><td></td></tr><tr><td><code>--shadow-lg</code></td><td><code>--shadow-float-2</code></td><td></td></tr><tr><td><code>--shadow-xl</code></td><td><code>--shadow-menu</code></td><td></td></tr><tr><td><code>--shadow-2xl</code></td><td><code>--shadow-menu</code></td><td></td></tr></tbody></table>
+<h4>Motion</h4>
+<table><thead><tr><th>P56 name</th><th>Birch token</th><th>Note</th></tr></thead>
+<tbody><tr><td><code>--motion-fast</code></td><td><code>--dur-1</code></td><td></td></tr><tr><td><code>--motion-base</code></td><td><code>--dur-2</code></td><td></td></tr><tr><td><code>--motion-slow</code></td><td><code>--dur-3</code></td><td></td></tr><tr><td><code>--ease-out</code></td><td><code>--ease</code></td><td></td></tr><tr><td><code>--ease-in-out</code></td><td><code>--ease</code></td><td></td></tr><tr><td><code>--transition-fast</code></td><td><code>var(--dur-1) var(--ease)</code></td><td>Write <code>var(--dur-1) var(--ease)</code>.</td></tr><tr><td><code>--transition-base</code></td><td><code>var(--dur-2) var(--ease)</code></td><td>Write <code>var(--dur-2) var(--ease)</code>.</td></tr></tbody></table>
+<h4>Sizes, focus and layering</h4>
+<table><thead><tr><th>P56 name</th><th>Birch token</th><th>Note</th></tr></thead>
+<tbody><tr><td><code>--control-md</code></td><td><code>--control</code></td><td></td></tr><tr><td><code>--control-lg</code></td><td><code>--chrome-row</code></td><td>Deprecated; there is one control height per density.</td></tr><tr><td><code>--chrome-stack-gap</code></td><td><code>--s-6</code></td><td></td></tr><tr><td><code>--chrome-content-gap</code></td><td><code>--s-6</code></td><td></td></tr><tr><td><code>--btn-secondary-bg</code></td><td><code>--surface</code></td><td></td></tr><tr><td><code>--btn-secondary-hover</code></td><td><code>--surface-2</code></td><td></td></tr><tr><td><code>--sidebar-width-collapsed</code></td><td><code>--sidebar-rail</code></td><td></td></tr><tr><td><code>--shell-edge-padding</code></td><td><code>--gutter</code></td><td></td></tr><tr><td><code>--focus-color</code></td><td><code>--accent</code></td><td></td></tr><tr><td><code>--focus-ring</code></td><td><code>var(--focus-outline)</code></td><td>Birch focus is an outline, not a box-shadow ring.</td></tr><tr><td><code>--z-index-modal</code></td><td><code>--z-modal</code></td><td></td></tr></tbody></table>
+<h3>4. Rules for plugin CSS</h3>
 <ol>
-<li><strong>Never restyle a core class.</strong> No <code>.btn { … }</code>, no <code>.card { … }</code>, no <code>#media-modal .modal-content { … }</code>. Scope to <code>.{plugin}-*</code>, or to a root class of your own plus a core class if you genuinely must adjust layout inside your page (<code>.my-plugin-page .card { margin: 0 }</code> is tolerable; <code>.card { margin: 0 }</code> is not).</li>
-<li><strong>Tokens, not hex.</strong> A plugin that hardcodes hex is broken in dark mode — that is the single most common plugin styling defect. Use <code>var(--surface)</code>, <code>var(--text-primary)</code>, <code>var(--border-subtle)</code> and friends.</li>
-<li><strong>No <code>!important</code> against core.</strong> If you're losing a specificity fight with a core rule, you are almost certainly restyling something you shouldn't be.</li>
-<li><strong>No new blues.</strong> Use <code>--info-surface</code> / <code>--info-border</code> / <code>--info-fg</code> / <code>--info-solid</code>. Shipping a Tailwind blue as an active-tab colour is the exact failure mode this token family exists to prevent.</li>
-<li><strong>Honour focus and reduced motion.</strong> Never remove a focus outline without an equivalent replacement. Don't add unguarded looping animation — the global <code>prefers-reduced-motion</code> block covers transitions and animations, but a decorative loop is still a decorative loop.</li>
-<li><strong>Namespace everything</strong> as <code>.{plugin}-*</code>. Do not use the <code>u-</code> prefix for private helpers; that prefix belongs to core.</li>
-<li><strong>Don't re-implement a contracted component.</strong> If <code>.card</code> doesn't fit your case, that's a core gap — file it rather than shipping a ninth card family.</li>
-<li><strong>Respect the accent rules.</strong> <code>--accent</code> is a fill and is 1.54:1 on white; <code>--accent-text</code> is the text ramp; <code>--ink-on-accent</code> is what goes on a mint fill. One mint-filled element per screen.</li>
-<li><strong>One page title.</strong> Your page gets its title from the breadcrumb <code>.current</code> segment via <code>{plugin_page_header}</code>. Don't render an <code>&lt;h1&gt;</code>.</li>
-<li><strong>No box-in-box.</strong> If a <code>.card</code> is already on the page and you're about to wrap a group of fields or options in another bordered, rounded, filled container <em>inside</em> that card's body, stop — use <code>.card-section</code> (a divider-separated sub-block with no border/background/radius of its own), more spacing (<code>u-stack-*</code>), or a plain <code>.divider</code> instead. This applies to plugin admin pages exactly as much as core: a fieldtype's options block or a plugin settings group nested inside <code>.card-body</code> is the same violation either way.</li>
-<li><strong>Text fields use <code>--field-border</code>, not <code>--border-control</code>.</strong> If you're building your own input-like control in a Tier 1/2 stylesheet, border it with <code>--field-border</code> / <code>--field-border-hover</code> / <code>--field-border-focus</code> (the same family <code>.input</code>/<code>.select</code>/<code>.textarea</code> use), not <code>--border-control</code> — and never colour a text field's focus state with <code>--accent-focus</code> or any other green/mint token. A green-ish focus border on a field reads as &quot;already validated&quot;, which is confusing right next to the platform's own <code>.input.is-valid</code> success state. <code>--border-control</code> is for buttons, custom-selects and other non-text-field controls.</li>
-<li><strong>Never reuse the literal <code>data-theme</code> attribute for anything of your own.</strong> Dark mode is scoped by the exact selector <code>[data-theme=&quot;dark&quot;]</code> on <code>&lt;html&gt;</code>/<code>&lt;body&gt;</code>; a CSS attribute selector matches <em>any</em> element carrying that attribute, not only the real theme root. If your plugin renders anything theme-related — a theme preview swatch, an appearance-option button, a per-item &quot;which mode is this&quot; marker — name that attribute something else (<code>data-theme-option</code>, <code>data-my-plugin-theme</code>, anything but the bare <code>data-theme</code>), or it will silently and locally inherit dark-surface tokens regardless of the page's actual theme.</li>
+<li><strong>Never restyle a core class.</strong> No <code>.button { … }</code>, no <code>.slab { … }</code>, no <code>#media-modal .modal-content { … }</code>. Style your own names. If you must adjust layout inside your page, scope it under your root: <code>.webhooks-page .table-row { grid-template-columns: … }</code> is fine, <code>.table-row { … }</code> is not.</li>
+<li><strong>Tokens, not literals.</strong> No hex, <code>rgb()</code>, <code>hsl()</code> or <code>oklch()</code>. Colour, space, radius, shadow, duration and z-index all come from <code>var(--…)</code>.</li>
+<li><strong>Take the role's surface.</strong> A slab is <code>--surface</code>, 6 px radius, 16 px padding, no border, no shadow. Separate slabs with gaps (4 px stacked, 8 px in a grid), never with borders. Only floats and menus cast shadows (<code>--shadow-sheet</code>, <code>--shadow-menu</code>, <code>--shadow-float-2</code>).</li>
+<li><strong>One mint per view.</strong> <code>--mint</code> fills exactly one main action. Blue (<code>--accent</code>) means on, selected, link or focus. Status colours appear only inside signals and status badges.</li>
+<li><strong>Mint and blue are fills.</strong> Text on mint is <code>--on-mint</code>; blue text is <code>--accent-text</code>.</li>
+<li><strong>Sentence case, whole pixels.</strong> No <code>text-transform: uppercase</code>, no letter-spaced labels, no half-pixel sizes or offsets.</li>
+<li><strong>Follow density.</strong> Use <code>--control</code>, <code>--control-sm</code>, <code>--row-list</code>, <code>--row-table</code> and the <code>--size-<em></code> / <code>--lh-</em></code> pairs instead of fixed heights and font sizes.</li>
+<li><strong>Stepped motion from tokens.</strong> Durations are <code>--dur-1</code> … <code>--dur-4</code>, <code>--dur-frame</code> and <code>--dur-px</code>, with <code>--ease</code> for anything not stepped. No <code>transition: all</code>, no hover scale, no looping decoration, and no reduced-motion block of your own: the global one covers token durations and every animation.</li>
+<li><strong>Icons through the registry.</strong> Use <code>birkly_icon()</code> / <code>Birkly.icon()</code> at 13 or 26 px, sized only with <code>var(--icon)</code> / <code>var(--icon-l)</code>. No emoji, and no inline SVG where a registry icon exists.</li>
+<li><strong>Keep focus visible.</strong> Never remove an outline without an equal replacement (<code>outline: var(--focus-outline); outline-offset: var(--focus-outline-offset)</code>).</li>
+<li><strong>No <code>!important</code> against core.</strong> Losing a specificity fight with a kit rule usually means you are restyling something you shouldn't.</li>
+<li><strong>Never reuse the bare <code>data-theme</code> attribute.</strong> Dark mode is scoped by <code>[data-theme=&quot;dark&quot;]</code> on <code>&lt;html&gt;</code> / <code>&lt;body&gt;</code>, and an attribute selector matches any element. Name yours <code>data-theme-option</code> or similar.</li>
 </ol>
-<p>A Tier 1 stylesheet that follows these rules looks like this:</p>
-<pre><code>/* plugins/my-plugin/admin/my-plugin.css */
+<p>A stylesheet that follows these rules:</p>
+<pre><code>/* plugins/webhooks/admin/webhooks.css */
 
-.my-plugin-canvas {
-  position: relative;
-  min-height: 24rem;
-  padding: var(--space-4);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  background: var(--surface-sunken);
+.delivery-log {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
 }
 
-.my-plugin-node {
-  padding: var(--space-3);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
+.delivery-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: var(--row-list);
+  padding: var(--s-2) var(--s-4);
+  border-radius: var(--r);
   background: var(--surface);
-  color: var(--text-primary);
-  font-size: var(--text-sm);
-  transition: border-color var(--motion-fast) var(--ease-out);
+  font-size: var(--size-body);
+  line-height: var(--lh-body);
+  transition: box-shadow var(--dur-1) var(--ease);
 }
 
-.my-plugin-node:hover { border-color: var(--border-control-hover); }
+.delivery-row.is-selected { box-shadow: 0 0 0 2px var(--accent); }
 
-.my-plugin-node.is-selected {
-  border-color: var(--accent-focus);
-  background: var(--accent-soft);
-}
-
-.my-plugin-node:focus-visible {
-  outline: var(--focus-outline);
-  outline-offset: var(--focus-outline-offset);
+.delivery-row-time {
+  color: var(--text-3);
+  font-size: var(--size-caption);
+  line-height: var(--lh-caption);
+  font-variant-numeric: tabular-nums;
 }</code></pre>
-<p>No hex, no <code>!important</code>, no core class touched, dark mode handled by the tokens.</p>
-<p>---</p>
-<h3>4. Legacy token aliases</h3>
-<p>Older plugin CSS references token names that no longer exist as primary definitions: <code>--color-primary</code>, <code>--bg-elevated</code>, <code>--border-color</code>, <code>--gray-200</code>, <code>--shadow-md</code>, <code>--radius-full</code>, <code>--error-600</code>, <code>--transition-fast</code> and similar.</p>
-<p><code>admin/css/core/compat-tokens.css</code> keeps every one of those working. It contains <strong>only</strong> aliases of the form <code>--old-name: var(--new-name)</code>, no rules and no classes, and it is imported immediately after the canonical token file. That means existing plugin CSS not only keeps working — it also picks up the new design, because each alias points at a semantic token rather than a frozen value.</p>
-<p>Two things to know:</p>
-<ol>
-<li><strong>Core admin CSS may not use any aliased name.</strong> That is enforced in CI, so the alias list can only shrink.</li>
-<li><strong>New plugin CSS should use the canonical names.</strong> The aliases exist for compatibility and will be removed in a future plugin-adoption phase. Writing new code against them means signing up for a migration you could have skipped.</li>
-</ol>
-<p>Common migrations:</p>
-<table><thead><tr><th>Legacy name</th><th>Canonical replacement</th></tr></thead>
-<tbody><tr><td><code>--color-primary</code>, <code>--primary-500</code></td><td><code>--accent</code> (fill) or <code>--accent-text</code> (text)</td></tr><tr><td><code>--color-primary-strong</code>, <code>--primary-700</code></td><td><code>--accent-text</code> — <strong><code>--primary-700</code> fails AA as text</strong></td></tr><tr><td><code>--color-primary-soft</code>, <code>--primary-50</code></td><td><code>--accent-soft</code></td></tr><tr><td><code>--bg-primary</code>, <code>--bg-elevated</code>, <code>--surface-1</code></td><td><code>--surface</code></td></tr><tr><td><code>--bg-secondary</code>, <code>--bg-tertiary</code>, <code>--surface-muted</code></td><td><code>--surface-sunken</code></td></tr><tr><td><code>--bg-hover</code></td><td><code>--surface-hover</code></td></tr><tr><td><code>--bg-overlay</code></td><td><code>--overlay</code></td></tr><tr><td><code>--border-light</code>, <code>--border-color</code>, <code>--gray-200</code></td><td><code>--border-subtle</code></td></tr><tr><td><code>--border-medium</code>, <code>--gray-300</code></td><td><code>--border-default</code></td></tr><tr><td><code>--gray-400</code></td><td><code>--border-control</code></td></tr><tr><td><code>--gray-500</code></td><td><code>--text-tertiary</code></td></tr><tr><td><code>--gray-800</code>, <code>--gray-900</code>, <code>--color-black</code></td><td><code>--text-primary</code></td></tr><tr><td><code>--error-*</code>, <code>--danger-100</code>, <code>--danger-700</code>, <code>--color-error</code></td><td><code>--danger-surface</code> / <code>--danger-border</code> / <code>--danger-fg</code> / <code>--danger-solid</code></td></tr><tr><td><code>--success-50/100/…</code>, <code>--warning-50/…</code></td><td><code>--{sem}-surface</code> / <code>-border</code> / <code>-fg</code> / <code>-solid</code></td></tr><tr><td><code>--info-500</code></td><td><code>--info-solid</code></td></tr><tr><td><code>--shadow-sm/md/lg/xl</code></td><td><code>--elevation-1</code> / <code>-2</code> / <code>-3</code></td></tr><tr><td><code>--radius-xs</code></td><td><code>--radius-sm</code></td></tr><tr><td><code>--radius-full</code>, <code>--radius-round</code></td><td><code>--radius-pill</code></td></tr><tr><td><code>--transition-fast</code>, <code>--transition-base</code></td><td><code>--motion-fast</code> / <code>--motion-base</code> plus <code>--ease-out</code></td></tr><tr><td><code>--font-size-base</code></td><td><code>--text-base</code></td></tr><tr><td><code>--font-medium</code></td><td><code>--weight-medium</code></td></tr><tr><td><code>--font-family-mono</code></td><td><code>--font-mono</code></td></tr><tr><td><code>--z-index-modal</code></td><td><code>--z-modal</code></td></tr></tbody></table>
-<p>That table is the complete alias set by family — if a legacy name you use is not in <code>compat-tokens.css</code>, it is <strong>not</strong> aliased and resolves to nothing. Spacing and radius are the common trap: there is no <code>--spacing-<em></code> or <code>--border-radius-</em></code> alias, so CSS using those names has no fallback. Move it to <code>--space-1</code> … <code>--space-16</code> and <code>--radius-sm</code> / <code>-md</code> / <code>-lg</code> / <code>-pill</code>.</p>
-<p>Full token reference: <a href="../01-admin/admin-design-language.html">Admin design language</a>.</p>
-<p>---</p>
-<h3>5. Worked example — a complete Tier 0 plugin page</h3>
-<p>This is a full plugin admin template. It ships <strong>no CSS</strong>, uses only contracted classes and <code>u-*</code> helpers, and covers page chrome, a stat row, a card, a table with row actions, a form, and a modal.</p>
-<pre><code>&lt;!-- plugins/my-plugin/admin/my-plugin.html --&gt;
+<p>It uses no literals and no borders, touches no core class, and handles dark mode, density and selection through tokens.</p>
+<h3>5. Worked example: a Birch plugin page</h3>
+<p>The template below ships one line of CSS, the table's columns. It covers the page bar, a metric bar, a signal, a table, a settings frame, an empty state and a dialog.</p>
+<pre><code>&lt;!-- plugins/webhooks/admin/webhooks.html --&gt;
 
 {plugin_page_header}
 
-&lt;div class=&quot;my-plugin-page plugin-page&quot;&gt;
+&lt;div class=&quot;webhooks-page plugin-page&quot; data-birch&gt;
 
-  &lt;!-- Toolbar: primary action left, search/filters right --&gt;
-  &lt;div class=&quot;main-actions-bar&quot;&gt;
-    &lt;div class=&quot;main-actions-left&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; id=&quot;mp-new&quot;&gt;New webhook&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;main-actions-right&quot;&gt;
-      &lt;input class=&quot;input input-search&quot; type=&quot;search&quot; id=&quot;mp-search&quot; placeholder=&quot;Search webhooks&quot;&gt;
-      &lt;div class=&quot;segmented&quot; role=&quot;group&quot; aria-label=&quot;View&quot;&gt;
-        &lt;button type=&quot;button&quot; class=&quot;segmented-item active&quot; aria-pressed=&quot;true&quot;&gt;All&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;segmented-item&quot; aria-pressed=&quot;false&quot;&gt;Failing&lt;/button&gt;
+  &lt;div class=&quot;page-bar&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;button is-main&quot; id=&quot;webhook-new&quot;&gt;&lt;?= birkly_icon('plus') ?&gt;New webhook&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;button&quot;&gt;&lt;?= birkly_icon('download') ?&gt;Export&lt;/button&gt;
+    &lt;div class=&quot;page-bar-tools&quot;&gt;
+      &lt;div class=&quot;search-field&quot;&gt;&lt;?= birkly_icon('search') ?&gt;&lt;input class=&quot;input&quot; type=&quot;search&quot; placeholder=&quot;Search webhooks&quot; aria-label=&quot;Search webhooks&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;segmented well&quot; role=&quot;group&quot; aria-label=&quot;Filter&quot;&gt;
+        &lt;button type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;All &lt;span class=&quot;count&quot;&gt;12&lt;/span&gt;&lt;/button&gt;
+        &lt;button type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Failing &lt;span class=&quot;count is-warning&quot;&gt;2&lt;/span&gt;&lt;/button&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 
-  &lt;div class=&quot;page-body u-stack-6&quot;&gt;
-
-    &lt;!-- Metrics --&gt;
-    &lt;div class=&quot;u-grid-auto&quot;&gt;
-      &lt;div class=&quot;stat&quot;&gt;
-        &lt;span class=&quot;stat-label&quot;&gt;Delivered today&lt;/span&gt;
-        &lt;span class=&quot;stat-value&quot;&gt;1,284&lt;/span&gt;
-        &lt;span class=&quot;stat-meta&quot;&gt;99.4% success&lt;/span&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;stat&quot;&gt;
-        &lt;span class=&quot;stat-label&quot;&gt;Failing endpoints&lt;/span&gt;
-        &lt;span class=&quot;stat-value&quot;&gt;2&lt;/span&gt;
-        &lt;span class=&quot;stat-meta&quot;&gt;Retrying&lt;/span&gt;
-      &lt;/div&gt;
+  &lt;div class=&quot;metrics&quot;&gt;
+    &lt;div class=&quot;metric&quot;&gt;
+      &lt;span class=&quot;metric-label&quot;&gt;&lt;?= birkly_icon('send') ?&gt;Delivered today&lt;/span&gt;
+      &lt;span class=&quot;metric-value&quot;&gt;1,284&lt;/span&gt;
+      &lt;span class=&quot;metric-meta&quot;&gt;99.4% success&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- A notice --&gt;
-    &lt;div class=&quot;callout callout-info&quot;&gt;
-      &lt;div class=&quot;callout-body&quot;&gt;
-        &lt;p class=&quot;callout-title&quot;&gt;Retries are enabled&lt;/p&gt;
-        &lt;p&gt;Failed deliveries are retried three times with exponential backoff.&lt;/p&gt;
-      &lt;/div&gt;
+    &lt;div class=&quot;metric&quot;&gt;
+      &lt;span class=&quot;metric-label&quot;&gt;&lt;?= birkly_icon('alert') ?&gt;Failing endpoints&lt;/span&gt;
+      &lt;span class=&quot;metric-value&quot;&gt;2&lt;/span&gt;
+      &lt;span class=&quot;metric-meta&quot;&gt;Retrying&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- Data panel: flush card wrapping a table --&gt;
-    &lt;section class=&quot;card card--flush&quot;&gt;
-      &lt;header class=&quot;card-header&quot;&gt;
-        &lt;div class=&quot;card-heading&quot;&gt;
-          &lt;h2 class=&quot;card-title&quot;&gt;Endpoints&lt;/h2&gt;
-          &lt;p class=&quot;card-description&quot;&gt;Every URL this plugin delivers events to.&lt;/p&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card-actions&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn btn-sm&quot;&gt;Export&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/header&gt;
-
-      &lt;div class=&quot;card-body&quot;&gt;
-        &lt;div class=&quot;table-container&quot;&gt;
-          &lt;table class=&quot;table&quot;&gt;
-            &lt;thead&gt;
-              &lt;tr&gt;
-                &lt;th&gt;Endpoint&lt;/th&gt;
-                &lt;th&gt;Event&lt;/th&gt;
-                &lt;th&gt;Status&lt;/th&gt;
-                &lt;th class=&quot;numeric&quot;&gt;Deliveries&lt;/th&gt;
-                &lt;th class=&quot;col-shrink&quot;&gt;&lt;/th&gt;
-              &lt;/tr&gt;
-            &lt;/thead&gt;
-            &lt;tbody&gt;
-              &lt;tr&gt;
-                &lt;td&gt;&lt;span class=&quot;cell-title&quot;&gt;https://example.com/hooks/orders&lt;/span&gt;&lt;/td&gt;
-                &lt;td&gt;&lt;span class=&quot;cell-muted&quot;&gt;order.created&lt;/span&gt;&lt;/td&gt;
-                &lt;td&gt;&lt;span class=&quot;badge badge-success&quot;&gt;Active&lt;/span&gt;&lt;/td&gt;
-                &lt;td class=&quot;numeric u-numeric&quot;&gt;842&lt;/td&gt;
-                &lt;td class=&quot;cell-actions&quot;&gt;
-                  &lt;button type=&quot;button&quot; class=&quot;btn-icon btn-icon-sm btn-icon--edit&quot; aria-label=&quot;Edit endpoint&quot;&gt;
-                    &lt;span data-icon=&quot;pencil-simple&quot; data-icon-size=&quot;14&quot;&gt;&lt;/span&gt;
-                  &lt;/button&gt;
-                  &lt;button type=&quot;button&quot; class=&quot;btn-icon btn-icon-sm btn-icon--danger&quot; aria-label=&quot;Delete endpoint&quot;&gt;
-                    &lt;span data-icon=&quot;trash&quot; data-icon-size=&quot;14&quot;&gt;&lt;/span&gt;
-                  &lt;/button&gt;
-                &lt;/td&gt;
-              &lt;/tr&gt;
-              &lt;tr&gt;
-                &lt;td&gt;&lt;span class=&quot;cell-title&quot;&gt;https://example.com/hooks/refunds&lt;/span&gt;&lt;/td&gt;
-                &lt;td&gt;&lt;span class=&quot;cell-muted&quot;&gt;order.refunded&lt;/span&gt;&lt;/td&gt;
-                &lt;td&gt;&lt;span class=&quot;badge badge-danger&quot;&gt;Failing&lt;/span&gt;&lt;/td&gt;
-                &lt;td class=&quot;numeric u-numeric&quot;&gt;17&lt;/td&gt;
-                &lt;td class=&quot;cell-actions&quot;&gt;
-                  &lt;button type=&quot;button&quot; class=&quot;btn-icon btn-icon-sm btn-icon--edit&quot; aria-label=&quot;Edit endpoint&quot;&gt;
-                    &lt;span data-icon=&quot;pencil-simple&quot; data-icon-size=&quot;14&quot;&gt;&lt;/span&gt;
-                  &lt;/button&gt;
-                  &lt;button type=&quot;button&quot; class=&quot;btn-icon btn-icon-sm btn-icon--danger&quot; aria-label=&quot;Delete endpoint&quot;&gt;
-                    &lt;span data-icon=&quot;trash&quot; data-icon-size=&quot;14&quot;&gt;&lt;/span&gt;
-                  &lt;/button&gt;
-                &lt;/td&gt;
-              &lt;/tr&gt;
-            &lt;/tbody&gt;
-          &lt;/table&gt;
-        &lt;/div&gt;
-
-        &lt;!-- Required states. Toggle the `hidden` attribute from JS. --&gt;
-        &lt;div class=&quot;empty-state empty-state--compact&quot; id=&quot;mp-empty&quot; hidden&gt;
-          &lt;div class=&quot;empty-state-icon&quot;&gt;&lt;span data-icon=&quot;paper-plane-tilt&quot; data-icon-size=&quot;20&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-          &lt;p class=&quot;empty-state-title&quot;&gt;No endpoints yet&lt;/p&gt;
-          &lt;p class=&quot;empty-state-text&quot;&gt;Add an endpoint to start receiving events.&lt;/p&gt;
-          &lt;div class=&quot;empty-state-actions&quot;&gt;
-            &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot;&gt;New webhook&lt;/button&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-
-        &lt;div class=&quot;loading-state&quot; id=&quot;mp-loading&quot; hidden&gt;Loading endpoints…&lt;/div&gt;
-
-        &lt;div class=&quot;error-state&quot; id=&quot;mp-error&quot; hidden&gt;
-          &lt;div class=&quot;empty-state-icon&quot;&gt;&lt;span data-icon=&quot;warning&quot; data-icon-size=&quot;20&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-          &lt;p class=&quot;empty-state-title&quot;&gt;Couldn't load endpoints&lt;/p&gt;
-          &lt;p class=&quot;empty-state-text&quot;&gt;The plugin API did not respond.&lt;/p&gt;
-          &lt;div class=&quot;empty-state-actions&quot;&gt;
-            &lt;button type=&quot;button&quot; class=&quot;btn&quot;&gt;Retry&lt;/button&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/section&gt;
-
-    &lt;!-- Settings form --&gt;
-    &lt;section class=&quot;card&quot;&gt;
-      &lt;header class=&quot;card-header&quot;&gt;
-        &lt;h2 class=&quot;card-title&quot;&gt;Delivery settings&lt;/h2&gt;
-      &lt;/header&gt;
-      &lt;form class=&quot;card-body u-stack-4 u-max-w-measure-lg&quot; id=&quot;mp-settings&quot;&gt;
-        &lt;div class=&quot;field&quot;&gt;
-          &lt;label class=&quot;field-label&quot; for=&quot;mp-timeout&quot;&gt;
-            Timeout &lt;span class=&quot;field-required&quot;&gt;*&lt;/span&gt;
-          &lt;/label&gt;
-          &lt;input class=&quot;input&quot; id=&quot;mp-timeout&quot; name=&quot;timeout&quot; type=&quot;number&quot; value=&quot;10&quot; required&gt;
-          &lt;p class=&quot;field-help&quot;&gt;Seconds to wait for a 2xx response before treating the delivery as failed.&lt;/p&gt;
-        &lt;/div&gt;
-
-        &lt;div class=&quot;field&quot;&gt;
-          &lt;label class=&quot;field-label&quot; for=&quot;mp-signature&quot;&gt;Signature algorithm&lt;/label&gt;
-          &lt;select class=&quot;select&quot; id=&quot;mp-signature&quot; name=&quot;signature&quot;&gt;
-            &lt;option value=&quot;sha256&quot;&gt;HMAC SHA-256&lt;/option&gt;
-            &lt;option value=&quot;sha512&quot;&gt;HMAC SHA-512&lt;/option&gt;
-          &lt;/select&gt;
-        &lt;/div&gt;
-
-        &lt;div class=&quot;field&quot;&gt;
-          &lt;label class=&quot;field-label&quot; for=&quot;mp-notes&quot;&gt;Internal notes&lt;/label&gt;
-          &lt;textarea class=&quot;textarea&quot; id=&quot;mp-notes&quot; name=&quot;notes&quot; rows=&quot;3&quot;&gt;&lt;/textarea&gt;
-          &lt;p class=&quot;field-error&quot; id=&quot;mp-notes-error&quot; hidden&gt;Notes are limited to 500 characters.&lt;/p&gt;
-        &lt;/div&gt;
-
-        &lt;div class=&quot;u-row u-justify-between&quot;&gt;
-          &lt;label class=&quot;checkbox-label&quot;&gt;
-            &lt;input type=&quot;checkbox&quot; name=&quot;retry&quot; checked&gt;
-            Retry failed deliveries
-          &lt;/label&gt;
-          &lt;label class=&quot;switch&quot;&gt;
-            &lt;input type=&quot;checkbox&quot; name=&quot;enabled&quot; checked&gt;
-            &lt;span class=&quot;switch__slider&quot;&gt;&lt;/span&gt;
-          &lt;/label&gt;
-        &lt;/div&gt;
-      &lt;/form&gt;
-      &lt;footer class=&quot;card-footer&quot;&gt;
-        &lt;button type=&quot;submit&quot; form=&quot;mp-settings&quot; class=&quot;btn btn-primary&quot;&gt;Save settings&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot;&gt;Reset&lt;/button&gt;
-      &lt;/footer&gt;
-    &lt;/section&gt;
-
   &lt;/div&gt;
+
+  &lt;div class=&quot;signal&quot;&gt;
+    &lt;?= birkly_icon('alert') ?&gt;
+    &lt;div class=&quot;signal-body&quot;&gt;
+      &lt;p class=&quot;signal-title&quot;&gt;2 endpoints are failing&lt;/p&gt;
+      &lt;p class=&quot;signal-text&quot;&gt;Deliveries retry three times with backoff.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;button type=&quot;button&quot; class=&quot;button is-small&quot;&gt;Review&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;table&quot; role=&quot;table&quot; aria-label=&quot;Endpoints&quot;&gt;
+    &lt;div class=&quot;table-head&quot; role=&quot;row&quot;&gt;&lt;span&gt;Endpoint&lt;/span&gt;&lt;span&gt;Event&lt;/span&gt;&lt;span&gt;Status&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;table-row&quot; role=&quot;row&quot;&gt;
+      &lt;span class=&quot;row-body&quot;&gt;&lt;span class=&quot;row-title&quot;&gt;https://example.com/hooks/orders&lt;/span&gt;&lt;span class=&quot;row-meta mono&quot;&gt;order.created&lt;/span&gt;&lt;/span&gt;
+      &lt;span&gt;842 deliveries&lt;/span&gt;
+      &lt;span&gt;&lt;span class=&quot;status is-success&quot;&gt;Active&lt;/span&gt;&lt;/span&gt;
+      &lt;span&gt;&lt;button type=&quot;button&quot; class=&quot;icon-button&quot; aria-label=&quot;Endpoint menu&quot;&gt;&lt;?= birkly_icon('dots') ?&gt;&lt;/button&gt;&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;empty&quot; id=&quot;webhooks-empty&quot; hidden&gt;
+    &lt;span class=&quot;empty-icon&quot;&gt;&lt;?= birkly_icon('send') ?&gt;&lt;/span&gt;
+    &lt;p class=&quot;empty-title&quot;&gt;No endpoints yet&lt;/p&gt;
+    &lt;p class=&quot;empty-text&quot;&gt;Add an endpoint to start receiving events.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;section class=&quot;frame&quot;&gt;
+    &lt;div class=&quot;frame-head&quot;&gt;
+      &lt;div class=&quot;frame-head-body&quot;&gt;
+        &lt;h2 class=&quot;frame-title&quot;&gt;Delivery settings&lt;/h2&gt;
+        &lt;p class=&quot;frame-text&quot;&gt;Applies to every endpoint.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;setting-rows&quot;&gt;
+      &lt;div class=&quot;setting-row&quot;&gt;
+        &lt;div class=&quot;setting-label&quot;&gt;&lt;label for=&quot;wh-timeout&quot;&gt;Timeout&lt;/label&gt;&lt;small class=&quot;field-help&quot;&gt;Seconds to wait for a 2xx response.&lt;/small&gt;&lt;/div&gt;
+        &lt;div class=&quot;setting-value&quot;&gt;&lt;input class=&quot;input&quot; id=&quot;wh-timeout&quot; type=&quot;number&quot; value=&quot;10&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;setting-row&quot;&gt;
+        &lt;div class=&quot;setting-label&quot;&gt;&lt;span class=&quot;u-label&quot;&gt;Retry failed deliveries&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;setting-value&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;switch&quot; role=&quot;switch&quot; aria-checked=&quot;true&quot; aria-label=&quot;Retry failed deliveries&quot;&gt;&lt;span&gt;&lt;?= birkly_icon('x') ?&gt;&lt;/span&gt;&lt;span&gt;&lt;?= birkly_icon('check') ?&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
 &lt;/div&gt;
 
-&lt;!-- Modal: add / edit endpoint --&gt;
-&lt;div class=&quot;modal&quot; id=&quot;mp-modal&quot;&gt;
-  &lt;div class=&quot;modal-content modal--md&quot;&gt;
-    &lt;header class=&quot;modal-header&quot;&gt;
-      &lt;h2 class=&quot;modal-title&quot; id=&quot;mp-modal-title&quot;&gt;New webhook&lt;/h2&gt;
-      &lt;button type=&quot;button&quot; class=&quot;modal-close&quot; aria-label=&quot;Close&quot;&gt;&amp;times;&lt;/button&gt;
-    &lt;/header&gt;
-    &lt;div class=&quot;modal-body&quot;&gt;
-      &lt;form id=&quot;mp-endpoint-form&quot; class=&quot;u-stack-4&quot;&gt;
-        &lt;div class=&quot;field&quot;&gt;
-          &lt;label class=&quot;field-label&quot; for=&quot;mp-url&quot;&gt;Endpoint URL &lt;span class=&quot;field-required&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
-          &lt;input class=&quot;input&quot; id=&quot;mp-url&quot; name=&quot;url&quot; type=&quot;url&quot; required&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;field&quot;&gt;
-          &lt;label class=&quot;field-label&quot; for=&quot;mp-event&quot;&gt;Event&lt;/label&gt;
-          &lt;select class=&quot;select&quot; id=&quot;mp-event&quot; name=&quot;event&quot;&gt;
-            &lt;option value=&quot;order.created&quot;&gt;order.created&lt;/option&gt;
-            &lt;option value=&quot;order.refunded&quot;&gt;order.refunded&lt;/option&gt;
-          &lt;/select&gt;
-        &lt;/div&gt;
-      &lt;/form&gt;
+&lt;div class=&quot;modal&quot; id=&quot;webhook-modal&quot;&gt;
+  &lt;div class=&quot;modal-backdrop&quot; data-modal-dismiss&gt;&lt;/div&gt;
+  &lt;div class=&quot;modal-content dialog&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;webhook-modal-title&quot;&gt;
+    &lt;div class=&quot;dialog-head&quot;&gt;
+      &lt;div&gt;&lt;h2 class=&quot;dialog-title&quot; id=&quot;webhook-modal-title&quot;&gt;New webhook&lt;/h2&gt;&lt;p class=&quot;dialog-text&quot;&gt;We sign every delivery with your secret.&lt;/p&gt;&lt;/div&gt;
+      &lt;button type=&quot;button&quot; class=&quot;icon-button&quot; data-modal-dismiss aria-label=&quot;Close&quot;&gt;&lt;?= birkly_icon('x') ?&gt;&lt;/button&gt;
     &lt;/div&gt;
-    &lt;footer class=&quot;modal-footer&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;btn btn-secondary&quot;&gt;Cancel&lt;/button&gt;
-      &lt;button type=&quot;submit&quot; form=&quot;mp-endpoint-form&quot; class=&quot;btn btn-primary&quot;&gt;Save&lt;/button&gt;
-    &lt;/footer&gt;
+    &lt;form class=&quot;dialog-body&quot; id=&quot;webhook-form&quot;&gt;
+      &lt;div class=&quot;slab&quot;&gt;
+        &lt;div class=&quot;field-group&quot;&gt;
+          &lt;label class=&quot;field-label&quot; for=&quot;wh-url&quot;&gt;Endpoint URL&lt;/label&gt;
+          &lt;input class=&quot;input&quot; id=&quot;wh-url&quot; name=&quot;url&quot; type=&quot;url&quot; required&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+    &lt;div class=&quot;dialog-foot&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;button is-quiet&quot; data-modal-dismiss&gt;Cancel&lt;/button&gt;
+      &lt;button type=&quot;submit&quot; form=&quot;webhook-form&quot; class=&quot;button is-main&quot;&gt;Save&lt;/button&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-<p>Notes on the example:</p>
+<p>Notes:</p>
 <ul>
-<li><code>{plugin_page_header}</code> emits the <code>.page-header</code> + <code>.breadcrumbs</code> block via <code>birkly_render_plugin_page_breadcrumbs()</code>. The last segment becomes the page title in the topbar. There is no <code>&lt;h1&gt;</code> anywhere in the template.</li>
-<li>Exactly one <code>.btn-primary</code> is visible per view.</li>
-<li><code>hidden</code> is the state switch, not <code>style=&quot;display:none&quot;</code> — core declares <code>[hidden] { display: none }</code> after every component, so it beats a component's own <code>display: flex</code>.</li>
-<li><code>data-icon</code> placeholders are hydrated by <code>Birkly.initIcons(document)</code>; in PHP use <code>birkly_icon('trash', ['size' =&gt; 14])</code>.</li>
-<li>Toasts and confirmations come from <code>BirklyFeedback.toast(...)</code> and <code>await BirklyFeedback.confirm(...)</code>. Don't use <code>alert()</code> or <code>confirm()</code>.</li>
+<li><strong>One mint per view.</strong> New webhook is the page's mint action. The dialog is its own view, and Save is the only mint in it.</li>
+<li><strong>Phones.</strong> Below 768 px the page bar keeps New webhook and moves Export, the search and the filter into the More menu, with no code of your own. The kit's <code>.metrics</code> and <code>.table</code> also reflow.</li>
+<li><strong>Opening the dialog.</strong> Add <code>.active</code> to the <code>.modal</code> from your script (<code>document.getElementById('webhook-modal').classList.add('active')</code>). Anything with <code>data-modal-dismiss</code> inside it closes it again.</li>
+<li><strong>Table columns.</strong> A <code>div.table</code> lays out its head and rows on <code>--table-columns</code>. Set it once in your stylesheet: <code>.webhooks-page .table { --table-columns: minmax(0, 1fr) 140px 100px 32px; }</code>.</li>
+<li><strong>States.</strong> Toggle states with the <code>hidden</code> attribute, not <code>style=&quot;display:none&quot;</code>.</li>
+<li><strong>Plain HTML templates.</strong> When you can't call PHP, use <code>&lt;span data-icon=&quot;send&quot;&gt;&lt;/span&gt;</code> and <code>Birkly.initIcons(root)</code>.</li>
+<li><strong>Feedback.</strong> Toasts and confirmations come from <code>BirklyFeedback.toast(…)</code> and <code>await BirklyFeedback.confirm(…)</code>, never <code>alert()</code> or <code>confirm()</code>.</li>
+<li><strong>Money.</strong> Format it with <code>Birkly.money(minor, currency)</code> or <code>birkly_money()</code>.</li>
 </ul>
-<p>---</p>
 <h3>6. Fieldtypes</h3>
-<p>A fieldtype ships outside <code>admin/</code>, so it gets its own frozen CSS contract in <code>admin/css/plugins/fieldtype-api.css</code>. Every class name there is stable; only the values behind them change when the design language changes, which means an existing fieldtype picks up a redesign without a single markup edit.</p>
-<p><strong>Prefer the shared components first</strong> — <code>.card</code>, <code>.btn</code>, <code>.input</code>, <code>.field</code>, <code>.callout</code>, <code>.empty-state</code>, <code>.badge</code> and the <code>u-<em></code> helpers. Use the <code>.fieldtype-</em></code> classes for the three things components don't cover: the toolbar rail, the preview grid, and the async states of a field editor.</p>
-<table><thead><tr><th>Class</th><th>Purpose</th></tr></thead>
-<tbody><tr><td><code>.fieldtype-wrapper</code></td><td>Padded panel container: <code>--surface</code>, hairline border, <code>--radius-md</code></td></tr><tr><td><code>.fieldtype-with-toolbar</code></td><td>Container for an editor that has a toolbar rail — clips its children so the toolbar sits flush</td></tr><tr><td><code>.fieldtype-toolbar</code></td><td>Sunken toolbar band with a bottom hairline; stacks vertically below 768px</td></tr><tr><td><code>.fieldtype-toolbar-group</code></td><td>Group of toolbar controls with a trailing divider</td></tr><tr><td><code>.fieldtype-toolbar-spacer</code></td><td>Pushes the remaining toolbar controls to the trailing edge</td></tr><tr><td><code>.fieldtype-content</code></td><td>The editing surface. Shows a focus outline on <code>:focus-within</code></td></tr><tr><td><code>.fieldtype-preview-grid</code></td><td><code>auto-fill, minmax(7.5rem, 1fr)</code> thumbnail grid</td></tr><tr><td><code>.fieldtype-preview-list</code></td><td>Vertical preview stack</td></tr><tr><td><code>.fieldtype-preview-item</code></td><td>One preview tile; border brightens on hover</td></tr><tr><td><code>.fieldtype-preview-item-actions</code></td><td>Absolutely positioned action cluster, revealed on hover <strong>or</strong> <code>:focus-within</code></td></tr><tr><td><code>.fieldtype-empty-state</code></td><td>Centred empty block matching the admin's <code>.empty-state</code></td></tr><tr><td><code>.fieldtype-empty-state-icon</code></td><td>44px icon tile</td></tr><tr><td><code>.fieldtype-empty-state-text</code></td><td>Secondary copy, capped at <code>--measure-sm</code></td></tr><tr><td><code>.fieldtype-loading</code></td><td>Centred spinner block</td></tr><tr><td><code>.fieldtype-error</code></td><td>Danger-toned inline error panel</td></tr><tr><td><code>.fieldtype-help</code></td><td>Small tertiary help text below the field</td></tr></tbody></table>
-<p>Example:</p>
-<pre><code>&lt;div class=&quot;fieldtype-with-toolbar&quot; data-fieldtype=&quot;gallery&quot;&gt;
-  &lt;div class=&quot;fieldtype-toolbar&quot;&gt;
-    &lt;div class=&quot;fieldtype-toolbar-group&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;btn btn-sm&quot;&gt;Add images&lt;/button&gt;
-      &lt;button type=&quot;button&quot; class=&quot;btn btn-sm&quot;&gt;Reorder&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;fieldtype-toolbar-spacer&quot;&gt;&lt;/div&gt;
-    &lt;span class=&quot;badge badge-neutral u-numeric&quot;&gt;4&lt;/span&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;fieldtype-content&quot;&gt;
-    &lt;div class=&quot;fieldtype-preview-grid&quot;&gt;
-      &lt;figure class=&quot;fieldtype-preview-item&quot;&gt;
-        &lt;img src=&quot;…&quot; alt=&quot;&quot;&gt;
-        &lt;div class=&quot;fieldtype-preview-item-actions&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn-icon btn-icon-xs btn-icon--danger&quot; aria-label=&quot;Remove&quot;&gt;…&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/figure&gt;
-    &lt;/div&gt;
-
-    &lt;div class=&quot;fieldtype-empty-state&quot; hidden&gt;
-      &lt;div class=&quot;fieldtype-empty-state-icon&quot;&gt;…&lt;/div&gt;
-      &lt;p class=&quot;fieldtype-empty-state-text&quot;&gt;No images selected yet.&lt;/p&gt;
-    &lt;/div&gt;
-
-    &lt;div class=&quot;fieldtype-loading&quot; hidden&gt;&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;p class=&quot;fieldtype-help&quot;&gt;Drag to reorder. The first image is used as the thumbnail.&lt;/p&gt;
-&lt;div class=&quot;fieldtype-error&quot; hidden&gt;Upload failed — the file exceeds the size limit.&lt;/div&gt;</code></pre>
-<p>Fieldtypes that ship their own CSS follow the same rules as Tier 1 plugin CSS: tokens only, no <code>!important</code>, no restyling of core or <code>.fieldtype-*</code> classes belonging to someone else.</p>
-<p>---</p>
-<h3>7. Review checklist before you publish</h3>
+<p>Fieldtypes own their presentation, and core provides the shared vocabulary they build on.</p>
+<table><thead><tr><th>Method (<code>fieldtypes/BaseField.php</code>)</th><th>Returns</th></tr></thead>
+<tbody><tr><td><code>getIcon()</code></td><td>A registry icon name for the collection builder and the Add a field dialog (empty string = the generic fieldtype icon)</td></tr><tr><td><code>getTypeLabel()</code></td><td>Sentence-case type name (&quot;Short text&quot;)</td></tr><tr><td><code>getDescription()</code></td><td>One sentence-case line for the Add a field dialog</td></tr><tr><td><code>getCSS()</code></td><td>The editor widget's CSS</td></tr><tr><td><code>getListCSS()</code></td><td>CSS for <code>renderListCell()</code> output on entries lists</td></tr></tbody></table>
 <ul>
-<li>[ ] No hex, <code>rgb()</code> or <code>hsl()</code> literal in plugin CSS — tokens only</li>
-<li>[ ] No selector that matches a bare core class</li>
-<li>[ ] No <code>!important</code></li>
-<li>[ ] Every selector namespaced <code>.{plugin}-*</code> (or scoped under your page root)</li>
-<li>[ ] Screens verified in <strong>both</strong> light and dark themes</li>
-<li>[ ] Exactly one <code>.btn-primary</code> visible per view; no page <code>&lt;h1&gt;</code></li>
-<li>[ ] Empty, loading and error states present for every async region</li>
-<li>[ ] Focus visible on every interactive element; Escape closes overlays; focus trapped and restored in modals</li>
-<li>[ ] Text contrast meets AA (4.5:1 body, 3:1 for ≥18px text and UI boundaries)</li>
-<li>[ ] <code>--accent</code> and <code>--primary-700</code> never used as a text colour; <code>--ink-on-accent</code> on every mint fill</li>
-<li>[ ] Checked at 640 / 768 / 1024 / 1280 / 1440+ with no unintended horizontal scroll</li>
-<li>[ ] No <code>.card</code> nested inside another <code>.card</code>'s body — <code>.card-section</code>, spacing or a <code>.divider</code> instead</li>
-<li>[ ] Any custom text-like input uses <code>--field-border</code> / <code>-hover</code> / <code>-focus</code>, and its focus state is never accent/green</li>
-<li>[ ] No literal <code>data-theme=&quot;light&quot;</code> / <code>&quot;dark&quot;</code> / <code>&quot;system&quot;</code> attribute anywhere in plugin markup or JS other than the real theme root</li>
+<li>Build editor widgets from kit classes: <code>.input</code>, <code>.select-box</code>, <code>.button</code>, <code>label.switch</code>, <code>.is-mono</code>, <code>.well</code>, <code>.dashed</code> for drop zones.</li>
+<li>The frozen <code>.fieldtype-*</code> API in <code>admin/css/plugins/fieldtype-api.css</code> covers the toolbar rail, the preview grid and async states: <code>.fieldtype-wrapper</code>, <code>.fieldtype-with-toolbar</code>, <code>.fieldtype-toolbar</code>, <code>-toolbar-group</code>, <code>-toolbar-spacer</code>, <code>.fieldtype-content</code>, <code>.fieldtype-preview-grid</code>, <code>-preview-list</code>, <code>-preview-item</code>, <code>-preview-item-actions</code>, <code>.fieldtype-empty-state</code> (with <code>-icon</code> and <code>-text</code>), <code>.fieldtype-loading</code>, <code>.fieldtype-error</code> and <code>.fieldtype-help</code>.</li>
+<li>List cells use <code>.ft-list-row</code>, <code>.ft-list-text</code>, <code>.ft-list-muted</code>, <code>.ft-list-mono</code>, <code>.ft-list-badge</code>, <code>.ft-list-empty</code> and <code>.ft-list-image-square</code> (in <code>components/tables.css</code>).</li>
+<li>The entry editor places each field in its own slab (<code>.entry-field</code>), so a widget sits inside a slab. Its inputs are therefore <code>--surface-2</code> at rest; don't wrap the widget in a second box.</li>
+<li><strong>A fieldtype never adds a mint or red button to the editor.</strong> The page's mint action is Save.</li>
+</ul>
+<p>Fieldtype CSS follows the same rules as plugin CSS: tokens only, no <code>!important</code>, and no restyling of core classes or of another fieldtype's classes.</p>
+<h3>7. Icons</h3>
+<p>Use registry names everywhere: in templates (<code>birkly_icon('send')</code>), in JS (<code>Birkly.icon('send')</code>), in <code>getIcon()</code>, and for your sidebar item (<code>navigation.icon</code> in <code>plugin.json</code> and <code>sidebar.icon</code> in <code>register_plugin_admin_meta()</code>). A registry name draws a 13 px Birch icon with its hover gesture. A plugin's own inline <code>&lt;svg&gt;</code> is still accepted as a fallback, sized to the 13 px box, but it has no gesture. See <a href="plugin-navigation-icon.html">Plugin navigation icon</a>.</p>
+<p>The full set, sizes, the grid alphabet and the gesture list are in <a href="../01-admin/admin-design-language.html#6-icons">Admin design language § Icons</a>. To turn a gesture off, for example on a drag handle, pass <code>['gesture' =&gt; false]</code> or <code>data-icon-gesture=&quot;false&quot;</code>. To play one from script, for example when your count goes up, call <code>Birkly.iconPlay(el)</code>.</p>
+<h4>Icon names</h4>
+<p>Pre-Birch icon names resolve to Birch icons through aliases in <code>core/icon_data.php</code>. The aliases are removed with the token aliases, so switch to the Birch name:</p>
+<table><thead><tr><th>P56 name</th><th>Birch icon</th><th>P56 name</th><th>Birch icon</th></tr></thead>
+<tbody><tr><td><code>archive</code></td><td><code>box</code></td><td><code>gauge</code></td><td><code>dashboard</code></td></tr><tr><td><code>arrow-counter-clockwise</code></td><td><code>history</code></td><td><code>gear</code></td><td><code>sliders</code></td></tr><tr><td><code>arrows-clockwise</code></td><td><code>refresh</code></td><td><code>image</code></td><td><code>media</code></td></tr><tr><td><code>arrows-in</code></td><td><code>collapse</code></td><td><code>import</code></td><td><code>download</code></td></tr><tr><td><code>arrows-out</code></td><td><code>expand</code></td><td><code>layout</code></td><td><code>template</code></td></tr><tr><td><code>article</code></td><td><code>news</code></td><td><code>list-checks</code></td><td><code>list</code></td></tr><tr><td><code>calendar-clock</code></td><td><code>calendar</code></td><td><code>magnifying-glass</code></td><td><code>search</code></td></tr><tr><td><code>caret-down</code></td><td><code>chev-down</code></td><td><code>music-notes</code></td><td><code>music</code></td></tr><tr><td><code>caret-left</code></td><td><code>chev-left</code></td><td><code>paper-plane-tilt</code></td><td><code>send</code></td></tr><tr><td><code>caret-right</code></td><td><code>chev-right</code></td><td><code>pencil-simple</code></td><td><code>pencil</code></td></tr><tr><td><code>caret-up</code></td><td><code>chev-up</code></td><td><code>question</code></td><td><code>help</code></td></tr><tr><td><code>chat-circle</code></td><td><code>chat</code></td><td><code>shopping-bag</code></td><td><code>bag</code></td></tr><tr><td><code>check-square</code></td><td><code>check-circle</code></td><td><code>sign-out</code></td><td><code>log-out</code></td></tr><tr><td><code>circle-dot</code></td><td><code>select</code></td><td><code>sliders-horizontal</code></td><td><code>sliders</code></td></tr><tr><td><code>dots-six-vertical</code></td><td><code>grip</code></td><td><code>speedometer</code></td><td><code>dashboard</code></td></tr><tr><td><code>dots-three-vertical</code></td><td><code>dots</code></td><td><code>squares-four</code></td><td><code>grid</code></td></tr><tr><td><code>envelope</code></td><td><code>mail</code></td><td><code>stack</code></td><td><code>layers</code></td></tr><tr><td><code>export</code></td><td><code>upload</code></td><td><code>text-aa</code></td><td><code>type</code></td></tr><tr><td><code>file-text</code></td><td><code>content</code></td><td><code>toggle-left</code></td><td><code>toggle</code></td></tr><tr><td><code>folder-root</code></td><td><code>folder</code></td><td><code>warning</code></td><td><code>alert</code></td></tr></tbody></table>
+<p>Every other pre-Birch name was already a Birch name: <code>bell</code>, <code>plus</code>, <code>trash</code>, <code>x</code>, <code>check</code>, <code>info</code>, <code>users</code>, <code>user</code>, <code>folder</code>, <code>copy</code>, <code>link</code>, <code>sun</code>, <code>moon</code>, <code>monitor</code>, <code>globe</code>, <code>shield</code>, <code>play</code>, <code>stop</code>, <code>sparkle</code>, <code>hash</code>, <code>calendar</code>, <code>clock</code>, <code>palette</code>, <code>tag</code>, <code>map-pin</code>, <code>phone</code>, <code>code</code>, <code>list</code>.</p>
+<h3>8. Review checklist before you publish</h3>
+<ul>
+<li>[ ] <code>data-birch</code> on the <code>.plugin-page</code> root; no page <code>&lt;h1&gt;</code>; the breadcrumb comes from <code>{plugin_page_header}</code></li>
+<li>[ ] Every block answers the four questions: frames hold slabs, slabs hold wells, floats hold slabs, and nothing is boxed without a role</li>
+<li>[ ] No border or shadow on a slab; gaps of 4 / 8 / 24 px instead</li>
+<li>[ ] Exactly one visible <code>.button.is-main</code> per view (page, dialog, sheet); buttons inside signals are secondary</li>
+<li>[ ] No colour literal in plugin CSS; blue and mint never as text colour; text on mint is <code>--on-mint</code></li>
+<li>[ ] Checked in light and dark, and in Compact, Comfortable and Large</li>
+<li>[ ] Checked at 390, 768, 1024, 1280 and 1440 px; the page bar collapses into More on a phone</li>
+<li>[ ] Empty, loading and error states for every async region</li>
+<li>[ ] Focus visible on every control; icon buttons have <code>aria-label</code>; Escape closes dialogs</li>
+<li>[ ] Icons via the registry at 13 / 26 px; no emoji; sidebar icon is a registry name</li>
+<li>[ ] Durations are tokens; no <code>transition: all</code>, no scale, no own reduced-motion block</li>
+<li>[ ] Sentence case everywhere</li>
+<li>[ ] No P56 class, token or icon name from the rename tables in new code</li>
 </ul></div></details>
 <div class="doc-related"><ul>
-<li><a href="../01-admin/admin-design-language.html">Admin design language</a> — full token, helper and component reference</li>
-<li><a href="../01-admin/design-system.html">Admin design system</a> — short overview, icons and theming entry points</li>
-<li><a href="../01-admin/admin-chrome-action-zones.html">Admin chrome and action zones</a> — where each kind of action belongs</li>
-<li><a href="plugin-development.html">Plugin development</a> — structure, permissions and packaging</li>
+<li><a href="../01-admin/admin-design-language.html">Admin design language</a>: roles, tokens, density, components, shell, icons, motion, CI rules</li>
+<li><a href="../01-admin/design-system.html">Admin design system</a>: short orientation</li>
+<li><a href="../01-admin/admin-chrome-action-zones.html">Admin chrome and action zones</a>: where each kind of action belongs</li>
+<li><a href="plugin-development.html">Plugin development</a>: structure, permissions and packaging</li>
 <li><a href="plugin-navigation-icon.html">Plugin navigation icon</a></li>
 <li><a href="../02-content/field-types.html">Field types</a></li>
 <li><a href="security-and-review.html">Security and review</a></li>

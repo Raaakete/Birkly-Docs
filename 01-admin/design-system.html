@@ -217,57 +217,53 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><div class="doc-summary"><p>The Birkly admin is styled by one internal CSS framework: design tokens in <code>admin/css/core/variables.css</code>, a <code>u-*</code> helper layer in <code>admin/css/core/helpers.css</code>, and a component catalog in <code>admin/css/components/</code>. Admin pages are composed from those three and ship no page-specific CSS. <strong><a href="admin-design-language.html">Admin design language</a> is the full build kit</strong> — every token, every helper, every component with copy-paste markup, and the page skeleton. This page is the short orientation plus the entry points for icons and theming.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>The look, in four sentences</h3>
-<p>Content sits in white panels on a warm off-white background. Panels have a thin grey outline instead of a drop shadow. Exactly one mint-green button per screen marks the main action; everything else is neutral. Text is 14px, rows are compact, and animation is short and small.</p>
+        <div class="doc-content"><div class="doc-summary"><p>The Birkly admin is drawn in <strong>Birch</strong>. Tokens live in <code>admin/css/core/variables.css</code>, the eight surface roles in <code>admin/css/birch/roles.json</code>, the component kit in <code>admin/css/birch/kit.css</code>, and icon gestures and micro-interactions in <code>admin/css/birch/motion.css</code>. Pages compose those pieces and ship no CSS of their own. <strong><a href="admin-design-language.html">Admin design language</a> is the full reference</strong>, covering roles, tokens, density, components, shell, icons, motion and the CI rules. This page is the short orientation.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>The look, in five sentences</h3>
+<p>The page is warm grey. Each thing on it sits in a white block with no outline, and groups of blocks sit inside a thin titled frame. One mint button per view marks the main action; blue means on, selected or focus; the text colour marks where you are. Status colours appear only in small badges and message blocks. Icons are small pixel drawings that play a short stepped gesture when you hover them.</p>
 <h3>Where the page title comes from</h3>
-<p>Admin pages don't have their own heading. Each page emits a breadcrumb trail, and the last segment of that trail <em>is</em> the page title — the admin lifts it into the top bar. So you see &quot;Settings › Roles&quot; once, at the top of the window.</p>
-<h3>Light and dark</h3>
-<p>The theme switcher lives in the top bar (sun / moon / monitor) and the choice is remembered in your browser. Everything in the admin picks up the right colours automatically, because components refer to colours by role — &quot;surface&quot;, &quot;text&quot;, &quot;border&quot; — rather than by value.</p>
+<p>Admin pages have no heading of their own. Each page emits a breadcrumb trail, and the last segment <em>is</em> the page title. The admin moves it into the top bar, so you see &quot;Settings › Roles&quot; once, at the top of the window.</p>
+<h3>Light, dark and density</h3>
+<p>The theme switcher (light, dark or auto) is in the top bar, or in the drawer on a phone, and your choice is remembered. <strong>Account → Display</strong> sets the density to Compact, Comfortable (the default) or Large. Text, rows and controls resize with it; icons stay 13 px.</p>
 <h3>Building something</h3>
-<p>If you're writing an admin page or a plugin screen, read the build kit rather than this page:</p>
 <ul>
-<li><strong><a href="admin-design-language.html">Admin design language</a></strong> — tokens, helpers, components, page recipe</li>
-<li><strong><a href="../06-plugin-economy/plugin-admin-styling.html">Plugin admin styling</a></strong> — the three adoption tiers, the guaranteed class contract, and a complete worked plugin page</li>
+<li><strong><a href="admin-design-language.html">Admin design language</a></strong>: the four questions, the eight roles, every token and component with markup, icons and motion</li>
+<li><strong><a href="../06-plugin-economy/plugin-admin-styling.html">Plugin admin styling</a></strong>: Birch for plugin pages, fieldtypes, and the P56-to-Birch rename tables</li>
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Source of truth</h3>
 <table><thead><tr><th>Layer</th><th>File</th></tr></thead>
-<tbody><tr><td>Tokens</td><td><code>admin/css/core/variables.css</code> — the only file allowed to contain a hex literal</td></tr><tr><td>Legacy token aliases</td><td><code>admin/css/core/compat-tokens.css</code> — for plugin CSS only; core admin CSS may not use these names</td></tr><tr><td>Base</td><td><code>admin/css/core/reset.css</code>, <code>core/typography.css</code></td></tr><tr><td>Components</td><td><code>admin/css/components/*.css</code></td></tr><tr><td>Layout and page chrome</td><td><code>admin/css/layout/*.css</code></td></tr><tr><td>Fieldtype CSS API</td><td><code>admin/css/plugins/fieldtype-api.css</code></td></tr><tr><td>Helpers</td><td><code>admin/css/core/helpers.css</code> — imported <strong>last</strong>, so helpers win on source order</td></tr><tr><td>Import hub</td><td><code>admin/css/style.css</code></td></tr></tbody></table>
-<p>Full reference — surfaces, text, borders, accent, semantic families, spacing, type scale, radius, elevation, z-index, motion, focus, control sizes, measure, breakpoints, the complete <code>u-*</code> list and the component catalog — is in <a href="admin-design-language.html">Admin design language</a>. Don't duplicate values here; that page tracks the CSS.</p>
+<tbody><tr><td>Tokens (the only file with colour literals)</td><td><code>admin/css/core/variables.css</code></td></tr><tr><td>Density</td><td><code>admin/css/core/density.css</code></td></tr><tr><td>Reset, focus, the one reduced-motion block</td><td><code>admin/css/core/reset.css</code></td></tr><tr><td>Roles → generated CSS</td><td><code>admin/css/birch/roles.json</code> → <code>roles.generated.css</code></td></tr><tr><td>Component kit</td><td><code>admin/css/birch/kit.css</code></td></tr><tr><td>Icon gestures, micro-interactions</td><td><code>admin/css/birch/motion.css</code></td></tr><tr><td>Icons</td><td><code>core/icon_data.php</code> → <code>core/icons.php</code>, <code>admin/js/icon.js</code>, <code>admin/assets/icons/</code></td></tr><tr><td>P56 names (temporary, for plugin CSS)</td><td><code>admin/css/core/migration-aliases.css</code>, <code>admin/css/core/compat-tokens.css</code></td></tr><tr><td>Layout helpers</td><td><code>admin/css/core/helpers.css</code></td></tr><tr><td>Import hub</td><td><code>admin/css/style.css</code> (kit, then motion, load last)</td></tr></tbody></table>
 <h3>Three things that catch people out</h3>
-<p><strong>1. Mint is a fill, not a text colour.</strong> <code>--accent</code> (<code>#7CE3BF</code>) measures 1.54:1 on white. Use <code>--accent-text</code> for accent text and links, <code>--ink-on-accent</code> for text on a mint fill. <code>--primary-700</code> (2.95:1) must never be used as a text colour — it survives only as a legacy alias.</p>
-<p><strong>2. Pages don't render an <code>&lt;h1&gt;</code>.</strong> The breadcrumb's <code>.current</code> segment is the page title and is hoisted into the topbar by <code>moveBreadcrumbsToTopbar()</code>. Section titles are <code>&lt;h2&gt;</code> in <code>.card-header</code> or <code>.section-header</code>.</p>
-<p><strong>3. Dark mode is a token remap.</strong> If a component needs a <code>[data-theme=&quot;dark&quot;]</code> rule, a colour is hardcoded somewhere — fix that instead. CI rejects <code>data-theme</code> selectors in admin CSS outside the token file and one documented exception (the topbar shadow cast).</p>
+<ol>
+<li><strong>Mint and blue are fills, not text.</strong> Mint (<code>--mint</code>) is the one main action and takes <code>--on-mint</code> text. Blue (<code>--accent</code>) means on, selected and focus, and blue text is <code>--accent-text</code>. In P56 <code>--accent</code> was mint; plugin CSS that painted mint with it now paints blue.</li>
+<li><strong>Slabs have no border.</strong> Blocks are separated by gaps: 4 px when stacked, 8 px in a grid, 24 px between frames. Selection is a 2 px accent ring, and only floats and menus cast shadows.</li>
+<li><strong>Dark mode is a token remap.</strong> If a component seems to need a <code>[data-theme=&quot;dark&quot;]</code> rule, a colour is hard-coded somewhere. CI rejects component dark rules.</li>
+</ol>
 <h3>Icons</h3>
-<p>Stroke-based, 24×24 viewBox, <code>stroke=&quot;currentColor&quot;</code>, from a shared registry with PHP and JS parity.</p>
-<p><strong>PHP</strong> — <code>core/icons.php</code>:</p>
-<pre><code>&lt;?= birkly_icon('pencil-simple', ['size' =&gt; 16, 'class' =&gt; 'nav-icon']) ?&gt;</code></pre>
-<p>Options: <code>size</code>, <code>class</code>, <code>title</code>, <code>aria_hidden</code>. Output carries the class <code>.birkly-icon</code>.</p>
-<p><strong>JavaScript</strong> — <code>admin/js/icon.js</code>:</p>
-<pre><code>Birkly.icon('plus', { size: 16 });
-Birkly.iconImg('gear', { size: 16, alt: '' }); // loads admin/assets/icons/gear.svg
-Birkly.initIcons(document);                    // hydrates [data-icon=&quot;name&quot;]</code></pre>
-<p>Registry keys are identical in PHP and JS. SVG assets live in <code>admin/assets/icons/{name}.svg</code>. Size modifiers: <code>.birkly-icon--sm</code> 14px · <code>--md</code> 16px · <code>--lg</code> 20px · <code>--xl</code> 24px. Icons inside <code>.btn</code>, <code>.badge</code>, <code>.tab</code> and <code>.dropdown-item-icon</code> are sized by those components already.</p>
-<p>Plugin sidebar icons: see <a href="../06-plugin-economy/plugin-navigation-icon.html">Plugin navigation icon</a>.</p>
+<p>There are 102 pixel icons on a 13 × 13 grid, at 13 px (<code>--icon</code>) or 26 px (<code>--icon-l</code>) only, plus smooth-stroke wayfinding chevrons and arrows. Each icon names a hover gesture.</p>
+<pre><code>&lt;?= birkly_icon('trash') ?&gt;
+&lt;?= birkly_icon('inbox', ['size' =&gt; 26]) ?&gt;
+&lt;?= birkly_icon('grip', ['gesture' =&gt; false]) ?&gt;</code></pre>
+<pre><code>Birkly.icon('trash');
+Birkly.initIcons(document);  // hydrates [data-icon=&quot;name&quot;]
+Birkly.iconPlay(el);         // plays the gestures inside el once</code></pre>
+<p>The list, the grid alphabet and the gestures are in <a href="admin-design-language.html#6-icons">Admin design language § Icons</a>. Plugin sidebar icons are covered in <a href="../06-plugin-economy/plugin-navigation-icon.html">Plugin navigation icon</a>.</p>
 <h3>Theming</h3>
-<p><code>admin/js/theme.js</code> (<code>Birkly.Theme</code>) sets <code>data-theme</code> on <code>&lt;html&gt;</code> and <code>&lt;body&gt;</code>. Values: <code>light</code>, <code>dark</code>, <code>system</code>.</p>
-<p><code>core/variables.css</code> defines the dark palette once as <code>--dk-*</code> properties, then remaps the semantic tokens under <code>[data-theme=&quot;dark&quot;]</code> and under <code>[data-theme=&quot;system&quot;]</code> inside <code>@media (prefers-color-scheme: dark)</code>, and sets <code>color-scheme: dark</code> so native controls follow.</p>
-<p>User-facing behaviour: <a href="admin-appearance.html">Admin appearance</a>.</p>
+<p><code>admin/js/theme.js</code> (<code>Birkly.Theme</code>) sets <code>data-theme</code> on <code>&lt;html&gt;</code> and <code>&lt;body&gt;</code> to <code>light</code>, <code>dark</code> or <code>system</code>. <code>core/variables.css</code> remaps the tokens under <code>[data-theme=&quot;dark&quot;]</code>, and under <code>[data-theme=&quot;system&quot;]</code> inside <code>@media (prefers-color-scheme: dark)</code>, and sets <code>color-scheme: dark</code> so native controls follow. User-facing behaviour: <a href="admin-appearance.html">Admin appearance</a>.</p>
 <h3>Contributing to admin CSS</h3>
 <ul>
-<li>No raw hex outside <code>core/variables.css</code>.</li>
-<li>No retired token names (<code>--spacing-<em></code>, <code>--border-radius-</em></code>, <code>--gray-<em></code>, <code>--shadow-sm/md/lg/xl</code>, <code>--font-size-</em></code>, <code>--primary-N</code>, <code>--bg-<em></code>, <code>--border-light/medium/color</code>, <code>--transition-</em></code>) — most survive as aliases in <code>core/compat-tokens.css</code> for plugin compatibility only; <code>--spacing-<em></code> and <code>--border-radius-</em></code> are not aliased at all.</li>
-<li>No raw <code>z-index</code> literal; use <code>--z-*</code>.</li>
-<li>Media queries use one of five breakpoint values (640 / 768 / 1024 / 1280 / 1440), <code>min-width</code> preferred.</li>
-<li>No <code>transition: all</code>, no hover scale, no shadow on a static panel.</li>
-<li>No <code>!important</code>; the only allowlisted use is the global <code>prefers-reduced-motion</code> block.</li>
-<li>New pages ship no page CSS. If you think you need some, it's a framework gap worth filing.</li>
+<li>Colours, durations, z-index and sizes come from tokens. No literals.</li>
+<li>Every block takes a role; a named component gets its surface from <code>roles.json</code>, not from its own rule.</li>
+<li>Everything is sentence case and whole pixels.</li>
+<li>There is one mint button per view.</li>
+<li>Icons come from <code>birkly_icon()</code> and are sized only by <code>--icon</code> / <code>--icon-l</code>.</li>
+<li>Motion uses the duration tokens: no <code>transition: all</code>, no scale, no component reduced-motion block.</li>
+<li>New pages ship no page CSS. If one seems necessary, that is a kit gap worth filing.</li>
 </ul>
-<p>The do/don't table with the reasoning behind each rule is in <a href="admin-design-language.html">Admin design language</a>.</p></div></details>
+<p><code>internal/cms/scripts/design-language-check.sh</code> (Birkly-Ops) enforces these rules. The list is in <a href="admin-design-language.html#11-ci-rules">Admin design language § CI rules</a>.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="admin-design-language.html">Admin design language</a> — the full build kit</li>
-<li><a href="../06-plugin-economy/plugin-admin-styling.html">Plugin admin styling</a> — adoption tiers and the public class contract</li>
-<li><a href="admin-appearance.html">Admin appearance</a> — theme switcher and responsive layout</li>
+<li><a href="admin-design-language.html">Admin design language</a>: the full reference</li>
+<li><a href="../06-plugin-economy/plugin-admin-styling.html">Plugin admin styling</a>: plugin pages, fieldtypes, rename tables</li>
+<li><a href="admin-appearance.html">Admin appearance</a>: theme switcher and responsive layout</li>
 <li><a href="admin-chrome-action-zones.html">Admin chrome and action zones</a></li>
 <li><a href="../06-plugin-economy/plugin-navigation-icon.html">Plugin navigation icon</a></li>
 <li><a href="../06-plugin-economy/plugin-development.html">Plugin development</a></li>

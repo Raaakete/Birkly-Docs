@@ -12,6 +12,13 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-09-28 — P96 Birch admin design language
+
+- **Rewritten:** `01-admin/admin-design-language.md` — four questions, eight roles, token reference (light and dark), density, component kit with markup, shell and phone More menu, pixel icon set and grid alphabet, icon gestures, micro-interactions, reduced motion, CI rules.
+- **Rewritten:** `06-plugin-economy/plugin-admin-styling.md` — adoption layer, class names, P56-to-Birch rename tables (classes, tokens, icons), worked Birch page, fieldtype contract, checklist.
+- **Updated:** `01-admin/design-system.md` (Birch orientation), `06-plugin-economy/plugin-navigation-icon.md` (`birkly_nav_icon()`, official plugin icons).
+- **Indexed:** `CONTENTS_INDEX.md`, `help-topics-meta.json`.
+
 ## 2026-09-18 — Fieldtype QA / core template shelf (CMS parity)
 
 - **New:** `03-templating/core-template-shelf.md` — built-in shelf helpers (`media_url`, `media_img`, `gallery_html`, `oembed_html`, `relation_*`, `dynamicitems_html`).

@@ -131,7 +131,16 @@
                 "components",
                 "css",
                 "styling",
-                "theme"
+                "theme",
+                "birch",
+                "roles",
+                "slab",
+                "frame",
+                "density",
+                "icons",
+                "gestures",
+                "motion",
+                "animation"
             ]
         },
         "06-plugin-economy/plugin-admin-styling.md": {
@@ -144,7 +153,13 @@
                 "design language",
                 "tokens",
                 "fieldtype",
-                "admin page"
+                "admin page",
+                "birch",
+                "rename",
+                "migration",
+                "p56",
+                "adoption layer",
+                "icons"
             ]
         },
         "02-content/content-model-overview.md": {

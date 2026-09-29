@@ -7,7 +7,7 @@ Host the static documentation at **docs.birkly.cloud** (or any domain). The mark
 | File | Purpose |
 |------|---------|
 | `Dockerfile` | Builds HTML from Markdown, serves with nginx |
-| `deploy/nginx.conf` | Web server config + CORS for birkly.cloud |
+| `deploy/nginx.conf` | Web server config. Browser fetches from any CMS origin (`Access-Control-Allow-Origin: *`). |
 | `.dockerignore` | Keeps the Docker build fast |
 
 ## Dokploy setup (no terminal)
@@ -35,4 +35,4 @@ Push changes to `main` on GitHub → **Deploy** (or enable auto-deploy) in Dokpl
 
 ## CORS
 
-`deploy/nginx.conf` allows browser requests from `https://birkly.cloud`, `https://cms.birkly.cloud`, `https://birkly.io`, `https://www.birkly.io`, and `https://docs.birkly.com`. Add more origins in the `map` block if needed.
+Self-hosted CMS admins run on arbitrary origins. `deploy/nginx.conf` sends `Access-Control-Allow-Origin: *` on every response, including `content/*` and `help-manifest.json`. Credentials are not used. Do not replace this with an origin allowlist.

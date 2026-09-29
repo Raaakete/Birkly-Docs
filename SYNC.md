@@ -1,47 +1,22 @@
-# Syncing Docs to CMS and Website
+# Publishing Docs
 
-This guide explains how to consume Birkly Docs in your CMS admin and website.
+Birkly-Docs is the only product manual. CMS installs do not copy articles into the admin.
 
-## Quick Start
+## CMS Help
 
-### For CMS (in-admin help)
+When someone opens Help, the browser loads the current article from the docs origin:
 
-**Option A: Git submodule (recommended)**
-```bash
-cd /path/to/your-cms
-git submodule add https://github.com/Raaakete/Birkly-Docs.git docs
-```
+`{docs_base_url}/content/{docs_path}`
 
-Then in your CMS admin, serve docs from `docs/` folder:
-- PHP: `include 'docs/index.html'` or route `/admin/docs` to `docs/`
-- Copy HTML files to `admin/docs/` and link to them
+Default host: `https://docs.birkly.com`. The CMS asks that host for `help-manifest.json` (the topic list) and does not store the article body. A publish on this repo shows up the next time Help opens. No CMS update is required.
 
-**Option B: Sync script**
-Create `scripts/sync-docs.sh`:
-```bash
-#!/bin/bash
-REPO_URL="https://github.com/Raaakete/Birkly-Docs.git"
-DOCS_DIR="admin/docs"
+If the origin cannot be reached, Help says documentation is unavailable. There is no bundled snapshot.
 
-# Clone and build
-git clone --depth 1 "$REPO_URL" temp-docs
-cd temp-docs
-npm run build
-cd ..
+The CMS repo may keep a copy of `help-manifest.json` at `docs/help-manifest.json` so tests can see the topic-list shape. That copy is not the article.
 
-# Copy HTML files
-mkdir -p "$DOCS_DIR"
-cp -r temp-docs/*.html temp-docs/**/*.html "$DOCS_DIR/"
-cp -r temp-docs/css "$DOCS_DIR/"
+Plugin how-tos are not in this repo. They ship in each plugin and render on that plugin’s Docs tab.
 
-# Cleanup
-rm -rf temp-docs
-echo "Docs synced to $DOCS_DIR"
-```
-
-Run: `bash scripts/sync-docs.sh`
-
-### For Website
+## Website
 
 **Option A: Content-only HTML (recommended for custom layouts)**
 The docs build generates content-only HTML files in `content/` folder. These contain just the doc body (no header/sidebar) and can be embedded in your website's layout:
@@ -69,13 +44,13 @@ If your website uses a build process, add docs as a dependency and copy HTML fil
 
 ## Updating Docs
 
-1. **In docs repo:** Make changes, commit, push
-2. **GitHub Pages:** Updates automatically (via GitHub Actions)
-3. **CMS/Website (submodule):** Run `git submodule update --remote docs` then rebuild
-4. **CMS/Website (sync script):** Run the sync script again
+1. Change the Markdown in this repo and run `npm run build`.
+2. Publish this repo (Dokploy on `main`, or the GitHub Pages workflow).
+3. Open Help in any CMS install. The article is the new origin fragment.
+
+Do not copy HTML into `admin/docs/` and do not add this repo as a CMS submodule to host Help.
 
 ## Versioning
 
-- **GitHub Pages:** Always shows latest `main` branch
-- **Submodule:** Pin to specific commit: `cd docs && git checkout <commit-hash>`
+- **docs.birkly.com:** The deployed `main` branch.
 - **NPM:** Use version tags: `npm install @birkly/docs@1.0.0`

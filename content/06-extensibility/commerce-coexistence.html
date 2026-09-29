@@ -1,24 +1,12 @@
-<p>After P6.4, three commerce-related plugins may be active on the same site:</p>
-<table><thead><tr><th>Plugin</th><th>Model</th><th>When to use</th></tr></thead>
-<tbody><tr><td><strong>Commerce</strong></td><td>Commerce fieldtype on any collection</td><td><strong>New sites</strong> — content-first products, tickets, memberships</td></tr><tr><td><strong>Shopping Cart</strong></td><td><code>shop_products</code> collection</td><td>Legacy demo / existing Shop installs</td></tr><tr><td><strong>Events</strong></td><td><code>events</code> collection + RSVP API</td><td>Legacy events / free RSVP without Commerce field</td></tr></tbody></table>
-<h2>Shelf compatibility</h2>
-<p>All three can coexist because Commerce registers <strong><code>payment_shelf</code></strong> as an alias of <strong><code>commerce_shelf</code></strong>. Shopping Cart and Events continue to call <code>get_plugin_service('payment_shelf')</code> unchanged.</p>
-<h2>Migration path (recommended)</h2>
+<div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Getting started</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Getting started topic</strong></p>
 <ol>
-<li>Activate <strong>Commerce</strong>; configure providers (migrates from Payments settings).</li>
-<li>Run the <strong><a href="commerce-migration-wizard.html">Commerce migration wizard</a></strong> to copy legacy Shop/Events entries into Commerce fieldtype values (idempotent).</li>
-<li>Or add Commerce fieldtype manually and re-create/import entries.</li>
-<li>Use Commerce cart/checkout template functions for new storefront pages.</li>
-<li>Deactivate <strong>Shopping Cart</strong> / <strong>Events</strong> when no longer needed (optional — not required in P6.4).</li>
-</ol>
-<h2>What not to do</h2>
-<ul>
-<li>Do not run two parallel carts on the same storefront (Commerce cart vs Shop cart).</li>
-<li>Do not delete Shop/Events plugins in P6.4 — they remain supported.</li>
-</ul>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Getting started</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="commerce-plugin.html">Commerce plugin</a></li>
-<li><a href="commerce-migration-wizard.html">Commerce migration wizard</a></li>
-<li><a href="shopping-cart-plugin.html">Shopping Cart plugin</a></li>
-<li><a href="events-plugin.html">Events plugin</a></li>
+<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div>

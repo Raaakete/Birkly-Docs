@@ -217,22 +217,17 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><blockquote><p><strong>Moved (P74):</strong> Membership tiers, activation, and club onboarding are owned by the <strong>User Management</strong> plugin. See <strong><a href="user-signup-membership.html">User signup and membership</a></strong> for the current setup guide.</p></blockquote>
-<h2>What changed</h2>
-<table><thead><tr><th>Before (P73)</th><th>After (P74)</th></tr></thead>
-<tbody><tr><td>Commerce purchase mappings granted tiers</td><td>User <strong>Membership products</strong> link Commerce refs → tier</td></tr><tr><td><code>club_opt_in</code> checkout metadata</td><td><code>signup_flow_id</code> + <code>signup_flow_opt_in</code></td></tr><tr><td><code>commerce_membership_started</code> + Automation club recipe</td><td><code>commerce_subscription_started</code> + User signup flows</td></tr><tr><td>Commerce <code>CommerceClubActivation</code></td><td>Removed — User <code>SignupFlowEngine</code></td></tr></tbody></table>
-<p>Commerce still sells recurring products and fires subscription events. It does <strong>not</strong> assign User tiers or send club activation emails.</p>
-<h2>Quick pointer</h2>
-<ul>
-<li><strong>Admin:</strong> User → Membership products, Signup flows, Email templates</li>
-<li><strong>Site forms:</strong> hidden <code>signup_flow_id</code>, optional <code>signup_flow_opt_in</code> checkbox</li>
-<li><strong>API:</strong> <code>user_signup</code> (<code>start</code>, <code>step</code>, <code>status</code>)</li>
-</ul>
-<p>Full documentation: <a href="user-signup-membership.html">User signup and membership</a> — includes <strong>P79 free club</strong> (<code>club_free_register</code>), <strong>supporter badges on <code>club-profiles</code></strong>, and <strong><code>SupporterBadgeSync</code></strong> reconcile.</p>
+        <div class="doc-content"><div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Subscriptions</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Subscriptions topic</strong></p>
+<ol>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Subscriptions</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="user-signup-membership.html">User signup and membership</a></li>
-<li><a href="commerce-subscriptions.html">Commerce subscriptions</a></li>
-<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div></div>
       </div>
     </main>

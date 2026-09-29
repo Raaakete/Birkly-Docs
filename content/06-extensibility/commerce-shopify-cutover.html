@@ -1,100 +1,12 @@
-<p>One-time transfer from Shopify into Birkly Commerce: products (with variants and images), customers, and <strong>archived</strong> order history. <strong>Cutover is not perpetual sync.</strong> For ongoing product-only sync after you stay on both platforms, use <a href="commerce-live-import.html">Commerce live import</a> (Beta).</p>
-<div class="doc-summary"><p><strong>Shopify cutover</strong> lives under <strong>Commerce → Settings → Import &amp; migrate → Shopify cutover</strong>. Save Shopify credentials on the Shopify beta card in the same Import &amp; migrate area, then run <strong>Test connection → Dry-run → Import cutover</strong>. Dry-run never writes catalog data. Import can be rolled back with <strong>Rollback last batch</strong>. Customers import by email (no passwords). Archived orders are commercial history only — they do <strong>not</strong> re-fulfill, decrement stock, capture payment, or fire paid Automation emails.</p>
-<h2>Cutover vs live sync</h2>
-<table><thead><tr><th>Path</th><th>Purpose</th></tr></thead>
-<tbody><tr><td><strong>Shopify cutover</strong></td><td>Planned move off Shopify: products + customers + archived orders, with dry-run and rollback</td></tr><tr><td><strong>Live store sync (Beta)</strong></td><td>Ongoing product catalog sync (Shopify and other adapters) — not customers/orders</td></tr><tr><td><strong>CSV import</strong></td><td>One-time product rows from export files — see <a href="commerce-import.html">Commerce CSV import</a></td></tr><tr><td><strong>Legacy migration wizard</strong></td><td>Birkly Shopping Cart / Events → Commerce — see <a href="commerce-migration-wizard.html">Commerce migration wizard</a></td></tr></tbody></table>
-<p>Admin path for cutover: <strong>Commerce → Settings → Import &amp; migrate → Shopify cutover</strong>.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Before you start</h3>
+<div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Shopify cutover</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Shopify cutover topic</strong></p>
 <ol>
-<li>Activate <strong>Commerce</strong> (Settings → Plugins).</li>
-<li>Configure a payment provider under <strong>Settings → Connections</strong> if you will take new orders in Birkly after cutover.</li>
-<li>Optionally activate <strong>User Management</strong> if buyers will get accounts later (invite / password-reset only — Shopify passwords are never imported).</li>
-<li>Back up <code>content/</code> and <code>data/</code> before a production import.</li>
-<li>Freeze Shopify catalog edits for the window you are transferring so dry-run counts match import.</li>
-</ol>
-<h3>Steps 1–3 (solid)</h3>
-<h4>1. Prep / connect</h4>
-<ol>
-<li>In Shopify Admin, create a <strong>custom app</strong> (Admin API) with <strong>read</strong> access to <strong>products</strong>, <strong>customers</strong>, and <strong>orders</strong>.</li>
-<li>Copy the <strong>Admin API access token</strong> and shop domain (<code>your-store.myshopify.com</code>).</li>
-<li>In Birkly: <strong>Commerce → Settings → Import &amp; migrate</strong>.</li>
-<li>On the <strong>Shopify</strong> beta card under Live store sync, save <strong>shop domain</strong>, <strong>access token</strong>, target <strong>collection</strong>, and default <strong>currency</strong>. Cutover reuses these credentials.</li>
-<li>Open the <strong>Shopify cutover</strong> panel above the live sync cards.</li>
-<li>Click <strong>1. Test connection</strong> and confirm the API responds.</li>
-</ol>
-<p>Do not treat this as a standing two-way sync. Credentials are for transfer (and optional later Beta product sync), not for Birkly writing back to Shopify.</p>
-<h4>2. Map the content model</h4>
-<p>Decide how Shopify objects become Birkly content before you import.</p>
-<table><thead><tr><th>Shopify</th><th>Birkly</th></tr></thead>
-<tbody><tr><td>Product</td><td>Parent CMS entry in the target collection (Commerce field)</td></tr><tr><td>Variants</td><td>Variant <strong>sub-entries</strong> (same pattern as CSV / live product import)</td></tr><tr><td>Images</td><td>First image URL mapped onto the product row (media ingest when configured)</td></tr><tr><td>Customer</td><td>Commerce <strong>Customers</strong> profile (<code>source: shopify</code>, email as unique key)</td></tr><tr><td>Order (history)</td><td>Commerce order with <code>status: archived</code> and <code>source: shopify_archive</code></td></tr></tbody></table>
-<p><strong>Passwords are never imported.</strong> Existing Shopify login credentials do not move. If you use User Management, invite customers or send password-reset links after go-live.</p>
-<p>Pick a <strong>target collection</strong> that already has the Commerce fieldtype (or create one during import setup). Align SKUs and parent/variant relationships with how you want Catalog and Inventory to read after import — see <a href="commerce-warehouse-stock.html">Commerce warehouse stock</a> for stock modes.</p>
-<h4>3. Dry-run product import</h4>
-<ol>
-<li>In <strong>Shopify cutover</strong>, set <strong>Resources</strong> to <strong>Products only</strong> for the first pass (or <strong>All</strong> when you are ready for a combined run).</li>
-<li>Click <strong>2. Dry-run</strong>. Review product counts and sample titles/SKUs. No catalog entries are written.</li>
-<li>When samples look right, click <strong>3. Import cutover</strong> and confirm. Import requires a dry-run token or an explicit confirm.</li>
-<li>Continue with <strong>Customers only</strong>, then <strong>Archived orders only</strong>, or run <strong>All</strong> once you trust the mapping.</li>
-</ol>
-<p>After products land, open <strong>Catalog</strong> (and CMS entries) to spot-check prices, SKUs, variants, and images before you import history.</p>
-<h3>Customers and archived orders (same panel)</h3>
-<p>Use the same <strong>Resources</strong> selector and dry-run → import flow:</p>
-<ul>
-<li><strong>Customers only</strong> — upserts Commerce customer profiles by email; tags and Shopify customer id are retained when present; <strong>no passwords</strong>.</li>
-<li><strong>Archived orders only</strong> — writes historical orders tagged as Shopify archive. Idempotent on Shopify order id (re-import skips existing).</li>
-</ul>
-<p><strong>Archived orders do not re-fulfill.</strong> They skip payment capture, inventory decrement/reservation, PostPurchaseRouter fulfillment, and paid Automation emails. Treat them as read-only commercial history for support and reporting.</p>
-<h3>Rollback</h3>
-<p>If a batch looks wrong:</p>
-<ol>
-<li>Click <strong>Rollback last batch</strong> in the Shopify cutover panel (enabled after a successful import), or</li>
-<li>Call the admin API action <code>shopify_cutover_rollback</code> with the <code>batch_id</code> from the import result.</li>
-</ol>
-<p>Rollback removes customers and archived orders created by that cutover batch and rolls back the linked product import when recorded. Prefer rollback over hand-deleting mixed catalog rows.</p>
-<h3>Steps 4–11 (checklist outline)</h3>
-<p>These steps complete a full merchant move. Steps <strong>4–5</strong> are available in the cutover panel today; <strong>6–11</strong> are the remaining go-live checklist. Cutover itself does <strong>not</strong> import gift-card balances, discount rules, tax class mappings, or open fulfillments — recreate those in Commerce after products/customers land (see <a href="commerce-promotions.html">promotions</a>, <a href="commerce-tax.html">tax</a>, <a href="commerce-gift-cards-quotes.html">gift cards</a>, <a href="commerce-fulfillment.html">fulfillment</a>).</p>
-<table><thead><tr><th>Step</th><th>Checklist</th></tr></thead>
-<tbody><tr><td><strong>4. Customers</strong></td><td>Dry-run → import customers; verify profiles under Commerce Customers; plan invite / password-reset (no password migration).</td></tr><tr><td><strong>5. Orders archive</strong></td><td>Dry-run → import archived orders; confirm status <code>archived</code>, no stock movement, no fulfillment emails; spot-check totals and line items.</td></tr><tr><td><strong>6. Verify catalog + inventory</strong></td><td>Rebuild catalog index if needed; set Inventory mode (Unlimited / Simple / Locations); reconcile on-hand vs Shopify before go-live.</td></tr><tr><td><strong>7. Memberships / purchase options</strong></td><td>Map Shopify subscriptions or memberships to Commerce <code>purchase_options</code> and Settings → Mappings; test one recurring or membership SKU if used.</td></tr><tr><td><strong>8. Storefront / checkout smoke</strong></td><td>Rebuild storefront on Birkly (<code>birkly-client.js</code> and templates — not Liquid); test ship, deliver, register, and membership paths you sell.</td></tr><tr><td><strong>9. Gift cards / credits</strong></td><td>Recreate or migrate balances only when your Commerce version supports it; disable Shopify gift-card codes at cutover so they are not double-spent. <em>(Balance import is not claimed as shipped with cutover alone.)</em></td></tr><tr><td><strong>10. Discounts + DNS cutover</strong></td><td>Recreate critical discount codes in Commerce; put Shopify in password / closed mode; point domain to Birkly; smoke-test checkout on the live host.</td></tr><tr><td><strong>11. SEO + hypercare</strong></td><td>Publish redirects CSV (old Shopify URLs → Birkly); reconcile inventory daily for the first week; disable Shopify apps that still charge fees; keep Shopify admin read-only as needed.</td></tr></tbody></table></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Admin UI actions</h3>
-<table><thead><tr><th>Control</th><th>Behavior</th></tr></thead>
-<tbody><tr><td><strong>1. Test connection</strong></td><td><code>shopify_cutover_test</code> — validates saved Shopify credentials</td></tr><tr><td><strong>2. Dry-run</strong></td><td><code>shopify_cutover_dry_run</code> — preview counts/samples; returns <code>dry_run_token</code> / <code>batch_id</code>; no catalog writes</td></tr><tr><td><strong>3. Import cutover</strong></td><td><code>shopify_cutover_import</code> — requires <code>confirm: true</code> or <code>dry_run_token</code>; resources: <code>products</code>, <code>customers</code>, <code>orders</code>, or <code>all</code></td></tr><tr><td><strong>Rollback last batch</strong></td><td><code>shopify_cutover_rollback</code> — <code>batch_id</code>; deletes created customers/orders; rolls back linked product import</td></tr></tbody></table>
-<h3>Resource flags</h3>
-<pre><code>products | customers | orders | all</code></pre>
-<p>Comma-separated combinations (for example <code>products,customers</code>) are accepted by the API. The admin select exposes common presets.</p>
-<h3>Archived order invariants</h3>
-<p>Imported archive orders are created through the order store only (not checkout). Markers include:</p>
-<ul>
-<li><code>status: archived</code></li>
-<li><code>source: shopify_archive</code></li>
-<li><code>archive_import</code> / <code>skip_fulfillment</code> / <code>skip_inventory</code> / <code>skip_automation</code></li>
-<li>note author <code>shopify_cutover</code></li>
-</ul>
-<p>Fulfillment spies and PostPurchaseRouter must not run on archive import.</p>
-<h3>Customer upsert</h3>
-<ul>
-<li>Unique key: email</li>
-<li><code>source: shopify</code></li>
-<li>Password / hash fields are stripped before upsert</li>
-<li>Order import may upsert a lightweight customer from the order email when missing</li>
-</ul>
-<h3>Out of scope / not claimed here</h3>
-<p>Cutover does <strong>not</strong> include:</p>
-<ul>
-<li>Perpetual Shopify ↔ Birkly sync of customers or orders</li>
-<li>Shopify password migration</li>
-<li>Gift-card <strong>balance</strong> import (recreate cards in Commerce; sellable <code>gift_card</code> products are separate)</li>
-<li>Discount / promotion rule import</li>
-<li>Tax class or shipping zone import</li>
-<li>Open / unfulfilled shipment migration</li>
-<li>Automatic Liquid → Birkly theme conversion</li>
-</ul></div></details>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Shopify cutover</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
-<li><a href="commerce-plugin.html">Commerce plugin reference</a></li>
-<li><a href="commerce-customers.html">Commerce customers</a></li>
-<li><a href="commerce-live-import.html">Commerce live import</a> — Beta product sync (not cutover)</li>
-<li><a href="commerce-import.html">Commerce CSV import</a></li>
-<li><a href="commerce-migration-wizard.html">Commerce migration wizard</a> — legacy Birkly Shop / Events</li>
-<li><a href="commerce-warehouse-stock.html">Commerce warehouse stock</a></li>
-<li><a href="commerce-inventory-webhooks.html">Commerce inventory webhooks</a></li>
+<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div>

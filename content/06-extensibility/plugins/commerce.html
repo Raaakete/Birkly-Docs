@@ -1,99 +1,11 @@
-<p>The <strong>Commerce</strong> plugin (<code>plugins/commerce/</code>) is Birkly’s content-first store: payment providers, the <strong>Commerce fieldtype</strong>, catalog, cart, checkout, orders, customers, inventory, promotions, gift cards, tax providers, shipping rate providers, and <strong>PostPurchaseRouter</strong> fulfillment — all driven by CMS entries.</p>
-<p><strong>Commerce 0→1 complete (P54 P3 / 1.0.29):</strong> hybrid cart + split checkout, MCP/Agent store kit, Automation commerce recipes, and ops intelligence (cohorts, fulfillment SLA, low-stock trigger). This closes the foundation path from empty site → sellable catalog → checkout → ops. Do not expect P4 features here.</p>
-<p><strong>In-admin docs (Commerce 1.0.57+):</strong> open <strong>Commerce → Docs</strong> for the full merchant + developer guide (grouped topics: getting started, fieldtype, catalog, tax, shipping, storefront, API, troubleshooting, and more). The same topics also appear under Help → Plugin extensions → Commerce.</p>
-<div class="doc-summary"><p>Activate <strong>Commerce</strong> under Settings → Plugins, configure a payment provider under <strong>Commerce → Settings → Connections</strong>, add the Commerce fieldtype to collections, and model products with <strong>fulfillment</strong> (ship, deliver, register, gift_card, none) plus one or more <strong>purchase_options</strong> (one-time and/or recurring on the same entry). Use variant <strong>sub-entries</strong> for SKUs. Template functions expose cart count and buy URLs on client sites.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>What Commerce does</strong></p>
-<p>Commerce turns Birkly entries into things you can sell: physical products, digital downloads, class tickets, memberships, and sellable gift cards — without a separate e-commerce product database. Edit content in the CMS; Commerce indexes sellable units for checkout.</p>
-<p><strong>Two settings on each sellable item</strong></p>
-<table><thead><tr><th>Setting</th><th>Plain language</th></tr></thead>
-<tbody><tr><td><strong>Fulfillment</strong></td><td>What happens after someone pays (ship a box, send a download, register for a class, issue store credit, or grant access)</td></tr><tr><td><strong>Purchase options</strong></td><td>How they pay — e.g. €25 once <strong>or</strong> €19/month on the <strong>same</strong> product</td></tr></tbody></table>
-<p><strong>Catalog, inventory, and orders</strong></p>
-<table><thead><tr><th>Area</th><th>Role</th></tr></thead>
-<tbody><tr><td><strong>Catalog</strong></td><td>Read model of sellable CMS entries (edit the entry, then rebuild the index if needed)</td></tr><tr><td><strong>Inventory</strong></td><td>Ledger system of record for countable stock</td></tr><tr><td><strong>Orders</strong></td><td>Commercial history with frozen money/tax snapshots from checkout</td></tr></tbody></table>
-<p><strong>Stock modes</strong> (Inventory): <strong>Unlimited</strong> (ignore counts) · <strong>Simple</strong> (one row per SKU) · <strong>Locations</strong> (SKU stock per warehouse).</p>
-<p><strong>Quick setup</strong></p>
+<div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Getting started</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Getting started topic</strong></p>
 <ol>
-<li><strong>Settings → Plugins</strong> → enable <strong>Commerce</strong>.</li>
-<li>Open <strong>Commerce</strong> in the sidebar → <strong>Settings → Connections</strong> → add Stripe, Mollie, or another provider.</li>
-<li>Edit a collection schema → add field type <strong>Commerce</strong>.</li>
-<li>Create an entry with price, fulfillment, and purchase options.</li>
-<li>On your website, add a buy button using <code>{commerce_buy_url entry_id collection}</code> and <code>birkly-client.js</code> (see <strong>Commerce → Docs → Storefront &amp; cart</strong>).</li>
-<li>Read <strong>Commerce → Docs</strong> for tax modes, shipping, hybrid cart, and project integration checklists.</li>
-</ol>
-<p><strong>Variants (sizes, options)</strong></p>
-<p>For products with multiple SKUs (size, grind, color):</p>
-<ol>
-<li>Create a <strong>parent</strong> product entry with photos and description.</li>
-<li>Add a <strong>variants</strong> sub-collection.</li>
-<li>Each <strong>variant sub-entry</strong> gets its own Commerce field (price, SKU, stock).</li>
-</ol>
-<p><strong>After payment</strong></p>
-<p>Commerce routes each order line by fulfillment:</p>
-<ul>
-<li><strong>Ship</strong> — Manual export or EasyPost tracker/label; admin can create partial / multi-package shipments</li>
-<li><strong>Deliver</strong> — secure download link emailed</li>
-<li><strong>Register</strong> — attendee recorded, capacity reduced</li>
-<li><strong>Gift card</strong> — store-credit codes issued (face value = unit price)</li>
-<li><strong>None</strong> — tier grant or automation (memberships)</li>
-</ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Content model (v2)</strong></p>
-<pre><code>{
-  &quot;fulfillment&quot;: &quot;ship&quot;,
-  &quot;tax_class&quot;: &quot;standard&quot;,
-  &quot;weight_grams&quot;: 250,
-  &quot;purchase_options&quot;: [
-    { &quot;id&quot;: &quot;once&quot;, &quot;label&quot;: &quot;Buy once&quot;, &quot;billing&quot;: &quot;one_time&quot;, &quot;price_cents&quot;: 1499, &quot;currency&quot;: &quot;eur&quot; },
-    { &quot;id&quot;: &quot;sub&quot;, &quot;label&quot;: &quot;Subscribe&quot;, &quot;billing&quot;: &quot;recurring&quot;, &quot;interval&quot;: &quot;month&quot;, &quot;price_cents&quot;: 1299, &quot;currency&quot;: &quot;eur&quot; }
-  ],
-  &quot;quantity_available&quot;: null,
-  &quot;sku&quot;: &quot;SKU-250G&quot;
-}</code></pre>
-<p><code>quantity_available</code> is a catalog projection of Inventory <strong>Available</strong> (or null for unlimited / capacity for <code>register</code>). Inventory is the ledger SoR for countable SKUs. <code>tax_class</code> defaults to <code>standard</code>; rates come from <strong>Settings → Tax</strong>. <code>weight_grams</code> is required on <code>ship</code> lines when EasyPost live rates are enabled.</p>
-<p><strong>PostPurchaseRouter</strong> — idempotent handler keyed on <code>order_id</code> + line; fires typed automation triggers including <code>commerce_physical_fulfilled</code>, <code>commerce_digital_delivered</code>, <code>commerce_event_registered</code>, <code>commerce_gift_card_issued</code>, <code>commerce_subscription_started</code> (<code>commerce_membership_started</code> is a deprecated alias). Shipments also fire <code>commerce_shipment_created</code> / <code>commerce_order_shipped</code> when notify is enabled; EasyPost tracking fires <code>commerce_tracking_updated</code>.</p>
-<p><strong>Admin areas</strong> (Commerce <strong>1.0.29</strong>)</p>
-<table><thead><tr><th>Tab</th><th>Purpose</th></tr></thead>
-<tbody><tr><td><strong>Dashboard</strong></td><td>Revenue, AOV, new vs returning, first-order cohorts, needs-shipping / SLA breaches, avg fulfillment time, top products, affiliates</td></tr><tr><td><strong>Orders</strong></td><td>Paid orders, fulfillment state, frozen money/tax lines; <strong>Draft orders / Quotes</strong> include a cart-free editor</td></tr><tr><td><strong>Customers</strong></td><td>Email-keyed profiles, CSV import, order/subscription timeline; optional User Management link; no passwords</td></tr><tr><td><strong>Catalog</strong></td><td>Indexed read model of sellable CMS entries</td></tr><tr><td><strong>Inventory</strong></td><td>Stock ledger: Unlimited, Simple, or Locations; low-stock threshold feeds <code>commerce_low_stock</code></td></tr><tr><td><strong>Subscriptions</strong></td><td>Recurring purchases and lifecycle actions</td></tr><tr><td><strong>Discounts</strong></td><td>Promotions v2: usage limits, min purchase, date window, free shipping, stack rules</td></tr><tr><td><strong>Gift Cards</strong></td><td>Admin-issued store credit; sellable products use fulfillment <code>gift_card</code></td></tr><tr><td><strong>Settings</strong></td><td>Connections, General (incl. fulfillment SLA hours), Fieldtypes, Mappings, Import &amp; migrate, Shipping, Tax, Fulfillment, Activity, Documentation</td></tr></tbody></table>
-<p><strong>Differentiation (P3 / 1.0.29)</strong></p>
-<ul>
-<li><strong>Hybrid cart:</strong> mix ship + deliver + register + subscribe; split checkout by billing group — see <a href="../commerce-hybrid-cart.html">Hybrid cart</a> and plugin <code>help-hybrid-cart</code>.</li>
-<li><strong>Store kit:</strong> MCP/Agent playbook topic <strong><code>commerce-store-kit</code></strong> seeds products + checkout — see <a href="../commerce-store-kit.html">Store kit</a>.</li>
-<li><strong>Automation recipes:</strong> import post-purchase, dunning, low-stock, shipped starters — see <a href="../../05-automation/commerce-recipes.html">Commerce recipes</a>.</li>
-<li><strong>Ops intelligence:</strong> Dashboard cohorts + fulfillment SLA (<code>commerce_fulfillment_sla_hours</code>, default 48) + <code>commerce_low_stock</code> — see <a href="../commerce-analytics.html">Analytics</a>.</li>
-</ul>
-<p><strong>Provider honesty (P2, still current)</strong></p>
-<ul>
-<li><strong>Tax:</strong> Manual or Stripe Tax (orthogonal to charge PSP). Frozen <code>tax_lines</code> on paid orders. Optional B2B reverse charge via <code>vat_id</code> — no live VIES.</li>
-<li><strong>Shipping rates:</strong> Manual zones or EasyPost live quotes; fallback to zones on live failure; weight required for EasyPost.</li>
-<li><strong>Fulfillment:</strong> Manual / Export (default) or EasyPost (push + tracking webhook). ShipStation is an internal stub and is not offered.</li>
-<li><strong>Draft orders:</strong> Admin editor under Orders — create/edit lines without a cart, preview tax/shipping, save &amp; send accept link.</li>
-<li><strong>Import &amp; migrate:</strong> Shopify cutover, CSV, and live product import adapters (Beta). Legacy Shop / Events migration appears only when detected.</li>
-<li><strong>Gift cards:</strong> Admin-issued <strong>and</strong> sellable products (<code>fulfillment: gift_card</code> issues codes on pay).</li>
-</ul>
-<p><strong>Plugin docs shelf:</strong> <code>register_plugin_docs('commerce', …)</code> ships <code>plugins/commerce/docs/</code> for AI, Admin Help, and MCP (<code>birkly://docs/plugin/commerce</code>).</p>
-<p><strong>Public API:</strong> <code>/api/index.php?route=commerce</code> — cart get/add/update/remove/checkout; cart payload may include <code>split_required</code> / <code>groups[]</code>; checkout selects <code>purchase_option_id</code> (and <code>group_key</code> + <code>checkout_session_id</code> when split) and collects shipping/attendee/VAT per fulfillment.</p>
-<p><strong>Legacy:</strong> P6.4 flat schema (<code>price_cents</code> + <code>billing</code>) migrates to single purchase_option + inferred fulfillment.</p></div></details>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Getting started</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="../commerce-hybrid-cart.html">Commerce hybrid cart</a> — ship+deliver+register+subscribe / split checkout</li>
-<li><a href="../commerce-store-kit.html">Commerce store kit</a> — MCP/Agent <code>commerce-store-kit</code></li>
-<li><a href="../../05-automation/commerce-recipes.html">Automation Commerce recipes</a> — import post-purchase, dunning, low-stock, shipped</li>
-<li><a href="../commerce-analytics.html">Commerce analytics</a> — Dashboard cohorts, SLA, low-stock</li>
-<li><a href="../commerce-fieldtype.html">Commerce fieldtype</a></li>
-<li><a href="../commerce-customers.html">Commerce customers</a></li>
-<li><a href="../commerce-promotions.html">Commerce promotions</a></li>
-<li><a href="../commerce-gift-cards-quotes.html">Commerce gift cards and draft orders</a></li>
-<li><a href="../commerce-tax.html">Commerce tax</a></li>
-<li><a href="../commerce-shipping.html">Commerce shipping rates</a></li>
-<li><a href="../commerce-fulfillment.html">Commerce fulfillment</a></li>
-<li><a href="../../03-templating/commerce-functions.html">Commerce template functions</a></li>
-<li><a href="../commerce-subscriptions.html">Commerce subscriptions</a> — upgrades and dunning</li>
-<li><a href="../commerce-shopify-cutover.html">Shopify cutover playbook</a> — one-time Shopify transfer (not perpetual sync)</li>
-<li><a href="../commerce-migration-wizard.html">Commerce migration wizard</a> — Shop/Events import (when detected)</li>
-<li><a href="../commerce-live-import.html">Commerce live import</a> — Shopify/Woo/Etsy/Square API (Beta)</li>
-<li><a href="../commerce-multi-currency.html">Commerce multi-currency</a></li>
-<li><a href="../commerce-inventory-webhooks.html">Commerce inventory webhooks</a></li>
-<li><a href="../commerce-warehouse-stock.html">Commerce warehouse stock</a> — Inventory modes</li>
-<li><a href="../user-signup-membership.html">User signup and membership</a></li>
-<li><a href="../commerce-import.html">Commerce CSV import</a></li>
-<li><a href="../plugin-security-denylist.html">Plugin security denylist</a></li>
-<li><a href="../commerce-coexistence.html">Coexistence with Shop &amp;amp; Events</a></li>
+<li><a href="../plugins.html">Plugins</a></li>
 </ul></div>

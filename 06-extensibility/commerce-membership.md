@@ -1,28 +1,22 @@
-# Commerce membership wiring
+# Commerce membership
 
-> **Moved (P74):** Membership tiers, activation, and club onboarding are owned by the **User Management** plugin. See **[User signup and membership](user-signup-membership.md)** for the current setup guide.
+## Summary
 
-## What changed
+This procedure lives on the **Docs** tab of **Commerce** inside your Birkly install. Open the **Subscriptions** topic there. That text updates when you update the plugin. This page does not repeat it.
 
-| Before (P73) | After (P74) |
-|--------------|-------------|
-| Commerce purchase mappings granted tiers | User **Membership products** link Commerce refs → tier |
-| `club_opt_in` checkout metadata | `signup_flow_id` + `signup_flow_opt_in` |
-| `commerce_membership_started` + Automation club recipe | `commerce_subscription_started` + User signup flows |
-| Commerce `CommerceClubActivation` | Removed — User `SignupFlowEngine` |
+## Beginner
 
-Commerce still sells recurring products and fires subscription events. It does **not** assign User tiers or send club activation emails.
+**Example: open the Subscriptions topic**
 
-## Quick pointer
+1. Enable **Commerce** from **Plugins → Hub** or **Settings → Plugins**.
+2. Open **Commerce** in the sidebar and select the **Docs** tab.
+3. Open **Subscriptions**. Follow that article. Do not copy a `commerce-storefront.js` script tag from an old page. Commerce pages include `birkly-client.js` only.
 
-- **Admin:** User → Membership products, Signup flows, Email templates
-- **Site forms:** hidden `signup_flow_id`, optional `signup_flow_opt_in` checkbox
-- **API:** `user_signup` (`start`, `step`, `status`)
+## Advanced Users
 
-Full documentation: [User signup and membership](user-signup-membership.md) — includes **P79 free club** (`club_free_register`), **supporter badges on `club-profiles`**, and **`SupporterBadgeSync`** reconcile.
+API tables and provider settings for this topic are on the same Docs tab, under **Advanced Users**. A publish of docs.birkly.com does not change them. Update the Commerce plugin.
 
 ## Related
 
-- [User signup and membership](user-signup-membership.md)
-- [Commerce subscriptions](commerce-subscriptions.md)
-- [Commerce plugin](plugins/commerce.md)
+- [Commerce](plugins/commerce.md)
+- [Plugins](plugins.md)

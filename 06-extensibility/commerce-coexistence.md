@@ -1,33 +1,22 @@
-# Shop, Events, and Commerce coexistence
+# Commerce coexistence
 
-After P6.4, three commerce-related plugins may be active on the same site:
+## Summary
 
-| Plugin | Model | When to use |
-|--------|-------|-------------|
-| **Commerce** | Commerce fieldtype on any collection | **New sites** — content-first products, tickets, memberships |
-| **Shopping Cart** | `shop_products` collection | Legacy demo / existing Shop installs |
-| **Events** | `events` collection + RSVP API | Legacy events / free RSVP without Commerce field |
+This procedure lives on the **Docs** tab of **Commerce** inside your Birkly install. Open the **Getting started** topic there. That text updates when you update the plugin. This page does not repeat it.
 
-## Shelf compatibility
+## Beginner
 
-All three can coexist because Commerce registers **`payment_shelf`** as an alias of **`commerce_shelf`**. Shopping Cart and Events continue to call `get_plugin_service('payment_shelf')` unchanged.
+**Example: open the Getting started topic**
 
-## Migration path (recommended)
+1. Enable **Commerce** from **Plugins → Hub** or **Settings → Plugins**.
+2. Open **Commerce** in the sidebar and select the **Docs** tab.
+3. Open **Getting started**. Follow that article. Do not copy a `commerce-storefront.js` script tag from an old page. Commerce pages include `birkly-client.js` only.
 
-1. Activate **Commerce**; configure providers (migrates from Payments settings).
-2. Run the **[Commerce migration wizard](commerce-migration-wizard.md)** to copy legacy Shop/Events entries into Commerce fieldtype values (idempotent).
-3. Or add Commerce fieldtype manually and re-create/import entries.
-4. Use Commerce cart/checkout template functions for new storefront pages.
-5. Deactivate **Shopping Cart** / **Events** when no longer needed (optional — not required in P6.4).
+## Advanced Users
 
-## What not to do
-
-- Do not run two parallel carts on the same storefront (Commerce cart vs Shop cart).
-- Do not delete Shop/Events plugins in P6.4 — they remain supported.
+API tables and provider settings for this topic are on the same Docs tab, under **Advanced Users**. A publish of docs.birkly.com does not change them. Update the Commerce plugin.
 
 ## Related
 
-- [Commerce plugin](commerce-plugin.md)
-- [Commerce migration wizard](commerce-migration-wizard.md)
-- [Shopping Cart plugin](shopping-cart-plugin.md)
-- [Events plugin](events-plugin.md)
+- [Commerce](plugins/commerce.md)
+- [Plugins](plugins.md)

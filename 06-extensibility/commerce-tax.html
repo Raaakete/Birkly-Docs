@@ -217,49 +217,17 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Tax for Commerce <strong>1.0.54+</strong>: selectable <strong>tax providers</strong> (Manual or Stripe Tax), product <strong>tax classes</strong>, <strong>tax included vs excluded</strong> prices (default <strong>included</strong>), class×country rates, optional <strong>B2B reverse charge</strong>, and frozen <strong><code>tax_lines</code></strong> on each paid order.</p>
-<div class="doc-summary"><p>Choose a tax provider under <strong>Commerce → Settings → Tax</strong>. <strong>Manual</strong> uses your rate table. <strong>Stripe Tax</strong> calls Stripe’s Tax Calculations API for quotes — orthogonal to the payment PSP (you can charge with Mollie/PayPal/etc.). On each Commerce field, set whether the shelf price <strong>includes tax</strong> (EU default) or <strong>excludes tax</strong> (added at checkout). Paid orders freeze <code>tax_cents</code> / <code>tax_lines</code> and never re-call the provider. Optional B2B reverse charge zeroes tax when a VAT ID and country rules match (format normalize only — no live VIES); when prices include tax, reverse charge also <strong>strips</strong> the embedded VAT so the buyer pays net.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Choose a provider</h3>
+        <div class="doc-content"><div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Tax</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Tax topic</strong></p>
 <ol>
-<li>Open <strong>Commerce → Settings → Tax</strong>.</li>
-<li>Set <strong>Tax provider</strong> to <strong>Manual</strong> (default) or <strong>Stripe Tax</strong>.</li>
-<li>Check <strong>Enable tax at checkout</strong>.</li>
-<li><strong>Save Tax Rules</strong>.</li>
-</ol>
-<p>Stripe Tax uses the Stripe <strong>secret key</strong> from <strong>Settings → Connections</strong> for calculation only. Charge PSP can be any configured provider.</p>
-<h3>Manual rates and classes</h3>
-<ol>
-<li>Set a <strong>default rate</strong> (%) and optional <strong>country overrides</strong>.</li>
-<li>Under <strong>Tax classes</strong>, add classes (<code>standard</code>, <code>reduced</code>, <code>zero</code>, plus custom). Leave a class default blank to inherit; use <code>0</code> for explicit zero-rated.</li>
-<li>Under <strong>Class × country rates</strong>, add overrides (e.g. reduced × DE = 7%).</li>
-<li>On each sellable Commerce field, set <strong>Tax class</strong> (default <code>standard</code>) and <strong>Price tax mode</strong>:</li>
-</ol>
-<p>   - <strong>Tax included in price</strong> (default) — shelf <code>price_cents</code> is gross; VAT is extracted for display/invoices and <strong>not</strong> added again at checkout.    - <strong>Tax excluded</strong> — shelf price is net; VAT is added on top (<code>tax_add_cents</code>).</p>
-<p><strong>Resolution order (Manual, per line):</strong> class×country → class default → country override → site default. Tax base is the post-discount line total. Inclusive: <code>tax = round(gross × r / (100 + r))</code>. Exclusive: <code>tax = round(net × r / 100)</code>.</p>
-<h3>B2B reverse charge (VAT ID)</h3>
-<ol>
-<li>In <strong>Settings → Tax</strong>, enable <strong>B2B reverse charge</strong>.</li>
-<li>Set <strong>Merchant country</strong> (ISO) and optionally edit the <strong>eligible countries</strong> list (defaults to an EU-style set).</li>
-<li>Leave <strong>Require different country</strong> on (default) so same-country B2B still uses normal rates.</li>
-<li>At checkout (or draft order), the buyer enters a <strong>VAT ID</strong> (<code>vat_id</code> / <code>tax_id</code>).</li>
-</ol>
-<p>When enabled + both countries are eligible + VAT ID present (+ different-country rule if on) → <code>tax_cents</code> is <code>0</code> and <code>tax_lines</code> use <code>reason: reverse_charge</code>. The order stores <code>vat_id</code>. IDs are normalized for format only — <strong>live VIES validation is not included</strong>.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Setting:</strong> <code>commerce_tax_provider</code> — <code>manual</code> | <code>stripe_tax</code> (default <code>manual</code>).</p>
-<p><strong>Interfaces:</strong> <code>TaxProviderInterface</code> → <code>ManualTaxProvider</code> | <code>StripeTaxProvider</code> via <code>TaxProviderResolver</code>. Catalog <code>calculateTax</code> delegates to the resolved provider.</p>
-<p><strong>Field:</strong> <code>tax_class</code> (string; default <code>standard</code>) and <code>tax_included</code> (bool; default <code>true</code>) on the Commerce fieldtype.</p>
-<p><strong>Money fields:</strong> <code>tax_cents</code> is always the VAT amount for display. <code>tax_add_cents</code> is what to add to goods+shipping for the charge (<code>0</code> when prices include tax; may be negative under inclusive reverse charge). Cart/checkout <code>total_cents</code> uses <code>tax_add_cents</code>.</p>
-<p><strong>Public API:</strong> Cart payload exposes <code>tax_cents</code>, <code>tax_add_cents</code>, <code>tax_lines</code>, <code>prices_include_tax</code>. <code>catalog_item</code> returns <code>tax_class</code>, <code>tax_included</code>, and a <code>tax</code> estimate (<code>net_cents</code> / <code>tax_cents</code> / <code>gross_cents</code>, optional <code>?country=</code>).</p>
-<p><strong>Order snapshot:</strong> Paid orders freeze <code>tax_cents</code> and <code>tax_lines[]</code> (<code>tax_class</code>, <code>tax_included</code>, title, rate, <code>tax_cents</code>, <code>source</code> / <code>provider</code>). Mixed carts emit <strong>one tax line per class×mode</strong>. Recalculating from current catalog settings must not mutate paid-order lines.</p>
-<p><strong>Stripe Tax:</strong> Uses Connections Stripe secret when present; otherwise mock / soft-fallback shaped results so checkout does not break. Reverse-charge eligibility is evaluated before (or inherited into) Stripe Tax mock paths; live Stripe Tax still accepts <code>vat_id</code> in context.</p>
-<p><strong>B2B rules shape</strong> (<code>tax_rules.b2b_reverse_charge</code>):</p>
-<table><thead><tr><th>Key</th><th>Meaning</th></tr></thead>
-<tbody><tr><td><code>enabled</code></td><td>Toggle reverse charge</td></tr><tr><td><code>merchant_country</code></td><td>Merchant ISO country</td></tr><tr><td><code>eligible_countries</code></td><td>List of ISO codes (default EU set)</td></tr><tr><td><code>require_different_country</code></td><td>Default <code>true</code></td></tr></tbody></table>
-<blockquote><p><strong>Note:</strong> OSS/IOSS automation and live VIES are out of scope for this release.</p></blockquote></div></details>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Tax</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="commerce-fieldtype.html">Commerce fieldtype</a></li>
-<li><a href="commerce-shipping.html">Commerce shipping rates</a></li>
-<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
-<li><a href="commerce-plugin.html">Commerce plugin reference</a></li>
+<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div></div>
       </div>
     </main>

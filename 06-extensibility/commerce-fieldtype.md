@@ -1,72 +1,22 @@
 # Commerce fieldtype
 
-The **Commerce** fieldtype is registered by the Commerce plugin on the fieldtype shelf. It marks how an **entry** (or variant sub-entry) is sold.
-
 ## Summary
 
-Commerce v2 stores **fulfillment** (`ship`, `deliver`, `register`, `gift_card`, `none`), optional **`tax_class`** / **`tax_included`**, ship **`weight_grams`** / dims, and one or more **purchase_options** (one-time and/or recurring prices) on each sellable entry. Optional `quantity_available` and `sku` support capacity and fulfillment. Variants use a `variants` sub-collection with a Commerce field on each sub-entry.
+This procedure lives on the **Docs** tab of **Commerce** inside your Birkly install. Open the **Commerce fieldtype** topic there. That text updates when you update the plugin. This page does not repeat it.
 
-## Schema (v2 stored value)
+## Beginner
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `fulfillment` | enum | `ship`, `deliver`, `register`, `gift_card`, `none` |
-| `tax_class` | string | `standard`, `reduced`, `zero`, or custom. Default `standard`. Rates from **Settings → Tax** |
-| `tax_included` | bool | Default `true` (EU): shelf price includes tax. `false` = tax excluded and added at checkout |
-| `weight_grams` | int \| null | Required on `ship` when EasyPost live rates are enabled |
-| `length_mm` / `width_mm` / `height_mm` | int \| null | Optional parcel dims for live rates |
-| `purchase_options[]` | array | `id`, `label`, `billing`, `price_cents`, `currency`, `interval?` |
-| `quantity_available` | int \| null | Catalog projection of Inventory Available; capacity for `register`; null = unlimited |
-| `sku` | string \| null | Fulfillment/import; defaults to entry slug |
+**Example: open the Commerce fieldtype topic**
 
-Example:
+1. Enable **Commerce** from **Plugins → Hub** or **Settings → Plugins**.
+2. Open **Commerce** in the sidebar and select the **Docs** tab.
+3. Open **Commerce fieldtype**. Follow that article. Do not copy a `commerce-storefront.js` script tag from an old page. Commerce pages include `birkly-client.js` only.
 
-```json
-{
-  "fulfillment": "register",
-  "tax_class": "standard",
-  "tax_included": true,
-  "purchase_options": [
-    { "id": "ticket", "label": "Workshop ticket", "billing": "one_time", "price_cents": 2500, "currency": "eur" }
-  ],
-  "quantity_available": 20
-}
-```
+## Advanced Users
 
-## Fulfillment panels
-
-| Value | Editor extras | Checkout |
-|-------|---------------|----------|
-| `ship` | Weight (grams); optional L×W×H mm | Shipping address; live rates need weight |
-| `deliver` | Asset URL/file | Download token after pay |
-| `register` | Uses quantity | Attendee name |
-| `gift_card` | Face value = purchase option price | Email only; issues codes on pay |
-| `none` | — | Purchase mappings / membership |
-
-Collection schema may include `commerce_settings` to preset enabled fulfillments and billing intervals. Fieldtype profiles under **Commerce → Fieldtypes** can restrict enabled fulfillments (including a gift-card-only profile).
-
-## What is NOT on the fieldtype
-
-- Discount amounts — Commerce **Discounts** ([promotions](commerce-promotions.md))
-- Affiliate codes — `?ref=` + rule engine
-- Tier grants — **Settings → Mappings**
-- Stock ledger rows — **Inventory** (modes: Unlimited · Simple · Locations)
-- Tax rates / providers — **Settings → Tax** (field picks `tax_class` + included/excluded mode)
-- Shipping rate provider — **Settings → Shipping** (field supplies weight/dims for quotes)
-
-## Catalog index
-
-One indexed row per **sellable unit** (variant sub-entry if variants exist, else parent). Cart/checkout read from `catalog_index.json`. For countable SKUs, **Inventory** is the ledger system of record; Catalog stores projected availability.
-
-## Legacy migration
-
-P6.4 values (`price_cents` + `billing` only) migrate to a single `purchase_option` with inferred fulfillment (default `ship`).
+API tables and provider settings for this topic are on the same Docs tab, under **Advanced Users**. A publish of docs.birkly.com does not change them. Update the Commerce plugin.
 
 ## Related
 
-- [Commerce plugin](plugins/commerce.md)
-- [Commerce tax](commerce-tax.md)
-- [Commerce shipping rates](commerce-shipping.md)
-- [Commerce gift cards and draft orders](commerce-gift-cards-quotes.md)
-- [Commerce template functions](../../03-templating/commerce-functions.md)
-- [Import guide](commerce-import.md)
+- [Commerce](plugins/commerce.md)
+- [Plugins](plugins.md)

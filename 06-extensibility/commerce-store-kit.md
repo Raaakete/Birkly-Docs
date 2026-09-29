@@ -30,7 +30,7 @@ Step order (do not skip ahead to HTML):
 2. Guide Manual tax + Manual shipping zones.
 3. Create a products collection with a **`commerce`** field.
 4. Create **3** published `fulfillment: ship` entries (SKU, `weight_grams`, purchase_options).
-5. Write `project/` shop + cart/checkout using `commerce-storefront.js` + `{commerce_*}` template functions.
+5. Write `project/` shop + cart/checkout using `birkly-client.js` and `{commerce_*}` template functions.
 6. Smoke-check list → add to cart → checkout fields.
 
 ## Advanced Users

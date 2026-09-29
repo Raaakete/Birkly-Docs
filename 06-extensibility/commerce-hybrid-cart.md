@@ -4,7 +4,7 @@ One session cart can mix **ship**, **deliver**, **register**, and **subscribe** 
 
 ## Summary
 
-Commerce **1.0.29** (P54 P3) certifies mixed-fulfillment carts with **split checkout**. One-time lines (ship + deliver + register) settle together; recurring / subscribe lines pay in a later group. Prefer `/plugins/commerce/assets/commerce-storefront.js` over a custom cart engine.
+Commerce **1.0.29** (P54 P3) certifies mixed-fulfillment carts with **split checkout**. One-time lines (ship + deliver + register) settle together; recurring / subscribe lines pay in a later group. Prefer `birkly-client.js`, which loads the Commerce storefront script, over a custom cart engine.
 
 ## Beginner
 

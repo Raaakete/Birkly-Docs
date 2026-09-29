@@ -11,7 +11,7 @@
 <li>Add <code>birkly-client.js</code> and follow <a href="website-integration.html">Website integration</a>.</li>
 <li>Leave React and <code>{for each}</code> inside JSX for a different path. A marketing site does not need them.</li>
 </ol></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><table><thead><tr><th>Path</th><th>Runtime</th><th>Content load</th><th>Template language</th></tr></thead>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><table><thead><tr><th>Path</th><th>Runtime</th><th>Content load</th><th>Template language</th></tr></thead>
 <tbody><tr><td>HTML + templates</td><td>Browser (<code>birkly-client.js</code>)</td><td><code>page_bundle.php</code> / public API</td><td>Light DOM <code>{…}</code> tags; auto <code>processTemplates()</code></td></tr><tr><td>Web components</td><td>Browser</td><td>Same client</td><td><code>&lt;birkly-region&gt;</code> / <code>data-birkly-region</code> + optional child templates</td></tr><tr><td>SPA</td><td>Your framework</td><td>Public API / <code>Birkly.fetch</code></td><td><strong>No</strong> Birkly tags in JSX; JSON → components (or <code>Birkly.render</code> into a ref)</td></tr><tr><td>SSR / build-time</td><td>PHP / Node / CI</td><td>Public API or <code>page_bundle.php</code></td><td>Your engine, or <code>Birkly.render</code> if you run the client string engine in Node</td></tr></tbody></table>
 <p><strong>Shared rules</strong></p>
 <ul>

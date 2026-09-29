@@ -46,7 +46,7 @@
 <p>Stripe can send its own receipt when you set <code>receipt_email</code>. Commerce also sends thank-you / shipping / donation emails through Connections. Both may fire. Make sure your templates do not double-thank the customer.</p>
 <h3>Form notifications</h3>
 <p>Public form notifications now use the <code>transactional_email</code> alias. A common bug fixed in P65 is the mismatch between <code>notify_email</code> and <code>notification_email</code> settings. After migration, the form notify field is unified to the Connections alias.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Dual-read / dual-write mechanics</h3>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h3>Dual-read / dual-write mechanics</h3>
 <p>The migration is designed for zero downtime:</p>
 <ol>
 <li>Core Connections and the encrypted store ship first.</li>

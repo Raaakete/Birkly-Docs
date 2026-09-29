@@ -236,7 +236,7 @@
 <li>For <strong>incoming</strong> webhooks, if the workflow can do sensitive things, use a <strong>secret token</strong> so only trusted callers can trigger it (e.g. send the token in a header; Birkly checks it).</li>
 <li>For <strong>outgoing</strong> webhooks, <strong>validate</strong> the request on your side (e.g. shared secret in header or signature) so only Birkly can call your endpoint. That way random people can’t fake “entry published” events.</li>
 </ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Incoming webhooks (automation trigger)</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Incoming webhooks (automation trigger)</strong></p>
 <ul>
 <li><strong>Setup:</strong> Create a workflow; set trigger to “Webhook”. Admin shows the URL and optional secret.</li>
 <li><strong>Usage:</strong> Any HTTP client can POST to that URL. Body (JSON or form) is typically available as <strong>payload</strong> in conditions and actions.</li>

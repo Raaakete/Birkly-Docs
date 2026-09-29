@@ -94,7 +94,7 @@
 <li><strong>Save:</strong> Storage fields are included in the global <code>save_all</code> action together with General and Security settings.</li>
 </ul>
 <p><strong>Warning:</strong> Changing the active backend affects where Birkly reads and writes data. Back up <code>settings/</code> and <code>content/</code> before migrating. Do not switch drivers without running migration or restoring from backup.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Structure:</strong> Settings are stored under <code>settings/</code> as JSON: <code>admin.json</code>, <code>site.json</code>, <code>media.json</code>, <code>security.json</code>, <code>branding.json</code>, <code>storage.json</code>, <code>plugins.json</code>, plus roles/users as applicable. Webhooks, domains, and API options may use additional files.</p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Structure:</strong> Settings are stored under <code>settings/</code> as JSON: <code>admin.json</code>, <code>site.json</code>, <code>media.json</code>, <code>security.json</code>, <code>branding.json</code>, <code>storage.json</code>, <code>plugins.json</code>, plus roles/users as applicable. Webhooks, domains, and API options may use additional files.</p>
 <p><strong>Global Save implementation:</strong></p>
 <ul>
 <li>UI: <code>admin/templates/settings.html</code> — sticky <code>#global-save-settings-btn</code> and <code>#settings-message</code>.</li>

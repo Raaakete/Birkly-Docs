@@ -18,7 +18,7 @@
 <table><thead><tr><th>Technique</th><th>What it does</th><th>Build step?</th></tr></thead>
 <tbody><tr><td><strong>Live client</strong> (default)</td><td>Browser fetches content and renders templates</td><td>No</td></tr><tr><td><strong>Hydrate</strong></td><td>Page loads with content already in HTML; a lighter script adds forms, cart, auth</td><td>Yes — pre-render in deploy</td></tr><tr><td><strong>Snapshots</strong></td><td>Copies of each page saved as static <code>.html</code> files for crawlers or CDN</td><td>Yes — regenerate on publish</td></tr><tr><td><strong>Bake</strong></td><td>Marks HTML that was fully rendered at build time</td><td>Yes — used with hydrate/export</td></tr></tbody></table>
 <p>Interactive features (login, cart, forms) still need <code>birkly-client.js</code> or hydrate — even on snapshot sites.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Default path (recommended)</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Default path (recommended)</strong></p>
 <pre><code>&lt;script src=&quot;/birkly-client.js&quot; data-cms-url=&quot;https://cms.example.com&quot;&gt;&lt;/script&gt;</code></pre>
 <ul>
 <li>Content via <code>page_bundle</code> and templating; target ≤5 API round-trips per page</li>

@@ -267,7 +267,7 @@
 <li>It may answer with the connection type, health, and the last error such as “authentication failed.” It must not include the SMTP password.</li>
 <li>If you ask it to change that password or send a test, the change waits in the approval queue until a person approves it.</li>
 </ol></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Tool exposure</h3>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h3>Tool exposure</h3>
 <p>The MCP server exposes read tools and write tools separately:</p>
 <table><thead><tr><th>Tool</th><th>Category</th><th>Approval required</th><th>Returns secrets</th></tr></thead>
 <tbody><tr><td><code>connection_list</code></td><td>Read</td><td>No</td><td>No</td></tr><tr><td><code>connection_get</code></td><td>Read</td><td>No</td><td>No</td></tr><tr><td><code>connection_health</code></td><td>Read</td><td>No</td><td>No</td></tr><tr><td><code>delivery_log_query</code></td><td>Read</td><td>No</td><td>No</td></tr><tr><td><code>connection_propose_create</code></td><td>Write</td><td>Yes</td><td>No input secret returned</td></tr><tr><td><code>connection_propose_update</code></td><td>Write</td><td>Yes</td><td>No input secret returned</td></tr><tr><td><code>connection_propose_delete</code></td><td>Write</td><td>Yes</td><td>No</td></tr><tr><td><code>connection_test</code></td><td>Write</td><td>Yes</td><td>No</td></tr><tr><td><code>alias_update</code></td><td>Write</td><td>Yes</td><td>No</td></tr><tr><td><code>route_update</code></td><td>Write</td><td>Yes</td><td>No</td></tr></tbody></table>

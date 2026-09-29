@@ -263,7 +263,7 @@
 <h3>Known-bad patterns</h3>
 <table><thead><tr><th>Bad</th><th>Do instead</th></tr></thead>
 <tbody><tr><td>Custom <code>fetch</code> to guessed REST URLs</td><td><code>{entry for}</code></td></tr><tr><td>Field names that don’t match schema</td><td><code>read_collection</code> / admin field keys</td></tr><tr><td>Phantom <code>{entry 'x'.'y'}…{endentry}</code></td><td><code>{entry for}</code> for forms; <code>{from …}</code> for reading</td></tr></tbody></table></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Sub-entry public submission (comments)</h3>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h3>Sub-entry public submission (comments)</h3>
 <p>Use <code>/api/public_sub_entry.php</code> with parent refs — not <code>{entry for}</code> on the parent. Example and flags: <a href="../03-templating/public-forms-templating.html">Public forms templating</a>, <a href="../03-templating/sub-collections-in-templates.html">Sub-collections in templates</a>.</p>
 <h3>Manual POST (escape hatch)</h3>
 <p>Only when you cannot use the client: <code>POST /api/public_submit.php?collection={slug}</code> with field keys matching the schema. Prefer <code>{entry for}</code> so keys and UX stay consistent.</p>

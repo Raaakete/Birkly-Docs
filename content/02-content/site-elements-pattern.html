@@ -29,7 +29,7 @@
 <h3>When not to use site elements</h3>
 <table><thead><tr><th>Scenario</th><th>Better pattern</th></tr></thead>
 <tbody><tr><td>Many similar items (blog posts, products)</td><td>Regular collection + list/detail templates</td></tr><tr><td>Child rows on one page (comments)</td><td><a href="sub-collections.html">Sub-collections</a></td></tr><tr><td>One long article</td><td>Single entry with Content editor field</td></tr><tr><td>Visitor-submitted data</td><td>Public API collection — <a href="../04-integration/public-forms.html">Public forms</a></td></tr></tbody></table></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Handles in templates and API:</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Handles in templates and API:</strong></p>
 <ul>
 <li>Prefer <code>{from 'site_elements' get entry 'header'}…{endget}</code> (underscore alias) or <code>{from 'site-elements' get entry 'header'}…{endget}</code> — both resolve to the same collection when slugified handles match.</li>
 <li><code>&lt;birkly-region collection=&quot;site-elements&quot; …&gt;</code> should use the <strong>stored collection slug</strong> from admin/API. The client bundle still requests the <code>site_elements</code> alias; public read maps it to your on-disk collection.</li>

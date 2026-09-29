@@ -234,7 +234,7 @@
 <li>You can type a custom slug at any time.</li>
 </ul>
 <p><strong>Sub-collections:</strong> When editing a sub-collection, the sidebar Settings tab uses the same slug checkbox pattern.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Slug parity with entry editor (P29):</strong> Settings tab slug field + <strong>Auto-generate slug from title</strong> checkbox; server paths in <code>api/admin_collections.php</code> mirror <code>birkly_resolve_entry_slug()</code> ID fallback when name is empty.</p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Slug parity with entry editor (P29):</strong> Settings tab slug field + <strong>Auto-generate slug from title</strong> checkbox; server paths in <code>api/admin_collections.php</code> mirror <code>birkly_resolve_entry_slug()</code> ID fallback when name is empty.</p>
 <p><strong>Sidebar tabs:</strong> <code>.sidebar-tabs</code> scope fixes empty-tab regression from global <code>tabs.css</code>; tab switching JS limited to <code>.sidebar-tabs</code>.</p>
 <p><strong>Handle stability:</strong> The slug/handle is referenced in <code>content/collections/{handle}/</code>, templates, and <code>GET /api/public/collections/{handle}/entries</code>. Avoid changing it after entries exist unless you update all references.</p></div></details>
 <div class="doc-related"><ul>

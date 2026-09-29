@@ -396,7 +396,7 @@
 <h2>Security</h2>
 <table><thead><tr><th>Topic</th><th>Behavior</th></tr></thead>
 <tbody><tr><td>Authentication</td><td>None required (public read)</td></tr><tr><td>Draft exposure</td><td>Never — separate admin API</td></tr><tr><td>Admin API</td><td><code>/api/ai_presence.php</code> — session auth + CSRF</td></tr><tr><td>URL fetch (admin)</td><td>SSRF-safe validation for evidence metadata</td></tr><tr><td>Rate limiting</td><td>Follows public API limits where configured</td></tr></tbody></table></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h2>Admin API (not public)</h2>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h2>Admin API (not public)</h2>
 <p>Authenticated endpoints for draft edit, publish, AI suggest, link validate — see <a href="../02-content/agent-guide-data-model.html#admin-api-authenticated">Data model</a>.</p>
 <p>Do not expose admin API to the public internet without normal Birkly auth.</p>
 <h2>Integration examples</h2>

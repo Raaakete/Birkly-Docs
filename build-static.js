@@ -141,7 +141,7 @@ function mdToHtmlWithToggles(md, currentPage) {
   if (sections.intro) out.push(sections.intro);
   if (sections.summary) out.push('<div class="doc-summary">' + sections.summary.html + '</div>');
   if (sections.beginner) out.push('<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner">' + sections.beginner.html + '</div></details>');
-  if (sections.advanced_users) out.push('<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner">' + sections.advanced_users.html + '</div></details>');
+  if (sections.advanced_users) out.push('<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner">' + sections.advanced_users.html + '</div></details>');
   if (sections.related) out.push('<div class="doc-related">' + sections.related.html + '</div>');
   if (out.length === 0) out.push(mdToHtml(md)); // fallback: no sections, render all
   let html = out.join('\n');

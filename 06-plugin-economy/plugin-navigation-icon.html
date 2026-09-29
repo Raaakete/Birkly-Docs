@@ -231,7 +231,7 @@
 <p><strong>Registry name (recommended).</strong> Pick a name from the icon set in <a href="../01-admin/admin-design-language.html#6-icons">Admin design language § Icons</a>. The sidebar draws it in the same pixel style as core items, and it moves when the row is hovered or focused: a calendar hops, a bell rings, a truck bounces.</p>
 <p><strong>Custom inline SVG (fallback).</strong> If nothing fits, set <code>icon</code> to a full <code>&lt;svg&gt;…&lt;/svg&gt;</code> string using <code>currentColor</code>. It is shown at 13 × 13 px. For a crisp result, draw it on a 13 × 13 <code>viewBox</code> in whole cells with <code>shape-rendering=&quot;crispEdges&quot;</code>.</p>
 <p><strong>If you omit <code>icon</code>,</strong> or give a name that doesn't exist, the sidebar shows the default plugin icon (<code>sliders</code>).</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3><code>navigation</code> block</h3>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h3><code>navigation</code> block</h3>
 <table><thead><tr><th>Field</th><th>Purpose</th></tr></thead>
 <tbody><tr><td><code>name</code></td><td>Sidebar label</td></tr><tr><td><code>page</code></td><td>Admin page slug (matches your registered admin route)</td></tr><tr><td><code>icon</code></td><td>Registry name <strong>or</strong> inline SVG string</td></tr></tbody></table>
 <p>Plugins that register through the admin shelf (<code>register_plugin_admin_meta()</code>) set the same value as <code>sidebar.icon</code>; the shelf entry wins over <code>plugin.json</code>:</p>

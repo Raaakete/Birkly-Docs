@@ -223,14 +223,19 @@
 <tbody><tr><td><strong>Admin UI i18n</strong></td><td>Panel chrome, settings, plugin admin pages</td></tr><tr><td><strong>Content multilang</strong></td><td>Site visitor content (see <a href="../03-templating/multilingual-templating.html">Multilingual templating</a>)</td></tr></tbody></table>
 <p>Admin language is chosen per user (user menu → language). It does <strong>not</strong> follow browser <code>Accept-Language</code> automatically.</p>
 <h3>Selectable admin UI languages</h3>
-<p>The picker lists every <code>lang/{code}.json</code> whose <code>_meta.selectable</code> is true. English, German, French, Japanese, and Spanish ship that way. Add a language with <code>php scripts/i18n-new-locale.php</code> from English only, then set <code>selectable</code> to true after <code>php scripts/i18n-audit.php --selectable --strict-quality</code> passes. Do not scaffold from another locale, and do not run <code>scripts/p85-es-full-pass.sh</code>.</p>
+<p>The picker lists every <code>lang/{code}.json</code> whose <code>_meta.selectable</code> is true. English, German, French, Japanese, and Spanish ship that way. A file with <code>selectable</code> false, or with no <code>selectable</code> field, stays out of the picker.</p>
+<p>Add a language from English only:</p>
+<pre><code>php scripts/i18n-new-locale.php nl --name=Dutch --native=Nederlands</code></pre>
+<p>That writes <code>lang/nl.json</code> and does not change PHP, tests, or CI. Translate the copied English values. Set <code>selectable</code> to true only after:</p>
+<pre><code>php scripts/i18n-audit.php --selectable --strict-quality</code></pre>
+<p>Do not scaffold from <code>de</code>, <code>fr</code>, <code>es</code>, or <code>ja</code>. Do not run <code>scripts/p85-es-full-pass.sh</code> or <code>scripts/p85-es-fr-to-es.php</code>. Those rebuilds are deprecated.</p>
 <h2>Core strings</h2>
 <ul>
 <li>Canonical catalog: <code>lang/en.json</code> under the CMS root (<code>admin.*</code> keys).</li>
-<li>PHP: <code>__('admin.save')</code> with <code>{{param}}</code> interpolation.</li>
+<li>PHP: <code>__('admin.save', ['name' =&gt; $name])</code> with <code>{name}</code> interpolation (<code>{{name}}</code> still works).</li>
 <li>HTML templates: <code>{translate 'admin.settings'}</code>.</li>
 <li>PHP partials (not plugin HTML): <code>&lt;?= __('admin.save') ?&gt;</code> — use <code>{translate}</code> in plugin <code>.html</code> admin pages.</li>
-<li>JavaScript: <code>Birkly.i18n.t('admin.save')</code> (flat full-key dictionary injected in <code>layout_head.php</code>).</li>
+<li>JavaScript: <code>Birkly.i18n.t('admin.save', 'Save', { name: name })</code> (flat full-key dictionary injected in <code>layout_head.php</code>).</li>
 </ul>
 <p>Admin language is stored on the <strong>user profile</strong> and applied on the next full page load after <code>api/users.php</code> <code>set_language</code>. There is no separate per-plugin language control.</p>
 <h2>Plugin strings</h2>
@@ -249,10 +254,11 @@ plugins/my-plugin/lang/de.json</code></pre>
 </ul>
 <p>Core merges active plugin catalogs when loading the admin language. Inactive plugins contribute nothing.</p>
 <h2>Keeping catalogs in step</h2>
-<p>After adding or changing keys in <code>lang/en.json</code>:</p>
+<p>After adding or changing keys in <code>lang/en.json</code>, copy the new keys into each selectable locale (English text is allowed only until it is translated) and run the audit:</p>
 <pre><code>php scripts/i18n-sync-locale.php --all
 php scripts/i18n-audit.php --selectable --strict-quality</code></pre>
 <p>The audit checks core and, when the sibling repo is on disk, User, Commerce, Automation, Events, and Studio. It fails when a selectable locale is missing a key, a <code>{placeholder}</code> set differs from English, a value still contains a translation sentinel, a value is still the English sentence, or a value was copied from another locale.</p>
+<p>A plugin may omit <code>lang/{code}.json</code>. Those screens stay English.</p>
 <div class="doc-related"><ul>
 <li><a href="plugin-development.html">Plugin development</a></li>
 <li>P85 plan (internal): Birkly-Marketplace <code>internal/planning/reviews/P85-admin-i18n-platform-plan.md</code></li>

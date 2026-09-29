@@ -2,21 +2,20 @@
 
 ## Summary
 
-This procedure lives on the **Docs** tab of **Commerce** inside your Birkly install. Open the **Tax** topic there. That text updates when you update the plugin. This page does not repeat it.
+Checkout charges the currency on the purchase option. Catalog labels can show another currency. That setting is **Settings reference** on the Commerce **Docs** tab, not the Tax topic.
 
 ## Beginner
 
-**Example: open the Tax topic**
+**Example: set the charge currency**
 
 1. Enable **Commerce** from **Plugins → Hub** or **Settings → Plugins**.
-2. Open **Commerce** in the sidebar and select the **Docs** tab.
-3. Open **Tax**. Follow that article. Do not copy a `commerce-storefront.js` script tag from an old page. Commerce pages include `birkly-client.js` only.
+2. Open **Commerce → Docs** and select **Settings reference**.
+3. Under **General**, set **Default currency** (`eur`, `usd`, …). **Display currency / FX JSON** changes catalog labels only. Checkout still charges the purchase-option currency. There is no FX conversion at pay time.
 
 ## Advanced Users
 
-API tables and provider settings for this topic are on the same Docs tab, under **Advanced Users**. A publish of docs.birkly.com does not change them. Update the Commerce plugin.
+Prices for a second currency are separate purchase options, each with its own `currency`. Tax rates stay on the **Tax** topic. A publish of docs.birkly.com does not change the plugin manual. Update the Commerce plugin.
 
 ## Related
 
-- [Commerce](plugins/commerce.md)
 - [Plugins](plugins.md)

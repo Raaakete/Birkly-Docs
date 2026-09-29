@@ -1,22 +1,21 @@
-# Live import
+# Live store sync
 
 ## Summary
 
-This procedure lives on the **Docs** tab of **Commerce** inside your Birkly install. Open the **Shopify cutover** topic there. That text updates when you update the plugin. This page does not repeat it.
+**Live store sync** keeps product rows aligned with another store. It does not import customers or orders. The steps are under **Import & migrate** in **Settings reference** on the Commerce Docs tab.
 
 ## Beginner
 
-**Example: open the Shopify cutover topic**
+**Example: turn on ongoing product sync**
 
-1. Enable **Commerce** from **Plugins → Hub** or **Settings → Plugins**.
-2. Open **Commerce** in the sidebar and select the **Docs** tab.
-3. Open **Shopify cutover**. Follow that article. Do not copy a `commerce-storefront.js` script tag from an old page. Commerce pages include `birkly-client.js` only.
+1. Enable **Commerce**.
+2. Open **Commerce → Docs → Settings reference**.
+3. Follow **Live store sync (Beta)** under **Import & migrate**. Sync products only. Use **Shopify cutover** when you also need customers and archived orders in one move.
 
 ## Advanced Users
 
-API tables and provider settings for this topic are on the same Docs tab, under **Advanced Users**. A publish of docs.birkly.com does not change them. Update the Commerce plugin.
+The sync is marked Beta in Settings. A publish of docs.birkly.com does not change the plugin article. Update the Commerce plugin.
 
 ## Related
 
-- [Commerce](plugins/commerce.md)
 - [Plugins](plugins.md)

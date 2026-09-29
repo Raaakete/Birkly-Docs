@@ -10,7 +10,7 @@
 
 1. In **Plugins → Hub**, install **User Management** and enable it.
 2. Open **User** in the admin sidebar.
-3. Open the **Documentation** tab. Follow **User Management** there for registration, the login template, tiers, and collection permissions. This page does not repeat that walkthrough.
+3. Open the **Documentation** tab. Follow **User Management** for registration and the login template. Paid tiers are **Membership products**. Signup paths are **Signup flows**. This page does not repeat those walkthroughs.
 
 ## Advanced Users
 

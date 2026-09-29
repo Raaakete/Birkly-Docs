@@ -2,21 +2,20 @@
 
 ## Summary
 
-This procedure lives on the **Docs** tab of **Commerce** inside your Birkly install. Open the **Promotions** topic there. That text updates when you update the plugin. This page does not repeat it.
+Gift cards and discounts are the **Discounts & gift cards** topic on the Commerce **Docs** tab. The admin tabs are **Discounts** and **Gift cards**. Quotes are draft orders on **Orders & customers**.
 
 ## Beginner
 
-**Example: open the Promotions topic**
+**Example: open the matching topic**
 
 1. Enable **Commerce** from **Plugins → Hub** or **Settings → Plugins**.
-2. Open **Commerce** in the sidebar and select the **Docs** tab.
-3. Open **Promotions**. Follow that article. Do not copy a `commerce-storefront.js` script tag from an old page. Commerce pages include `birkly-client.js` only.
+2. Open **Commerce → Docs**.
+3. For a gift card or a coupon, open **Discounts & gift cards**. For a quote, open **Orders & customers** and follow draft orders. Do not copy a `commerce-storefront.js` script tag. Pages include `birkly-client.js` only.
 
 ## Advanced Users
 
-API tables and provider settings for this topic are on the same Docs tab, under **Advanced Users**. A publish of docs.birkly.com does not change them. Update the Commerce plugin.
+A gift card product uses fulfillment `gift_card`. The code is issued after payment and redeemed at checkout. Draft orders are created without a cart. A publish of docs.birkly.com does not change those articles. Update the Commerce plugin.
 
 ## Related
 
-- [Commerce](plugins/commerce.md)
 - [Plugins](plugins.md)

@@ -45,6 +45,9 @@ When you add a field to a collection, you choose a **field type**. That type dec
 - **DateTime** — Date and time. Use for: event start, scheduled publish time.  
   **Example:** Event start = 2025-03-15 14:00.
 
+- **Time** — A time of day, with no date. Use for: opening hours, a daily start. The field can use a 12- or 24-hour clock and a minute step.  
+  **Example:** Doors = 18:30.
+
 **Choices**
 
 - **Select** — One choice from a list you define. Use for: category, status, size.  

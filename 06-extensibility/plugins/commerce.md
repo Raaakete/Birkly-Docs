@@ -39,7 +39,7 @@ Commerce turns Birkly entries into things you can sell: physical products, digit
 2. Open **Commerce** in the sidebar → **Settings → Connections** → add Stripe, Mollie, or another provider.
 3. Edit a collection schema → add field type **Commerce**.
 4. Create an entry with price, fulfillment, and purchase options.
-5. On your website, add a buy button using `{commerce_buy_url entry_id collection}` (or `commerce-storefront.js` — see **Commerce → Docs → Storefront & cart**).
+5. On your website, add a buy button using `{commerce_buy_url entry_id collection}` and `birkly-client.js` (see **Commerce → Docs → Storefront & cart**).
 6. Read **Commerce → Docs** for tax modes, shipping, hybrid cart, and project integration checklists.
 
 **Variants (sizes, options)**

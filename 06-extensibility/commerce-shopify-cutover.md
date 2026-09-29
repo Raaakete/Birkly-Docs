@@ -93,7 +93,7 @@ These steps complete a full merchant move. Steps **4–5** are available in the 
 | **5. Orders archive** | Dry-run → import archived orders; confirm status `archived`, no stock movement, no fulfillment emails; spot-check totals and line items. |
 | **6. Verify catalog + inventory** | Rebuild catalog index if needed; set Inventory mode (Unlimited / Simple / Locations); reconcile on-hand vs Shopify before go-live. |
 | **7. Memberships / purchase options** | Map Shopify subscriptions or memberships to Commerce `purchase_options` and Settings → Mappings; test one recurring or membership SKU if used. |
-| **8. Storefront / checkout smoke** | Rebuild storefront on Birkly (`commerce-storefront.js` / templates — not Liquid); test ship, deliver, register, and membership paths you sell. |
+| **8. Storefront / checkout smoke** | Rebuild storefront on Birkly (`birkly-client.js` and templates — not Liquid); test ship, deliver, register, and membership paths you sell. |
 | **9. Gift cards / credits** | Recreate or migrate balances only when your Commerce version supports it; disable Shopify gift-card codes at cutover so they are not double-spent. *(Balance import is not claimed as shipped with cutover alone.)* |
 | **10. Discounts + DNS cutover** | Recreate critical discount codes in Commerce; put Shopify in password / closed mode; point domain to Birkly; smoke-test checkout on the live host. |
 | **11. SEO + hypercare** | Publish redirects CSV (old Shopify URLs → Birkly); reconcile inventory daily for the first week; disable Shopify apps that still charge fees; keep Shopify admin read-only as needed. |

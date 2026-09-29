@@ -2,7 +2,7 @@
 
 Use **linked checkout** when a purchase should create or update a CMS entry before payment — supporters, registrants, members, or any collection row tied to an order.
 
-Requires **Commerce 1.0.97+** and `commerce-storefront.js` on the page.
+Requires **Commerce 1.0.97+** and `birkly-client.js` on the page. The client loads the Commerce storefront script when Commerce is active. Put `data-commerce-autobind` on the document element so linked checkout forms bind.
 
 ## Summary
 
@@ -17,7 +17,7 @@ Requires **Commerce 1.0.97+** and `commerce-storefront.js` on the page.
 ## Minimal form
 
 ```html
-<script src="/plugins/commerce/assets/commerce-storefront.js"></script>
+<script src="/birkly-client.js"></script>
 
 <form
   data-commerce-linked-checkout
@@ -44,28 +44,12 @@ Requires **Commerce 1.0.97+** and `commerce-storefront.js` on the page.
   <button type="submit">Donate</button>
   <p data-commerce-linked-status hidden role="alert"></p>
 </form>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  if (window.BirklyCommerce) {
-    BirklyCommerce.bind(document);
-    BirklyCommerce.handleHostedCheckoutReturn();
-  }
-});
-</script>
 ```
 
 ## Thank-you / return page
 
 ```html
-<script src="/plugins/commerce/assets/commerce-storefront.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  if (window.BirklyCommerce && BirklyCommerce.handleHostedCheckoutReturn) {
-    BirklyCommerce.handleHostedCheckoutReturn();
-  }
-});
-</script>
+<script src="/birkly-client.js"></script>
 ```
 
 On cancel, the binder calls `abandon_checkout` so linked entries move to the abandoned payment state.

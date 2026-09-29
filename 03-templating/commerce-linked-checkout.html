@@ -218,11 +218,11 @@
     <main class="main">
       <div class="content doc-body">
         <div class="doc-content"><p>Use <strong>linked checkout</strong> when a purchase should create or update a CMS entry before payment — supporters, registrants, members, or any collection row tied to an order.</p>
-<p>Requires <strong>Commerce 1.0.97+</strong> and <code>commerce-storefront.js</code> on the page.</p>
+<p>Requires <strong>Commerce 1.0.97+</strong> and <code>birkly-client.js</code> on the page. The client loads the Commerce storefront script when Commerce is active. Put <code>data-commerce-autobind</code> on the document element so linked checkout forms bind.</p>
 <div class="doc-summary"><table><thead><tr><th>Piece</th><th>Role</th></tr></thead>
 <tbody><tr><td>Commerce product entry</td><td>Purchase options (fixed or variable amounts)</td></tr><tr><td><code>catalog_item</code> API</td><td>Storefront SSOT for options and min/max</td></tr><tr><td><code>begin_linked_checkout</code></td><td>Server creates linked entry + hosted checkout session</td></tr><tr><td><code>data-commerce-linked-checkout</code></td><td>Form binder — no custom donate/checkout JS</td></tr><tr><td><code>commerce_entry_sync_*</code> settings</td><td>Maps checkout metadata → entry fields after pay/abandon</td></tr></tbody></table>
 <h2>Minimal form</h2>
-<pre><code>&lt;script src=&quot;/plugins/commerce/assets/commerce-storefront.js&quot;&gt;&lt;/script&gt;
+<pre><code>&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;
 
 &lt;form
   data-commerce-linked-checkout
@@ -248,25 +248,9 @@
   &lt;/label&gt;
   &lt;button type=&quot;submit&quot;&gt;Donate&lt;/button&gt;
   &lt;p data-commerce-linked-status hidden role=&quot;alert&quot;&gt;&lt;/p&gt;
-&lt;/form&gt;
-
-&lt;script&gt;
-document.addEventListener('DOMContentLoaded', function () {
-  if (window.BirklyCommerce) {
-    BirklyCommerce.bind(document);
-    BirklyCommerce.handleHostedCheckoutReturn();
-  }
-});
-&lt;/script&gt;</code></pre>
+&lt;/form&gt;</code></pre>
 <h2>Thank-you / return page</h2>
-<pre><code>&lt;script src=&quot;/plugins/commerce/assets/commerce-storefront.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-document.addEventListener('DOMContentLoaded', function () {
-  if (window.BirklyCommerce &amp;&amp; BirklyCommerce.handleHostedCheckoutReturn) {
-    BirklyCommerce.handleHostedCheckoutReturn();
-  }
-});
-&lt;/script&gt;</code></pre>
+<pre><code>&lt;script src=&quot;/birkly-client.js&quot;&gt;&lt;/script&gt;</code></pre>
 <p>On cancel, the binder calls <code>abandon_checkout</code> so linked entries move to the abandoned payment state.</p>
 <h2>Purchase options binder (optional)</h2>
 <p>For catalog-driven option UI instead of a hand-built amount select:</p>

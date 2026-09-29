@@ -236,6 +236,7 @@
 </ul>
 <p><strong>Status (General tab)</strong></p>
 <p>Choose <strong>Unpublished</strong>, <strong>Published</strong>, <strong>Scheduled</strong>, or <strong>Pending for Review</strong>. Additional fields appear when relevant (e.g. <strong>Publish At</strong> for scheduled, <strong>Unpublish At</strong> for published, <strong>Notify Reviewer</strong> for pending review).</p>
+<p>A <strong>Scheduled</strong> entry stays unpublished until the publish time and the scheduler runs. Open <strong>Settings → System</strong> and copy the <strong>Scheduled publish</strong> URL into your server cron. That URL includes a token. An HTTP request without the token does not publish. A command-line run, <code>php api/process_scheduled.php</code>, does not use the token.</p>
 <p><strong>Saving</strong></p>
 <p>Use <strong>Save</strong> or <strong>Save &amp; Publish</strong> at the top. Slug and status are read from the sidebar when you save.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Reserved fields (sidebar only):</strong> <code>slug</code>, <code>status</code>, <code>published_at</code>, <code>expires_at</code>, <code>reviewer</code>, <code>meta_title</code>, <code>meta_description</code> (plus related OG fields in Meta Data). These are filtered out of the main <code>$fields</code> render loop in <code>admin/templates/entry-editor.html</code>.</p>

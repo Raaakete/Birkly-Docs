@@ -45,7 +45,7 @@ If something fails (for example invalid CSRF or missing permission), the message
 
 - **AI** — Outbound AI providers and inbound MCP connectors are configured under **Settings → AI**. See [AI overview](ai-overview.md), [AI connections](ai-connections.md), [MCP connections](mcp-connections.md), and [AI on localhost](../04-integration/ai-on-localhost.md).
 
-- **System** — Installation/system options, including **Developer mode** (off by default) for template/site-pack export and DX tools. See [Developer mode](developer-mode.md).
+- **System** — Installation/system options, including **Developer mode** (off by default) for template/site-pack export and DX tools. See [Developer mode](developer-mode.md). The current-version card on this tab shows the **Scheduled publish** URL. HTTP cron must call that URL. A call without the token does not publish, including from localhost. Running `php api/process_scheduled.php` from the server does not need the token.
 
 - **Monitoring** — Health alert email and webhook URL when `/api/health.php` reports degraded or error. See [Monitoring and health alerts](../07-operations/monitoring-alerts.md).
 

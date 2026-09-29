@@ -30,6 +30,8 @@ The slug is the URL-friendly identifier for this entry (e.g. `welcome-to-our-blo
 
 Choose **Unpublished**, **Published**, **Scheduled**, or **Pending for Review**. Additional fields appear when relevant (e.g. **Publish At** for scheduled, **Unpublish At** for published, **Notify Reviewer** for pending review).
 
+A **Scheduled** entry stays unpublished until the publish time and the scheduler runs. Open **Settings → System** and copy the **Scheduled publish** URL into your server cron. That URL includes a token. An HTTP request without the token does not publish. A command-line run, `php api/process_scheduled.php`, does not use the token.
+
 **Saving**
 
 Use **Save** or **Save & Publish** at the top. Slug and status are read from the sidebar when you save.

@@ -8,7 +8,7 @@
 <li><strong>HTTP API credential</strong> — a base URL and secret for a shipping provider, CRM, or other API.</li>
 <li><strong>Webhook signing secret</strong> — a shared password that proves an incoming webhook really came from a provider.</li>
 </ul>
-<p>Each Connection has a friendly name you choose, a type (for example <strong>Email — SMTP</strong>), and the secret details needed to connect. Secrets are encrypted at rest; the admin only shows whether they exist, never the actual password or key.</p>
+<p>Each Connection has a friendly name you choose, a type (for example <strong>Email — SMTP</strong>), and the secret details needed to connect. Passwords and API keys are encrypted at rest and stay masked. An inbound webhook that was saved without a signing secret gets one generated. <strong>Settings → Connections</strong> shows that <strong>Inbound webhook signing secret</strong> so you can copy it to the sender. Posts without a valid signature are rejected. Later visits do not rotate the secret.</p>
 <h3>Why this matters</h3>
 <p>Before Connections, email settings were hidden inside Automation → Setup. If you turned Automation off, Commerce order emails, form notifications, and password resets could stop working because they relied on that plugin’s SMTP settings. Connections moves that responsibility into the platform, so every plugin shares the same healthy pipe. The main thing to remember: <strong>turning on a feature is not the same as having a working Connection</strong>. A Commerce email template can be enabled, but if no Email Connection is healthy, the message will not reach a real inbox.</p>
 <h3>Opening Connections</h3>

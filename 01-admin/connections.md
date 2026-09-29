@@ -17,7 +17,7 @@ Think of a Connection as a saved account Birkly uses to send something out of th
 - **HTTP API credential** — a base URL and secret for a shipping provider, CRM, or other API.
 - **Webhook signing secret** — a shared password that proves an incoming webhook really came from a provider.
 
-Each Connection has a friendly name you choose, a type (for example **Email — SMTP**), and the secret details needed to connect. Secrets are encrypted at rest; the admin only shows whether they exist, never the actual password or key.
+Each Connection has a friendly name you choose, a type (for example **Email — SMTP**), and the secret details needed to connect. Passwords and API keys are encrypted at rest and stay masked. An inbound webhook that was saved without a signing secret gets one generated. **Settings → Connections** shows that **Inbound webhook signing secret** so you can copy it to the sender. Posts without a valid signature are rejected. Later visits do not rotate the secret.
 
 ### Why this matters
 

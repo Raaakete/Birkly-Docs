@@ -42,7 +42,7 @@
 </ul>
 <p><strong>Automation or webhook doesn’t run</strong></p>
 <ul>
-<li><strong>Scheduled</strong> — The server must have something that runs the scheduler (e.g. a cron job). Ask your host or developer if the cron is set up and running.</li>
+<li><strong>Scheduled</strong> — The server must have something that runs the scheduler (e.g. a cron job). For entry publish times, copy the <strong>Scheduled publish</strong> URL from <strong>Settings → System</strong> into that cron. The URL includes a token. Calling <code>/api/process_scheduled.php</code> over HTTP without the token does not publish. <code>php api/process_scheduled.php</code> on the server does not need the token.</li>
 <li><strong>Webhook</strong> — Call the exact URL shown in the workflow; use POST and the body format your workflow expects. Check if a firewall or proxy is blocking the request. In the admin, check Automation or Activity logs for “run” or “error” messages.</li>
 <li><strong>Conditions</strong> — If the workflow has conditions (e.g. “payload must have email”), make sure the request you send satisfies them.</li>
 </ul>

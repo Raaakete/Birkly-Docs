@@ -50,7 +50,7 @@ This page lists common issues when using or deploying Birkly and suggests steps 
 
 **Automation or webhook doesn’t run**
 
-- **Scheduled** — The server must have something that runs the scheduler (e.g. a cron job). Ask your host or developer if the cron is set up and running.
+- **Scheduled** — The server must have something that runs the scheduler (e.g. a cron job). For entry publish times, copy the **Scheduled publish** URL from **Settings → System** into that cron. The URL includes a token. Calling `/api/process_scheduled.php` over HTTP without the token does not publish. `php api/process_scheduled.php` on the server does not need the token.
 - **Webhook** — Call the exact URL shown in the workflow; use POST and the body format your workflow expects. Check if a firewall or proxy is blocking the request. In the admin, check Automation or Activity logs for “run” or “error” messages.
 - **Conditions** — If the workflow has conditions (e.g. “payload must have email”), make sure the request you send satisfies them.
 

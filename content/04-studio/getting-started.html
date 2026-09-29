@@ -1,24 +1,12 @@
-<p><strong>Summary:</strong> Build and publish template-first sites inside Birkly with a visual canvas, style kits, and SSR.</p>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><ol>
-<li>Activate <strong>Studio</strong> under Settings → Plugins.</li>
-<li>Open <strong>Studio</strong> in the admin sidebar.</li>
-<li>Click <strong>New project</strong> and pick a style kit (Minimal, Bootstrap, or Tailwind Lite).</li>
-<li>Add sections and elements from the palette. Use <strong>Collection loop</strong> to bind blog or product lists.</li>
-<li>Click <strong>Publish</strong> — your site is live at <code>/site/your-project-slug/</code>.</li>
-<li>Optional: <strong>Export ZIP</strong> for a static copy; the in-CMS project remains the source of truth.</li>
-</ol>
-<h2>Advanced</h2>
-<h3>Storage</h3>
-<p>Projects live at <code>content/studio-projects/{id}/</code>:</p>
-<ul>
-<li><code>*.studio.json</code> — editor canvas (not served publicly)</li>
-<li><code>*.html</code> — compiled publish artifact with Birkly template tags</li>
-<li><code>styles/kit.css</code> + <code>styles/custom.css</code></li>
-</ul>
-<h3>Preview vs SSR</h3>
-<table><thead><tr><th>Mode</th><th>Engine</th><th>URL</th></tr></thead>
-<tbody><tr><td>Admin preview</td><td><code>birkly-client.js</code> + P21 page_bundle</td><td>iframe in editor</td></tr><tr><td>Published</td><td>PHP SSR (<code>StudioRenderer</code>)</td><td><code>/site/{slug}/</code></td></tr></tbody></table>
-<h3>Deactivation</h3>
-<p>Deactivating Studio returns <strong>503</strong> on <code>/site/*</code>. Files are not deleted.</p>
-<h3>Docs in repo</h3>
-<p>See <code>plugins/studio/README.md</code> in the Birkly core repository.</p></div></details>
+<div class="doc-summary"><p><strong>Studio</strong> builds a site in the admin and publishes it at <code>/site/{slug}/</code>. The walkthrough lives on the Studio <strong>Docs</strong> tab inside the install. That tab updates when you update the plugin.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the manual in this install</strong></p>
+<ol>
+<li>Enable <strong>Studio</strong> under <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Studio</strong> in the sidebar.</li>
+<li>Click <strong>Docs</strong>. Follow <strong>Getting started</strong>, then <strong>Files and preview</strong> and <strong>Publish and export</strong>. This page does not repeat those steps.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Published pages are served by the Studio plugin. If <code>/site/</code> does not resolve on your host, the Docs tab explains the rewrite and <code>/api/studio_view.php</code>. Deactivating Studio stops <code>/site/*</code>. Project files stay on disk.</p></div></details>
+<div class="doc-related"><ul>
+<li><a href="../06-extensibility/plugins.html">Plugins</a></li>
+<li><a href="../04-integration/website-integration.html">Website integration</a></li>
+</ul></div>

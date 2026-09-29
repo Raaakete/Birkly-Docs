@@ -1275,6 +1275,15 @@
                 "fix"
             ]
         },
+        "04-studio/getting-started.md": {
+            "id": "studio-getting-started",
+            "title": "Studio",
+            "keywords": [
+                "studio",
+                "visual builder",
+                "publish"
+            ]
+        },
         "06-extensibility/events-plugin.md": {
             "id": "events-plugin",
             "title": "Events plugin",

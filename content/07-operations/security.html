@@ -61,8 +61,9 @@
 <ul>
 <li><strong>Public health:</strong> <code>GET /api/deploy_revision.php</code> returns only <code>status</code>, <code>service</code>, <code>build_revision</code>, and <code>time</code> — no installation id, data paths, or hosting env maps. Dokploy and other monitors can use this URL with <strong>no extra configuration</strong>.</li>
 <li><strong>Diagnostics:</strong> While logged in to <strong>Admin</strong> (read settings or higher), use <code>/admin/deploy-check.php</code> or <code>/api/admin_deploy_diagnostics.php</code> with your session cookie. Mutating actions use <strong>POST</strong> with CSRF, like other admin APIs. No server env secrets are required.</li>
-<li><strong>Emergency password reset:</strong> Use <code>php scripts/reset-admin-password.php --email=…</code> and enter the password at the prompt, or set <code>BIRKLY_RESET_PASSWORD</code> in the container env for one run. Do <strong>not</strong> use <code>--password=…</code> on the command line (visible in <code>ps</code>).</li>
-<li><strong>Runtime data:</strong> Keep <code>data/</code>, <code>settings/</code>, and <code>users/</code> off git and off public HTTP. Security scanners that read live volumes may flag local JSON; that is not the same as secrets in the repository.</li>
+<li><strong>First admin:</strong> Use onboarding, or <code>BIRKLY_ADMIN_PASSWORD='…' php scripts/create-default-user.php</code>. The script does not create a shared password, and it does nothing when an admin already exists.</li>
+<li><strong>Emergency password reset:</strong> Use <code>php scripts/reset-admin-password.php --email=…</code> and enter the password at the prompt, or set <code>BIRKLY_RESET_PASSWORD</code> for that one run. The script rejects <code>--password=…</code> and refuses to run over HTTP.</li>
+<li><strong>Runtime data:</strong> <code>data/</code>, <code>settings/</code>, <code>users/</code>, <code>content/</code>, <code>core/</code>, <code>logs/</code>, <code>cache/</code>, and <code>tests/</code> are refused by the shipped Apache and nginx configs and stay off git. <code>scripts/commerce-import-sync.php</code> stays on HTTP and requires its cron token.</li>
 </ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="deployment.html">Deployment</a></li>

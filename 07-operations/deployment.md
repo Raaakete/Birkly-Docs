@@ -57,8 +57,8 @@ Deployment is how you put Birkly on a server so it’s reachable on the internet
 
 **Web server config**
 
-- **Apache:** Enable `mod_rewrite`; use provided `.htaccess` or equivalent so requests go through `index.php`.
-- **Nginx:** `try_files` or `location /` forwarding to `index.php` with request URI. See `nginx.conf.example` in repo.
+- **Apache:** Enable `mod_rewrite` and keep the shipped `.htaccess`. It sends public routes through `index.php` and refuses `core/`, `settings/`, `users/`, `content/`, `data/`, `cache/`, `logs/`, `scripts/` (except `scripts/commerce-import-sync.php`, which checks its cron token), and `tests/`.
+- **Nginx:** Use `nginx.conf.example` or the Docker config in `docker/nginx-site.conf`. Both refuse those same directories. `media/`, `admin/`, `api/`, and `project/` stay available.
 - **HTTPS** — Redirect HTTP to HTTPS; use valid certificate (e.g. Let’s Encrypt) in production.
 
 **Environment and config**

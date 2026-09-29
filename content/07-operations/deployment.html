@@ -46,8 +46,8 @@
 </ul>
 <p><strong>Web server config</strong></p>
 <ul>
-<li><strong>Apache:</strong> Enable <code>mod_rewrite</code>; use provided <code>.htaccess</code> or equivalent so requests go through <code>index.php</code>.</li>
-<li><strong>Nginx:</strong> <code>try_files</code> or <code>location /</code> forwarding to <code>index.php</code> with request URI. See <code>nginx.conf.example</code> in repo.</li>
+<li><strong>Apache:</strong> Enable <code>mod_rewrite</code> and keep the shipped <code>.htaccess</code>. It sends public routes through <code>index.php</code> and refuses <code>core/</code>, <code>settings/</code>, <code>users/</code>, <code>content/</code>, <code>data/</code>, <code>cache/</code>, <code>logs/</code>, <code>scripts/</code> (except <code>scripts/commerce-import-sync.php</code>, which checks its cron token), and <code>tests/</code>.</li>
+<li><strong>Nginx:</strong> Use <code>nginx.conf.example</code> or the Docker config in <code>docker/nginx-site.conf</code>. Both refuse those same directories. <code>media/</code>, <code>admin/</code>, <code>api/</code>, and <code>project/</code> stay available.</li>
 <li><strong>HTTPS</strong> — Redirect HTTP to HTTPS; use valid certificate (e.g. Let’s Encrypt) in production.</li>
 </ul>
 <p><strong>Environment and config</strong></p>

@@ -8,27 +8,27 @@ Public list of **accepted limitations** while P86 (self-host–ready engineering
 
 ## Beginner
 
-**Example: Events shows Coming soon**
+**Example: install Events from the Hub**
 
-1. Open **Plugins → Hub** and find **Events**.
-2. If the card says **Coming soon**, do not treat that as a failed install. Wave 1 does not ship Events or Studio from the Hub.
-3. Install **User**, **Commerce**, or **Automation** instead, and send other blockers through in-admin **Feedback** or hello@birkly.io.
+1. Open **Plugins → Hub** and install **Events**. **Studio** is on the Hub as well, when you need the site IDE.
+2. Enable the plugin. **Events** appears in the sidebar.
+3. Open its **Documentation** tab for the class and RSVP walkthrough. Send other blockers through in-admin **Feedback** or hello@birkly.io.
 
 ## P1 — documented limitations
 
 | Area | Issue | Workaround |
 |------|--------|------------|
-| **Hub (alpha)** | **Events** and **Studio** show as *Coming soon* — not installable in Wave 1 | Use **User**, **Commerce**, and **Automation** from the Hub |
-| **Architecture (P74)** | User ↔ Commerce club/membership boundaries still migrating to shelf model | Use documented plugin flows; report cross-plugin bugs via Feedback |
+| **Hub** | Events and Studio install from the Hub. Each plugin’s **Documentation** tab is the manual | Update the plugin when that manual should change |
+| **Membership** | New tier grants are **User → Membership products**. Commerce **Settings → Membership mappings** lists older stored rows and does not create grants | Add the product on the User tab. Use **Import Commerce mappings** there for rows already stored |
 | **Hub** | Plugin versions must be installed/upgraded via Marketplace; pin versions your team documents | Hub → Update per plugin |
 | **Email** | User activation and some notifications need **Connections → SMTP** | Run test email before signup tests |
-| **i18n** | **German (`de`)** is the strict quality bar; other admin locales may show English fallbacks | Prefer `de` or `en` for demos |
+| **i18n** | Selectable admin languages are English, German, French, Spanish, and Japanese. Danish, Hindi, and Chinese ship in the repo and stay out of the picker | Use a selectable language for demos |
 
 ## P2 — deferrals
 
 | Area | Issue |
 |------|--------|
-| **Locales** | da, es, fr, hi, ja, zh admin catalogs incomplete vs `en` |
+| **Locales** | da, hi, and zh are not selectable. en, de, fr, es, and ja are |
 | **Commerce** | FX conversion between currencies — set prices per currency explicitly |
 | **Feedback** | Self-host stores JSON under `data/feedback/` unless optional Ops relay is configured |
 | **Journeys** | Full P28 beta journey catalog not required for engineering closure |

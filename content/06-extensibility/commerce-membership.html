@@ -1,12 +1,13 @@
-<div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Subscriptions</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Subscriptions topic</strong></p>
+<div class="doc-summary"><p>A paid membership is a User tier linked to a Commerce product. Create that link under <strong>User → Membership products</strong>. Commerce does not offer a mapping wizard.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: grant a tier after a subscription starts</strong></p>
 <ol>
-<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
-<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
-<li>Open <strong>Subscriptions</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
-</ol></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
+<li>Enable <strong>User Management</strong> and <strong>Commerce</strong>.</li>
+<li>Open <strong>User → Membership products</strong>. Click <strong>Add product</strong>.</li>
+<li>Fill name, collection, entry id, purchase option, tier, and signup flow (for example <code>pay_then_activate</code>). Turn the row <strong>On</strong> and click <strong>Save products</strong>. Tier grant and revoke run on subscription events.</li>
+</ol>
+<p><strong>Commerce → Settings → Membership mappings</strong> lists mappings stored by older installs. New tier grants are not created on that screen. <strong>Import Commerce mappings</strong> on the User tab copies those stored rows.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Past-due grace days and the default tier on revoke are on the same User screen. Recurring billing itself stays on the Commerce <strong>Subscriptions</strong> topic. A publish of docs.birkly.com does not change either manual. Update the plugin that owns the screen.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="user-plugin.html">User management plugin</a></li>
 <li><a href="plugins.html">Plugins</a></li>
 </ul></div>

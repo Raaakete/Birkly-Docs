@@ -1,12 +1,11 @@
-<div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Tax</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Tax topic</strong></p>
+<div class="doc-summary"><p>Checkout charges the currency on the purchase option. Catalog labels can show another currency. That setting is <strong>Settings reference</strong> on the Commerce <strong>Docs</strong> tab, not the Tax topic.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: set the charge currency</strong></p>
 <ol>
 <li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
-<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
-<li>Open <strong>Tax</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+<li>Open <strong>Commerce → Docs</strong> and select <strong>Settings reference</strong>.</li>
+<li>Under <strong>General</strong>, set <strong>Default currency</strong> (<code>eur</code>, <code>usd</code>, …). <strong>Display currency / FX JSON</strong> changes catalog labels only. Checkout still charges the purchase-option currency. There is no FX conversion at pay time.</li>
 </ol></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Prices for a second currency are separate purchase options, each with its own <code>currency</code>. Tax rates stay on the <strong>Tax</strong> topic. A publish of docs.birkly.com does not change the plugin manual. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="plugins/commerce.html">Commerce</a></li>
 <li><a href="plugins.html">Plugins</a></li>
 </ul></div>

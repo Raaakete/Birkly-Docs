@@ -1,22 +1,21 @@
-# Commerce migration
+# Legacy migration wizard
 
 ## Summary
 
-This procedure lives on the **Docs** tab of **Commerce** inside your Birkly install. Open the **Shopify cutover** topic there. That text updates when you update the plugin. This page does not repeat it.
+The legacy wizard appears only when Commerce detects old Shop or Events sources. It is a row under **Import & migrate** in **Settings reference**, not the Shopify cutover.
 
 ## Beginner
 
-**Example: open the Shopify cutover topic**
+**Example: find the wizard**
 
-1. Enable **Commerce** from **Plugins → Hub** or **Settings → Plugins**.
-2. Open **Commerce** in the sidebar and select the **Docs** tab.
-3. Open **Shopify cutover**. Follow that article. Do not copy a `commerce-storefront.js` script tag from an old page. Commerce pages include `birkly-client.js` only.
+1. Enable **Commerce**.
+2. Open **Commerce → Settings → Import & migrate**.
+3. If old Shop or Events sources are present, the **Legacy wizard** is listed. If it is absent, there is nothing for it to migrate. Shopify store moves use **Shopify cutover** on the Docs tab instead.
 
 ## Advanced Users
 
-API tables and provider settings for this topic are on the same Docs tab, under **Advanced Users**. A publish of docs.birkly.com does not change them. Update the Commerce plugin.
+Dry-run before writing. The wizard does not replace **User → Membership products**. Update the Commerce plugin to change this manual.
 
 ## Related
 
-- [Commerce](plugins/commerce.md)
 - [Plugins](plugins.md)

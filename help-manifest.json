@@ -1225,6 +1225,16 @@
             "docs_path": "04-integration/ssr-and-build-time.html"
         },
         {
+            "id": "studio-getting-started",
+            "title": "Studio",
+            "keywords": [
+                "studio",
+                "visual builder",
+                "publish"
+            ],
+            "docs_path": "04-studio/getting-started.html"
+        },
+        {
             "id": "sub-collections",
             "title": "Sub-collections",
             "keywords": [

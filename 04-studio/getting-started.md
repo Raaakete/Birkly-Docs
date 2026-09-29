@@ -1,37 +1,22 @@
 # Studio — visual site builder
 
-**Summary:** Build and publish template-first sites inside Birkly with a visual canvas, style kits, and SSR.
+## Summary
+
+**Studio** builds a site in the admin and publishes it at `/site/{slug}/`. The walkthrough lives on the Studio **Docs** tab inside the install. That tab updates when you update the plugin.
 
 ## Beginner
 
-1. Activate **Studio** under Settings → Plugins.
-2. Open **Studio** in the admin sidebar.
-3. Click **New project** and pick a style kit (Minimal, Bootstrap, or Tailwind Lite).
-4. Add sections and elements from the palette. Use **Collection loop** to bind blog or product lists.
-5. Click **Publish** — your site is live at `/site/your-project-slug/`.
-6. Optional: **Export ZIP** for a static copy; the in-CMS project remains the source of truth.
+**Example: open the manual in this install**
 
-## Advanced
+1. Enable **Studio** under **Settings → Plugins**.
+2. Open **Studio** in the sidebar.
+3. Click **Docs**. Follow **Getting started**, then **Files and preview** and **Publish and export**. This page does not repeat those steps.
 
-### Storage
+## Advanced Users
 
-Projects live at `content/studio-projects/{id}/`:
+Published pages are served by the Studio plugin. If `/site/` does not resolve on your host, the Docs tab explains the rewrite and `/api/studio_view.php`. Deactivating Studio stops `/site/*`. Project files stay on disk.
 
-- `*.studio.json` — editor canvas (not served publicly)
-- `*.html` — compiled publish artifact with Birkly template tags
-- `styles/kit.css` + `styles/custom.css`
+## Related
 
-### Preview vs SSR
-
-| Mode | Engine | URL |
-|------|--------|-----|
-| Admin preview | `birkly-client.js` + P21 page_bundle | iframe in editor |
-| Published | PHP SSR (`StudioRenderer`) | `/site/{slug}/` |
-
-### Deactivation
-
-Deactivating Studio returns **503** on `/site/*`. Files are not deleted.
-
-### Docs in repo
-
-See `plugins/studio/README.md` in the Birkly core repository.
+- [Plugins](../06-extensibility/plugins.md)
+- [Website integration](../04-integration/website-integration.md)

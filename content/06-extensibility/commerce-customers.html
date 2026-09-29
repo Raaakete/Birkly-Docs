@@ -1,34 +1,12 @@
-<p><strong>Customers</strong> is a first-class Commerce tab (1.0.17+ / current <strong>1.0.22</strong>): email-keyed profiles with addresses, tags, notes, CSV import, and an order/subscription timeline. Passwords are never stored or imported.</p>
-<div class="doc-summary"><p>Commerce customer profiles are commercial records, not login accounts. Checkout and subscriptions <strong>auto-upsert</strong> a profile by email. Optionally link a profile to <strong>User Management</strong> when that plugin is active (invite / password-reset only — no password migration).</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Open Customers</h3>
+<div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Orders &amp; customers</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Orders &amp; customers topic</strong></p>
 <ol>
-<li>Open <strong>Commerce → Customers</strong>.</li>
-<li>Search by email, name, or tags.</li>
-<li>Click a row for detail, or open the <strong>timeline</strong> for orders and subscriptions tied to that email.</li>
-</ol>
-<h3>Add or edit a profile</h3>
-<ol>
-<li>Click <strong>Add customer</strong>, or open an existing profile and <strong>Save</strong>.</li>
-<li>Email is required and is the unique key (normalized lowercase).</li>
-<li>Optional: name, phone, tags, notes, shipping address fields.</li>
-</ol>
-<h3>Import CSV</h3>
-<ol>
-<li>Click <strong>Import CSV</strong> and choose a file.</li>
-<li>Required column: <code>email</code>.</li>
-<li>Optional columns: <code>name</code>, <code>phone</code>, <code>tags</code>, <code>notes</code>, <code>line1</code>, <code>line2</code>, <code>city</code>, <code>region</code>, <code>postal</code>, <code>country</code>.</li>
-<li>Password-like columns (<code>password</code>, <code>passwd</code>, <code>password_hash</code>, etc.) are <strong>ignored</strong>.</li>
-</ol>
-<p>Shopify cutover also upserts customers by email — see <a href="commerce-shopify-cutover.html">Shopify cutover playbook</a>.</p>
-<h3>User Management link</h3>
-<p>When <strong>User Management</strong> is active, the customer detail/timeline can show a linked user (matched by <code>user_id</code> or email) and an admin deep link. Commerce does <strong>not</strong> create passwords. Use User Management invite or password-reset after go-live.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Storage:</strong> <code>CommerceCustomerStore</code> under <code>data/plugins/commerce/customers/</code> (<code>cust_*.json</code>). Soft-delete via <code>deleted_at</code>.</p>
-<p><strong>Admin API actions:</strong> <code>list_customers</code>, <code>get_customer</code>, <code>save_customer</code>, <code>import_customers_csv</code>, <code>delete_customer</code>, <code>customer_timeline</code>.</p>
-<p><strong>Timeline:</strong> Aggregates orders and subscriptions for the customer email; includes optional <code>user_management</code> resolution when that plugin is active.</p>
-<p><strong>Checkout:</strong> Paid checkout upserts/updates the customer profile from buyer email and shipping details.</p></div></details>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Orders &amp; customers</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
-<li><a href="commerce-shopify-cutover.html">Shopify cutover playbook</a></li>
-<li><a href="user-plugin.html">User plugin</a></li>
-<li><a href="user-signup-membership.html">User signup and membership</a></li>
+<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div>

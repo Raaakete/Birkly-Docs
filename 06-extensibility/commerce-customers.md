@@ -1,51 +1,22 @@
 # Commerce customers
 
-**Customers** is a first-class Commerce tab (1.0.17+ / current **1.0.22**): email-keyed profiles with addresses, tags, notes, CSV import, and an order/subscription timeline. Passwords are never stored or imported.
-
 ## Summary
 
-Commerce customer profiles are commercial records, not login accounts. Checkout and subscriptions **auto-upsert** a profile by email. Optionally link a profile to **User Management** when that plugin is active (invite / password-reset only — no password migration).
+This procedure lives on the **Docs** tab of **Commerce** inside your Birkly install. Open the **Orders & customers** topic there. That text updates when you update the plugin. This page does not repeat it.
 
 ## Beginner
 
-### Open Customers
+**Example: open the Orders & customers topic**
 
-1. Open **Commerce → Customers**.
-2. Search by email, name, or tags.
-3. Click a row for detail, or open the **timeline** for orders and subscriptions tied to that email.
-
-### Add or edit a profile
-
-1. Click **Add customer**, or open an existing profile and **Save**.
-2. Email is required and is the unique key (normalized lowercase).
-3. Optional: name, phone, tags, notes, shipping address fields.
-
-### Import CSV
-
-1. Click **Import CSV** and choose a file.
-2. Required column: `email`.
-3. Optional columns: `name`, `phone`, `tags`, `notes`, `line1`, `line2`, `city`, `region`, `postal`, `country`.
-4. Password-like columns (`password`, `passwd`, `password_hash`, etc.) are **ignored**.
-
-Shopify cutover also upserts customers by email — see [Shopify cutover playbook](commerce-shopify-cutover.md).
-
-### User Management link
-
-When **User Management** is active, the customer detail/timeline can show a linked user (matched by `user_id` or email) and an admin deep link. Commerce does **not** create passwords. Use User Management invite or password-reset after go-live.
+1. Enable **Commerce** from **Plugins → Hub** or **Settings → Plugins**.
+2. Open **Commerce** in the sidebar and select the **Docs** tab.
+3. Open **Orders & customers**. Follow that article. Do not copy a `commerce-storefront.js` script tag from an old page. Commerce pages include `birkly-client.js` only.
 
 ## Advanced Users
 
-**Storage:** `CommerceCustomerStore` under `data/plugins/commerce/customers/` (`cust_*.json`). Soft-delete via `deleted_at`.
-
-**Admin API actions:** `list_customers`, `get_customer`, `save_customer`, `import_customers_csv`, `delete_customer`, `customer_timeline`.
-
-**Timeline:** Aggregates orders and subscriptions for the customer email; includes optional `user_management` resolution when that plugin is active.
-
-**Checkout:** Paid checkout upserts/updates the customer profile from buyer email and shipping details.
+API tables and provider settings for this topic are on the same Docs tab, under **Advanced Users**. A publish of docs.birkly.com does not change them. Update the Commerce plugin.
 
 ## Related
 
-- [Commerce plugin overview](plugins/commerce.md)
-- [Shopify cutover playbook](commerce-shopify-cutover.md)
-- [User plugin](user-plugin.md)
-- [User signup and membership](user-signup-membership.md)
+- [Commerce](plugins/commerce.md)
+- [Plugins](plugins.md)

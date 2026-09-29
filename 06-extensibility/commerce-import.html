@@ -217,56 +217,17 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Import purchasable entries from CSV via <strong>Commerce → Settings → Import &amp; migrate</strong> in admin. For a one-time Shopify move with customers and archived orders, see <a href="commerce-shopify-cutover.html">Shopify cutover</a>. For <strong>live API sync (Beta)</strong>, see <a href="commerce-live-import.html">Commerce live import</a>.</p>
-<div class="doc-summary"><p>The import wizard supports <strong>CSV upload</strong> from many platforms (WooCommerce, Shopify, Magento, and more) with preset column mapping. Choose a target collection, preview rows, and import with idempotent SKU matching. Import history supports rollback. Live REST API import (Beta) is grouped in the same Import &amp; migrate area. Legacy Shop / Events migration appears only when those sources are detected — see <a href="commerce-migration-wizard.html">Commerce migration wizard</a>.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Start an import</strong></p>
+        <div class="doc-content"><div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Shopify cutover</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Shopify cutover topic</strong></p>
 <ol>
-<li>Open <strong>Commerce → Settings → Import &amp; migrate</strong>.</li>
-<li>Click <strong>Import products</strong>.</li>
-<li><strong>Step 1 — Platform:</strong> Search or filter (Stores / Inventory) and pick your source (for example WooCommerce or Shopify CSV).</li>
-<li><strong>Step 2 — Upload:</strong> Select target collection (existing or create new), default currency, and upload the CSV (or paste CSV text).</li>
-<li><strong>Step 3 — Review:</strong> Check the preview table and row counts.</li>
-<li><strong>Step 4 — Done:</strong> Confirm created/updated counts.</li>
-</ol>
-<p><strong>Export from your old store</strong></p>
-<p>Each platform card shows export steps. Typical paths:</p>
-<ul>
-<li><strong>WooCommerce:</strong> Products → Export → CSV (Name, SKU, Regular price, Stock).</li>
-<li><strong>Shopify:</strong> Products → Export → CSV (Variant SKU, Variant price, inventory qty).</li>
-</ul>
-<p><strong>Import history</strong></p>
-<p>Import &amp; migrate lists past runs with status, counts, and actions:</p>
-<ul>
-<li><strong>Details</strong> — view created/updated breakdown.</li>
-<li><strong>Remove</strong> — rollback imported entries (optionally delete collection if the import created it).</li>
-</ul>
-<h2>Supported sources (CSV v1)</h2>
-<table><thead><tr><th>Preset</th><th>Description</th></tr></thead>
-<tbody><tr><td><strong>Generic CSV</strong></td><td>Column mapping wizard</td></tr><tr><td><strong>WooCommerce export</strong></td><td>Preset column mapping</td></tr><tr><td><strong>Shopify export</strong></td><td>Preset column mapping</td></tr><tr><td><strong>Magento, BigCommerce, PrestaShop, …</strong></td><td>Preset mappings in import wizard</td></tr></tbody></table>
-<h2>Mapping targets</h2>
-<table><thead><tr><th>Column</th><th>Maps to</th></tr></thead>
-<tbody><tr><td>Title</td><td>Entry title</td></tr><tr><td>Body / Description</td><td>Entry body field</td></tr><tr><td>Price</td><td>Commerce <code>price_cents</code> (converted from decimal)</td></tr><tr><td>Currency</td><td>Commerce <code>currency</code></td></tr><tr><td>SKU</td><td>Commerce <code>sku</code></td></tr><tr><td>Quantity</td><td>Commerce <code>quantity_available</code></td></tr><tr><td>Slug</td><td>Entry slug</td></tr><tr><td>Image URL</td><td>Media field (when mapped)</td></tr></tbody></table>
-<h2>Idempotency</h2>
-<p>Match existing entries by <strong>SKU</strong> or <strong>external_id</strong> column — update vs create.</p>
-<h2>Dry-run</h2>
-<p>Use dry-run mode (preview step) to validate rows before writing entries.</p>
-<h2>Live API import (Beta)</h2>
-<p>For ongoing sync without manual CSV export:</p>
-<ul>
-<li><a href="commerce-live-import.html">Commerce live import</a> — Shopify, WooCommerce, Etsy, Square (Beta); preview and scheduled cron sync.</li>
-</ul>
-<h2>Out of scope (CSV v1)</h2>
-<ul>
-<li>Order or customer import via CSV (Shopify customers/archived orders: <a href="commerce-shopify-cutover.html">Shopify cutover</a>)</li>
-<li>Webhook-driven real-time sync (see <a href="commerce-inventory-webhooks.html">inventory webhooks</a> for stock)</li>
-<li>Automatic collection creation without Commerce fieldtype (wizard can create Commerce-enabled collection)</li>
-</ul></div></details>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Shopify cutover</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="commerce-shopify-cutover.html">Shopify cutover playbook</a></li>
-<li><a href="commerce-plugin.html">Commerce plugin</a></li>
-<li><a href="commerce-live-import.html">Commerce live import</a></li>
-<li><a href="commerce-migration-wizard.html">Commerce migration wizard</a></li>
-<li><a href="commerce-fieldtype.html">Commerce fieldtype</a></li>
+<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div></div>
       </div>
     </main>

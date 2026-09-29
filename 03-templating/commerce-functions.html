@@ -217,47 +217,17 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Template functions registered by the <strong>Commerce</strong> plugin when active. Use them in client-site HTML for cart badges, buy links, and “from €X” pricing.</p>
-<div class="doc-summary"><p><strong>In short:</strong> With Commerce active you can use <code>{commerce_cart_count}</code>, <code>{commerce_cart_url}</code>, <code>{commerce_buy_url}</code>, <code>{commerce_add_to_cart}</code>, and <code>{commerce_price_from}</code>. For multi-SKU products, pass the <strong>variant sub-entry</strong> id/slug. Combine with normal loops and <a href="sub-collections-in-templates.html">sub-collection</a> syntax (<code>of 'products'.current</code>).</p>
-<blockquote><p><strong>Video (follow-along):</strong> optional (P3) — add-to-cart flow</p></blockquote></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Cart badge</h3>
-<pre><code>&lt;a href=&quot;/cart.html&quot;&gt;Cart ({commerce_cart_count})&lt;/a&gt;</code></pre>
-<h3>Buy button on a product detail page</h3>
-<pre><code>&lt;a href=&quot;{commerce_buy_url slug my_products 1}&quot;&gt;Buy now&lt;/a&gt;</code></pre>
-<ul>
-<li>First argument: entry <strong>id or slug</strong> (variant sub-entry for options)</li>
-<li>Second: <strong>collection slug</strong></li>
-<li>Third: quantity (optional, default 1)</li>
-</ul>
-<h3>Lowest price on a product detail page</h3>
-<p>On a detail URL (<code>?collection=products&amp;slug=…</code>), <code>slug</code> resolves to the current entry:</p>
-<pre><code>&lt;p&gt;€{commerce_price_from slug products}&lt;/p&gt;</code></pre>
-<p>Or pass the commerce field directly (variants, custom field slugs):</p>
-<pre><code>&lt;p&gt;€{commerce_price_from {'commerce'}}&lt;/p&gt;
-&lt;p&gt;€{commerce_price_from variant.commerce}&lt;/p&gt;</code></pre>
-<p>The tag returns a <strong>number</strong> with a dot decimal (for example <code>6.50</code>). Add your currency symbol and locale formatting in HTML/CSS.</p>
-<h3>Variants (sub-collection)</h3>
-<p>On a product detail page (URL has <code>?collection=products&amp;slug=…</code>):</p>
-<pre><code>{for each entry in 'variants' of 'products'.current ordered by order}
-  &lt;div&gt;
-    &lt;h3&gt;{title}&lt;/h3&gt;
-    &lt;a href=&quot;{commerce_buy_url slug products 1}&quot;&gt;Buy&lt;/a&gt;
-  &lt;/div&gt;
-{endfor}</code></pre>
-<p>Use the variant’s own slug/id in <code>commerce_buy_url</code> when that row is the sellable unit.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
-<table><thead><tr><th>Function</th><th>Signature</th><th>Returns</th></tr></thead>
-<tbody><tr><td><code>commerce_cart_count</code></td><td>none</td><td>Session cart item count</td></tr><tr><td><code>commerce_cart_url</code></td><td>none</td><td>Cart URL</td></tr><tr><td><code>commerce_buy_url</code></td><td><code>entry_id</code>, <code>collection_slug?</code>, <code>qty?</code></td><td>Checkout / add URL</td></tr><tr><td><code>commerce_add_to_cart</code></td><td>same as buy_url</td><td>Alias</td></tr><tr><td><code>commerce_price_from</code></td><td><code>entry_id</code>, <code>collection_slug</code> <strong>or</strong> commerce field value</td><td>Lowest purchase-option price (catalog lookup or field array). Empty when unknown.</td></tr></tbody></table>
-<p><strong>Registration:</strong> <code>register_template_function()</code> in Commerce <code>plugin.php</code>; omitted when inactive. See <a href="plugin-language-extensions.html">Plugin language extensions</a>.</p>
-<p><strong>Do not</strong> invent <code>{for each variant in sub_entries variants}</code> — use <code>of 'collection'.current</code> / explicit slug.</p>
-<p><strong>Affiliate:</strong> Append <code>?ref=partner_id</code> on site URLs when using affiliate rules.</p>
-<p>Full page recipes: <a href="storefront-patterns.html">Storefront patterns</a>.</p></div></details>
+        <div class="doc-content"><div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Commerce template functions</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Commerce template functions topic</strong></p>
+<ol>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Commerce template functions</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="storefront-patterns.html">Storefront and events patterns</a></li>
-<li><a href="sub-collections-in-templates.html">Sub-collections in templates</a></li>
-<li><a href="../06-extensibility/plugins/commerce.html">Commerce plugin</a></li>
-<li><a href="loops-and-lists.html">Loops and lists</a></li>
-<li><a href="plugin-language-extensions.html">Plugin language extensions</a></li>
+<li><a href="../06-extensibility/plugins/commerce.html">Commerce</a></li>
+<li><a href="templating-overview.html">Templating overview</a></li>
 </ul></div></div>
       </div>
     </main>

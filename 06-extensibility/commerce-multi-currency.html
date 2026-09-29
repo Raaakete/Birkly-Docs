@@ -217,62 +217,17 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Sell in more than one currency with a site default and per–purchase-option overrides (Phase 14). No automatic FX conversion — each order stores the currency charged.</p>
-<div class="doc-summary"><p>Commerce <strong>multi-currency v1</strong> sets a site-wide default (<code>commerce_default_currency</code>) and optional <strong>currency per purchase option</strong> on each product. Checkout passes the selected currency to payment providers; orders, analytics CSV, gift cards, and quotes respect the order currency without cross-currency math.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>How currencies work</strong></p>
-<ul>
-<li>One Birkly site can sell a product in <strong>EUR</strong> and another product in <strong>USD</strong> on the same catalog.</li>
-<li>Each <strong>purchase option</strong> (one-time or subscription) has its own <code>currency</code> code (ISO 4217 lowercase, e.g. <code>eur</code>, <code>usd</code>).</li>
-<li>The <strong>site default</strong> applies when a purchase option does not specify currency.</li>
-<li>Birkly does <strong>not</strong> convert prices between currencies — you set each price explicitly.</li>
-</ul>
-<p><strong>Set the site default</strong></p>
+        <div class="doc-content"><div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Tax</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Tax topic</strong></p>
 <ol>
-<li>Open <strong>Commerce → Settings</strong>.</li>
-<li>Find <strong>Default currency</strong> (for example <code>eur</code>).</li>
-<li>Save.</li>
-</ol>
-<p><strong>Set currency on a product</strong></p>
-<ol>
-<li>Edit a Commerce entry (or variant).</li>
-<li>Open each <strong>purchase option</strong> row.</li>
-<li>Choose <strong>Currency</strong> from the selector (EUR, USD, GBP, etc.).</li>
-<li>Enter <strong>price</strong> in that currency's smallest unit (cents).</li>
-<li>Save the entry.</li>
-</ol>
-<p><strong>Checkout behaviour</strong></p>
-<ul>
-<li>Cart lines group by currency; mixed-currency carts checkout one currency at a time (or block mixed checkout per site policy).</li>
-<li>Payment providers receive the correct currency code.</li>
-<li>Order receipts and <strong>Commerce → Dashboard</strong> CSV export show the charged currency column.</li>
-</ul>
-<p><strong>Gift cards and quotes</strong></p>
-<ul>
-<li>Gift cards are issued in a single currency.</li>
-<li>B2B quotes store currency on the quote total — do not mix currencies on one quote.</li>
-</ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Settings key:</strong> <code>commerce_default_currency</code> in Commerce plugin settings (default <code>eur</code>).</p>
-<p><strong>Purchase option schema:</strong></p>
-<pre><code>{
-  &quot;id&quot;: &quot;usd-once&quot;,
-  &quot;billing&quot;: &quot;one_time&quot;,
-  &quot;price_cents&quot;: 2499,
-  &quot;currency&quot;: &quot;usd&quot;
-}</code></pre>
-<p><strong>Checkout shelf:</strong> <code>CommerceCheckoutService</code> passes <code>currency</code> to all payment shelf providers. Order records persist <code>currency</code> at line and order level.</p>
-<p><strong>Analytics:</strong> <code>CommerceAnalyticsService</code> exports per-order currency; revenue summaries do not sum across currencies without explicit filtering.</p>
-<p><strong>Limitations (v1):</strong></p>
-<ul>
-<li>No FX engine or display-currency ≠ charge-currency</li>
-<li>No automatic geo-IP currency selection</li>
-<li>Refunds use the original order currency</li>
-</ul>
-<p><strong>Tests:</strong> <code>commerce_multi_currency_test.php</code></p></div></details>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Tax</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="plugins/commerce.html">Commerce plugin</a></li>
-<li><a href="commerce-analytics.html">Commerce analytics</a></li>
-<li><a href="commerce-gift-cards-quotes.html">Commerce gift cards and quotes</a></li>
-<li><a href="../../03-templating/commerce-functions.html">Commerce functions</a></li>
+<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div></div>
       </div>
     </main>

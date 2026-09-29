@@ -1,77 +1,12 @@
-<p>Connect a live store and sync products into Commerce catalog entries. <strong>Live API import is Beta</strong> — treat credentials, scheduling, and edge cases as experimental; prefer CSV for one-time migrations when you need a stable path. CSV export import remains available for all platforms. Shopify and WooCommerce also support <strong>inventory webhooks</strong> for real-time stock.</p>
-<div class="doc-summary"><p><strong>Live import (Beta)</strong> uses REST APIs to fetch products from <strong>Shopify</strong> (custom app access token), <strong>WooCommerce</strong> (REST API keys), <strong>Etsy</strong> (Open API v3 — shop ID, API key, OAuth access token), or <strong>Square</strong> (Catalog API access token). Credentials are stored encrypted under <strong>Commerce → Settings → Import &amp; migrate</strong>. The sync wizard supports <strong>preview → import → schedule</strong> (cron token). Products map to Commerce fieldtype values (title, SKU, price, stock, optional image URL ingest).</p>
-<p>Live import does <strong>not</strong> import customers or order history. For a one-time move including customers and archived orders, use <a href="commerce-shopify-cutover.html">Shopify cutover</a> — not perpetual sync.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Choose import mode</strong></p>
-<table><thead><tr><th>Mode</th><th>When to use</th></tr></thead>
-<tbody><tr><td><strong>CSV upload</strong></td><td>One-time export from any platform (see <a href="commerce-import.html">Commerce import</a>) — preferred stable path</td></tr><tr><td><strong>Shopify cutover</strong></td><td>One-time transfer: products + customers + archived orders (see <a href="commerce-shopify-cutover.html">Shopify cutover</a>)</td></tr><tr><td><strong>Live API (Beta)</strong></td><td>Ongoing product sync from Shopify, WooCommerce, Etsy, or Square</td></tr><tr><td><strong>Inventory webhooks</strong></td><td>Real-time stock for Shopify/Woo only (see <a href="commerce-inventory-webhooks.html">Commerce inventory webhooks</a>)</td></tr></tbody></table>
-<p><strong>Shopify setup</strong></p>
+<div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Shopify cutover</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Shopify cutover topic</strong></p>
 <ol>
-<li>In Shopify Admin, create a <strong>custom app</strong> with <code>read_products</code> scope.</li>
-<li>Copy the <strong>Admin API access token</strong> and store domain (<code>your-store.myshopify.com</code>).</li>
-<li>In Birkly: <strong>Commerce → Settings → Import &amp; migrate → Import products</strong>.</li>
-<li>Select <strong>Shopify (live API)</strong> (Beta).</li>
-<li>Enter store URL and access token; click <strong>Test connection</strong>.</li>
-<li>Choose target collection and click <strong>Preview</strong> then <strong>Import</strong>.</li>
-</ol>
-<p><strong>WooCommerce setup</strong></p>
-<ol>
-<li>In WordPress: <strong>WooCommerce → Settings → Advanced → REST API</strong> → Add key with <strong>Read</strong> permission.</li>
-<li>Copy <strong>Consumer key</strong> and <strong>Consumer secret</strong> and site URL.</li>
-<li>In Birkly Import &amp; migrate, select <strong>WooCommerce (live API)</strong> (Beta).</li>
-<li>Enter credentials, preview, and import.</li>
-</ol>
-<p><strong>Etsy setup (live API, Beta)</strong></p>
-<ol>
-<li>Create an Etsy app and obtain <strong>API key</strong> plus <strong>OAuth access token</strong> with <code>listings_r</code> scope.</li>
-<li>Note your <strong>Shop ID</strong> from Etsy Seller account.</li>
-<li>In Birkly: <strong>Commerce → Settings → Import &amp; migrate</strong> → <strong>Etsy (live API)</strong>.</li>
-<li>Enter shop ID, API key, and access token; <strong>Test connection</strong>.</li>
-<li>Preview and import listings (paginated, max 100 pages in v1).</li>
-</ol>
-<p><strong>Square setup (live API, Beta)</strong></p>
-<ol>
-<li>In Square Developer Dashboard, create an application and <strong>access token</strong> with Catalog read scope.</li>
-<li>In Birkly Import &amp; migrate, select <strong>Square (live API)</strong>.</li>
-<li>Paste access token; test, preview, and import catalog items (paginated).</li>
-</ol>
-<p><strong>Scheduled sync</strong></p>
-<p>After a successful live import, copy the <strong>cron URL</strong> from import settings. Call it from your server cron (for example daily) to re-sync changed products. Idempotency matches by SKU or external product id.</p>
-<p><strong>Security notes</strong></p>
-<ul>
-<li>Use read-only API credentials where possible.</li>
-<li>Live import fetches product metadata only — it does not write back to Shopify/Woo.</li>
-<li>Credentials are encrypted at rest; never commit them to git.</li>
-</ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Adapters</strong></p>
-<table><thead><tr><th>Class</th><th>Endpoint pattern</th></tr></thead>
-<tbody><tr><td><code>ShopifyImportAdapter</code></td><td><code>GET /admin/api/.../products.json</code> (paginated)</td></tr><tr><td><code>WooImportAdapter</code></td><td><code>GET /wp-json/wc/v3/products</code> (paginated)</td></tr><tr><td><code>EtsyImportAdapter</code></td><td><code>GET /v3/application/shops/{id}/listings</code> (paginated)</td></tr><tr><td><code>SquareImportAdapter</code></td><td><code>GET /v2/catalog/list?types=ITEM</code> (cursor paginated)</td></tr></tbody></table>
-<p>All adapters run through <code>CommerceLiveImportService</code> with shared credential encryption and cron scheduling from P12.</p>
-<p><strong>Field mapping</strong></p>
-<table><thead><tr><th>External</th><th>Commerce entry</th></tr></thead>
-<tbody><tr><td>Title / name</td><td>Entry title</td></tr><tr><td>Description</td><td>Body field (when mapped)</td></tr><tr><td>SKU / variant SKU</td><td><code>commerce.sku</code></td></tr><tr><td>Price</td><td><code>purchase_options[].price_cents</code></td></tr><tr><td>Inventory</td><td><code>quantity_available</code></td></tr><tr><td>Handle / slug</td><td>Entry slug</td></tr><tr><td>Image URL</td><td>Optional media ingest</td></tr></tbody></table>
-<p><strong>Credential store</strong></p>
-<p>Encrypted in <code>data/plugins/commerce/</code> via <code>PaymentsCredentialStore</code> (separate connection type from payment providers). Admin actions:</p>
-<ul>
-<li><code>save_import_connection</code> — platform, credentials, label</li>
-<li><code>test_import_connection</code> — validates API reachability</li>
-<li><code>import_live_preview</code> — paginated sample without write</li>
-<li><code>import_live_run</code> — full sync</li>
-<li><code>import_schedule_token</code> — signed cron token</li>
-</ul>
-<p><strong>Threat model</strong></p>
-<p>See Birkly <code>docs/reviews/P12-import-threat-model.md</code> and <code>P14-webhook-threat-model.md</code>: SSRF protection on store URLs, rate limits, HMAC on inventory webhooks, no arbitrary URL fetch from user input.</p>
-<p><strong>Out of scope / not shipped</strong></p>
-<ul>
-<li>Webhook-driven sync for Etsy/Square (Shopify/Woo inventory webhooks only)</li>
-<li>Order or customer import via live sync (use <a href="commerce-shopify-cutover.html">Shopify cutover</a> for one-time transfer)</li>
-<li>Automatic collection schema creation without Commerce fieldtype</li>
-<li>Production-grade guarantees on live adapters — feature is <strong>Beta</strong></li>
-</ul></div></details>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Shopify cutover</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="commerce-shopify-cutover.html">Shopify cutover playbook</a></li>
-<li><a href="commerce-import.html">Commerce CSV import</a></li>
-<li><a href="commerce-inventory-webhooks.html">Commerce inventory webhooks</a></li>
-<li><a href="commerce-warehouse-stock.html">Commerce warehouse stock</a></li>
-<li><a href="plugins/commerce.html">Commerce plugin</a></li>
-<li><a href="commerce-migration-wizard.html">Commerce migration wizard</a></li>
+<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div>

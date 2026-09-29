@@ -33,6 +33,12 @@ Some CMSs also control the full design and layout of the site. Others (like Birk
 - **Before (no CMS):** To add a new blog post, you (or a developer) create or edit an HTML file, add the title and body, upload an image to the server, and update any index or list page. Every change is a file edit.
 - **After (with Birkly):** You log in to the admin, open the “Blog posts” collection, click “New entry,” type the title and content, pick or upload an image, set the date, and click “Save & Publish.” The live site automatically shows the new post where your template lists blog entries. No file editing.
 
+**Example: publish a post without editing HTML**
+
+1. Log in to the admin and open the Blog posts collection.
+2. Click **New entry**, type the title and body, pick an image, and click **Save & Publish**.
+3. Reload the public blog list. The post appears where the template loops that collection.
+
 **Birkly in one sentence**
 
 Birkly is a CMS that stores your content as simple files (no database required for content), gives you an admin panel to create and edit it, and lets your website display that content via a small script or an API—so you get the benefits of a CMS without database setup or complex hosting.

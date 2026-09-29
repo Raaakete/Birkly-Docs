@@ -32,6 +32,12 @@ Separately, **inbound MCP** lets tools like Claude Desktop call Birkly from outs
 
 It depends on the provider. **Ollama** runs on your own machine and is free. **OpenAI, Anthropic, Google, OpenRouter** use your API keys and their pricing. Consumer subscriptions (ChatGPT Plus, Claude Pro) do **not** include API access for outbound chat. You only need one outbound connection to start; many users begin with Ollama for local, free use.
 
+**Example: ask how many collections you have**
+
+1. Open **Settings → AI** and add one outbound connection (Ollama on your machine, or an API key).
+2. Click the floating AI button.
+3. Ask “How many collections are there?” The assistant reads your content and answers in the chat. A write stays in the approval queue when that connection requires approval.
+
 **Next steps**
 
 - [AI connections](ai-connections.md) — Outbound providers (e.g. Ollama or OpenAI).

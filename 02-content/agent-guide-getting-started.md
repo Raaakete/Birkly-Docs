@@ -10,6 +10,14 @@ This tutorial walks you from an empty Agent Guide draft to a **published** guide
 - At least one CMS collection with content (e.g. About, Products)
 - **Settings → Site delivery** configured with your public site URL (for well-known verification)
 
+## Beginner
+
+**Example: first publish from the wizard**
+
+1. Open **Agent Guide**. If the draft is empty, the **Set up your Agent Guide** wizard starts.
+2. Choose **Guided setup**. Fill identity, one narrative source, and one to three claims that each have a proof URL.
+3. On **Publish**, enable publishing and publish. The success step shows the live URL. Open `/.well-known/agent-guide.json` on the public site and confirm the official name.
+
 ## First visit — guided setup wizard
 
 1. Sidebar → **Agent Guide** (or `/admin/?page=agent-guide`).
@@ -166,6 +174,8 @@ Fix any broken links before republishing.
 3. **Publish** from the sticky bar or Publish tab.
 
 Never rely on auto-save for AI suggestions — accept explicitly in AI Assist (or wizard Enrich step) first, then save draft.
+
+## Advanced Users
 
 ## Verify on your public domain
 

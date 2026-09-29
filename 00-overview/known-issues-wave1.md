@@ -6,6 +6,14 @@ Public list of **accepted limitations** while P86 (self-host–ready engineering
 
 **Support:** hello@birkly.io · in-admin **Feedback** (optional contact consent).
 
+## Beginner
+
+**Example: Events shows Coming soon**
+
+1. Open **Plugins → Hub** and find **Events**.
+2. If the card says **Coming soon**, do not treat that as a failed install. Wave 1 does not ship Events or Studio from the Hub.
+3. Install **User**, **Commerce**, or **Automation** instead, and send other blockers through in-admin **Feedback** or hello@birkly.io.
+
 ## P1 — documented limitations
 
 | Area | Issue | Workaround |
@@ -24,6 +32,8 @@ Public list of **accepted limitations** while P86 (self-host–ready engineering
 | **Commerce** | FX conversion between currencies — set prices per currency explicitly |
 | **Feedback** | Self-host stores JSON under `data/feedback/` unless optional Ops relay is configured |
 | **Journeys** | Full P28 beta journey catalog not required for engineering closure |
+
+## Advanced Users
 
 ## Fixed recently (reference)
 

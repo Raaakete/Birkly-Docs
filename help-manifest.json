@@ -277,6 +277,16 @@
             "ai_topic": "automation"
         },
         {
+            "id": "backup-and-restore",
+            "title": "Backup and restore",
+            "keywords": [
+                "backup",
+                "restore",
+                "files"
+            ],
+            "docs_path": "07-operations/backup-and-restore.html"
+        },
+        {
             "id": "canonical-syntax",
             "title": "Canonical template syntax",
             "keywords": [
@@ -316,6 +326,16 @@
                 "vue"
             ],
             "docs_path": "04-integration/choose-your-stack.html"
+        },
+        {
+            "id": "client-library",
+            "title": "Client library",
+            "keywords": [
+                "birkly-client",
+                "javascript",
+                "library"
+            ],
+            "docs_path": "04-integration/client-library.html"
         },
         {
             "id": "client-setup",
@@ -393,195 +413,6 @@
             ],
             "docs_path": "06-extensibility/plugins/commerce.html",
             "ai_topic": "commerce"
-        },
-        {
-            "id": "commerce-customers",
-            "title": "Commerce customers",
-            "keywords": [
-                "customers",
-                "commerce",
-                "csv",
-                "email",
-                "timeline",
-                "user management"
-            ],
-            "docs_path": "06-extensibility/commerce-customers.html"
-        },
-        {
-            "id": "commerce-fulfillment",
-            "title": "Commerce fulfillment",
-            "keywords": [
-                "fulfillment",
-                "shipment",
-                "packing slip",
-                "partial ship",
-                "tracking",
-                "easypost",
-                "commerce_tracking_updated"
-            ],
-            "docs_path": "06-extensibility/commerce-fulfillment.html"
-        },
-        {
-            "id": "commerce-gift-cards-quotes",
-            "title": "Commerce gift cards and quotes",
-            "keywords": [
-                "gift card",
-                "store credit",
-                "quotes",
-                "draft orders",
-                "commerce_gift_card_issued"
-            ],
-            "docs_path": "06-extensibility/commerce-gift-cards-quotes.html"
-        },
-        {
-            "id": "commerce-hybrid-cart",
-            "title": "Commerce hybrid cart",
-            "keywords": [
-                "hybrid cart",
-                "split checkout",
-                "ship",
-                "deliver",
-                "register",
-                "subscribe",
-                "help-hybrid-cart",
-                "commerce-storefront"
-            ],
-            "docs_path": "06-extensibility/commerce-hybrid-cart.html"
-        },
-        {
-            "id": "commerce-inventory-webhooks",
-            "title": "Commerce inventory webhooks",
-            "keywords": [
-                "webhook",
-                "inventory",
-                "stock",
-                "shopify",
-                "woocommerce",
-                "hmac"
-            ],
-            "docs_path": "06-extensibility/commerce-inventory-webhooks.html"
-        },
-        {
-            "id": "commerce-live-import",
-            "title": "Commerce live import",
-            "keywords": [
-                "import",
-                "shopify",
-                "woocommerce",
-                "etsy",
-                "square",
-                "sync"
-            ],
-            "docs_path": "06-extensibility/commerce-live-import.html"
-        },
-        {
-            "id": "commerce-multi-currency",
-            "title": "Commerce multi-currency",
-            "keywords": [
-                "commerce",
-                "currency",
-                "eur",
-                "usd",
-                "checkout"
-            ],
-            "docs_path": "06-extensibility/commerce-multi-currency.html"
-        },
-        {
-            "id": "commerce-promotions",
-            "title": "Commerce promotions",
-            "keywords": [
-                "discounts",
-                "promotions",
-                "coupon",
-                "free shipping",
-                "stacking",
-                "usage limit"
-            ],
-            "docs_path": "06-extensibility/commerce-promotions.html"
-        },
-        {
-            "id": "commerce-recipes",
-            "title": "Automation Commerce recipe pack",
-            "keywords": [
-                "recipe",
-                "commerce",
-                "post-purchase",
-                "dunning",
-                "low-stock",
-                "shipped",
-                "import_recipe"
-            ],
-            "docs_path": "05-automation/commerce-recipes.html"
-        },
-        {
-            "id": "commerce-shipping",
-            "title": "Commerce shipping rates",
-            "keywords": [
-                "shipping",
-                "easypost",
-                "shipping zones",
-                "live rates",
-                "weight_grams",
-                "commerce"
-            ],
-            "docs_path": "06-extensibility/commerce-shipping.html"
-        },
-        {
-            "id": "commerce-shopify-cutover",
-            "title": "Shopify cutover playbook",
-            "keywords": [
-                "shopify",
-                "cutover",
-                "migration",
-                "import",
-                "customers",
-                "archived orders",
-                "dry-run",
-                "rollback"
-            ],
-            "docs_path": "06-extensibility/commerce-shopify-cutover.html"
-        },
-        {
-            "id": "commerce-store-kit",
-            "title": "Commerce store kit",
-            "keywords": [
-                "store kit",
-                "seed store",
-                "demo shop",
-                "starter shop",
-                "mcp",
-                "agent",
-                "commerce-store-kit"
-            ],
-            "docs_path": "06-extensibility/commerce-store-kit.html",
-            "ai_topic": "commerce-store-kit"
-        },
-        {
-            "id": "commerce-tax",
-            "title": "Commerce tax",
-            "keywords": [
-                "tax",
-                "tax class",
-                "vat",
-                "vat_id",
-                "reverse charge",
-                "stripe tax",
-                "tax_lines",
-                "commerce"
-            ],
-            "docs_path": "06-extensibility/commerce-tax.html"
-        },
-        {
-            "id": "commerce-warehouse-stock",
-            "title": "Commerce warehouse stock",
-            "keywords": [
-                "warehouse",
-                "stock",
-                "sku",
-                "quantity",
-                "inventory"
-            ],
-            "docs_path": "06-extensibility/commerce-warehouse-stock.html"
         },
         {
             "id": "conditionals",
@@ -746,6 +577,16 @@
             "ai_topic": "templating"
         },
         {
+            "id": "deployment",
+            "title": "Deployment",
+            "keywords": [
+                "deploy",
+                "server",
+                "production"
+            ],
+            "docs_path": "07-operations/deployment.html"
+        },
+        {
             "id": "detail-pages-and-url-context",
             "title": "Detail pages & URL context",
             "keywords": [
@@ -831,6 +672,29 @@
             ],
             "docs_path": "01-admin/entry-editor.html",
             "ai_topic": "content-model"
+        },
+        {
+            "id": "events-plugin",
+            "title": "Events plugin",
+            "keywords": [
+                "events",
+                "rsvp",
+                "calendar"
+            ],
+            "docs_path": "06-extensibility/events-plugin.html"
+        },
+        {
+            "id": "field-types",
+            "title": "Field types",
+            "keywords": [
+                "field",
+                "type",
+                "text",
+                "image",
+                "editor"
+            ],
+            "docs_path": "02-content/field-types.html",
+            "ai_topic": "fieldtypes"
         },
         {
             "id": "from-get-and-existence",
@@ -1164,6 +1028,17 @@
             "ai_topic": "templating"
         },
         {
+            "id": "public-api",
+            "title": "Public API",
+            "keywords": [
+                "api",
+                "public",
+                "entries",
+                "json"
+            ],
+            "docs_path": "04-integration/public-api.html"
+        },
+        {
             "id": "public-forms",
             "title": "Public forms",
             "keywords": [
@@ -1244,6 +1119,16 @@
             "docs_path": "06-extensibility/scaffold-plugin-cli.html"
         },
         {
+            "id": "security",
+            "title": "Security",
+            "keywords": [
+                "security",
+                "https",
+                "password"
+            ],
+            "docs_path": "07-operations/security.html"
+        },
+        {
             "id": "self-host-install",
             "title": "Self-host install",
             "keywords": [
@@ -1303,6 +1188,17 @@
             "docs_path": "01-admin/site-url-map.html"
         },
         {
+            "id": "slugs-and-status",
+            "title": "Slugs and status",
+            "keywords": [
+                "slug",
+                "status",
+                "draft",
+                "published"
+            ],
+            "docs_path": "02-content/slugs-and-status.html"
+        },
+        {
             "id": "spa-react-vue",
             "title": "SPA (React / Vue)",
             "keywords": [
@@ -1329,6 +1225,17 @@
             "docs_path": "04-integration/ssr-and-build-time.html"
         },
         {
+            "id": "sub-collections",
+            "title": "Sub-collections",
+            "keywords": [
+                "sub-collection",
+                "parent",
+                "comments"
+            ],
+            "docs_path": "02-content/sub-collections.html",
+            "ai_topic": "sub-collections"
+        },
+        {
             "id": "sub-collections-in-templates",
             "title": "Sub-collections in templates",
             "keywords": [
@@ -1353,6 +1260,16 @@
             ],
             "docs_path": "03-templating/templating-overview.html",
             "ai_topic": "templating"
+        },
+        {
+            "id": "troubleshooting",
+            "title": "Troubleshooting",
+            "keywords": [
+                "troubleshoot",
+                "error",
+                "fix"
+            ],
+            "docs_path": "07-operations/troubleshooting.html"
         },
         {
             "id": "user-plugin",
@@ -1423,6 +1340,38 @@
             ],
             "docs_path": "04-integration/webmcp-tools.html",
             "ai_topic": "webmcp-tools"
+        },
+        {
+            "id": "website-integration",
+            "title": "Website integration",
+            "keywords": [
+                "website",
+                "integrate",
+                "script",
+                "client"
+            ],
+            "docs_path": "04-integration/website-integration.html"
+        },
+        {
+            "id": "what-is-a-cms",
+            "title": "What is a CMS",
+            "keywords": [
+                "cms",
+                "content",
+                "beginner"
+            ],
+            "docs_path": "00-overview/what-is-a-cms.html"
+        },
+        {
+            "id": "what-is-birkly",
+            "title": "What is Birkly",
+            "keywords": [
+                "birkly",
+                "cms",
+                "overview",
+                "product"
+            ],
+            "docs_path": "00-overview/what-is-birkly.html"
         },
         {
             "id": "worked-site-walkthrough",

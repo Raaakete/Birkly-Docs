@@ -35,6 +35,12 @@ You create a new post and set status to **Draft**. You save. The post exists in 
 
 **Where to set it:** In the entry editor sidebar → **General** tab, use the **Status** dropdown. Choose Draft or Published. Buttons like **Save & Publish** both save and set status to Published in one click.
 
+**Example: welcome post**
+
+1. Create an entry titled `Welcome to our blog` and leave **Auto-generate slug from title** on. The slug becomes `welcome-to-our-blog`.
+2. Leave **Status** on **Draft** and save. The admin lists the entry. The public blog list does not.
+3. Set **Status** to **Published** and save. The list and `?slug=welcome-to-our-blog` show it. Setting it back to **Draft** hides it again without deleting the file.
+
 ## Advanced Users
 
 **Slug:** Unique per collection; stored in entry JSON (e.g. `slug: "welcome-to-our-blog"`). Used in:

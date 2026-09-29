@@ -223,7 +223,13 @@
 <li>Admin access with <code>manage_settings</code></li>
 <li>At least one CMS collection with content (e.g. About, Products)</li>
 <li><strong>Settings → Site delivery</strong> configured with your public site URL (for well-known verification)</li>
-</ul>
+</ul></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: first publish from the wizard</strong></p>
+<ol>
+<li>Open <strong>Agent Guide</strong>. If the draft is empty, the <strong>Set up your Agent Guide</strong> wizard starts.</li>
+<li>Choose <strong>Guided setup</strong>. Fill identity, one narrative source, and one to three claims that each have a proof URL.</li>
+<li>On <strong>Publish</strong>, enable publishing and publish. The success step shows the live URL. Open <code>/.well-known/agent-guide.json</code> on the public site and confirm the official name.</li>
+</ol>
 <h2>First visit — guided setup wizard</h2>
 <ol>
 <li>Sidebar → <strong>Agent Guide</strong> (or <code>/admin/?page=agent-guide</code>).</li>
@@ -317,8 +323,8 @@
 <li>Review completeness / staleness on Overview.</li>
 <li><strong>Publish</strong> from the sticky bar or Publish tab.</li>
 </ol>
-<p>Never rely on auto-save for AI suggestions — accept explicitly in AI Assist (or wizard Enrich step) first, then save draft.</p>
-<h2>Verify on your public domain</h2>
+<p>Never rely on auto-save for AI suggestions — accept explicitly in AI Assist (or wizard Enrich step) first, then save draft.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h2>Verify on your public domain</h2>
 <p>On your <strong>public site</strong> (not necessarily the admin host):</p>
 <pre><code>curl -s &quot;https://YOUR-PUBLIC-SITE/.well-known/agent-guide.json&quot; | head
 curl -s &quot;https://YOUR-PUBLIC-SITE/api/public/ai_presence.php?action=brand&amp;view=summary&quot;</code></pre>
@@ -338,7 +344,7 @@ curl -s &quot;https://YOUR-PUBLIC-SITE/api/public/ai_presence.php?action=brand&a
 <p>Without an AI connection, preview uses keyword matching on published fields. With a connection, preview can use full published JSON retrieval.</p>
 <h2>What’s next?</h2>
 <table><thead><tr><th>Goal</th><th>Read</th></tr></thead>
-<tbody><tr><td>Deeper tab workflows</td><td><a href="agent-guide-workflows.html">Workflows</a></td></tr><tr><td>Evidence &amp; marketplace strategy</td><td><a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a></td></tr><tr><td>Fill profile faster with AI</td><td><a href="agent-guide-ai-assist.html">AI Assist</a></td></tr><tr><td>Governance &amp; quality</td><td><a href="agent-guide-best-practices.html">Best practices</a></td></tr><tr><td>Build an integration</td><td><a href="../04-integration/agent-guide-public-api.html">Public API</a></td></tr><tr><td>Connect Claude Desktop / MCP</td><td><a href="../04-integration/agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a></td></tr></tbody></table></div></div>
+<tbody><tr><td>Deeper tab workflows</td><td><a href="agent-guide-workflows.html">Workflows</a></td></tr><tr><td>Evidence &amp; marketplace strategy</td><td><a href="agent-guide-claims-evidence-and-links.html">Claims, evidence &amp;amp; cross-links</a></td></tr><tr><td>Fill profile faster with AI</td><td><a href="agent-guide-ai-assist.html">AI Assist</a></td></tr><tr><td>Governance &amp; quality</td><td><a href="agent-guide-best-practices.html">Best practices</a></td></tr><tr><td>Build an integration</td><td><a href="../04-integration/agent-guide-public-api.html">Public API</a></td></tr><tr><td>Connect Claude Desktop / MCP</td><td><a href="../04-integration/agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a></td></tr></tbody></table></div></details></div>
       </div>
     </main>
   </div>

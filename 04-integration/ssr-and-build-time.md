@@ -18,6 +18,12 @@ Fetch published content from the **Public API** or **`page_bundle.php`**, then r
 
 Decision hub: [Choose your stack](choose-your-stack.md).
 
+**Example: one published post in PHP**
+
+1. Publish a blog entry and copy its slug, for example `my-post-slug`.
+2. From the server, request `GET /api/public.php?action=get_entry&collection=blog&slug=my-post-slug`.
+3. Print the returned title in your PHP, Astro, or Next template. The browser receives HTML and does not need `birkly-client.js` for that page.
+
 ## Advanced Users
 
 ### Public API — one entry (any language)

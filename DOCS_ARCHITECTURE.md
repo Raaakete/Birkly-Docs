@@ -172,7 +172,7 @@ Each topic file should follow this structure:
 | Internal planning / phase plans | `Birkly-Marketplace/internal/planning/` | Not synced to Help |
 | Plugin-specific deep docs | Plugin repos + `docs_shelf` at runtime | Plugin Help merge |
 
-Never add product documentation directly to `admin/docs/snapshots/` in the CMS repo. Run `./scripts/sync-birkly-docs.sh` after Birkly-Docs changes.
+The CMS does not host product articles. Help fetches `{docs_base_url}/content/{docs_path}` from `https://docs.birkly.com` when a topic opens. Publish this repo; do not copy article bodies into the CMS.
 
 ---
 

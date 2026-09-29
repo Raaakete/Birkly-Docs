@@ -1,6 +1,12 @@
 <p>The built-in assistant lets you chat with AI <strong>inside</strong> the Birkly admin using the floating chat button (bottom-right). You connect once with a provider API key under <strong>Settings → AI → Built-in assistant</strong>.</p>
 <p>Connecting Claude, ChatGPT, or Cursor to your site content is separate — see <a href="mcp-connections.html">Connect your AI app</a>.</p>
-<div class="doc-summary"><p>Go to <strong>Settings → AI → Built-in assistant</strong> and click <strong>Quick connect</strong>. Choose a provider, enter your <strong>API key</strong>, test the connection, and save. Use the chat button in the admin to get help with content. Consumer subscriptions (ChatGPT Plus, Claude Pro) do <strong>not</strong> include API access — you need a developer API key.</p>
+<div class="doc-summary"><p>Go to <strong>Settings → AI → Built-in assistant</strong> and click <strong>Quick connect</strong>. Choose a provider, enter your <strong>API key</strong>, test the connection, and save. Use the chat button in the admin to get help with content. Consumer subscriptions (ChatGPT Plus, Claude Pro) do <strong>not</strong> include API access — you need a developer API key.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: connect OpenAI and ask one question</strong></p>
+<ol>
+<li>Open <strong>Settings → AI</strong>. Under <strong>Built-in assistant</strong>, click <strong>Quick connect</strong>.</li>
+<li>Choose <strong>OpenAI</strong>, paste a developer API key (not a ChatGPT Plus login), click <strong>Test connection</strong>, then <strong>Connect</strong>.</li>
+<li>Open the floating chat button and ask “List my collections.” The answer uses that connection. Ollama skips the API key and uses your API URL instead.</li>
+</ol>
 <h2>Quick connect</h2>
 <ol>
 <li><strong>Settings → AI</strong> tab.</li>
@@ -8,8 +14,8 @@
 <li>Select your <strong>provider</strong> (OpenAI, Anthropic, Google, OpenRouter, Ollama, or Custom).</li>
 <li>Enter your <strong>API key</strong> (skip for Ollama).</li>
 <li>Click <strong>Test connection</strong>, then <strong>Connect</strong>.</li>
-</ol>
-<h2>Form fields</h2>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h2>Form fields</h2>
 <ul>
 <li><strong>Provider</strong> — OpenAI, Anthropic, Google, OpenRouter, Ollama, or Custom.</li>
 <li><strong>Connection name</strong> — A label you'll recognize.</li>
@@ -30,7 +36,7 @@
 <p>You do not need to fix slugs manually — the assistant and approval pipeline normalize them. If a create previously failed on underscores, update to a current Birkly build with slug normalization enabled.</p>
 <h2>Approvals</h2>
 <p><strong>Built-in assistant only.</strong> When the floating chat assistant wants to change content and <strong>Require approval</strong> is on, actions wait in the <strong>Approvals</strong> tab of the AI Assistant window.</p>
-<p><strong>External AI apps (Claude, ChatGPT, Cursor)</strong> connected via MCP handle write confirmation <strong>inside the client app</strong> — not in the Birkly Approvals tab. See <a href="mcp-connections.html">Connect your AI app</a>.</p></div>
+<p><strong>External AI apps (Claude, ChatGPT, Cursor)</strong> connected via MCP handle write confirmation <strong>inside the client app</strong> — not in the Birkly Approvals tab. See <a href="mcp-connections.html">Connect your AI app</a>.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="ai-overview.html">AI overview</a></li>
 <li><a href="mcp-connections.html">Connect your AI app</a></li>

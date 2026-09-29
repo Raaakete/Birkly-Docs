@@ -10,6 +10,14 @@ Declare **`admin.scripts[]`** in `plugin.json` for admin JavaScript. Register **
 
 Core must never hardcode official plugin IDs in `admin/js/dashboard.js`, `birkly-webmcp.js`, `api/notifications.php`, or `admin/index.php`. CI enforces this via `admin_coupling_guard_test.php`.
 
+## Beginner
+
+**Example: a dashboard card without editing core**
+
+1. In `plugin.json`, add `admin.scripts[]` with your admin JavaScript path and a `provides` global.
+2. In that file, register the card on `window.BirklyDashboardWidgets` using the mount name your PHP widget returns.
+3. Activate the plugin and open the Dashboard. The card appears. Core `admin/js/dashboard.js` does not mention your plugin id.
+
 ## Admin asset shelf (`admin.scripts[]`)
 
 Active plugins declare scripts in `plugin.json`:
@@ -138,6 +146,8 @@ P83 does not add new nav APIs; it removes core exceptions so nav is shelf-only.
 ## MCP tool ownership
 
 Inbound admin MCP tools register via `register_plugin_mcp_tools()` with explicit `plugin_id`. Core `birkly_ai_tool_plugin_id()` reads the MCP shelf — not regex on tool names.
+
+## Advanced Users
 
 ## Checklist for plugin authors
 

@@ -4,6 +4,14 @@
 
 Claims, evidence, and cross-links are how Agent Guide stays **honest**: summaries tell agents the headline; links and the **sources of truth** registry tell them where to verify. This doc covers strategy, types, and worked examples — especially marketplace and review URLs.
 
+## Beginner
+
+**Example: an Amazon rating without pasting reviews**
+
+1. Add a claim: “Consistently rated 4.5+ stars on Amazon US.”
+2. Attach evidence with the listing URL, the rating, and the review count. Do not paste review text.
+3. Mark the claim **Supported** after you open the listing yourself, then republish. Agents can repeat the claim and follow the URL.
+
 ## Four layers of truth
 
 | Layer | What it is | Agent should… |
@@ -190,6 +198,8 @@ CMS entries without stored URL get **resolved on publish** from collection + slu
 - Claims: need **supported + evidence_ids** for full 20 pts
 
 Use completeness as quality gate, not checkbox filling.
+
+## Advanced Users
 
 ## Public export & JSON-LD
 

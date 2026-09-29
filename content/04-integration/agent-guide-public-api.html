@@ -1,5 +1,11 @@
 <div class="doc-summary"><p>Read-only HTTP endpoints expose the <strong>published</strong> Agent Guide on your <strong>public site domain</strong>. Draft content is never served. Use these endpoints for headless sites, custom chatbots, server-side agents, and verification tools.</p>
-<p><strong>Related:</strong> <a href="agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a> · <a href="../02-content/agent-guide-data-model.html">Data model</a></p>
+<p><strong>Related:</strong> <a href="agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a> · <a href="../02-content/agent-guide-data-model.html">Data model</a></p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: confirm the published name</strong></p>
+<ol>
+<li>Publish Agent Guide and note the public site URL from <strong>Settings → Site delivery</strong>.</li>
+<li>Open <code>https://YOUR-PUBLIC-SITE/.well-known/agent-guide.json</code> in a browser.</li>
+<li>Confirm <code>identity</code> contains the official name. A draft-only edit does not appear in that file until you publish again.</li>
+</ol>
 <h2>Base URL</h2>
 <p>All URLs are on your <strong>public site</strong> (Settings → Site delivery), not the admin host:</p>
 <pre><code>https://YOUR-PUBLIC-SITE/</code></pre>
@@ -170,8 +176,8 @@
 <p>(Legacy filename <code>brand-context.json</code> when that path is configured.)</p>
 <h2>Security</h2>
 <table><thead><tr><th>Topic</th><th>Behavior</th></tr></thead>
-<tbody><tr><td>Authentication</td><td>None required (public read)</td></tr><tr><td>Draft exposure</td><td>Never — separate admin API</td></tr><tr><td>Admin API</td><td><code>/api/ai_presence.php</code> — session auth + CSRF</td></tr><tr><td>URL fetch (admin)</td><td>SSRF-safe validation for evidence metadata</td></tr><tr><td>Rate limiting</td><td>Follows public API limits where configured</td></tr></tbody></table>
-<h2>Admin API (not public)</h2>
+<tbody><tr><td>Authentication</td><td>None required (public read)</td></tr><tr><td>Draft exposure</td><td>Never — separate admin API</td></tr><tr><td>Admin API</td><td><code>/api/ai_presence.php</code> — session auth + CSRF</td></tr><tr><td>URL fetch (admin)</td><td>SSRF-safe validation for evidence metadata</td></tr><tr><td>Rate limiting</td><td>Follows public API limits where configured</td></tr></tbody></table></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h2>Admin API (not public)</h2>
 <p>Authenticated endpoints for draft edit, publish, AI suggest, link validate — see <a href="../02-content/agent-guide-data-model.html#admin-api-authenticated">Data model</a>.</p>
 <p>Do not expose admin API to the public internet without normal Birkly auth.</p>
 <h2>Integration examples</h2>
@@ -192,4 +198,4 @@ const products = data.products_services ?? [];</code></pre>
 <li><a href="../02-content/agent-guide-getting-started.html">Getting started</a></li>
 <li><a href="agent-guide-mcp-and-agents.html">MCP &amp;amp; agents</a></li>
 <li><a href="website-integration.html">Website integration</a></li>
-</ul></div>
+</ul></div></details>

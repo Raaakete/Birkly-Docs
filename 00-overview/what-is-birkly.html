@@ -236,7 +236,11 @@
 <p>Two main options:</p>
 <ol>
 <li><strong>Client script (simplest):</strong> You add one script tag to your website’s HTML. That script talks to Birkly, fetches the content, and fills in placeholders you’ve written in the page (e.g. “show the title here,” “list all blog posts”). Your HTML stays static; the script replaces the placeholders when the page loads.</li>
+</ol>
+<pre><code>&lt;script src=&quot;https://your-cms.example/birkly-client.js&quot; data-cms-url=&quot;https://your-cms.example&quot;&gt;&lt;/script&gt;</code></pre>
+<ol>
 <li><strong>API:</strong> A developer can have your site or app call Birkly’s Public API to get content as data (e.g. JSON) and then display it in a custom layout (e.g. a React or Vue app).</li>
+<li><strong>You keep editing in the admin.</strong> Change a title, save, reload the site. The script or the API returns the new value. Visitors never log in to the admin.</li>
 </ol>
 <p>So: you <strong>edit</strong> in Birkly; visitors <strong>see</strong> the result on your site. The admin is never public—only people with an account can log in.</p>
 <p><strong>Who is it for?</strong></p>

@@ -4,9 +4,9 @@
   "description": "Birkly CMS documentation - single source of truth",
   "main": "index.html",
   "scripts": {
-    "build": "node scripts/generate-help-manifest.js && node build-static.js",
+    "build": "node scripts/generate-help-manifest.js && node scripts/check-help-page-shape.js && node build-static.js",
     "generate:help": "node scripts/generate-help-manifest.js",
-    "validate": "node scripts/generate-help-manifest.js --check && node scripts/validate-manifests.js",
+    "validate": "node scripts/generate-help-manifest.js --check && node scripts/validate-manifests.js && node scripts/check-help-page-shape.js",
     "prepublishOnly": "npm run build"
   },
   "repository": {

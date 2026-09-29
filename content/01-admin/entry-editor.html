@@ -18,7 +18,13 @@
 <p><strong>Status (General tab)</strong></p>
 <p>Choose <strong>Unpublished</strong>, <strong>Published</strong>, <strong>Scheduled</strong>, or <strong>Pending for Review</strong>. Additional fields appear when relevant (e.g. <strong>Publish At</strong> for scheduled, <strong>Unpublish At</strong> for published, <strong>Notify Reviewer</strong> for pending review).</p>
 <p><strong>Saving</strong></p>
-<p>Use <strong>Save</strong> or <strong>Save &amp; Publish</strong> at the top. Slug and status are read from the sidebar when you save.</p></div></details>
+<p>Use <strong>Save</strong> or <strong>Save &amp; Publish</strong> at the top. Slug and status are read from the sidebar when you save.</p>
+<p><strong>Example: publish a welcome post</strong></p>
+<ol>
+<li>Open <strong>Content → Blog</strong>, then <strong>New entry</strong>. Type the title in the main area.</li>
+<li>In the right sidebar <strong>General</strong> tab, leave <strong>Auto-generate slug from title</strong> on and set <strong>Status</strong> to <strong>Published</strong>.</li>
+<li>Click <strong>Save &amp; Publish</strong>. The public site can load the slug from the sidebar. The slug field never appears in the main field list.</li>
+</ol></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Reserved fields (sidebar only):</strong> <code>slug</code>, <code>status</code>, <code>published_at</code>, <code>expires_at</code>, <code>reviewer</code>, <code>meta_title</code>, <code>meta_description</code> (plus related OG fields in Meta Data). These are filtered out of the main <code>$fields</code> render loop in <code>admin/templates/entry-editor.html</code>.</p>
 <p><strong>Slug resolution:</strong> Client-side auto-generation in <code>admin/js/entry-editor.js</code>; server-side <code>birkly_resolve_entry_slug()</code> in <code>core/entry_slug.php</code> on create/update via <code>api/admin_entries.php</code>.</p>
 <table><thead><tr><th>Mode</th><th>Behavior</th></tr></thead>

@@ -55,6 +55,12 @@ Each proposal appears in the **AI approvals** queue. The default setting is that
 
 Connections holds the keys to your email, chat notifications, and external APIs. If an agent could read or change those without oversight, a mistaken prompt could expose credentials or break delivery. The rules keep diagnosis fast while keeping configuration changes human-gated.
 
+**Example: “why is email failing?”**
+
+1. Ask the assistant “Why is the newsletter connection unhealthy?”
+2. It may answer with the connection type, health, and the last error such as “authentication failed.” It must not include the SMTP password.
+3. If you ask it to change that password or send a test, the change waits in the approval queue until a person approves it.
+
 ## Advanced Users
 
 ### Tool exposure

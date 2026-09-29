@@ -33,6 +33,12 @@ Birkly seeds four roles the first time **Settings → Users & Roles** is used (s
 
 **Permissions** are editable per role in **Settings → Users & Roles** — tick or clear resource actions (view, create, edit, delete) for each role. You can also add custom roles. **Role pickers** throughout the admin (user invite/edit, AI connections, MCP service agents) load the same role list from the roles API, so custom roles appear everywhere once saved.
 
+**Example: a writer who cannot invite people**
+
+1. Open **Settings → Users & Roles**.
+2. Invite `writer@example.com` with the **Author** role.
+3. Sign in as that user. They can edit an entry. They cannot open Settings to invite someone else.
+
 **Assigning a role**
 
 - When you **invite** a new user (e.g. from Settings → Users → Invite), you enter their email and choose a role (Viewer, Editor, or Admin). They receive an email to set their password and then can log in with that role.

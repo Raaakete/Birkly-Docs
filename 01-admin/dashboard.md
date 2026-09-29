@@ -34,6 +34,12 @@ You can click “Welcome post” to edit it, or click “Blog” to see all blog
 
 If you’re an administrator, the Dashboard also helps you spot recent changes so you can review or fix something quickly.
 
+**Example: open yesterday’s product**
+
+1. Sign in. The Dashboard is the first screen.
+2. In **Recent**, find “Blue widget” (Products, created yesterday).
+3. Click that row. The entry editor opens. The Dashboard itself stays read-only.
+
 ## Advanced Users
 
 The Dashboard is a read-only overview screen assembled from the current content and (optionally) activity data. Typical data sources:

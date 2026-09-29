@@ -1,4 +1,10 @@
-<div class="doc-summary"><p>Claims, evidence, and cross-links are how Agent Guide stays <strong>honest</strong>: summaries tell agents the headline; links and the <strong>sources of truth</strong> registry tell them where to verify. This doc covers strategy, types, and worked examples — especially marketplace and review URLs.</p>
+<div class="doc-summary"><p>Claims, evidence, and cross-links are how Agent Guide stays <strong>honest</strong>: summaries tell agents the headline; links and the <strong>sources of truth</strong> registry tell them where to verify. This doc covers strategy, types, and worked examples — especially marketplace and review URLs.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: an Amazon rating without pasting reviews</strong></p>
+<ol>
+<li>Add a claim: “Consistently rated 4.5+ stars on Amazon US.”</li>
+<li>Attach evidence with the listing URL, the rating, and the review count. Do not paste review text.</li>
+<li>Mark the claim <strong>Supported</strong> after you open the listing yourself, then republish. Agents can repeat the claim and follow the URL.</li>
+</ol>
 <h2>Four layers of truth</h2>
 <table><thead><tr><th>Layer</th><th>What it is</th><th>Agent should…</th></tr></thead>
 <tbody><tr><td><strong>Sources of truth</strong></td><td>Declared registry (<code>sources_of_truth[]</code>)</td><td>Read these first for narrative and proof</td></tr><tr><td><strong>Summary</strong></td><td>Short description, positioning bullets</td><td>Paraphrase carefully; follow registry</td></tr><tr><td><strong>Claim</strong></td><td>Asserted fact with status</td><td>Repeat only if supported</td></tr><tr><td><strong>Evidence / source link</strong></td><td>URL or CMS ref with proof</td><td>Follow link to verify</td></tr></tbody></table>
@@ -113,8 +119,8 @@
 <li>Evidence: need <strong>URL</strong> for full 15 pts</li>
 <li>Claims: need <strong>supported + evidence_ids</strong> for full 20 pts</li>
 </ul>
-<p>Use completeness as quality gate, not checkbox filling.</p>
-<h2>Public export &amp; JSON-LD</h2>
+<p>Use completeness as quality gate, not checkbox filling.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h2>Public export &amp; JSON-LD</h2>
 <p>Published exports include resolved <code>sources_of_truth[]</code> and product <code>sources[]</code>. Supported claims in graph views include <code>linked_evidence</code>. JSON-LD adds:</p>
 <ul>
 <li>Product <code>url</code>, <code>sameAs</code> from sources</li>
@@ -126,4 +132,4 @@
 <li><a href="agent-guide-workflows.html">Workflows</a></li>
 <li><a href="agent-guide-best-practices.html">Best practices</a></li>
 <li><a href="agent-guide-data-model.html">Data model</a></li>
-</ul></div>
+</ul></div></details>

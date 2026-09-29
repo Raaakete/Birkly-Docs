@@ -34,6 +34,12 @@ Groups are not only an admin convenience. When you use the Birkly client or publ
 - Use short, clear **names** — they appear in admin and can be shown on the public site.
 - Put rarely used collections in **Ungrouped** rather than creating empty groups.
 
+**Example: a Marketing group**
+
+1. Open **Content**.
+2. In the groups panel, create **Marketing** and drag **Blog** and **News** into it.
+3. Leave **Contact** under **Ungrouped**. Templates read that same tree as `collection_groups`.
+
 ## Advanced Users
 
 Collection groups are persisted in **`content/collections/groups.json`** as a JSON array of tree nodes. The CMS normalizes legacy flat group files on load (P39-M7).

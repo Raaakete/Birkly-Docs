@@ -10,6 +10,14 @@ Works for individuals, teams, enterprises, nonprofits, and any site that wants a
 
 **Product promise:** Publish an authoritative, structured, evidence-aware representation that is easier for AI systems to discover and use. This is **not** a guarantee that every AI model will ingest your guide, and it is **not** a chatbot builder.
 
+## Beginner
+
+**Example: first publish**
+
+1. Open **Agent Guide** and add one narrative source (a CMS entry, a website, or a document).
+2. Set the official name and short description, add one product with a public URL, and add two claims that each have a proof URL.
+3. Enable publishing and click **Publish**. On the public site, open `/.well-known/agent-guide.json` and confirm the name is there. Draft edits stay private until you publish again.
+
 ## The Agent Guide hub (three tabs)
 
 Agent Guide answers Guide / Tools / Publish. **CMS AI connections are not a hub tab** — they live under **Settings → AI**.
@@ -152,6 +160,8 @@ Suggestions are **never auto-saved** until you accept them. AI Assist prefers de
 5. **Publish** — Enable publishing, click **Publish**, verify `/.well-known/agent-guide.json` on your public domain.
 
 Full walkthrough: [Getting started](agent-guide-getting-started.md).
+
+## Advanced Users
 
 ## What gets published
 

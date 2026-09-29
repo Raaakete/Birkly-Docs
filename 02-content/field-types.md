@@ -8,6 +8,12 @@ Field types define what kind of data each field in a collection can hold: short 
 
 When you add a field to a collection, you choose a **field type**. That type decides what the editor sees (a single line, a calendar, a list of images) and what can be stored. Here’s when to use each and what it looks like.
 
+**Example: one featured image**
+
+1. Open the collection and add a field. Label it **Featured image**. Set the type to **File**.
+2. Save the collection, open an entry, and pick one image from the Media Library.
+3. In the template, output it with `{media_img('featured_image', 'Alt text')}`. The entry stores a media id, not a typed-in URL.
+
 **Text and long-form**
 
 - **Text** — One line. Use for: titles, names, short labels.  

@@ -6,6 +6,14 @@ Read-only HTTP endpoints expose the **published** Agent Guide on your **public s
 
 **Related:** [MCP & agents](agent-guide-mcp-and-agents.md) · [Data model](../02-content/agent-guide-data-model.md)
 
+## Beginner
+
+**Example: confirm the published name**
+
+1. Publish Agent Guide and note the public site URL from **Settings → Site delivery**.
+2. Open `https://YOUR-PUBLIC-SITE/.well-known/agent-guide.json` in a browser.
+3. Confirm `identity` contains the official name. A draft-only edit does not appear in that file until you publish again.
+
 ## Base URL
 
 All URLs are on your **public site** (Settings → Site delivery), not the admin host:
@@ -286,6 +294,8 @@ project/.well-known/agent-guide.json
 | Admin API | `/api/ai_presence.php` — session auth + CSRF |
 | URL fetch (admin) | SSRF-safe validation for evidence metadata |
 | Rate limiting | Follows public API limits where configured |
+
+## Advanced Users
 
 ## Admin API (not public)
 

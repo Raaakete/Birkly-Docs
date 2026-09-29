@@ -19,6 +19,12 @@ The layout changes with the available screen width: it shows three columns on wi
 
 Some cards are limited to administrators. Plugin cards appear only when their plugin is active and enabled. The Commerce card is enabled by default for administrators, but an administrator can disable it in Commerce settings.
 
+**Example: see the grid change**
+
+1. Sign in on a wide screen. The cards sit in three columns.
+2. Narrow the window. The grid becomes two columns, then one column.
+3. With Commerce active, an administrator sees the Commerce card. Turning it off in Commerce settings removes that card and leaves the core cards.
+
 ## Advanced Users
 
 The P31 dashboard renders one `#dashboard-widget-grid` of `.card.dash-widget` elements. Widget definitions are returned by `GET /api/dashboard.php?action=widgets`, where core widgets are merged with widgets registered by active plugins and filtered by role and plugin settings.

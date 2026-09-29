@@ -260,7 +260,13 @@
 <li>“What is my SMTP password?” — Refused. The agent cannot read secrets.</li>
 </ul>
 <h3>Why this matters</h3>
-<p>Connections holds the keys to your email, chat notifications, and external APIs. If an agent could read or change those without oversight, a mistaken prompt could expose credentials or break delivery. The rules keep diagnosis fast while keeping configuration changes human-gated.</p></div></details>
+<p>Connections holds the keys to your email, chat notifications, and external APIs. If an agent could read or change those without oversight, a mistaken prompt could expose credentials or break delivery. The rules keep diagnosis fast while keeping configuration changes human-gated.</p>
+<p><strong>Example: “why is email failing?”</strong></p>
+<ol>
+<li>Ask the assistant “Why is the newsletter connection unhealthy?”</li>
+<li>It may answer with the connection type, health, and the last error such as “authentication failed.” It must not include the SMTP password.</li>
+<li>If you ask it to change that password or send a test, the change waits in the approval queue until a person approves it.</li>
+</ol></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Tool exposure</h3>
 <p>The MCP server exposes read tools and write tools separately:</p>
 <table><thead><tr><th>Tool</th><th>Category</th><th>Approval required</th><th>Returns secrets</th></tr></thead>

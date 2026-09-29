@@ -10,6 +10,12 @@ Open **Activity** from the admin sidebar. Use category and severity filters to n
 
 **Settings → Project → Recent activity** uses the same row component with filters for **Files**, **Git**, and **Settings** events.
 
+**Example: find who published a post**
+
+1. Open **Activity** in the sidebar.
+2. Filter to content changes and find the row for that entry.
+3. Click **Details** to read the JSON, or **Open** when the row links to the entry editor.
+
 ## Advanced Users
 
 **Sources:** Primary feed reads `logs/security.log` via `core/activity_format.php`. Plugin bus items from `core/plugin_activity.php` are merged on the Activity API. Project activity API filters security log events for project/git/file actions.

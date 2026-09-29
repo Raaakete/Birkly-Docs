@@ -28,7 +28,13 @@ Birkly saves your content as simple files in a format called JSON (a standard, r
 Two main options:
 
 1. **Client script (simplest):** You add one script tag to your website’s HTML. That script talks to Birkly, fetches the content, and fills in placeholders you’ve written in the page (e.g. “show the title here,” “list all blog posts”). Your HTML stays static; the script replaces the placeholders when the page loads.
+
+```html
+<script src="https://your-cms.example/birkly-client.js" data-cms-url="https://your-cms.example"></script>
+```
+
 2. **API:** A developer can have your site or app call Birkly’s Public API to get content as data (e.g. JSON) and then display it in a custom layout (e.g. a React or Vue app).
+3. **You keep editing in the admin.** Change a title, save, reload the site. The script or the API returns the new value. Visitors never log in to the admin.
 
 So: you **edit** in Birkly; visitors **see** the result on your site. The admin is never public—only people with an account can log in.
 

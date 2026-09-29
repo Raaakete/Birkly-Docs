@@ -222,7 +222,13 @@
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Idea:</strong> your server (or build job) asks Birkly for JSON, builds HTML, and sends that HTML to the browser. Visitors see content even if JavaScript is off.</p>
 <table><thead><tr><th>Stack</th><th>Typical approach</th></tr></thead>
 <tbody><tr><td><strong>PHP</strong></td><td><code>file_get_contents</code> / cURL → JSON → <code>echo</code> fields (or pass into your PHP templates)</td></tr><tr><td><strong>Astro</strong></td><td><code>fetch</code> in frontmatter → <code>.map</code> into components</td></tr><tr><td><strong>Next.js</strong></td><td><code>fetch</code> in a Server Component or <code>getStaticProps</code> → React</td></tr></tbody></table>
-<p>Decision hub: <a href="choose-your-stack.html">Choose your stack</a>.</p></div></details>
+<p>Decision hub: <a href="choose-your-stack.html">Choose your stack</a>.</p>
+<p><strong>Example: one published post in PHP</strong></p>
+<ol>
+<li>Publish a blog entry and copy its slug, for example <code>my-post-slug</code>.</li>
+<li>From the server, request <code>GET /api/public.php?action=get_entry&amp;collection=blog&amp;slug=my-post-slug</code>.</li>
+<li>Print the returned title in your PHP, Astro, or Next template. The browser receives HTML and does not need <code>birkly-client.js</code> for that page.</li>
+</ol></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Public API — one entry (any language)</h3>
 <pre><code>GET https://your-cms.com/api/public.php?action=get_entry&amp;collection=blog&amp;slug=my-post-slug
 → { &quot;status&quot;: &quot;ok&quot;, &quot;data&quot;: { &quot;entry&quot;: { &quot;title&quot;, &quot;slug&quot;, &quot;content&quot;, … } } }</code></pre>

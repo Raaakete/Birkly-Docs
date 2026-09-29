@@ -1,4 +1,10 @@
-<div class="doc-summary"><p>Tab-by-tab guide for day-to-day Agent Guide editing: what each area is for, typical tasks, and how sections connect. Follow the workflow <strong>Sources → Context → Products → Claims → Publish</strong>. Assumes you’ve read <a href="agent-guide-getting-started.html">Getting started</a>.</p>
+<div class="doc-summary"><p>Tab-by-tab guide for day-to-day Agent Guide editing: what each area is for, typical tasks, and how sections connect. Follow the workflow <strong>Sources → Context → Products → Claims → Publish</strong>. Assumes you’ve read <a href="agent-guide-getting-started.html">Getting started</a>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: edit and republish</strong></p>
+<ol>
+<li>Open <strong>Agent Guide</strong> in <strong>Essentials</strong>. Confirm identity, one source, and one claim are filled.</li>
+<li>Change the short description and click <strong>Save draft</strong>. The status strip shows <strong>Unpublished changes</strong>. The public JSON does not change yet.</li>
+<li>Click <strong>Publish updates</strong>. Reload <code>/.well-known/agent-guide.json</code> and confirm the new description.</li>
+</ol>
 <h2>Essentials view and guided setup</h2>
 <p>Most day-to-day edits happen in <strong>Essentials</strong> view (the default). It surfaces identity, a sources preview, key positioning messages, a claims preview, and publish controls — without the full tab bar. Switch to <strong>Advanced</strong> for Overview, Products, Media, link health, version history, and the AI Assist sidebar.</p>
 <p><strong>Re-run the wizard</strong> anytime from the status strip <strong>Set up guide</strong> button (also linked from Overview as <strong>Run guided setup</strong>). Re-opening the wizard does not delete published data — it walks through setup steps with your current draft prefilled. Use it after skipping first-time setup or when onboarding a new editor.</p>
@@ -180,11 +186,12 @@
 <li>Review completeness / staleness on Overview</li>
 <li><strong>Publish</strong> when ready</li>
 </ol>
-<p>Never rely on auto-save for AI suggestions — accept explicitly in AI Assist first, then save draft.</p>
+<p>Never rely on auto-save for AI suggestions — accept explicitly in AI Assist first, then save draft.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Edits save to the draft. Public endpoints serve the published snapshot only (<code>schema_version</code> <code>agent_guide.v1</code>). Publishing the JSON does not enable Website tools. Tools stay off until you enable them and allowlist forms. Visitor write actions still ask for confirmation in the browser.</p>
 <h2>Related docs</h2>
 <ul>
 <li><a href="agent-guide-getting-started.html">Getting started</a></li>
 <li><a href="agent-guide-ai-assist.html">AI Assist</a></li>
 <li><a href="agent-guide-best-practices.html">Best practices</a></li>
 <li><a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a></li>
-</ul></div>
+</ul></div></details>

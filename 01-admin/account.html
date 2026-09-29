@@ -254,6 +254,12 @@
 <li><strong>Unlink:</strong> Click <strong>Unlink</strong> on Account. Local login is unchanged; only the cloud association is removed.</li>
 <li><strong>No link required:</strong> Skip linking if you self-host only with local accounts.</li>
 </ul>
+<p><strong>Example: change the name other people see</strong></p>
+<ol>
+<li>Open <strong>Account</strong>.</li>
+<li>Set <strong>Display name</strong> to <code>Jane</code> and save.</li>
+<li>Edit any entry and save it. “Last edited by” shows Jane.</li>
+</ol>
 <p><strong>Who manages other users</strong></p>
 <p><strong>Inviting</strong> new users, <strong>changing</strong> someone’s role, or <strong>deleting</strong> users is done in <strong>Settings → Users</strong> (or similar) by an administrator. Your Account page is only for <strong>your</strong> profile. If you need another account (e.g. a new team member), ask an admin to send an invite.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Account data:</strong> Stored in users table or user config (email, password hash, name, avatar URL, 2FA secret if enabled). Password change: require current password, hash new password (e.g. bcrypt/argon2), update store. Email change may require verification (send token, confirm before update).</p>

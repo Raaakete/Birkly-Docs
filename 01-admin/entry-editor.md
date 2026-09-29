@@ -34,6 +34,12 @@ Choose **Unpublished**, **Published**, **Scheduled**, or **Pending for Review**.
 
 Use **Save** or **Save & Publish** at the top. Slug and status are read from the sidebar when you save.
 
+**Example: publish a welcome post**
+
+1. Open **Content → Blog**, then **New entry**. Type the title in the main area.
+2. In the right sidebar **General** tab, leave **Auto-generate slug from title** on and set **Status** to **Published**.
+3. Click **Save & Publish**. The public site can load the slug from the sidebar. The slug field never appears in the main field list.
+
 ## Advanced Users
 
 **Reserved fields (sidebar only):** `slug`, `status`, `published_at`, `expires_at`, `reviewer`, `meta_title`, `meta_description` (plus related OG fields in Meta Data). These are filtered out of the main `$fields` render loop in `admin/templates/entry-editor.html`.

@@ -35,7 +35,7 @@ Do not scaffold from `de`, `fr`, `es`, or `ja`. Do not run `scripts/p85-es-full-
 - PHP: `__('admin.save', ['name' => $name])` with `{name}` interpolation (`{{name}}` still works).
 - HTML templates: `{translate 'admin.settings'}`.
 - PHP partials (not plugin HTML): `<?= __('admin.save') ?>` — use `{translate}` in plugin `.html` admin pages.
-- JavaScript: `Birkly.i18n.t('admin.save', 'Save', { name: name })` (flat full-key dictionary injected in `layout_head.php`).
+- JavaScript: `Birkly.i18n.t('admin.save', 'Save', { name: name })` (flat full-key dictionary injected in `layout_head.php`). The dictionary includes `admin.*` and every active plugin catalog, so dashboard widgets resolve `plugins.{id}.*` on pages they do not own.
 
 Admin language is stored on the **user profile** and applied on the next full page load after `api/users.php` `set_language`. There is no separate per-plugin language control.
 

@@ -1,58 +1,12 @@
-<p>The <strong>User Management</strong> plugin adds front-end accounts, registration, groups, tiers, and collection-level permissions. Enable it when your site needs logged-in visitors or members who create their own content.</p>
-<div class="doc-summary"><p>Install and enable the plugin under <strong>Settings → Plugins</strong>. Admin pages <strong>Users</strong>, <strong>Groups</strong>, and <strong>Tiers</strong> appear in the sidebar. Configure which collections new users may read or write, use the User fieldtype to reference accounts in entries, and expose <code>{user_logged_in}</code> / <code>{user_current}</code> in templates. Registration and password reset use the plugin APIs with CSRF and rate limiting.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Enable the plugin</strong></p>
+<div class="doc-summary"><p><strong>User Management</strong> adds website accounts to a Birkly install: registration, login, tiers, and collection permissions. The click-path and the <code>{user_logged_in}</code> template live on the plugin’s <strong>Docs</strong> tab inside the admin. That tab updates when you update the plugin.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the manual in this install</strong></p>
 <ol>
-<li><strong>Settings → Plugins</strong> → find <strong>User Management</strong> → Enable.</li>
-<li>Open <strong>Users</strong> in the sidebar to see registered accounts.</li>
-<li>Under <strong>Groups</strong> and <strong>Tiers</strong>, organize members if you need shared permissions or limits.</li>
-</ol>
-<p><strong>Common tasks</strong></p>
-<table><thead><tr><th>Task</th><th>Where</th></tr></thead>
-<tbody><tr><td>See who registered</td><td><strong>Users</strong></td></tr><tr><td>Block a user</td><td><strong>Users</strong> → edit → suspend</td></tr><tr><td>Let members post in a collection</td><td>Collection settings → permissions (plugin section)</td></tr><tr><td>Show login state on website</td><td>Templates: <code>{if user_logged_in}…{endif}</code></td></tr><tr><td>Password reset</td><td>Public <code>reset-password</code> route (plugin)</td></tr></tbody></table>
-<p><strong>Registration flow</strong></p>
-<ol>
-<li>Visitor submits registration form (your template or plugin default).</li>
-<li>Plugin creates user record and sends verification email (if configured).</li>
-<li>User verifies email, logs in, and receives role/tier per your settings.</li>
-<li>Optional: automation <strong>user_registered</strong> trigger fires if Automation plugin is on.</li>
-</ol>
-<p><strong>Security defaults</strong></p>
-<ul>
-<li>Writes check permissions — users cannot edit collections they are not allowed to.</li>
-<li>Admin user management requires <code>manage_users</code>.</li>
-<li>Use HTTPS in production for session cookies.</li>
-</ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Key paths</strong></p>
-<ul>
-<li>Plugin root: <code>plugins/user_management/</code></li>
-<li>APIs: <code>api/user_auth.php</code>, <code>api/user_registration.php</code>, <code>api/user_member_signup.php</code>, <code>api/user_members.php</code>, <code>api/user_account.php</code>, <code>api/user_admin.php</code>, <code>api/user_graph.php</code>, <code>api/user_graph_admin.php</code>, <code>api/collection_permissions.php</code></li>
-<li>Fieldtypes: <code>user_account*</code> (member marker), <code>user</code> (UGC reference), <code>password</code>, <code>user_relationship</code> (virtual graph panel on profile entries)</li>
-<li>Permissions: <code>includes/EntryPermissions.php</code>, <code>includes/UserPermissions.php</code></li>
-</ul>
-<p><strong>Template functions</strong></p>
-<table><thead><tr><th>Function</th><th>Returns</th></tr></thead>
-<tbody><tr><td><code>{user_logged_in}</code></td><td>Boolean</td></tr><tr><td><code>{user_current}</code></td><td>Current user object (id, name, email, …)</td></tr><tr><td><code>{user_list}</code></td><td>Filtered user list (admin/config dependent)</td></tr><tr><td><code>{user_profile &quot;id&quot;}</code></td><td>Public profile entry if collection enabled</td></tr><tr><td><code>{user_is_following from to}</code></td><td>Boolean</td></tr><tr><td><code>{user_is_friend a b}</code></td><td>Boolean</td></tr><tr><td><code>{user_is_connected a b}</code></td><td>Mutual connection</td></tr><tr><td><code>{user_graph_follows user_id}</code></td><td>User ID list</td></tr><tr><td><code>{user_graph_followers user_id}</code></td><td>User ID list</td></tr><tr><td><code>{user_graph_connected user_id}</code></td><td>User ID list</td></tr><tr><td><code>{user_can_view entry}</code></td><td>Boolean visibility</td></tr></tbody></table>
-<p>See <a href="user-ugc-ownership.html">UGC ownership and social graph</a> for owner fields, <code>user_graph</code> API, <code>user_relationship</code> fieldtype, and likes sub-entries.</p>
-<p><strong>Automation hooks</strong></p>
-<ul>
-<li><code>user_registered</code> — after successful signup</li>
-<li><code>user_login</code> — after successful login</li>
-</ul>
-<p><strong>Member-as-entry (P77)</strong></p>
-<p>New sites model members as <strong>collection entries</strong> with a <code>user_account*</code> fieldtype — not separate User List rows. <strong>Fieldtype profiles</strong> (User → Fieldtypes) define signup requirements, social gates, and Commerce payment flags per tier. Collection-scoped signup uses <code>user_member_signup</code>; the <strong>Members</strong> tab is index-backed. See <a href="user-fieldtype-profiles.html">User fieldtype profiles</a> and <a href="user-member-migration.html">Member migration</a>.</p>
-<p><strong>Signup flows and membership (P74 + P77)</strong></p>
-<p>Paid memberships use <strong>signup flows</strong> and <strong>membership products</strong> in User admin — not Commerce purchase mappings. Presets include <code>free_register</code>, <code>pay_then_activate</code>, <code>register_then_pay</code>, and <code>activate_only</code>. Public API: <code>user_signup</code> (<code>start</code>, <code>step</code>, <code>status</code>) for flow presets; <strong>P77</strong> adds <code>user_member_signup</code> for collection-scoped member registration. See <a href="user-signup-membership.html">User signup and membership</a>.</p>
-<p><strong>Ops guide (maintainers)</strong></p>
-<p>See platform repo <code>docs/user-plugin-ops.md</code> for checklist, backup scope, and troubleshooting. Plugin source of truth: <a href="https://github.com/Birkly-Other-Things/Birkly-Plugin-User">Birkly-Other-Things/Birkly-Plugin-User</a>.</p>
-<p><strong>Follow-up — public list/search permission filtering</strong></p>
-<p>The User plugin registers <code>birkly_public_entries_filter</code> and <code>birkly_public_entry_filter</code> hooks (Hub 1.0.38+). Core <code>entry_ownership.php</code> stamps owner from session on public create. Ensure production CMS runs current Birkly core with <code>core/public_read.php</code> hooks active.</p></div></details>
+<li>In <strong>Plugins → Hub</strong>, install <strong>User Management</strong> and enable it.</li>
+<li>Open <strong>User</strong> in the admin sidebar.</li>
+<li>Open the <strong>Documentation</strong> tab. Follow <strong>User Management</strong> for registration and the login template. Paid tiers are <strong>Membership products</strong>. Signup paths are <strong>Signup flows</strong>. This page does not repeat those walkthroughs.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Field types, permission keys, and the registration APIs are on the same Docs tab. A docs publish on docs.birkly.com does not change that manual. Update the plugin to change it.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="plugins.html">Plugins</a></li>
-<li><a href="user-fieldtype-profiles.html">User fieldtype profiles</a></li>
-<li><a href="user-member-migration.html">Member migration</a></li>
-<li><a href="user-ugc-ownership.html">User-generated content and ownership</a></li>
-<li><a href="user-signup-membership.html">User signup and membership</a></li>
-<li><a href="roles-and-permissions.html">Roles and permissions</a></li>
-<li><a href="../04-integration/public-forms.html">Public forms</a></li>
-<li><a href="../00-overview/closed-alpha-guide.html">Closed alpha guide</a></li>
+<li><a href="../01-admin/roles-and-permissions.html">Roles and permissions</a></li>
 </ul></div>

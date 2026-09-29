@@ -6,6 +6,14 @@ When Agent Guide is **published** and **publishing enabled**, Birkly exposes gui
 
 This complements — does not replace — the public HTTP API and well-known JSON file.
 
+## Beginner
+
+**Example: read the published summary from a connected agent**
+
+1. Publish Agent Guide and connect an AI app that has read permission ([MCP connections](../01-admin/mcp-connections.md)).
+2. Ask the agent for the organization summary, or call `get_agent_guide_context`.
+3. Compare the answer with `/.well-known/agent-guide.json`. Draft text that you have not published is absent from both.
+
 ## Prerequisites
 
 1. Agent Guide published (`published_version` ≥ 1)
@@ -174,6 +182,8 @@ Legacy tool names (`get_brand_context`, etc.) still work.
 The admin **AI chat** may also dispatch read actions via `api/ai_read_actions.php` — same backends as MCP for guide tools.
 
 Standard inbound MCP exposes **read** tools only. Draft edit and publish use admin UI, authenticated `/api/ai_presence.php`, or **`cms_admin_action`** (below).
+
+## Advanced Users
 
 ## MCP admin actions (`cms_admin_action`)
 

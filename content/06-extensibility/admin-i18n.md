@@ -14,10 +14,10 @@ Admin language is chosen per user (user menu → language). It does **not** foll
 ## Core strings
 
 - Canonical catalog: `lang/en.json` under the CMS root (`admin.*` keys).
-- PHP: `__('admin.save')` with `{{param}}` interpolation.
+- PHP: `__('admin.save', ['name' => $name])` with `{name}` interpolation (`{{name}}` still works).
 - HTML templates: `{translate 'admin.settings'}`.
 - PHP partials (not plugin HTML): `<?= __('admin.save') ?>` — use `{translate}` in plugin `.html` admin pages.
-- JavaScript: `Birkly.i18n.t('admin.save')` (flat full-key dictionary injected in `layout_head.php`).
+- JavaScript: `Birkly.i18n.t('admin.save', 'Save', { name: name })` (flat full-key dictionary injected in `layout_head.php`). The dictionary includes `admin.*` and every active plugin catalog, so dashboard widgets resolve `plugins.{id}.*` on pages they do not own.
 
 Admin language is stored on the **user profile** and applied on the next full page load after `api/users.php` `set_language`. There is no separate per-plugin language control.
 
@@ -46,31 +46,34 @@ Keys use namespace `plugins.{plugin_id}.{key}` (underscores in plugin id).
 
 Core merges active plugin catalogs when loading the admin language. Inactive plugins contribute nothing.
 
-## Tier-1 locales (P85)
+## Selectable admin UI languages
 
-**French (`fr`)** and **Spanish (`es`)** are tier-1 admin locales: full `admin.*` parity with `lang/en.json`, plus Wave 1 official plugins (User, Commerce, Automation, Events, Studio).
+The picker lists every `lang/{code}.json` whose `_meta.selectable` is true. English, German, French, Japanese, and Spanish ship that way. A file with `selectable` false, or with no `selectable` field, stays out of the picker.
 
-Spanish catalogs are rebuilt **from English only** (no machine translation, no French fallback). After adding or changing `lang/en.json` keys:
-
-```bash
-./scripts/p85-es-full-pass.sh
-php scripts/i18n-audit.php --locale=es --strict
-php scripts/i18n-audit-es-quality.php
-```
-
-`i18n-audit-es-quality.php` flags FR→ES heuristic leaks (same-as-`fr.json`, mixed EN/ES, French phrases). CI runs it warn-only for core and sibling plugin repos.
-
-Do **not** use `scripts/p85-es-fr-to-es.php` (deprecated).
-
-## Tooling
+Add a language from English only:
 
 ```bash
-php scripts/i18n-audit.php --locale=de --strict
-php scripts/i18n-sync-locale.php de
+php scripts/i18n-new-locale.php nl --name=Dutch --native=Nederlands
 ```
 
-- **`--strict`**: fail on missing keys vs `en.json`.
-- **`--check-untranslated`**: also fail when locale values are identical to English.
+That writes `lang/nl.json` and does not change PHP, tests, or CI. Translate the copied English values. Set `selectable` to true only after:
+
+```bash
+php scripts/i18n-audit.php --selectable --strict-quality
+```
+
+Do not scaffold from `de`, `fr`, `es`, or `ja`. Do not run `scripts/p85-es-full-pass.sh` or `scripts/p85-es-fr-to-es.php`. Those rebuilds are deprecated.
+
+## Keeping catalogs in step
+
+After adding or changing keys in `lang/en.json`:
+
+```bash
+php scripts/i18n-sync-locale.php --all
+php scripts/i18n-audit.php --selectable --strict-quality
+```
+
+The audit checks core and, when the sibling repo is on disk, User, Commerce, Automation, Events, and Studio. It fails when a selectable locale is missing a key, a `{placeholder}` set differs from English, a value still contains a translation sentinel, a value is still the English sentence, or a value was copied from another locale.
 
 ## Related
 

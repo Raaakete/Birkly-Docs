@@ -1,41 +1,12 @@
-<p>Physical (<code>ship</code>) fulfillment for Commerce <strong>1.0.25+</strong> / current <strong>1.0.27</strong>: selectable <strong>Manual / Export</strong> (default) or <strong>EasyPost</strong> live push + tracking webhook. Supports <strong>partial ship</strong>, <strong>multi-package</strong> shipments, <strong>packing slips</strong>, and Automation notify.</p>
-<div class="doc-summary"><p><strong>Settings → Fulfillment</strong> offers <strong>Manual / Export</strong> and <strong>EasyPost</strong>. Manual remains the default. EasyPost reuses the API key from <strong>Settings → Shipping</strong>, creates a tracker/label on <code>create_shipment</code>, and accepts a public <code>platform=easypost</code> tracking webhook. <strong>ShipStation</strong> stays an internal stub and is <strong>not</strong> merchant-selectable.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Choose an adapter</h3>
+<div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Fulfillment</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Fulfillment topic</strong></p>
 <ol>
-<li>Open <strong>Commerce → Settings → Fulfillment</strong>.</li>
-<li>Set <strong>Active adapter</strong> to <strong>Manual / Export</strong> or <strong>EasyPost</strong>.</li>
-<li>For EasyPost: ensure the Shipping API key is saved; optionally set a <strong>webhook secret</strong> and copy the webhook URL shown in the panel.</li>
-<li>Save.</li>
-</ol>
-<h3>Create a shipment (Manual or EasyPost)</h3>
-<ol>
-<li>Open <strong>Commerce → Orders</strong> → order detail.</li>
-<li>For <code>ship</code> lines with remaining quantity, create a shipment:</li>
-</ol>
-<p>   - Select line(s) and quantities (partial OK), or ship all remaining.    - Optional tracking number, carrier, <strong>package count</strong> (≥ 1) — EasyPost may fill tracking from the push.    - Optional <strong>notify customer</strong>.</p>
-<ol>
-<li>Repeat for additional packages / remaining lines.</li>
-</ol>
-<p>With <strong>EasyPost</strong> active, <code>create_shipment</code> calls EasyPost <code>pushOrder</code> (tracker/label). Fulfillment status per line moves unfulfilled → partial → shipped.</p>
-<h3>Packing slips</h3>
-<p>From the order detail (or bulk actions where available), generate packing slips for a shipment or remaining unshipped items. Print/PDF opens in a new window — allow pop-ups if blocked.</p>
-<h3>Tracking webhook (EasyPost)</h3>
-<p>Point EasyPost tracker events at the Commerce webhook URL with <code>platform=easypost</code>. Updates write tracking status onto the shipment and can fire Automation <code>commerce_tracking_updated</code>. Use the configured webhook secret when verifying signatures.</p>
-<h3>Automation notify</h3>
-<p>When <strong>notify customer</strong> is set on a shipment (and on tracking updates):</p>
-<table><thead><tr><th>Trigger</th><th>When</th></tr></thead>
-<tbody><tr><td><code>commerce_shipment_created</code></td><td>Each new shipment record</td></tr><tr><td><code>commerce_order_shipped</code></td><td>Customer-facing shipped notify (when notify is enabled)</td></tr><tr><td><code>commerce_tracking_updated</code></td><td>EasyPost tracker webhook updates shipment status</td></tr></tbody></table>
-<p>Wire email/SMS workflows in Automation against these triggers. See <a href="../05-automation/triggers.html">Triggers</a>.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Resolver:</strong> <code>FulfillmentAdapterResolver</code> — merchant list is <code>manual</code> | <code>easypost</code> only (<code>listAvailableAdapters</code> omits ShipStation).</p>
-<p><strong>Admin API:</strong></p>
-<table><thead><tr><th>Action</th><th>Purpose</th></tr></thead>
-<tbody><tr><td><code>create_shipment</code></td><td>Partial/full ship; EasyPost adapter runs <code>pushOrder</code> when active</td></tr><tr><td><code>packing_slips</code></td><td>HTML packing slip for order ids / shipment</td></tr><tr><td><code>update_order_shipment</code> / <code>bulk_mark_shipped</code></td><td>Legacy/simple ship helpers</td></tr></tbody></table>
-<p><strong>Order shape:</strong> <code>shipments[]</code> with <code>id</code>, <code>items</code>, <code>package_count</code>, tracking/carrier, <code>notify_customer</code>; EasyPost may add <code>source: easypost</code>, <code>easypost_tracker_id</code>. Lines track <code>quantity_shipped</code> and <code>fulfillment_status</code>.</p>
-<p>Only lines with <code>fulfillment: ship</code> are shippable. Digital, register, gift_card, and none lines use PostPurchaseRouter instead.</p>
-<p><strong>Webhook:</strong> <code>api/commerce_webhooks.php</code> with <code>platform=easypost</code> → <code>EasyPostTrackingWebhookService</code>.</p></div></details>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Fulfillment</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="commerce-shipping.html">Commerce shipping rates</a></li>
-<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
-<li><a href="../05-automation/triggers.html">Automation triggers</a></li>
-<li><a href="commerce-warehouse-stock.html">Commerce warehouse stock</a></li>
+<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div>

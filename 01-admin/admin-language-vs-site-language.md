@@ -17,7 +17,7 @@ There is **no** site-wide language dropdown under **Settings → General**. Use 
 2. **Later:** Open **Account** → language → save → reload admin.
 3. **Content:** Collections can use **multilanguage** fields separately; that is not the same as admin UI catalogs. See [Multilingual templating](../03-templating/multilingual-templating.md).
 
-## Advanced
+## Advanced Users
 
 - Admin strings: `lang/*.json` in core and plugin `lang/` packs (P85 i18n).
 - Legacy `settings/site.json` may still contain a `language` key for defaults; it is not exposed in General settings UI.

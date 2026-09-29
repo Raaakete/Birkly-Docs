@@ -220,7 +220,13 @@
         <div class="doc-content"><div class="doc-summary"><p><strong>Agent Guide</strong> is Birkly's admin home for <strong>Guide · Tools · Publish</strong>. This page covers the <strong>Guide</strong> tab — Birkly's structured context layer for AI systems and connected agents. It sits on top of your existing CMS content, Media library, and other canonical sources — it does <strong>not</strong> replace them. You declare <strong>sources of truth</strong> first, then build concise summaries (identity, offerings, claims, voice), and <strong>publish</strong> a versioned, machine-readable snapshot on your <strong>public site domain</strong> so agents, crawlers, and integrations can discover and use it responsibly.</p>
 <p><strong>AI app connections</strong> (Claude, ChatGPT, Cursor, built-in assistant keys) live under <strong>Settings → AI</strong> — not as an Agent Guide tab.</p>
 <p>Works for individuals, teams, enterprises, nonprofits, and any site that wants a single authoritative guide for automated assistants.</p>
-<p><strong>Product promise:</strong> Publish an authoritative, structured, evidence-aware representation that is easier for AI systems to discover and use. This is <strong>not</strong> a guarantee that every AI model will ingest your guide, and it is <strong>not</strong> a chatbot builder.</p>
+<p><strong>Product promise:</strong> Publish an authoritative, structured, evidence-aware representation that is easier for AI systems to discover and use. This is <strong>not</strong> a guarantee that every AI model will ingest your guide, and it is <strong>not</strong> a chatbot builder.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: first publish</strong></p>
+<ol>
+<li>Open <strong>Agent Guide</strong> and add one narrative source (a CMS entry, a website, or a document).</li>
+<li>Set the official name and short description, add one product with a public URL, and add two claims that each have a proof URL.</li>
+<li>Enable publishing and click <strong>Publish</strong>. On the public site, open <code>/.well-known/agent-guide.json</code> and confirm the name is there. Draft edits stay private until you publish again.</li>
+</ol>
 <h2>The Agent Guide hub (three tabs)</h2>
 <p>Agent Guide answers Guide / Tools / Publish. <strong>CMS AI connections are not a hub tab</strong> — they live under <strong>Settings → AI</strong>.</p>
 <table><thead><tr><th>Tab</th><th>Question it answers</th><th>Where it actually lives</th></tr></thead>
@@ -315,8 +321,8 @@
 <li><strong>Claims</strong> — Add 2–3 factual claims; attach evidence with verifiable URLs; mark reviewed claims as <strong>Supported</strong>.</li>
 <li><strong>Publish</strong> — Enable publishing, click <strong>Publish</strong>, verify <code>/.well-known/agent-guide.json</code> on your public domain.</li>
 </ol>
-<p>Full walkthrough: <a href="agent-guide-getting-started.html">Getting started</a>.</p>
-<h2>What gets published</h2>
+<p>Full walkthrough: <a href="agent-guide-getting-started.html">Getting started</a>.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h2>What gets published</h2>
 <p>Published JSON (<code>agent_guide.v1</code>; legacy exports may show <code>ai_presence.v1</code>) includes:</p>
 <ul>
 <li><strong><code>sources_of_truth[]</code></strong> — Resolved registry of canonical sources</li>
@@ -349,7 +355,7 @@
 <p><strong>Do I need a vector database?</strong>   No. Agent Guide is <strong>curated truth + evidence + source links</strong> — the right model for “what is officially true about our brand?” Vector search helps <strong>fuzzy search over huge unstructured archives</strong> (e.g. support tickets). That is a different product problem; optional semantic search could be a <strong>future plugin</strong>, not core CMS.</p>
 <p><strong>Does publishing my Guide turn on website tools?</strong>   No. Publishing the Guide only makes your fact-sheet JSON public. <strong>Website tools</strong> (the Tools tab / WebMCP) is a separate, off-by-default switch — see <a href="../04-integration/webmcp-tools.html">Website tools (WebMCP)</a>.</p>
 <p><strong>Where do I connect Claude / ChatGPT / Cursor?</strong>   <strong>Settings → AI</strong> — not an Agent Guide tab. Agent Guide is Guide · Tools · Publish only.</p>
-<p><strong>Legacy paths and tools?</strong>   <code>/.well-known/brand-context.json</code>, MCP <code>get_brand_context</code>, and admin <code>?page=ai-presence</code> remain supported as aliases.</p></div></div>
+<p><strong>Legacy paths and tools?</strong>   <code>/.well-known/brand-context.json</code>, MCP <code>get_brand_context</code>, and admin <code>?page=ai-presence</code> remain supported as aliases.</p></div></details></div>
       </div>
     </main>
   </div>

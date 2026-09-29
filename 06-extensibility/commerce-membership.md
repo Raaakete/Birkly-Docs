@@ -1,28 +1,24 @@
-# Commerce membership wiring
+# Commerce membership
 
-> **Moved (P74):** Membership tiers, activation, and club onboarding are owned by the **User Management** plugin. See **[User signup and membership](user-signup-membership.md)** for the current setup guide.
+## Summary
 
-## What changed
+A paid membership is a User tier linked to a Commerce product. Create that link under **User → Membership products**. Commerce does not offer a mapping wizard.
 
-| Before (P73) | After (P74) |
-|--------------|-------------|
-| Commerce purchase mappings granted tiers | User **Membership products** link Commerce refs → tier |
-| `club_opt_in` checkout metadata | `signup_flow_id` + `signup_flow_opt_in` |
-| `commerce_membership_started` + Automation club recipe | `commerce_subscription_started` + User signup flows |
-| Commerce `CommerceClubActivation` | Removed — User `SignupFlowEngine` |
+## Beginner
 
-Commerce still sells recurring products and fires subscription events. It does **not** assign User tiers or send club activation emails.
+**Example: grant a tier after a subscription starts**
 
-## Quick pointer
+1. Enable **User Management** and **Commerce**.
+2. Open **User → Membership products**. Click **Add product**.
+3. Fill name, collection, entry id, purchase option, tier, and signup flow (for example `pay_then_activate`). Turn the row **On** and click **Save products**. Tier grant and revoke run on subscription events.
 
-- **Admin:** User → Membership products, Signup flows, Email templates
-- **Site forms:** hidden `signup_flow_id`, optional `signup_flow_opt_in` checkbox
-- **API:** `user_signup` (`start`, `step`, `status`)
+**Commerce → Settings → Membership mappings** lists mappings stored by older installs. New tier grants are not created on that screen. **Import Commerce mappings** on the User tab copies those stored rows.
 
-Full documentation: [User signup and membership](user-signup-membership.md) — includes **P79 free club** (`club_free_register`), **supporter badges on `club-profiles`**, and **`SupporterBadgeSync`** reconcile.
+## Advanced Users
+
+Past-due grace days and the default tier on revoke are on the same User screen. Recurring billing itself stays on the Commerce **Subscriptions** topic. A publish of docs.birkly.com does not change either manual. Update the plugin that owns the screen.
 
 ## Related
 
-- [User signup and membership](user-signup-membership.md)
-- [Commerce subscriptions](commerce-subscriptions.md)
-- [Commerce plugin](plugins/commerce.md)
+- [User management plugin](user-plugin.md)
+- [Plugins](plugins.md)

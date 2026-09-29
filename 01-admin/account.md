@@ -43,6 +43,12 @@ Some installations let you connect a **Birkly cloud account** alongside your loc
 - **Unlink:** Click **Unlink** on Account. Local login is unchanged; only the cloud association is removed.
 - **No link required:** Skip linking if you self-host only with local accounts.
 
+**Example: change the name other people see**
+
+1. Open **Account**.
+2. Set **Display name** to `Jane` and save.
+3. Edit any entry and save it. “Last edited by” shows Jane.
+
 **Who manages other users**
 
 **Inviting** new users, **changing** someone’s role, or **deleting** users is done in **Settings → Users** (or similar) by an administrator. Your Account page is only for **your** profile. If you need another account (e.g. a new team member), ask an admin to send an invite.

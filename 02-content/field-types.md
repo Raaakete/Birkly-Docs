@@ -8,6 +8,12 @@ Field types define what kind of data each field in a collection can hold: short 
 
 When you add a field to a collection, you choose a **field type**. That type decides what the editor sees (a single line, a calendar, a list of images) and what can be stored. Here’s when to use each and what it looks like.
 
+**Example: one featured image**
+
+1. Open the collection and add a field. Label it **Featured image**. Set the type to **File**.
+2. Save the collection, open an entry, and pick one image from the Media Library.
+3. In the template, output it with `{media_img('featured_image', 'Alt text')}`. The entry stores a media id, not a typed-in URL.
+
 **Text and long-form**
 
 - **Text** — One line. Use for: titles, names, short labels.  
@@ -38,6 +44,9 @@ When you add a field to a collection, you choose a **field type**. That type dec
 
 - **DateTime** — Date and time. Use for: event start, scheduled publish time.  
   **Example:** Event start = 2025-03-15 14:00.
+
+- **Time** — A time of day, with no date. Use for: opening hours, a daily start. The field can use a 12- or 24-hour clock and a minute step.  
+  **Example:** Doors = 18:30.
 
 **Choices**
 

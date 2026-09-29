@@ -12,6 +12,11 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-09-29 — Storefront script tags
+
+- **Updated:** shop, linked checkout, store kit, hybrid cart, Shopify cutover, and WebMCP pages tell authors to include `birkly-client.js` only. A manual plugin storefront script tag is unnecessary.
+- **Updated:** `03-templating/project-sites-and-plugins.md` deprecation note no longer shows a copy-paste of the old tags.
+
 ## 2026-09-28 — P96 Birch admin design language
 
 - **Rewritten:** `01-admin/admin-design-language.md` — four questions, eight roles, token reference (light and dark), density, component kit with markup, shell and phone More menu, pixel icon set and grid alphabet, icon gestures, micro-interactions, reduced motion, CI rules.

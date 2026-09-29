@@ -8,6 +8,14 @@ Connecting Claude, ChatGPT, or Cursor to your site content is separate — see [
 
 Go to **Settings → AI → Built-in assistant** and click **Quick connect**. Choose a provider, enter your **API key**, test the connection, and save. Use the chat button in the admin to get help with content. Consumer subscriptions (ChatGPT Plus, Claude Pro) do **not** include API access — you need a developer API key.
 
+## Beginner
+
+**Example: connect OpenAI and ask one question**
+
+1. Open **Settings → AI**. Under **Built-in assistant**, click **Quick connect**.
+2. Choose **OpenAI**, paste a developer API key (not a ChatGPT Plus login), click **Test connection**, then **Connect**.
+3. Open the floating chat button and ask “List my collections.” The answer uses that connection. Ollama skips the API key and uses your API URL instead.
+
 ## Quick connect
 
 1. **Settings → AI** tab.
@@ -15,6 +23,8 @@ Go to **Settings → AI → Built-in assistant** and click **Quick connect**. Ch
 3. Select your **provider** (OpenAI, Anthropic, Google, OpenRouter, Ollama, or Custom).
 4. Enter your **API key** (skip for Ollama).
 5. Click **Test connection**, then **Connect**.
+
+## Advanced Users
 
 ## Form fields
 

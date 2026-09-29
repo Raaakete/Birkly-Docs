@@ -192,7 +192,7 @@ Rules:
 - WebMCP is public-site actuation only — no admin writes, no drafts, no secrets in the public config.
 - Runtime handlers in `birkly-webmcp.js` register a tool only when it is enabled **and** the plugin surface is on the page (`window.BirklyCommerce`, `window.BirklyEvents`, `window.BirklyUser`, or the matching `data-birkly-*` markup).
 
-Ship a small storefront script if the page has no markup the runtime can detect. Events ships `events-storefront.js`; User Management ships `user-storefront.js`; Commerce already exposes `BirklyCommerce` via `commerce-storefront.js`.
+Ship page markup the runtime can detect, and include `birkly-client.js`. Events, User Management, and Commerce register their storefront scripts from `plugin.json`. The client loads them when the plugin is active.
 
 Useful checks in your own scripts:
 

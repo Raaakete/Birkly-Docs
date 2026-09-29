@@ -1,61 +1,12 @@
-<p>The <strong>Commerce</strong> plugin (<code>plugins/commerce/</code>) is Birkly’s content-first commerce platform: payment providers, the <strong>Commerce fieldtype</strong>, catalog index, inventory ledger, cart, checkout, orders, customers, discounts, gift cards, tax providers, shipping rate providers, import, and fulfillment.</p>
-<p>It replaces the legacy <strong>Payments</strong> plugin (<code>plugins/payments/</code> is now a compatibility shim).</p>
-<p>Current documented build: Commerce <strong>1.0.29</strong> (P54 P3 — Commerce 0→1 foundation complete). For a beginner walkthrough, see <a href="plugins/commerce.html">Commerce plugin overview</a> and the in-admin help shelf when Commerce is active.</p>
-<h2>Prerequisites</h2>
+<div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Getting started</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Getting started topic</strong></p>
 <ol>
-<li>Activate <strong>Commerce</strong> under Settings → Plugins.</li>
-<li>Configure at least one <strong>provider connection</strong> (<strong>Settings → Connections</strong>).</li>
-<li>Add the <strong>Commerce</strong> fieldtype to collection schemas for purchasable entries.</li>
-</ol>
-<h2>Admin areas</h2>
-<table><thead><tr><th>Tab</th><th>Purpose</th></tr></thead>
-<tbody><tr><td><strong>Dashboard</strong></td><td>Revenue, cohorts, needs-shipping / SLA breaches, avg fulfillment time, top products, affiliates (default landing)</td></tr><tr><td><strong>Orders</strong></td><td>Commercial history with frozen money/tax snapshots; <strong>Draft orders / Quotes</strong> (cart-free editor) live inside Orders</td></tr><tr><td><strong>Customers</strong></td><td>Email-keyed profiles, CSV import, timeline; optional User Management link; no passwords</td></tr><tr><td><strong>Catalog</strong></td><td>Indexed read model of sellable CMS entries</td></tr><tr><td><strong>Inventory</strong></td><td>Ledger SoR for countable stock (Unlimited · Simple · Locations); low-stock threshold → <code>commerce_low_stock</code></td></tr><tr><td><strong>Subscriptions</strong></td><td>Recurring purchases and lifecycle</td></tr><tr><td><strong>Discounts</strong></td><td>Promotions v2: usage limits, min purchase, dates, free shipping, stacking</td></tr><tr><td><strong>Gift Cards</strong></td><td>Admin-issued store credit (sellable cards use field fulfillment <code>gift_card</code>)</td></tr><tr><td><strong>Settings</strong></td><td>Connections, General (fulfillment SLA hours), Fieldtypes, Mappings, Import &amp; migrate, Shipping, Tax, Fulfillment, Activity, Documentation</td></tr></tbody></table>
-<p>Inside <strong>Settings → Import &amp; migrate</strong>: <strong>Shopify cutover</strong> (one-time products, customers, archived orders), CSV imports, and Beta live product import adapters. Legacy Shop / Events migration appears only when legacy sources are detected. See <a href="commerce-shopify-cutover.html">Shopify cutover playbook</a>.</p>
-<p>Inside <strong>Settings → Tax</strong>: provider <strong>Manual</strong> or <strong>Stripe Tax</strong> (orthogonal to charge PSP), classes, class×country rates, optional <strong>B2B reverse charge</strong>. See <a href="commerce-tax.html">Commerce tax</a>.</p>
-<p>Inside <strong>Settings → Shipping</strong>: rate provider <strong>Manual</strong> zones or <strong>EasyPost</strong> live quotes (weight required; fallback to zones). See <a href="commerce-shipping.html">Commerce shipping rates</a>.</p>
-<p>Inside <strong>Settings → Fulfillment</strong>: <strong>Manual / Export</strong> (default) or <strong>EasyPost</strong> (push + tracking webhook). ShipStation is an internal stub and is not merchant-selectable. See <a href="commerce-fulfillment.html">Commerce fulfillment</a>.</p>
-<h2>Mental model</h2>
-<table><thead><tr><th>Area</th><th>Role</th></tr></thead>
-<tbody><tr><td><strong>Catalog</strong></td><td>Checkout read model from CMS entries with Commerce fields</td></tr><tr><td><strong>Inventory</strong></td><td>Stock ledger (on hand, reserved, available, low threshold)</td></tr><tr><td><strong>Orders</strong></td><td>History — totals and tax lines are frozen at payment, not recalculated from current catalog</td></tr><tr><td><strong>Customers</strong></td><td>Commercial profiles keyed by email (not login credentials)</td></tr></tbody></table>
-<h2>Commerce fieldtype</h2>
-<p>Add to any collection schema:</p>
-<pre><code>{ &quot;name&quot;: &quot;commerce&quot;, &quot;type&quot;: &quot;commerce&quot;, &quot;label&quot;: &quot;Pricing&quot; }</code></pre>
-<p><strong>Stored value (v2):</strong></p>
-<table><thead><tr><th>Field</th><th>Notes</th></tr></thead>
-<tbody><tr><td><code>fulfillment</code></td><td><code>ship</code>, <code>deliver</code>, <code>register</code>, <code>gift_card</code>, or <code>none</code></td></tr><tr><td><code>tax_class</code></td><td>Product tax class (<code>standard</code>, <code>reduced</code>, <code>zero</code>, or custom). Default <code>standard</code></td></tr><tr><td><code>weight_grams</code></td><td>Required on <code>ship</code> when EasyPost live rates are on; optional dims <code>length_mm</code> / <code>width_mm</code> / <code>height_mm</code></td></tr><tr><td><code>purchase_options[]</code></td><td>id, label, billing, pricing_mode, price_cents, currency, interval?</td></tr><tr><td><code>quantity_available</code></td><td>Catalog projection of Inventory Available, or null for unlimited; capacity for <code>register</code></td></tr><tr><td><code>sku</code></td><td>Optional; defaults to entry slug</td></tr></tbody></table>
-<p>Tier grants are <strong>not</strong> on the fieldtype — configure <strong>Purchase mappings</strong> under Commerce → Settings → Mappings.</p>
-<p>See <a href="commerce-fieldtype.html">Commerce fieldtype</a> for panels and variants.</p>
-<h2>Public API</h2>
-<p>Base: <code>/api/index.php?route=commerce</code></p>
-<p>Cart actions: <code>get</code>, <code>add</code>, <code>update</code>, <code>remove</code>, <code>checkout</code> (entry-based lines from catalog index). Hybrid carts may return <code>split_required</code> / <code>groups[]</code>; pass <code>group_key</code> + <code>checkout_session_id</code> for split checkout. See <a href="commerce-hybrid-cart.html">Hybrid cart</a>.</p>
-<p>Affiliate: pass <code>?ref=partner_id</code> — stored in session for checkout discount rules.</p>
-<p>Draft-order admin actions: <code>draft_order_create</code>, <code>draft_order_update</code>, <code>draft_order_preview</code>, <code>draft_order_get</code>, <code>draft_order_search_catalog</code>, <code>draft_order_checkout</code>.</p>
-<h2>Template functions</h2>
-<table><thead><tr><th>Function</th><th>Purpose</th></tr></thead>
-<tbody><tr><td><code>{commerce_cart_count}</code></td><td>Items in session cart</td></tr><tr><td><code>{commerce_cart_url}</code></td><td>Cart API URL</td></tr><tr><td><code>{commerce_buy_url entry_id}</code></td><td>Quick checkout for one entry</td></tr><tr><td><code>{commerce_add_to_cart entry_id qty}</code></td><td>Add-to-cart URL</td></tr></tbody></table>
-<h2>Shelf services</h2>
-<table><thead><tr><th>Service ID</th><th>Notes</th></tr></thead>
-<tbody><tr><td><code>commerce_shelf</code></td><td>Primary API</td></tr><tr><td><code>payment_shelf</code></td><td>Legacy alias — same instance</td></tr></tbody></table>
-<p>Consumer plugins (Shopping Cart, Events) continue to use <code>payment_shelf</code> during transition.</p>
-<h2>Coexistence with Shop &amp; Events</h2>
-<table><thead><tr><th>Plugin</th><th>Status</th></tr></thead>
-<tbody><tr><td><code>shopping_cart</code></td><td>Legacy — uses <code>shop_products</code> collection</td></tr><tr><td><code>events</code></td><td>Legacy — uses <code>events</code> collection + RSVP</td></tr></tbody></table>
-<p><strong>New sites:</strong> use Commerce fieldtype on any collection. Legacy plugins are not removed. Migration wizard under <strong>Settings → Import &amp; migrate</strong> appears only when legacy sources are detected.</p>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Getting started</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="plugins/commerce.html">Commerce plugin overview</a></li>
-<li><a href="commerce-hybrid-cart.html">Commerce hybrid cart</a></li>
-<li><a href="commerce-store-kit.html">Commerce store kit</a></li>
-<li><a href="../05-automation/commerce-recipes.html">Automation Commerce recipes</a></li>
-<li><a href="commerce-analytics.html">Commerce analytics</a></li>
-<li><a href="commerce-customers.html">Commerce customers</a></li>
-<li><a href="commerce-promotions.html">Commerce promotions</a></li>
-<li><a href="commerce-gift-cards-quotes.html">Commerce gift cards and draft orders</a></li>
-<li><a href="commerce-tax.html">Commerce tax</a></li>
-<li><a href="commerce-shipping.html">Commerce shipping rates</a></li>
-<li><a href="commerce-fulfillment.html">Commerce fulfillment</a></li>
-<li><a href="commerce-shopify-cutover.html">Shopify cutover playbook</a></li>
-<li><a href="commerce-fieldtype.html">Commerce fieldtype</a></li>
-<li><a href="payment-shelf-api.html">Payment shelf API</a> (legacy naming; use <code>commerce_shelf</code>)</li>
-<li><a href="shopping-cart-plugin.html">Shopping Cart plugin</a> (legacy)</li>
-<li><a href="events-plugin.html">Events plugin</a> (legacy)</li>
+<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div>

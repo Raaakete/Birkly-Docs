@@ -218,7 +218,13 @@
     <main class="main">
       <div class="content doc-body">
         <div class="doc-content"><div class="doc-summary"><p>When Agent Guide is <strong>published</strong> and <strong>publishing enabled</strong>, Birkly exposes guide context to connected AI agents via MCP tools and a dedicated MCP resource. Agents with <code>read</code> permission can retrieve summaries, products, claims, product graphs, and the sources-of-truth registry without scraping your site.</p>
-<p>This complements — does not replace — the public HTTP API and well-known JSON file.</p>
+<p>This complements — does not replace — the public HTTP API and well-known JSON file.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: read the published summary from a connected agent</strong></p>
+<ol>
+<li>Publish Agent Guide and connect an AI app that has read permission (<a href="../01-admin/mcp-connections.html">MCP connections</a>).</li>
+<li>Ask the agent for the organization summary, or call <code>get_agent_guide_context</code>.</li>
+<li>Compare the answer with <code>/.well-known/agent-guide.json</code>. Draft text that you have not published is absent from both.</li>
+</ol>
 <h2>Prerequisites</h2>
 <ol>
 <li>Agent Guide published (<code>published_version</code> ≥ 1)</li>
@@ -322,8 +328,8 @@ read_entry(collection, slug)
 <p>Legacy tool names (<code>get_brand_context</code>, etc.) still work.</p>
 <h2>Admin AI chat</h2>
 <p>The admin <strong>AI chat</strong> may also dispatch read actions via <code>api/ai_read_actions.php</code> — same backends as MCP for guide tools.</p>
-<p>Standard inbound MCP exposes <strong>read</strong> tools only. Draft edit and publish use admin UI, authenticated <code>/api/ai_presence.php</code>, or <strong><code>cms_admin_action</code></strong> (below).</p>
-<h2>MCP admin actions (<code>cms_admin_action</code>)</h2>
+<p>Standard inbound MCP exposes <strong>read</strong> tools only. Draft edit and publish use admin UI, authenticated <code>/api/ai_presence.php</code>, or <strong><code>cms_admin_action</code></strong> (below).</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h2>MCP admin actions (<code>cms_admin_action</code>)</h2>
 <p>When the connecting user has <code>manage_settings</code>, these write actions are available via <code>cms_admin_action</code> with <code>action</code> set to the slug below:</p>
 <table><thead><tr><th>Action</th><th>Purpose</th></tr></thead>
 <tbody><tr><td><code>agent_guide.get</code></td><td>Read draft or published Agent Guide state</td></tr><tr><td><code>agent_guide.save_draft</code></td><td>Save draft JSON</td></tr><tr><td><code>agent_guide.publish</code></td><td>Publish draft to public endpoints</td></tr><tr><td><code>agent_guide.unpublish</code></td><td>Stop serving public endpoints (draft preserved)</td></tr><tr><td><code>agent_guide.cms_refresh</code></td><td>Sync narrative CMS sources into draft fields</td></tr><tr><td><code>agent_guide.copilot</code></td><td>AI Assist suggestions (review before save)</td></tr><tr><td><code>agent_guide.wizard_generate</code></td><td>Generate draft from CMS collections</td></tr><tr><td><code>agent_guide.validate_links</code></td><td>Run link health check on draft</td></tr></tbody></table>
@@ -358,7 +364,7 @@ read_entry(collection, slug)
 <li><a href="agent-guide-public-api.html">Public API</a></li>
 <li><a href="../01-admin/mcp-connections.html">MCP connections</a></li>
 <li><a href="../01-admin/ai-overview.html">AI overview</a></li>
-</ul></div></div>
+</ul></div></details></div>
       </div>
     </main>
   </div>

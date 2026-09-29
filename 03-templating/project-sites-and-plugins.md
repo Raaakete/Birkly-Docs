@@ -75,15 +75,7 @@ Use the same single script tag. Commerce cart/checkout and Events RSVP binders a
 
 ### Deprecated: manual plugin script tags
 
-**Do not** add tags like:
-
-```html
-<!-- deprecated — remove these -->
-<script src="/plugins/user_management/assets/user-storefront.js"></script>
-<script src="/plugins/commerce/assets/commerce-storefront.js"></script>
-```
-
-Manual tags are deprecated. The loader deduplicates by global name (`provides` in `plugin.json`), but omitting them keeps pages simpler and avoids version drift. Remove site-specific gate scripts (e.g. `club-gate.js`) — use `data-user-require-auth` instead.
+A manual tag for `user-storefront.js` or `commerce-storefront.js` is unnecessary. `birkly-client.js` loads those scripts when the plugin is active. The loader still skips a second copy when `window[provides]` already exists. Remove site-specific gate scripts (e.g. `club-gate.js`) — use `data-user-require-auth` instead.
 
 ## Advanced Users
 

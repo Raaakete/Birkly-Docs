@@ -111,7 +111,7 @@
 <li>WebMCP is public-site actuation only — no admin writes, no drafts, no secrets in the public config.</li>
 <li>Runtime handlers in <code>birkly-webmcp.js</code> register a tool only when it is enabled <strong>and</strong> the plugin surface is on the page (<code>window.BirklyCommerce</code>, <code>window.BirklyEvents</code>, <code>window.BirklyUser</code>, or the matching <code>data-birkly-*</code> markup).</li>
 </ul>
-<p>Ship a small storefront script if the page has no markup the runtime can detect. Events ships <code>events-storefront.js</code>; User Management ships <code>user-storefront.js</code>; Commerce already exposes <code>BirklyCommerce</code> via <code>commerce-storefront.js</code>.</p>
+<p>Ship page markup the runtime can detect, and include <code>birkly-client.js</code>. Events, User Management, and Commerce register their storefront scripts from <code>plugin.json</code>. The client loads them when the plugin is active.</p>
 <p>Useful checks in your own scripts:</p>
 <pre><code>Birkly.webmcp.isSupported();   // true if this browser exposes modelContext
 Birkly.webmcp.isEnabled();     // true if the site owner turned website tools on

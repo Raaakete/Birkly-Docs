@@ -261,11 +261,7 @@
 <h3>Shop, donate, and events pages</h3>
 <p>Use the same single script tag. Commerce cart/checkout and Events RSVP binders attach via auto-loaded storefront scripts when those plugins are active. Page recipes: <a href="storefront-patterns.html">Storefront and events patterns</a>, <a href="commerce-linked-checkout.html">Commerce linked checkout</a>.</p>
 <h3>Deprecated: manual plugin script tags</h3>
-<p><strong>Do not</strong> add tags like:</p>
-<pre><code>&lt;!-- deprecated — remove these --&gt;
-&lt;script src=&quot;/plugins/user_management/assets/user-storefront.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;/plugins/commerce/assets/commerce-storefront.js&quot;&gt;&lt;/script&gt;</code></pre>
-<p>Manual tags are deprecated. The loader deduplicates by global name (<code>provides</code> in <code>plugin.json</code>), but omitting them keeps pages simpler and avoids version drift. Remove site-specific gate scripts (e.g. <code>club-gate.js</code>) — use <code>data-user-require-auth</code> instead.</p></div></details>
+<p>A manual tag for <code>user-storefront.js</code> or <code>commerce-storefront.js</code> is unnecessary. <code>birkly-client.js</code> loads those scripts when the plugin is active. The loader still skips a second copy when <code>window[provides]</code> already exists. Remove site-specific gate scripts (e.g. <code>club-gate.js</code>) — use <code>data-user-require-auth</code> instead.</p></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
 <p><strong>Init sequence (CSR and SSR)</strong></p>
 <ol>

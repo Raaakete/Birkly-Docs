@@ -218,20 +218,26 @@
     <main class="main">
       <div class="content doc-body">
         <div class="doc-content"><div class="doc-summary"><p>Public list of <strong>accepted limitations</strong> while P86 (self-host–ready engineering) is in progress. This is <strong>not</strong> a promise that a closed-alpha cohort is open — see product announcements separately.</p>
-<p><strong>Support:</strong> hello@birkly.io · in-admin <strong>Feedback</strong> (optional contact consent).</p>
+<p><strong>Support:</strong> hello@birkly.io · in-admin <strong>Feedback</strong> (optional contact consent).</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: install Events from the Hub</strong></p>
+<ol>
+<li>Open <strong>Plugins → Hub</strong> and install <strong>Events</strong>. <strong>Studio</strong> is on the Hub as well, when you need the site IDE.</li>
+<li>Enable the plugin. <strong>Events</strong> appears in the sidebar.</li>
+<li>Open its <strong>Documentation</strong> tab for the class and RSVP walkthrough. Send other blockers through in-admin <strong>Feedback</strong> or hello@birkly.io.</li>
+</ol>
 <h2>P1 — documented limitations</h2>
 <table><thead><tr><th>Area</th><th>Issue</th><th>Workaround</th></tr></thead>
-<tbody><tr><td><strong>Hub (alpha)</strong></td><td><strong>Events</strong> and <strong>Studio</strong> show as <em>Coming soon</em> — not installable in Wave 1</td><td>Use <strong>User</strong>, <strong>Commerce</strong>, and <strong>Automation</strong> from the Hub</td></tr><tr><td><strong>Architecture (P74)</strong></td><td>User ↔ Commerce club/membership boundaries still migrating to shelf model</td><td>Use documented plugin flows; report cross-plugin bugs via Feedback</td></tr><tr><td><strong>Hub</strong></td><td>Plugin versions must be installed/upgraded via Marketplace; pin versions your team documents</td><td>Hub → Update per plugin</td></tr><tr><td><strong>Email</strong></td><td>User activation and some notifications need <strong>Connections → SMTP</strong></td><td>Run test email before signup tests</td></tr><tr><td><strong>i18n</strong></td><td><strong>German (<code>de</code>)</strong> is the strict quality bar; other admin locales may show English fallbacks</td><td>Prefer <code>de</code> or <code>en</code> for demos</td></tr></tbody></table>
+<tbody><tr><td><strong>Hub</strong></td><td>Events and Studio install from the Hub. Each plugin’s <strong>Documentation</strong> tab is the manual</td><td>Update the plugin when that manual should change</td></tr><tr><td><strong>Membership</strong></td><td>New tier grants are <strong>User → Membership products</strong>. Commerce <strong>Settings → Membership mappings</strong> lists older stored rows and does not create grants</td><td>Add the product on the User tab. Use <strong>Import Commerce mappings</strong> there for rows already stored</td></tr><tr><td><strong>Hub</strong></td><td>Plugin versions must be installed/upgraded via Marketplace; pin versions your team documents</td><td>Hub → Update per plugin</td></tr><tr><td><strong>Email</strong></td><td>User activation and some notifications need <strong>Connections → SMTP</strong></td><td>Run test email before signup tests</td></tr><tr><td><strong>i18n</strong></td><td>Selectable admin languages are English, German, French, Spanish, and Japanese. Danish, Hindi, and Chinese ship in the repo and stay out of the picker</td><td>Use a selectable language for demos</td></tr></tbody></table>
 <h2>P2 — deferrals</h2>
 <table><thead><tr><th>Area</th><th>Issue</th></tr></thead>
-<tbody><tr><td><strong>Locales</strong></td><td>da, es, fr, hi, ja, zh admin catalogs incomplete vs <code>en</code></td></tr><tr><td><strong>Commerce</strong></td><td>FX conversion between currencies — set prices per currency explicitly</td></tr><tr><td><strong>Feedback</strong></td><td>Self-host stores JSON under <code>data/feedback/</code> unless optional Ops relay is configured</td></tr><tr><td><strong>Journeys</strong></td><td>Full P28 beta journey catalog not required for engineering closure</td></tr></tbody></table>
-<h2>Fixed recently (reference)</h2>
+<tbody><tr><td><strong>Locales</strong></td><td>da, hi, and zh are not selectable. en, de, fr, es, and ja are</td></tr><tr><td><strong>Commerce</strong></td><td>FX conversion between currencies — set prices per currency explicitly</td></tr><tr><td><strong>Feedback</strong></td><td>Self-host stores JSON under <code>data/feedback/</code> unless optional Ops relay is configured</td></tr><tr><td><strong>Journeys</strong></td><td>Full P28 beta journey catalog not required for engineering closure</td></tr></tbody></table></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h2>Fixed recently (reference)</h2>
 <ul>
 <li>OSS git history scrub for sensitive paths (public <code>Raaakete/Birkly</code>)</li>
 <li>Feedback relay default on Birkly-operated installs; consent + legal Help topic</li>
 <li>Onboarding admin language + Settings site language decoupling</li>
 <li>User plugin delete/permissions (Hub User Management 1.0.97+)</li>
-</ul></div>
+</ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="../07-operations/self-host-install.html">Self-host install</a></li>
 <li><a href="closed-alpha-guide.html">Closed alpha guide</a> (product testing notes)</li>

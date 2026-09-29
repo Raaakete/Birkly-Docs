@@ -4,6 +4,14 @@
 
 Tab-by-tab guide for day-to-day Agent Guide editing: what each area is for, typical tasks, and how sections connect. Follow the workflow **Sources → Context → Products → Claims → Publish**. Assumes you’ve read [Getting started](agent-guide-getting-started.md).
 
+## Beginner
+
+**Example: edit and republish**
+
+1. Open **Agent Guide** in **Essentials**. Confirm identity, one source, and one claim are filled.
+2. Change the short description and click **Save draft**. The status strip shows **Unpublished changes**. The public JSON does not change yet.
+3. Click **Publish updates**. Reload `/.well-known/agent-guide.json` and confirm the new description.
+
 ## Essentials view and guided setup
 
 Most day-to-day edits happen in **Essentials** view (the default). It surfaces identity, a sources preview, key positioning messages, a claims preview, and publish controls — without the full tab bar. Switch to **Advanced** for Overview, Products, Media, link health, version history, and the AI Assist sidebar.
@@ -332,6 +340,10 @@ Publishing Agent Guide JSON does **not** turn on Website tools — enable Tools 
 4. **Publish** when ready
 
 Never rely on auto-save for AI suggestions — accept explicitly in AI Assist first, then save draft.
+
+## Advanced Users
+
+Edits save to the draft. Public endpoints serve the published snapshot only (`schema_version` `agent_guide.v1`). Publishing the JSON does not enable Website tools. Tools stay off until you enable them and allowlist forms. Visitor write actions still ask for confirmation in the browser.
 
 ## Related docs
 

@@ -217,22 +217,18 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><blockquote><p><strong>Moved (P74):</strong> Membership tiers, activation, and club onboarding are owned by the <strong>User Management</strong> plugin. See <strong><a href="user-signup-membership.html">User signup and membership</a></strong> for the current setup guide.</p></blockquote>
-<h2>What changed</h2>
-<table><thead><tr><th>Before (P73)</th><th>After (P74)</th></tr></thead>
-<tbody><tr><td>Commerce purchase mappings granted tiers</td><td>User <strong>Membership products</strong> link Commerce refs → tier</td></tr><tr><td><code>club_opt_in</code> checkout metadata</td><td><code>signup_flow_id</code> + <code>signup_flow_opt_in</code></td></tr><tr><td><code>commerce_membership_started</code> + Automation club recipe</td><td><code>commerce_subscription_started</code> + User signup flows</td></tr><tr><td>Commerce <code>CommerceClubActivation</code></td><td>Removed — User <code>SignupFlowEngine</code></td></tr></tbody></table>
-<p>Commerce still sells recurring products and fires subscription events. It does <strong>not</strong> assign User tiers or send club activation emails.</p>
-<h2>Quick pointer</h2>
-<ul>
-<li><strong>Admin:</strong> User → Membership products, Signup flows, Email templates</li>
-<li><strong>Site forms:</strong> hidden <code>signup_flow_id</code>, optional <code>signup_flow_opt_in</code> checkbox</li>
-<li><strong>API:</strong> <code>user_signup</code> (<code>start</code>, <code>step</code>, <code>status</code>)</li>
-</ul>
-<p>Full documentation: <a href="user-signup-membership.html">User signup and membership</a> — includes <strong>P79 free club</strong> (<code>club_free_register</code>), <strong>supporter badges on <code>club-profiles</code></strong>, and <strong><code>SupporterBadgeSync</code></strong> reconcile.</p>
+        <div class="doc-content"><div class="doc-summary"><p>A paid membership is a User tier linked to a Commerce product. Create that link under <strong>User → Membership products</strong>. Commerce does not offer a mapping wizard.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: grant a tier after a subscription starts</strong></p>
+<ol>
+<li>Enable <strong>User Management</strong> and <strong>Commerce</strong>.</li>
+<li>Open <strong>User → Membership products</strong>. Click <strong>Add product</strong>.</li>
+<li>Fill name, collection, entry id, purchase option, tier, and signup flow (for example <code>pay_then_activate</code>). Turn the row <strong>On</strong> and click <strong>Save products</strong>. Tier grant and revoke run on subscription events.</li>
+</ol>
+<p><strong>Commerce → Settings → Membership mappings</strong> lists mappings stored by older installs. New tier grants are not created on that screen. <strong>Import Commerce mappings</strong> on the User tab copies those stored rows.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Past-due grace days and the default tier on revoke are on the same User screen. Recurring billing itself stays on the Commerce <strong>Subscriptions</strong> topic. A publish of docs.birkly.com does not change either manual. Update the plugin that owns the screen.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="user-signup-membership.html">User signup and membership</a></li>
-<li><a href="commerce-subscriptions.html">Commerce subscriptions</a></li>
-<li><a href="plugins/commerce.html">Commerce plugin</a></li>
+<li><a href="user-plugin.html">User management plugin</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div></div>
       </div>
     </main>

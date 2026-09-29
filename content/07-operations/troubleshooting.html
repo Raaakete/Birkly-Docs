@@ -1,6 +1,12 @@
 <p>This page lists common issues when using or deploying Birkly and suggests steps to fix them. Use it after checking the relevant feature doc (e.g. <a href="../04-integration/website-integration.html">Website integration</a>, <a href="deployment.html">Deployment</a>) and your server/PHP error logs.</p>
 <div class="doc-summary"><p><strong>Can’t log in</strong> — Check email/password; reset password if your setup allows it; ensure the user exists and is not disabled. <strong>Content not showing on the site</strong> — Confirm the client script URL and <code>data-cms-url</code>; check that entries are <strong>Published</strong>; ensure CORS allows your site’s domain; look at the browser console and network tab for failed requests. <strong>Upload or save fails</strong> — Check folder permissions (content, media, settings writable by the web server); check PHP upload size and execution limits. <strong>500 or white screen</strong> — Enable temporary error display or check server/PHP error logs; often a permission issue, missing PHP extension, or broken plugin. <strong>Template placeholders not replaced</strong> — Ensure the client script loads and the template syntax matches the docs; confirm the collection handle and that the API returns data. See below for more.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>I can’t log in</strong></p>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: a published post still missing on the site</strong></p>
+<ol>
+<li>Open the entry and set <strong>Status</strong> to <strong>Published</strong>.</li>
+<li>In the browser Network tab, confirm <code>birkly-client.js</code> returns 200 and <code>data-cms-url</code> is the CMS address.</li>
+<li>In the template, use the collection handle in single quotes, for example <code>{for each entry in 'blog'}</code>. A draft, a 404 script, or <code>'Blog'</code> instead of <code>'blog'</code> leaves the list empty.</li>
+</ol>
+<p><strong>I can’t log in</strong></p>
 <ul>
 <li><strong>Wrong password</strong> — Use “Forgot password” if available; otherwise an admin must reset your password or re-invite you.</li>
 <li><strong>Account locked</strong> — After too many wrong attempts, the account may be temporarily locked. Wait a few minutes or ask an admin to clear the lock (if the feature exists).</li>

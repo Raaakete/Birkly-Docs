@@ -6,6 +6,14 @@ Reference for **future** closed-alpha self-host trials — not an open invite pr
 
 Closed alpha means Birkly is mature enough for real self-hosted trials but **not** a public beta. Expect rough edges. Testers use the CMS on their own server, report bugs via in-admin **Feedback**, and read **Help** for live Birkly-Docs. Support: **hello@birkly.io**.
 
+## Beginner
+
+**Example: a first self-host trial**
+
+1. Install the release zip and finish onboarding ([Self-host install](../07-operations/self-host-install.md)).
+2. Open **Help** and install **User**, **Commerce**, and **Automation** from **Plugins → Hub**.
+3. Send one **Feedback** report from the admin with the page URL and steps. Support mail is hello@birkly.io.
+
 ## What is in this alpha
 
 | Area | What to test |
@@ -19,7 +27,7 @@ Closed alpha means Birkly is mature enough for real self-hosted trials but **not
 | **Commerce** | Multi-currency products, live import, warehouse stock, inventory webhooks |
 | **Cloud account** | Optional link on Account page (local login still primary) |
 | **Admin UX** | Light/dark/system theme toggle; mobile-friendly dashboard and Commerce |
-| **Help** | Live docs from Birkly-Docs with offline snapshot fallback |
+| **Help** | Live articles from docs.birkly.com. If that host is down, Help says documentation is unavailable |
 | **Feedback** | Submit bug/idea from the admin Feedback widget; confirm it appears in Feedback admin |
 
 ## Getting started
@@ -40,6 +48,8 @@ Use **Feedback** in the admin (not only email) so we capture:
 - Page URL, CMS version, and browser info
 
 We use this data only to improve the alpha (see [Alpha legal](alpha-legal.md) and website Privacy Policy). Include steps to reproduce for bugs.
+
+## Advanced Users
 
 ## What not to expect yet
 

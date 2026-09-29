@@ -27,7 +27,7 @@ Install Birkly on **your own server or local PHP** using the **official CMS rele
 
 The zip ships an empty `plugins/` folder. Do not copy unofficial plugin trees into the CMS repo — use Hub install/upgrade. See [Official plugins](../06-plugin-economy/official-plugins.md).
 
-## Advanced
+## Advanced Users
 
 - **Docker:** [Hosting on Dokploy](dokploy-hosting.md) and root `docker-compose.yml` in the release.
 - **Updates:** [Updates](../06-extensibility/updates.md) — self-host instances do not use removed legacy `api/update.php`; use Hub + documented upgrade path.

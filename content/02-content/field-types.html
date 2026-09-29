@@ -1,5 +1,11 @@
 <div class="doc-summary"><p>Field types define what kind of data each field in a collection can hold: short text, long formatted text, numbers, dates, images, choices from a list, and more. Choosing the right type gives editors the right input (e.g. a date picker for dates, a media picker for images) and keeps content consistent for templates and the API. Common types include Text, Textarea, Editor (rich text), <strong>File</strong> (single media asset; aliases <strong>image</strong>, <strong>media</strong>), Gallery, Number, Date, Select, Checkbox, Tags, URL, Email, Password, Markdown, and Dynamic items; there are more for relations, colors, maps, and oEmbed.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p>When you add a field to a collection, you choose a <strong>field type</strong>. That type decides what the editor sees (a single line, a calendar, a list of images) and what can be stored. Here’s when to use each and what it looks like.</p>
+<p><strong>Example: one featured image</strong></p>
+<ol>
+<li>Open the collection and add a field. Label it <strong>Featured image</strong>. Set the type to <strong>File</strong>.</li>
+<li>Save the collection, open an entry, and pick one image from the Media Library.</li>
+<li>In the template, output it with <code>{media_img('featured_image', 'Alt text')}</code>. The entry stores a media id, not a typed-in URL.</li>
+</ol>
 <p><strong>Text and long-form</strong></p>
 <ul>
 <li><strong>Text</strong> — One line. Use for: titles, names, short labels.</li>
@@ -34,6 +40,10 @@
 <li><strong>DateTime</strong> — Date and time. Use for: event start, scheduled publish time.</li>
 </ul>
 <p>  <strong>Example:</strong> Event start = 2025-03-15 14:00.</p>
+<ul>
+<li><strong>Time</strong> — A time of day, with no date. Use for: opening hours, a daily start. The field can use a 12- or 24-hour clock and a minute step.</li>
+</ul>
+<p>  <strong>Example:</strong> Doors = 18:30.</p>
 <p><strong>Choices</strong></p>
 <ul>
 <li><strong>Select</strong> — One choice from a list you define. Use for: category, status, size.</li>

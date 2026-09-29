@@ -227,7 +227,13 @@
 <li>Extra cards from active plugins. Commerce, Events, Studio, and Automation can add their own dashboard information.</li>
 </ul>
 <p>The layout changes with the available screen width: it shows three columns on wide desktop screens, two columns on laptop-sized screens, and one column on smaller screens. You do not need to configure this layout. If the sidebar leaves too little room on a laptop, use its collapse control; Birkly keeps your saved sidebar preference.</p>
-<p>Some cards are limited to administrators. Plugin cards appear only when their plugin is active and enabled. The Commerce card is enabled by default for administrators, but an administrator can disable it in Commerce settings.</p></div></details>
+<p>Some cards are limited to administrators. Plugin cards appear only when their plugin is active and enabled. The Commerce card is enabled by default for administrators, but an administrator can disable it in Commerce settings.</p>
+<p><strong>Example: see the grid change</strong></p>
+<ol>
+<li>Sign in on a wide screen. The cards sit in three columns.</li>
+<li>Narrow the window. The grid becomes two columns, then one column.</li>
+<li>With Commerce active, an administrator sees the Commerce card. Turning it off in Commerce settings removes that card and leaves the core cards.</li>
+</ol></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>The P31 dashboard renders one <code>#dashboard-widget-grid</code> of <code>.card.dash-widget</code> elements. Widget definitions are returned by <code>GET /api/dashboard.php?action=widgets</code>, where core widgets are merged with widgets registered by active plugins and filtered by role and plugin settings.</p>
 <p>The Widget API v2 fields are:</p>
 <table><thead><tr><th>Field</th><th>Purpose</th></tr></thead>

@@ -237,7 +237,13 @@
 <li>Keep group <strong>ids</strong> stable if templates or integrations reference them.</li>
 <li>Use short, clear <strong>names</strong> — they appear in admin and can be shown on the public site.</li>
 <li>Put rarely used collections in <strong>Ungrouped</strong> rather than creating empty groups.</li>
-</ul></div></details>
+</ul>
+<p><strong>Example: a Marketing group</strong></p>
+<ol>
+<li>Open <strong>Content</strong>.</li>
+<li>In the groups panel, create <strong>Marketing</strong> and drag <strong>Blog</strong> and <strong>News</strong> into it.</li>
+<li>Leave <strong>Contact</strong> under <strong>Ungrouped</strong>. Templates read that same tree as <code>collection_groups</code>.</li>
+</ol></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>Collection groups are persisted in <strong><code>content/collections/groups.json</code></strong> as a JSON array of tree nodes. The CMS normalizes legacy flat group files on load (P39-M7).</p>
 <p><strong>Node shape (normalized)</strong></p>
 <table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>

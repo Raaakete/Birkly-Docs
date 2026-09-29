@@ -1,100 +1,11 @@
-<p><strong>Gift cards</strong> are store credit applied at checkout. Issue them from <strong>Commerce → Gift Cards</strong>, or sell them as products with fulfillment <strong><code>gift_card</code></strong> (codes issued on pay). <strong>Draft orders / Quotes</strong> (Commerce <strong>1.0.27+</strong>) support a cart-free admin editor plus accept links — under <strong>Commerce → Orders</strong>, not as a top-level tab.</p>
-<div class="doc-summary"><p><strong>Gift cards</strong> are codes with a balance in cents. Admin-issued cards and sellable gift-card products share the same redemption store. Customers apply a code at checkout. Balances support <strong>partial redemption</strong>. <strong>Draft orders / Quotes</strong> let merchants build lines from the catalog (no storefront cart), preview tax/shipping, save an accept URL, and optionally run merchant-assisted checkout.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>Admin-issued gift cards</h3>
-<p><strong>Issue a gift card</strong></p>
+<div class="doc-summary"><p>Gift cards and discounts are the <strong>Discounts &amp; gift cards</strong> topic on the Commerce <strong>Docs</strong> tab. The admin tabs are <strong>Discounts</strong> and <strong>Gift cards</strong>. Quotes are draft orders on <strong>Orders &amp; customers</strong>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the matching topic</strong></p>
 <ol>
-<li>Open <strong>Commerce → Gift Cards</strong>.</li>
-<li>Click <strong>Issue Gift Card</strong>.</li>
-<li>Enter balance (for example <code>50</code> for €50.00) and optionally a custom code (leave blank to auto-generate).</li>
-<li>The card appears in the list with status <strong>active</strong>.</li>
-</ol>
-<p><strong>Void a card</strong></p>
-<p>Click <strong>Void</strong> on an active card to disable it. Voided and expired cards are rejected at checkout.</p>
-<h3>Sellable gift-card products</h3>
-<ol>
-<li>On a CMS entry with a Commerce field, set <strong>Fulfillment</strong> to <strong>Gift card</strong>.</li>
-<li>Set purchase option <strong>price</strong> to the face value to issue (currency must match checkout).</li>
-<li>After payment, PostPurchaseRouter issues one code per quantity and fires Automation trigger <code>commerce_gift_card_issued</code>.</li>
-<li>Codes appear on the order detail and in <strong>Gift Cards</strong>.</li>
-</ol>
-<p>Checkout for <code>gift_card</code> lines collects email only (no shipping).</p>
-<h3>Customer checkout (redeem)</h3>
-<p>Customers enter a gift card code during checkout (or your template calls the cart API with <code>set_gift_card</code>). The tender applies after coupons. If the order total is less than the card balance, the remainder stays on the card for a future purchase.</p>
-<p><strong>Rules (v1)</strong></p>
-<ul>
-<li>One gift card per checkout.</li>
-<li>Currency must match the order.</li>
-<li>Expired cards (when <code>expires_at</code> is set) cannot be redeemed.</li>
-</ul>
-<h3>Draft orders / Quotes</h3>
-<p><strong>Create from the editor (no cart)</strong></p>
-<ol>
-<li>Open <strong>Commerce → Orders → Draft orders</strong>.</li>
-<li>Click <strong>New draft order</strong>.</li>
-<li>Search the catalog (title / SKU), add lines, set qty, and optionally override unit price.</li>
-<li>Enter customer email, shipping address, and optional <strong>VAT ID</strong>.</li>
-<li>Use <strong>Preview</strong> to recalculate shipping/tax from current providers.</li>
-<li><strong>Save</strong> — copy the <strong>accept URL</strong> and send it to the customer.</li>
-<li>Optional: <strong>merchant-assisted checkout</strong> from the editor when the buyer pays with staff help.</li>
-</ol>
-<p><strong>Create from cart (still available)</strong></p>
-<ol>
-<li>Build a cart in the storefront (or admin test cart).</li>
-<li>Open <strong>Draft orders</strong> → <strong>Create Quote from Cart</strong>.</li>
-<li>Enter customer email; copy the accept URL.</li>
-</ol>
-<p><strong>Customer flow</strong></p>
-<ol>
-<li>Customer opens the accept URL (tokenized link).</li>
-<li>Reviews line items and total.</li>
-<li>Accepts the quote → status moves to <strong>pending payment</strong>.</li>
-<li>Completes checkout via the normal Commerce payment flow.</li>
-</ol>
-<p><strong>Cancel a quote</strong></p>
-<p>Click <strong>Cancel</strong> on an open quote to invalidate the token.</p>
-<p><strong>Quote states</strong></p>
-<table><thead><tr><th>Status</th><th>Meaning</th></tr></thead>
-<tbody><tr><td><code>quote</code></td><td>Created, awaiting customer accept</td></tr><tr><td><code>pending_payment</code></td><td>Accepted, checkout in progress</td></tr><tr><td><code>paid</code></td><td>Order completed</td></tr><tr><td><code>expired</code> / <code>canceled</code></td><td>No longer valid</td></tr></tbody></table>
-<p>Default expiry is 30 days from creation. Backing store marks editor drafts with <code>draft_order: true</code>.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Gift card storage</strong></p>
-<p><code>GiftCardStore</code> — flat files under <code>data/plugins/commerce/gift_cards/</code>. Fields: <code>code</code>, <code>balance_cents</code>, <code>initial_balance_cents</code>, <code>currency</code>, <code>status</code>, <code>expires_at</code>, <code>redemptions[]</code>.</p>
-<p><strong>Sellable fulfillment</strong></p>
-<ul>
-<li>Field value: <code>fulfillment: &quot;gift_card&quot;</code> (face value = purchase option unit price).</li>
-<li>Automation: <code>commerce_gift_card_issued</code> (one event per issued batch/line result).</li>
-</ul>
-<p><strong>Checkout integration</strong></p>
-<p><code>DiscountEngine::applyGiftCardTender()</code> validates and applies balance. Cart API:</p>
-<ul>
-<li><code>set_gift_card</code> — <code>{ code }</code> stores code in session.</li>
-<li>Checkout deducts <code>applied_cents</code> from total; persists redemption on the order.</li>
-</ul>
-<p>Admin API:</p>
-<ul>
-<li><code>issue_gift_card</code> — <code>{ balance_cents, code?, currency?, expires_at? }</code></li>
-<li><code>void_gift_card</code> — <code>{ code }</code></li>
-<li><code>list_gift_cards</code></li>
-</ul>
-<p><strong>Quote storage</strong></p>
-<p><code>CommerceQuoteStore</code> — <code>data/plugins/commerce/quotes/</code>. Tokenized accept URLs:</p>
-<pre><code>/api/index.php?route=commerce&amp;action=get_quote&amp;token={token}</code></pre>
-<p>Public/customer actions:</p>
-<table><thead><tr><th>Action</th><th>Purpose</th></tr></thead>
-<tbody><tr><td><code>get_quote</code></td><td>Read quote by token</td></tr><tr><td><code>accept_quote</code></td><td>Accept → <code>pending_payment</code></td></tr><tr><td><code>quote_checkout</code></td><td>Start payment for accepted quote</td></tr></tbody></table>
-<p>Admin:</p>
-<ul>
-<li><code>create_quote</code> — from current built cart + <code>customer_email</code></li>
-<li><code>list_quotes</code>, <code>cancel_quote</code></li>
-<li><code>draft_order_create</code> / <code>draft_order_update</code> / <code>draft_order_preview</code> / <code>draft_order_get</code> — cart-free editor (<code>CommerceDraftOrderService</code>)</li>
-<li><code>draft_order_search_catalog</code> — line picker</li>
-<li><code>draft_order_checkout</code> — merchant-assisted payment start</li>
-</ul>
-<p>Quotes snapshot line prices (and optional unit overrides) at create/update. Preview recalculates shipping/tax via the active rate and tax providers.</p></div></details>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce → Docs</strong>.</li>
+<li>For a gift card or a coupon, open <strong>Discounts &amp; gift cards</strong>. For a quote, open <strong>Orders &amp; customers</strong> and follow draft orders. Do not copy a <code>commerce-storefront.js</code> script tag. Pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>A gift card product uses fulfillment <code>gift_card</code>. The code is issued after payment and redeemed at checkout. Draft orders are created without a cart. A publish of docs.birkly.com does not change those articles. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="plugins/commerce.html">Commerce plugin</a></li>
-<li><a href="commerce-fieldtype.html">Commerce fieldtype</a></li>
-<li><a href="commerce-promotions.html">Commerce promotions</a></li>
-<li><a href="commerce-subscriptions.html">Commerce subscriptions</a></li>
-<li><a href="commerce-analytics.html">Commerce analytics</a></li>
-<li><a href="../05-automation/triggers.html">Automation triggers</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div>

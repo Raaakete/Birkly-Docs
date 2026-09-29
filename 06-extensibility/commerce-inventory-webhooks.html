@@ -217,67 +217,17 @@
     <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">≡</button>
     <main class="main">
       <div class="content doc-body">
-        <div class="doc-content"><p>Real-time stock sync from Shopify and WooCommerce on top of scheduled live import (Phase 14). Webhook payloads update catalog <code>quantity_available</code> and warehouse rows when SKUs match.</p>
-<div class="doc-summary"><p><strong>Inventory webhooks</strong> receive <code>inventory_levels/update</code> (Shopify) and <code>product.updated</code> (WooCommerce) events at <code>api/commerce_webhooks.php</code>. HMAC/signature verification is required. Matching SKUs update Commerce catalog stock and optional warehouse <code>quantity_on_hand</code> without a full scheduled sync.</p></div>
-<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Why webhooks</strong></p>
-<p>Scheduled cron import (see <a href="commerce-live-import.html">Commerce live import</a>) can lag minutes or hours. Inventory webhooks push stock changes within seconds when someone buys on Shopify/Woo or staff adjusts quantity in the external admin.</p>
-<p><strong>Shopify setup</strong></p>
+        <div class="doc-content"><div class="doc-summary"><p>This procedure lives on the <strong>Docs</strong> tab of <strong>Commerce</strong> inside your Birkly install. Open the <strong>Webhooks &amp; Automation</strong> topic there. That text updates when you update the plugin. This page does not repeat it.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: open the Webhooks &amp; Automation topic</strong></p>
 <ol>
-<li>In <strong>Commerce → Settings → Import &amp; migrate</strong>, save a Shopify live connection (store URL + access token).</li>
-<li>Open <strong>Inventory webhooks</strong> (or Import &amp; migrate → Webhooks).</li>
-<li>Copy the <strong>webhook URL</strong> and <strong>signing secret</strong> shown for Shopify.</li>
-<li>In Shopify Admin → Settings → Notifications → Webhooks, create:</li>
-</ol>
-<p>   - Topic: <strong>Inventory levels update</strong>    - URL: paste Birkly webhook URL    - Format: JSON</p>
-<ol>
-<li>Paste Shopify's shared secret into Birkly and click <strong>Save</strong>.</li>
-<li>Use <strong>Rotate secret</strong> if you regenerate the Shopify secret.</li>
-</ol>
-<p><strong>WooCommerce setup</strong></p>
-<ol>
-<li>Save a WooCommerce REST connection in Commerce import settings.</li>
-<li>Copy the Woo webhook URL and secret from Birkly.</li>
-<li>In WordPress → WooCommerce → Settings → Advanced → Webhooks:</li>
-</ol>
-<p>   - Topic: <strong>Product updated</strong>    - Delivery URL: Birkly webhook URL    - Secret: match Birkly stored secret</p>
-<ol>
-<li>Save on both sides.</li>
-</ol>
-<p><strong>What gets updated</strong></p>
-<ul>
-<li>Commerce catalog index entries whose <strong>SKU</strong> matches the payload</li>
-<li>Warehouse stock row for the same SKU (if configured — see <a href="commerce-warehouse-stock.html">Commerce warehouse stock</a>)</li>
-<li>Entries without a matching SKU are skipped (no error to the platform)</li>
-</ul>
-<p><strong>Security</strong></p>
-<ul>
-<li>Unsigned or invalid HMAC requests are rejected with HTTP 401.</li>
-<li>Rotate secrets from Commerce admin when staff leave or after a leak.</li>
-<li>Webhooks are inbound-only — Birkly never writes stock back to Shopify/Woo in v1.</li>
-</ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Endpoint:</strong> <code>POST /api/commerce_webhooks.php?platform=shopify|woocommerce</code></p>
-<p><strong>Verification:</strong></p>
-<table><thead><tr><th>Platform</th><th>Header</th><th>Algorithm</th></tr></thead>
-<tbody><tr><td>Shopify</td><td><code>X-Shopify-Hmac-Sha256</code></td><td>HMAC-SHA256 of raw body, base64</td></tr><tr><td>WooCommerce</td><td><code>X-WC-Webhook-Signature</code></td><td>HMAC-SHA256 of raw body, base64</td></tr></tbody></table>
-<p><strong>Service:</strong> <code>CommerceInventoryWebhookService</code></p>
-<ul>
-<li><code>handleShopifyInventoryUpdate($payload)</code> — reads <code>sku</code>, <code>available</code> / <code>quantity</code></li>
-<li><code>handleWooProductUpdated($payload)</code> — reads <code>sku</code>, <code>stock_quantity</code> when <code>manage_stock</code> is true</li>
-<li><code>applyStockUpdate($sku, $quantity, $source)</code> — updates catalog index + <code>WarehouseStockStore</code></li>
-</ul>
-<p><strong>Admin actions</strong> (<code>api/commerce.php</code>):</p>
-<ul>
-<li><code>rotate_inventory_webhook_secret</code> — new secret for platform</li>
-<li>Webhook registration helper displays callback URL per connection</li>
-</ul>
-<p><strong>Threat model:</strong> Extends Birkly <code>docs/reviews/P12-import-threat-model.md</code> and <code>P14-webhook-threat-model.md</code> — HMAC required, no arbitrary URL fetch from webhook handler, replay limited by platform delivery semantics.</p>
-<p><strong>Scheduled import:</strong> Webhooks complement <code>CommerceLiveImportService</code> cron; they do not replace initial product import.</p>
-<p><strong>Tests:</strong> <code>commerce_inventory_webhook_test.php</code></p></div></details>
+<li>Enable <strong>Commerce</strong> from <strong>Plugins → Hub</strong> or <strong>Settings → Plugins</strong>.</li>
+<li>Open <strong>Commerce</strong> in the sidebar and select the <strong>Docs</strong> tab.</li>
+<li>Open <strong>Webhooks &amp; Automation</strong>. Follow that article. Do not copy a <code>commerce-storefront.js</code> script tag from an old page. Commerce pages include <code>birkly-client.js</code> only.</li>
+</ol></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>API tables and provider settings for this topic are on the same Docs tab, under <strong>Advanced Users</strong>. A publish of docs.birkly.com does not change them. Update the Commerce plugin.</p></div></details>
 <div class="doc-related"><ul>
-<li><a href="commerce-live-import.html">Commerce live import</a></li>
-<li><a href="commerce-warehouse-stock.html">Commerce warehouse stock</a></li>
-<li><a href="plugins/commerce.html">Commerce plugin</a></li>
-<li><a href="../05-automation/webhooks.html">Webhooks</a> — outgoing automation webhooks (different feature)</li>
+<li><a href="plugins/commerce.html">Commerce</a></li>
+<li><a href="plugins.html">Plugins</a></li>
 </ul></div></div>
       </div>
     </main>

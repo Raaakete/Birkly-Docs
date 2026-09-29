@@ -21,6 +21,12 @@ Ask one question: **who renders the page?**
 
 **Do not mix blindly:** SPA frameworks should **not** put `{for each}` inside JSX. Fetch JSON (Public API or `Birkly.fetch` / `getEntryBySlug`) and render with React/Vue — or call `Birkly.render` into a DOM ref. See the SPA guide.
 
+**Example: a small HTML site**
+
+1. Decide the browser renders the page.
+2. Add `birkly-client.js` and follow [Website integration](website-integration.md).
+3. Leave React and `{for each}` inside JSX for a different path. A marketing site does not need them.
+
 ## Advanced Users
 
 | Path | Runtime | Content load | Template language |

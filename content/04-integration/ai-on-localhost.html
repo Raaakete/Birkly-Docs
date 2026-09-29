@@ -1,4 +1,10 @@
-<div class="doc-summary"><p><strong>Two different ways to use AI with Birkly</strong> — pick the one that matches what you are trying to do.</p>
+<div class="doc-summary"><p><strong>Two different ways to use AI with Birkly</strong> — pick the one that matches what you are trying to do.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Example: chat locally, connect the external app later</strong></p>
+<ol>
+<li>On <code>http://localhost</code>, open <strong>Settings → AI</strong> and use the <strong>built-in assistant</strong>. Birkly calls the provider from the server. No Connector URL is required.</li>
+<li>When the site has a public HTTPS address, copy the Connector URL from <strong>Settings → AI</strong>.</li>
+<li>Paste that URL into Claude, ChatGPT, or Cursor and sign in. An external app cannot open <code>http://localhost</code>. Do not put the admin on the public internet to work around that.</li>
+</ol>
 <h2>Chat inside Birkly (works on a local address)</h2>
 <p>Use the <strong>built-in assistant</strong> on <strong>Settings → AI</strong>. Birkly talks to your AI provider from the server. You do not need a Connector URL for this.</p>
 <h2>Connect an external AI app</h2>
@@ -11,11 +17,10 @@
 <li><strong>Use the built-in assistant</strong> in the admin while you build content locally.</li>
 <li><strong>After your site has HTTPS</strong>, use the Connector URL from this page — same flow as production.</li>
 </ol>
-<p>Do not expose the whole admin panel to the internet as a shortcut.</p>
-<h2>Advanced (developers)</h2>
-<p><strong>Settings → AI → Developer / debug</strong> may list extra tools for special local setups. Use only if you know you need them.</p>
+<p>Do not expose the whole admin panel to the internet as a shortcut.</p></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Settings → AI → Developer / debug</strong> may list extra tools for special local setups. Use only if you know you need them.</p>
 <h2>Further reading</h2>
 <ul>
 <li><a href="../01-admin/mcp-connections.html">Connect your AI app</a></li>
 <li><a href="../01-admin/ai-connections.html">Built-in assistant</a></li>
-</ul></div>
+</ul></div></details>

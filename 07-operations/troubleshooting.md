@@ -8,6 +8,12 @@ This page lists common issues when using or deploying Birkly and suggests steps 
 
 ## Beginner
 
+**Example: a published post still missing on the site**
+
+1. Open the entry and set **Status** to **Published**.
+2. In the browser Network tab, confirm `birkly-client.js` returns 200 and `data-cms-url` is the CMS address.
+3. In the template, use the collection handle in single quotes, for example `{for each entry in 'blog'}`. A draft, a 404 script, or `'Blog'` instead of `'blog'` leaves the list empty.
+
 **I can’t log in**
 
 - **Wrong password** — Use “Forgot password” if available; otherwise an admin must reset your password or re-invite you.

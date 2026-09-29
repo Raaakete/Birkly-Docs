@@ -29,7 +29,7 @@
         },
         "00-overview/alpha-legal.md": {
             "id": "alpha-legal",
-            "title": "Closed alpha — legal and feedback",
+            "title": "Closed alpha \u2014 legal and feedback",
             "keywords": [
                 "legal",
                 "terms",
@@ -40,7 +40,7 @@
         },
         "00-overview/known-issues-wave1.md": {
             "id": "known-issues-wave1",
-            "title": "Known issues — Wave 1",
+            "title": "Known issues \u2014 Wave 1",
             "keywords": [
                 "known issues",
                 "limitations",
@@ -110,7 +110,7 @@
         },
         "01-admin/admin-appearance.md": {
             "id": "admin-appearance",
-            "title": "Admin appearance — theme",
+            "title": "Admin appearance \u2014 theme",
             "keywords": [
                 "dark mode",
                 "theme",
@@ -373,19 +373,6 @@
             ],
             "ai_topic": "automation"
         },
-        "05-automation/commerce-recipes.md": {
-            "id": "commerce-recipes",
-            "title": "Automation Commerce recipe pack",
-            "keywords": [
-                "recipe",
-                "commerce",
-                "post-purchase",
-                "dunning",
-                "low-stock",
-                "shipped",
-                "import_recipe"
-            ]
-        },
         "06-extensibility/user-plugin.md": {
             "id": "user-plugin",
             "title": "User management plugin",
@@ -435,7 +422,7 @@
         },
         "06-extensibility/marketplace-buyer-guide.md": {
             "id": "marketplace-buyer",
-            "title": "Marketplace — buyer guide",
+            "title": "Marketplace \u2014 buyer guide",
             "keywords": [
                 "marketplace",
                 "buyer",
@@ -543,168 +530,6 @@
                 "ops intelligence"
             ],
             "ai_topic": "commerce"
-        },
-        "06-extensibility/commerce-hybrid-cart.md": {
-            "id": "commerce-hybrid-cart",
-            "title": "Commerce hybrid cart",
-            "keywords": [
-                "hybrid cart",
-                "split checkout",
-                "ship",
-                "deliver",
-                "register",
-                "subscribe",
-                "help-hybrid-cart",
-                "commerce-storefront"
-            ]
-        },
-        "06-extensibility/commerce-store-kit.md": {
-            "id": "commerce-store-kit",
-            "title": "Commerce store kit",
-            "keywords": [
-                "store kit",
-                "seed store",
-                "demo shop",
-                "starter shop",
-                "mcp",
-                "agent",
-                "commerce-store-kit"
-            ],
-            "ai_topic": "commerce-store-kit"
-        },
-        "06-extensibility/commerce-customers.md": {
-            "id": "commerce-customers",
-            "title": "Commerce customers",
-            "keywords": [
-                "customers",
-                "commerce",
-                "csv",
-                "email",
-                "timeline",
-                "user management"
-            ]
-        },
-        "06-extensibility/commerce-promotions.md": {
-            "id": "commerce-promotions",
-            "title": "Commerce promotions",
-            "keywords": [
-                "discounts",
-                "promotions",
-                "coupon",
-                "free shipping",
-                "stacking",
-                "usage limit"
-            ]
-        },
-        "06-extensibility/commerce-gift-cards-quotes.md": {
-            "id": "commerce-gift-cards-quotes",
-            "title": "Commerce gift cards and quotes",
-            "keywords": [
-                "gift card",
-                "store credit",
-                "quotes",
-                "draft orders",
-                "commerce_gift_card_issued"
-            ]
-        },
-        "06-extensibility/commerce-tax.md": {
-            "id": "commerce-tax",
-            "title": "Commerce tax",
-            "keywords": [
-                "tax",
-                "tax class",
-                "vat",
-                "vat_id",
-                "reverse charge",
-                "stripe tax",
-                "tax_lines",
-                "commerce"
-            ]
-        },
-        "06-extensibility/commerce-shipping.md": {
-            "id": "commerce-shipping",
-            "title": "Commerce shipping rates",
-            "keywords": [
-                "shipping",
-                "easypost",
-                "shipping zones",
-                "live rates",
-                "weight_grams",
-                "commerce"
-            ]
-        },
-        "06-extensibility/commerce-fulfillment.md": {
-            "id": "commerce-fulfillment",
-            "title": "Commerce fulfillment",
-            "keywords": [
-                "fulfillment",
-                "shipment",
-                "packing slip",
-                "partial ship",
-                "tracking",
-                "easypost",
-                "commerce_tracking_updated"
-            ]
-        },
-        "06-extensibility/commerce-multi-currency.md": {
-            "id": "commerce-multi-currency",
-            "title": "Commerce multi-currency",
-            "keywords": [
-                "commerce",
-                "currency",
-                "eur",
-                "usd",
-                "checkout"
-            ]
-        },
-        "06-extensibility/commerce-shopify-cutover.md": {
-            "id": "commerce-shopify-cutover",
-            "title": "Shopify cutover playbook",
-            "keywords": [
-                "shopify",
-                "cutover",
-                "migration",
-                "import",
-                "customers",
-                "archived orders",
-                "dry-run",
-                "rollback"
-            ]
-        },
-        "06-extensibility/commerce-live-import.md": {
-            "id": "commerce-live-import",
-            "title": "Commerce live import",
-            "keywords": [
-                "import",
-                "shopify",
-                "woocommerce",
-                "etsy",
-                "square",
-                "sync"
-            ]
-        },
-        "06-extensibility/commerce-inventory-webhooks.md": {
-            "id": "commerce-inventory-webhooks",
-            "title": "Commerce inventory webhooks",
-            "keywords": [
-                "webhook",
-                "inventory",
-                "stock",
-                "shopify",
-                "woocommerce",
-                "hmac"
-            ]
-        },
-        "06-extensibility/commerce-warehouse-stock.md": {
-            "id": "commerce-warehouse-stock",
-            "title": "Commerce warehouse stock",
-            "keywords": [
-                "warehouse",
-                "stock",
-                "sku",
-                "quantity",
-                "inventory"
-            ]
         },
         "06-extensibility/plugin-security-denylist.md": {
             "id": "plugin-denylist",
@@ -870,7 +695,7 @@
         },
         "03-templating/from-get-and-existence.md": {
             "id": "from-get-and-existence",
-            "title": "From…get and existence",
+            "title": "From\u2026get and existence",
             "keywords": [
                 "from get",
                 "endget",
@@ -1050,7 +875,7 @@
         },
         "02-content/agent-guide-getting-started.md": {
             "id": "agent-guide-getting-started",
-            "title": "Agent Guide — getting started",
+            "title": "Agent Guide \u2014 getting started",
             "keywords": [
                 "agent guide",
                 "tutorial",
@@ -1062,7 +887,7 @@
         },
         "02-content/agent-guide-claims-evidence-and-links.md": {
             "id": "agent-guide-claims",
-            "title": "Agent Guide — claims & cross-links",
+            "title": "Agent Guide \u2014 claims & cross-links",
             "keywords": [
                 "claims",
                 "evidence",
@@ -1076,7 +901,7 @@
         },
         "02-content/agent-guide-workflows.md": {
             "id": "agent-guide-workflows",
-            "title": "Agent Guide — workflows",
+            "title": "Agent Guide \u2014 workflows",
             "keywords": [
                 "agent guide",
                 "workflows",
@@ -1332,6 +1157,140 @@
                 "seen",
                 "read",
                 "alerts"
+            ]
+        },
+        "00-overview/what-is-birkly.md": {
+            "id": "what-is-birkly",
+            "title": "What is Birkly",
+            "keywords": [
+                "birkly",
+                "cms",
+                "overview",
+                "product"
+            ]
+        },
+        "00-overview/what-is-a-cms.md": {
+            "id": "what-is-a-cms",
+            "title": "What is a CMS",
+            "keywords": [
+                "cms",
+                "content",
+                "beginner"
+            ]
+        },
+        "02-content/field-types.md": {
+            "id": "field-types",
+            "title": "Field types",
+            "keywords": [
+                "field",
+                "type",
+                "text",
+                "image",
+                "editor"
+            ],
+            "ai_topic": "fieldtypes"
+        },
+        "02-content/slugs-and-status.md": {
+            "id": "slugs-and-status",
+            "title": "Slugs and status",
+            "keywords": [
+                "slug",
+                "status",
+                "draft",
+                "published"
+            ]
+        },
+        "02-content/sub-collections.md": {
+            "id": "sub-collections",
+            "title": "Sub-collections",
+            "keywords": [
+                "sub-collection",
+                "parent",
+                "comments"
+            ],
+            "ai_topic": "sub-collections"
+        },
+        "04-integration/website-integration.md": {
+            "id": "website-integration",
+            "title": "Website integration",
+            "keywords": [
+                "website",
+                "integrate",
+                "script",
+                "client"
+            ]
+        },
+        "04-integration/public-api.md": {
+            "id": "public-api",
+            "title": "Public API",
+            "keywords": [
+                "api",
+                "public",
+                "entries",
+                "json"
+            ]
+        },
+        "04-integration/client-library.md": {
+            "id": "client-library",
+            "title": "Client library",
+            "keywords": [
+                "birkly-client",
+                "javascript",
+                "library"
+            ]
+        },
+        "07-operations/deployment.md": {
+            "id": "deployment",
+            "title": "Deployment",
+            "keywords": [
+                "deploy",
+                "server",
+                "production"
+            ]
+        },
+        "07-operations/backup-and-restore.md": {
+            "id": "backup-and-restore",
+            "title": "Backup and restore",
+            "keywords": [
+                "backup",
+                "restore",
+                "files"
+            ]
+        },
+        "07-operations/security.md": {
+            "id": "security",
+            "title": "Security",
+            "keywords": [
+                "security",
+                "https",
+                "password"
+            ]
+        },
+        "07-operations/troubleshooting.md": {
+            "id": "troubleshooting",
+            "title": "Troubleshooting",
+            "keywords": [
+                "troubleshoot",
+                "error",
+                "fix"
+            ]
+        },
+        "04-studio/getting-started.md": {
+            "id": "studio-getting-started",
+            "title": "Studio",
+            "keywords": [
+                "studio",
+                "visual builder",
+                "publish"
+            ]
+        },
+        "06-extensibility/events-plugin.md": {
+            "id": "events-plugin",
+            "title": "Events plugin",
+            "keywords": [
+                "events",
+                "rsvp",
+                "calendar"
             ]
         }
     }

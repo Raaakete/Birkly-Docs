@@ -4,6 +4,14 @@
 
 **Two different ways to use AI with Birkly** — pick the one that matches what you are trying to do.
 
+## Beginner
+
+**Example: chat locally, connect the external app later**
+
+1. On `http://localhost`, open **Settings → AI** and use the **built-in assistant**. Birkly calls the provider from the server. No Connector URL is required.
+2. When the site has a public HTTPS address, copy the Connector URL from **Settings → AI**.
+3. Paste that URL into Claude, ChatGPT, or Cursor and sign in. An external app cannot open `http://localhost`. Do not put the admin on the public internet to work around that.
+
 ## Chat inside Birkly (works on a local address)
 
 Use the **built-in assistant** on **Settings → AI**. Birkly talks to your AI provider from the server. You do not need a Connector URL for this.
@@ -25,7 +33,7 @@ A Connector URL that points at your computer (for example `http://localhost`) us
 
 Do not expose the whole admin panel to the internet as a shortcut.
 
-## Advanced (developers)
+## Advanced Users
 
 **Settings → AI → Developer / debug** may list extra tools for special local setups. Use only if you know you need them.
 

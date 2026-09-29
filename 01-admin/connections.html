@@ -306,7 +306,7 @@
 <li>Check the delivery log for the real status of plugin sends.</li>
 <li>If you are on Docker or a restricted host, SMTP may be blocked; use an ESP such as Resend or Mailgun instead.</li>
 </ol></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Connection model</h3>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h3>Connection model</h3>
 <p>A Connection is a typed record stored in <code>settings/connections/index.json</code> with secrets encrypted separately. The schema is roughly:</p>
 <table><thead><tr><th>Field</th><th>Meaning</th></tr></thead>
 <tbody><tr><td><code>id</code></td><td>UUID of the Connection.</td></tr><tr><td><code>name</code></td><td>Human label.</td></tr><tr><td><code>type</code></td><td><code>email-transactional</code>, <code>slack-ops</code>, <code>http-shipping</code>, <code>webhook-signing</code>, etc.</td></tr><tr><td><code>provider</code> / <code>transport</code></td><td><code>smtp</code>, <code>resend</code>, <code>postmark</code>, <code>ses</code>, <code>mailgun</code>, <code>log</code>, <code>slack_webhook</code>, <code>discord_webhook</code>, <code>twilio_sms</code>, <code>http_bearer</code>, etc.</td></tr><tr><td><code>config</code></td><td>Non-secret settings: host, port, from address, base URL, etc.</td></tr><tr><td><code>secrets</code></td><td>Encrypted credential fields; never returned in full on read.</td></tr><tr><td><code>health</code></td><td>Last check result, checklist state, timestamp.</td></tr><tr><td><code>managed_by_env</code></td><td>Whether the Connection is overridden by environment variables.</td></tr></tbody></table>

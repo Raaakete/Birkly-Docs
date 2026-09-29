@@ -22,7 +22,7 @@
 <p>Set a <strong>URL pattern</strong> on a binding, e.g. <code>/blog/{slug}</code>. Birkly routes that path to the detail template without query strings.</p>
 <h3>Entry editor change</h3>
 <p>The entry <strong>Meta Data</strong> tab is removed for collections with a detail binding. Use <strong>Search listing in Discovery</strong> on the entry sidebar instead. Legacy <code>meta_title</code> / <code>meta_description</code> on entries are imported into the URL map on first SEO publish after upgrade.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>SSR vs client rendering:</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>SSR vs client rendering:</strong></p>
 <table><thead><tr><th>Mode</th><th>How SEO applies</th></tr></thead>
 <tbody><tr><td><strong>Server (SSR)</strong></td><td>Meta tags injected during <code>core/project_ssr.php</code> render</td></tr><tr><td><strong>Client</strong></td><td><code>birkly-client.js</code> fetches <code>/api/public/seo-context.php</code> and applies head tags on boot</td></tr></tbody></table>
 <p>Same published map powers both paths.</p>

@@ -77,7 +77,7 @@
 <li>Chargebacks place the entitlement on <strong>hold</strong> immediately; if the dispute is lost, the entitlement is revoked.</li>
 </ul>
 <p>Marketplace refund and buyer terms: <a href="https://marketplace.birkly.io/legal/refund">marketplace.birkly.io/legal/refund</a> · <a href="https://marketplace.birkly.io/legal/terms">Terms of service</a>.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Installation identity</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Installation identity</strong></p>
 <p>Each CMS install stores a local <code>installation_id</code> and sends it during entitlement activation. A single-site entitlement allows one active production activation plus one active staging activation; staging is detected from local/staging hostnames or an explicit environment value. Paid activation can still use <code>license_key + installation_id</code> as a fallback, but the entitlement and signed local token are the main runtime proof.</p>
 <p><strong>Settings</strong></p>
 <p>Default marketplace URL: <code>https://marketplace.birkly.io</code>. Override via environment variable <code>BIRKLY_MARKETPLACE_URL</code> or <code>settings/marketplace.json</code> (<code>marketplace_url</code>) for staging or self-hosted marketplace instances.</p>

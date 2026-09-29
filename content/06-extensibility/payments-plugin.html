@@ -71,7 +71,7 @@
 <li>Save.</li>
 </ol>
 <p>When enabled, eligible roles see volume, success rate, and a link to <strong>Payments</strong>. Leave disabled if you prefer not to expose payment aggregates on the dashboard.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Capabilities</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Capabilities</strong></p>
 <table><thead><tr><th>Capability</th><th>Purpose</th></tr></thead>
 <tbody><tr><td><code>manage_payments</code></td><td>Create, edit, delete connections; save plugin settings</td></tr><tr><td><code>view_payment_activity</code></td><td>Read activity log and connection list</td></tr><tr><td><code>view_payment_stats</code></td><td>View aggregated stats (dashboard widget API)</td></tr><tr><td><code>access_payment_shelf</code></td><td>Granted to <strong>consumer plugins</strong> (not human roles) via plugin capability UI</td></tr></tbody></table>
 <p>Admin access is enforced on <code>/api/index.php?route=payments</code>. Webhooks use the public <code>payments_webhook</code> route with signature verification only.</p>

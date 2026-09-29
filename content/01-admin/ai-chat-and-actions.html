@@ -42,7 +42,7 @@
 <li>Permission errors → check the connection <strong>role</strong> in <strong>Settings → AI → Built-in assistant</strong>.</li>
 <li>Stale connection after delete → picker should no longer list it; refresh if needed.</li>
 </ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Chat API</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Chat API</strong></p>
 <ul>
 <li><strong>Send message:</strong> POST <code>api/ai_chat.php</code> with <code>action=chat</code>, <code>ai_connection_id</code>, <code>message</code>, optional <code>conversation_id</code>. CSRF required.</li>
 <li>Backend loads the AI user, checks access (owner or shared), builds system context, calls the provider, parses structured action blocks.</li>

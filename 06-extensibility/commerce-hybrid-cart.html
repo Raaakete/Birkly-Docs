@@ -233,7 +233,7 @@
 <p>Shipping is calculated only from <code>ship</code> lines. Digital-only or register-only carts do not require a shipping address for fulfillment.</p>
 <h3>After payment</h3>
 <p><strong>PostPurchaseRouter</strong> runs per paid line: ship → fulfillment adapter; deliver → download token; register → attendee + capacity; subscribe / none → subscription + optional membership mapping.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Groups API</h3>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h3>Groups API</h3>
 <p>Cart <code>get</code> / <code>buildCartLines</code> expose <code>split_required</code> and <code>groups[]</code>. Checkout without <code>group_key</code> on a multi-group cart returns <code>needs_split: true</code> plus <code>checkout_session_id</code> and <code>groups</code>. Pass <code>group_key</code> + <code>checkout_session_id</code> to pay one group.</p>
 <h3>Storefront helper</h3>
 <pre><code>BirklyCommerce.checkout({ email, shipping_address, attendee_name });

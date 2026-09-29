@@ -27,7 +27,7 @@
 <p>Fix any red items before sharing your site publicly.</p>
 <h3>Site URL Map</h3>
 <p>Per-URL search and social listings live in <strong>Discovery → SEO → Site URL Map</strong> — not in the entry editor. See <a href="site-url-map.html">Site URL Map</a>.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Config:</strong> <code>settings/discovery.json</code> — per-pack <code>enabled</code>, delivery mode, and pack-specific options. Admin API: <code>api/discovery.php</code>.</p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Config:</strong> <code>settings/discovery.json</code> — per-pack <code>enabled</code>, delivery mode, and pack-specific options. Admin API: <code>api/discovery.php</code>.</p>
 <p><strong>SEO pack:</strong> Materializes sitemap, injects meta/JSON-LD via <code>core/project_ssr.php</code> → <code>birkly_project_ssr_inject_discovery_packs()</code>. Site URL Map rows drive per-URL overrides; see <a href="site-url-map.html">Site URL Map</a>.</p>
 <p><strong>Agent Guide pack:</strong> Published snapshot at <code>ai_presence/</code> → <code>/.well-known/agent-guide.json</code>, <code>/llms.txt</code>, <code>/for-agents</code>. Discovery channels documented in <a href="../04-integration/agent-guide-public-api.html">Agent Guide public API</a>.</p>
 <p><strong>WebMCP pack:</strong> Serves <code>birkly-webmcp.js</code>; tools registered by active plugins via <code>birkly_webmcp_register_tools()</code>. Inbound MCP (admin AI) is separate — see <a href="mcp-connections.html">MCP connections</a>.</p>

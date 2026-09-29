@@ -240,7 +240,7 @@
 <pre><code>{for each id in 'gallery'}
   {media_img(id)}
 {endfor}</code></pre></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Shelf model</h3>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h3>Shelf model</h3>
 <p>Fieldtypes own admin UI, validation, storage, and optional <code>register_template_function</code> helpers. Core templating resolves stored JSON and exposes these <strong>core shelf</strong> functions from <code>core/fieldtype_template_shelf.php</code> — it does not embed gallery grids, oEmbed players, or relation cards unless you call the shelf helper (or a plugin registers its own).</p>
 <p>Plugins load <strong>before</strong> core; core wins on name conflicts. Plugin helpers use prefixes (<code>commerce_</code>, <code>event_</code>) — see <a href="plugin-language-extensions.html">Plugin language extensions</a>.</p>
 <h3>Phantoms</h3>

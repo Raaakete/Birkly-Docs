@@ -6,7 +6,7 @@
 <li><strong>Read</strong> — Clicking a notification or using <strong>Mark all read</strong> sets <code>read_at</code> and persists read state.</li>
 </ol>
 <p>Seen state is per user and stored alongside read IDs in the notifications store.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>API:</strong> <code>POST /api/notifications.php</code> with <code>action=mark_seen</code> and visible notification IDs when the dropdown opens. Responses include <code>badge_state</code>: <code>unread</code>, <code>seen</code>, or <code>none</code>, and <code>pending_count</code> for accent display.</p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>API:</strong> <code>POST /api/notifications.php</code> with <code>action=mark_seen</code> and visible notification IDs when the dropdown opens. Responses include <code>badge_state</code>: <code>unread</code>, <code>seen</code>, or <code>none</code>, and <code>pending_count</code> for accent display.</p>
 <p><strong>Plugin activity:</strong> Commerce and other plugins can emit to the plugin activity bus; those items appear in the bell when <code>activity_notify</code> is enabled for the plugin.</p></div></details>
 <div class="doc-related"><ul>
 <li><a href="dashboard.html">Dashboard</a></li>

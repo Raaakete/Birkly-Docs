@@ -305,7 +305,7 @@ php scripts/migrate-ai-agents-hybrid.php</code></pre>
 <table><thead><tr><th>Path</th><th>Works?</th></tr></thead>
 <tbody><tr><td>Built-in assistant + Ollama on localhost</td><td>Yes</td></tr><tr><td>Remote Claude/ChatGPT connector → <code>http://localhost/mcp</code></td><td>Usually <strong>no</strong> — needs public HTTPS</td></tr><tr><td><strong>mcp-bridge</strong> (stdio)</td><td>Yes — for local AI tools</td></tr><tr><td>Tunnel (<code>cloudflared</code> / ngrok) → HTTPS → <code>/mcp</code></td><td>Yes</td></tr></tbody></table>
 <p>Full recipes and security notes: <a href="../04-integration/ai-on-localhost.html">AI on localhost</a>. Prefer <strong>Settings → AI</strong> for the Local project / Developer debug card while you work on a laptop install.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h2>Security</h2>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h2>Security</h2>
 <p><strong>Personal connector — no privilege escalation</strong></p>
 <p>The AI uses your real CMS permissions. An editor cannot gain admin access through the personal connector, because there is no stored “agent role” to exploit — only your account’s role and permission set apply at tool time.</p>
 <p><strong>Service agent — fixed role with safety net</strong></p>

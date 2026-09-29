@@ -25,7 +25,7 @@
 <p>Attach the volume <strong>before</strong> first admin login. If you created an admin without a volume, then added a new empty volume and redeployed, you must create the admin again once (the first account lived in the temporary container).</p>
 <table><thead><tr><th>Situation</th><th>Create admin again?</th></tr></thead>
 <tbody><tr><td>Volume at <code>/app/data</code> from the start</td><td>No</td></tr><tr><td>No volume first, then new empty volume</td><td>Yes (once)</td></tr><tr><td>Every redeploy with volume attached</td><td>No</td></tr></tbody></table></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3><code>settings/hosting.json</code></h3>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h3><code>settings/hosting.json</code></h3>
 <pre><code>{
   &quot;cms_base_url&quot;: &quot;https://cms.birkly.cloud&quot;,
   &quot;public_site_mode&quot;: &quot;project&quot;,

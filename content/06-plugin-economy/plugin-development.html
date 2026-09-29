@@ -44,7 +44,7 @@
 <p>Place your folder in <code>plugins/</code> and enable it in <strong>Settings → Plugins</strong>. Use <code>scaffold-plugin.php</code> to generate a starter package — see <a href="../06-extensibility/scaffold-plugin-cli.html">Plugin scaffolding CLI</a>.</p>
 <p><strong>Publishing</strong></p>
 <p>Zip the plugin folder (no path traversal, no parent <code>..</code> segments) and upload as a marketplace release. Preflight validates <code>plugin.json</code> against the package schema.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Entry point (<code>plugin.php</code>)</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Entry point (<code>plugin.php</code>)</strong></p>
 <p>Register services on load. Typical patterns:</p>
 <ul>
 <li>Navigation via <code>plugin.json</code> <code>navigation</code> block or programmatic sidebar registration. Set <code>navigation.icon</code> to a registry name (for example <code>&quot;gear&quot;</code>) or inline SVG — see <a href="plugin-navigation-icon.html">Plugin navigation icon</a>.</li>

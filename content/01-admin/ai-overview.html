@@ -32,7 +32,7 @@
 <li><a href="ai-chat-and-actions.html">AI chat and actions</a> — How to use the chat and what actions the AI can run.</li>
 <li><a href="ai-approvals.html">AI approvals</a> — How the shared approval queue works.</li>
 </ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Architecture</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Architecture</strong></p>
 <ul>
 <li><strong>Outbound connections</strong> — Stored as special “AI” users in user storage. Each connection has: provider, API key (encrypted), model, role (maps to permissions), sharing (private / all / specific users), and optional “require approval” for write actions.</li>
 <li><strong>Inbound MCP endpoints</strong> — Stored in settings; each has api_key hash, role, require_approval, auth_mode (<code>api_key</code> | <code>oauth</code> | <code>both</code>). Protocol via <code>api/mcp_server.php</code>; OAuth via <code>core/mcp_oauth.php</code>.</li>

@@ -278,7 +278,7 @@ curl -s 'https://ops.birkly.cloud/api/ops/v1/starters?channel=stable' | jq '.sta
 <li>Schema / collection config may update even when entries are protected.</li>
 <li>Per-file <strong>reset to pack version</strong> and rare <strong>replace all</strong> (backup + confirm) are available for recovery when you intentionally want pack files back.</li>
 </ul></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Project folder (<code>project/</code>)</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Project folder (<code>project/</code>)</strong></p>
 <p>Public site files live under <code>project/</code> (P36). Legacy <code>demo-website/</code> paths migrate on demand. Site packs and starters extract into this folder plus <code>content/collections/</code>. They must <strong>never</strong> extract into <code>themes/</code>.</p>
 <p><strong>Canonical pack ZIP layout</strong></p>
 <pre><code>{id}-pack-{version}.zip

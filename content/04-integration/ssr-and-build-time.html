@@ -10,7 +10,7 @@
 <li>From the server, request <code>GET /api/public.php?action=get_entry&amp;collection=blog&amp;slug=my-post-slug</code>.</li>
 <li>Print the returned title in your PHP, Astro, or Next template. The browser receives HTML and does not need <code>birkly-client.js</code> for that page.</li>
 </ol></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Public API — one entry (any language)</h3>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h3>Public API — one entry (any language)</h3>
 <pre><code>GET https://your-cms.com/api/public.php?action=get_entry&amp;collection=blog&amp;slug=my-post-slug
 → { &quot;status&quot;: &quot;ok&quot;, &quot;data&quot;: { &quot;entry&quot;: { &quot;title&quot;, &quot;slug&quot;, &quot;content&quot;, … } } }</code></pre>
 <h3>Page bundle — several collections in one round-trip</h3>

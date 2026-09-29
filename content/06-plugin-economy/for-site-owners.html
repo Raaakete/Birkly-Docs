@@ -39,7 +39,7 @@
 <p>When a newer version is available, use <strong>Update</strong> on the Hub tab. The CMS re-downloads from the registry and verifies the checksum. Subscription entitlements must stay active for updates to succeed. Site pack updates skip user-edited <code>project/</code> files and entry content.</p>
 <p><strong>Seat limits</strong></p>
 <p>Entitlements bind to your site's <strong>installation ID</strong>. A single-site tier allows <strong>one production</strong> install plus <strong>one staging</strong> install. If activation fails with a seat error, deactivate on an old install to free that environment seat or upgrade your license tier.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p><strong>Installation flow</strong></p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Installation flow</strong></p>
 <ol>
 <li><code>GET /api/v1/offer?slug={slug}</code> — resolve latest release and <code>permissions_manifest</code>.</li>
 <li>Consent check — <code>consent_required</code> when no record exists for <code>{slug, version}</code> in <code>settings/marketplace_consent.json</code>.</li>

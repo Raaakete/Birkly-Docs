@@ -35,7 +35,7 @@
 <h3>Known-bad patterns</h3>
 <table><thead><tr><th>Bad</th><th>Why</th><th>Do this instead</th></tr></thead>
 <tbody><tr><td>Custom <code>fetch</code> to invented REST paths</td><td>Wrong payload / missing server key handling</td><td><code>{entry for}</code></td></tr><tr><td><code>name=&quot;Name&quot;</code> that doesn’t match field slug</td><td>Submit drops or rejects fields</td><td><code>name=&quot;{email}&quot;</code> matching schema</td></tr><tr><td><code>{entry 'contact'.'x'}…{endentry}</code></td><td>Phantom single-entry syntax</td><td><code>{entry for 'contact'}</code> for forms; <code>{from …}</code> for read</td></tr><tr><td>No <code>birkly-client.js</code></td><td>Placeholder never hydrates</td><td>Load the client</td></tr></tbody></table></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h3>For developers &amp; AI</h3>
 <p><strong>Engine behaviour</strong></p>
 <ul>
 <li><code>{entry for}</code> → placeholder <code>div.birkly-entry-block</code> with encoded inner HTML.</li>

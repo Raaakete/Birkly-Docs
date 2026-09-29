@@ -242,7 +242,7 @@
 <li><strong>Save.</strong> The collection appears in the Content list; click it to add entries.</li>
 </ol>
 <p><strong>Important:</strong> The handle (e.g. <code>blog</code>) will appear in your site’s templates and in API URLs. If you rename it later, you’ll have to update those references.</p></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><p>A collection is the <strong>schema</strong> for one content type: <strong>name</strong> (admin label), <strong>handle</strong> (unique id), <strong>fields</strong> (key, type, required, options), <strong>entry method</strong> (admin-only vs public API). Stored as config (e.g. <code>collection.json</code> + <code>schema.json</code> or equivalent).</p>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p>A collection is the <strong>schema</strong> for one content type: <strong>name</strong> (admin label), <strong>handle</strong> (unique id), <strong>fields</strong> (key, type, required, options), <strong>entry method</strong> (admin-only vs public API). Stored as config (e.g. <code>collection.json</code> + <code>schema.json</code> or equivalent).</p>
 <p><strong>Create/edit:</strong> Content → Create collection. Add fields (see <a href="field-types.html">Field types</a>). In Settings set <strong>entry method</strong>: <strong>Admin only</strong> (default) or <strong>Public API</strong> (often with rate limit, auto-publish, CAPTCHA). Handle is used in:</p>
 <ul>
 <li><strong>Templating:</strong> <code>{from 'blog' get entries}</code>, <code>{for each entry in 'blog'}</code>.</li>

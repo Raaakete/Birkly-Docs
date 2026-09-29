@@ -256,7 +256,7 @@
 <p><strong>Never</strong> do this in a custom element’s <code>connectedCallback</code>:</p>
 <pre><code>// BAD — destroys CMS-rendered (or templated) content
 this.innerHTML = '&lt;nav&gt;…&lt;/nav&gt;';</code></pre></div></details>
-<details class="doc-toggle doc-toggle-advanced"><summary>Advanced Users</summary><div class="doc-toggle-inner"><h3>Attributes</h3>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><h3>Attributes</h3>
 <table><thead><tr><th>Attribute</th><th>Role</th></tr></thead>
 <tbody><tr><td><code>collection</code></td><td>Collection handle (<code>blog</code>, <code>site_elements</code>, …)</td></tr><tr><td><code>entry</code></td><td>Entry slug (entry mode)</td></tr><tr><td><code>list</code></td><td>Presence flag — list/loop mode</td></tr><tr><td><code>ordered</code></td><td>Optional sort for list mode: <code>newest</code>, <code>oldest</code>, <code>last-updated</code>, <code>order</code></td></tr><tr><td><code>data-birkly-region</code></td><td>Explicit region root (also set automatically on <code>&lt;birkly-region&gt;</code>)</td></tr><tr><td><code>data-birkly-processed=&quot;1&quot;</code></td><td>Set after a successful render; skip unless <code>force: true</code></td></tr></tbody></table>
 <h3>Lifecycle</h3>

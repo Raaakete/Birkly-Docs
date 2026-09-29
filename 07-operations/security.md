@@ -72,7 +72,7 @@ Security for Birkly means protecting the admin, content, and any public API from
 
 - **Public health:** `GET /api/deploy_revision.php` returns only `status`, `service`, `build_revision`, and `time` — no installation id, data paths, or hosting env maps. Dokploy and other monitors can use this URL with **no extra configuration**.
 - **Diagnostics:** While logged in to **Admin** (read settings or higher), use `/admin/deploy-check.php` or `/api/admin_deploy_diagnostics.php` with your session cookie. Mutating actions use **POST** with CSRF, like other admin APIs. No server env secrets are required.
-- **Emergency password reset:** Use `php scripts/reset-admin-password.php --email=…` and enter the password at the prompt, or set `BIRKLY_RESET_PASSWORD` in the container env for one run. Do **not** use `--password=…` on the command line (visible in `ps`).
+- **Emergency password reset:** Use `php scripts/reset-admin-password.php --email=…` and enter the password at the prompt, or set `BIRKLY_RESET_PASSWORD` in the container env for one run. The script rejects `--password=…` because that value is visible in `ps`.
 - **Runtime data:** Keep `data/`, `settings/`, and `users/` off git and off public HTTP. Security scanners that read live volumes may flag local JSON; that is not the same as secrets in the repository.
 
 ## Related

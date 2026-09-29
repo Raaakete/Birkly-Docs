@@ -272,7 +272,7 @@ Anything you do on test affects production immediately:
 **Recover production login:** try `https://cms.birkly.cloud/admin` with the **same email and password you created on test**. Or reset:
 
 ```bash
-php /app/scripts/reset-admin-password.php --email=YOUR@EMAIL.com --password='YourNewProdPassword123!'
+BIRKLY_RESET_PASSWORD='YourNewProdPassword123!' php /app/scripts/reset-admin-password.php --email=YOUR@EMAIL.com
 ```
 
 ## Related

@@ -1,0 +1,47 @@
+<p>Critical fixes in <strong>PHP itself</strong> (the language runtime) affect every self-hosted Birkly install. They are <strong>not</strong> fixed by updating Birkly CMS files or Hub plugins alone — you must upgrade <strong>PHP on the host</strong> (or rebuild your Docker image) and restart PHP-FPM or the container.</p>
+<div class="doc-summary"><p><strong>Minimum PHP to run Birkly:</strong> <strong>8.1+</strong> (official plugins may require 8.1). <strong>Recommended for production:</strong> <strong>PHP 8.3</strong> on the <strong>latest security patch</strong> for that branch (for example <strong>8.3.36+</strong> after the October 2026 PHP2Shell advisories). <strong>Verify:</strong> <code>GET /api/health.php</code> → JSON field <code>&quot;php&quot;</code>. <strong>Local trials:</strong> <code>php -v</code>, or <code>runtime/php/php.exe -v</code> on Windows when using the bundled PHP from <code>install-php.ps1</code>. See <a href="self-host-install.html">Self-host install</a>, <a href="deployment.html">Deployment</a>, and <a href="dokploy-hosting.html">Hosting on Dokploy</a>.</p></div>
+<details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Birkly vs PHP</strong></p>
+<ul>
+<li><strong>Birkly CMS</strong> is your content, admin, and plugins.</li>
+<li><strong>PHP</strong> is the program your server runs to execute Birkly. When PHP publishes a security update, <strong>you</strong> (or your host) must install it on the machine or container that serves Birkly.</li>
+</ul>
+<p>Updating Birkly from GitHub, a release zip, or <strong>Plugins → Hub</strong> does <strong>not</strong> replace upgrading PHP.</p>
+<p><strong>What to do when PHP announces a critical fix</strong></p>
+<ol>
+<li><strong>Check your version</strong> — Open <code>https://your-birkly-host/api/health.php</code> and read <code>&quot;php&quot;</code>. On localhost, run <code>php -v</code> in a terminal (Windows zip: use the PHP under <code>runtime/php/</code> if you installed via <code>install-php.ps1</code>).</li>
+<li><strong>Upgrade PHP</strong> using the method that matches your setup:</li>
+</ol>
+<p>   - <strong>Docker / Dokploy</strong> — Rebuild the image from current Birkly <code>main</code> (Dockerfile pins a patched PHP base image) and redeploy. Use <strong>Rebuild</strong> with cache cleared if the version does not change.    - <strong>Shared hosting</strong> — In the control panel, select the newest <strong>PHP 8.3.x</strong> (or your branch’s patched version). Ask support if the panel does not offer it yet.    - <strong>Windows zip</strong> — Re-run <code>install-php.ps1</code> from the latest release, then restart <code>start-server.ps1</code>.    - <strong>Mac / Linux</strong> — Upgrade system or Homebrew PHP, then restart <code>./start-server.sh</code> or your web server.</p>
+<ol>
+<li><strong>Confirm</strong> — Health endpoint or <code>php -v</code> shows the patched version. Restart once more if workers were still on the old binary.</li>
+</ol>
+<p><strong>Internet-facing vs localhost only</strong></p>
+<ul>
+<li>Sites reachable on the public internet should be patched <strong>promptly</strong> when PHP issues critical advisories.</li>
+<li>Local-only installs are lower risk but should still be updated before you expose the site or copy the setup to a server.</li>
+</ul></div></details>
+<details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Compatibility vs security</strong></p>
+<table><thead><tr><th>Concern</th><th>Guidance</th></tr></thead>
+<tbody><tr><td><strong>Minimum supported</strong></td><td>PHP <strong>8.1+</strong> for current official plugins (<code>requires_php</code> in plugin manifests).</td></tr><tr><td><strong>Recommended production</strong></td><td>PHP <strong>8.3.x</strong> latest patch; Docker images use <code>php:8.3.36-fpm-bookworm</code> or newer as maintained in the Birkly <code>Dockerfile</code>.</td></tr><tr><td><strong>Other branches</strong></td><td>If you run 8.2, 8.4, or 8.5, apply that branch’s <strong>current security release</strong> from <a href="https://www.php.net/downloads.php">php.net</a>.</td></tr><tr><td><strong>PHP 8.0 and older</strong></td><td>Not supported for new installs; upgrade to 8.1+ (prefer 8.3).</td></tr></tbody></table>
+<p><strong>PHP2Shell (October 2026 example)</strong></p>
+<p>CVE-2026-109618 and CVE-2026-109619 are <strong>PHP core</strong> RCE issues affecting typical web SAPIs (PHP-FPM, php-cgi, etc.). Patched releases included <strong>8.3.36</strong>, <strong>8.2.35</strong>, <strong>8.4.27</strong>, and <strong>8.5.12</strong>. There is no complete mitigation in Birkly application code — patch the runtime.</p>
+<p><strong>Verification endpoints</strong></p>
+<table><thead><tr><th>Check</th><th>URL / command</th></tr></thead>
+<tbody><tr><td>CMS (public, no auth)</td><td><code>GET /api/health.php</code> — includes <code>&quot;php&quot;: &quot;8.3.36&quot;</code></td></tr><tr><td>Deploy revision only</td><td><code>GET /api/deploy_revision.php</code> — does <strong>not</strong> include PHP version</td></tr><tr><td>CLI</td><td><code>php -v</code> on the same binary FPM uses</td></tr></tbody></table>
+<p><strong>Docker / Dokploy</strong></p>
+<p>After merging Dockerfile changes on GitHub, trigger a full image <strong>Rebuild</strong> (not only container restart). Confirm <code>FROM php:8.3.36-fpm-bookworm</code> (or newer) appears in the deployment build log.</p>
+<p><strong>Composer metadata</strong></p>
+<p>Birkly’s root <code>composer.json</code> may still declare <code>&quot;php&quot;: &quot;&gt;=7.4&quot;</code> for packaging metadata only. <strong>Do not</strong> treat that as the production requirement — follow this page and <a href="self-host-install.html">Self-host install</a>.</p>
+<p><strong>Official references</strong></p>
+<ul>
+<li><a href="https://www.php.net/downloads.php">PHP downloads and release notes</a></li>
+<li><a href="https://github.com/NCSC-NL/php2shell/blob/main/README.html">NCSC-NL php2shell operational notes</a> (example of a coordinated PHP advisory)</li>
+</ul></div></details>
+<div class="doc-related"><ul>
+<li><a href="self-host-install.html">Self-host install</a></li>
+<li><a href="deployment.html">Deployment</a></li>
+<li><a href="dokploy-hosting.html">Hosting on Dokploy</a></li>
+<li><a href="security.html">Security</a></li>
+<li><a href="monitoring-alerts.html">Monitoring and health alerts</a></li>
+<li><a href="troubleshooting.html">Troubleshooting</a></li>
+</ul></div>

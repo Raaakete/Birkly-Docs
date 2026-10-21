@@ -1,5 +1,5 @@
 <p>Security for Birkly means protecting the admin, content, and any public API from unauthorized access and common attacks. Use HTTPS, strong passwords, limited roles, and safe server configuration so the CMS stays safe in production.</p>
-<div class="doc-summary"><p><strong>Do this:</strong> (1) Use <strong>HTTPS</strong> everywhere so login and data aren’t sent in clear text. (2) Use <strong>strong passwords</strong> and <strong>2FA</strong> for admin accounts. (3) Give users the <strong>lowest role</strong> they need (viewer/editor instead of admin). (4) Keep Birkly and <strong>plugins updated</strong>. (5) Restrict <strong>write access</strong> to content/media/settings to the web server only; don’t expose them as direct URLs. (6) If you have a <strong>public API</strong>, use <strong>rate limiting</strong> and optional tokens for submit endpoints; don’t expose admin credentials. (7) <strong>Back up</strong> regularly. See <a href="deployment.html">Deployment</a> and <a href="backup-and-restore.html">Backup and restore</a>.</p></div>
+<div class="doc-summary"><p><strong>Do this:</strong> (1) Use <strong>HTTPS</strong> everywhere so login and data aren’t sent in clear text. (2) Use <strong>strong passwords</strong> and <strong>2FA</strong> for admin accounts. (3) Give users the <strong>lowest role</strong> they need (viewer/editor instead of admin). (4) Keep Birkly and <strong>plugins updated</strong>. (5) Keep <strong>PHP</strong> on a <strong>patched version</strong> on self-hosted servers (runtime security updates are separate from Birkly releases — see <a href="php-runtime-security.html">PHP runtime security</a>). (6) Restrict <strong>write access</strong> to content/media/settings to the web server only; don’t expose them as direct URLs. (7) If you have a <strong>public API</strong>, use <strong>rate limiting</strong> and optional tokens for submit endpoints; don’t expose admin credentials. (8) <strong>Back up</strong> regularly. See <a href="deployment.html">Deployment</a> and <a href="backup-and-restore.html">Backup and restore</a>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><p><strong>Security</strong> here means: only the right people can log in and change content, and the server and data are protected from common risks.</p>
 <p><strong>Essential steps</strong></p>
 <ol>
@@ -49,8 +49,8 @@
 </ul>
 <p><strong>Server and PHP</strong></p>
 <ul>
-<li><strong>PHP</strong> — Disable dangerous functions if possible; supported PHP version. <code>display_errors</code> off in production.</li>
-<li><strong>Updates</strong> — Apply security updates to OS, PHP, web server, Birkly, plugins.</li>
+<li><strong>PHP</strong> — Run a <strong>supported, patched</strong> version (8.1+ minimum; 8.3.x latest patch recommended for production). Verify with <code>/api/health.php</code> → <code>&quot;php&quot;</code>. Disable dangerous functions if possible; <code>display_errors</code> off in production.</li>
+<li><strong>Updates</strong> — Apply security updates to <strong>PHP and the OS</strong> on your schedule, plus web server, Birkly, and plugins. PHP critical advisories may require same-day patching on internet-facing hosts — see <a href="php-runtime-security.html">PHP runtime security</a>.</li>
 <li><strong>Headers</strong> — Consider X-Frame-Options, Content-Security-Policy via server or app.</li>
 </ul>
 <p><strong>Backups</strong></p>
@@ -61,11 +61,12 @@
 <ul>
 <li><strong>Public health:</strong> <code>GET /api/deploy_revision.php</code> returns only <code>status</code>, <code>service</code>, <code>build_revision</code>, and <code>time</code> — no installation id, data paths, or hosting env maps. Dokploy and other monitors can use this URL with <strong>no extra configuration</strong>.</li>
 <li><strong>Diagnostics:</strong> While logged in to <strong>Admin</strong> (read settings or higher), use <code>/admin/deploy-check.php</code> or <code>/api/admin_deploy_diagnostics.php</code> with your session cookie. Mutating actions use <strong>POST</strong> with CSRF, like other admin APIs. No server env secrets are required.</li>
-<li><strong>First admin:</strong> Use onboarding, or <code>BIRKLY_ADMIN_PASSWORD='…' php scripts/create-default-user.php</code>. The script does not create a shared password, and it does nothing when an admin already exists.</li>
+<li><strong>First admin:</strong> Use onboarding, or <code>BIRKLY_ADMIN_PASSWORD='…' php scripts/create-default-user.php</code>. The script does not create <code>admin@localhost</code> / <code>password</code>, and it does nothing when an admin already exists.</li>
 <li><strong>Emergency password reset:</strong> Use <code>php scripts/reset-admin-password.php --email=…</code> and enter the password at the prompt, or set <code>BIRKLY_RESET_PASSWORD</code> for that one run. The script rejects <code>--password=…</code> and refuses to run over HTTP.</li>
-<li><strong>Runtime data:</strong> <code>data/</code>, <code>settings/</code>, <code>users/</code>, <code>content/</code>, <code>core/</code>, <code>logs/</code>, <code>cache/</code>, and <code>tests/</code> are refused by the shipped Apache and nginx configs and stay off git. <code>scripts/commerce-import-sync.php</code> stays on HTTP and requires its cron token.</li>
+<li><strong>Runtime data:</strong> <code>data/</code>, <code>settings/</code>, <code>users/</code>, <code>content/</code>, <code>core/</code>, <code>logs/</code>, <code>cache/</code>, and <code>tests/</code> are refused by the shipped Apache and nginx configs and stay off git. PHP can still write them. <code>scripts/commerce-import-sync.php</code> stays on HTTP and requires its cron token.</li>
 </ul></div></details>
 <div class="doc-related"><ul>
+<li><a href="php-runtime-security.html">PHP runtime security</a></li>
 <li><a href="deployment.html">Deployment</a></li>
 <li><a href="backup-and-restore.html">Backup and restore</a></li>
 <li><a href="../01-admin/roles-and-permissions.html">Roles and permissions</a></li>

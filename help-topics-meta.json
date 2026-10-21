@@ -1257,6 +1257,21 @@
                 "files"
             ]
         },
+        "07-operations/php-runtime-security.md": {
+            "id": "php-runtime-security",
+            "title": "PHP runtime security",
+            "keywords": [
+                "php",
+                "runtime",
+                "security",
+                "patch",
+                "PHP2Shell",
+                "CVE",
+                "self-host",
+                "docker",
+                "health.php"
+            ]
+        },
         "07-operations/security.md": {
             "id": "security",
             "title": "Security",

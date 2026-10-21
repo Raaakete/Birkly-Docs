@@ -1,7 +1,7 @@
 <div class="doc-summary"><p>Install Birkly on <strong>your own server or local PHP</strong> using the <strong>official CMS release zip</strong> from GitHub (not Composer). Official plugins are <strong>not</strong> bundled — install them from <strong>Plugins → Hub</strong> after onboarding. Support for blockers: <strong>hello@birkly.io</strong>.</p></div>
 <details class="doc-toggle doc-toggle-beginner"><summary>Beginner</summary><div class="doc-toggle-inner"><h3>What you need</h3>
 <ul>
-<li><strong>PHP</strong> 8.1+ (match the version noted on the GitHub release)</li>
+<li><strong>PHP</strong> <strong>8.1+</strong> to run Birkly; <strong>PHP 8.3</strong> with the <strong>latest security patch</strong> is recommended for any install on the internet (see <a href="php-runtime-security.html">PHP runtime security</a>)</li>
 <li>A <strong>web server</strong> (Apache/Nginx) or the included <code>./start-server.sh</code> for local trials</li>
 <li>Writable folders: <code>content/</code>, <code>data/</code>, <code>media/</code>, <code>settings/</code>, <code>logs/</code></li>
 </ul>
@@ -22,9 +22,11 @@
 <li><strong>Docker:</strong> <a href="dokploy-hosting.html">Hosting on Dokploy</a> and root <code>docker-compose.yml</code> in the release.</li>
 <li><strong>Updates:</strong> <a href="../06-extensibility/updates.html">Updates</a> — self-host instances do not use removed legacy <code>api/update.php</code>; use Hub + documented upgrade path.</li>
 <li><strong>Backup:</strong> <a href="backup-and-restore.html">Backup and restore</a> before upgrades.</li>
+<li><strong>PHP security patches:</strong> <a href="php-runtime-security.html">PHP runtime security</a> — upgrade PHP on the host or rebuild Docker; Hub/CMS updates alone are not enough.</li>
 </ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="../00-overview/getting-started.html">Getting started</a></li>
+<li><a href="php-runtime-security.html">PHP runtime security</a></li>
 <li><a href="deployment.html">Deployment</a></li>
 <li><a href="troubleshooting.html">Troubleshooting</a></li>
 <li><a href="../00-overview/known-issues-wave1.html">Known issues (Wave 1 engineering)</a></li>

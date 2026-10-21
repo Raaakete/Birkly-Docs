@@ -196,6 +196,7 @@ This index lists every documentation topic and its file path. Use it for navigat
 | Hosting on Dokploy | `07-operations/dokploy-hosting.md` | CMS vs public URLs, `hosting.json`, two-domain Docker |
 | Production deploy checklist | `07-operations/production-deploy-checklist.md` | CMS, marketplace, client site smoke |
 | Monitoring and health alerts | `07-operations/monitoring-alerts.md` | Health alert email/webhook (P13) |
+| PHP runtime security | `07-operations/php-runtime-security.md` | Self-host PHP patches, health check, Docker rebuild |
 | Security | `07-operations/security.md` | Hardening, HTTPS, auth |
 | Backup and restore | `07-operations/backup-and-restore.md` | Content and media backup |
 | Troubleshooting | `07-operations/troubleshooting.md` | Common issues and fixes |

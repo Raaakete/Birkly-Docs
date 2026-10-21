@@ -27,6 +27,12 @@
 <li><strong>Disk full</strong> — The server may have run out of space. Check with your host.</li>
 <li><strong>Validation</strong> — A required field might be empty, or a field format (e.g. email) might be wrong. Check the error message on the form.</li>
 </ul>
+<p><strong>PHP security advisory (runtime, not Birkly app code)</strong></p>
+<ul>
+<li><strong>Symptom</strong> — Your host or PHP project announces a <strong>critical PHP fix</strong> (for example PHP2Shell / CVE in the PHP engine). Hub or Birkly file updates do not replace it.</li>
+<li><strong>Check</strong> — <code>GET /api/health.php</code> → <code>&quot;php&quot;</code> must match the patched version for your branch (see <a href="php-runtime-security.html">PHP runtime security</a>).</li>
+<li><strong>Fix</strong> — Upgrade PHP on the server, or rebuild and redeploy your Docker image; restart PHP-FPM or the container. Windows zip: re-run <code>install-php.ps1</code> and restart the server.</li>
+</ul>
 <p><strong>500 error or blank white page</strong></p>
 <ul>
 <li><strong>Server error</strong> — Something crashed on the server. In production you usually don’t see the error on the page. Your host or developer should check the <strong>PHP error log</strong> or <strong>server error log</strong> to see the real message. Common causes: missing PHP extension, wrong file permissions, or a broken plugin.</li>
@@ -87,6 +93,7 @@
 <li>Error logs (server, PHP, Birkly). Version info (Birkly, PHP, server). Reproduce steps. Use when reporting.</li>
 </ul></div></details>
 <div class="doc-related"><ul>
+<li><a href="php-runtime-security.html">PHP runtime security</a></li>
 <li><a href="deployment.html">Deployment</a></li>
 <li><a href="security.html">Security</a></li>
 <li><a href="../04-integration/website-integration.html">Website integration</a></li>

@@ -34,7 +34,7 @@
 </ul></div></details>
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Server requirements</strong></p>
 <ul>
-<li><strong>PHP</strong> — Version required by Birkly (e.g. PHP 7.4 or 8.x). Extensions: typically <code>json</code>, <code>mbstring</code>, <code>fileinfo</code>, <code>curl</code>; optionally PDO for database.</li>
+<li><strong>PHP</strong> — <strong>8.1+</strong> minimum; <strong>8.3.x</strong> on the <strong>latest security patch</strong> recommended for production (see <a href="php-runtime-security.html">PHP runtime security</a>). Extensions: typically <code>json</code>, <code>mbstring</code>, <code>fileinfo</code>, <code>curl</code>, <code>zip</code>, <code>openssl</code>, <code>gd</code>; optionally PDO for database.</li>
 <li><strong>Web server</strong> — Apache (with <code>mod_rewrite</code>) or Nginx. Birkly uses a front controller (<code>index.php</code>); route all requests to it.</li>
 <li><strong>Optional:</strong> Database (SQLite or MySQL) for users/sessions or plugins.</li>
 <li><strong>Disk</strong> — Space for content, media, logs.</li>
@@ -59,7 +59,7 @@
 </ul>
 <p><strong>Docker / Dokploy</strong></p>
 <ul>
-<li>Single volume at <code>/app/data</code>; all domains on one app with Internal Path <strong><code>/</code></strong>. See <a href="dokploy-hosting.html">Hosting on Dokploy</a>.</li>
+<li>Single volume at <code>/app/data</code>; all domains on one app with Internal Path <strong><code>/</code></strong>. See <a href="dokploy-hosting.html">Hosting on Dokploy</a>. Rebuild images when the Birkly <code>Dockerfile</code> PHP base version changes — restarting the container alone does not upgrade PHP.</li>
 </ul>
 <p><strong>Post-deploy</strong></p>
 <ul>
@@ -67,6 +67,7 @@
 </ul></div></details>
 <div class="doc-related"><ul>
 <li><a href="dokploy-hosting.html">Hosting on Dokploy (Docker)</a> — volume mount, two-domain setup, Internal Path <code>/</code></li>
+<li><a href="php-runtime-security.html">PHP runtime security</a></li>
 <li><a href="security.html">Security</a></li>
 <li><a href="backup-and-restore.html">Backup and restore</a></li>
 <li><a href="troubleshooting.html">Troubleshooting</a></li>

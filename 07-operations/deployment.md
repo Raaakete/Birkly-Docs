@@ -45,7 +45,7 @@ Deployment is how you put Birkly on a server so it’s reachable on the internet
 
 **Server requirements**
 
-- **PHP** — Version required by Birkly (e.g. PHP 7.4 or 8.x). Extensions: typically `json`, `mbstring`, `fileinfo`, `curl`; optionally PDO for database.
+- **PHP** — **8.1+** minimum; **8.3.x** on the **latest security patch** recommended for production (see [PHP runtime security](php-runtime-security.md)). Extensions: typically `json`, `mbstring`, `fileinfo`, `curl`, `zip`, `openssl`, `gd`; optionally PDO for database.
 - **Web server** — Apache (with `mod_rewrite`) or Nginx. Birkly uses a front controller (`index.php`); route all requests to it.
 - **Optional:** Database (SQLite or MySQL) for users/sessions or plugins.
 - **Disk** — Space for content, media, logs.
@@ -70,7 +70,7 @@ Deployment is how you put Birkly on a server so it’s reachable on the internet
 
 **Docker / Dokploy**
 
-- Single volume at `/app/data`; all domains on one app with Internal Path **`/`**. See [Hosting on Dokploy](dokploy-hosting.md).
+- Single volume at `/app/data`; all domains on one app with Internal Path **`/`**. See [Hosting on Dokploy](dokploy-hosting.md). Rebuild images when the Birkly `Dockerfile` PHP base version changes — restarting the container alone does not upgrade PHP.
 
 **Post-deploy**
 
@@ -79,6 +79,7 @@ Deployment is how you put Birkly on a server so it’s reachable on the internet
 ## Related
 
 - [Hosting on Dokploy (Docker)](dokploy-hosting.md) — volume mount, two-domain setup, Internal Path `/`
+- [PHP runtime security](php-runtime-security.md)
 - [Security](security.md)
 - [Backup and restore](backup-and-restore.md)
 - [Troubleshooting](troubleshooting.md)

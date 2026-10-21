@@ -8,7 +8,7 @@ Install Birkly on **your own server or local PHP** using the **official CMS rele
 
 ### What you need
 
-- **PHP** 8.1+ (match the version noted on the GitHub release)
+- **PHP** **8.1+** to run Birkly; **PHP 8.3** with the **latest security patch** is recommended for any install on the internet (see [PHP runtime security](php-runtime-security.md))
 - A **web server** (Apache/Nginx) or the included `./start-server.sh` for local trials
 - Writable folders: `content/`, `data/`, `media/`, `settings/`, `logs/`
 
@@ -32,10 +32,12 @@ The zip ships an empty `plugins/` folder. Do not copy unofficial plugin trees in
 - **Docker:** [Hosting on Dokploy](dokploy-hosting.md) and root `docker-compose.yml` in the release.
 - **Updates:** [Updates](../06-extensibility/updates.md) — self-host instances do not use removed legacy `api/update.php`; use Hub + documented upgrade path.
 - **Backup:** [Backup and restore](backup-and-restore.md) before upgrades.
+- **PHP security patches:** [PHP runtime security](php-runtime-security.md) — upgrade PHP on the host or rebuild Docker; Hub/CMS updates alone are not enough.
 
 ## Related
 
 - [Getting started](../00-overview/getting-started.md)
+- [PHP runtime security](php-runtime-security.md)
 - [Deployment](deployment.md)
 - [Troubleshooting](troubleshooting.md)
 - [Known issues (Wave 1 engineering)](../00-overview/known-issues-wave1.md)

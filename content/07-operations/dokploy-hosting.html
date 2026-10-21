@@ -148,8 +148,11 @@ EOF</code></pre>
 <tbody><tr><td>Delete users / fresh reset</td><td>Production logins stop working</td></tr><tr><td>Create new admin (same email)</td><td>Production password changes to the new one</td></tr><tr><td>Install Marsk starter</td><td>Production content changes</td></tr><tr><td>Repair hosting URL</td><td>Can break which domain is “home”</td></tr></tbody></table>
 <p><strong>Check in Dokploy:</strong> production app → <strong>Volumes</strong> → note the volume name. Test app → <strong>Volumes</strong>. If the name is <strong>identical</strong>, they share data. Test must use a <strong>different</strong> name (e.g. <code>birkly-cms-test-data</code>).</p>
 <p><strong>Recover production login:</strong> try <code>https://cms.birkly.cloud/admin</code> with the <strong>same email and password you created on test</strong>. Or reset:</p>
-<pre><code>BIRKLY_RESET_PASSWORD='YourNewProdPassword123!' php /app/scripts/reset-admin-password.php --email=YOUR@EMAIL.com</code></pre></div></details>
+<pre><code>BIRKLY_RESET_PASSWORD='YourNewProdPassword123!' php /app/scripts/reset-admin-password.php --email=YOUR@EMAIL.com</code></pre>
+<h2>PHP security updates</h2>
+<p>When PHP publishes a <strong>runtime</strong> security fix, <strong>Rebuild</strong> the Dokploy app from latest Birkly <code>main</code> so the Docker image picks up the new <code>php:*-fpm-bookworm</code> base. Restart alone is not enough. Confirm with <code>GET /api/health.php</code> → <code>&quot;php&quot;</code>. Details: <a href="php-runtime-security.html">PHP runtime security</a>.</p></div></details>
 <div class="doc-related"><ul>
+<li><a href="php-runtime-security.html">PHP runtime security</a></li>
 <li><a href="deployment.html">Deployment</a></li>
 <li><a href="backup-and-restore.html">Backup and restore</a></li>
 <li><a href="troubleshooting.html">Troubleshooting</a></li>

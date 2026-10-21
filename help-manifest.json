@@ -870,6 +870,22 @@
             "docs_path": "01-admin/notifications.html"
         },
         {
+            "id": "php-runtime-security",
+            "title": "PHP runtime security",
+            "keywords": [
+                "php",
+                "runtime",
+                "security",
+                "patch",
+                "PHP2Shell",
+                "CVE",
+                "self-host",
+                "docker",
+                "health.php"
+            ],
+            "docs_path": "07-operations/php-runtime-security.html"
+        },
+        {
             "id": "plugin-admin-styling",
             "title": "Plugin admin styling",
             "keywords": [

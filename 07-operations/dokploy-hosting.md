@@ -275,8 +275,13 @@ Anything you do on test affects production immediately:
 BIRKLY_RESET_PASSWORD='YourNewProdPassword123!' php /app/scripts/reset-admin-password.php --email=YOUR@EMAIL.com
 ```
 
+## PHP security updates
+
+When PHP publishes a **runtime** security fix, **Rebuild** the Dokploy app from latest Birkly `main` so the Docker image picks up the new `php:*-fpm-bookworm` base. Restart alone is not enough. Confirm with `GET /api/health.php` → `"php"`. Details: [PHP runtime security](php-runtime-security.md).
+
 ## Related
 
+- [PHP runtime security](php-runtime-security.md)
 - [Deployment](deployment.md)
 - [Backup and restore](backup-and-restore.md)
 - [Troubleshooting](troubleshooting.md)

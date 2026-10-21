@@ -35,6 +35,12 @@ This page lists common issues when using or deploying Birkly and suggests steps 
 - **Disk full** — The server may have run out of space. Check with your host.
 - **Validation** — A required field might be empty, or a field format (e.g. email) might be wrong. Check the error message on the form.
 
+**PHP security advisory (runtime, not Birkly app code)**
+
+- **Symptom** — Your host or PHP project announces a **critical PHP fix** (for example PHP2Shell / CVE in the PHP engine). Hub or Birkly file updates do not replace it.
+- **Check** — `GET /api/health.php` → `"php"` must match the patched version for your branch (see [PHP runtime security](php-runtime-security.md)).
+- **Fix** — Upgrade PHP on the server, or rebuild and redeploy your Docker image; restart PHP-FPM or the container. Windows zip: re-run `install-php.ps1` and restart the server.
+
 **500 error or blank white page**
 
 - **Server error** — Something crashed on the server. In production you usually don’t see the error on the page. Your host or developer should check the **PHP error log** or **server error log** to see the real message. Common causes: missing PHP extension, wrong file permissions, or a broken plugin.
@@ -98,6 +104,7 @@ This page lists common issues when using or deploying Birkly and suggests steps 
 
 ## Related
 
+- [PHP runtime security](php-runtime-security.md)
 - [Deployment](deployment.md)
 - [Security](security.md)
 - [Website integration](../04-integration/website-integration.md)

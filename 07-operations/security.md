@@ -4,7 +4,7 @@ Security for Birkly means protecting the admin, content, and any public API from
 
 ## Summary
 
-**Do this:** (1) Use **HTTPS** everywhere so login and data aren’t sent in clear text. (2) Use **strong passwords** and **2FA** for admin accounts. (3) Give users the **lowest role** they need (viewer/editor instead of admin). (4) Keep Birkly and **plugins updated**. (5) Restrict **write access** to content/media/settings to the web server only; don’t expose them as direct URLs. (6) If you have a **public API**, use **rate limiting** and optional tokens for submit endpoints; don’t expose admin credentials. (7) **Back up** regularly. See [Deployment](deployment.md) and [Backup and restore](backup-and-restore.md).
+**Do this:** (1) Use **HTTPS** everywhere so login and data aren’t sent in clear text. (2) Use **strong passwords** and **2FA** for admin accounts. (3) Give users the **lowest role** they need (viewer/editor instead of admin). (4) Keep Birkly and **plugins updated**. (5) Keep **PHP** on a **patched version** on self-hosted servers (runtime security updates are separate from Birkly releases — see [PHP runtime security](php-runtime-security.md)). (6) Restrict **write access** to content/media/settings to the web server only; don’t expose them as direct URLs. (7) If you have a **public API**, use **rate limiting** and optional tokens for submit endpoints; don’t expose admin credentials. (8) **Back up** regularly. See [Deployment](deployment.md) and [Backup and restore](backup-and-restore.md).
 
 ## Beginner
 
@@ -60,8 +60,8 @@ Security for Birkly means protecting the admin, content, and any public API from
 
 **Server and PHP**
 
-- **PHP** — Disable dangerous functions if possible; supported PHP version. `display_errors` off in production.
-- **Updates** — Apply security updates to OS, PHP, web server, Birkly, plugins.
+- **PHP** — Run a **supported, patched** version (8.1+ minimum; 8.3.x latest patch recommended for production). Verify with `/api/health.php` → `"php"`. Disable dangerous functions if possible; `display_errors` off in production.
+- **Updates** — Apply security updates to **PHP and the OS** on your schedule, plus web server, Birkly, and plugins. PHP critical advisories may require same-day patching on internet-facing hosts — see [PHP runtime security](php-runtime-security.md).
 - **Headers** — Consider X-Frame-Options, Content-Security-Policy via server or app.
 
 **Backups**
@@ -78,6 +78,7 @@ Security for Birkly means protecting the admin, content, and any public API from
 
 ## Related
 
+- [PHP runtime security](php-runtime-security.md)
 - [Deployment](deployment.md)
 - [Backup and restore](backup-and-restore.md)
 - [Roles and permissions](../01-admin/roles-and-permissions.md)

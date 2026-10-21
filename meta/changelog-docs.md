@@ -12,6 +12,11 @@ This changelog records **documentation** updates: new pages, reorganized section
 
 ---
 
+## 2026-10-21 — PHP runtime security (self-host)
+
+- **New:** `07-operations/php-runtime-security.md` — minimum PHP 8.1+, recommended patched 8.3.x, verification via `/api/health.php`, Docker rebuild, PHP2Shell context.
+- **Updated:** `07-operations/self-host-install.md`, `deployment.md`, `security.md`, `troubleshooting.md`, `dokploy-hosting.md` — aligned PHP requirements and cross-links.
+
 ## 2026-09-29 — Storefront script tags
 
 - **Updated:** shop, linked checkout, store kit, hybrid cart, Shopify cutover, and WebMCP pages tell authors to include `birkly-client.js` only. A manual plugin storefront script tag is unnecessary.

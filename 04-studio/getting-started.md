@@ -6,6 +6,8 @@
 
 ## Beginner
 
+If you are not editing `project/` files by hand, follow [Build a site with Studio](./build-a-site.md) for the visual create → edit → connect content → publish path.
+
 **Example: open the manual in this install**
 
 1. Enable **Studio** under **Settings → Plugins**.

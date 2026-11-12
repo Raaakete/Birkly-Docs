@@ -14,7 +14,7 @@
 
 ## Advanced Users
 
-Triggers, conditions, actions, Setup, and dry-run versus live runs are on the same Documentation tab. A publish of docs.birkly.com does not change that manual. Update the Automation plugin to change it.
+Triggers, conditions, actions, Setup, and dry-run versus live runs are on the same Documentation tab. A publish of docs.birkly.io does not change that manual. Update the Automation plugin to change it.
 
 ## Related
 

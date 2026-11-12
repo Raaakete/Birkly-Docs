@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "docs_base_url": "https://docs.birkly.com",
+    "docs_base_url": "https://docs.birkly.io",
     "manifest_version": "2026-08-08-p62-m6",
     "description": "Public help manifest for Birkly CMS live fetch (P15-M3). CMS merges with bundled snapshots offline.",
     "topics": [

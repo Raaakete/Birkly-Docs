@@ -14,7 +14,7 @@
 
 ## Advanced Users
 
-Registration endpoints, template helpers, and automation triggers are documented on the same Docs tab. Do not copy those requests into the public site as the owner path. A docs publish on docs.birkly.com does not change the plugin manual. Update the plugin to change it.
+Registration endpoints, template helpers, and automation triggers are documented on the same Docs tab. Do not copy those requests into the public site as the owner path. A docs publish on docs.birkly.io does not change the plugin manual. Update the plugin to change it.
 
 ## Related
 

@@ -16,7 +16,7 @@ A paid membership is a User tier linked to a Commerce product. Create that link 
 
 ## Advanced Users
 
-Past-due grace days and the default tier on revoke are on the same User screen. Recurring billing itself stays on the Commerce **Subscriptions** topic. A publish of docs.birkly.com does not change either manual. Update the plugin that owns the screen.
+Past-due grace days and the default tier on revoke are on the same User screen. Recurring billing itself stays on the Commerce **Subscriptions** topic. A publish of docs.birkly.io does not change either manual. Update the plugin that owns the screen.
 
 ## Related
 

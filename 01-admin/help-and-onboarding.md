@@ -2,7 +2,7 @@
 
 ## Summary
 
-**Help** is the in-admin documentation: a link or icon in the sidebar opens guides that explain collections, entries, field types, templating, and integration. The CMS loads each article from [docs.birkly.com](https://docs.birkly.com) when you open the topic. It does not keep a copy of the article. If that host cannot be reached, Help says documentation is unavailable. **First-run** starts with **START_HERE.html** in the release zip (extract, open in a browser, pick local or cloud install path) before you log in to the admin. **Onboarding** is the setup wizard shown when the first admin logs in — wizard v2 includes install context, use case, a marketplace hint, and an optional BYOAI mini-wizard. The Dashboard **setup checklist v2** shows essential items only; an AI reminder appears **only** if you skipped the wizard AI step. If the instance was preconfigured, onboarding may not appear.
+**Help** is the in-admin documentation: a link or icon in the sidebar opens guides that explain collections, entries, field types, templating, and integration. The CMS loads each article from [docs.birkly.io](https://docs.birkly.io) when you open the topic. It does not keep a copy of the article. If that host cannot be reached, Help says documentation is unavailable. **First-run** starts with **START_HERE.html** in the release zip (extract, open in a browser, pick local or cloud install path) before you log in to the admin. **Onboarding** is the setup wizard shown when the first admin logs in — wizard v2 includes install context, use case, a marketplace hint, and an optional BYOAI mini-wizard. The Dashboard **setup checklist v2** shows essential items only; an AI reminder appears **only** if you skipped the wizard AI step. If the instance was preconfigured, onboarding may not appear.
 
 ## Beginner
 
@@ -11,8 +11,8 @@
 The **Help** section (often a "?" icon or a "Help" link in the sidebar) opens documentation **inside** the admin. You don't have to leave the panel or search the web—you can read how to create a collection, what field types mean, how to connect your website, and so on.
 
 - **What's in Help:** Topics match Birkly-Docs: Getting started, Content, AI (connections, MCP, approvals), Marketplace, Plugins, Media, Settings, and more. Plugin how-tos (Commerce, User, Events, Automation, Studio) open on that plugin’s **Docs** tab.
-- **Live docs:** Opening a topic loads the current article from docs.birkly.com. A docs publish shows up without a CMS update. **Open on docs.birkly.com** opens the same page in a new tab.
-- **Offline:** If docs.birkly.com cannot be reached, Help shows that documentation is unavailable. There is no saved copy of the article in the CMS.
+- **Live docs:** Opening a topic loads the current article from docs.birkly.io. A docs publish shows up without a CMS update. **Open on docs.birkly.io** opens the same page in a new tab.
+- **Offline:** If docs.birkly.io cannot be reached, Help shows that documentation is unavailable. There is no saved copy of the article in the CMS.
 
 **Example:** You're not sure how to add a "Featured image" to a blog post. You click **Help**, open the "Entries" or "Field types" topic, and follow the steps. You never leave the admin.
 
@@ -68,7 +68,7 @@ You can point the Help content to Birkly Docs (or a built copy) so the in-admin 
 
 ## Advanced Users
 
-**Help:** `GET /api/help_manifest.php` returns the topic list. PHP fetches `settings/help_manifest.json` → `live_manifest_url` (default `https://docs.birkly.com/help-manifest.json`, 4s timeout) and merges active plugin topics. The browser then fetches `{docs_base_url}/content/{docs_path}` with `mode: cors` and `credentials: omit`. Product topics have no `snapshot` path. Plugin topics still load Markdown from `/api/plugin_doc.php` and appear under **Plugin extensions** (`section: plugins`, `source: plugin`). If the origin fetch fails, the pane shows: `Documentation is unavailable because docs.birkly.com could not be reached.` No npm build in the CMS.
+**Help:** `GET /api/help_manifest.php` returns the topic list. PHP fetches `settings/help_manifest.json` → `live_manifest_url` (default `https://docs.birkly.io/help-manifest.json`, 4s timeout) and merges active plugin topics. The browser then fetches `{docs_base_url}/content/{docs_path}` with `mode: cors` and `credentials: omit`. Product topics have no `snapshot` path. Plugin topics still load Markdown from `/api/plugin_doc.php` and appear under **Plugin extensions** (`section: plugins`, `source: plugin`). If the origin fetch fails, the pane shows: `Documentation is unavailable because docs.birkly.io could not be reached.` No npm build in the CMS.
 
 **First-run:** `START_HERE.html` + `START_HERE.txt` ship in the release zip root (`build-cms-release.sh`). Folder detection via `api/setup_probe.php` (read-only). Local path links to `./start-server.sh`; cloud path shows FTP/upload checklist. **Start setup** deep-links to `/admin/?page=onboarding&install=local|cloud`.
 

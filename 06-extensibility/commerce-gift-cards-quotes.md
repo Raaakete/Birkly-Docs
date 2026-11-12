@@ -14,7 +14,7 @@ Gift cards and discounts are the **Discounts & gift cards** topic on the Commerc
 
 ## Advanced Users
 
-A gift card product uses fulfillment `gift_card`. The code is issued after payment and redeemed at checkout. Draft orders are created without a cart. A publish of docs.birkly.com does not change those articles. Update the Commerce plugin.
+A gift card product uses fulfillment `gift_card`. The code is issued after payment and redeemed at checkout. Draft orders are created without a cart. A publish of docs.birkly.io does not change those articles. Update the Commerce plugin.
 
 ## Related
 

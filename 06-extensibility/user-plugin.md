@@ -14,7 +14,7 @@
 
 ## Advanced Users
 
-Field types, permission keys, and the registration APIs are on the same Docs tab. A docs publish on docs.birkly.com does not change that manual. Update the plugin to change it.
+Field types, permission keys, and the registration APIs are on the same Docs tab. A docs publish on docs.birkly.io does not change that manual. Update the plugin to change it.
 
 ## Related
 

@@ -14,7 +14,7 @@ Checkout charges the currency on the purchase option. Catalog labels can show an
 
 ## Advanced Users
 
-Prices for a second currency are separate purchase options, each with its own `currency`. Tax rates stay on the **Tax** topic. A publish of docs.birkly.com does not change the plugin manual. Update the Commerce plugin.
+Prices for a second currency are separate purchase options, each with its own `currency`. Tax rates stay on the **Tax** topic. A publish of docs.birkly.io does not change the plugin manual. Update the Commerce plugin.
 
 ## Related
 

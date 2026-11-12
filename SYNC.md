@@ -8,7 +8,7 @@ When someone opens Help, the browser loads the current article from the docs ori
 
 `{docs_base_url}/content/{docs_path}`
 
-Default host: `https://docs.birkly.com`. The CMS asks that host for `help-manifest.json` (the topic list) and does not store the article body. A publish on this repo shows up the next time Help opens. No CMS update is required.
+Default host: `https://docs.birkly.io`. The CMS asks that host for `help-manifest.json` (the topic list) and does not store the article body. A publish on this repo shows up the next time Help opens. No CMS update is required.
 
 If the origin cannot be reached, Help says documentation is unavailable. There is no bundled snapshot.
 
@@ -52,5 +52,5 @@ Do not copy HTML into `admin/docs/` and do not add this repo as a CMS submodule 
 
 ## Versioning
 
-- **docs.birkly.com:** The deployed `main` branch.
+- **docs.birkly.io:** The deployed `main` branch.
 - **NPM:** Use version tags: `npm install @birkly/docs@1.0.0`

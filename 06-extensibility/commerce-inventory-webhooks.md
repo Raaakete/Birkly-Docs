@@ -14,7 +14,7 @@ This procedure lives on the **Docs** tab of **Commerce** inside your Birkly inst
 
 ## Advanced Users
 
-API tables and provider settings for this topic are on the same Docs tab, under **Advanced Users**. A publish of docs.birkly.com does not change them. Update the Commerce plugin.
+API tables and provider settings for this topic are on the same Docs tab, under **Advanced Users**. A publish of docs.birkly.io does not change them. Update the Commerce plugin.
 
 ## Related
 

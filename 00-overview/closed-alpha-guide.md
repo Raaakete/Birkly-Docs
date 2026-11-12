@@ -27,7 +27,7 @@ Closed alpha means Birkly is mature enough for real self-hosted trials but **not
 | **Commerce** | Multi-currency products, live import, warehouse stock, inventory webhooks |
 | **Cloud account** | Optional link on Account page (local login still primary) |
 | **Admin UX** | Light/dark/system theme toggle; mobile-friendly dashboard and Commerce |
-| **Help** | Live articles from docs.birkly.com. If that host is down, Help says documentation is unavailable |
+| **Help** | Live articles from docs.birkly.io. If that host is down, Help says documentation is unavailable |
 | **Feedback** | Submit bug/idea from the admin Feedback widget; confirm it appears in Feedback admin |
 
 ## Getting started

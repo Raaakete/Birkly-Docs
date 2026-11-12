@@ -14,7 +14,7 @@
 
 ## Advanced Users
 
-The sync is marked Beta in Settings. A publish of docs.birkly.com does not change the plugin article. Update the Commerce plugin.
+The sync is marked Beta in Settings. A publish of docs.birkly.io does not change the plugin article. Update the Commerce plugin.
 
 ## Related
 

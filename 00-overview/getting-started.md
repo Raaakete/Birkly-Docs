@@ -165,6 +165,10 @@ From here you can add more collections (e.g. “Products,” “Team”), upload
 
 See [Collections](../02-content/collections.md), [Entries](../02-content/entries.md), [Website integration](../04-integration/website-integration.md), [Client library](../04-integration/client-library.md).
 
+## Community
+
+Questions, ideas, and sites you are building: **[GitHub Discussions](https://github.com/Raaakete/Birkly/discussions)** on the CMS repo. Start with the [welcome thread](https://github.com/Raaakete/Birkly/discussions/931). For reproducible bugs, use [GitHub Issues](https://github.com/Raaakete/Birkly/issues) instead.
+
 ## Related
 
 - [What is Birkly?](what-is-birkly.md)

@@ -30,9 +30,9 @@ The Project tab's **Files** section is the same file browser used for uploading,
 
 | Included | Excluded |
 |---|---|
-| Files under `project/` with an allowed extension: `html`, `css`, `js`, `json`, `md`, `svg`, `webp`, `txt`, `jpg`, `jpeg`, `png`, `gif`, `ico` | `content/` (collections and entries) |
+| Files under `project/` with an allowed extension: `html`, `css`, `js`, `json`, `md`, `svg`, `webp`, `txt`, `jpg`, `jpeg`, `png`, `gif`, `ico` — including `project/settings/project.json` | `content/` (collections and entries) |
 | The `.gitignore` Birkly writes into `project/` on connect | `media/` (uploaded assets in the media library) |
-| | `users/`, `settings/` (including this feature's own stored credentials) |
+| | `users/`, CMS `settings/` outside `project/` (including encrypted git credentials) |
 | | Installed plugins and their data |
 | | Any dotfile or dot-folder path segment (e.g. `.env`, `.well-known/`) |
 | | `.php` / `.phtml` / `.phar` files — server-side code is never served from `project/` and is never staged |
@@ -67,6 +67,17 @@ The Git section runs a capability check before showing the connect form and expl
 | "The `project/` folder is not writable by the web server." | Fix folder permissions. |
 
 No Birkly Cloud account or connectivity is required — this works the same way on a local PHP install, Docker, or any self-hosted deployment, using your own instance credentials.
+
+### Docker and Dokploy
+
+- PHP runs as `www-data`. The official image entrypoint assigns `content/project/` to that user so git can write `.git/` without manual `chown`.
+- Birkly passes `-c safe.directory=<absolute project path>` on every git invocation, so the repo works even when ownership differs from the PHP user (git does not read system `safe.directory` because Birkly sets `GIT_CONFIG_NOSYSTEM=1`).
+- Push/pull errors return `{"status":"error","message":"…"}` with HTTP 200; the Git panel shows the message inline and logs a **project_git_*_failed** row in Project → Activity.
+- Credentials stay encrypted in `settings/project_git.json` (outside `project/`). `project/.git/` remains blocked at the HTTP layer.
+
+### Files in the repository
+
+`project/settings/project.json` (rendering/hosting options for the site) **is included** in git sync. CMS-level `settings/` outside `project/` is never staged. The `.gitignore` template uses `/cms-*` paths so it does not block `project/settings/`.
 
 ## Connect
 

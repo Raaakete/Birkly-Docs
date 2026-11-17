@@ -161,7 +161,9 @@ Connected agents use the same admin APIs as the UI, mostly through **`cms_admin_
 | **Media library (admin list)** | `list_media` / `read_media`, or `media.list` via `cms_admin_action` |
 | **Site delivery / domains** | `get_site_delivery_status`, `run_site_delivery_probe`, or `hosting.get` via `cms_admin_action` |
 
-AI playbooks: `mcp-capabilities` (overview), `mcp-qa` (full-tool regression checklist). Load via connected app `read_birkly_docs` or `birkly://docs/mcp-qa`.
+**Direct execution:** Inbound agents should call MCP tools (`create_entry`, `write_project_file`, …) one at a time — not PHP/shell seed scripts or edits under `content/` on disk. Playbook **`mcp-direct-execution`** (`read_birkly_docs` or `birkly://docs/mcp-direct-execution`).
+
+AI playbooks: `mcp-direct-execution` (tool-first, no scripting), `mcp-capabilities` (overview), `mcp-qa` (full-tool regression checklist).
 
 ## Developer / debug
 

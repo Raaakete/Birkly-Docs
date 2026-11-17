@@ -167,7 +167,9 @@ When an AI app uses MCP to read or write collections:
 | **Secrets** | `password` fields are hashed at rest; reads show `[redacted]` on MCP/public API. |
 | **Field types** | Invalid aliases like `boolean` or `json` are rejected — use `checkbox`/`toggle`, `code` (JSON mode), or sub-collections. |
 
-Deeper playbook alignment: [Field types](../02-content/field-types.md), [Core template shelf](../03-templating/core-template-shelf.md).
+**Direct execution:** Use MCP tools for tenant/content work — not seed scripts or direct `content/` file edits. Playbook `mcp-direct-execution` via `read_birkly_docs`.
+
+Deeper playbook alignment: [Field types](../02-content/field-types.md), [Core template shelf](../03-templating/core-template-shelf.md). MCP playbooks: `mcp-direct-execution`, `mcp-capabilities`, `mcp-qa`.
 
 ## Developer / debug
 

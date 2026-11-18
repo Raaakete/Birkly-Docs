@@ -47,6 +47,15 @@ If a domain is disabled for tracking, that domain collects nothing even when a s
 
 **Reports:** The Analytics surface is meant for trends, top pages, referrers, devices, and campaigns — not only a short “last 30 days” stub. Depth depends on the active preset.
 
+**Trust and identity (Standard / Advanced):**
+
+- **Sessions** are the primary anchor in the Overview report (browser `sessionStorage` id).
+- **Visitors** are counted from a consent-gated first-party **visitor token** when the visitor accepts analytics; otherwise one visitor per **session per calendar day** — not from raw IP alone.
+- **Confirmed bots** are excluded from default totals; **suspected** hits stay in sessions/visitors and appear in the traffic-quality breakdown.
+- The Overview **trust strip** shows confidence (low / medium / high), payload coverage (session id, user-agent, visitor token), and metric definitions.
+- **Pages / visitor** is hidden when the estimate is unreliable (low confidence or contradictory session vs visitor counts).
+- Historical JSON logs are indexed in SQLite (`data/analytics/analytics.db`). Use **Rebuild index** in Settings → Analytics or run `php scripts/analytics-rebuild-index.php` on self-hosted installs after upgrades.
+
 **Retention:** Defaults follow the preset matrix above; Advanced may expose configurable windows. Reducing the preset does not automatically erase historical data already stored — check the Analytics UI for retention and purge options when you change levels.
 
 **Export:** CSV export may appear under Analytics and/or when [Developer mode](developer-mode.md) is on, depending on your build.

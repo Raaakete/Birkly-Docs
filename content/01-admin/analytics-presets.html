@@ -27,6 +27,15 @@
 <details class="doc-toggle doc-toggle-advanced"><summary>Advanced users</summary><div class="doc-toggle-inner"><p><strong>Site-wide vs domain:</strong> The preset is the site-wide default. Per-domain enable/disable still applies — a domain turned off does not collect.</p>
 <p><strong>Event taxonomy (when Advanced is on):</strong> examples include <code>page_view</code>, <code>form_submit</code>, <code>outbound_click</code>, and plugin events such as <code>commerce_checkout_started</code> or <code>events_rsvp</code> when those plugins emit them.</p>
 <p><strong>Reports:</strong> The Analytics surface is meant for trends, top pages, referrers, devices, and campaigns — not only a short “last 30 days” stub. Depth depends on the active preset.</p>
+<p><strong>Trust and identity (Standard / Advanced):</strong></p>
+<ul>
+<li><strong>Sessions</strong> are the primary anchor in the Overview report (browser <code>sessionStorage</code> id).</li>
+<li><strong>Visitors</strong> are counted from a consent-gated first-party <strong>visitor token</strong> when the visitor accepts analytics; otherwise one visitor per <strong>session per calendar day</strong> — not from raw IP alone.</li>
+<li><strong>Confirmed bots</strong> are excluded from default totals; <strong>suspected</strong> hits stay in sessions/visitors and appear in the traffic-quality breakdown.</li>
+<li>The Overview <strong>trust strip</strong> shows confidence (low / medium / high), payload coverage, and metric definitions.</li>
+<li><strong>Pages / visitor</strong> is hidden when the estimate is unreliable.</li>
+<li>Historical JSON logs are indexed in SQLite (<code>data/analytics/analytics.db</code>). Use <strong>Rebuild index</strong> in Settings → Analytics or run <code>php scripts/analytics-rebuild-index.php</code> on self-hosted installs after upgrades.</li>
+</ul>
 <p><strong>Retention:</strong> Defaults follow the preset matrix above; Advanced may expose configurable windows. Reducing the preset does not automatically erase historical data already stored — check the Analytics UI for retention and purge options when you change levels.</p>
 <p><strong>Export:</strong> CSV export may appear under Analytics and/or when <a href="developer-mode.html">Developer mode</a> is on, depending on your build.</p>
 <p><strong>API / storage:</strong> Analytics configuration lives with site settings (not in <code>project/</code> HTML). Public-site collection runs through the Birkly client / tracking snippet for registered domains.</p>

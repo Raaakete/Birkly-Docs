@@ -28,7 +28,10 @@ https://YOUR-PUBLIC-SITE/
 |---------|-----|--------|
 | Well-known file (default) | `GET /.well-known/agent-guide.json` | Raw JSON export |
 | Well-known file (legacy) | `GET /.well-known/brand-context.json` | Same snapshot (legacy path) |
-| llms.txt map | `GET /llms.txt` | Markdown link map (Agentic Browsing / llmstxt.org) |
+| llms.txt map | `GET /llms.txt` | Markdown (short **map** or **full** guide text — see publication settings) |
+| llms-full snapshot (optional) | `GET /llms-full.txt` | Publish-time Markdown with inlined text from allowlisted source URLs (size-capped) |
+| `/for-agents` HTML | `GET /for-agents` | Human/AI landing page (**summary** or **full** detail level) |
+| `/for-agents.md` | `GET /for-agents.md` | Markdown alias of the HTML export |
 | Public API | `GET /api/public/ai_presence.php` | JSON envelope `{ status, data }` |
 | HTML discovery | `<link rel="alternate" … href="…/agent-guide.json">` on `project/` pages | Injected when guide is published |
 
